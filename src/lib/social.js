@@ -32,7 +32,7 @@ import axios from 'axios';
   async function fetchInstagramPosts() {
     const accessToken = import.meta.env.INSTAGRAM_ACCESS_TOKEN;
     const userId = '17841408845500744';
-    const url = `https://graph.instagram.com/v12.0/${userId}/media`;
+    const url = `https://graph.instagram.com/v21.0/${userId}/media`;
     
     try {
       const response = await axios.get(url, {
