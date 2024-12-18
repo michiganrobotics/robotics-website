@@ -53,8 +53,8 @@ import axios from 'axios';
         link: post.permalink
       }));
     } catch (error) {
-      // console.error('Error fetching Instagram posts:', error);
-      // return [];
+      console.error('Error fetching Instagram posts:', error);
+      return [];
     }
   }
   
