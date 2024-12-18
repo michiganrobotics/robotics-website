@@ -16,6 +16,5 @@ export default defineConfig({
   //   mode: 'standalone'
   // }),
   site: 'https://dnewms.github.io',
-  base: '/rob-astro-23',
   integrations: [tailwind(), preact(), sitemap()]
 });
