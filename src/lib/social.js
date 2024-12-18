@@ -31,18 +31,28 @@ import axios from 'axios';
   
   async function fetchInstagramPosts() {
     const accessToken = import.meta.env.INSTAGRAM_ACCESS_TOKEN;
-    const userId = '17841408845500744';
-    const url = `https://graph.instagram.com/v21.0/${userId}/media`;
-    
+    const baseUrl = 'https://graph.instagram.com/v18.0'; // Updated to latest version
+  
     try {
-      const response = await axios.get(url, {
+      // First, get the user ID
+      const userResponse = await axios.get(`${baseUrl}/me`, {
+        params: {
+          access_token: accessToken,
+          fields: 'id,username'
+        }
+      });
+      const userId = userResponse.data.id;
+  
+      // Then, fetch the media
+      const mediaResponse = await axios.get(`${baseUrl}/${userId}/media`, {
         params: {
           access_token: accessToken,
           fields: 'id,caption,media_type,media_url,thumbnail_url,timestamp,permalink',
           limit: 1
         }
       });
-      return response.data.data.map(post => ({
+  
+      return mediaResponse.data.data.map(post => ({
         id: post.id,
         content: post.caption,
         mediaUrl: post.media_url,
@@ -53,7 +63,7 @@ import axios from 'axios';
         link: post.permalink
       }));
     } catch (error) {
-      console.error('Error fetching Instagram posts:', error);
+      console.error('Error fetching Instagram posts:', error.response?.data || error.message);
       return [];
     }
   }
@@ -82,8 +92,8 @@ import axios from 'axios';
         link: `https://www.youtube.com/watch?v=${item.id.videoId}`
       }));
     } catch (error) {
-      // console.error('Error fetching YouTube posts:', error);
-      // return [];
+      console.error('Error fetching YouTube posts:', error);
+      return [];
     }
   }
   
