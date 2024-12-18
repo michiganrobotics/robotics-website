@@ -1,0 +1,76 @@
+---
+import Layout from './MainLayout.astro';
+const { faculty } = Astro.props;
+---
+
+<Layout title={faculty?.preferredName && faculty?.lastName ? `${faculty.preferredName} ${faculty.lastName} - Faculty Profile` : 'Faculty Profile'}>
+  {faculty ? (
+    <main class="mt-4 max-w-4xl mx-auto py-8 px-4 font-roboto text-PumaBlack dark:text-white bg-white dark:bg-umichblue">
+      <div class="grid md:grid-cols-3 gap-8">
+        <!-- Profile Photo -->
+        <div class="md:col-span-1">
+          {faculty.photoURL && (
+            <img
+              src={faculty.photoURL}
+              alt={faculty.fullName}
+              class="w-full rounded-sm shadow-lg"
+            />
+          )}
+        </div>
+        
+        <!-- Faculty Details -->
+        <div class="md:col-span-2">
+          <h1 class="text-4xl font-bold mb-2 font-roboto-condensed">{faculty.fullName}</h1>
+          <p class="text-xl text-tappanRed dark:text-rossOrange mb-4">{faculty.title}</p>
+          
+          <!-- Contact Info -->
+          <div class="mb-6 space-y-2">
+            {faculty.email && (
+              <p>
+                <span class="font-semibold">Email:</span> 
+                <a href={`mailto:${faculty.email}`} class="text-arboretumBlue dark:text-taubmanTeal hover:underline">
+                  {faculty.email}
+                </a>
+              </p>
+            )}
+            {faculty.researchInterests && (
+              <p>
+                <span class="font-semibold">Research Interests:</span> {faculty.researchInterests}
+              </p>
+            )}
+          </div>
+
+          <!-- Additional Links -->
+          <div class="space-y-2">
+            {faculty.googleScholar && (
+              <p>
+                <span class="font-semibold">Google Scholar:</span> 
+                <a href={faculty.googleScholar} target="_blank" rel="noopener noreferrer" class="text-arboretumBlue dark:text-taubmanTeal hover:underline">
+                  View Profile
+                </a>
+              </p>
+            )}
+            {faculty.labWebsite && (
+              <p>
+                <span class="font-semibold">Lab Website:</span> 
+                <a href={faculty.labWebsite} target="_blank" rel="noopener noreferrer" class="text-arboretumBlue dark:text-taubmanTeal hover:underline">
+                  Visit Lab Website
+                </a>
+              </p>
+            )}
+            {faculty.website && (
+              <p>
+                <span class="font-semibold">Personal Website:</span> 
+                <a href={faculty.website} target="_blank" rel="noopener noreferrer" class="text-arboretumBlue dark:text-taubmanTeal hover:underline">
+                  Visit Personal Website
+                </a>
+              </p>
+            )}
+          </div>
+        </div>
+      </div>
+    </main>
+  ) : (
+    <p class="text-center text-angellHallAsh dark:text-burtonTowerBeige">Loading faculty data...</p>
+  )}
+</Layout>

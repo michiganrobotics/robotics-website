@@ -1,0 +1,47 @@
+---
+import SiteNav from "../components/SiteNav.astro"; 
+import SiteFooter from "../components/SiteFooter.astro";
+import { navQuery } from "../lib/api";
+const { menus, generalSettings } = await navQuery();
+const primaryMenu = menus.nodes[0];
+
+const { title, description } = Astro.props;
+import '@fontsource/roboto-condensed';
+import '@fontsource/open-sans';
+import '@wordpress/block-library/build-style/common.css';
+import '@wordpress/block-library/build-style/style.css';
+import '@wordpress/block-library/build-style/theme.css';
+
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{`${title} | ${generalSettings.title}`}</title>
+		<meta name="description" content={description}>
+	</head>
+	<body class="bg-gray-100 dark:bg-gray-700 dark:text-white">
+		<main class="m-auto mb-20">
+			<SiteNav menu={primaryMenu} generalSettings={generalSettings}></SiteNav>
+			<slot></slot>
+		</main>
+		<SiteFooter></SiteFooter>
+	</body>
+</html>
+<style is:global>
+	.wp-block-columns{
+		gap:2em;
+	}
+	.wp-block-button__link{
+		text-decoration:none;
+	}
+	.wp-block-button__link:hover{
+		text-decoration:underline;
+	}
+	.wp-block-embed-youtube{
+		margin: 1em 0;
+	}
+</style>

@@ -1,0 +1,37 @@
+---
+import Layout from '../../layouts/MainLayout.astro';
+import { getFacultyData } from '../../lib/googleSheets';
+import { Icon } from "astro-icon";
+
+const facultyMembers = await getFacultyData();
+---
+
+<Layout title="Faculty Directory">
+  <main>
+    <div class="mx-2 m-auto mb-4 md:mx-12 mt-8">
+      <div class="relative mb-16">
+        <h1 class="bg-arboretumBlue text-white px-6 py-2 rounded-sm text-3xl font-bold">Faculty Directory</h1>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 pt-10 px-2">
+          {facultyMembers.map((faculty) => (
+            <a
+              href={`/faculty/${faculty.slug}`}
+              class="block rounded-sm shadow-md hover:shadow-lg transition-shadow p-4 bg-white dark:bg-gray-800"
+            >
+              {faculty.photoURL && (
+                <img
+                  src={faculty.photoURL}
+                  alt={faculty.name}
+                  class="w-full h-48 object-cover rounded-sm mb-3"
+                />
+              )}
+              <h2 class="text-lg font-bold mb-1 text-gray-900 dark:text-white">{faculty.preferredName} {faculty.lastName}</h2>
+              <p class="text-sm text-rackhamGreen dark:text-arboretumBlue">{faculty.title}</p>
+              <p class="text-xs text-gray-600 dark:text-gray-300">{faculty.affiliation}</p>
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+  </main>
+</Layout>

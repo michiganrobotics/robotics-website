@@ -1,0 +1,66 @@
+---
+import { fetchInstagramPosts, fetchYoutubePosts } from '../lib/social';
+import { Icon } from 'astro-icon';
+
+function truncateText(text, maxLength = 250) {
+  return text.length <= maxLength ? text : text.slice(0, maxLength) + '...';
+}
+
+async function fetchSocialPosts() {
+  const [instagramPost] = await fetchInstagramPosts();
+  const [youtubePost] = await fetchYoutubePosts();
+
+  return [instagramPost, youtubePost]
+    .filter(Boolean)
+    .map(post => ({
+      ...post,
+      content: truncateText(post.content)
+    }));
+}
+
+const posts = await fetchSocialPosts();
+
+const socialLinks = {
+  Instagram: 'https://www.instagram.com/umrobotics/',
+  YouTube: 'https://www.youtube.com/channel/UC-WH2n-SkB166pUq5o5ULUg'
+};
+
+const socialIcons = {
+  Instagram: 'mdi:instagram',
+  YouTube: 'mdi:youtube'
+};
+---
+<div class="relative mb-16 border-t border-maize before:absolute before:left-0 before:top-0 before:w-px before:h-1/3 before:bg-gradient-to-b before:from-maize before:to-transparent after:absolute after:right-0 after:top-0 after:w-px after:h-1/3 after:bg-gradient-to-b after:from-maize after:to-transparent">
+    <h2 class="absolute -top-6 left-1/2 transform -translate-x-1/2 z-10 bg-maize text-umichblue dark:bg-maize dark:text-white px-6 py-2 rounded-sm text-3xl font-bold">Social media</h2>
+    <div class="flex flex-wrap gap-4 justify-center mb-8 md:flex-nowrap pt-10 px-2">
+      {posts.map((post) => (
+        <div class="w-80 h-96 rounded overflow-hidden shadow-lg bg-white dark:bg-gray-800 relative">
+         
+          <div class="absolute inset-0">
+            {post.platform === 'Instagram' && post.mediaType === 'IMAGE' && post.mediaUrl && (
+              <img class="w-full h-full object-cover" src={post.mediaUrl} alt="Instagram post">
+            )}
+            {post.platform === 'Instagram' && post.mediaType === 'VIDEO' && post.thumbnailUrl && (
+              <img class="w-full h-full object-cover" src={post.thumbnailUrl} alt="Instagram video thumbnail">
+            )}
+            {post.platform !== 'Instagram' && post.thumbnailUrl && (
+              <img class="w-full h-full object-cover" src={post.thumbnailUrl} alt={post.content}>
+            )}
+          </div>
+     
+          <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black opacity-70"></div>
+          <div class="absolute top-0 left-0 right-0 bg-gray-100 bg-opacity-80 dark:bg-gray-700 dark:bg-opacity-80 p-2 flex justify-between items-center">
+            <span class="text-sm italic text-gray-600 dark:text-gray-300">
+              {new Date(post.date).toLocaleDateString()}
+            </span>
+            <a href={post.link} target="_blank" rel="noopener noreferrer" class="bg-arboretumBlue hover:bg-umichblue dark:bg-arboretumBlue dark:hover:bg-umichblue text-white dark:text-gray-200 py-1 px-2 rounded-sm transition duration-300 ease-in-out flex items-center cursor-pointer">
+              View on <Icon name={socialIcons[post.platform]} class="inline w-5 h-5 ml-1 text-white dark:text-gray-300" />
+            </a>
+          </div>
+          <div class="absolute bottom-0 left-0 right-0 p-4">
+            <p class="text-white text-sm">{post.content}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>

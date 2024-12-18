@@ -1,0 +1,17 @@
+---
+import { getFacultyData } from '../../lib/googleSheets';
+import FacultyLayout from '../../layouts/FacultyLayout.astro';
+export const prerender = true;
+export async function getStaticPaths() {
+  const facultyMembers = await getFacultyData();
+  
+  return facultyMembers.map(faculty => ({
+    params: { slug: faculty.slug },
+    props: { faculty },
+  }));
+}
+
+const { faculty } = Astro.props;
+---
+
+<FacultyLayout faculty={faculty} />

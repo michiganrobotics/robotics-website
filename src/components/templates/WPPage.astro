@@ -1,0 +1,40 @@
+---
+const { node } = Astro.props;
+import Breadcrumbs from "../Breadcrumbs.astro";
+---
+
+<div class="max-w-6xl w-11/12 mx-auto py-2">
+  <Breadcrumbs />
+</div>
+<div class="mt-4 mb-4 max-w-6xl w-11/12 mx-auto">
+  <div class="relative">
+    <h1 class="absolute bottom-4 left-4 text-4xl font-roboto text-black">
+      {node.title}
+    </h1>
+  </div>
+  <img class='featured-image w-full -corotate-1 max-w-full mb-4' 
+  src={node.featuredImage?.node?.mediaItemUrl} 
+  srcset={node.featuredImage?.node?.srcSet} 
+  alt={node.featuredImage?.node?.altText}
+  loading='lazy'
+  width={node.featuredImage?.node?.mediaDetails?.width}
+  height={node.featuredImage?.node?.mediaDetails?.height}
+>
+  <article set:html={node.content} class="prose max-w-none dark:prose-invert">
+  </article>
+  {node.categories ?
+    node.categories.nodes.map(category => (
+      <a class='term-link hover:underline decoration-maize bg-arboretumBlue text-white text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-arboretumBlue dark:text-white' href={category.uri}>{category.name}</a>
+    )) : null
+  }
+</div>
+
+<style is:global>
+  .wp-block-image img {
+    width: 100%;
+    height: auto;  
+  }
+  article p {
+    margin-bottom: 1em;
+  }
+</style>

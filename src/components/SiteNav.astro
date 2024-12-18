@@ -1,0 +1,141 @@
+---
+import { Icon } from "astro-icon"
+const {menu, generalSettings} = Astro.props;
+---
+
+<header class="mt-6 max-w-6xl w-11/12 mx-auto border-b pb-4 border-umichblue dark:border-white h-16 flex justify-between items-center">
+    <div class="ml-2 self-end md:ml-0"><a href="/" class='site-name'><Icon name=roboticsLogo class="w-48"/></a></div>
+    <div class="hamburger block text-3xl text-umichblue cursor-pointer mr-2.5 dark:text-maize md:hidden">&#9776;</div>
+    <nav class="self-end hidden items-center justify-start flex-col absolute top-24 left-0 right-0 bottom-0 border-b-8 border-maize border-double bg-white z-40 dark:bg-gray-700 md:flex md:flex-row md:border-none md:relative md:justify-end md:bg-inherit md:top-auto md:bottom-auto md:right-auto md:left-auto md:-mb-1">
+        <ul class="flex m-0 p-0 list-none flex-col items-center md:flex-row">
+        {menu.menuItems.nodes.map((menuItem) => (
+            <li class="my-4 dark:text-white md:ml-5 md:my-0 relative group">
+                <a href={menuItem.uri || '/'} class="group-hover:underline group-hover:decoration-[#ffcb05] group-hover:decoration-2">{menuItem.label}</a>
+                {menuItem.childItems.nodes.length > 0 && (
+                    <div class="dropdown-wrapper hidden md:block">
+                        <ul class="dropdown-menu absolute left-0 mt-2 bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-sm shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 ease-in-out">
+                            <li class="triangle"></li>
+                            {menuItem.childItems.nodes.map((childItem) => (
+                                <li class="py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 relative group/child">
+                                    <a href={childItem.uri || '/'} class="group-hover/child:underline group-hover/child:decoration-[#ffcb05] group-hover/child:decoration-2">{childItem.label}</a>
+                                    {childItem.childItems.nodes.length > 0 && (
+                                        <ul class="dropdown-menu absolute left-full top-0 mt-0 ml-1 bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-sm shadow-lg opacity-0 invisible group-hover/child:opacity-100 group-hover/child:visible transition-all duration-300 ease-in-out">
+                                            <li class="triangle-right"></li>
+                                            {childItem.childItems.nodes.map((grandChildItem) => (
+                                                <li class="py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600">
+                                                    <a href={grandChildItem.uri || '/'}>{grandChildItem.label}</a>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    )}
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                )}
+            </li>
+        ))}
+        </ul>
+    </nav>
+</header>
+
+<script>
+    const hamburger = document.querySelector('.hamburger');
+    const nav = document.querySelector('nav');
+
+    hamburger.addEventListener('click', toggleNav);
+
+    function toggleNav() {
+        nav.classList.toggle('show-nav');
+    }
+
+    // For mobile dropdown functionality
+    document.querySelectorAll('.group').forEach(item => {
+        item.addEventListener('click', event => {
+            if (window.innerWidth < 768) {
+                const dropdown = item.querySelector('.dropdown-wrapper');
+                if (dropdown) {
+                    dropdown.classList.toggle('hidden');
+                    event.preventDefault();
+                }
+            }
+        });
+    });
+
+    // For mobile second-level dropdown functionality
+    document.querySelectorAll('.dropdown-menu > li').forEach(item => {
+        item.addEventListener('click', event => {
+            if (window.innerWidth < 768) {
+                const dropdown = item.querySelector('.dropdown-menu');
+                if (dropdown) {
+                    dropdown.classList.toggle('hidden');
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+            }
+        });
+    });
+</script>
+
+<style>
+    @media (max-width: 767px) {
+        nav.show-nav {
+            display: flex;
+        }
+        .dropdown-wrapper, .dropdown-menu {
+            position: static;
+            width: 100%;
+            box-shadow: none;
+            border: none;
+            opacity: 1;
+            visibility: visible;
+        }
+    }
+    @media (min-width: 768px) {
+        .group:hover .dropdown-wrapper::before,
+        .group/child:hover::before {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            height: 20px;
+        }
+        .dropdown-wrapper {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            padding-top: 10px;
+        }
+        .group/child {
+            position: relative;
+        }
+        .group/child:hover::before {
+            top: 0;
+            left: 100%;
+            width: 20px;
+            height: 100%;
+        }
+        .triangle {
+            width: 0;
+            height: 0;
+            border-left: 12px solid transparent;
+            border-right: 12px solid transparent;
+            border-top: 12px solid #ffcb05;
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            z-index:100;
+        }
+        .triangle-right {
+            width: 0;
+            height: 0;
+            border-top: 8px solid transparent;
+            border-bottom: 8px solid transparent;
+            border-left: 8px solid #ffcb05;
+            position: absolute;
+            top: 10px;
+            left: -8px;
+        }
+    }
+</style>

@@ -1,0 +1,82 @@
+---
+import { Icon } from 'astro-icon';
+---
+
+<section class="my-4 md:mb-28">
+  <div class="relative justify-center min-h-[350px]">
+    <div class="relative flex flex-wrap items-center justify-center min-h-[350px] overflow-hidden mb-14 md:mb-12">
+      <div class="relative z-30 p-5 text-4xl text-white font-roboto-condensed font-bold">Work together. Create smart machines. Serve society.</div>
+
+       <video id="promo-video" class="absolute z-10 w-auto min-w-full max-w-none" autoplay muted controls>
+         <source src="/robotics-promo-2022.mp4" type="video/mp4">
+       </video>
+      <button id="pause-button" class="absolute z-50 rounded-full flex items-center justify-center" aria-label="Pause or Play Video">
+        <Icon name="mdi:pause" class="w-6 h-6 pause-icon" />
+        <Icon name="mdi:play" class="w-6 h-6 play-icon hidden" />
+      </button>
+    </div>
+    <div class="hidden md:block font-roboto-condensed text-xl font-extralight absolute z-50 -bottom-10 m-auto bg-lawQuadStone bg-opacity-80 overflow-visible inset-x-4 lg:inset-x-1/4 rounded-sm p-6 drop-shadow-lg text-white text-justify">
+      The Robotics Department at the University of Michigan is creating the next generation of robotics and roboticists as force-multipliers for the benefit of society. 
+    </div>
+  </div>
+</section>
+
+<script>
+  const video = document.getElementById('promo-video');
+  const pauseButton = document.getElementById('pause-button');
+  const pauseIcon = pauseButton.querySelector('.pause-icon');
+  const playIcon = pauseButton.querySelector('.play-icon');
+
+  function toggleIcon() {
+    pauseIcon.classList.toggle('hidden');
+    playIcon.classList.toggle('hidden');
+  }
+
+  video.addEventListener('play', () => {
+    pauseButton.style.display = 'flex';
+    pauseIcon.classList.remove('hidden');
+    playIcon.classList.add('hidden');
+  });
+
+  video.addEventListener('pause', () => {
+    pauseIcon.classList.add('hidden');
+    playIcon.classList.remove('hidden');
+  });
+
+  pauseButton.addEventListener('click', () => {
+    if (video.paused) {
+      video.play();
+    } else {
+      video.pause();
+    }
+  });
+
+  pauseButton.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      pauseButton.click();
+    }
+  });
+</script>
+
+<style>
+  #pause-button {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    background-color: rgba(255, 255, 255, 0.3);
+    color: #fff;
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 100;
+    display: none;
+    transition: background-color 0.3s ease;
+  }
+
+  #pause-button:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+  }
+</style>

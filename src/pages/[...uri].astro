@@ -1,0 +1,53 @@
+---
+export const prerender = true;
+import MainLayout from "../layouts/MainLayout.astro";
+import Archive from "../components/templates/Archive.astro";
+import Single from "../components/templates/Single.astro";
+import Landing from '../components/templates/Landing.astro';
+import WPPage from '../components/templates/WPPage.astro';
+
+import { getNodeByURI, getAllUris } from "../lib/api";
+const uri = `/${Astro.params.uri}/`;
+const data = await getNodeByURI(uri);
+const node = data.nodeByUri;
+
+export async function getStaticPaths(){
+    return await getAllUris();
+}
+
+function resolveContentTemplate(node) {
+  let template;
+  switch (node.__typename) {
+    case 'Post':
+      template = Single;
+      break;
+    case 'Page':
+      if (node.parentId === null) {
+        template = Landing;
+      } else {
+        template = WPPage;
+      }
+      break;
+    case 'Category':
+      template = Archive;
+      break;
+    case 'Tag':
+      template = Archive;
+      break;
+    default:
+      template = Single;
+  }
+
+  return template;
+}
+
+const Template = resolveContentTemplate(node)
+
+---
+
+<MainLayout 
+ title={ node.title || node.name}
+ description={ node.excerpt }
+>
+        <Template node={node}></Template>
+</MainLayout>

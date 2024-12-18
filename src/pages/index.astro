@@ -1,0 +1,111 @@
+---
+import Hero from "../components/Hero.astro";
+import PostCard from "../components/PostCard.astro";
+import MainLayout from "../layouts/MainLayout.astro";
+import SocialFeed from '../components/SocialFeed.astro';
+import { homePagePostsQuery } from "../lib/api";
+import { eventsQuery } from "../lib/api";
+import EmailSignup from "../components/EmailSignup.astro";
+
+const eventsData = await eventsQuery();
+const { posts } = await homePagePostsQuery();
+const recentPosts = posts.nodes.slice(0, 3);
+
+Astro.response.headers.set('Cache-Control','max-age=600, must-revalidate');
+
+---
+
+<MainLayout title='Home Page'>
+	<main>
+		<Hero></Hero>
+		<div class="mx-2 m-auto mb-4 md:mx-12">
+			<div class="block md:hidden font-roboto relative mb-16 m-auto bg-lawQuadStone bg-opacity-80 overflow-visible rounded-sm p-4 drop-shadow-lg text-white text-xl -mt-8">
+				The Robotics Department at the University of Michigan is creating the next generation of robotics and roboticists as force-multipliers for the benefit of society. 
+			  </div>
+
+			  <div class="relative mb-16 border-t border-arboretumBlue before:absolute before:left-0 before:top-0 before:w-px before:h-1/3 before:bg-gradient-to-b before:from-arboretumBlue before:to-transparent after:absolute after:right-0 after:top-0 after:w-px after:h-1/3 after:bg-gradient-to-b after:from-arboretumBlue after:to-transparent">
+				<h2 class="absolute -top-6 left-1/2 transform -translate-x-1/2 z-10 bg-arboretumBlue text-white px-6 py-2 rounded-sm text-3xl font-bold">Latest news</h2>
+				<div class="flex flex-wrap gap-4 justify-center mb-8 md:flex-nowrap pt-10 px-2">
+				  {
+					recentPosts.map((post) => {
+					  return (
+						<PostCard post={post}></PostCard>
+					  )
+					})
+				  }
+				</div>
+			  </div>
+			  <div class="relative mb-16 border-t border-rackhamGreen before:absolute before:left-0 before:top-0 before:w-px before:h-1/3 before:bg-gradient-to-b before:from-rackhamGreen before:to-transparent after:absolute after:right-0 after:top-0 after:w-px after:h-1/3 after:bg-gradient-to-b after:from-rackhamGreen after:to-transparent">
+				<div class="flex justify-center mb-12 sm:mb-0">
+					<h2 class="absolute -top-6 z-10 bg-rackhamGreen text-white px-6 py-2 rounded-sm text-3xl font-bold">Get to know Michigan Robotics</h2>
+				</div>
+				<div class="flex flex-wrap gap-4 justify-center mb-8 md:flex-nowrap pt-10 px-2">
+					<figure class="group min-w-[50%] md:min-w-[auto] flex-auto relative max-w-md transition-all duration-300 cursor-pointer">
+						<a href="#">
+							<img class="rounded-sm w-full h-auto md:h-auto object-cover aspect-[2/1] md:aspect-auto" src="homepage-academics.jpg" alt="image description">
+						</a>
+						<figcaption class="absolute p-6 md:px-4 md:py-0 text-lg text-white bottom-0 md:top-10 md:bottom-auto left-0 right-0 bg-rackhamGreen bg-opacity-80 group-hover:underline decoration-maize font-bold">
+							<p>Graduate and undergrad programs</p>
+						</figcaption>
+					</figure>
+					<figure class="group min-w-[50%] md:min-w-[auto] flex-auto relative max-w-md transition-all duration-300 cursor-pointer">
+						<a href="#">
+							<img class="rounded-sm w-full h-auto md:h-auto object-cover aspect-[2/1] md:aspect-auto" src="homepage-research.jpg" alt="image description">
+						</a>
+						<figcaption class="absolute p-6 md:px-4 md:py-0 text-lg text-white bottom-0 md:top-10 md:bottom-auto left-0 right-0 bg-rackhamGreen bg-opacity-80 group-hover:underline decoration-maize font-bold">
+							<p>Explore robotics research</p>
+						</figcaption>
+					</figure>
+					<figure class="group min-w-[50%] md:min-w-[auto] flex-auto relative max-w-md transition-all duration-300 cursor-pointer">
+						<a href="#">
+							<img class="rounded-sm w-full h-auto md:h-auto object-cover aspect-[2/1] md:aspect-auto" src="homepage-people.jpg" alt="image description">
+						</a>
+						<figcaption class="absolute p-6 md:px-4 md:py-0 text-lg text-white bottom-0 md:top-10 md:bottom-auto left-0 right-0 bg-rackhamGreen bg-opacity-80 group-hover:underline decoration-maize font-bold">
+							<p>Find cross-disciplinary roboticists</p>
+						</figcaption>
+					</figure>
+				</div>
+			</div>
+		
+			{eventsData.length > 0 && (
+				<div class="relative mb-16 border-t border-matthaeiViolet before:absolute before:left-0 before:top-0 before:w-px before:h-1/3 before:bg-gradient-to-b before:from-matthaeiViolet before:to-transparent after:absolute after:right-0 after:top-0 after:w-px after:h-1/3 after:bg-gradient-to-b after:from-matthaeiViolet after:to-transparent">
+				  <h2 class="absolute -top-6 left-1/2 transform -translate-x-1/2 z-10 bg-matthaeiViolet text-white px-6 py-2 rounded-sm text-3xl font-bold">Events</h2>		
+				  <div class="flex flex-wrap gap-4 justify-center mb-4 md:flex-nowrap pt-10 px-2">	
+					{eventsData.map(event => (
+					  <div key={event.id} class="group max-w-md bg-white border border-gray-200 rounded-sm shadow dark:bg-gray-800 dark:border-gray-700">
+						<a class='post-link' href={event.permalink} aria-label={event.event_title}>
+						  <section>
+							<img class="rounded-t-sm"
+							  src={event.styled_images.event_feature_large} 
+							  alt={event.image_description}
+							  loading='lazy'
+							/>
+							<div class="p-5 pl-0">
+							  <div class="mb-3 text-sm italic bg-matthaeiViolet text-white inline-block pl-5 pr-2 py-1">
+								<time datetime={event.date_start}>
+								  {new Date(event.date_start).toLocaleString(undefined, {
+									hour: 'numeric',
+									minute: '2-digit',
+									year: 'numeric',
+									month: 'long',
+									day: 'numeric',
+									hour12: true
+								  })}
+								</time>
+							  </div> 
+							  <h3 class="pl-5 mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white group-hover:underline decoration-maize">{event.event_title}</h3> 
+							  <h4 class="pl-5 mb-2 text-xl tracking-tight text-gray-900 dark:text-white decoration-maize">{event.event_subtitle}</h4>  
+							  <div class="pl-5 mb-3 font-normal text-gray-700 dark:text-gray-100 whitespace-pre-wrap" set:html={event.description} />
+							</div>
+						  </section>
+						</a>
+					  </div>
+					))}
+				  </div>
+				</div>
+			  )}
+			      <SocialFeed />
+				  <EmailSignup />
+		</div>
+	</main>
+</MainLayout>

@@ -1,0 +1,101 @@
+---
+import { homePagePostsQuery, collegeNewsQuery } from '../lib/api';
+import MainLayout from "../layouts/MainLayout.astro";
+import Icon from 'astro-icon';
+
+const collegeNewsItems = await collegeNewsQuery();
+const { posts } = await homePagePostsQuery();
+const recentPosts = posts.nodes.slice(0, 5);
+const olderPosts = posts.nodes.slice(5);
+const postsByCategory = olderPosts.reduce((acc, post) => {
+  const category = post.categories.nodes[0]?.name || 'Uncategorized';
+  if (!acc[category]) {
+    acc[category] = [];
+  }
+  acc[category].push(post);
+  return acc;
+}, {});
+
+// Sort posts in each category by date and keep only the 4 most recent
+Object.keys(postsByCategory).forEach(category => {
+  postsByCategory[category].sort((a, b) => new Date(b.date) - new Date(a.date));
+  postsByCategory[category] = postsByCategory[category].slice(0, 4);
+});
+
+const flattenedCategoryPosts = Object.values(postsByCategory).flat();
+
+---
+
+<MainLayout title="News and Events">
+  <main class="container max-w-6xl w-11/12 mx-auto py-2 mt-4">
+    <h1 class="text-4xl font-roboto-condensed font-bold mb-8 text-umichblue dark:text-gray-100">News and Events</h1>
+
+    <section class="mb-12">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {recentPosts.map((post, index) => (
+          <a href={post.uri} class={`block bg-white dark:bg-gray-800 shadow-md rounded-sm overflow-hidden hover:shadow-lg transition-shadow duration-300 ${index === 0 ? 'md:col-span-2' : ''}`}>
+            {post.featuredImage && (
+              <img 
+                src={post.featuredImage.node.sourceUrl} 
+                alt={post.featuredImage.node.altText || post.title} 
+                class={`w-full ${index === 0 ? 'h-96' : 'h-48'} object-cover`}
+              />
+            )}
+            <div class="p-4">
+              <h3 class="text-xl font-roboto font-bold mb-2 text-umichblue dark:text-gray-100">{post.title}</h3>
+              <p class="text-sm italic font-sans text-gray-600 dark:text-gray-400">
+                  {new Date(post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+                </p>
+              {post.excerpt && (
+                <p class="text-gray-600 dark:text-gray-400 mb-4" set:html={post.excerpt} />
+              )}
+            </div>
+          </a>
+        ))}
+      </div>
+    </section>
+    <section class="mb-12">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        {flattenedCategoryPosts.map((post) => (
+          <a href={post.uri} class="bg-white dark:bg-gray-800 shadow-md rounded-sm overflow-hidden hover:shadow-lg transition-shadow duration-300 flex flex-col">
+            {post.featuredImage && (
+              <img 
+                src={post.featuredImage.node.sourceUrl} 
+                alt={post.featuredImage.node.altText || post.title} 
+                class="w-full h-48 object-cover hidden sm:block"
+              />
+            )}
+            <div class="p-4 flex-grow flex flex-col justify-between">
+              <div>
+                <span class="inline-block text-xs font-medium mr-2 px-2.5 py-0.5 rounded-sm bg-arboretumBlue text-white mb-2">
+                  {post.categories.nodes[0]?.name || 'Uncategorized'}
+                </span>
+                <h3 class="text-lg font-roboto font-bold text-umichblue dark:text-gray-100 mb-2">{post.title}</h3>
+                <p class="text-sm italic font-sans text-gray-600 dark:text-gray-400">
+                  {new Date(post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+                </p>
+              </div>
+            </div>
+          </a>
+        ))}
+{collegeNewsItems && collegeNewsItems.length > 0 && collegeNewsItems.map((newsItem) => (
+  <a href={newsItem.COLLEGE_LINK} class="bg-white dark:bg-gray-800 shadow-md rounded-sm overflow-hidden hover:shadow-lg transition-shadow duration-300 flex flex-col">
+    <div class="p-4 flex-grow flex flex-col justify-between">
+      <div>
+        <span class="inline-block text-xs font-medium mr-2 px-2.5 py-0.5 rounded-sm border-arboretumBlue border-2 bg-white text-arboretumBlue mb-2">
+          college news
+          <Icon name="mdi:open-in-new" class="inline w-3 h-3 ml-1" />
+        </span>
+        <h3 class="text-lg font-roboto font-bold text-umichblue dark:text-gray-100 mb-2" set:html={newsItem.COLLEGE_TITLE} />
+        <p class="text-sm italic font-sans text-gray-600 dark:text-gray-400">
+          {new Date(newsItem.COLLEGE_PUB_DATE).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+        </p>
+      </div>
+    </div>
+  </a>
+))}
+
+      </div>
+    </section>
+  </main>
+</MainLayout>

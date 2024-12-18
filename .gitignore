@@ -1,0 +1,66 @@
+# Astro build output
+dist/
+.output/
+
+# Dependencies
+node_modules/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Environment variables
+.env
+.env.production
+
+# macOS-specific files
+.DS_Store
+
+# Editor directories and files
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Astro specific
+.astro/
+
+# Temporary files
+*.log
+*.cache
+.cache
+.temp
+
+# Build files
+build/
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Optional stylelint cache
+.stylelintcache
+
+# dotenv environment variable files
+.env.development.local
+.env.test.local
+.env.production.local
+.env.local
+
+# Yarn
+yarn-error.log
+.pnp/
+.pnp.js
+
+# pnpm
+pnpm-lock.yaml
+
+# Stores VSCode versions used for testing VSCode extensions
+.vscode-test

@@ -1,0 +1,42 @@
+---
+const { pathname } = Astro.url;
+const paths = pathname.split('/').filter(Boolean);
+
+function generateBreadcrumbs() {
+  const breadcrumbs = [];
+  let path = '';
+  
+  paths.forEach((item) => {
+    path += `/${item}`;
+    breadcrumbs.push({
+      text: item.charAt(0).toUpperCase() + item.slice(1),
+      href: path
+    });
+  });
+  
+  return breadcrumbs;
+}
+
+const breadcrumbs = generateBreadcrumbs();
+---
+
+<div class="flex items-center justify-end text-xs text-gray-600 dark:text-gray-300">
+  <nav aria-label="Breadcrumb">
+    <ol class="flex items-center space-x-2">
+      <li>
+        <a href="/" class="hover:text-umichblue dark:hover:text-taubmanTeal">Home</a>
+      </li>
+      {breadcrumbs.map((breadcrumb, index) => (
+        <li class="flex items-center space-x-2">
+          <span class="text-gray-400">&gt;</span>
+          <a 
+            href={breadcrumb.href}
+            class={`hover:text-umichblue dark:hover:text-taubmanTeal ${index === breadcrumbs.length - 1 ? 'text-gray-500 dark:text-gray-400' : ''}`}
+          >
+            {breadcrumb.text}
+          </a>
+        </li>
+      ))}
+    </ol>
+  </nav>
+</div>
