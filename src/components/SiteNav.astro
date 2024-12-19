@@ -3,9 +3,13 @@ import { Icon } from "astro-icon"
 const {menu, generalSettings} = Astro.props;
 ---
 
-<header class="mt-6 max-w-6xl w-11/12 mx-auto border-b pb-4 border-umichblue dark:border-white h-16 flex justify-between items-center">
-    <div class="ml-2 self-end md:ml-0"><a href="/" class='site-name'><Icon name=roboticsLogo class="w-48"/></a></div>
-    <div class="hamburger block text-3xl text-umichblue cursor-pointer mr-2.5 dark:text-maize md:hidden">&#9776;</div>
+<header class="mt-6 max-w-6xl w-11/12 sm:w-100 mx-auto border-b pb-4 border-umichblue dark:border-white h-16 flex justify-between items-center min-w-[200px]">
+  <div class="ml-2 self-end md:ml-0">
+      <a href="/" class='site-name'>
+          <Icon name=roboticsLogo class="w-32 md:w-48 h-auto"/>
+      </a>
+  </div>
+  <div class="hamburger block text-2xl sm:text-3xl text-umichblue cursor-pointer mr-2 dark:text-maize md:hidden">&#9776;</div>
     <nav class="self-end hidden items-center justify-start flex-col absolute top-24 left-0 right-0 bottom-0 border-b-8 border-maize border-double bg-white z-40 dark:bg-gray-700 md:flex md:flex-row md:border-none md:relative md:justify-end md:bg-inherit md:top-auto md:bottom-auto md:right-auto md:left-auto md:-mb-1">
         <ul class="flex m-0 p-0 list-none flex-col items-center md:flex-row">
         {menu.menuItems.nodes.map((menuItem) => (

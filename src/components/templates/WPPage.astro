@@ -1,26 +1,53 @@
 ---
 const { node } = Astro.props;
 import Breadcrumbs from "../Breadcrumbs.astro";
----
+import Image from "astro/components/Image.astro";
+import SubNav from '../SubNav.astro';
+import { getNodeByURI } from '../../lib/api';
 
+const { uri } = Astro.params;
+const data = await getNodeByURI(uri);
+const page = data.nodeByUri;
+---
 <div class="max-w-6xl w-11/12 mx-auto py-2">
   <Breadcrumbs />
 </div>
+
 <div class="mt-4 mb-4 max-w-6xl w-11/12 mx-auto">
-  <div class="relative">
-    <h1 class="absolute bottom-4 left-4 text-4xl font-roboto text-black">
-      {node.title}
-    </h1>
+  <div class="relative rounded-sm overflow-hidden shadow-lg">
+    {node.featuredImage?.node?.mediaItemUrl ? (
+      <div class="relative">
+        <div class="absolute inset-0">
+          <Image 
+            src={node.featuredImage.node.mediaItemUrl}
+            alt={node.featuredImage.node.altText || ''}
+            width={node.featuredImage.node.mediaDetails?.width || 1200}
+            height={node.featuredImage.node.mediaDetails?.height || 675}
+            class="w-full h-full object-cover"
+          />
+        </div>
+        <div class="relative">
+          <div class="bg-umichblue/70 dark:bg-arboretumBlue/70 backdrop-blur-[2px] p-3 sm:p-4 md:p-8 inline-block">
+            <h1 class="text-4xl font-roboto text-white font-bold">
+              <span class="relative border-b-4 border-maize">{node.title}</span>
+            </h1>
+          </div>
+        </div>
+      </div>
+    ) : (
+      <div class="w-full bg-umichblue dark:bg-arboretumBlue shadow-lg">
+        <div class="p-3 sm:p-4 md:p-8">
+          <h1 class="text-4xl font-roboto text-white font-bold">
+            <span class="relative border-b-4 border-maize">{node.title}</span>
+          </h1>
+        </div>
+      </div>
+    )}
   </div>
-  <img class='featured-image w-full -corotate-1 max-w-full mb-4' 
-  src={node.featuredImage?.node?.mediaItemUrl} 
-  srcset={node.featuredImage?.node?.srcSet} 
-  alt={node.featuredImage?.node?.altText}
-  loading='lazy'
-  width={node.featuredImage?.node?.mediaDetails?.width}
-  height={node.featuredImage?.node?.mediaDetails?.height}
->
-  <article set:html={node.content} class="prose max-w-none dark:prose-invert">
+  <SubNav wordpressPage={page} />
+
+
+  <article set:html={node.content} class="prose max-w-none dark:prose-invert mt-4">
   </article>
   {node.categories ?
     node.categories.nodes.map(category => (

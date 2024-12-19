@@ -1,0 +1,49 @@
+---
+import { subNavConfig } from '../lib/nav';
+
+interface Props {
+  wordpressPage?: {
+    children?: {
+      nodes: {
+        uri: string;
+        title: string;
+      }[];
+    };
+  };
+}
+
+const { wordpressPage } = Astro.props;
+const pathname = new URL(Astro.request.url).pathname;
+const trimmedPath = pathname.slice(1).replace(/\/$/, ''); // Remove leading and trailing slashes
+
+// Try full path first, then fall back to first segment, then WordPress children
+const configuredItems = subNavConfig[trimmedPath] || 
+                       subNavConfig[trimmedPath.split('/')[0]] || 
+                       (wordpressPage?.children?.nodes || []);
+---
+
+{configuredItems.length > 0 && (
+  <nav class="flex flex-wrap gap-1.5 sm:gap-2 -mt-3 mb-4 relative z-10 
+              bg-white/95 dark:bg-gray-900/95 
+              shadow-md rounded-b-lg
+              p-4 backdrop-blur-sm
+              border-x border-b border-gray-200 dark:border-gray-700">
+    {configuredItems.map((item) => (
+      <a 
+        href={item.href || item.uri}
+        class={`px-2 py-1 sm:px-3 sm:py-1.5 md:px-4 md:py-2 rounded-sm 
+                text-xs sm:text-sm md:text-sm 
+                bg-arboretumBlue/5 dark:bg-white/10 
+                hover:bg-arboretumBlue/20 dark:hover:bg-white/20
+                text-umichblue dark:text-gray-100
+                transition-all duration-200 
+                border border-umichblue/30 dark:border-white/10 
+                hover:border-umichblue/50 dark:hover:border-white/20
+                backdrop-blur-sm
+                ${pathname === (item.href || item.uri) ? 'bg-arboretumBlue/20 border-umichblue/50' : ''}`}
+      >
+        {item.title}
+      </a>
+    ))}
+  </nav>
+)}

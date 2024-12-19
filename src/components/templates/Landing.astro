@@ -2,44 +2,62 @@
 import { Image } from 'astro:assets';
 const { node } = Astro.props;
 import Breadcrumbs from "../Breadcrumbs.astro";
----
+import SubNav from '../SubNav.astro';
+import { getNodeByURI } from '../../lib/api';
 
+const { uri } = Astro.params;
+const data = await getNodeByURI(uri);
+const page = data.nodeByUri;
+
+---
 <div class="max-w-6xl w-11/12 mx-auto py-2">
   <Breadcrumbs />
 </div>
+
 <div class="mt-4 mb-4 max-w-6xl w-11/12 mx-auto">
-  <div class="relative">
+  <div class="relative rounded-sm overflow-hidden shadow-lg">
     {node.featuredImage?.node?.mediaItemUrl ? (
-      <Image 
-        src={node.featuredImage.node.mediaItemUrl}
-        alt={node.featuredImage.node.altText || ''}
-        width={node.featuredImage.node.mediaDetails?.width || 1200}
-        height={node.featuredImage.node.mediaDetails?.height || 675}
-        class="featured-image w-full rounded-sm max-w-full mb-4"
-      />
+      <div class="relative">
+        <div class="absolute inset-0">
+          <Image 
+            src={node.featuredImage.node.mediaItemUrl}
+            alt={node.featuredImage.node.altText || ''}
+            width={node.featuredImage.node.mediaDetails?.width || 1200}
+            height={node.featuredImage.node.mediaDetails?.height || 675}
+            class="w-full h-full object-cover"
+          />
+        </div>
+        <div class="relative">
+          <div class="bg-umichblue/70 dark:bg-arboretumBlue/70 backdrop-blur-[2px] p-3 sm:p-4 md:p-8 inline-block">
+            <h1 class="text-4xl font-roboto text-white font-bold">
+              <span class="relative border-b-4 border-maize">{node.title}</span>
+            </h1>
+          </div>
+        </div>
+      </div>
     ) : (
-      <div class="w-full h-40 bg-arboretumBlue rounded-sm mb-4"></div>
-    )}
-    <div class="absolute inset-0 bg-gradient-to-r from-black to-transparent opacity-90"></div>
-    <h1 class="absolute top-4 left-4 text-4xl font-roboto text-white">
-      {node.title}
-    </h1>
-    {node.children && node.children.nodes.length > 0 && (
-      <nav class="absolute bottom-4 left-4 flex flex-wrap gap-2">
-        {node.children.nodes.map((child) => (
-          <a href={child.uri} class="bg-white bg-opacity-80 text-black px-4 py-2 rounded-sm text-base font-medium hover:bg-opacity-100 transition-colors">
-            {child.title}
-          </a>
-        ))}
-      </nav>
+      <div class="w-full bg-umichblue dark:bg-arboretumBlue shadow-lg">
+        <div class="p-3 sm:p-4 md:p-8">
+          <h1 class="text-4xl font-roboto text-white font-bold">
+            <span class="relative border-b-4 border-maize">{node.title}</span>
+          </h1>
+        </div>
+      </div>
     )}
   </div>
-  <article set:html={node.content} class="prose max-w-none dark:prose-invert">
+  <SubNav wordpressPage={page} />
+
+
+  <article set:html={node.content} class="prose max-w-none dark:prose-invert mt-4">
   </article>
+
+  
   {node.categories && node.categories.nodes.length > 0 && (
     <div class="mt-4">
       {node.categories.nodes.map(category => (
-        <a class='term-link hover:underline decoration-maize bg-arboretumBlue text-white text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-arboretumBlue dark:text-white' href={category.uri}>{category.name}</a>
+        <a class='term-link hover:underline decoration-maize bg-umichblue text-white text-xs font-medium mr-2 px-2.5 py-0.5 rounded' href={category.uri}>
+          {category.name}
+        </a>
       ))}
     </div>
   )}
