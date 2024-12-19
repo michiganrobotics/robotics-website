@@ -13,8 +13,13 @@ interface Props {
 }
 
 const { wordpressPage } = Astro.props;
+
+const BASE = process.env.NODE_ENV === 'production' ? '/rob-astro-23' : '';
 const pathname = new URL(Astro.request.url).pathname;
-const trimmedPath = pathname.slice(1).replace(/\/$/, ''); // Remove leading and trailing slashes
+const trimmedPath = pathname
+  .replace(BASE, '') // Remove base path
+  .slice(1)
+  .replace(/\/$/, ''); // Remove leading and trailing slashes
 
 // Try full path first, then fall back to first segment, then WordPress children
 const configuredItems = subNavConfig[trimmedPath] || 
