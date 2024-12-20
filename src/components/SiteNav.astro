@@ -5,7 +5,7 @@ const base = import.meta.env.PROD ? import.meta.env.BASE_URL : '/';
 
 const menuItems = menu.menuItems.nodes.map(item => ({
     ...item,
-    uri: `${base}${item.uri?.replace(/^\//, '')}` || '/'
+    uri: `${base.replace(/\/$/, '')}/${item.uri?.replace(/^\//, '')}` || '/'
 }));
 
 ---
