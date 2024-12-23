@@ -4,6 +4,7 @@ export interface FocusArea {
     description: string;
     icon: string;
     image: string;
+    imageAlt: string;
     slug: string;
   }
   
@@ -15,6 +16,7 @@ export interface FocusArea {
       description: "Advanced AI systems for robotic decision making and control",
       icon: "brain",
       image: `${base}/artificial-intelligence.jpg`,
+      imageAlt: "Artificial Intelligence research visualization",
       slug: "artificial-intelligence"
     },
     {
@@ -22,6 +24,7 @@ export interface FocusArea {
       description: "Research on self-driving vehicles and connected transportation systems",
       icon: "car",
       image: `${base}/autonomous-vehicles.jpg`,
+      imageAlt: "Autonomous & Connected Vehicles research visualization",
       slug: "autonomous-vehicles"
     },
     {
@@ -29,6 +32,7 @@ export interface FocusArea {
       description: "Neural networks and deep learning applications in robotics",
       icon: "network", 
       image: `${base}/deep-learning.jpg`,
+      imageAlt: "Deep Learning for Robotics research visualization",
       slug: "deep-learning"
     },
     {
@@ -36,6 +40,7 @@ export interface FocusArea {
       description: "Studying and improving how humans and robots work together",
       icon: "users",
       image: `${base}/human-robot.jpg`,
+      imageAlt: "Human-Robot Interaction research visualization",
       slug: "human-robot-interaction"
     },
     {
@@ -43,6 +48,7 @@ export interface FocusArea {
       description: "Development of walking robots and wearable robotic systems",
       icon: "robot",
       image: `${base}/legged-robots.jpg`,
+      imageAlt: "Legged Robots & Exoskeletons research visualization",
       slug: "legged-robots"
     },
     {
@@ -50,6 +56,7 @@ export interface FocusArea {
       description: "Robotic systems for advanced manufacturing applications",
       icon: "factory",
       image: `${base}/manufacturing.jpg`,
+      imageAlt: "Manufacturing Robotics research visualization",
       slug: "manufacturing"
     },
     {
@@ -57,6 +64,7 @@ export interface FocusArea {
       description: "Algorithms for robot movement and trajectory optimization",
       icon: "route",
       image: `${base}/motion-planning.jpg`,
+      imageAlt: "Motion Planning research visualization",
       slug: "motion-planning"
     },
     {
@@ -64,6 +72,7 @@ export interface FocusArea {
       description: "Robotic systems for physical therapy and rehabilitation",
       icon: "heart-pulse",
       image: `${base}/rehabilitation.jpg`,
+      imageAlt: "Rehabilitation Robotics research visualization",
       slug: "rehabilitation"
     },
     {
@@ -71,6 +80,7 @@ export interface FocusArea {
       description: "Robot sensing, object recognition, and grasping",
       icon: "eye-hand",
       image: `${base}/perception-manipulation.jpg`,
+      imageAlt: "Perception & Manipulation research visualization",
       slug: "perception-manipulation"
     },
     {
@@ -78,6 +88,7 @@ export interface FocusArea {
       description: "Multi-robot coordination and swarm robotics",
       icon: "users-group",
       image: `${base}/teams-swarms.jpg`,
+      imageAlt: "Teams & Swarms research visualization",
       slug: "teams-swarms"
     },
     {
@@ -85,6 +96,7 @@ export interface FocusArea {
       description: "Simultaneous Localization and Mapping for robot navigation",
       icon: "map-pin",
       image: `${base}/slam.jpg`,
+      imageAlt: "SLAM research visualization",
       slug: "slam"
     },
     {
@@ -92,6 +104,7 @@ export interface FocusArea {
       description: "Ensuring safety in autonomous robotic systems",
       icon: "shield-check",
       image: `${base}/safe-autonomy.jpg`,
+      imageAlt: "Safe Autonomy research visualization",
       slug: "safe-autonomy"
     }
   ];
