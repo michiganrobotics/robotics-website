@@ -1,0 +1,133 @@
+---
+// src/pages/focus-areas/index.astro
+import Layout from '../../layouts/MainLayout.astro';
+import { focusAreas } from './focusAreas';
+import { Icon } from 'astro-icon';
+import { Image } from 'astro:assets';
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import SubNav from "../../components/SubNav.astro";
+import { getDatasets } from '../../lib/googleSheets';
+
+import featureImage from '../../../public/news.jpg';
+
+const datasets = await getDatasets();
+---
+
+<Layout title="Datasets">
+    <div class="max-w-6xl w-11/12 mx-auto py-2">
+        <Breadcrumbs />
+      </div>
+      
+      <div class="mt-4 mb-4 max-w-6xl w-11/12 mx-auto">
+        <div class="relative rounded-sm overflow-hidden shadow-lg">
+            <div class="relative">
+                <div class="absolute inset-0">
+                  <Image 
+                    src={featureImage}
+                    alt=""
+                    class="w-full h-full object-cover"
+                  />
+                </div>
+                <div class="relative">
+                  <div class="bg-umichblue/70 dark:bg-arboretumBlue/70 backdrop-blur-[2px] p-3 sm:p-4 md:p-8 inline-block">
+                    <h1 class="text-4xl font-roboto text-white font-bold">
+                      <span class="relative border-b-4 border-maize">Open-source Projects and Datasets</span>
+                    </h1>
+                  </div>
+                </div>
+              </div>
+          </div>
+          <SubNav />
+      
+          <div class="relative overflow-x-auto shadow-md sm:rounded-lg p-4">
+            <div class="mb-4">
+              <input type="text" id="searchInput" placeholder="Search datasets..." 
+                class="p-2 border rounded-lg w-full dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+              />
+            </div>
+            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-200">
+              <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-200">
+                <tr>
+                  <th scope="col" class="px-6 py-3 cursor-pointer" data-sort="name">
+                    Dataset Name
+                    <span class="ml-1">↕</span>
+                  </th>
+                  <th scope="col" class="px-6 py-3">
+                    Description
+                  </th>
+                  <th scope="col" class="px-6 py-3 cursor-pointer" data-sort="owner">
+                    Owner
+                    <span class="ml-1">↕</span>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {datasets.map((dataset) => (
+                  <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                    <th scope="row" class="px-6 py-4">
+                      <a href={dataset.datasetLink} 
+                         class="text-umichblue underline hover:text-umichblue/80 dark:text-blue-400 dark:hover:text-blue-400/80"
+                         aria-label={`View dataset: ${dataset.datasetName}`}>
+                        {dataset.datasetName}
+                      </a>
+                    </th>
+                    <td class="px-6 py-4" role="cell">
+                      {dataset.datasetDescription}
+                    </td>
+                    <td class="px-6 py-4" role="cell">
+                      {dataset.datasetOwner}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <script>
+            // Search functionality
+            const searchInput = document.getElementById('searchInput');
+            const tableRows = document.querySelectorAll('tbody tr');
+            
+            searchInput.addEventListener('keyup', function(e) {
+              const searchTerm = e.target.value.toLowerCase();
+              
+              tableRows.forEach(row => {
+                const text = row.textContent.toLowerCase();
+                row.style.display = text.includes(searchTerm) ? '' : 'none';
+              });
+            });
+
+            // Sorting functionality
+            const getCellValue = (tr, idx) => tr.children[idx].innerText || tr.children[idx].textContent;
+            
+            const comparer = (idx, asc) => (a, b) => {
+              const v1 = getCellValue(a, idx);
+              const v2 = getCellValue(b, idx);
+              return v1 !== '' && v2 !== '' && !isNaN(v1) && !isNaN(v2) 
+                ? (asc ? 1 : -1) * (Number(v1) - Number(v2))
+                : (asc ? 1 : -1) * v1.toString().localeCompare(v2);
+            };
+            
+            document.querySelectorAll('th[data-sort]').forEach(th => {
+              let asc = true;
+              th.addEventListener('click', () => {
+                const table = th.closest('table');
+                const tbody = table.querySelector('tbody');
+                const columnIndex = Array.from(th.parentNode.children).indexOf(th);
+                
+                // Update sort indicators
+                th.parentNode.querySelectorAll('th').forEach(header => {
+                  if (header.querySelector('span')) {
+                    header.querySelector('span').textContent = '↕';
+                  }
+                });
+                th.querySelector('span').textContent = asc ? '↑' : '↓';
+                
+                Array.from(tbody.querySelectorAll('tr'))
+                  .sort(comparer(columnIndex, asc))
+                  .forEach(tr => tbody.appendChild(tr));
+                
+                asc = !asc;
+              });
+            });
+          </script>

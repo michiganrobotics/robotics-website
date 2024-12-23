@@ -1,15 +1,19 @@
 // src/config/navigation.ts
 export const subNavConfig = {
     // Match WordPress slugs exactly to edit their subnav menus
-    'about': [
+    'about$': [
       { title: "Team", href: "/about-us/team" },
       { title: "Mission", href: "/about-us/mission" }
     ],
-    'research': [
-
+    // Only match exact 'research' path, not children
+    'research$': [
+      { title: "Focus Areas", href: "/research/focus-areas" },
+      { title: "Open-Source Projects & Datasets", href: "/research/datasets" }
     ],
-    'academics/undergraduate': [
-
+    'academics/courses': [
+      { title: "Current Term Courses", href: "/academics/courses/current-term" },
+      { title: "Complete Course List", href: "/academics/courses/complete-course-list" },
+      { title: "Online Courses", href: "/academics/courses/online-courses" }
     ]
   };
   

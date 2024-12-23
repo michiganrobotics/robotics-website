@@ -1,0 +1,73 @@
+---
+// src/pages/focus-areas/index.astro
+import Layout from '../../../layouts/MainLayout.astro';
+import { focusAreas } from './focusAreas';
+import { Icon } from 'astro-icon';
+import { Image } from 'astro:assets';
+import Breadcrumbs from "../../../components/Breadcrumbs.astro";
+import SubNav from '../../../components/SubNav.astro';
+
+import featureImage from '../../../../public/news.jpg';
+const fadeInAnimations = [
+  'fade-in-bottom',
+  'fade-in-left',
+  'fade-in-right',
+  'fade-in-top'
+];
+---
+
+<Layout title="Research Focus Areas">
+    <div class="max-w-6xl w-11/12 mx-auto py-2">
+        <Breadcrumbs />
+      </div>
+      
+      <div class="mt-4 mb-4 max-w-6xl w-11/12 mx-auto">
+        <div class="relative rounded-sm overflow-hidden shadow-lg">
+            <div class="relative">
+                <div class="absolute inset-0">
+                  <Image 
+                    src={featureImage}
+                    alt=""
+                    class="w-full h-full object-cover"
+                  />
+                </div>
+                <div class="relative">
+                  <div class="bg-umichblue/70 dark:bg-arboretumBlue/70 backdrop-blur-[2px] p-3 sm:p-4 md:p-8 inline-block">
+                    <h1 class="text-4xl font-roboto text-white font-bold">
+                      <span class="relative border-b-4 border-maize">Research Focus Areas</span>
+                    </h1>
+                  </div>
+                </div>
+              </div>
+          </div>
+          <SubNav />
+      
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
+            {focusAreas.map((area) => (
+              <div class="group cursor-pointer">
+                <a href={`/research/focus-areas/${area.slug}`} 
+                   class="block relative overflow-hidden rounded-lg shadow-lg">
+                  <div class="aspect-auto relative">
+                    <Image 
+                      src={area.image} 
+                      alt={area.imageAlt}
+                      width={400}
+                      height={200}
+                      class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    />
+                    <div class="absolute inset-0 bg-gradient-to-b from-lawQuadStone dark:from-matthaeiViolet to-transparent">
+                      <div class="absolute top-0 left-0 right-0 p-4">
+                        <h3 class="text-xl font-semibold text-white mb-2">
+                          {area.title}
+                        </h3>
+                        <p class="text-gray-200 text-sm opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
+                          {area.description}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </div>
+            ))}
+          </div>
+          

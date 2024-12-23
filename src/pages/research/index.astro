@@ -1,0 +1,54 @@
+---
+import Layout from '../../layouts/MainLayout.astro';
+import { Image } from 'astro:assets';
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import SubNav from "../../components/SubNav.astro";
+import featureImage from '../../../public/news.jpg';
+---
+
+<Layout title="Research">
+  <div class="max-w-6xl w-11/12 mx-auto py-2">
+    <Breadcrumbs />
+  </div>
+      
+  <div class="mt-4 mb-4 max-w-6xl w-11/12 mx-auto">
+    <div class="relative rounded-sm overflow-hidden shadow-lg">
+      <div class="relative">
+        <div class="absolute inset-0">
+          <Image 
+            src={featureImage}
+            alt=""
+            class="w-full h-full object-cover"
+          />
+        </div>
+        <div class="relative">
+          <div class="bg-umichblue/70 dark:bg-arboretumBlue/70 backdrop-blur-[2px] p-3 sm:p-4 md:p-8 inline-block">
+            <h1 class="text-4xl font-roboto text-white font-bold">
+              <span class="relative border-b-4 border-maize">Research</span>
+            </h1>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <SubNav />
+      
+    <article class="prose max-w-none dark:prose-invert mt-8">
+      <p>The field of robotics is undergoing revolutionary change, which will impact all aspects of our society. These advances, driven by highly collaborative and interdisciplinary research, will allow robots to perform tasks not suited for humans, to work safely in close proximity and in collaboration with humans, and to operate safely and effectively in natural human environments.</p>
+
+      <p class="mt-4">Michigan faculty and graduate students pursue fundamental research topics spanning the fields of perception (computer vision, audition, haptics, and multi-modal sensor integration), cognition (knowledge representation, probabilistic and logical inference, machine learning, etc.), and actuation (motion planning and control for mobile robots and manipulators, compliant actuation and control for safe collaboration with humans, dextrous manipulation, etc.). Some researchers focus on specific capabilities such as motion planning, mechanics, or machine learning, while others explore the integration of systems, enabling capabilities such as SLAM (Simultaneous Localization and Mapping) or applications such as autonomous vehicles and multi-vehicular ground/air/underwater control.</p>
+
+      <div class="mt-8 grid md:grid-cols-2 gap-6">
+        <a href="/research/focus-areas" class="block p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+          <h2 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Focus Areas</h2>
+          <p class="font-normal text-gray-700 dark:text-gray-400">Explore all of Robotics' focus areas, including autonomous vehicles, human-robot interaction, legged locomotion, manipulation, manufacturing, mobile cooperative robots, perception and rehabilitation robots.</p>
+        </a>
+
+        <a href="/research/datasets" class="block p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+          <h2 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Open-Source Projects & Datasets</h2>
+          <p class="font-normal text-gray-700 dark:text-gray-400">Browse publicly-available datasets and code, including pedestrian data for self-driving cars, control models for bipedal robots, an annotated library of cooking videos, and more.</p>
+        </a>
+      </div>
+    </article>
+  </div>
+</Layout>

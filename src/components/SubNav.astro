@@ -21,10 +21,12 @@ const trimmedPath = pathname
   .slice(1)
   .replace(/\/$/, ''); // Remove leading and trailing slashes
 
-// Try full path first, then fall back to first segment, then WordPress children
-const configuredItems = subNavConfig[trimmedPath] || 
-                       subNavConfig[trimmedPath.split('/')[0]] || 
-                       (wordpressPage?.children?.nodes || []);
+// Try exact matches with $ suffix first, then regular paths, then first segment, then WordPress children
+const configuredItems = Object.entries(subNavConfig)
+  .find(([key]) => key.endsWith('$') && key.slice(0, -1) === trimmedPath)?.[1] ||
+  subNavConfig[trimmedPath] || 
+  subNavConfig[trimmedPath.split('/')[0]] || 
+  (wordpressPage?.children?.nodes || []);
 ---
 
 {configuredItems.length > 0 && (

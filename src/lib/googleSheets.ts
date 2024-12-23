@@ -28,6 +28,28 @@ interface FacultyMember {
   photoURL: string;
 }
 
+interface DataSet {
+  datasetName:string;
+  datasetDescription: string;
+  datasetOwner: string;
+  datasetLink: string;
+}
+
+interface CourseList {
+  courseID: string;
+  courseSubject: string;
+  courseNumber: string;
+  courseTitle: string;
+  homeDepartment: string;
+  undergradRequirement: string;
+  gradRequirement: string;
+  credits: string;
+  semestersOffered: string;
+  crossListing: string;
+  courseNote: string;
+  courseLink: string;
+}
+
 export async function getFacultyData(): Promise<FacultyMember[]> {
   await doc.loadInfo();
   const sheet = doc.sheetsByTitle['Faculty'];
@@ -55,4 +77,38 @@ function createSlug(name: string): string {
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/(^-|-$)+/g, '');
+}
+
+export async function getDatasets(): Promise<DataSet[]> {
+  await doc.loadInfo();
+  const sheet = doc.sheetsByTitle['Datasets'];
+  const rows = await sheet.getRows();
+  
+  return rows.map(row => ({
+    datasetName: row.get('datasetName'),
+    datasetDescription: row.get('datasetDescription'),
+    datasetOwner: row.get('datasetOwner'),
+    datasetLink: row.get('datasetLink'),
+  }));
+}
+
+export async function getCourseList(): Promise<CourseList[]> {
+  await doc.loadInfo();
+  const sheet = doc.sheetsByTitle['Courses'];
+  const rows = await sheet.getRows();
+  
+  return rows.map(row => ({
+    courseID: row.get('courseID'),
+    courseSubject: row.get('courseSubject'),
+    courseNumber: row.get('courseNumber'),
+    courseTitle: row.get('courseTitle'),
+    homeDepartment: row.get('homeDepartment'),
+    undergradRequirement: row.get('undergradRequirement'),
+    gradRequirement: row.get('gradRequirement'),
+    credits: row.get('credits'),
+    semestersOffered: row.get('semestersOffered'),
+    crossListing: row.get('crossListing'),
+    courseNote: row.get('courseNote'),
+    courseLink: row.get('courseLink'),
+  }));
 }

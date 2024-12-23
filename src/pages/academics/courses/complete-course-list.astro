@@ -1,0 +1,189 @@
+---
+// src/pages/focus-areas/index.astro
+import Layout from '../../../layouts/MainLayout.astro';
+import { Icon } from 'astro-icon';
+import { Image } from 'astro:assets';
+import Breadcrumbs from "../../../components/Breadcrumbs.astro";
+import SubNav from "../../../components/SubNav.astro";
+import { getCourseList } from '../../../lib/googleSheets';
+
+import featureImage from '../../../../public/news.jpg';
+
+const courseList = await getCourseList();
+---
+
+<Layout title="Complete Course List">
+    <div class="max-w-6xl w-11/12 mx-auto py-2">
+        <Breadcrumbs />
+      </div>
+      
+      <div class="mt-4 mb-16 max-w-6xl w-11/12 mx-auto">
+        <div class="relative rounded-sm overflow-hidden shadow-lg mb-8">
+            <div class="relative">
+                <div class="absolute inset-0">
+                  <Image 
+                    src={featureImage}
+                    alt=""
+                    class="w-full h-full object-cover"
+                  />
+                </div>
+                <div class="relative">
+                  <div class="bg-umichblue/70 dark:bg-arboretumBlue/70 backdrop-blur-[2px] p-3 sm:p-4 md:p-8 inline-block">
+                    <h1 class="text-4xl font-roboto text-white font-bold">
+                      <span class="relative border-b-4 border-maize">Complete Course List</span>
+                    </h1>
+                  </div>
+                </div>
+              </div>
+          </div>
+          <SubNav />
+          <p class="mb-4">
+            These robotics and robotics-related courses satisfy robotics undergraduate or graduate degree requirements. These courses are typically offered different terms. To find out which robotics courses are currently offered this term, see current term courses.
+          </p>
+          <p class="mb-4">
+            Search to find courses that meet specific undergraduate or graduate degree requirements, such as courses in sensing, reasoning, and acting.
+          </p>
+          <div class="relative overflow-x-auto">
+              <div class="mb-4">
+                <input type="text" id="searchInput" placeholder="Search courses..." 
+                  class="p-2 border rounded-sm w-full dark:bg-gray-700 dark:border-gray-300 dark:text-white dark:placeholder:text-gray-200"
+                />
+              </div>
+              <table class="w-full text-sm text-left text-gray-500 dark:text-gray-200">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-200">
+                  <tr>
+                    <th scope="col" class="px-4 py-3 cursor-pointer" data-sort="id">
+                      Course ID
+                      <span class="ml-1">↕</span>
+                    </th>
+                    <th scope="col" class="px-4 py-3 cursor-pointer" data-sort="title">
+                      Title
+                      <span class="ml-1">↕</span>
+                    </th>
+                    <th scope="col" class="px-4 py-3 cursor-pointer" data-sort="credits">
+                      Credits
+                      <span class="ml-1">↕</span>
+                    </th>
+                    <th scope="col" class="px-4 py-3 cursor-pointer" data-sort="department">
+                      Department
+                      <span class="ml-1">↕</span>
+                    </th>
+                    <th scope="col" class="px-4 py-3 cursor-pointer" data-sort="requirements">
+                      Requirements
+                      <span class="ml-1">↕</span>
+                    </th>
+                    <th scope="col" class="px-4 py-3 cursor-pointer" data-sort="semesters">
+                      Semesters Offered
+                      <span class="ml-1">↕</span>
+                    </th>
+                    <th scope="col" class="px-4 py-3 cursor-pointer" data-sort="crosslist">
+                      Cross-listings
+                      <span class="ml-1">↕</span>
+                    </th>
+                    <th scope="col" class="px-4 py-3 cursor-pointer" data-sort="notes">
+                      Notes
+                      <span class="ml-1">↕</span>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {courseList.map((course) => (
+                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                      <th scope="row" class="px-6 py-4 font-medium">
+                        {course.courseSubject} {course.courseNumber}
+                      </th>
+                      <td class="px-6 py-4">
+                        {course.courseLink ? <a href={course.courseLink} target="_blank" rel="noopener noreferrer" class="underline hover:text-umichblue dark:hover:text-gray-300">{course.courseTitle}</a> : course.courseTitle}
+                      </td>
+                      <td class="px-6 py-4">
+                        {course.credits}
+                      </td>
+                      <td class="px-6 py-4">
+                        {course.homeDepartment}
+                      </td>
+                      <td class="px-6 py-4">
+                        <div>UG: {course.undergradRequirement}</div>
+                        <div>Grad: {course.gradRequirement}</div>
+                      </td>
+                      <td class="px-6 py-4">
+                        {course.semestersOffered}
+                      </td>
+                      <td class="px-6 py-4">
+                        {course.crossListing}
+                      </td>
+                      <td class="px-6 py-4">
+                        {course.courseNote}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <script>
+            // Search functionality
+            const searchInput = document.getElementById('searchInput');
+            const tableRows = document.querySelectorAll('tbody tr');
+            
+            if (searchInput) {
+              searchInput.addEventListener('keyup', function(e) {
+                if (e.target) {
+                  const searchTerm = (e.target as HTMLInputElement).value.toLowerCase();
+                  
+                  tableRows.forEach(row => {
+                    const text = row.textContent?.toLowerCase() || '';
+                    if (row instanceof HTMLElement) {
+                      row.style.display = text.includes(searchTerm) ? '' : 'none';
+                    }
+                  });
+                }
+              });
+            }
+
+            // Sorting functionality
+            const getCellValue = (tr: HTMLElement, idx: number) => {
+              const cell = tr.children[idx];
+              return cell ? cell.textContent || '' : '';
+            };
+            
+            const comparer = (idx: number, asc: boolean) => (a: HTMLElement, b: HTMLElement) => {
+              const v1 = getCellValue(a, idx);
+              const v2 = getCellValue(b, idx);
+              return v1 !== '' && v2 !== '' && !isNaN(Number(v1)) && !isNaN(Number(v2))
+                ? (asc ? 1 : -1) * (Number(v1) - Number(v2))
+                : (asc ? 1 : -1) * v1.toString().localeCompare(v2);
+            };
+            
+            document.querySelectorAll('th[data-sort]').forEach(th => {
+              let asc = true;
+              th.addEventListener('click', () => {
+                const table = th.closest('table');
+                const tbody = table?.querySelector('tbody');
+                if (!tbody) return;
+                
+                const columnIndex = Array.from(th.parentElement?.children || []).indexOf(th);
+                
+                // Update sort indicators
+                if (th.parentElement) {
+                  th.parentElement.querySelectorAll('th').forEach(header => {
+                    const span = header.querySelector('span');
+                    if (span) {
+                      span.textContent = '↕';
+                    }
+                  });
+                }
+                
+                const span = th.querySelector('span');
+                if (span) {
+                  span.textContent = asc ? '↑' : '↓';
+                }
+                
+                const rows = Array.from(tbody.querySelectorAll('tr'));
+                rows.sort(comparer(columnIndex, asc))
+                  .forEach(tr => tbody.appendChild(tr));
+                
+                asc = !asc;
+              });
+            });
+          </script>

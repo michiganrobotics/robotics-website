@@ -1,0 +1,45 @@
+---
+// src/pages/focus-areas/[slug].astro
+import Layout from '../../../layouts/MainLayout.astro';
+import { focusAreas } from './focusAreas';
+import { getNodeByURI } from '../../../lib/api';
+
+export async function getStaticPaths() {
+  return focusAreas.map(area => ({
+    params: { slug: area.slug },
+    props: { area }
+  }));
+}
+
+const { area } = Astro.props;
+const { uri } = Astro.params;
+const data = await getNodeByURI(uri);
+---
+
+<Layout title={area.title}>
+  <div class="max-w-6xl w-11/12 mx-auto py-12">
+    <div class="relative rounded-lg overflow-hidden shadow-2xl">
+      <div class="absolute inset-0">
+        <img 
+          src={area.image}
+          alt={area.title}
+          class="w-full h-full object-cover"
+        />
+        <div class="absolute inset-0 bg-gradient-to-r from-gray-900 via-gray-900/70 to-transparent" />
+      </div>
+      
+      <div class="relative px-8 py-16">
+        <h1 class="text-5xl font-bold text-white mb-4">
+          {area.title}
+        </h1>
+        <p class="text-xl text-gray-200 max-w-2xl">
+          {area.description}
+        </p>
+      </div>
+    </div>
+    
+    <article class="prose prose-lg prose-invert max-w-none mt-12">
+      {data?.content}
+    </article>
+  </div>
+</Layout>
