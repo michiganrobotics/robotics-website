@@ -5,7 +5,7 @@ import { navQuery } from "../lib/api";
 const { menus, generalSettings } = await navQuery();
 const primaryMenu = menus.nodes[0];
 
-const { title, description } = Astro.props;
+const { title } = Astro.props;
 import '@fontsource/roboto-condensed';
 import '@fontsource/open-sans';
 import '@wordpress/block-library/build-style/common.css';
@@ -20,12 +20,11 @@ import '@wordpress/block-library/build-style/theme.css';
 		<link rel="icon" type="image/svg+xml" href="../../public/favicon.ico" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
-		<title>{`${title} | ${generalSettings.title}`}</title>
-		<meta name="description" content={description}>
+		<title>{title}</title>
 	</head>
 	<body class="bg-gray-100 dark:bg-gray-700 dark:text-white">
 		<main class="m-auto mb-20">
-			<SiteNav menu={primaryMenu} generalSettings={generalSettings}></SiteNav>
+			<SiteNav></SiteNav>
 			<slot></slot>
 		</main>
 		<SiteFooter></SiteFooter>

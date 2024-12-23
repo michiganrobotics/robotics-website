@@ -11,7 +11,7 @@ function generateBreadcrumbs() {
     // Replace hyphens with spaces and capitalize first letter
     const text = item.replace(/-/g, ' ').charAt(0).toUpperCase() + item.replace(/-/g, ' ').slice(1);
     breadcrumbs.push({
-      text: text,
+      text: process.env.NODE_ENV === 'production' && item === 'rob-astro-23' ? '' : text,
       href: path
     });
   });

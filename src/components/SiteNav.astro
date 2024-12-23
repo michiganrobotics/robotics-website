@@ -1,9 +1,184 @@
 ---
 import { Icon } from "astro-icon"
-const {menu, generalSettings} = Astro.props;
 const base = import.meta.env.PROD ? import.meta.env.BASE_URL : '/';
+// Define the navigation structure locally
+const mainNav = [
+  {
+    label: "Academics",
+    uri: "/academics",
+    childItems: {
+      nodes: [
+        {
+          label: "Undergraduate",
+          uri: "/academics/undergraduate",
+          childItems: {
+            nodes: [
+              {
+                label: "Program Requirements",
+                uri: "/academics/undergraduate/program-requirements",
+                childItems: { nodes: [] }
+              },
+              {
+                label: "Advising & Scheduling", 
+                uri: "/academics/undergraduate/scheduling",
+                childItems: { nodes: [] }
+              },
+              {
+                label: "Pathways Speaker Series",
+                uri: "/academics/undergraduate/robotics-pathways-speaker-series",
+                childItems: { nodes: [] }
+              },
+              {
+                label: "SUGS",
+                uri: "/academics/undergraduate/sugs",
+                childItems: { nodes: [] }
+              }
+            ]
+          }
+        },
+        {
+          label: "Graduate",
+          uri: "/academics/graduate",
+          childItems: {
+            nodes: [
+              {
+                label: "Admissions",
+                uri: "/academics/graduate/admissions",
+                childItems: { nodes: [] }
+              },
+              {
+                label: "Degree Requirements",
+                uri: "/academics/graduate/degree-requirements", 
+                childItems: { nodes: [] }
+              },
+              {
+                label: "Advising",
+                uri: "/academics/graduate/graduate-advising",
+                childItems: { nodes: [] }
+              }
+            ]
+          }
+        },
+        {
+          label: "Courses",
+          uri: "/academics/courses",
+          childItems: { nodes: [] }
+        },
+        {
+          label: "Current Students",
+          uri: "/academics/current-students",
+          childItems: { nodes: [] }
+        }
+      ]
+    }
+  },
+  {
+    label: "Research",
+    uri: "/research",
+    childItems: {
+      nodes: [
+        {
+          label: "Focus Areas",
+          uri: "/research/focus-areas",
+          childItems: { nodes: [] }
+        },
+        {
+          label: "Datasets and Code",
+          uri: "/research/datasets",
+          childItems: { nodes: [] }
+        }
+      ]
+    }
+  },
+  {
+    label: "People",
+    uri: "/people",
+    childItems: {
+      nodes: [
+        {
+          label: "Faculty",
+          uri: "/people/faculty",
+          childItems: { nodes: [] }
+        },
+        {
+          label: "Staff",
+          uri: "/people/staff",
+          childItems: { nodes: [] }
+        },
+        {
+          label: "Students",
+          uri: "/people/students",
+          childItems: { nodes: [] }
+        },
+        {
+          label: "Student Teams",
+          uri: "/people/student-teams",
+          childItems: { nodes: [] }
+        },
+        {
+          label: "Alumni",
+          uri: "/people/alumni",
+          childItems: { nodes: [] }
+        },
+        {
+          label: "Advisory Board",
+          uri: "/people/robotics-advisory-board",
+          childItems: { nodes: [] }
+        },
+        {
+          label: "Honors & Awards",
+          uri: "/people/honors-and-awards",
+          childItems: { nodes: [] }
+        }
+      ]
+    }
+  },
+  {
+    label: "News & Events",
+    uri: "/news",
+    childItems: { nodes: [] }
+  },
+  {
+    label: "About",
+    uri: "/about",
+    childItems: {
+      nodes: [
+        {
+          label: "Values",
+          uri: "/about/values",
+          childItems: { nodes: [] }
+        },
+        {
+          label: "Media",
+          uri: "/about/media",
+          childItems: { nodes: [] }
+        },
+        {
+          label: "Building",
+          uri: "/about/ford-motor-company-robotics-building",
+          childItems: { nodes: [] }
+        },
+        {
+          label: "M-Air",
+          uri: "/about/mair",
+          childItems: { nodes: [] }
+        },
+        {
+          label: "Faculty Jobs",
+          uri: "/about/jobs",
+          childItems: { nodes: [] }
+        },
+        {
+          label: "Contact",
+          uri: "/about/contact",
+          childItems: { nodes: [] }
+        }
+      ]
+    }
+  }
+];
 
-const menuItems = menu.menuItems.nodes.map(item => ({
+const menuItems = mainNav.map(item => ({
     ...item,
     uri: `${base.replace(/\/$/, '')}/${item.uri?.replace(/^\//, '')}` || '/'
 }));
