@@ -5,13 +5,16 @@ const paths = pathname.split('/').filter(Boolean);
 function generateBreadcrumbs() {
   const breadcrumbs = [];
   let path = '';
-  
   paths.forEach((item) => {
     path += `/${item}`;
+    // Skip adding breadcrumb if it's the base path in production
+    if (process.env.NODE_ENV === 'production' && item === 'rob-astro-23') {
+      return;
+    }
     // Replace hyphens with spaces and capitalize first letter
     const text = item.replace(/-/g, ' ').charAt(0).toUpperCase() + item.replace(/-/g, ' ').slice(1);
     breadcrumbs.push({
-      text: process.env.NODE_ENV === 'production' && item === 'rob-astro-23' ? '' : text,
+      text,
       href: path
     });
   });

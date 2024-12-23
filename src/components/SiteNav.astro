@@ -178,10 +178,25 @@ const mainNav = [
   }
 ];
 
-const menuItems = mainNav.map(item => ({
-    ...item,
-    uri: `${base.replace(/\/$/, '')}/${item.uri?.replace(/^\//, '')}` || '/'
-}));
+// Add base URL to all menu items recursively
+const addBaseToMenuItems = (items) => {
+  return items.map(item => {
+    const newItem = {
+      ...item,
+      uri: `${base.replace(/\/$/, '')}/${item.uri?.replace(/^\//, '')}` || '/'
+    };
+    
+    if (item.childItems?.nodes?.length > 0) {
+      newItem.childItems = {
+        nodes: addBaseToMenuItems(item.childItems.nodes)
+      };
+    }
+    
+    return newItem;
+  });
+};
+
+const menuItems = addBaseToMenuItems(mainNav);
 
 ---
 
