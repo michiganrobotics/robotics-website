@@ -1,19 +1,21 @@
 ---
-// src/pages/focus-areas/[slug].astro
 import Layout from '../../../layouts/MainLayout.astro';
 import { focusAreas } from './focusAreas';
-import { getNodeByURI } from '../../../lib/api';
+import { getCollection } from 'astro:content';
 
 export async function getStaticPaths() {
-  return focusAreas.map(area => ({
-    params: { slug: area.slug },
-    props: { area }
-  }));
+  const focusAreaEntries = await getCollection('focus-areas');
+  return focusAreas.map(area => {
+    const content = focusAreaEntries.find(entry => entry.slug === area.slug);
+    return {
+      params: { slug: area.slug },
+      props: { area, content }
+    };
+  });
 }
 
-const { area } = Astro.props;
-const { uri } = Astro.params;
-const data = await getNodeByURI(uri);
+const { area, content } = Astro.props;
+const { Content } = await content?.render();
 ---
 
 <Layout title={area.title}>
@@ -37,9 +39,10 @@ const data = await getNodeByURI(uri);
         </p>
       </div>
     </div>
-    
-    <article class="prose prose-lg prose-invert max-w-none mt-12">
-      {data?.content}
-    </article>
+    <div class="max-w-6xl mx-auto mt-12">
+      <article class="prose prose-lg prose-invert max-w-none">
+        <Content />
+      </article>
+    </div>
   </div>
 </Layout>

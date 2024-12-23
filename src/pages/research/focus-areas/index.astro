@@ -14,6 +14,7 @@ const fadeInAnimations = [
   'fade-in-right',
   'fade-in-top'
 ];
+const BASE = process.env.NODE_ENV === 'production' ? '/rob-astro-23' : '';
 ---
 
 <Layout title="Research Focus Areas">
@@ -45,7 +46,7 @@ const fadeInAnimations = [
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
             {focusAreas.map((area) => (
               <div class="group cursor-pointer">
-                <a href={`/research/focus-areas/${area.slug}`} 
+                <a href={`${BASE}/research/focus-areas/${area.slug}`} 
                    class="block relative overflow-hidden rounded-lg shadow-lg">
                   <div class="aspect-auto relative">
                     <Image 

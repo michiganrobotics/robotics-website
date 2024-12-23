@@ -1,6 +1,6 @@
 ---
-import { getFacultyData } from '../../lib/googleSheets';
-import FacultyLayout from '../../layouts/FacultyLayout.astro';
+import { getFacultyData } from '../../../lib/googleSheets';
+import FacultyLayout from '../../../layouts/FacultyLayout.astro';
 export const prerender = true;
 export async function getStaticPaths() {
   const facultyMembers = await getFacultyData();

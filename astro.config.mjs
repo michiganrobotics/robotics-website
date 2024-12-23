@@ -1,5 +1,7 @@
 import { defineConfig } from 'astro/config';
 import node from "@astrojs/node";
+import mdx from '@astrojs/mdx';
+import embeds from 'astro-embed/integration';
 
 import tailwind from "@astrojs/tailwind";
 
@@ -17,5 +19,5 @@ export default defineConfig({
   // }),
   site: 'https://dnewms.github.io',
   base: process.env.NODE_ENV === 'production' ? '/rob-astro-23' : '/',
-  integrations: [tailwind(), preact(), sitemap()]
+  integrations: [tailwind(), preact(), sitemap(),  embeds(), mdx()]
 });

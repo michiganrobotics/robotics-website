@@ -7,102 +7,91 @@ export interface FocusArea {
     slug: string;
   }
   
+  const base = process.env.NODE_ENV === 'production' ? '/rob-astro-23' : '';
+  
   export const focusAreas: FocusArea[] = [
     {
       title: "Artificial Intelligence",
       description: "Advanced AI systems for robotic decision making and control",
       icon: "brain",
-      image: "/artificial-intelligence.jpg",
-      imageAlt: "",
+      image: `${base}/artificial-intelligence.jpg`,
       slug: "artificial-intelligence"
     },
     {
-      title: "Autonomous & Connected Vehicles",
+      title: "Autonomous & Connected Vehicles", 
       description: "Research on self-driving vehicles and connected transportation systems",
       icon: "car",
-      image: "/autonomous-vehicles.jpg",
-      imageAlt: "",
+      image: `${base}/autonomous-vehicles.jpg`,
       slug: "autonomous-vehicles"
     },
     {
       title: "Deep Learning for Robotics",
       description: "Neural networks and deep learning applications in robotics",
-      icon: "network",
-      image: "/deep-learning.jpg",
-      imageAlt: "",
+      icon: "network", 
+      image: `${base}/deep-learning.jpg`,
       slug: "deep-learning"
     },
     {
       title: "Human-Robot Interaction",
       description: "Studying and improving how humans and robots work together",
       icon: "users",
-      image: "/human-robot.jpg",
-      imageAlt: "",
+      image: `${base}/human-robot.jpg`,
       slug: "human-robot-interaction"
     },
     {
       title: "Legged Robots & Exoskeletons",
       description: "Development of walking robots and wearable robotic systems",
       icon: "robot",
-      image: "/legged-robots.jpg",
-      imageAlt: "",
+      image: `${base}/legged-robots.jpg`,
       slug: "legged-robots"
     },
     {
       title: "Manufacturing Robotics",
       description: "Robotic systems for advanced manufacturing applications",
       icon: "factory",
-      image: "/manufacturing.jpg",
-      imageAlt: "",
+      image: `${base}/manufacturing.jpg`,
       slug: "manufacturing"
     },
     {
       title: "Motion Planning",
       description: "Algorithms for robot movement and trajectory optimization",
       icon: "route",
-      image: "/motion-planning.jpg",
-      imageAlt: "",
+      image: `${base}/motion-planning.jpg`,
       slug: "motion-planning"
     },
     {
       title: "Rehabilitation Robotics",
       description: "Robotic systems for physical therapy and rehabilitation",
       icon: "heart-pulse",
-      image: "/rehabilitation.jpg",
-      imageAlt: "",
+      image: `${base}/rehabilitation.jpg`,
       slug: "rehabilitation"
     },
     {
       title: "Perception & Manipulation",
       description: "Robot sensing, object recognition, and grasping",
       icon: "eye-hand",
-      image: "/perception-manipulation.jpg",
-      imageAlt: "",
+      image: `${base}/perception-manipulation.jpg`,
       slug: "perception-manipulation"
     },
     {
       title: "Teams & Swarms",
       description: "Multi-robot coordination and swarm robotics",
       icon: "users-group",
-      image: "/teams-swarms.jpg",
-      imageAlt: "",
+      image: `${base}/teams-swarms.jpg`,
       slug: "teams-swarms"
     },
     {
       title: "SLAM",
       description: "Simultaneous Localization and Mapping for robot navigation",
       icon: "map-pin",
-      image: "/slam.jpg",
-      imageAlt: "",
+      image: `${base}/slam.jpg`,
       slug: "slam"
     },
     {
       title: "Safe Autonomy",
       description: "Ensuring safety in autonomous robotic systems",
       icon: "shield-check",
-      image: "/safe-autonomy.jpg",
-      imageAlt: "",
+      image: `${base}/safe-autonomy.jpg`,
       slug: "safe-autonomy"
     }
   ];
-  

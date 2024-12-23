@@ -78,6 +78,14 @@ export const subNavConfig = {
       { title: "Current Term Courses", href: "/academics/courses/current-term" },
       { title: "Complete Course List", href: "/academics/courses/complete-course-list" },
       { title: "Online Courses", href: "/academics/courses/online-courses" }
+    ],
+    'people/faculty': [
+      { title: "Affiliate Faculty", href: "/people/faculty/affiliate" },
+      { title: "Emeritus Faculty", href: "/people/faculty/emeritus" },
+      { title: "Staff", href: "/people/staff" },
+      { title: "Student Teams", href: "/people/student-teams" },
+      { title: "Advisory Board", href: "/people/advisory-board" },
+      { title: "Honors and Awards", href: "/people/honors-and-awards"}
     ]
   };
   
