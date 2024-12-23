@@ -15,7 +15,7 @@ export async function getStaticPaths() {
 }
 
 const { area, content } = Astro.props;
-const { Content } = await content?.render();
+const contentComponent = content ? await content.render() : null;
 ---
 
 <Layout title={area.title}>
@@ -41,7 +41,10 @@ const { Content } = await content?.render();
     </div>
     <div class="max-w-6xl mx-auto mt-12">
       <article class="prose prose-lg prose-invert max-w-none">
-        <Content />
+        {contentComponent && <contentComponent.Content />}
+        {!contentComponent && (
+          <p>Content for this focus area is coming soon.</p>
+        )}
       </article>
     </div>
   </div>
