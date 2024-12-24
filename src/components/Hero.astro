@@ -1,9 +1,12 @@
 ---
 import { Icon } from 'astro-icon';
 
+
 // Define video and image paths - adjust these to match your actual file locations
-const videoPath = "/robotics-promo-2022.mp4";
-const posterPath = "/robotics-promo-poster.jpg";
+const base = process.env.NODE_ENV === 'production' ? '/rob-astro-23' : '';
+const videoPath = `${base}/robotics-promo-2022.mp4`;
+const posterPath = `${base}/robotics-promo-poster.jpg`;
+
 ---
 
 <section class="my-4 md:mb-28">
