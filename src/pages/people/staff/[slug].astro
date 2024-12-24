@@ -1,0 +1,17 @@
+---
+import { getStaffData } from '../../../lib/googleSheets';
+import StaffLayout from '../../../layouts/StaffLayout.astro';
+export const prerender = true;
+export async function getStaticPaths() {
+  const staffMembers = await getStaffData();
+  
+  return staffMembers.map(staff => ({
+    params: { slug: staff.slug },
+    props: { staff },
+  }));
+}
+
+  const { staff } = Astro.props;
+---
+
+<StaffLayout staff={staff} />

@@ -1,0 +1,63 @@
+---
+import Layout from './MainLayout.astro';
+const { staff } = Astro.props;
+---
+
+<Layout title ={staff?.preferredName && staff?.lastName ? `${staff.preferredName} ${staff.lastName} - Staff Profile` : 'Staff Profile'}>
+  {staff ? (
+    <main class="mt-4 max-w-4xl mx-auto py-8 px-4 font-roboto text-PumaBlack dark:text-white bg-white dark:bg-umichblue">
+      <div class="grid md:grid-cols-3 gap-8">
+        <!-- Profile Photo -->
+        <div class="md:col-span-1">
+          {staff.photoURL && (
+            <img
+              src={staff.photoURL}
+              alt={staff.fullName}
+              class="w-full rounded-sm shadow-lg"
+            />
+          )}
+        </div>
+        
+        <!-- Staff Details -->
+        <div class="md:col-span-2">
+          <h1 class="text-4xl font-bold mb-2 font-roboto-condensed">{staff.fullName}</h1>
+          <p class="text-xl text-arboretumBlue dark:text-taubmanTeal mb-4">{staff.title}</p>
+          
+          <!-- Contact Info -->
+          <div class="mb-6 space-y-4">
+            {staff.email && (
+              <p class="flex flex-col">
+                <span class="font-bold text-xs uppercase tracking-wider text-gray-600 dark:text-gray-300">Email</span> 
+                <a href={`mailto:${staff.email}`} class="hover:underline text-lg">
+                    {staff.email}
+                </a>
+              </p>
+            )}
+            {staff.phone && (
+              <p class="flex flex-col">
+                <span class="font-bold text-xs uppercase tracking-wider text-gray-600 dark:text-gray-300">Phone</span>
+                <span class="text-lg"> {staff.phone}</span>
+              </p>
+            )}
+            {staff.office && (
+              <p class="flex flex-col">
+                <span class="font-bold text-xs uppercase tracking-wider text-gray-600 dark:text-gray-300">Office</span>
+                <span class="text-lg"> {staff.office}</span>
+              </p>
+            )}
+            {staff.profileSummary && (
+              <div class="flex flex-col mt-6">
+                <span class="font-bold text-sm uppercase tracking-wider text-gray-600 dark:text-gray-300 mb-2">About</span>
+                <p class="text-base leading-relaxed"> {staff.profileSummary}</p>
+              </div>
+            )}
+          </div>
+
+          </div>
+        </div>
+      </div>
+    </main>
+  ) : (
+    <p class="text-center text-angellHallAsh dark:text-burtonTowerBeige">Error loading staff data...</p>
+  )}
+</Layout>

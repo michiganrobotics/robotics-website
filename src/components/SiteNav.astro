@@ -1,208 +1,16 @@
 ---
 import { Icon } from "astro-icon"
+import { mainNav, addBaseToMenuItems } from '../lib/nav';
+
 const base = import.meta.env.PROD ? import.meta.env.BASE_URL : '/';
-// Define the navigation structure locally
-const mainNav = [
-  {
-    label: "Academics",
-    uri: "/academics",
-    childItems: {
-      nodes: [
-        {
-          label: "Undergraduate",
-          uri: "/academics/undergraduate",
-          childItems: {
-            nodes: [
-              {
-                label: "Program Requirements",
-                uri: "/academics/undergraduate/program-requirements",
-                childItems: { nodes: [] }
-              },
-              {
-                label: "Advising & Scheduling", 
-                uri: "/academics/undergraduate/scheduling",
-                childItems: { nodes: [] }
-              },
-              {
-                label: "Pathways Speaker Series",
-                uri: "/academics/undergraduate/robotics-pathways-speaker-series",
-                childItems: { nodes: [] }
-              },
-              {
-                label: "SUGS",
-                uri: "/academics/undergraduate/sugs",
-                childItems: { nodes: [] }
-              }
-            ]
-          }
-        },
-        {
-          label: "Graduate",
-          uri: "/academics/graduate",
-          childItems: {
-            nodes: [
-              {
-                label: "Admissions",
-                uri: "/academics/graduate/admissions",
-                childItems: { nodes: [] }
-              },
-              {
-                label: "Degree Requirements",
-                uri: "/academics/graduate/degree-requirements", 
-                childItems: { nodes: [] }
-              },
-              {
-                label: "Advising",
-                uri: "/academics/graduate/graduate-advising",
-                childItems: { nodes: [] }
-              }
-            ]
-          }
-        },
-        {
-          label: "Courses",
-          uri: "/academics/courses",
-          childItems: { nodes: [] }
-        },
-        {
-          label: "Current Students",
-          uri: "/academics/current-students",
-          childItems: { nodes: [] }
-        }
-      ]
-    }
-  },
-  {
-    label: "Research",
-    uri: "/research",
-    childItems: {
-      nodes: [
-        {
-          label: "Focus Areas",
-          uri: "/research/focus-areas",
-          childItems: { nodes: [] }
-        },
-        {
-          label: "Datasets and Code",
-          uri: "/research/datasets",
-          childItems: { nodes: [] }
-        }
-      ]
-    }
-  },
-  {
-    label: "People",
-    uri: "/people",
-    childItems: {
-      nodes: [
-        {
-          label: "Faculty",
-          uri: "/people/faculty",
-          childItems: { nodes: [] }
-        },
-        {
-          label: "Staff",
-          uri: "/people/staff",
-          childItems: { nodes: [] }
-        },
-        {
-          label: "Students",
-          uri: "/people/students",
-          childItems: { nodes: [] }
-        },
-        {
-          label: "Student Teams",
-          uri: "/people/student-teams",
-          childItems: { nodes: [] }
-        },
-        {
-          label: "Alumni",
-          uri: "/people/alumni",
-          childItems: { nodes: [] }
-        },
-        {
-          label: "Advisory Board",
-          uri: "/people/robotics-advisory-board",
-          childItems: { nodes: [] }
-        },
-        {
-          label: "Honors & Awards",
-          uri: "/people/honors-and-awards",
-          childItems: { nodes: [] }
-        }
-      ]
-    }
-  },
-  {
-    label: "News & Events",
-    uri: "/news",
-    childItems: { nodes: [] }
-  },
-  {
-    label: "About",
-    uri: "/about",
-    childItems: {
-      nodes: [
-        {
-          label: "Values",
-          uri: "/about/values",
-          childItems: { nodes: [] }
-        },
-        {
-          label: "Media",
-          uri: "/about/media",
-          childItems: { nodes: [] }
-        },
-        {
-          label: "Building",
-          uri: "/about/ford-motor-company-robotics-building",
-          childItems: { nodes: [] }
-        },
-        {
-          label: "M-Air",
-          uri: "/about/mair",
-          childItems: { nodes: [] }
-        },
-        {
-          label: "Faculty Jobs",
-          uri: "/about/jobs",
-          childItems: { nodes: [] }
-        },
-        {
-          label: "Contact",
-          uri: "/about/contact",
-          childItems: { nodes: [] }
-        }
-      ]
-    }
-  }
-];
-
-// Add base URL to all menu items recursively
-const addBaseToMenuItems = (items) => {
-  return items.map(item => {
-    const newItem = {
-      ...item,
-      uri: `${base.replace(/\/$/, '')}/${item.uri?.replace(/^\//, '')}` || '/'
-    };
-    
-    if (item.childItems?.nodes?.length > 0) {
-      newItem.childItems = {
-        nodes: addBaseToMenuItems(item.childItems.nodes)
-      };
-    }
-    
-    return newItem;
-  });
-};
-
 const menuItems = addBaseToMenuItems(mainNav);
+// Define the navigation structure locally
 
 ---
 
 <header class="mt-6 max-w-6xl w-11/12 mx-auto border-b pb-4 border-umichblue dark:border-white h-16 flex justify-between items-center min-w-[200px]">
     <div class="ml-2 self-end md:ml-0">
-        <a href="/" class="block">
+        <a href={base} class="block">
             <Icon name="roboticsLogo" class="w-32 sm:w-48 h-auto"/>
         </a>
     </div>
@@ -223,8 +31,8 @@ const menuItems = addBaseToMenuItems(mainNav);
                         )}
                     </div>
                     {menuItem.childItems.nodes.length > 0 && (
-                        <div id={`dropdown-${menuItem.id}`} class="dropdown-content hidden md:block">
-                            <ul class="bg-gray-100 dark:bg-gray-700 md:absolute md:left-0 md:mt-2 md:min-w-[200px] rounded md:opacity-0 md:invisible group-hover:opacity-100 group-hover:visible transition-all duration-300" role="menu">
+                        <div id={`dropdown-${menuItem.id}`} class="dropdown-content pt-1 hidden md:block">
+                            <ul class="bg-gray-100 dark:bg-gray-500 md:border md:border-maize md:absolute md:left-0 md:mt-2 md:min-w-[200px] rounded md:opacity-0 md:invisible group-hover:opacity-100 group-hover:visible transition-all duration-300" role="menu">
                                 <li class="triangle"></li>
                                 {menuItem.childItems.nodes.map((childItem) => (
                                     <li class="relative group/child pl-6 md:pl-0">
@@ -234,17 +42,17 @@ const menuItems = addBaseToMenuItems(mainNav);
                                                 {childItem.label}
                                             </a>
                                             {childItem.childItems.nodes.length > 0 && (
-                                                <button class="dropdown-button p-2 ml-2 md:hidden rounded bg-gray-200 hover:bg-gray-300 dark:bg-gray-600 dark:hover:bg-gray-500" aria-expanded="false" aria-controls={`dropdown-${childItem.id}`} role="button">
+                                                <button class="dropdown-button p-2 ml-2 md:hidden rounded bg-gray-200 hover:bg-gray-300 dark:bg-gray-500 dark:hover:bg-gray-500" aria-expanded="false" aria-controls={`dropdown-${childItem.id}`} role="button">
                                                     <span class="inline-block transition-transform duration-300 text-umichblue dark:text-maize">▼</span>
                                                 </button>
                                             )}
                                         </div>
                                         {childItem.childItems.nodes.length > 0 && (
-                                            <ul id={`dropdown-${childItem.id}`} class="dropdown-content hidden bg-gray-100 dark:bg-gray-700 md:absolute md:left-full md:top-0 md:ml-1 min-w-[200px] rounded md:opacity-0 md:invisible group-hover/child:opacity-100 group-hover/child:visible transition-all duration-300" role="menu">
+                                            <ul id={`dropdown-${childItem.id}`} class="dropdown-content hidden md:border md:border-maize bg-gray-100 dark:bg-gray-500 md:absolute md:left-full md:top-0 md:ml-1 min-w-[200px] rounded md:opacity-0 md:invisible group-hover/child:opacity-100 group-hover/child:visible transition-all duration-300" role="menu">
                                                 <li class="triangle-right"></li>
                                                 {childItem.childItems.nodes.map((grandChildItem) => (
                                                     <li class="px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-600 pl-8 md:pl-4">
-                                                        <a href={grandChildItem.uri || '/'} class="block w-full">
+                                                        <a href={grandChildItem.uri || '/'} class="block w-full hover:underline hover:decoration-maize hover:decoration-2">
                                                             {grandChildItem.label}
                                                         </a>
                                                     </li>
@@ -291,7 +99,7 @@ const menuItems = addBaseToMenuItems(mainNav);
     }
 
     .dropdown-content {
-        @apply absolute top-full left-0 pt-[10px] rounded-md;
+        @apply absolute top-full left-0 rounded-md;
     }
 
     .group\/child .dropdown-content {
@@ -306,13 +114,12 @@ const menuItems = addBaseToMenuItems(mainNav);
     }
 
     .triangle-right {
-        @apply w-0 h-0 absolute top-[10px] -left-2 z-[100];
+        @apply w-0 h-0 absolute top-[10px] -left-1 z-[100];
         border-top: 8px solid transparent;
         border-bottom: 8px solid transparent;
         border-left: 8px solid #ffcb05;
     }
 }
-
 </style>
 
 <script>

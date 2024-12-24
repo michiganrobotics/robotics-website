@@ -38,16 +38,40 @@ import featureImage from '../../../public/news.jpg';
 
       <p class="mt-4">Michigan faculty and graduate students pursue fundamental research topics spanning the fields of perception (computer vision, audition, haptics, and multi-modal sensor integration), cognition (knowledge representation, probabilistic and logical inference, machine learning, etc.), and actuation (motion planning and control for mobile robots and manipulators, compliant actuation and control for safe collaboration with humans, dextrous manipulation, etc.). Some researchers focus on specific capabilities such as motion planning, mechanics, or machine learning, while others explore the integration of systems, enabling capabilities such as SLAM (Simultaneous Localization and Mapping) or applications such as autonomous vehicles and multi-vehicular ground/air/underwater control.</p>
 
-      <div class="mt-8 grid md:grid-cols-2 gap-6">
-        <a href="/research/focus-areas" class="block p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
-          <h2 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Focus Areas</h2>
-          <p class="font-normal text-gray-700 dark:text-gray-400">Explore all of Robotics' focus areas, including autonomous vehicles, human-robot interaction, legged locomotion, manipulation, manufacturing, mobile cooperative robots, perception and rehabilitation robots.</p>
-        </a>
+      <div class="mt-8 grid md:grid-cols-2 gap-8">
+        <div class="group relative not-prose overflow-hidden rounded-lg bg-white dark:bg-gray-800 shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 dark:border-gray-700">
+          <a href="/research/focus-areas" class="block p-8">
+            <h2 class="mb-4 text-2xl font-bold text-gray-900 dark:text-white group-hover:text-umichblue dark:group-hover:text-maize transition-colors">
+              Focus Areas
+            </h2>
+            <p class="font-normal text-gray-600 dark:text-gray-300 leading-relaxed">
+              Explore all of Robotics' focus areas, including autonomous vehicles, human-robot interaction, legged locomotion, manipulation, manufacturing, mobile cooperative robots, perception and rehabilitation robots.
+            </p>
+            <div class="mt-6 inline-flex items-center text-umichblue dark:text-maize font-medium group-hover:translate-x-2 transition-transform">
+              Learn more
+              <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+              </svg>
+            </div>
+          </a>
+        </div>
 
-        <a href="/research/datasets" class="block p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
-          <h2 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Open-Source Projects & Datasets</h2>
-          <p class="font-normal text-gray-700 dark:text-gray-400">Browse publicly-available datasets and code, including pedestrian data for self-driving cars, control models for bipedal robots, an annotated library of cooking videos, and more.</p>
-        </a>
+        <div class="group relative not-prose overflow-hidden rounded-lg bg-white dark:bg-gray-800 shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 dark:border-gray-700">
+          <a href="/research/datasets" class="block p-8">
+            <h2 class="mb-4 text-2xl font-bold text-gray-900 dark:text-white group-hover:text-umichblue dark:group-hover:text-maize transition-colors">
+              Open-Source Projects & Datasets
+            </h2>
+            <p class="font-normal text-gray-600 dark:text-gray-300 leading-relaxed">
+              Browse publicly-available datasets and code, including pedestrian data for self-driving cars, control models for bipedal robots, an annotated library of cooking videos, and more.
+            </p>
+            <div class="mt-6 inline-flex items-center text-umichblue dark:text-maize font-medium group-hover:translate-x-2 transition-transform">
+              Learn more
+              <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+              </svg>
+            </div>
+          </a>
+        </div>
       </div>
     </article>
   </div>

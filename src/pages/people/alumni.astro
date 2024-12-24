@@ -1,0 +1,78 @@
+---
+// src/pages/focus-areas/index.astro
+import Layout from '../../layouts/MainLayout.astro';
+import { Image } from 'astro:assets';
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import SubNav from "../../components/SubNav.astro";
+import { getAlumni } from '../../lib/googleSheets';
+
+import featureImage from '../../../public/news.jpg';
+
+const alumni = await getAlumni();
+const sortedAlumni = [...alumni].sort((a, b) => Number(b.graduationYear) - Number(a.graduationYear));
+---
+
+<Layout title="Alumni">
+    <div class="max-w-6xl w-11/12 mx-auto py-2">
+        <Breadcrumbs />
+      </div>
+      
+      <div class="mt-4 mb-4 max-w-6xl w-11/12 mx-auto">
+        <div class="relative rounded-sm overflow-hidden shadow-lg">
+            <div class="relative">
+                <div class="absolute inset-0">
+                  <Image 
+                    src={featureImage}
+                    alt=""
+                    class="w-full h-full object-cover"
+                  />
+                </div>
+                <div class="relative">
+                  <div class="bg-umichblue/70 dark:bg-arboretumBlue/70 backdrop-blur-[2px] p-3 sm:p-4 md:p-8 inline-block">
+                    <h1 class="text-4xl font-roboto text-white font-bold">
+                      <span class="relative border-b-4 border-maize leading-relaxed sm:leading-tight">Alumni</span>
+                    </h1>
+                  </div>
+                </div>
+              </div>
+          </div>
+          <SubNav />
+      
+          <div class="relative overflow-x-auto shadow-md sm:rounded-lg p-4">
+            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-200">
+              <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-200">
+                <tr>
+                  <th scope="col" class="px-6 py-3">
+                    Name
+                  </th>
+                  <th scope="col" class="px-6 py-3">
+                    Graduation Year
+                  </th>
+                  <th scope="col" class="px-6 py-3">
+                    Degree
+                  </th>
+                  <th scope="col" class="px-6 py-3">
+                    Title
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                  {sortedAlumni.map((alumni) => (
+                  <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                    <td scope="row" class="px-6 py-4">
+                      {alumni.fullName}
+                    </td>
+                    <td class="px-6 py-4" role="cell">
+                      {alumni.graduationYear}
+                    </td>
+                    <td class="px-6 py-4" role="cell">
+                      {alumni.degree}
+                    </td>
+                    <td class="px-6 py-4" role="cell">
+                      {alumni.title}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>

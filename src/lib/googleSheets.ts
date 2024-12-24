@@ -26,6 +26,7 @@ interface FacultyMember {
   title: string;
   affiliation: string;
   photoURL: string;
+  office: string;
 }
 
 interface DataSet {
@@ -50,13 +51,70 @@ interface CourseList {
   courseLink: string;
 }
 
+interface StaffMember {
+  slug: string; 
+  fullName: string;
+  preferredName: string;
+  firstName: string;
+  lastName: string;
+  title: string;
+  affiliation: string;
+  photoURL: string;
+  office: string;
+  profileSummary: string;
+  email: string;
+  phone: string;
+}
+
+interface Awards {
+  awardRecipient: string;
+  awardYear: string;
+  award: string;
+  awardOrganization: string;
+}
+
+interface AdvisoryBoard {
+  firstName: string;
+  lastName: string;
+  fullName: string;
+  title1: string;
+  organization1: string;
+  title2: string;
+  organization2: string;
+  photoURL: string;
+}
+
+interface Alumni {
+  fullName: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  website: string;
+  title: string;
+  graduationYear: string;
+  degree: string;
+}
+
+
+function createSlug(name: string): string {
+  return name
+    .toLowerCase()
+    // Replace parentheses with hyphens
+    .replace(/\(/g, '-')
+    .replace(/\)/g, '-')
+    // Replace accented characters with non-accented equivalents
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    // Replace non-alphanumeric chars with hyphens and clean up extra hyphens
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-|-$)+/g, '');
+}
 export async function getFacultyData(): Promise<FacultyMember[]> {
   await doc.loadInfo();
   const sheet = doc.sheetsByTitle['Faculty'];
   const rows = await sheet.getRows();
-  
   return rows.map(row => ({
-    slug: createSlug(row.get('lastName')),
+    slug: createSlug(row.get('fullName')),
     fullName: row.get('fullName'),
     preferredName: row.get('preferredName'),
     firstName: row.get('firstName'),
@@ -69,15 +127,11 @@ export async function getFacultyData(): Promise<FacultyMember[]> {
     googleScholar: row.get('googleScholar'),
     labWebsite: row.get('labWebsite'),
     website: row.get('website'),
+    office: row.get('office'),
   }));
 }
 
-function createSlug(name: string): string {
-  return name
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/(^-|-$)+/g, '');
-}
+
 
 export async function getDatasets(): Promise<DataSet[]> {
   await doc.loadInfo();
@@ -89,6 +143,21 @@ export async function getDatasets(): Promise<DataSet[]> {
     datasetDescription: row.get('datasetDescription'),
     datasetOwner: row.get('datasetOwner'),
     datasetLink: row.get('datasetLink'),
+  }));
+}
+
+
+export async function getAwards(): Promise<Awards[]> {
+  await doc.loadInfo();
+  const sheet = doc.sheetsByTitle['Awards'];
+  const rows = await sheet.getRows();
+  
+  return rows.map(row => ({
+    UMID: row.get('UMID'),
+    awardRecipient: row.get('awardRecipient'),
+    awardYear: row.get('awardYear'),
+    award: row.get('award'),
+    awardOrganization: row.get('awardOrganization'),
   }));
 }
 
@@ -110,5 +179,57 @@ export async function getCourseList(): Promise<CourseList[]> {
     crossListing: row.get('crossListing'),
     courseNote: row.get('courseNote'),
     courseLink: row.get('courseLink'),
+  }));
+}
+
+export async function getStaffData(): Promise<StaffMember[]> {
+  await doc.loadInfo();
+  const sheet = doc.sheetsByTitle['Staff'];
+  const rows = await sheet.getRows();
+  return rows.map(row => ({
+    slug: createSlug(row.get('fullName')),
+    fullName: row.get('fullName'),
+    preferredName: row.get('preferredName'),
+    firstName: row.get('firstName'),
+    lastName: row.get('lastName'),
+    title: row.get('title'),
+    affiliation: row.get('affiliation'),
+    photoURL: row.get('photoURL'),
+    office: row.get('office'),
+    profileSummary: row.get('profileSummary')?.replace(/(<([^>]+)>)/gi, ''), // Strip HTML tags
+    email: row.get('email'),
+    phone: row.get('phone'),
+  }));
+}
+
+export async function getAdvisoryBoard(): Promise<AdvisoryBoard[]> {
+  await doc.loadInfo();
+  const sheet = doc.sheetsByTitle['AdvisoryBoard'];
+  const rows = await sheet.getRows();
+  return rows.map(row => ({
+    firstName: row.get('firstName'),
+    lastName: row.get('lastName'),
+    fullName: row.get('fullName'),
+    title1: row.get('title1'),  
+    organization1: row.get('organization1'),
+    title2: row.get('title2'),
+    organization2: row.get('organization2'),
+    photoURL: row.get('photoURL'),
+  }));
+}
+
+export async function getAlumni(): Promise<Alumni[]> {
+  await doc.loadInfo();
+  const sheet = doc.sheetsByTitle['Alumni'];
+  const rows = await sheet.getRows();
+  return rows.map(row => ({
+    firstName: row.get('firstName'),
+    lastName: row.get('lastName'),
+    fullName: row.get('fullName'),
+    email: row.get('email'),
+    website: row.get('website'),
+    title: row.get('title'),
+    graduationYear: row.get('graduationYear'),
+    degree: row.get('degree'),
   }));
 }

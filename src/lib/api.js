@@ -146,7 +146,7 @@ export async function getNodeByURI(uri){
                         }
                       }
                     }
-                    children(first: 5, where: { orderby: { field: MENU_ORDER, order: ASC } }) {
+                    children(first: 6, where: { orderby: { field: MENU_ORDER, order: ASC } }) {
                       nodes{
                         id
                         uri

@@ -1,0 +1,56 @@
+---
+import Layout from '../../../layouts/MainLayout.astro';
+import { getAdvisoryBoard } from '../../../lib/googleSheets';
+import { Icon } from "astro-icon";
+import Breadcrumbs from "../../../components/Breadcrumbs.astro";
+import SubNav from "../../../components/SubNav.astro";
+
+const advisoryBoard = await getAdvisoryBoard();
+---
+
+<Layout title="Advisory Board">
+  <main>
+    <div class="max-w-6xl w-11/12 mx-auto py-2">
+      <Breadcrumbs />
+    </div>
+    
+    <div class="mt-4 mb-4 max-w-6xl w-11/12 mx-auto">
+      <div class="w-full bg-umichblue dark:bg-arboretumBlue shadow-lg">
+        <div class="p-3 pb-6 md:p-8">
+          <h1 class="text-4xl font-roboto text-white font-bold">
+            <span class="relative border-b-4 border-maize">Advisory Board</span>
+          </h1>
+        </div>
+      </div>
+      <SubNav />
+    </div>
+    <p class="prose max-w-6xl mx-auto w-11/12">
+      Distinguished members rotating from industry, academia and government comprise the Robotics Advisory Board.</p>
+      <p class="mt-2 prose max-w-6xl mx-auto w-11/12">
+The group is an invaluable resource to the Robotics Department in shaping our program with the insight of external feedback. Members meet regularly to discuss departmental vision, strategies and issues and provide advice to the chair.
+    </p>
+    <div class="mx-2 m-auto mb-4 md:mx-12">
+      <div class="relative mb-16">
+      
+       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-6 pt-10 px-2">
+          {advisoryBoard.map((advisoryBoard) => (
+            <div class="block rounded-sm shadow-md hover:shadow-lg transition-shadow p-4 bg-white dark:bg-gray-800"            >
+              {advisoryBoard.photoURL && (
+                <img
+                  src={advisoryBoard.photoURL}
+                  alt={advisoryBoard.fullName}
+                  class="w-full h-48 object-cover rounded-sm mb-3"
+                />
+              )}
+              <h2 class="text-lg font-bold mb-1 text-gray-900 dark:text-white">{advisoryBoard.firstName} {advisoryBoard.lastName}</h2>
+              <p class="text-sm text-arboretumBlue dark:text-taubmanTeal">{advisoryBoard.title1}</p>
+              <p class="text-sm text-gray-600 dark:text-gray-300">{advisoryBoard.organization1}</p>
+              <p class="text-sm mt-2 text-arboretumBlue dark:text-taubmanTeal">{advisoryBoard.title2}</p>
+              <p class="text-sm text-gray-600 dark:text-gray-300">{advisoryBoard.organization2}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </main>
+</Layout>

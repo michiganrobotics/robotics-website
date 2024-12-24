@@ -1,14 +1,14 @@
 ---
 import Layout from '../../../layouts/MainLayout.astro';
-import { getFacultyData } from '../../../lib/googleSheets';
+import { getStaffData } from '../../../lib/googleSheets';
 import { Icon } from "astro-icon";
 import Breadcrumbs from "../../../components/Breadcrumbs.astro";
 import SubNav from "../../../components/SubNav.astro";
 
-const facultyMembers = await getFacultyData();
+const staffMembers = await getStaffData();
 ---
 
-<Layout title="Faculty Directory">
+<Layout title="Staff Directory">
   <main>
     <div class="max-w-6xl w-11/12 mx-auto py-2">
       <Breadcrumbs />
@@ -18,7 +18,7 @@ const facultyMembers = await getFacultyData();
       <div class="w-full bg-umichblue dark:bg-arboretumBlue shadow-lg">
         <div class="p-3 pb-6 md:p-8">
           <h1 class="text-4xl font-roboto text-white font-bold">
-            <span class="relative border-b-4 border-maize">Faculty Directory</span>
+            <span class="relative border-b-4 border-maize">Staff Directory</span>
           </h1>
         </div>
       </div>
@@ -27,21 +27,21 @@ const facultyMembers = await getFacultyData();
     <div class="mx-2 m-auto mb-4 md:mx-12">
       <div class="relative mb-16">
        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-6 pt-10 px-2">
-          {facultyMembers.map((faculty) => (
+          {staffMembers.map((staff) => (
             <a
-              href={`${Astro.url.pathname}/${faculty.slug}`}
+              href={`/people/staff/${staff.slug}`}
               class="block rounded-sm shadow-md hover:shadow-lg transition-shadow p-4 bg-white dark:bg-gray-800"
             >
-              {faculty.photoURL && (
+              {staff.photoURL && (
                 <img
-                  src={faculty.photoURL}
-                  alt={faculty.name}
+                  src={staff.photoURL}
+                  alt={staff.fullName}
                   class="w-full h-48 object-cover rounded-sm mb-3"
                 />
               )}
-              <h2 class="text-lg font-bold mb-1 text-gray-900 dark:text-white">{faculty.preferredName} {faculty.lastName}</h2>
-              <p class="text-sm text-arboretumBlue dark:text-taubmanTeal">{faculty.title}</p>
-              <p class="text-xs text-gray-600 dark:text-gray-300">{faculty.affiliation}</p>
+              <h2 class="text-lg font-bold mb-1 text-gray-900 dark:text-white">{staff.preferredName} {staff.lastName}</h2>
+              <p class="text-sm text-arboretumBlue dark:text-taubmanTeal">{staff.title}</p>
+              <p class="text-xs text-gray-600 dark:text-gray-300">{staff.affiliation}</p>
             </a>
           ))}
         </div>

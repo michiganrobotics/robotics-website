@@ -1,20 +1,55 @@
 ---
 import { Icon } from 'astro-icon';
+
+// Define video and image paths - adjust these to match your actual file locations
+const videoPath = "/robotics-promo-2022.mp4";
+const posterPath = "/robotics-promo-poster.jpg";
 ---
 
 <section class="my-4 md:mb-28">
   <div class="relative justify-center min-h-[350px]">
     <div class="relative flex flex-wrap items-center justify-center min-h-[350px] overflow-hidden mb-14 md:mb-12">
-      <div class="relative z-30 p-5 text-4xl text-white font-roboto-condensed font-bold">Work together. Create smart machines. Serve society.</div>
+      <div class="relative z-30 p-5 text-4xl text-white font-roboto-condensed font-bold text-center">
+        Work together. Create smart machines. Serve society.
+      </div>
 
-       <video id="promo-video" class="absolute z-10 w-auto min-w-full max-w-none" autoplay muted controls>
-         <source src="robotics-promo-2022.mp4" type="video/mp4">
-       </video>
-      <button id="pause-button" class="absolute z-50 rounded-full flex items-center justify-center" aria-label="Pause or Play Video">
-        <Icon name="mdi:pause" class="w-6 h-6 pause-icon" />
-        <Icon name="mdi:play" class="w-6 h-6 play-icon hidden" />
-      </button>
+      <div class="absolute inset-0 w-full h-full bg-black">
+        <img 
+          src={posterPath}
+          alt="Michigan Robotics promotional video poster frame"
+          class="absolute inset-0 w-full h-full object-cover"
+          id="fallback-image"
+        />
+        
+        <video 
+          id="hero-video"
+          class="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-300"
+          playsinline
+          muted
+          preload="metadata"
+          poster={posterPath}
+          aria-label="Background video showing Michigan Robotics research and education"
+        >
+          <source src={videoPath} type="video/mp4">
+          <p>Your browser doesn't support HTML5 video. Here is a <a href={videoPath}>link to the video</a> instead.</p>
+        </video>
+
+        <button 
+          id="video-control"
+          class="absolute z-50 bottom-4 right-4 rounded-full bg-black/50 hover:bg-black/70 p-3 transition-colors focus:outline-none focus:ring-2 focus:ring-white hidden"
+          aria-label="Toggle video playback"
+        >
+          <span class="sr-only">Toggle video playback</span>
+          <Icon name="mdi:pause" class="w-6 h-6 text-white pause-icon" />
+          <Icon name="mdi:play" class="w-6 h-6 text-white play-icon hidden" />
+        </button>
+
+        <div id="loading-indicator" class="absolute inset-0 flex items-center justify-center bg-black/50">
+          <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-white"></div>
+        </div>
+      </div>
     </div>
+
     <div class="hidden md:block font-roboto-condensed text-xl font-extralight absolute z-50 -bottom-10 m-auto bg-lawQuadStone bg-opacity-80 overflow-visible inset-x-4 lg:inset-x-1/4 rounded-sm p-6 drop-shadow-lg text-white text-justify">
       The Robotics Department at the University of Michigan is creating the next generation of robotics and roboticists as force-multipliers for the benefit of society. 
     </div>
@@ -22,61 +57,114 @@ import { Icon } from 'astro-icon';
 </section>
 
 <script>
-  const video = document.getElementById('promo-video');
-  const pauseButton = document.getElementById('pause-button');
-  const pauseIcon = pauseButton.querySelector('.pause-icon');
-  const playIcon = pauseButton.querySelector('.play-icon');
+  const video = document.getElementById('hero-video') as HTMLVideoElement;
+  const control = document.getElementById('video-control') as HTMLButtonElement;
+  const fallbackImage = document.getElementById('fallback-image') as HTMLImageElement;
+  const loadingIndicator = document.getElementById('loading-indicator') as HTMLDivElement;
+  
+  if (video && control && fallbackImage && loadingIndicator) {
+    const pauseIcon = control.querySelector('.pause-icon');
+    const playIcon = control.querySelector('.play-icon');
+    let isVideoSupported = true;
 
-  function toggleIcon() {
-    pauseIcon.classList.toggle('hidden');
-    playIcon.classList.toggle('hidden');
+    // Check if video playback is supported
+    function checkVideoSupport() {
+      const canPlay = video.canPlayType('video/mp4');
+      if (canPlay === '') {
+        isVideoSupported = false;
+        loadingIndicator.remove();
+        return false;
+      }
+      return true;
+    }
+
+    // Add loading event listeners
+    video.addEventListener('loadeddata', () => {
+      if (isVideoSupported) {
+        video.classList.remove('opacity-0');
+        fallbackImage.classList.add('opacity-0');
+        loadingIndicator.remove();
+        control.classList.remove('hidden');
+        tryPlayVideo();
+      }
+    });
+
+    // Attempt to play video
+    async function tryPlayVideo() {
+      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        try {
+          await video.play();
+        } catch (error) {
+          showFallback();
+        }
+      }
+    }
+
+    // Handle loading errors
+    video.addEventListener('error', showFallback);
+
+    // Show fallback image
+    function showFallback() {
+      video.classList.add('opacity-0');
+      fallbackImage.classList.remove('opacity-0');
+      control.classList.add('hidden');
+      loadingIndicator.remove();
+    }
+
+    // Toggle play/pause
+    control.addEventListener('click', () => {
+      if (video.paused) {
+        video.play();
+        pauseIcon?.classList.remove('hidden');
+        playIcon?.classList.add('hidden');
+      } else {
+        video.pause();
+        pauseIcon?.classList.add('hidden');
+        playIcon?.classList.remove('hidden');
+      }
+    });
+
+    // Update button state on video events
+    video.addEventListener('pause', () => {
+      pauseIcon?.classList.add('hidden');
+      playIcon?.classList.remove('hidden');
+    });
+
+    video.addEventListener('play', () => {
+      pauseIcon?.classList.remove('hidden');
+      playIcon?.classList.add('hidden');
+    });
+
+    // Check video support and try to load
+    if (checkVideoSupport()) {
+      video.load();
+    }
   }
-
-  video.addEventListener('play', () => {
-    pauseButton.style.display = 'flex';
-    pauseIcon.classList.remove('hidden');
-    playIcon.classList.add('hidden');
-  });
-
-  video.addEventListener('pause', () => {
-    pauseIcon.classList.add('hidden');
-    playIcon.classList.remove('hidden');
-  });
-
-  pauseButton.addEventListener('click', () => {
-    if (video.paused) {
-      video.play();
-    } else {
-      video.pause();
-    }
-  });
-
-  pauseButton.addEventListener('keydown', (event) => {
-    if (event.key === 'Enter' || event.key === ' ') {
-      event.preventDefault();
-      pauseButton.click();
-    }
-  });
 </script>
 
 <style>
-  #pause-button {
-    position: absolute;
-    bottom: 20px;
-    right: 20px;
-    background-color: rgba(255, 255, 255, 0.3);
-    color: #fff;
-    width: 40px;
-    height: 40px;
-    border: none;
-    border-radius: 50%;
-    cursor: pointer;
-    z-index: 100;
-    display: none;
-    transition: background-color 0.3s ease;
+  /* Smooth transitions */
+  #hero-video, #fallback-image {
+    transition: opacity 0.3s ease-in-out;
   }
 
-  #pause-button:hover {
-    background-color: rgba(255, 255, 255, 0.5);
+  /* Ensure video fills container while maintaining aspect ratio */
+  video {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* Reduced motion preference */
+  @media (prefers-reduced-motion: reduce) {
+    video {
+      display: none;
+    }
+    #fallback-image {
+      opacity: 1 !important;
+    }
+    #video-control {
+      display: none !important;
+    }
   }
 </style>
