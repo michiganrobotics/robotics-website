@@ -34,11 +34,11 @@ Some class sessions will not have any formally scheduled instruction or problems
 ### Classes 0-3: Data representation
 
 - Goals: 1) Inspect abstract data (e.g. pictures, text, plans) at the byte and bit level, and understand how changing low-level numbers affects high-level meaning. 2) Use the command line with git and the class submission system to get feedback.
-- [**Class 0**: Setting up the ROB 502 command line system](./class0)
-- [**Class 1**: Using Linux and bash](./class1)
-- [**Class 2**: Using git to commit and submit code; expressing logic](./class2)
-- [**Class 3**: Arrays, ASCII, bytes, and GDB](./class3)
-- [**Homework 1**: Polygonal collision detection, cryptogram](./homework1)
+- [**Class 0**: Setting up the ROB 502 command line system](class0)
+- [**Class 1**: Using Linux and bash](class1)
+- [**Class 2**: Using git to commit and submit code; expressing logic](class2)
+- [**Class 3**: Arrays, ASCII, bytes, and GDB](class3)
+- [**Homework 1**: Polygonal collision detection, cryptogram](homework1)
 - There are variety of C concepts that will not be explicitly covered in class! We are providing a [tutorial document](c_review_notes.pdf) to help explain the necessary syntax and basic ideas so we can delve right into the good stuff!
 - For an even gentler introduction to C, I highly recommend Harvard's CS50 lectures. Although the whole lectures can be long, they have good tables of contents on each lecture on YouTube, and work well at 2X playing speed. [This clip](https://www.youtube.com/watch?v=wEdvGqxafq8&t=3078s) focuses on compiling C, on using make, and on common compiler errors. [This one](https://www.youtube.com/watch?v=u-kH-5JJSgU&t=287s) is on the compilation process. If you want to follow along with their examples, you will need to use their [sandbox](https://sandbox.cs50.io/).
 

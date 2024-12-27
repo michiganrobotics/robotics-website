@@ -1,0 +1,39 @@
+---
+import Layout from '../../../../../layouts/MainLayout.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const courseEntries = await getCollection('courses');
+  
+  return courseEntries
+    .filter(entry => {
+      const [_, className] = entry.slug.split('/');
+      return className && className !== 'index'; // Skip index files and root entries
+    })
+    .map(entry => {
+      const [course, className] = entry.slug.split('/');
+      return {
+        params: { course, class: className },
+        props: { 
+          entry,
+          courseEntry: courseEntries.find(e => e.slug === `${course}/index` || e.slug === course)
+        }
+      };
+    });
+}
+
+const { entry, courseEntry } = Astro.props;
+if (!entry) {
+  throw new Error(`No class found for course: ${Astro.params.course}, class: ${Astro.params.class}`);
+}
+const { Content } = await entry.render();
+---
+
+<Layout title={`${courseEntry?.data.title} - ${entry.data.title}`}>
+  <div class="max-w-6xl w-11/12 mx-auto py-12">
+    <article class="prose prose-lg prose-invert max-w-none">
+      <h1>{entry.data.title}</h1>
+      <Content />
+    </article>
+  </div>
+</Layout>
