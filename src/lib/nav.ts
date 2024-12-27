@@ -1,8 +1,8 @@
 // src/config/navigation.ts
 // edit this file to add new menu items on main nav across pages or subnav of a specific page
 
-import { defineConfig } from 'astro/config';
-const base = defineConfig({}).base || '';
+
+const base = import.meta.env.PROD ? import.meta.env.BASE_URL : '/';
 
 interface MenuItem {
   label: string;
