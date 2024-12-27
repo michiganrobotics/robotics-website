@@ -3,24 +3,24 @@ import { Icon } from "astro-icon"
 const currentYear = new Date().getFullYear();
 import { Image } from "astro:assets";
 const randomIllustrations = [
-    { src: "/illustrations/anymal.png", alt: "Cute ANYmal quadruped robot illustration" },
-    { src: "/illustrations/arm-cleaning.png", alt: "Cute robotic arm cleaning illustration" },
-    { src: "/illustrations/autonomous-car.png", alt: "Cute self-driving car illustration" },
-    { src: "/illustrations/digit.png", alt: "Cute Digit bipedal robot illustration" },
-    { src: "/illustrations/fetch.png", alt: "Cute Fetch mobile manipulator robot illustration" },
-    { src: "/illustrations/mbot.png", alt: "Cute MBot wheeled robot illustration" },
-    { src: "/illustrations/quadcopter.png", alt: "Cute quadcopter drone illustration" },
-    { src: "/illustrations/rover.png", alt: "Cute planetary rover illustration" },
-    { src: "/illustrations/soft-robot.png", alt: "Cute soft robot crawling illustration" },
-    { src: "/illustrations/space.png", alt: "Cute space robotics illustration" },
-    { src: "/illustrations/staircase.png", alt: "Person with bionic knee climbing stairs illustration" },
-    { src: "/illustrations/tv-screen.png", alt: "Cute robot interface screen illustration" },
-    { src: "/illustrations/underwater.png", alt: "Cute underwater robot illustration" }
+    { src: "illustrations/anymal.png", alt: "Cute ANYmal quadruped robot illustration", width: 100},
+    { src: "illustrations/arm-cleaning.png", alt: "Cute robotic arm cleaning illustration", width: 75},
+    { src: "illustrations/autonomous-car.png", alt: "Cute self-driving car illustration", width: 100},
+    { src: "illustrations/digit.png", alt: "Cute Digit bipedal robot illustration", width: 50},
+    { src: "illustrations/fetch.png", alt: "Cute Fetch mobile manipulator robot illustration", width: 75},
+    { src: "illustrations/mbot.png", alt: "Cute MBot wheeled robot illustration", width: 75},
+    { src: "illustrations/quadcopter.png", alt: "Cute quadcopter drone illustration", width: 100},
+    { src: "illustrations/rover.png", alt: "Cute planetary rover illustration", width: 100},
+    { src: "illustrations/soft-robot.png", alt: "Cute soft robot crawling illustration", width: 75},
+    { src: "illustrations/space.png", alt: "Cute space robotics illustration", width: 100},
+    { src: "illustrations/staircase.png", alt: "Person with bionic knee climbing stairs illustration", width: 75},
+    { src: "illustrations/tv-screen.png", alt: "Cute robot interface screen illustration", width: 50},
+    { src: "illustrations/underwater.png", alt: "Cute underwater robot illustration", width: 100}
 ];
 
 const randomIndex = Math.floor(Math.random() * randomIllustrations.length);
 const randomIllustration = randomIllustrations[randomIndex];
-
+const base = import.meta.env.BASE_URL;
 ---
 <style>
     footer p {
@@ -36,11 +36,11 @@ const randomIllustration = randomIllustrations[randomIndex];
               </a>
           </div>
           <div class="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-4">
-            <div class="flex items-end">
+            <div class="flex items-center">
                 <Image 
-                    src={randomIllustration.src} 
+                    src={base + randomIllustration.src} 
                     alt={randomIllustration.alt} 
-                    width={50} 
+                    width={randomIllustration.width} 
                     height={50} 
                     class="h-auto" 
                 />
