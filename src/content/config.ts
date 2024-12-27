@@ -12,6 +12,18 @@ const focusAreas = defineCollection({
   }),
 });
 
+const courses = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title: z.string(),
+    date: z.string().optional(),
+    description: z.string().optional(),
+    image: z.string().optional(),
+    imageAlt: z.string().optional(),
+  }),
+});
+
 export const collections = {
   'focus-areas': focusAreas,
+  'courses': courses,
 };
