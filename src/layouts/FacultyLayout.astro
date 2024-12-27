@@ -1,6 +1,6 @@
 ---
 import Layout from './MainLayout.astro';
-const { faculty } = Astro.props;
+const { faculty } = Astro.props;  
 ---
 
 <Layout title={faculty?.preferredName && faculty?.lastName ? `${faculty.preferredName} ${faculty.lastName} - Faculty Profile` : 'Faculty Profile'}>

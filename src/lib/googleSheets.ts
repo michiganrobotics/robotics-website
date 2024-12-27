@@ -4,6 +4,22 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
+// Define cached function locally
+const cached = <T>(fn: () => Promise<T>) => {
+  let cache: { data: T; timestamp: number } | null = null;
+  const CACHE_DURATION = 60 * 60 * 1000; // 1 hour in milliseconds
+
+  return async () => {
+    if (cache && Date.now() - cache.timestamp < CACHE_DURATION) {
+      return cache.data;
+    }
+
+    const data = await fn();
+    cache = { data, timestamp: Date.now() };
+    return data;
+  };
+};
+
 const SCOPES: string[] = [
   'https://www.googleapis.com/auth/spreadsheets',
   'https://www.googleapis.com/auth/drive.file',
@@ -109,7 +125,8 @@ function createSlug(name: string): string {
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/(^-|-$)+/g, '');
 }
-export async function getFacultyData(): Promise<FacultyMember[]> {
+
+export const getFacultyData = cached(async () => {
   await doc.loadInfo();
   const sheet = doc.sheetsByTitle['Faculty'];
   const rows = await sheet.getRows();
@@ -122,18 +139,16 @@ export async function getFacultyData(): Promise<FacultyMember[]> {
     title: row.get('title'),
     affiliation: row.get('affiliation'),
     photoURL: row.get('photoURL'),
+    office: row.get('office'),
     email: row.get('email'),
     researchInterests: row.get('researchInterests'),
     googleScholar: row.get('googleScholar'),
     labWebsite: row.get('labWebsite'),
     website: row.get('website'),
-    office: row.get('office'),
   }));
-}
+});
 
-
-
-export async function getDatasets(): Promise<DataSet[]> {
+export const getDatasets = cached(async () => {
   await doc.loadInfo();
   const sheet = doc.sheetsByTitle['Datasets'];
   const rows = await sheet.getRows();
@@ -144,10 +159,9 @@ export async function getDatasets(): Promise<DataSet[]> {
     datasetOwner: row.get('datasetOwner'),
     datasetLink: row.get('datasetLink'),
   }));
-}
+});
 
-
-export async function getAwards(): Promise<Awards[]> {
+export const getAwards = cached(async (): Promise<Awards[]> => {
   await doc.loadInfo();
   const sheet = doc.sheetsByTitle['Awards'];
   const rows = await sheet.getRows();
@@ -159,9 +173,9 @@ export async function getAwards(): Promise<Awards[]> {
     award: row.get('award'),
     awardOrganization: row.get('awardOrganization'),
   }));
-}
+});
 
-export async function getCourseList(): Promise<CourseList[]> {
+export const getCourseList = cached(async (): Promise<CourseList[]> => {
   await doc.loadInfo();
   const sheet = doc.sheetsByTitle['Courses'];
   const rows = await sheet.getRows();
@@ -180,9 +194,9 @@ export async function getCourseList(): Promise<CourseList[]> {
     courseNote: row.get('courseNote'),
     courseLink: row.get('courseLink'),
   }));
-}
+});
 
-export async function getStaffData(): Promise<StaffMember[]> {
+export const getStaffData = cached(async (): Promise<StaffMember[]> => {
   await doc.loadInfo();
   const sheet = doc.sheetsByTitle['Staff'];
   const rows = await sheet.getRows();
@@ -200,9 +214,9 @@ export async function getStaffData(): Promise<StaffMember[]> {
     email: row.get('email'),
     phone: row.get('phone'),
   }));
-}
+});
 
-export async function getAdvisoryBoard(): Promise<AdvisoryBoard[]> {
+export const getAdvisoryBoard = cached(async (): Promise<AdvisoryBoard[]> => {
   await doc.loadInfo();
   const sheet = doc.sheetsByTitle['AdvisoryBoard'];
   const rows = await sheet.getRows();
@@ -216,9 +230,9 @@ export async function getAdvisoryBoard(): Promise<AdvisoryBoard[]> {
     organization2: row.get('organization2'),
     photoURL: row.get('photoURL'),
   }));
-}
+});
 
-export async function getAlumni(): Promise<Alumni[]> {
+export const getAlumni = cached(async (): Promise<Alumni[]> => {
   await doc.loadInfo();
   const sheet = doc.sheetsByTitle['Alumni'];
   const rows = await sheet.getRows();
@@ -232,4 +246,4 @@ export async function getAlumni(): Promise<Alumni[]> {
     graduationYear: row.get('graduationYear'),
     degree: row.get('degree'),
   }));
-}
+});
