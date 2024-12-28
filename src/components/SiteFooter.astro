@@ -2,32 +2,23 @@
 import { Icon } from "astro-icon"
 const currentYear = new Date().getFullYear();
 import { Image } from "astro:assets";
-const randomIllustrations = [
-    { src: "illustrations/anymal.png", alt: "Cute ANYmal quadruped robot illustration", width: 100},
-    { src: "illustrations/arm-cleaning.png", alt: "Cute robotic arm cleaning illustration", width: 75},
-    { src: "illustrations/autonomous-car.png", alt: "Cute self-driving car illustration", width: 100},
-    { src: "illustrations/digit.png", alt: "Cute Digit bipedal robot illustration", width: 50},
-    { src: "illustrations/fetch.png", alt: "Cute Fetch mobile manipulator robot illustration", width: 75},
-    { src: "illustrations/mbot.png", alt: "Cute MBot wheeled robot illustration", width: 75},
-    { src: "illustrations/quadcopter.png", alt: "Cute quadcopter drone illustration", width: 100},
-    { src: "illustrations/rover.png", alt: "Cute planetary rover illustration", width: 100},
-    { src: "illustrations/soft-robot.png", alt: "Cute soft robot crawling illustration", width: 75},
-    { src: "illustrations/space.png", alt: "Cute space robotics illustration", width: 100},
-    { src: "illustrations/staircase.png", alt: "Person with bionic knee climbing stairs illustration", width: 75},
-    { src: "illustrations/tv-screen.png", alt: "Cute robot interface screen illustration", width: 50},
-    { src: "illustrations/underwater.png", alt: "Cute underwater robot illustration", width: 100}
+const illustrations = [
+    { src: (await import('../../public/illustrations/anymal.png')).default, alt: "Cute ANYmal quadruped robot illustration", width: 100},
+    { src: (await import('../../public/illustrations/arm-cleaning.png')).default, alt: "Cute robotic arm cleaning illustration", width: 75},
+    { src: (await import('../../public/illustrations/autonomous-car.png')).default, alt: "Cute self-driving car illustration", width: 100},
+    { src: (await import('../../public/illustrations/digit.png')).default, alt: "Cute Digit bipedal robot illustration", width: 50},
+    { src: (await import('../../public/illustrations/fetch.png')).default, alt: "Cute Fetch mobile manipulator robot illustration", width: 75},
+    { src: (await import('../../public/illustrations/mbot.png')).default, alt: "Cute MBot wheeled robot illustration", width: 75},
+    { src: (await import('../../public/illustrations/quadcopter.png')).default, alt: "Cute quadcopter drone illustration", width: 100},
+    { src: (await import('../../public/illustrations/rover.png')).default, alt: "Cute planetary rover illustration", width: 100},
+    { src: (await import('../../public/illustrations/soft-robot.png')).default, alt: "Cute soft robot crawling illustration", width: 75},
+    { src: (await import('../../public/illustrations/space.png')).default, alt: "Cute space robotics illustration", width: 100},
+    { src: (await import('../../public/illustrations/staircase.png')).default, alt: "Person with bionic knee climbing stairs illustration", width: 75},
+    { src: (await import('../../public/illustrations/tv-screen.png')).default, alt: "Cute robot interface screen illustration", width: 50},
+    { src: (await import('../../public/illustrations/underwater.png')).default, alt: "Cute underwater robot illustration", width: 100}
 ];
 
-
-const base = import.meta.env.PROD ? import.meta.env.BASE_URL : '/';
-
-const updatedIllustrations = randomIllustrations.map(illustration => ({
-    ...illustration,
-    src: `${base}${illustration.src}`
-}));
-
-const randomIndex = Math.floor(Math.random() * updatedIllustrations.length);
-const randomIllustration = updatedIllustrations[randomIndex];
+const randomIllustration = illustrations[Math.floor(Math.random() * illustrations.length)];
 ---
 <style>
     footer p {
