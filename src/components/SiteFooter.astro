@@ -18,9 +18,16 @@ const randomIllustrations = [
     { src: "illustrations/underwater.png", alt: "Cute underwater robot illustration", width: 100}
 ];
 
-const randomIndex = Math.floor(Math.random() * randomIllustrations.length);
-const randomIllustration = randomIllustrations[randomIndex];
-const base = import.meta.env.PROD ? '/' + import.meta.env.BASE_URL : '/';
+
+const base = import.meta.env.PROD ? import.meta.env.BASE_URL : '/';
+
+const updatedIllustrations = randomIllustrations.map(illustration => ({
+    ...illustration,
+    src: `${base}${illustration.src}`
+}));
+
+const randomIndex = Math.floor(Math.random() * updatedIllustrations.length);
+const randomIllustration = updatedIllustrations[randomIndex];
 ---
 <style>
     footer p {
@@ -38,7 +45,7 @@ const base = import.meta.env.PROD ? '/' + import.meta.env.BASE_URL : '/';
           <div class="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-4">
             <div class="flex items-center">
                 <Image 
-                    src={base + randomIllustration.src} 
+                    src={randomIllustration.src} 
                     alt={randomIllustration.alt} 
                     width={randomIllustration.width} 
                     height={50} 

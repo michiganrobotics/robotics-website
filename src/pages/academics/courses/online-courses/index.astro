@@ -1,0 +1,128 @@
+---
+import Layout from '../../../../layouts/MainLayout.astro';
+import { Image } from 'astro:assets';
+import Breadcrumbs from "../../../../components/Breadcrumbs.astro";
+import SubNav from "../../../../components/SubNav.astro";
+import featureImage from '../../../../../public/news.jpg';
+
+// Import course images
+const courseImages = {
+  rob101: "http://2024.robotics.umich.edu/wp-content/uploads/sites/6/2020/12/rob101-insta.jpg",
+  rob102: "http://2024.robotics.umich.edu/wp-content/uploads/sites/6/2022/02/ROB-102.jpg",
+  rob311: "https://2024.robotics.umich.edu/wp-content/uploads/sites/6/2023/06/ROB311-courses.jpg",
+  rob320: "https://2024.robotics.umich.edu/wp-content/uploads/sites/6/2022/02/rob320.jpg",
+  rob501: "http://2024.robotics.umich.edu/wp-content/uploads/sites/6/2022/02/rob501.jpg",
+  rob502: "http://2024.robotics.umich.edu/wp-content/uploads/sites/6/2022/05/rob-502.jpg",
+  rob530: "https://2024.robotics.umich.edu/wp-content/uploads/sites/6/2022/02/rob530.jpg"
+};
+
+const courses = [
+  {
+    title: "ROB 101: Computational Linear Algebra",
+    image: courseImages.rob101,
+    link: "https://github.com/michiganrobotics/rob101/tree/main/Fall%202021"
+  },
+  {
+    title: "ROB 102: Introduction to AI and Programming",
+    image: courseImages.rob102,
+    link: "https://robotics102.github.io"
+  },
+  {
+    title: "ROB 311: How to Build Robots and Make Them Move",
+    image: courseImages.rob311,
+    link: "https://github.com/michiganrobotics/rob311"
+  },
+  {
+    title: "ROB 320: Robot Operating Systems",
+    image: courseImages.rob320,
+    link: "https://autorob.org"
+  },
+  {
+    title: "ROB 501: Mathematics for Robotics",
+    image: courseImages.rob501,
+    link: "https://github.com/michiganrobotics/rob501"
+  },
+  {
+    title: "ROB 502: Programming for Robotics",
+    image: courseImages.rob502,
+    link: "/academic-program/courses/online-courses/rob502-f20/"
+  },
+  {
+    title: "ROB 530: Mobile Robotics",
+    image: courseImages.rob530,
+    link: "https://github.com/UMich-CURLY-teaching/UMich-ROB-530-public"
+  }
+];
+---
+
+<Layout title="Online Courses">
+  <div class="max-w-6xl w-11/12 mx-auto py-2">
+    <Breadcrumbs />
+  </div>
+      
+  <div class="mt-4 mb-4 max-w-6xl w-11/12 mx-auto">
+    <div class="relative rounded-sm overflow-hidden shadow-lg">
+      <div class="relative">
+        <div class="absolute inset-0">
+          <Image 
+            src={featureImage}
+            alt=""
+            class="w-full h-full object-cover"
+          />
+        </div>
+        <div class="relative">
+          <div class="bg-umichblue/70 dark:bg-arboretumBlue/70 backdrop-blur-[2px] p-3 sm:p-4 md:p-8 inline-block">
+            <h1 class="text-4xl font-roboto text-white font-bold">
+              <span class="relative border-b-4 border-maize">Online Courses</span>
+            </h1>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <SubNav />
+    <article class="prose max-w-none dark:prose-invert mt-8">
+      <p>Michigan Robotics publishes many courses online, which can be freely accessed through sites like GitHub and YouTube. These courses typically include all lecture videos, notes, textbooks, homework, projects, and exams.</p>
+    </article>
+    <div class="mt-12 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+      {courses.map(course => (
+        <div class="course-card group">
+          <a href={course.link} class="block">
+            <div class="relative mb-4 overflow-hidden rounded-lg">
+              <img 
+                src={course.image} 
+                alt={course.title}
+                class="w-full h-56 object-cover transform transition-all duration-500 group-hover:scale-95"
+              />
+              <div class="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
+            </div>
+            <div class="px-2">
+              <h2 class="text-xl font-bold text-gray-900 dark:text-white group-hover:text-umichblue dark:group-hover:text-maize transition-colors duration-300">
+                {course.title}
+              </h2>
+              <div class="mt-2 flex items-center text-sm text-gray-600 dark:text-gray-400 group-hover:text-umichblue dark:group-hover:text-maize transition-colors duration-300">
+                <span>View Course</span>
+                <svg class="ml-2 w-3 h-3 transition-transform duration-300 group-hover:translate-x-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                </svg>
+              </div>
+            </div>
+          </a>
+          {course.additionalLink && (
+            <p class="mt-2 px-2 text-gray-600 dark:text-gray-300">
+              (<a href={course.additionalLink.url} class="text-umichblue dark:text-maize hover:underline">
+                {course.additionalLink.text}
+              </a> also available)
+            </p>
+          )}
+        </div>
+      ))}
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .course-card {
+    @apply bg-white dark:bg-gray-800 rounded-lg shadow-lg p-4 transition-all duration-300 hover:shadow-xl;
+  }
+</style>
