@@ -46,8 +46,13 @@ const Template = resolveContentTemplate(node)
 ---
 
 <MainLayout 
- title={ node.title || node.name}
- description={ node.excerpt }
+  title={node.title || node.name}
+  description={node.excerpt}
+  openGraph={{
+    title: node.title || node.name,
+    type: 'website',
+    image: node.featuredImage?.node?.sourceUrl || '/social/og-default.jpg'
+  }}
 >
-        <Template node={node}></Template>
+  <Template node={node}></Template>
 </MainLayout>
