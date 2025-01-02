@@ -2,8 +2,19 @@
 import Layout from '../../layouts/MainLayout.astro';
 import { Image } from 'astro:assets';
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
-import featureImage from '../../../public/news.jpg';
-
+import featureImage from '../../images/featured-images/people-student-teams.jpg';
+import famnmImage from '../../images/student-teams/famnm.jpg';
+import mroverImage from '../../images/student-teams/mrover.jpg';
+import maavImage from '../../images/student-teams/maav.jpg';
+import robosubImage from '../../images/student-teams/robosub.jpg';
+import arvImage from '../../images/student-teams/arv.png';
+import umautonomyImage from '../../images/student-teams/autonomy.jpg';
+import mflyImage from '../../images/student-teams/mfly.jpg';
+import mezImage from '../../images/student-teams/mez.jpg';
+import mnpImage from '../../images/student-teams/neuroprosthetics.jpg';
+import starxImage from '../../images/student-teams/starx.jpg';
+import mtbrImage from '../../images/student-teams/mtbr.jpg';
+import mracingImage from '../../images/student-teams/mracing.jpg';
 const teams = [
   {
     name: "FIRST Alumni and Mentors Network at Michigan",
@@ -11,14 +22,14 @@ const teams = [
     description: "The mission of FAMNM is to inspire K-12 students to pursue STEM, business and community outreach opportunities; to support Michigan FIRST teams, mentors and volunteers, and to develop a professional network of FIRST supporters at the University of Michigan.",
     website: "FAMNM Website",
     link: "#",
-    image: null
+    image: famnmImage
   },
   {
     name: "MRover",
     description: "The Michigan Mars Rover team (MRover) is a student-run, multidisciplinary organization whose mission is to design, build, and field a rover in the University Rover Challenge -- an international competition where off-road robots compete in a simulated astronaut-assist mission on Mars.",
     website: "MRover Website",
     link: "#",
-    image: null
+    image: mroverImage
   },
   {
     name: "Michigan Autonomous Aerial Vehicles",
@@ -26,14 +37,14 @@ const teams = [
     description: "Michigan Autonomous Aerial Vehicles (MAAV) members design, manufacture, program, and test every aspect of a small, autonomous quadrotor. Members will gain experience and apply skills in areas such as structural design and manufacturing, embedded programming, control theory, navigation and mapping, and computer vision.",
     website: "MAAV Website",
     link: "#",
-    image: null
+    image: maavImage
   },
   {
     name: "Michigan RoboSub",
     description: "Advancing Autonomous Underwater Vehicle technology (AUV) by engineering a RoboSub that can perform various incredible sub-nautical tasks, like sonar navigation and torpedo target shooting using machine learning and computer vision.",
     website: "RoboSub Website",
     link: "#",
-    image: null
+    image: robosubImage
   },
   {
     name: "Autonomous Robotic Vehicle Team",
@@ -41,21 +52,21 @@ const teams = [
     description: "ARV is an engineering design team building a fully autonomous vehicle for the Intelligent Ground Vehicle Competition. We hope to scale our project to build a compact, street legal, federally-compliant, autonomous car capable of transporting two passengers.",
     website: "ARV Website",
     link: "#",
-    image: null
+    image: arvImage
   },
   {
     name: "UM::Autonomy",
     description: "UM::Autonomy members design and build a water-surface vehicle capable of navigating and performing various naval operations without any human interaction. Meeting this objective requires expertise from multiple fields for tasks such as sensor integration, control system design, hull design, and funding management.",
     website: "UM::Autonomy Website",
     link: "#",
-    image: null
+    image: umautonomyImage
   },
   {
     name: "M-Fly",
     description: "M-Fly is a Society of Automotive Engineers Aerospace Design team at the University of Michigan dedicated to promoting opportunities for students to practice applying their knowledge to aerospace [robotics] projects outside the classroom.",
     website: "M-Fly Website",
     link: "#",
-    image: null
+    image: mflyImage
   },
   {
     name: "Michigan Engineering Zone",
@@ -63,7 +74,7 @@ const teams = [
     description: "Located in the University of Michigan's Detroit Center, the Michigan Engineering Zone (MEZ) is a safe and supportive forum where Detroit students acquire the knowledge and tools they need to propel themselves to higher education and careers in science, technology, engineering, and mathematics (STEM) through challenging and exciting hands-on experiences. The FIRST Robotics teams of 12 Detroit high schools stand center stage at the MEZ.",
     website: "MEZ Website",
     link: "#",
-    image: null
+    image: mezImage
   },
   {
     name: "Michigan Neuroprosthetics",
@@ -71,7 +82,7 @@ const teams = [
     description: "Michigan Neuroprosthetics (MNP) aims to design cost affordable, accessible, and scalable myoelectric prostheses for children. MNP focuses on partnering with individuals and local communities to build prosthetics devices in order to alter the way in which an individual can access and interact with the world.",
     website: "MNP Website",
     link: "#",
-    image: null
+    image: mnpImage
   },
   {
     name: "Strength Augmenting Robotic eXoskeletons",
@@ -79,7 +90,7 @@ const teams = [
     description: "The Strength Augmenting Robotic eXoskeletons (STARX) student design team is looking to expand the field of powered exoskeleton technology to a practical and accessible level.",
     website: "STARX Website",
     link: "#",
-    image: null
+    image: starxImage
   },
   {
     name: "Michigan Task Based Robotics",
@@ -87,12 +98,23 @@ const teams = [
     description: "MTBR | Hail Robotics designs, programs, manufactures, and tests robots that compete annually in the VEX U competition - the collegiate division of the biggest robotics competition in the world.",
     website: "MTBR Website",
     link: "#",
-    image: 'http://2024.robotics.umich.edu/wp-content/uploads/sites/6/2023/09/IMG_2868.jpg'
+    image: mtbrImage
+  },
+  {
+    name: "MRacing",
+    description: "MRacing is the University of Michigan's Formula SAE team, designing and building high-performance race cars while integrating advanced robotics and autonomous systems technology.",
+    website: "MRacing Website",
+    link: "#",
+    image: mracingImage
   }
 ];
 ---
 
-<Layout title="Student Teams">
+
+<Layout 
+  title="Student Teams | Michigan Robotics"
+  description="Our students are proud to be highly involved and active members of their community. Student teams are an opportunity for them to meet people, apply classroom concepts to real applications, have fun, and make a difference."
+  image="/social/og-teams.jpg">
   <div class="max-w-6xl w-11/12 mx-auto py-2">
     <Breadcrumbs />
   </div>
@@ -103,8 +125,10 @@ const teams = [
         <div class="absolute inset-0">
           <Image 
             src={featureImage}
-            alt=""
-            class="w-full h-full object-cover"
+            alt="A collection of tools and drill bits in front of a drill press"
+            class="w-full h-full object-cover object-[10%_60%]"
+            width={1200}
+            height={630}
           />
         </div>
         <div class="relative">
@@ -126,7 +150,7 @@ const teams = [
           <a href={team.link} class="group bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300">
             <div class="aspect-video bg-gray-100 dark:bg-gray-700 relative overflow-hidden">
               {team.image ? (
-                <img src={team.image} alt={team.name} class="w-full h-full object-cover" />
+                <Image src={team.image} alt={team.name} class="w-full h-full object-cover" />
               ) : (
                 <div class="absolute inset-0 flex items-center justify-center text-4xl font-bold text-gray-300 dark:text-gray-600">
                   {team.shortName || team.name.charAt(0)}
@@ -152,7 +176,7 @@ const teams = [
 
 
     <div class="mt-12 prose max-w-none dark:prose-invert">
-      <p>For information regarding ongoing design and team projects being housed or built at the Wilson Student Center or Robotics Building Makerspace, contact Wilson Center Manager, Chris Gordon.</p>
+      <p>For information regarding ongoing design and team projects being housed or built at the <a href="https://teamprojects.engin.umich.edu">Wilson Student Center</href> or <a href="https://teamprojects.engin.umich.edu/makerspace-home/">Robotics Building Makerspace</a>, contact the Wilson Center at <a href="mailto:wilsoncenter@umich.edu">wilsoncenter@umich.edu</a>.</p>
     </div>
   </div>
 </Layout> 

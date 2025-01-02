@@ -1,0 +1,145 @@
+---
+import MainLayout from "../../layouts/MainLayout.astro";
+import { YouTube } from '@astro-community/astro-embed-youtube';
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import Subnav from "../../components/Subnav.astro";
+---
+
+<MainLayout title="About | Michigan Robotics" description="Learn about the University of Michigan Robotics Department's vision and leadership">
+  <div class="max-w-6xl w-11/12 mx-auto py-2">
+    <Breadcrumbs />
+  </div>
+
+  <div class="mt-4 mb-4 max-w-6xl w-11/12 mx-auto">
+    <div class="w-full bg-umichblue dark:bg-arboretumBlue shadow-lg">
+      <div class="p-3 sm:p-4 md:p-8">
+        <h1 class="text-4xl font-roboto text-white font-bold">
+          <span class="relative border-b-4 border-maize leading-relaxed sm:leading-tight">About Michigan Robotics</span>
+        </h1>
+      </div>
+    </div>
+    <Subnav />
+    <div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-8">
+      <section>
+        <h2 class="text-3xl font-roboto-condensed font-bold mb-4 text-umichblue dark:text-white">Our mission</h2>
+        <p class="text-xl font-semibold text-arboretumBlue dark:text-maize mb-4">Work together. Create smart machines. Serve society.</p>
+        <p class="mb-4">Michigan Robotics creates and leads innovative initiatives and robust programs that elevate outcomes for both robotics and roboticists in research, academics, and society. 
+        </p>
+        <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md mb-6">
+          <h3 class="text-xl font-bold mb-2 text-umichblue dark:text-white">Key Facts</h3>
+          <ul class="list-disc pl-5">
+            <li>Originated as the Robotics Institute in 2014</li>
+            <li>Ford Robotics Building completed in 2021</li>
+            <li>First undergraduate robotics major among top-ten engineering schools in 2022</li>
+            <li>$28M in research expenditures in 2023</li>
+          </ul>
+        </div>
+      </section>
+      
+      <div class="relative rounded-sm overflow-hidden">
+        <YouTube 
+          id="s4X1PvbHwLY"
+          title="This is Michigan Robotics"
+          poster="https://i.ytimg.com/vi/s4X1PvbHwLY/maxresdefault.jpg"
+        />
+      </div>
+    </div>
+
+    <section class="mt-12">
+      <h2 class="text-3xl font-roboto-condensed font-bold mb-6 text-umichblue dark:text-white">Academic programs</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+          <h3 class="text-xl font-bold mb-2 text-umichblue dark:text-white">Undergraduate</h3>
+          <p>167 robotics majors</p>
+          <p>16 alumni</p>
+        </div>
+        <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+          <h3 class="text-xl font-bold mb-2 text-umichblue dark:text-white">Graduate</h3>
+          <p>371 Master's and PhD students</p>
+          <p>Program started in 2014</p>
+        </div>
+        <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+          <h3 class="text-xl font-bold mb-2 text-umichblue dark:text-white">Course Development</h3>
+          <p>12 new undergraduate robotics courses</p>
+          <p>Several courses freely available online</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="mt-12">
+      <h2 class="text-3xl font-roboto-condensed font-bold mb-6 text-umichblue dark:text-white">Research focus areas</h2>
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+        <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md">Artificial intelligence</div>
+        <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md">Autonomous vehicles and systems</div>
+        <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md">Human-robot interaction</div>
+        <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md">Legged robotics</div>
+        <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md">Manufacturing robotics</div>
+        <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md">Rehabilitation and medical robotics</div>
+        <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md">Perception and manipulation</div>
+        <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md">Soft robotics</div>
+        <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md">Teams and swarms</div>
+      </div>
+    </section>
+
+    <section class="mt-12">
+      <h2 class="text-3xl font-roboto-condensed font-bold mb-6 text-umichblue dark:text-white">Impact and innovation</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div>
+            <h3 class="text-xl font-bold mb-4 text-umichblue dark:text-white">Open-source projects</h3>
+            <p class="mb-4">Michigan researchers regularly publish and share their work with the community, including:</p>
+            <ul class="list-disc pl-5">
+              <li>MBot: an educational robot platform, more than 300 of are used by our undergrad and grad students</li>
+              <li>Open-Source Leg: a bionic prosthetic leg</li>
+              <li>Data sets: from underewater sonar scans to pedestrian paths for autonomous vehicles</li>
+              <li>And many more: view our <a href="https://robotics.umich.edu/research/projects-and-datasets/" class="text-arboretumBlue dark:text-maize hover:underline">Open-Source Projects</a></li>
+            </ul>
+          </div>
+        <div>
+          <h3 class="text-xl font-bold mb-4 text-umichblue dark:text-white">Outreach</h3>
+          <p class="mb-4">Our Robotics Outreach Ambassadors program recognizes students who excel in community service and inspire future roboticists.</p>
+        </div>
+        <div>
+          <h3 class="text-xl font-bold mb-4 text-umichblue dark:text-white">Faculty-Led Spin-offs</h3>
+          <ul class="list-disc pl-5">
+            <li>May Mobility: Driverless transit in communities</li>
+            <li>Voxel51: Computer vision data and modeling</li>
+            <li>Refraction AI: Automated last-mile delivery</li>
+            <li>Precision 3D: Advanced printing</li>
+            <li>NewHaptics: Haptic display for the blind</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="mt-12">
+      <h2 class="text-3xl font-roboto-condensed font-bold mb-6 text-umichblue dark:text-white">Leadership</h2>
+      <div class="bg-white dark:bg-gray-800 rounded-sm shadow-md overflow-hidden">
+        <img
+          src="https://2024.robotics.umich.edu/wp-content/uploads/sites/6/2024/01/excom-2048x272-1.jpg"
+          alt="Michigan Robotics Executive Committee"
+          class="w-full h-auto"
+          loading="lazy"
+          decoding="async"
+        />
+        <div class="p-4">
+          <p class="text-gray-600 dark:text-gray-300">
+            Michigan Robotics is led by the Executive Committee: Anouck Girard, Robert Gregg, and Dimitra Panagou, with direction from ex-officio members Chad Jenkins (Associate Director of Undergraduate Studies), Brent Gillespie (Associate Director of Graduate Studies), and Department Chair Dawn Tilbury.
+          </p>
+        </div>
+      </div>
+    </section>
+
+  <section class="mt-12 mb-12">
+    <h2 class="text-3xl font-roboto-condensed font-bold mb-6 text-umichblue dark:text-white">Contact Us</h2>
+    <div class="bg-white dark:bg-gray-800 rounded-sm shadow-md p-6">
+      <p class="text-gray-600 dark:text-gray-300 mb-4">Have questions about Michigan Robotics? We'd love to hear from you.</p>
+      <a href="about/contact" class="inline-flex items-center px-4 py-2 bg-umichblue dark:bg-arboretumBlue text-white rounded-sm hover:bg-opacity-90 transition-colors">
+        Get in touch
+        <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+        </svg>
+      </a>
+    </div>
+  </section>
+  </div>
+</MainLayout>

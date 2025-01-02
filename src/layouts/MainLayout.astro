@@ -2,16 +2,30 @@
 import SiteNav from "../components/SiteNav.astro"; 
 import SiteFooter from "../components/SiteFooter.astro";
 import { navQuery } from "../lib/api";
+import { SEO } from 'astro-seo';
+
 const { menus, generalSettings } = await navQuery();
 const primaryMenu = menus.nodes[0];
 
-const { title } = Astro.props;
+interface Props {
+	title: string;
+	description?: string;
+	image?: string;
+}
+
+const { 
+	title,
+	description = "Michigan Robotics is advancing the field of robotics through groundbreaking research and education.",
+	image = "/social/og-default.jpg"  // default fallback image
+} = Astro.props;
+
+const siteUrl = "https://robotics.umich.edu";
+
 import '@fontsource/roboto-condensed';
 import '@fontsource/open-sans';
 import '@wordpress/block-library/build-style/common.css';
 import '@wordpress/block-library/build-style/style.css';
 import '@wordpress/block-library/build-style/theme.css';
-
 ---
 
 <html lang="en">
@@ -20,9 +34,62 @@ import '@wordpress/block-library/build-style/theme.css';
 		<link rel="icon" type="image/svg+xml" href="../../public/favicon.ico" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
-		<!-- turn off indexing for the site -->
 		<meta name="robots" content="noindex, nofollow">
+		<SEO
+			title={title}
+			description={description}
+			openGraph={{
+				basic: {
+					title,
+					type: "website",
+					image: `${siteUrl}${image}`,
+				},
+				optional: {
+					description,
+					siteName: "Michigan Robotics",
+					locale: "en_US",
+				},
+				image: {
+					alt: "Michigan Robotics featured image",
+					width: 1200,
+					height: 630,
+					type: "image/jpeg",
+				}
+			}}
+			twitter={{
+				card: "summary_large_image",
+				site: "@UMRobotics",
+				title,
+				description,
+				image: `${siteUrl}${image}`,
+			}}
+			extend={{
+				meta: [
+					{
+						name: 'keywords',
+						content: 'robotics, michigan, engineering, research, education'
+					}
+				],
+				jsonLd: {
+					"@context": "https://schema.org",
+					"@type": "Department",
+					"name": "University of Michigan Robotics Department",
+					"url": siteUrl,
+					"logo": `${siteUrl}/images/logo.png`,
+					"parentOrganization": [{
+						"@type": "CollegeOrUniversity",
+						"name": "University of Michigan College of Engineering",
+						"parentOrganization": {
+							"@type": "University",
+							"name": "University of Michigan"
+						}
+					}],
+					"description": "The Robotics Department at the University of Michigan College of Engineering, conducting cutting-edge robotics research and education",
+					"areaServed": "Ann Arbor, Michigan"
+				}
+			}}
+		/>
+		<slot name="head"/>
 	</head>
 	<body class="bg-gray-100 dark:bg-gray-700 dark:text-white">
 		<main class="m-auto mb-20">
@@ -31,7 +98,9 @@ import '@wordpress/block-library/build-style/theme.css';
 		</main>
 		<SiteFooter></SiteFooter>
 	</body>
-</html><style is:global>
+</html>
+
+<style is:global>
 	.wp-block-columns{
 		gap:2em;
 	}

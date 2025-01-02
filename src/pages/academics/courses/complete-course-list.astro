@@ -7,7 +7,7 @@ import Breadcrumbs from "../../../components/Breadcrumbs.astro";
 import SubNav from "../../../components/SubNav.astro";
 import { getCourseList } from '../../../lib/googleSheets';
 
-import featureImage from '../../../../public/news.jpg';
+import featureImage from '../../../images/featured-images/complete-course-list.jpg';
 
 const courseList = await getCourseList();
 ---
@@ -24,7 +24,7 @@ const courseList = await getCourseList();
                   <Image 
                     src={featureImage}
                     alt=""
-                    class="w-full h-full object-cover"
+                    class="w-full h-full object-cover object-[25%_75%]"
                   />
                 </div>
                 <div class="relative">

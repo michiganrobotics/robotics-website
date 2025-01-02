@@ -6,7 +6,7 @@ import SocialFeed from '../components/SocialFeed.astro';
 import { homePagePostsQuery } from "../lib/api";
 import { eventsQuery } from "../lib/api";
 import EmailSignup from "../components/EmailSignup.astro";
-
+import { Image } from "astro:assets";
 const eventsData = await eventsQuery();
 const { posts } = await homePagePostsQuery();
 const recentPosts = posts.nodes.slice(0, 3);
@@ -66,15 +66,17 @@ Astro.response.headers.set('Cache-Control','max-age=600, must-revalidate');
 							href: "/people"
 						}
 					].map(item => (
-						<figure class="group min-w-[50%] md:min-w-[auto] flex-auto relative max-w-md transition-all duration-300 cursor-pointer">
+						<figure class="group min-w-[50%] md:min-w-[auto] flex-auto relative max-w-md transition-all duration-300 cursor-pointer hover:-translate-y-1">
 							<a href={item.href}>
-								<img 
-									class="rounded-sm w-full h-auto md:h-auto object-cover aspect-[2/1] md:aspect-auto" 
-									src={item.image} 
+								<Image 
+									src={`/src/images/homepage/${item.image}`}
 									alt={item.alt}
+									width={800}
+									height={400}
+									class="rounded-sm w-full h-auto md:h-auto object-cover aspect-[2/1] md:aspect-auto transition-transform duration-300 group-hover:scale-[1.02]"
 								/>
 							</a>
-							<figcaption class="absolute p-6 md:px-4 md:py-0 text-lg text-white bottom-0 md:top-10 md:bottom-auto left-0 right-0 bg-rackhamGreen bg-opacity-80 group-hover:underline decoration-maize font-bold">
+							<figcaption class="absolute p-6 md:px-4 md:py-0 text-lg text-white bottom-0 md:top-10 md:bottom-auto left-0 right-0 bg-rackhamGreen bg-opacity-80 group-hover:underline decoration-maize font-bold transition-transform group-hover:scale-[1.02] duration-300">
 								<p>{item.title}</p>
 							</figcaption>
 						</figure>

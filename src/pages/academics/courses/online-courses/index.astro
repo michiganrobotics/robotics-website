@@ -3,7 +3,7 @@ import Layout from '../../../../layouts/MainLayout.astro';
 import { Image } from 'astro:assets';
 import Breadcrumbs from "../../../../components/Breadcrumbs.astro";
 import SubNav from "../../../../components/SubNav.astro";
-import featureImage from '../../../../../public/news.jpg';
+import featureImage from '../../../../images/featured-images/online-courses.jpg';
 
 // Import course images
 const courseImages = {
@@ -45,7 +45,7 @@ const courses = [
   {
     title: "ROB 502: Programming for Robotics",
     image: courseImages.rob502,
-    link: "/academic-program/courses/online-courses/rob502-f20/"
+    link: "/academics/courses/online-courses/rob502-f20/"
   },
   {
     title: "ROB 530: Mobile Robotics",
@@ -67,7 +67,9 @@ const courses = [
           <Image 
             src={featureImage}
             alt=""
-            class="w-full h-full object-cover"
+            class="w-full h-full object-cover object-[0%_35%]"
+            width={1200}
+            height={630}
           />
         </div>
         <div class="relative">

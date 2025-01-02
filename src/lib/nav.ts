@@ -109,8 +109,8 @@ export const mainNav: MenuItem[] = [
           },
           {
             label: "Projects & Datasets",
-            uri: "/research/datasets",
-            id: "research-datasets",
+            uri: "/research/projects-and-datasets",
+            id: "research-projects-and-datasets",
             childItems: { nodes: [] }
           }
         ]
@@ -180,12 +180,6 @@ export const mainNav: MenuItem[] = [
             childItems: { nodes: [] }
           },
           {
-            label: "Media",
-            uri: "/about/media",
-            id: "about-media",
-            childItems: { nodes: [] }
-          },
-          {
             label: "Building",
             uri: "/about/ford-motor-company-robotics-building",
             id: "about-building",
@@ -238,7 +232,7 @@ export const subNavConfig = {
     // Only match exact 'research' path, not children
     'research$': [
       { title: "Focus Areas", href: "/research/focus-areas" },
-      { title: "Open-Source Projects & Datasets", href: "/research/datasets" }
+      { title: "Open-Source Projects & Datasets", href: "/research/projects-and-datasets" }
     ],
     'academics/courses': [
       { title: "Current Term Courses", href: "/academics/courses/current-term" },
@@ -272,6 +266,13 @@ export const subNavConfig = {
       { title: "Alumni", href: "/people/alumni" },
       { title: "Advisory Board", href: "/people/advisory-board" },
       { title: "Honors and Awards", href: "/people/honors-and-awards"}
+    ],
+    'about$': [
+      { title: "Values", href: "/about/values" },
+      { title: "Facilities", href: "/about/ford-motor-company-robotics-building" },
+      { title: "M-Air", href: "/about/mair" },
+      { title: "Faculty Jobs", href: "/about/jobs" },
+      { title: "Contact", href: "/about/contact"}
     ]
   };
   

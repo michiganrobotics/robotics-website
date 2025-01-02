@@ -3,7 +3,7 @@ import Layout from '../../layouts/MainLayout.astro';
 import { Image } from 'astro:assets';
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import SubNav from "../../components/SubNav.astro";
-import featureImage from '../../../public/news.jpg';
+import featureImage from '../../images/featured-images/research.jpg';
 ---
 
 <Layout title="Research">
@@ -17,8 +17,10 @@ import featureImage from '../../../public/news.jpg';
         <div class="absolute inset-0">
           <Image 
             src={featureImage}
-            alt=""
-            class="w-full h-full object-cover"
+            alt="An underwater robot on the surface of a lake is retrieved by two researchers."
+            class="w-full h-full object-cover object-[0%_35%]"
+            width={1200}
+            height={630}
           />
         </div>
         <div class="relative">
@@ -57,7 +59,7 @@ import featureImage from '../../../public/news.jpg';
         </div>
 
         <div class="group relative not-prose overflow-hidden rounded-lg bg-white dark:bg-gray-800 shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 dark:border-gray-700">
-          <a href="/research/datasets" class="block p-8">
+          <a href="/research/projects-and-datasets" class="block p-8">
             <h2 class="mb-4 text-2xl font-bold text-gray-900 dark:text-white group-hover:text-umichblue dark:group-hover:text-maize transition-colors">
               Open-Source Projects & Datasets
             </h2>

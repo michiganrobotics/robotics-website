@@ -1,6 +1,7 @@
 ---
 import Layout from '../../../../../layouts/MainLayout.astro';
 import { getCollection } from 'astro:content';
+import Breadcrumbs from '../../../../../components/Breadcrumbs.astro';
 
 export async function getStaticPaths() {
   const courseEntries = await getCollection('courses');
@@ -25,6 +26,7 @@ const { Content } = await entry.render();
 
 <Layout title={entry.data.title}>
   <div class="max-w-6xl w-11/12 mx-auto py-12">
+    
     <article class="prose prose-lg prose-invert max-w-none">
       <h1>{entry.data.title}</h1>
       <Content />

@@ -6,7 +6,7 @@ import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import SubNav from "../../components/SubNav.astro";
 import { getAlumni } from '../../lib/googleSheets';
 
-import featureImage from '../../../public/news.jpg';
+import featureImage from '../../images/featured-images/people-alumni.jpg';
 
 const alumni = await getAlumni();
 const sortedAlumni = [...alumni].sort((a, b) => Number(b.graduationYear) - Number(a.graduationYear));
@@ -23,8 +23,10 @@ const sortedAlumni = [...alumni].sort((a, b) => Number(b.graduationYear) - Numbe
                 <div class="absolute inset-0">
                   <Image 
                     src={featureImage}
-                    alt=""
+                    alt="Graduates file in for commencement"
                     class="w-full h-full object-cover"
+                    width={1200}
+                    height={630}
                   />
                 </div>
                 <div class="relative">

@@ -1,14 +1,12 @@
 ---
 // src/pages/focus-areas/index.astro
 import Layout from '../../layouts/MainLayout.astro';
-import { focusAreas } from './focusAreas';
-import { Icon } from 'astro-icon';
 import { Image } from 'astro:assets';
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import SubNav from "../../components/SubNav.astro";
 import { getDatasets } from '../../lib/googleSheets';
 
-import featureImage from '../../../public/news.jpg';
+import featureImage from '../../images/featured-images/projects-and-datasets.jpg';
 
 const datasets = await getDatasets();
 ---
@@ -24,8 +22,10 @@ const datasets = await getDatasets();
                 <div class="absolute inset-0">
                   <Image 
                     src={featureImage}
-                    alt=""
+                    alt="Motors, gears, and 3d printed parts"
                     class="w-full h-full object-cover"
+                    width={1200}
+                    height={630}
                   />
                 </div>
                 <div class="relative">
