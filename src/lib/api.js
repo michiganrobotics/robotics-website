@@ -185,6 +185,30 @@ export async function getNodeByURI(uri){
                       }
                     }
                   }
+                 ... on Tag {
+                    id
+                    name
+                    description
+                    posts {
+                      nodes {
+                        date
+                        title
+                        excerpt
+                        uri
+                        featuredImage {
+                          node {
+                            srcSet
+                            sourceUrl
+                            altText
+                            mediaDetails {
+                              height
+                              width
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
                 }
               }
             `,
