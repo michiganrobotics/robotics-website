@@ -11,8 +11,10 @@ function generateBreadcrumbs() {
     if (process.env.NODE_ENV === 'production' && item === 'rob-astro-23') {
       return;
     }
-    // Replace hyphens with spaces and capitalize first letter
-    const text = item.replace(/-/g, ' ').charAt(0).toUpperCase() + item.replace(/-/g, ' ').slice(1);
+    // Replace hyphens with spaces and capitalize all words
+    const text = item.replace(/-/g, ' ').split(' ').map(word => 
+      word.charAt(0).toUpperCase() + word.slice(1)
+    ).join(' ');
     breadcrumbs.push({
       text,
       href: path

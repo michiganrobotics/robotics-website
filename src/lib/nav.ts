@@ -12,6 +12,13 @@ interface MenuItem {
     nodes: MenuItem[];
   };
 }
+
+interface SubNavItem {
+  title: string;
+  href: string;
+  external?: boolean;
+}
+
 // edit main nav items here
 export const mainNav: MenuItem[] = [
     {
@@ -180,15 +187,9 @@ export const mainNav: MenuItem[] = [
             childItems: { nodes: [] }
           },
           {
-            label: "Building",
-            uri: "/about/ford-motor-company-robotics-building",
-            id: "about-building",
-            childItems: { nodes: [] }
-          },
-          {
-            label: "M-Air",
-            uri: "/about/mair",
-            id: "about-mair",
+            label: "Facilities",
+            uri: "/about/facilities",
+            id: "about-facilities",
             childItems: { nodes: [] }
           },
           {
@@ -227,7 +228,7 @@ export const addBaseToMenuItems = (items: any[]) => {
 export const menuItems = addBaseToMenuItems(mainNav);
 
 // edit subnav items here
-export const subNavConfig = {
+export const subNavConfig: Record<string, SubNavItem[]> = {
     // Match WordPress slugs exactly to edit their subnav menus
     // Only match exact 'research' path, not children
     'research$': [
@@ -269,10 +270,20 @@ export const subNavConfig = {
     ],
     'about$': [
       { title: "Values", href: "/about/values" },
-      { title: "Facilities", href: "/about/ford-motor-company-robotics-building" },
-      { title: "M-Air", href: "/about/mair" },
+      { title: "Facilities", href: "/about/facilities" },
       { title: "Faculty Jobs", href: "/about/jobs" },
       { title: "Contact", href: "/about/contact"}
+    ],
+    'about/facilities': [
+      { title: "Ford Robotics Building", href: "/about/facilities/ford-robotics-building" },
+      { title: "M-Air", href: "/about/facilities/m-air" },
+      { title: "Makerspace", href: "https://teamprojects.engin.umich.edu/makerspace-about/", external: true },
+      { title: "Mcity", href: "https://mcity.umich.edu", external: true },
+      { title: "Other U-M Facilities", href: "https://www.engin.umich.edu/research/labs-facilities/", external: true }
+    ],
+    'about/facilities/ford-robotics-building': [
+      { title: "Facilities", href: "/about/facilities" },
+      { title: "M-Air", href: "/about/facilities/m-air" },
     ]
   };
   

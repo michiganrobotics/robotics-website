@@ -9,7 +9,7 @@ const menuItems = addBaseToMenuItems(mainNav);
 
 <header class="mt-6 max-w-6xl w-11/12 mx-auto border-b pb-4 border-umichblue dark:border-white h-16 flex justify-between items-center min-w-[200px]">
     <div class="ml-2 self-end md:ml-0">
-        <a href={base} class="block">
+        <a href={base} class="block" aria-label="Home - Michigan Robotics Logo">
             <Icon name="roboticsLogo" class="w-32 sm:w-48 h-auto"/>
         </a>
     </div>
@@ -20,7 +20,8 @@ const menuItems = addBaseToMenuItems(mainNav);
                 <li class="my-4 dark:text-white md:ml-5 md:my-0 relative group w-full md:w-auto">
                     <div class="flex items-center justify-between px-4 md:px-0">
                         <a href={menuItem.uri || '/'} 
-                           class="group-hover:underline group-hover:decoration-maize group-hover:decoration-2 flex-grow">
+                           class="group-hover:underline group-hover:decoration-maize group-hover:decoration-2 flex-grow"
+                           aria-label={menuItem.label}>
                             {menuItem.label}
                         </a>
                         {menuItem.childItems.nodes.length > 0 && (
@@ -37,7 +38,8 @@ const menuItems = addBaseToMenuItems(mainNav);
                                     <li class="relative group/child pl-6 md:pl-0">
                                         <div class="flex items-center justify-between px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-600">
                                             <a href={childItem.uri || '/'} 
-                                               class="w-full group-hover/child:underline group-hover/child:decoration-maize group-hover/child:decoration-2">
+                                               class="w-full group-hover/child:underline group-hover/child:decoration-maize group-hover/child:decoration-2"
+                                               aria-label={childItem.label}>
                                                 {childItem.label}
                                             </a>
                                             {childItem.childItems.nodes.length > 0 && (
@@ -51,7 +53,9 @@ const menuItems = addBaseToMenuItems(mainNav);
                                                 <li class="triangle-right"></li>
                                                 {childItem.childItems.nodes.map((grandChildItem) => (
                                                     <li class="px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-600 pl-8 md:pl-4">
-                                                        <a href={grandChildItem.uri || '/'} class="block w-full hover:underline hover:decoration-maize hover:decoration-2">
+                                                        <a href={grandChildItem.uri || '/'} 
+                                                           class="block w-full hover:underline hover:decoration-maize hover:decoration-2"
+                                                           aria-label={grandChildItem.label}>
                                                             {grandChildItem.label}
                                                         </a>
                                                     </li>

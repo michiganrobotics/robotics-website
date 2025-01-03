@@ -2,7 +2,7 @@
 import Layout from '../../../layouts/MainLayout.astro';
 import { focusAreas } from './focusAreas';
 import { getCollection } from 'astro:content';
-
+import { Image } from 'astro:assets';
 export async function getStaticPaths() {
   const focusAreaEntries = await getCollection('focus-areas');
   return focusAreas.map(area => {
@@ -22,7 +22,7 @@ const contentComponent = content ? await content.render() : null;
   <div class="max-w-6xl w-11/12 mx-auto py-12">
     <div class="relative rounded-lg overflow-hidden shadow-2xl">
       <div class="absolute inset-0">
-        <img 
+        <Image 
           src={area.image}
           alt={area.imageAlt}
           class="w-full h-full object-cover"

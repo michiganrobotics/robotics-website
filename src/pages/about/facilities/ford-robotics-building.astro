@@ -5,6 +5,8 @@ import SubNav from "../../../components/SubNav.astro";
 import { Image } from "astro:assets";
 import featureImage from '../../../images/featured-images/about-facilities.jpg';
 import { YouTube } from 'astro-embed';
+import nightBuildingImage from '../../../images/facilities/ford-robotics-building-at-night.jpg';
+import dayBuildingImage from '../../../images/facilities/ford-robotics-building-day.jpg';
 ---
 <Layout title="Ford Robotics Building">
     <div class="max-w-6xl w-11/12 mx-auto py-2">
@@ -19,6 +21,9 @@ import { YouTube } from 'astro-embed';
                         src={featureImage}
                         alt=""
                         class="w-full h-full object-cover"
+                        loading="eager"
+                        width={1200}
+                        height={630}
                     />
                 </div>
                 <div class="relative">
@@ -32,15 +37,16 @@ import { YouTube } from 'astro-embed';
         </div>
         <SubNav />
 
-        <div class="mb-8">
-            <YouTube id="Nckogu4XZ28" style="background-image: url('https://i.ytimg.com/vi/Nckogu4XZ28/maxresdefault.jpg');" />
-        </div>
 
-        <p class="text-xl mb-8">The Ford Motor Company Robotics Building is a new national centerpiece in robotics research, learning, and collaboration.</p>
-
+        <article class="prose max-w-none dark:prose-invert mt-8">
+            <div class="mb-8 w-full aspect-video [&>lite-youtube]:!max-w-none">
+                <YouTube id="Nckogu4XZ28" posterQuality="max" class="w-full h-full" />
+            </div>
+        <p class="text-xl mb-2 md:mb-6 dark:text-white">The Ford Motor Company Robotics Building is a new national centerpiece in robotics research, learning, and collaboration.</p>
+     
         <div class="grid md:grid-cols-2 gap-8">
             <div>
-                <p class="mb-6">Opened in 2021, the Ford Robotics building is the home of Michigan Robotics. The 134,000-square-foot, four-story complex houses classrooms, offices, a cafe, and a startup-style open collaboration area and tailored lab space for a variety of robotic technologies. A few highlights include:</p>
+                <p class="mb-6 md:mt-0">Opened in 2021, the Ford Robotics building is the home of Michigan Robotics. The 134,000-square-foot, four-story complex houses classrooms, offices, a cafe, and a startup-style open collaboration area and tailored lab space for a variety of robotic technologies. A few highlights include:</p>
 
 				<ul class="list-disc pl-6 mb-6 space-y-2">
 					<li>Three-story fly zone for autonomous aerial vehicles</li>
@@ -55,13 +61,28 @@ import { YouTube } from 'astro-embed';
 				<p class="mb-6">And in a unique agreement, Ford leases the fourth floor to perform robotics research and engineering in collaboration with U-M and other industry leaders.</p>
 
 				<div class="mb-8">
-					<img src="http://2024.robotics.umich.edu/wp-content/uploads/sites/6/2021/03/FordRoboticsNight-1024x684.jpg" alt="Ford Robotics Building at night" class="w-full rounded-lg shadow-lg">
-					<p class="text-sm text-gray-600 mt-2">The Ford Robotics Building in early spring, 2021. Photo: Robert Coelius, Michigan Engineering.</p>
+                    <Image
+                        src={nightBuildingImage}    
+                        alt="Ford Robotics Building at night"
+                        class="w-full rounded-sm shadow-lg hidden dark:block"
+                        loading="eager"
+                        width={1024}
+                        height={684}
+                    />
+                    
+                    <Image
+                        src={dayBuildingImage}    
+                        alt="Ford Robotics Building at day"
+                        class="w-full rounded-sm shadow-lg block dark:hidden"
+                        loading="eager"
+                        width={1024}
+                        height={684}
+                    />
 				</div>
 			</div>
 
 			<div>
-				<h2 class="text-2xl font-bold text-umichblue mb-4">What is its purpose?</h2>
+				<h2 class="text-2xl font-bold text-umichblue dark:text-white mb-4 md:mt-0">What is its purpose?</h2>
 				<p class="mb-4">The Ford Robotics Building brings all parts of the robotics enterprise together for real-world results.</p>
 
 				<p class="mb-4">The new building is designed to promote collaborative work across disciplines, involving students and faculty at all levels, from a variety of fields. It also promotes collaboration with external partners, including the Ford Motor Company, who have a permanent presence on site. It has spaces for teaching, experimentation, and testing, in purpose-built bays and laboratories that represent the state of the art.</p>
@@ -74,38 +95,40 @@ import { YouTube } from 'astro-embed';
 			</div>
 		</div>
 
-		<h2 class="text-2xl font-bold text-umichblue mt-12 mb-4">Other facilities</h2>
+		<h2 class="text-2xl font-bold text-umichblue dark:text-white mt-12 mb-4">In a next-level neighborhood</h2>
 		<p class="mb-4">Among the many facilities open to Michigan Robotics students, faculty, and researchers, several provide unique opportunities to develop technologies safely, nimbly, and creatively.</p>
 
-		<p class="mb-4"><a href="https://2024.robotics.umich.edu/about/mair/" class="text-arboretumBlue hover:underline font-bold">M-Air</a> is a 10,000 sq ft, four-story, netted scientific facility that enables the study of autonomy and collaborative robotics in the "wild," with emphasis on dealing with the full range of Michigan weather, -30C to 38C, with rain, sleet, wind, and snow.</p>
+		<p class="mb-4"><a href="https://2024.robotics.umich.edu/about/mair/" class="text-arboretumBlue dark:text-maize hover:underline">M-Air</a> is a 10,000 sq ft, four-story, netted scientific facility that enables the study of autonomy and collaborative robotics in the "wild," with emphasis on dealing with the full range of Michigan weather, -30C to 38C, with rain, sleet, wind, and snow.</p>
 
-		<p class="mb-8"><a href="https://mcity.umich.edu" class="text-arboretumBlue hover:underline font-bold">Mcity</a> is a public-private partnership that operates the world's first purpose-built proving ground for testing the performance and safety of connected and automated vehicles and technologies under controlled and realistic conditions, all on the Michigan campus.</p>
+		<p class="mb-4"><a href="https://mcity.umich.edu" class="text-arboretumBlue dark:text-maize hover:underline">Mcity</a> is a public-private partnership that operates the world's first purpose-built proving ground for testing the performance and safety of connected and automated vehicles and technologies under controlled and realistic conditions, all on the Michigan campus.</p>
 
-		<h2 class="text-2xl font-bold text-umichblue mb-4">Tours</h2>
+        <p class="mb-4">And the College of Engineering and University of Michigan have <a href="https://www.engin.umich.edu/research/labs-facilities/"" class="text-arboretumBlue dark:text-maize hover:underline">an astounding array of additional world-class facilities</a>, including a nanofabrication lab, wind tunnels, water testing tanks, and more.</p>
+        
+		<h2 class="text-2xl font-bold text-umichblue dark:text-white mb-4">Tours</h2>
 		<p class="mb-4">We kindly request that you respect the focus and concentration of our researchers in the labs during any visit to the building. Your cooperation is greatly appreciated.</p>
 
-		<p class="mb-4">We have created <a href="https://audio.2024.robotics.umich.edu" class="text-arboretumBlue hover:underline">an audio tour</a> for those who want to explore the building and hear from the roboticists themselves – just visit from Monday through Friday, 7am to 7pm with your mobile device and headphones, and follow the audio tour signs.</p>
+		<p class="mb-4">We have created <a href="https://audio.2024.robotics.umich.edu" class="text-arboretumBlue dark:text-maize hover:underline">an audio tour</a> for those who want to explore the building and hear from the roboticists themselves – just visit from Monday through Friday, 7am to 7pm with your mobile device and headphones, and follow the audio tour signs.</p>
 
-		<p class="mb-4">Staffed tours are available in Winter 2024, please find available dates at <a href="https://form.jotform.com/212225992207151" class="text-arboretumBlue hover:underline">this tour sign-up form</a>.</p>
+		<p class="mb-4">Staffed tours are available in Winter 2024, please find available dates at <a href="https://form.jotform.com/212225992207151" class="text-arboretumBlue dark:text-maize hover:underline">this tour sign-up form</a>.</p>
 
-		<p class="mb-4">For prospective undergraduate students, we recommend <a href="https://www.engin.umich.edu/admissions-aid/visit/" class="text-arboretumBlue hover:underline">utilizing the College of Engineering tour</a>, which begins in our building but covers much more of campus.</p>
+		<p class="mb-4">For prospective undergraduate students, we recommend <a href="https://www.engin.umich.edu/admissions-aid/visit/" class="text-arboretumBlue dark:text-maize hover:underline">utilizing the College of Engineering tour</a>, which begins in our building but covers much more of campus.</p>
 
-		<p class="mb-8">For those unable to make it to Michigan, we recommend watching our <a href="https://www.youtube.com/channel/UC-WH2n-SkB166pUq5o5ULUg" class="text-arboretumBlue hover:underline">YouTube channel</a> and <a href="https://www.instagram.com/umrobotics/" class="text-arboretumBlue hover:underline">Instagram</a> (where we occasionally <a href="https://www.instagram.com/tv/CR9Xz8Nl4Hp/" class="text-arboretumBlue hover:underline">livestream</a> tours) to get a sense of what's going on at Michigan Robotics and inside the building.</p>
+		<p class="mb-8">For those unable to make it to Michigan, we recommend watching our <a href="https://www.youtube.com/channel/UC-WH2n-SkB166pUq5o5ULUg" class="text-arboretumBlue dark:text-maize hover:underline">YouTube channel</a> and <a href="https://www.instagram.com/umrobotics/" class="text-arboretumBlue dark:text-maize hover:underline">Instagram</a> (where we occasionally <a href="https://www.instagram.com/tv/CR9Xz8Nl4Hp/" class="text-arboretumBlue dark:text-maize hover:underline">livestream</a> tours) to get a sense of what's going on at Michigan Robotics and inside the building.</p>
 
-		<div class="bg-gray-100 p-8 rounded-lg grid md:grid-cols-2 gap-8">
+		<div class="bg-gray-200 dark:bg-gray-800 p-8 rounded-lg grid md:grid-cols-2 gap-8">
 			<div>
-				<h2 class="text-2xl font-bold text-umichblue mb-4">Related links</h2>
+				<h2 class="text-2xl font-bold text-umichblue dark:text-white mb-4">Related links</h2>
 				<ul class="space-y-2">
-					<li><a href="https://news.engin.umich.edu/2021/03/u-michigan-ford-open-world-class-robotics-complex/" class="text-arboretumBlue hover:underline">U-M, Ford open world-class advanced robotics lab</a></li>
-					<li><a href="https://www.engin.umich.edu/2020/09/how-to-make-the-robot-revolution-serve-the-people/" class="text-arboretumBlue hover:underline">A peek inside at the research</a></li>
-					<li><a href="https://news.umich.edu/u-m-breaks-ground-on-ford-robotics-building/" class="text-arboretumBlue hover:underline">Groundbreaking</a></li>
-					<li><a href="https://www.dropbox.com/s/r43mem8u4fzrdhz/FRB%20Floor%20Plans%202021.pdf?dl=0" class="text-arboretumBlue hover:underline">Building drawings</a></li>
-					<li><a href="https://ocs.umich.edu/resources/where-to-throw/" class="text-arboretumBlue hover:underline">Composting in the building</a></li>
+					<li><a href="https://news.engin.umich.edu/2021/03/u-michigan-ford-open-world-class-robotics-complex/" class="text-arboretumBlue dark:text-maize hover:underline">U-M, Ford open world-class advanced robotics lab</a></li>
+					<li><a href="https://www.engin.umich.edu/2020/09/how-to-make-the-robot-revolution-serve-the-people/" class="text-arboretumBlue dark:text-maize hover:underline">A peek inside at the research</a></li>
+					<li><a href="https://news.umich.edu/u-m-breaks-ground-on-ford-robotics-building/" class="text-arboretumBlue dark:text-maize hover:underline">Groundbreaking</a></li>
+					<li><a href="https://www.dropbox.com/s/r43mem8u4fzrdhz/FRB%20Floor%20Plans%202021.pdf?dl=0" class="text-arboretumBlue dark:text-maize hover:underline">Building drawings</a></li>
+					<li><a href="https://ocs.umich.edu/resources/where-to-throw/" class="text-arboretumBlue dark:text-maize hover:underline">Composting in the building</a></li>
 				</ul>
 			</div>
 
 			<div>
-				<h2 class="text-2xl font-bold text-umichblue mb-4">Address</h2>
+				<h2 class="text-2xl font-bold text-umichblue dark:text-white mb-4">Address</h2>
 				<p class="mb-6">
 					Ford Motor Company Robotics Building<br>
 					2505 Hayward St<br>
@@ -113,15 +136,15 @@ import { YouTube } from 'astro-embed';
 					48109-2106
 				</p>
 
-				<h2 class="text-2xl font-bold text-umichblue mb-4">Transit, Parking, & Travel</h2>
+				<h2 class="text-2xl font-bold text-umichblue dark:text-white mb-4">Transit, Parking, & Travel</h2>
 				<p class="mb-4"><strong>AATA / TheRide:</strong> At the Hayward & Draper stop on Route 22 or Route 66.<br>
 				<strong>U-M Bus:</strong> 5 minute walk from the FXB stop or Hubbard/Hayward stop on Commuter North, Northwood, Med Express, or North-East Shuttle.</p>
 
-				<p class="mb-4"><strong>Visitor Parking:</strong> <a href="https://www.google.com/maps/place/NC26+Parking+Lot,+Ann+Arbor,+MI+48109/@42.2939623,-83.7086283,15z/" class="text-arboretumBlue hover:underline">Lot NC-26</a> is paid visitor parking at $2.20/hour.</p>
+				<p class="mb-4"><strong>Visitor Parking:</strong> <a href="https://www.google.com/maps/place/NC26+Parking+Lot,+Ann+Arbor,+MI+48109/@42.2939623,-83.7086283,15z/" class="text-arboretumBlue dark:text-maize hover:underline">Lot NC-26</a> is paid visitor parking at $2.20/hour.</p>
 
-				<p class="mb-4"><strong>Airport: </strong>Detroit Metropolitan Airport (DTW), see more <a href="https://campusinfo.umich.edu/article/and-airport" class="text-arboretumBlue hover:underline">airport information</a>.</p>
+				<p class="mb-4"><strong>Airport: </strong>Detroit Metropolitan Airport (DTW), see more <a href="https://campusinfo.umich.edu/article/and-airport" class="text-arboretumBlue dark:text-maize hover:underline">airport information</a>.</p>
 
-				<p><strong>Accommodations:</strong> Search for hotels near North Campus, or see more <a href="https://campusinfo.umich.edu/article/accommodations" class="text-arboretumBlue hover:underline">hotel information</a>.</p>
+				<p><strong>Accommodations:</strong> Search for hotels near North Campus, or see more <a href="https://campusinfo.umich.edu/article/accommodations" class="text-arboretumBlue dark:text-maize hover:underline">hotel information</a>.</p>
 			</div>
 		</div>
 	</main>

@@ -1,5 +1,6 @@
 ---
 import { subNavConfig } from '../lib/nav';
+import { Icon } from 'astro-icon';
 
 interface Props {
   wordpressPage?: {
@@ -22,7 +23,8 @@ const trimmedPath = pathname
   .replace(/\/$/, ''); // Remove leading and trailing slashes
 
 // Helper function to add base to URI
-const addBase = (uri: string) => {
+const addBase = (uri: string, external?: boolean) => {
+  if (external) return uri;
   // Remove any existing base paths
   const cleanUri = uri.replace(new RegExp(`^${BASE}`), '');
   return BASE + (cleanUri.startsWith('/') ? cleanUri : '/' + cleanUri);
@@ -40,7 +42,7 @@ if (wordpressPage?.children?.nodes) {
 Object.entries(subNavConfig).forEach(([key, items]) => {
   subNavConfig[key] = items.map(item => ({
     ...item,
-    href: addBase(item.href)
+    href: addBase(item.href, item.external)
   }));
 });
 
@@ -73,6 +75,7 @@ const configuredItems = Object.entries(subNavConfig)
                 ${pathname === (item.href || item.uri) ? 'bg-arboretumBlue/20 border-umichblue/50' : ''}`}
       >
         {item.title}
+        {item.external && <Icon name="mdi:open-in-new" class="inline w-4 h-4 ml-1" />}
       </a>
     ))}
   </nav>
