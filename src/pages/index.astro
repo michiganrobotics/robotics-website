@@ -10,6 +10,9 @@ import { Image } from "astro:assets";
 const eventsData = await eventsQuery();
 const { posts } = await homePagePostsQuery();
 const recentPosts = posts.nodes.slice(0, 3);
+import academicsImage from '../images/homepage/homepage-academics.jpg';
+import researchImage from '../images/homepage/homepage-research.jpg';
+import peopleImage from '../images/homepage/homepage-people.jpg';
 
 Astro.response.headers.set('Cache-Control','max-age=600, must-revalidate');
 
@@ -48,19 +51,19 @@ Astro.response.headers.set('Cache-Control','max-age=600, must-revalidate');
 				<div class="flex flex-wrap gap-4 justify-center mb-8 md:flex-nowrap pt-10 px-2">
 					{[
 						{
-							image: "homepage-academics.jpg",
+							image: academicsImage,
 							alt: "Academics at Michigan Robotics",
 							title: "Graduate and undergrad programs",
 							href: "/academics"
 						},
 						{
-							image: "homepage-research.jpg", 
+							image: researchImage, 
 							alt: "Research at Michigan Robotics",
 							title: "Explore robotics research",
 							href: "/research"
 						},
 						{
-							image: "homepage-people.jpg",
+							image: peopleImage,
 							alt: "People at Michigan Robotics",
 							title: "Find cross-disciplinary roboticists", 
 							href: "/people"
@@ -69,7 +72,7 @@ Astro.response.headers.set('Cache-Control','max-age=600, must-revalidate');
 						<figure class="group min-w-[50%] md:min-w-[auto] flex-auto relative max-w-md transition-all duration-300 cursor-pointer hover:-translate-y-1">
 							<a href={item.href}>
 								<Image 
-									src={`/src/images/homepage/${item.image}`}
+									src={item.image}
 									alt={item.alt}
 									width={800}
 									height={400}

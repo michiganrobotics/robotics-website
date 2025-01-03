@@ -1,5 +1,6 @@
 ---
 import MainLayout from "../../layouts/MainLayout.astro";
+import { Icon } from "astro-icon";
 import { YouTube } from '@astro-community/astro-embed-youtube';
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import SubNav from "../../components/SubNav.astro";
@@ -46,20 +47,37 @@ import SubNav from "../../components/SubNav.astro";
     </div>
 
     <section class="mt-12">
-      <h2 class="text-3xl font-roboto-condensed font-bold mb-6 text-umichblue dark:text-white">Academic programs</h2>
+      <h2 class="text-3xl font-roboto-condensed font-bold mb-6 text-umichblue dark:text-white">Academics</h2>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
-          <h3 class="text-xl font-bold mb-2 text-umichblue dark:text-white">Undergraduate</h3>
-          <p>167 robotics majors</p>
+          <h3 class="text-xl font-bold mb-2 text-umichblue dark:text-white">
+            <a href="/academics/undergraduate" class="flex items-center hover:underline">
+              Undergraduate
+              <Icon name="mdi:chevron-right" class="h-5 w-5 ml-1" />
+            </a>
+          </h3>
+          <p>167 current robotics majors</p>
           <p>16 alumni</p>
         </div>
         <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
-          <h3 class="text-xl font-bold mb-2 text-umichblue dark:text-white">Graduate</h3>
-          <p>371 Master's and PhD students</p>
+          <h3 class="text-xl font-bold mb-2 text-umichblue dark:text-white">
+            <a href="/academics/graduate" class="flex items-center hover:underline">
+              Graduate
+              <Icon name="mdi:chevron-right" class="h-5 w-5 ml-1" />
+            </a>
+            </a>
+          </h3>
+          <p>371 current Master's and PhD students</p>
           <p>Program started in 2014</p>
         </div>
         <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
-          <h3 class="text-xl font-bold mb-2 text-umichblue dark:text-white">Course Development</h3>
+          <h3 class="text-xl font-bold mb-2 text-umichblue dark:text-white">
+            <a href="/academics/courses" class="flex items-center hover:underline">
+              Robotics courses
+              <Icon name="mdi:chevron-right" class="h-5 w-5 ml-1" />
+            </a>
+            </a>
+          </h3>
           <p>12 new undergraduate robotics courses</p>
           <p>Several courses freely available online</p>
         </div>
@@ -67,7 +85,12 @@ import SubNav from "../../components/SubNav.astro";
     </section>
 
     <section class="mt-12">
-      <h2 class="text-3xl font-roboto-condensed font-bold mb-6 text-umichblue dark:text-white">Research focus areas</h2>
+      <h2 class="text-3xl font-roboto-condensed font-bold mb-6 text-umichblue dark:text-white">
+        <a href="/research/focus-areas" class="flex items-center hover:underline">
+          Research focus areas
+          <Icon name="mdi:chevron-right" class="h-5 w-5 ml-1" />
+        </a>
+      </h2>
       <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
         <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md">Artificial intelligence</div>
         <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md">Autonomous vehicles and systems</div>
