@@ -4,7 +4,7 @@ date: "2023-03-31"
 categories: 
   - "robotics-community"
 image: 
-  src: "images/gregg-exo-model.jpg"
+  src: "../content/news/2023/images/gregg-exo-model.jpg"
   alt: "A robotic exoskeleton."
 author: "Dan Newman"
 ---

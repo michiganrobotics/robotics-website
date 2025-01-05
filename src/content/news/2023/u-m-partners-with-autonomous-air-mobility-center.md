@@ -4,7 +4,7 @@ date: "2023-10-13"
 categories: 
   - "autonomous-connected-vehicles"
 image: 
-  src: "images/2018-M-Air-First-Flight-Event005-1024x683.jpg"
+  src: "../content/news/2023/images/2018-M-Air-First-Flight-Event005-1024x683.jpg"
   alt: "Autonomous aerial vehicles are flown at M-Air, an advanced robotics testing facility for air, sea, and land, on North Campus of the University of Michigan in Ann Arbor, MI."
 author: "Dan Newman"
 tags:

@@ -4,8 +4,11 @@ date: "2021-08-13"
 categories: 
   - "robot-perception-manipulation"
 image: 
-  src: "images/virtual-humanoid.jpg"
+  src: "../content/news/2021/images/virtual-humanoid.jpg"
   alt: "A virtual robot shows different modes of motion, with only feet, with one hand, or with both, as it traverses rough terrain."
+author: "Dan Newman"
+tags:
+  - "Dmitry Berenson"
 ---
 
 https://www.youtube.com/watch?v=X2KZupY8FQY

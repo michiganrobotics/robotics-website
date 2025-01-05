@@ -4,7 +4,7 @@ date: "2021-12-16"
 categories: 
   - "rehabilitation-robotics-brain-machine-interfaces"
 image: 
-  src: "images/47954861313_0d6b8f9772_k.jpg"
+  src: "../content/news/2021/images/47954861313_0d6b8f9772_k.jpg"
   alt: "A patient tests an open-source robotic leg on a treadmill."
 ---
 

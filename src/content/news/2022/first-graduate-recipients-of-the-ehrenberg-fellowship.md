@@ -4,7 +4,7 @@ date: "2022-09-27"
 categories: 
   - "robotics-community"
 image: 
-  src: "images/51862359040_777cb5141b_k.jpg"
+  src: "../content/news/2022/images/51862359040_777cb5141b_k.jpg"
   alt: "Two hands work on small robot on a bench top."
 author: "Dan Newman"
 ---

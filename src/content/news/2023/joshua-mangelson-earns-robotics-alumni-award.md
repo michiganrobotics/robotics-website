@@ -4,7 +4,7 @@ date: "2023-10-23"
 categories: 
   - "robotics-community"
 image: 
-  src: "images/Screenshot-2023-10-23-at-2.18.18-PM.png"
+  src: "../content/news/2023/images/Screenshot-2023-10-23-at-2.18.18-PM.png"
   alt: "A roboticist presenting to a group of students."
 author: "Dan Newman"
 excerpt: "Over homecoming, Dr. Joshua Mangelson received the 2023 Robotics Department Alumni Merit Award. As part of the homecoming visit, Dr. Mangelson presented the Robotics Alumni Award Lecture, 'Steps Towards Intelligent Large-Scale Marine Robotic Autonomy,' for the robotics community."

@@ -4,7 +4,7 @@ date: "2022-01-25"
 categories: 
   - "robotics-community"
 image: 
-  src: "images/taliamoore.jpg"
+  src: "../content/news/2022/images/taliamoore.jpg"
   alt: "Talia Moore"
 author: "Dan Newman"
 tags:

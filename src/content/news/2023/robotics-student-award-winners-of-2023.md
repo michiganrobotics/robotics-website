@@ -4,7 +4,7 @@ date: "2023-03-29"
 categories: 
   - "robotics-community"
 image: 
-  src: "images/2023-01-17-15.27.04-cropped-1024x504.jpg"
+  src: "../content/news/2023/images/2023-01-17-15.27.04-cropped-1024x504.jpg"
   alt: "A student smiles with the iconic yellow staircase of the Robotics Building in the background."
 author: "Dan Newman"
 ---

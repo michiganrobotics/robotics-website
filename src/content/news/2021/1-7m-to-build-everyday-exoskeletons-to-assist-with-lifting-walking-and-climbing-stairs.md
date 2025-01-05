@@ -4,7 +4,7 @@ date: "2021-10-04"
 categories: 
   - "rehabilitation-robotics-brain-machine-interfaces"
 image: 
-  src: "images/gregg-exo-model.jpg"
+  src: "../content/news/2021/images/gregg-exo-model.jpg"
   alt: "A model of the powered exoskeleton on the hip, knee and ankle joints."
 ---
 

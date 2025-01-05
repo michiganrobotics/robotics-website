@@ -4,7 +4,7 @@ date: "2023-03-31"
 categories: 
   - "robotics-community"
 image: 
-  src: "images/2022-10-25-15.35.22-cropped-1024x632.jpg"
+  src: "../content/news/2023/images/2022-10-25-15.35.22-cropped-1024x632.jpg"
   alt: "A roboticist presenting to a group of students."
 author: "Dan Newman"
 tags:

@@ -4,7 +4,7 @@ date: "2023-08-23"
 categories: 
   - "robotics-community"
 image: 
-  src: "images/53105152864_7867bfe600_k.jpg"
+  src: "../content/news/2023/images/53105152864_7867bfe600_k.jpg"
   alt: "A roboticist presents in front of a group of students and parents during a summer camp activity with Arduinos."
 author: "Dan Newman"
 ---

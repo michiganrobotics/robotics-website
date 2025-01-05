@@ -4,7 +4,7 @@ date: "2021-10-07"
 categories: 
   - "robotics-community"
 image: 
-  src: "images/2021-09-30-13.39.10-reduced.jpeg"
+  src: "../content/news/2021/images/2021-09-30-13.39.10-reduced.jpeg"
   alt: "Professor Jessy Grizzle shows Victor Popa-Simil a Cassie robot with a lidar sensor on top."
 ---
 

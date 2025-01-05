@@ -4,7 +4,7 @@ date: "2023-12-23"
 categories: 
   - "rehabilitation-robotics-brain-machine-interfaces"
 image: 
-  src: "images/image-1.png"
+  src: "../content/news/2023/images/image-1.png"
   alt: "A student demonstrating a robotic prosthetic leg."
 author: "Kate McAlpine"
 tags:

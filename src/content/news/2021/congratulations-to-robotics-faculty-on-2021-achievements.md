@@ -4,7 +4,7 @@ date: "2021-05-21"
 categories: 
   - "robotics-community"
 image: 
-  src: "images/Robot-Garden17.jpeg"
+  src: "../content/news/2021/images/Robot-Garden17.jpeg"
   alt: "Robots and roboticists cheering in the Robot Garden. Photo by Robert Coelius."
 ---
 

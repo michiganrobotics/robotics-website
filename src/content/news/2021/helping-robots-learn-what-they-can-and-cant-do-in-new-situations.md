@@ -4,7 +4,7 @@ date: "2021-05-19"
 categories: 
   - "robot-perception-manipulation"
 image: 
-  src: "images/robot-in-car.jpg"
+  src: "../content/news/2021/images/robot-in-car.jpg"
   alt: "A robot performs the difficult to model task of manipulating straps without tangling them around a mock car engine in the Autonomous Robotic Manipulation Lab."
 ---
 

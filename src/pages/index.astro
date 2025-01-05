@@ -21,21 +21,20 @@ const eventsData = await eventsQuery();
 
 Astro.response.headers.set('Cache-Control','max-age=600, must-revalidate');
 
+const images = import.meta.glob<{ default: ImageMetadata }>('/src/content/**/*.{jpeg,jpg,png,gif}');
+
 async function getImageModule(post) {
   if (!post.data.image?.src) return null;
   
-  const year = post.data.date.split('-')[0];
-  const imagePath = post.data.image.src;
-  
   try {
-    const cleanPath = imagePath.replace(/^images\//, '');
-    return await import(`../content/news/${year}/images/${cleanPath}`);
+    const imagePath = `/src/content${post.data.image.src.replace('../content', '')}`;
+    if (imagePath in images) {
+      const image = await images[imagePath]();
+      return image.default;
+    }
+    return null;
   } catch (error) {
-    console.error('Error importing image:', error, {
-      year,
-      imagePath,
-      fullPath: `../content/news/${year}/images/${imagePath}`
-    });
+    console.error('Error in getImageModule:', error);
     return null;
   }
 }
@@ -65,7 +64,7 @@ async function getImageModule(post) {
 							<a href={`${import.meta.env.BASE_URL}news/${post.slug}`} class="group bg-white dark:bg-gray-800 shadow-md rounded-sm overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-[1.02] md:flex-1 max-w-md">
 								{imageModule && (
 									<Image 
-										src={imageModule.default}
+										src={imageModule}
 										alt={post.data.image?.alt || 'News image'}
 										width={1024}
 										height={683}

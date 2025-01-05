@@ -4,7 +4,7 @@ date: "2021-05-10"
 categories: 
   - "robotics-community"
 image: 
-  src: "images/DSC02584-1-scaled.jpg"
+  src: "../content/news/2021/images/DSC02584-1-scaled.jpg"
   alt: "A student checks a robot's code during the ROB 103 final competition."
 ---
 

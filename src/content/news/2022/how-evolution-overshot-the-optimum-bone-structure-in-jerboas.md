@@ -4,7 +4,7 @@ date: "2022-10-17"
 categories: 
   - "legged-locomotion-exoskeletons"
 image: 
-  src: "images/hop-skip-run-leap-unpredictability-boosts-survival-for-bipedal-desert-rodents-wide-orig-20170905-e1666040034883.jpg"
+  src: "../content/news/2022/images/hop-skip-run-leap-unpredictability-boosts-survival-for-bipedal-desert-rodents-wide-orig-20170905-e1666040034883.jpg"
   alt: "Simulation of jerboa bones showing stress with a fused metatarsal and unfused metatarsals breaking under stress"
 author: "Dan Newman"
 tags:

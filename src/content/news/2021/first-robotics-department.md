@@ -4,7 +4,7 @@ date: "2021-12-15"
 categories: 
   - "robotics-community"
 image: 
-  src: "images/UM_ROB_Dept_2.jpg"
+  src: "../content/news/2021/images/UM_ROB_Dept_2.jpg"
   alt: "A robot in a lab."
 ---
 

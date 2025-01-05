@@ -4,7 +4,7 @@ date: "2021-03-18"
 categories: 
   - "robotics-community"
 image: 
-  src: "images/FordRoboticsNight.jpg"
+  src: "../content/news/2021/images/FordRoboticsNight.jpg"
   alt: "Aerial view of the Ford Robotics Building at the University of Michigan."
 ---
 

@@ -4,8 +4,11 @@ date: "2021-03-05"
 categories: 
   - "legged-locomotion-exoskeletons"
 image: 
-  src: "images/Atlante-Kinematic.png"
+  src: "../content/news/2021/images/Atlante-Kinematic.png"
   alt: "Animation of an exoskeleton moving from sitting to standing."
+author: "Dan Newman"
+tags:
+  - "Jessy Grizzle"
 ---
 
 <figure>

@@ -4,7 +4,7 @@ date: "2022-05-20"
 categories: 
   - "robotics-community"
 image: 
-  src: "images/52052612611_d2ce989001_k.jpg"
+  src: "../content/news/2022/images/52052612611_d2ce989001_k.jpg"
   alt: "Dawn Tilbury giving a lecture."
 author: "Lanard Ingram"
 tags:

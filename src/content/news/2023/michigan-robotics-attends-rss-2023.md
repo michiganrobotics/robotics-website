@@ -4,7 +4,7 @@ date: "2023-06-30"
 categories: 
   - "robotics-community"
 image: 
-  src: "images/digit-with-box-1024x548.jpg"
+  src: "../content/news/2023/images/digit-with-box-1024x548.jpg"
   alt: "A Digit robot stands in the Ford Motor Company Robotics Building"
 author: "Dan Newman"
 tags:

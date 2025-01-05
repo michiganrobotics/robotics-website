@@ -4,7 +4,7 @@ date: "2024-02-06"
 categories: 
   - "robotics-community"
 image: 
-  src: "images/2023-06-26-11.47.29-1024x683.jpg"
+  src: "../content/news/2024/images/2023-06-26-11.47.29-1024x683.jpg"
   alt: "Abhishek Narula and Peter Gaskell sort through a table of Mbot PICO+ chips in the ROB 550 lab."
 author: "Dan Newman"
 tags:

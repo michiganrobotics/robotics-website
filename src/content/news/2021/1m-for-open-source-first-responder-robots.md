@@ -5,7 +5,7 @@ categories:
   - "legged-locomotion-exoskeletons"
   - "motion-planning"
 image: 
-  src: "images/51205991070_b13b38d47c_k.jpg"
+  src: "../content/news/2021/images/51205991070_b13b38d47c_k.jpg"
   alt: "A mini-cheetah out on the Robot Garden at the Ford Motor Company Robotics Building."
 ---
 

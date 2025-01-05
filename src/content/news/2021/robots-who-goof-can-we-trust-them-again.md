@@ -4,8 +4,10 @@ date: "2021-08-10"
 categories: 
   - "human-robot-interaction"
 image: 
-  src: "images/android.jpg"
+  src: "../content/news/2021/images/android.jpg"
   alt: "A mechanical arm in a virtual work setting with boxes and working statistics."
+tags:
+  - "Lionel Robert"
 ---
 
 <figure>

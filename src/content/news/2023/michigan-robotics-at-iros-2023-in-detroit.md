@@ -4,7 +4,7 @@ date: "2023-09-07"
 categories: 
   - "robotics-community"
 image: 
-  src: "images/detroit.jpg"
+  src: "../content/news/2023/images/detroit.jpg"
   alt: "Detroit skyline."
 author: "Dan Newman"
 tags:

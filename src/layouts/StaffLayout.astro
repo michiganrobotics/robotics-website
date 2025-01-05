@@ -3,6 +3,7 @@ import Layout from './MainLayout.astro';
 import { Image } from 'astro:assets';
 const { staff } = Astro.props;
 import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
 
 // Fetch all news posts
 const allPosts = await getCollection('news');
@@ -12,21 +13,21 @@ const relatedPosts = allPosts
   .filter(post => post.data.tags?.includes(staff.fullName))
   .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
 
-async function getImageModule(post) {
+// Import all images
+const images = import.meta.glob<{ default: ImageMetadata }>('/src/content/**/*.{jpeg,jpg,png,gif}');
+
+async function getNewsImage(post: CollectionEntry<'news'>) {
   if (!post.data.image?.src) return null;
   
-  const year = post.data.date.split('-')[0];
-  const imagePath = post.data.image.src;
-  
   try {
-    const cleanPath = imagePath.replace(/^images\//, '');
-    return await import(`../content/news/${year}/images/${cleanPath}`);
+    const imagePath = `/src/content${post.data.image.src.replace('../content', '')}`;
+    if (imagePath in images) {
+      const image = await images[imagePath]();
+      return image.default;
+    }
+    return null;
   } catch (error) {
-    console.error('Error importing image:', error, {
-      year,
-      imagePath,
-      fullPath: `../content/news/${year}/images/${imagePath}`
-    });
+    console.error('Error in getNewsImage:', error);
     return null;
   }
 }
@@ -81,36 +82,34 @@ async function getImageModule(post) {
               </div>
             )}
           </div>
-
-          </div>
         </div>
       </div>
+
+      {/* Related News Section */}
       {relatedPosts.length > 0 && (
         <div class="mt-12">
           <h2 class="text-2xl font-bold mb-4 font-roboto-condensed dark:text-white">Related news</h2>
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {relatedPosts.map(async (post) => {
-              const imageModule = await getImageModule(post);
-
+              const image = await getNewsImage(post);
+              
               return (
-                <a href={`${import.meta.env.BASE_URL}news/${post.slug}`} class="group">
-                  <div class="bg-white dark:bg-gray-800 rounded-sm overflow-hidden shadow-md hover:shadow-lg transition-shadow">
-                    {imageModule && (
-                      <div class="aspect-video overflow-hidden">
-                        <Image 
-                          src={imageModule.default}
-                          alt={post.data.image?.alt || post.data.title}
-                          width={400}
-                          height={225}
-                          class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                        />
-                      </div>
-                    )}
-                    <div class="p-4">
-                      <h3 class="text-lg font-medium decoration-maize decoration-2 group-hover:underline">
-                        {post.data.title}
-                      </h3>
+                <a href={`${import.meta.env.BASE_URL}/news/${post.slug}`} class="group">
+                  {image && (
+                    <div class="aspect-video overflow-hidden">
+                      <Image 
+                        src={image}
+                        alt={post.data.image?.alt || post.data.title}
+                        width={800}
+                        height={450}
+                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
                     </div>
+                  )}
+                  <div class="p-4">
+                    <h3 class="text-lg font-medium decoration-maize decoration-2 group-hover:underline">
+                      {post.data.title}
+                    </h3>
                   </div>
                 </a>
               );

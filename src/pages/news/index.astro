@@ -54,33 +54,22 @@ selectedOlderPosts = selectedOlderPosts.slice(0, 8);
 
 const collegeNewsItems = await collegeNewsQuery();
 
-// Update the image path construction
+// Import all images using glob pattern
+const images = import.meta.glob<{ default: ImageMetadata }>('/src/content/**/*.{jpeg,jpg,png,gif}');
+
+// Replace the existing getImageModule function with this new one
 async function getImageModule(post) {
   if (!post.data.image?.src) return null;
   
-  const year = post.data.date.split('-')[0];
-  const imagePath = post.data.image.src;
-  
   try {
-    // Remove any duplicate 'images' in the path
-    const cleanPath = imagePath.replace(/^images\//, '');
-    
-    // Use dynamic import with explicit file extensions
-    if (imagePath.endsWith('.jpg') || imagePath.endsWith('.jpeg')) {
-      return await import(`../../content/news/${year}/images/${cleanPath}`);
-    } else if (imagePath.endsWith('.png')) {
-      return await import(`../../content/news/${year}/images/${cleanPath}`);
-    } else if (imagePath.endsWith('.webp')) {
-      return await import(`../../content/news/${year}/images/${cleanPath}`);
+    const imagePath = `/src/content${post.data.image.src.replace('../content', '')}`;
+    if (imagePath in images) {
+      const image = await images[imagePath]();
+      return image.default;
     }
-    console.warn(`Unsupported image format for ${imagePath}`);
     return null;
   } catch (error) {
-    console.error('Error importing image:', error, {
-      year,
-      imagePath,
-      fullPath: `../../content/news/${year}/images/${imagePath}`
-    });
+    console.error('Error in getImageModule:', error);
     return null;
   }
 }
@@ -123,11 +112,11 @@ async function getImageModule(post) {
           });
           
           return (
-            <a href={`${import.meta.env.BASE_URL}news/${post.slug}`} 
+            <a href={`/news/${post.slug}`} 
                class={`group block bg-white dark:bg-gray-800 shadow-md rounded-sm overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-[1.02] ${index === 0 ? 'md:col-span-2' : ''}`}>
               {imageModule && (
                 <Image 
-                  src={imageModule.default}
+                  src={imageModule}
                   alt={post.data.image?.alt || 'News image'}
                   width={1024}
                   height={683}
@@ -190,7 +179,7 @@ async function getImageModule(post) {
                class="group bg-white dark:bg-gray-800 shadow-md rounded-sm overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-[1.02] flex flex-col">
               {imageModule && (
                 <Image 
-                  src={imageModule.default}
+                  src={imageModule}
                   alt={post.data.image.alt}
                   width={1024}
                   height={683}

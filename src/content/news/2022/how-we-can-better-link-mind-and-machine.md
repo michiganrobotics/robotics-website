@@ -6,7 +6,7 @@ categories:
   - "legged-locomotion-exoskeletons"
   - "rehabilitation-robotics-brain-machine-interfaces"
 image: 
-  src: "images/exo-on-treadmill.jpg"
+  src: "../content/news/2022/images/exo-on-treadmill.jpg"
   alt: "A user's legs walking with a powered ankle exoskeleton on a treadmill"
 author: "Dan Newman"
 tags:

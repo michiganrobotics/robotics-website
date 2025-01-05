@@ -4,7 +4,7 @@ date: "2023-01-17"
 categories: 
   - "robotics-community"
 image: 
-  src: "images/2023MLK.Website-Banner-2048x1152-1-1024x576.jpg"
+  src: "../content/news/2023/images/2023MLK.Website-Banner-2048x1152-1-1024x576.jpg"
   alt: "A bust of Martin Luther King Jr. with text '2023 North Campus Deans' Martin Luther King Spirit Awards'"
 author: "Dan Newman"
 tags:

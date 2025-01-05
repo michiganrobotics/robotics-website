@@ -4,7 +4,7 @@ date: "2022-12-06"
 categories: 
   - "robotics-community"
 image: 
-  src: "images/robot-profile.jpg"
+  src: "../content/news/2022/images/robot-profile.jpg"
   alt: "Illustrated robots playing"
 author: "Dan Newman"
 tags:

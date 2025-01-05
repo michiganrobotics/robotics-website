@@ -4,7 +4,7 @@ date: "2021-11-22"
 categories: 
   - "robotics-community"
 image: 
-  src: "images/2021-11-11-14.02.54-scaled.jpg"
+  src: "../content/news/2021/images/2021-11-11-14.02.54-scaled.jpg"
   alt: "Eva Mungai stands next to a Digit, a bipedal Agility Robotics robot, in her lab."
 ---
 

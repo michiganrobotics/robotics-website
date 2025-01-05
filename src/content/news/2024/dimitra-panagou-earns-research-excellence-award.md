@@ -4,7 +4,7 @@ date: "2024-02-05"
 categories: 
   - "robotics-community"
 image: 
-  src: "images/DSC01522-1024x683.jpg"
+  src: "../content/news/2024/images/DSC01522-1024x683.jpg"
   alt: "Three four-wheeled robot vehicles drive along grass while a researcher works on a computer in the background in a netted research facility outdoors."
 author: "Dan Newman"
 tags:

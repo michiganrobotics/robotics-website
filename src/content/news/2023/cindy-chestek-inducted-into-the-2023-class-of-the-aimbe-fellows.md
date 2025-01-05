@@ -4,7 +4,7 @@ date: "2023-03-27"
 categories: 
   - "robotics-community"
 image: 
-  src: "images/7543947272_368d651880_z.jpg"
+  src: "../content/news/2023/images/7543947272_368d651880_z.jpg"
   alt: "Cynthia Chestek"
 author: "Dan Newman"
 tags:

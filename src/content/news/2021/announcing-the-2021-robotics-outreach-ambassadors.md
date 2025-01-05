@@ -4,7 +4,7 @@ date: "2021-08-31"
 categories: 
   - "robotics-community"
 image: 
-  src: "images/DSC02607-scaled.jpeg"
+  src: "../content/news/2021/images/DSC02607-scaled.jpeg"
   alt: "A student gives a presentation to a group of children."
 ---
 

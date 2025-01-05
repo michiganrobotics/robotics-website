@@ -4,7 +4,7 @@ date: "2022-08-26"
 categories: 
   - "robotics-community"
 image: 
-  src: "images/outreach-2022.jpg"
+  src: "../content/news/2022/images/outreach-2022.jpg"
   alt: "Hardik Parwana gives drone flight lessons to a visiting Marygrove High School student."
 author: "Dan Newman"
 ---

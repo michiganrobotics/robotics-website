@@ -4,7 +4,7 @@ date: "2023-06-19"
 categories: 
   - "robotics-community"
 image: 
-  src: "images/52298708907_be218e0aa2_k-1024x683.jpg"
+  src: "../content/news/2023/images/52298708907_be218e0aa2_k-1024x683.jpg"
   alt: "A roboticist presenting to a group of students."
 author: "Dan Newman"
 tags:
