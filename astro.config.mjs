@@ -9,7 +9,7 @@ import sitemap from "@astrojs/sitemap";
 export default defineConfig({
   output: 'static',
   site: 'https://dnewms.github.io',
-  base: process.env.NODE_ENV === 'production' ? '/rob-astro-23' : '/',
+  base: process.env.NODE_ENV === 'production' ? '/rob-astro-23/' : '/',
   integrations: [
     tailwind(), 
     preact(), 
