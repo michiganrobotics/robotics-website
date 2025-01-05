@@ -11,9 +11,6 @@ const allPosts = await getCollection('news');
 const relatedPosts = allPosts.filter(post => 
   post.data.tags?.includes(staff.fullName)
 );
-
-// Import images dynamically
-const images = import.meta.glob('/src/content/news/**/*.{jpeg,jpg,png,gif}');
 ---
 
 <Layout title={staff?.preferredName && staff?.lastName ? `${staff.preferredName} ${staff.lastName} - Staff Profile` : 'Staff Profile'}>
@@ -78,11 +75,12 @@ const images = import.meta.glob('/src/content/news/**/*.{jpeg,jpg,png,gif}');
                 <div class="bg-white dark:bg-gray-800 rounded-sm overflow-hidden shadow-md hover:shadow-lg transition-shadow">
                   {post.data.image?.src && (
                     <div class="aspect-video overflow-hidden">
-                      <img 
-                        src={`/src/content/news/${post.data.date.split('-')[0]}/images/${post.data.image.src.replace('images/', '')}`}
+                      <Image 
+                        src={import(`../content/news/${post.data.date.split('-')[0]}/images/${post.data.image.src.replace('images/', '')}`)}
                         alt={post.data.image?.alt || post.data.title}
+                        width={400}
+                        height={225}
                         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                        loading="lazy"
                       />
                     </div>
                   )}
