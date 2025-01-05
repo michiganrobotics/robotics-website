@@ -1,9 +1,22 @@
 ---
 import Layout from './MainLayout.astro';
+import { Image } from 'astro:assets';
 const { staff } = Astro.props;
+import { getCollection } from 'astro:content';
+
+// Fetch all news posts
+const allPosts = await getCollection('news');
+
+// Filter posts tagged with the staff member's full name
+const relatedPosts = allPosts.filter(post => 
+  post.data.tags?.includes(staff.fullName)
+);
+
+// Import images dynamically
+const images = import.meta.glob('/src/content/news/**/*.{jpeg,jpg,png,gif}');
 ---
 
-<Layout title ={staff?.preferredName && staff?.lastName ? `${staff.preferredName} ${staff.lastName} - Staff Profile` : 'Staff Profile'}>
+<Layout title={staff?.preferredName && staff?.lastName ? `${staff.preferredName} ${staff.lastName} - Staff Profile` : 'Staff Profile'}>
   {staff ? (
     <main class="mt-4 max-w-4xl mx-auto py-8 px-4 font-roboto text-PumaBlack dark:text-white bg-white dark:bg-umichblue">
       <div class="grid md:grid-cols-3 gap-8">
@@ -56,6 +69,41 @@ const { staff } = Astro.props;
           </div>
         </div>
       </div>
+      {relatedPosts.length > 0 && (
+        <div class="mt-12">
+          <h2 class="text-2xl font-bold mb-4 font-roboto-condensed dark:text-white">Related news</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {relatedPosts.map(async (post) => {
+              let imagePath = `/src/content/news/${post.data.date.split('-')[0]}/images/${post.data.image.split('/').pop()}`;
+              const imageModule = images[imagePath];
+              const resolvedImage = imageModule ? await imageModule() : null;
+              
+              return (
+                <a href={`/news/${post.slug}`} class="group">
+                  <div class="bg-white dark:bg-gray-800 rounded-sm overflow-hidden shadow-md hover:shadow-lg transition-shadow">
+                    {resolvedImage && (
+                      <div class="aspect-video overflow-hidden">
+                        <Image 
+                          src={resolvedImage.default}
+                          alt={post.data.title}
+                          width={400}
+                          height={225}
+                          class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        />
+                      </div>
+                    )}
+                    <div class="p-4">
+                      <h3 class="text-lg font-medium decoration-maize decoration-2 group-hover:underline">
+                        {post.data.title}
+                      </h3>
+                    </div>
+                  </div>
+                </a>
+              );
+            })}
+          </div>
+        </div>
+      )}
     </main>
   ) : (
     <p class="text-center text-angellHallAsh dark:text-burtonTowerBeige">Error loading staff data...</p>

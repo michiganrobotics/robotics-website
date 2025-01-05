@@ -194,8 +194,8 @@ export const mainNav: MenuItem[] = [
           },
           {
             label: "Faculty Jobs",
-            uri: "/about/jobs",
-            id: "about-jobs",
+            uri: "/about/faculty-jobs",
+            id: "about-faculty-jobs",
             childItems: { nodes: [] }
           },
           {
@@ -239,6 +239,14 @@ export const subNavConfig: Record<string, SubNavItem[]> = {
       { title: "Current Term Courses", href: "/academics/courses/current-term" },
       { title: "Complete Course List", href: "/academics/courses/complete-course-list" },
       { title: "Online Courses", href: "/academics/courses/online-courses" }
+    ],
+    'people$': [
+      { title: "Faculty", href: "/people/faculty" },
+      { title: "Staff", href: "/people/staff" },
+      { title: "Student Teams", href: "/people/student-teams" },
+      { title: "Advisory Board", href: "/people/advisory-board" },
+      { title: "Alumni", href: "/people/alumni" },
+      { title: "Honors and Awards", href: "/people/honors-and-awards"}
     ],
     'people/faculty': [
       { title: "Staff", href: "/people/staff" },
@@ -284,6 +292,18 @@ export const subNavConfig: Record<string, SubNavItem[]> = {
     'about/facilities/ford-robotics-building': [
       { title: "Facilities", href: "/about/facilities" },
       { title: "M-Air", href: "/about/facilities/m-air" },
+    ],
+    'about/faculty-jobs': [
+      { title: "Apply", href: "https://deptapps.engin.umich.edu/facultycandidate/apply?dept=210308&searchID=46", external: true },
+      { title: "Values", href: "/about/values" },
+      { title: "Facilities", href: "/about/facilities" },
+      { title: "Contact", href: "/about/contact"}
+    ],
+    'about/contact': [
+      { title: "About", href: "/about" },
+      { title: "Values", href: "/about/values" },
+      { title: "Facilities", href: "/about/facilities" },
+      { title: "Contact", href: "/about/contact"}
     ]
   };
   

@@ -1,5 +1,23 @@
 import { defineCollection, z } from 'astro:content';
 
+const news = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title: z.string(),
+    date: z.string(),
+    description: z.string().optional(),
+    excerpt: z.string().optional(),
+    image: z.object({
+      src: z.string(),
+      alt: z.string(),
+    }).optional(),
+    videos: z.array(z.string()).optional(),
+    tags: z.array(z.string()).optional(),
+    categories: z.array(z.string()).optional(),
+    author: z.string().optional(),
+  }),
+});
+
 const focusAreas = defineCollection({
   type: 'content',
   schema: z.object({
@@ -24,6 +42,7 @@ const courses = defineCollection({
 });
 
 export const collections = {
+  'news': news,
   'focus-areas': focusAreas,
   'courses': courses,
 };

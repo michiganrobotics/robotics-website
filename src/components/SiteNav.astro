@@ -35,7 +35,7 @@ const menuItems = addBaseToMenuItems(mainNav);
                             <ul class="bg-gray-100 dark:bg-gray-700 md:dark:bg-gray-500 md:border md:border-maize md:absolute md:left-0 md:mt-2 md:min-w-[200px] rounded-sm md:opacity-0 md:invisible group-hover:opacity-100 group-hover:visible transition-all duration-300" role="menu">
                                 <li class="triangle"></li>
                                 {menuItem.childItems.nodes.map((childItem) => (
-                                    <li class="relative group/child pl-6 md:pl-0">
+                                    <li class="relative group/child pl-6 md:pl-0" role="menuitem">
                                         <div class="flex items-center justify-between px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-600">
                                             <a href={childItem.uri || '/'} 
                                                class="w-full group-hover/child:underline group-hover/child:decoration-maize group-hover/child:decoration-2"
@@ -52,7 +52,7 @@ const menuItems = addBaseToMenuItems(mainNav);
                                             <ul id={`dropdown-${childItem.id}`} class="dropdown-content hidden md:border md:border-maize bg-gray-100 dark:bg-gray-700 md:dark:bg-gray-500 md:absolute md:left-full md:top-0 md:ml-1 min-w-[200px] rounded-sm md:opacity-0 md:invisible group-hover/child:opacity-100 group-hover/child:visible transition-all duration-300" role="menu">
                                                 <li class="triangle-right"></li>
                                                 {childItem.childItems.nodes.map((grandChildItem) => (
-                                                    <li class="px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-600 pl-8 md:pl-4">
+                                                    <li class="px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-600 pl-8 md:pl-4" role="menuitem">
                                                         <a href={grandChildItem.uri || '/'} 
                                                            class="block w-full hover:underline hover:decoration-maize hover:decoration-2"
                                                            aria-label={grandChildItem.label}>

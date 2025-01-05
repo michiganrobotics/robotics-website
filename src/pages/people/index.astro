@@ -1,0 +1,48 @@
+---
+import Layout from '../../layouts/MainLayout.astro';
+import { Image } from 'astro:assets';
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import SubNav from "../../components/SubNav.astro";
+import featuredImage from '../../images/featured-images/people.jpg';
+---
+
+<Layout title="People | Michigan Robotics">
+  <div class="max-w-6xl w-11/12 mx-auto py-2">
+    <Breadcrumbs />
+  </div>
+      
+  <div class="mt-4 mb-4 max-w-6xl w-11/12 mx-auto">
+    <div class="w-full bg-umichblue dark:bg-arboretumBlue shadow-lg">
+      <div class="p-3 sm:p-4 md:p-8">
+        <h1 class="text-4xl font-roboto text-white font-bold">
+          <span class="relative border-b-4 border-maize leading-relaxed sm:leading-tight">People</span>
+        </h1>
+      </div>
+    </div>
+
+    <SubNav />
+    <article class="prose max-w-none dark:prose-invert">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="space-y-6">
+          <h2 class="text-3xl font-roboto-condensed font-bold text-umichblue dark:text-white mt-8">Our Robotics community</h2>
+          
+          <p>The Robotics Department brings together <a href="/people/faculty" class="text-arboretumBlue dark:text-maize hover:underline">faculty</a>, affiliate faculty, and students from many backgrounds, including anthropology, art, architecture, and engineering. Our emeritus faculty set the stage for the entire robotics field.</p>
+
+          <p><a href="/people/student-teams" class="text-arboretumBlue dark:text-maize hover:underline">Student teams</a> take part in a wide range of competitions that explore all aspects of robotics.</p>
+
+          <p>Our <a href="/people/alumni" class="text-arboretumBlue dark:text-maize hover:underline">alumni</a> are sought after by both industry and academia, from start-ups focused on autonomy to other top Robotics programs.</p>
+
+          <p>Our dedicated <a href="/people/staff" class="text-arboretumBlue dark:text-maize hover:underline">staff</a> are here to serve all members of the Robotics community. Please reach out if you need assistance.</p>
+        </div>
+
+        <div class="rounded-lg overflow-hidden shadow-lg">
+          <Image 
+            src={featuredImage} 
+            alt="Two students stand looking out over the Robotics Building atrium full of people, one student wearing a shirt that reads 'Engineering Tomorrow' with robot icons on it."
+            class="w-full h-full object-cover"
+          />
+        </div>
+      </div>
+    </article>
+  </div>
+</Layout>

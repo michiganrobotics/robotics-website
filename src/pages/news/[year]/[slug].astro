@@ -1,0 +1,53 @@
+---
+import Layout from '../../../layouts/MainLayout.astro';
+import Single from '../../../components/templates/Single.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const newsEntries = await getCollection('news');
+  return newsEntries.map(entry => {
+    const year = entry.slug.split('/')[0];
+    const slug = entry.slug.split('/')[1];
+    
+    return {
+      params: { year, slug },
+      props: { entry }
+    };
+  });
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+
+// Transform entry data to match Single template's expected node structure
+const node = {
+  title: entry.data.title,
+  date: entry.data.date,
+  author: entry.data.author || null,
+  categories: entry.data.categories ? {
+    nodes: entry.data.categories.map(cat => ({
+      name: cat,
+      uri: `/category/${cat}`
+    }))
+  } : null,
+  featuredImage: entry.data.coverImage ? {
+    node: {
+      mediaItemUrl: `/src/content/news/${entry.data.coverImage}`,
+      altText: entry.data.title
+    }
+  } : null,
+  __typename: 'Post'
+};
+---
+
+<Layout title={entry.data.title}>
+  <Single node={node}>
+    <Content slot="content" />
+  </Single>
+</Layout>
+
+<style>
+  :global(.content-wrapper) {
+    display: none;
+  }
+</style>

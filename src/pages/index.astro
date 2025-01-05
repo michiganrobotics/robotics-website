@@ -3,19 +3,48 @@ import Hero from "../components/Hero.astro";
 import PostCard from "../components/PostCard.astro";
 import MainLayout from "../layouts/MainLayout.astro";
 import SocialFeed from '../components/SocialFeed.astro';
-import { homePagePostsQuery } from "../lib/api";
+import { getCollection } from 'astro:content';
 import { eventsQuery } from "../lib/api";
 import EmailSignup from "../components/EmailSignup.astro";
 import { Image } from "astro:assets";
-const eventsData = await eventsQuery();
-const { posts } = await homePagePostsQuery();
-const recentPosts = posts.nodes.slice(0, 3);
 import academicsImage from '../images/homepage/homepage-academics.jpg';
 import researchImage from '../images/homepage/homepage-research.jpg';
 import peopleImage from '../images/homepage/homepage-people.jpg';
 
-Astro.response.headers.set('Cache-Control','max-age=600, must-revalidate');
+// Get all news posts and sort by date
+const allPosts = await getCollection('news');
+const posts = allPosts.sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
+const recentPosts = await Promise.all(posts.slice(0, 3).map(async (post) => {
+  let imageData = null;
+  if (post.data.image) {
+    try {
+      const imagePath = post.data.image.src;
+      imageData = {
+        node: {
+          image: (await import(
+            /* @vite-ignore */
+            `../content/news/${post.slug.split('/')[0]}/${imagePath}?url`
+          )).default,
+          altText: post.data.image.alt
+        }
+      };
+    } catch (e) {
+      console.error(`Failed to load image for ${post.slug}:`, e);
+    }
+  }
 
+  return {
+    ...post,
+    title: post.data.title,
+    date: post.data.date,
+    uri: `/news/${post.slug}`,
+    featuredImage: imageData
+  };
+}));
+
+const eventsData = await eventsQuery();
+
+Astro.response.headers.set('Cache-Control','max-age=600, must-revalidate');
 ---
 
 <MainLayout title='Home Page'>
@@ -28,23 +57,44 @@ Astro.response.headers.set('Cache-Control','max-age=600, must-revalidate');
                         shadow-lg text-white text-xl -mt-8
                         border border-white/20 backdrop-blur-sm">
 				The <strong>Robotics Department</strong> at the <strong>University of Michigan</strong> is creating the next generation of robotics and roboticists as force-multipliers for the benefit of society. 
-			  </div>
+			</div>
 
-			  <div class="relative mb-16 border-t border-arboretumBlue before:absolute before:left-0 before:top-0 before:w-px before:h-1/3 before:bg-gradient-to-b before:from-arboretumBlue before:to-transparent after:absolute after:right-0 after:top-0 after:w-px after:h-1/3 after:bg-gradient-to-b after:from-arboretumBlue after:to-transparent">
+			<div class="relative mb-16 border-t border-arboretumBlue before:absolute before:left-0 before:top-0 before:w-px before:h-1/3 before:bg-gradient-to-b before:from-arboretumBlue before:to-transparent after:absolute after:right-0 after:top-0 after:w-px after:h-1/3 after:bg-gradient-to-b after:from-arboretumBlue after:to-transparent">
 				<div class="flex justify-center mb-2 sm:mb-0">
-				<h2 class="absolute -top-6 z-10 bg-arboretumBlue text-white px-6 py-2 rounded-sm text-3xl font-bold">Latest news</h2>
+					<h2 class="absolute -top-6 z-10 bg-arboretumBlue text-white px-6 py-2 rounded-sm text-3xl font-bold">Latest news</h2>
 				</div>
 				<div class="flex flex-wrap gap-4 justify-center mb-8 md:flex-nowrap pt-10 px-2">
-				  {
-					recentPosts.map((post) => {
-					  return (
-						<PostCard post={post}></PostCard>
-					  )
-					})
-				  }
+					{recentPosts.map((post) => (
+						<a href={post.uri} class="group bg-white dark:bg-gray-800 shadow-md rounded-sm overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-[1.02] md:flex-1 max-w-md">
+							{post.featuredImage && (
+								<Image 
+									src={post.featuredImage.node.image}
+										alt={post.featuredImage.node.altText}
+										width={1024}
+										height={683}
+										class="w-full h-48 object-cover"
+								/>
+							)}
+							<div class="relative">
+								<div class="p-4">
+									<div class="bg-arboretumBlue text-white p-2 pl-4 -ml-4">
+										<h3 class="text-xl font-roboto border-b-2 border-transparent group-hover:border-maize transition-all duration-300">{post.title}</h3>
+										
+									</div>
+									<div class="mt-4 text-gray-600 dark:text-gray-200">
+										<p class="text-sm italic font-sans text-arboretumBlue dark:text-gray-400">
+											{new Date(post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'numeric', day: 'numeric' })}
+										</p>
+										<p class="line-clamp-3" set:html={post.data.excerpt || post.body.split('<!--more-->')[0] || post.body.split('\n\n')[0]} />
+									</div>
+								</div>
+							</div>
+						</a>
+					))}
 				</div>
-			  </div>
-			  <div class="relative mb-16 border-t border-rackhamGreen before:absolute before:left-0 before:top-0 before:w-px before:h-1/3 before:bg-gradient-to-b before:from-rackhamGreen before:to-transparent after:absolute after:right-0 after:top-0 after:w-px after:h-1/3 after:bg-gradient-to-b after:from-rackhamGreen after:to-transparent">
+			</div>
+
+			<div class="relative mb-16 border-t border-rackhamGreen before:absolute before:left-0 before:top-0 before:w-px before:h-1/3 before:bg-gradient-to-b before:from-rackhamGreen before:to-transparent after:absolute after:right-0 after:top-0 after:w-px after:h-1/3 after:bg-gradient-to-b after:from-rackhamGreen after:to-transparent">
 				<div class="flex justify-center mb-12 sm:mb-0">
 					<h2 class="absolute -top-6 z-10 bg-rackhamGreen text-white px-6 py-2 rounded-sm text-3xl font-bold">Get to know Michigan Robotics</h2>
 				</div>
@@ -69,19 +119,22 @@ Astro.response.headers.set('Cache-Control','max-age=600, must-revalidate');
 							href: "/people"
 						}
 					].map(item => (
-						<figure class="group min-w-[50%] md:min-w-[auto] flex-auto relative max-w-md transition-all duration-300 cursor-pointer hover:-translate-y-1">
-							<a href={item.href}>
+						<figure class="group min-w-[50%] md:min-w-[auto] flex-auto relative max-w-md overflow-hidden rounded-sm shadow-md hover:shadow-lg transition-all duration-300">
+							<a href={item.href} class="block">
 								<Image 
 									src={item.image}
 									alt={item.alt}
 									width={800}
 									height={400}
-									class="rounded-sm w-full h-auto md:h-auto object-cover aspect-[2/1] md:aspect-auto transition-transform duration-300 group-hover:scale-[1.02]"
+									class="w-full h-auto md:h-auto object-cover aspect-[2/1] md:aspect-auto transition-all duration-500 group-hover:scale-105"
 								/>
+								<div class="absolute inset-x-0 bottom-0 bg-rackhamGreen/90 p-4">
+									<p class="text-lg font-bold leading-tight text-white">
+										{item.title}
+										<span class="block w-0 h-0.5 bg-maize transition-all duration-300 group-hover:w-full" />
+									</p>
+								</div>
 							</a>
-							<figcaption class="absolute p-6 md:px-4 md:py-0 text-lg text-white bottom-0 md:top-10 md:bottom-auto left-0 right-0 bg-rackhamGreen bg-opacity-80 group-hover:underline decoration-maize font-bold transition-transform group-hover:scale-[1.02] duration-300">
-								<p>{item.title}</p>
-							</figcaption>
 						</figure>
 					))}
 				</div>
@@ -113,8 +166,11 @@ Astro.response.headers.set('Cache-Control','max-age=600, must-revalidate');
 								  })}
 								</time>
 							  </div> 
-							  <h3 class="pl-5 mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white group-hover:underline decoration-maize">{event.event_title}</h3> 
-							  <h4 class="pl-5 mb-2 text-xl tracking-tight text-gray-900 dark:text-white decoration-maize">{event.event_subtitle}</h4>  
+							  <h3 class="pl-5 mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                                {event.event_title}
+                                <span class="block w-0 h-0.5 bg-maize transition-all duration-300 group-hover:w-full" />
+                              </h3>
+							  <h4 class="pl-5 mb-2 text-xl tracking-tight text-gray-900 dark:text-white">{event.event_subtitle}</h4>  
 							  <div class="pl-5 mb-3 font-normal text-gray-700 dark:text-gray-100 whitespace-pre-wrap" set:html={event.description} />
 							</div>
 						  </section>

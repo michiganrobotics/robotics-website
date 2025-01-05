@@ -25,6 +25,19 @@ module.exports = {
 				lawQuadStone: '#655A52',
 				PumaBlack: '#131516',
 			},
+			typography: ({ theme }) => ({
+				DEFAULT: {
+					css: {
+					  'blockquote p:first-of-type::before': false,
+					  'blockquote p:last-of-type::after': false,
+					},
+				},
+				invert: {
+					css: {
+						'--tw-prose-body': theme('colors.gray[200]'),
+					}
+				}
+			}),
 			fontFamily: {
 				sans: ["Open Sans", ...defaultTheme.fontFamily.sans],
 			  },

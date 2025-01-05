@@ -1,0 +1,116 @@
+---
+import MainLayout from "../../layouts/MainLayout.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import SubNav from "../../components/SubNav.astro";
+import { Icon } from "astro-icon";
+---
+
+<MainLayout title="Contact | Michigan Robotics" description="Contact information for Michigan Robotics">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" slot="head"/>
+  <script is:inline src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+
+  <div class="max-w-6xl w-11/12 mx-auto py-2">
+    <Breadcrumbs />
+  </div>
+
+  <div class="mt-4 mb-4 max-w-6xl w-11/12 mx-auto">
+    <div class="w-full bg-umichblue dark:bg-arboretumBlue shadow-lg">
+      <div class="p-3 sm:p-4 md:p-8">
+        <h1 class="text-4xl font-roboto text-white font-bold">
+          <span class="relative border-b-4 border-maize leading-relaxed sm:leading-tight">Contact Us</span>
+        </h1>
+      </div>
+    </div>
+    <SubNav />
+    <div class="mt-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+        <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+          <div class="flex items-center mb-4">
+            <Icon name="mdi:email" class="w-6 h-6 text-umichblue dark:text-arboretumBlue mr-2" />
+            <h2 class="text-2xl font-roboto-condensed font-bold text-umichblue dark:text-white">General Inquiries</h2>
+          </div>
+          <p class="mb-4">For general questions, please:</p>
+          <a href="mailto:robotics-contact@umich.edu" class="text-arboretumBlue dark:text-maize hover:underline flex items-center">
+            <Icon name="mdi:arrow-right" class="w-4 h-4 mr-1" />
+            Email robotics-contact@umich.edu
+          </a>
+        </div>
+
+        <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+          <div class="flex items-center mb-4">
+            <Icon name="mdi:school" class="w-6 h-6 text-umichblue dark:text-arboretumBlue mr-2" />
+            <h2 class="text-2xl font-roboto-condensed font-bold text-umichblue dark:text-white">Academic Inquiries</h2>
+          </div>
+          <p class="mb-4">For questions about admissions, courses, or academic programs:</p>
+          <div class="space-y-2">
+            <a href="/academics/" class="text-arboretumBlue dark:text-maize hover:underline flex items-center">
+              <Icon name="mdi:arrow-right" class="w-4 h-4 mr-1" />
+              Make sure to review academic information
+            </a>
+            <a href="mailto:robotics-sso@umich.edu" class="text-arboretumBlue dark:text-maize hover:underline flex items-center">
+              <Icon name="mdi:arrow-right" class="w-4 h-4 mr-1" />
+              Email robotics-sso@umich.edu
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+        <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+          <div class="flex items-center mb-4">
+            <Icon name="mdi:map-marker" class="w-6 h-6 text-umichblue dark:text-arboretumBlue mr-2" />
+            <h2 class="text-2xl font-roboto-condensed font-bold text-umichblue dark:text-white">Visit Us</h2>
+          </div>
+          <address class="not-italic text-lg leading-relaxed mb-4" aria-label="Michigan Robotics mailing address">
+            Ford Motor Company Robotics Building<br>
+            2505 Hayward St<br>
+            Ann Arbor, MI<br>
+            48109-2106
+          </address>
+        </div>
+        <div id="map" class="rounded-lg shadow-md overflow-hidden h-[300px]"></div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+          <div class="flex items-center mb-4">
+            <Icon name="mdi:newspaper" class="w-6 h-6 text-umichblue dark:text-arboretumBlue mr-2" />
+            <h2 class="text-2xl font-roboto-condensed font-bold text-umichblue dark:text-white">Media</h2>
+          </div>
+          <p class="mb-4">For press or media inquiries, contact:</p>
+          <a href="/people/staff/dan-newman/" class="text-arboretumBlue dark:text-maize hover:underline flex items-center">
+            <Icon name="mdi:arrow-right" class="w-4 h-4 mr-1" />
+            Dan Newman
+          </a>
+          <span class="mt-2 text-sm text-gray-500 dark:text-gray-400">Communications Manager</span>
+        </div>
+
+        <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+          <div class="flex items-center mb-4">
+            <Icon name="mdi:tshirt-crew" class="w-6 h-6 text-umichblue dark:text-arboretumBlue mr-2" />
+            <h2 class="text-2xl font-roboto-condensed font-bold text-umichblue dark:text-white">Apparel Shop</h2>
+          </div>
+          <p class="mb-4">Support our robotics outreach programs by purchasing Michigan Robotics gear:</p>
+          <a href="https://www.aatwebstore.com/UMBOT/shop/home" class="text-arboretumBlue dark:text-maize hover:underline flex items-center">
+            <Icon name="mdi:arrow-right" class="w-4 h-4 mr-1" />
+            Visit Web Store
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</MainLayout>
+
+<script>
+  window.onload = function() {
+    var map = L.map('map').setView([42.2926, -83.7144], 16);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    L.marker([42.2943546,-83.7096]).addTo(map)
+      .bindPopup('Ford Motor Company Robotics Building<br>2505 Hayward St')
+      .openPopup();
+  }
+</script>

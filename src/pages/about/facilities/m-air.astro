@@ -1,0 +1,131 @@
+---
+import Layout from '../../../layouts/MainLayout.astro';
+import Breadcrumbs from "../../../components/Breadcrumbs.astro";
+import SubNav from "../../../components/SubNav.astro";
+import { Image } from "astro:assets";
+import featureImage from '../../../images/featured-images/about-facilities.jpg';
+import { YouTube } from 'astro-embed';
+import mairGraphic from '../../../images/facilities/m-air-graphic.png';
+import mairNight from '../../../images/facilities/m-air-night.jpg';
+import mairCamera from '../../../images/facilities/m-air-camera.jpg';
+import mairFall from '../../../images/facilities/m-air-fall.jpg';
+---
+<Layout title="M-Air">
+    <div class="max-w-6xl w-11/12 mx-auto py-2">
+        <Breadcrumbs />
+    </div>
+    
+    <div class="mt-4 mb-4 max-w-6xl w-11/12 mx-auto">
+        <div class="relative rounded-sm overflow-hidden shadow-lg">
+            <div class="relative">
+                <div class="absolute inset-0">
+                    <Image 
+                        src={featureImage}
+                        alt=""
+                        class="w-full h-full object-cover"
+                        loading="eager"
+                        width={1200}
+                        height={630}
+                    />
+                </div>
+                <div class="relative">
+                    <div class="bg-umichblue/70 dark:bg-arboretumBlue/70 backdrop-blur-[2px] p-3 sm:p-4 md:p-8 inline-block">
+                        <h1 class="text-4xl font-roboto text-white font-bold">
+                            <span class="relative border-b-4 border-maize leading-relaxed sm:leading-tight">M-Air</span>
+                        </h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <SubNav />
+
+        <article class="prose max-w-none dark:prose-invert mt-8">
+            <div class="mb-8 w-full aspect-video [&>lite-youtube]:!max-w-none">
+                <YouTube id="kboyDG_wZSc" posterQuality="max" class="w-full h-full" />
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <div>
+                    <p class="mb-4">M-Air is a 10,000 sq ft, four-story, netted scientific facility that enables the study of autonomy and collaborative robotics in the "wild", with emphasis on dealing with the full range of Michigan weather, -30C to 38C, with rain, sleet, wind, and snow.</p>
+
+                    <p class="mb-4">This space enables the evaluation of prototype hardware and algorithms in a safe manner, thereby encouraging risk-taking for rapid exploration of ideas. M-Air accelerates the pursuit of aggressive educational and research flight projects that involve high risk of fly-away or loss-of-control—and in realistic wind, lighting and sensor conditions. It allows researchers to better understand operational risks associated with real-world outdoor flights with no real risk to people or other aircraft outside the net.</p>
+
+                    <p class="mb-4">M-Air is located on UM's College of Engineering, directly across the street from the Aerospace Department, University of Michigan Wind Tunnels, and the recently completed Robotics Building.</p>
+                </div>
+
+                <div>
+                    <figure class="mb-4">
+                        <Image 
+                            src={mairGraphic}
+                            alt="M-Air facility diagram"
+                            class="w-full rounded-sm shadow-lg"
+                            width={1422}
+                            height={823}
+                        />
+                        <figcaption class="text-sm text-gray-600 dark:text-gray-400 mt-2">Credit: Cosme Ochoa</figcaption>
+                    </figure>
+
+                    <p class="mb-4">M-Air infrastructure includes an adjacent covered pavilion for UAV staging, command and control, and data collection, and is equipped with power and tied into UM's data infrastructure. M-Air is equipped with a dense array of all-weather, high resolution motion capture cameras.</p>
+
+                    <p class="mb-4">M-Air is used by our research groups, student teams, and in our robotics courses, and allows Michigan to quickly move ideas from laptop and lab bench to first flight.</p>
+                </div>
+            </div>
+
+            <div class="mb-8 w-full aspect-video [&>lite-youtube]:!max-w-none">
+                <YouTube id="e-x9HHRV6TM" title="M-Air 360 in Summer" posterQuality="max" class="w-full h-full" />
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                <figure>
+                    <Image 
+                        src={mairNight}
+                        alt="Quadcopter flying at night"
+                        class="w-full rounded-sm shadow-lg"
+                        width={2048}
+                        height={1365}
+                    />
+                    <figcaption class="text-sm text-gray-600 dark:text-gray-400 mt-2">Quadcopter flying at night</figcaption>
+                </figure>
+
+                <figure>
+                    <Image 
+                        src={mairCamera}
+                        alt="One of 30 motion capture cameras"
+                        class="w-full rounded-sm shadow-lg"
+                        width={2048}
+                        height={1365}
+                    />
+                    <figcaption class="text-sm text-gray-600 dark:text-gray-400 mt-2">One of 30 motion capture cameras</figcaption>
+                </figure>
+
+                <figure>
+                    <Image 
+                        src={mairFall}
+                        alt="Early fall at M-Air"
+                        class="w-full rounded-sm shadow-lg"
+                        width={2048}
+                        height={1365}
+                    />
+                    <figcaption class="text-sm text-gray-600 dark:text-gray-400 mt-2">Early fall at M-Air</figcaption>
+                </figure>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <div>
+                    <h2 class="text-2xl font-bold text-umichblue dark:text-white mb-4">M-Air Calendar</h2>
+                    <iframe src="https://calendar.google.com/calendar/embed?showPrint=0&showTabs=0&src=umich.edu_q4p3pqpesecd8tlmlcu5aioplg%40group.calendar.google.com&ctz=America%2FNew_York" style="border: 0" class="w-full h-[400px]" frameborder="0" scrolling="no"></iframe>
+                </div>
+
+                <div>
+                    <h2 class="text-2xl font-bold text-umichblue dark:text-white mb-4">M-Air contacts</h2>
+                    <p class="mb-4">To receive announcements and updates about M-Air, join the <a href="https://mcommunity.umich.edu/#group:mair-announce" class="text-arboretumBlue dark:text-maize hover:underline">mair-announce list</a> on MCommunity.</p>
+
+                    <p class="mb-4">For questions or to reserve the facility please contact <a href="mailto:mair-info@umich.edu" class="text-arboretumBlue dark:text-maize hover:underline">mair-info@umich.edu</a>.</p>
+
+                    <h2 class="text-2xl font-bold text-umichblue dark:text-white mb-4">Schematics</h2>
+                    <p>For architectural details, download the <a href="http://2024.robotics.umich.edu/wp-content/uploads/sites/6/2019/09/m-air-schematics.pdf" class="text-arboretumBlue dark:text-maize hover:underline">construction schematics</a> for M-Air.</p>
+                </div>
+            </div>
+        </article>
+    </div>
+</Layout>

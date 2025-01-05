@@ -1,0 +1,82 @@
+---
+import MainLayout from "../../layouts/MainLayout.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import SubNav from "../../components/SubNav.astro";
+import { Icon } from "astro-icon";
+---
+
+<MainLayout title="Faculty Jobs | Michigan Robotics" description="Join Michigan Robotics as a faculty member">
+  <div class="max-w-6xl w-11/12 mx-auto py-2">
+    <Breadcrumbs />
+  </div>
+
+  <div class="mt-4 mb-4 max-w-6xl w-11/12 mx-auto">
+    <div class="w-full bg-umichblue dark:bg-arboretumBlue shadow-lg">
+      <div class="p-3 sm:p-4 md:p-8">
+        <h1 class="text-4xl font-roboto text-white font-bold">
+          <span class="relative border-b-4 border-maize leading-relaxed sm:leading-tight">Faculty Jobs</span>
+        </h1>
+      </div>
+    </div>
+    <SubNav />
+
+    <div class="mt-8">
+      <p class="text-xl font-semibold text-arboretumBlue dark:text-maize mb-4">Work together. Create smart machines. Serve society.</p>
+
+      <p class="mb-6">We invite applicants to join our mission to accelerate advances in robotics for the benefit of society.</p>
+
+      <h2 class="text-3xl font-roboto-condensed font-bold mb-4 text-umichblue dark:text-white">Tenure-track faculty</h2>
+
+      <div class="prose dark:prose-invert max-w-none">
+        <p>The Robotics Department in the College of Engineering at the University of Michigan, Ann Arbor invites applications for faculty positions at all ranks that will join our mission to accelerate advances in robotics for the benefit of society. Successful candidates will have a relevant doctorate or equivalent experience and an outstanding record of achievement and impactful research in academia, industry, and/or at national laboratories. They will have a strong record of commitment to teaching at the undergraduate and graduate levels, to providing service to the university and to the profession, and to broadening the intellectual diversity of the College.</p>
+
+        <p>The Robotics Department seeks to fill multiple tenure-track faculty positions and invites candidates across all research areas relevant to robotics to apply.</p>
+        <div class="bg-gray-100 dark:bg-gray-700 border-l-4 border-umichblue dark:border-arboretumBlue p-4 my-4">
+          <p>Application review will begin on November 6, 2023 and will continue on a rolling basis. All applications submitted by December 1, 2023 will receive full consideration.</p>
+        </div>
+
+        <p>Candidates in computational areas of robotics such as perception and learning are especially encouraged to apply. Women and underrepresented minorities are highly encouraged to apply.</p>
+
+        <p>The Robotics Department at the College of Engineering is committed to providing its members with an environment filled with integrity, enthusiasm, and respect.</p>
+        <div class="not-prose grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+
+          <a href="https://robotics.umich.edu/about/values/" class="bg-white dark:bg-gray-800 rounded-lg shadow-md hover:shadow-lg transition-shadow p-4">
+            <h4 class="text-lg font-bold text-umichblue dark:text-white mb-2">Our Values</h4>
+            <p class="text-gray-600 dark:text-gray-300 text-sm">Learn more about Michigan Robotics' commitment to integrity, enthusiasm, respect, and our shared principles that guide our community.</p>
+            <div class="flex items-center text-arboretumBlue dark:text-maize mt-2">
+              <span>Read more</span>
+              <Icon name="mdi:arrow-right" class="ml-1 w-4 h-4" />
+            </div>
+          </a>
+          <a href="https://umich.edu/facts-figures/" class="bg-white dark:bg-gray-800 rounded-lg shadow-md hover:shadow-lg transition-shadow p-4">
+            <h4 class="text-lg font-bold text-umichblue dark:text-white mb-2">U-M Facts</h4>
+            <p class="text-gray-600 dark:text-gray-300 text-sm">Explore key statistics and data about the University of Michigan's research impact, student body, faculty achievements, and more.</p>
+            <div class="flex items-center text-arboretumBlue dark:text-maize mt-2">
+              <span>Learn more</span>
+              <Icon name="mdi:arrow-right" class="ml-1 w-4 h-4" />
+            </div>
+          </a>
+          <a href="https://michiganross.umich.edu/about/visit/ann-arbor" class="bg-white dark:bg-gray-800 rounded-lg shadow-md hover:shadow-lg transition-shadow p-4">
+            <h4 class="text-lg font-bold text-umichblue dark:text-white mb-2">Living in Ann Arbor</h4>
+            <p class="text-gray-600 dark:text-gray-300 text-sm">Discover what makes Ann Arbor one of the best college towns in America, from its vibrant downtown to its excellent schools and high quality of life.</p>
+            <div class="flex items-center text-arboretumBlue dark:text-maize mt-2">
+              <span>Learn more</span>
+              <Icon name="mdi:arrow-right" class="ml-1 w-4 h-4" />
+            </div>
+          </a>
+        </div>
+        <p>Growing out of a successful Robotics Institute, the Department was established in 2022 to offer Bachelor's degrees in addition to Masters and PhDs degrees (since 2014), with the goal of formally establishing and defining the discipline of Robotics.</p>
+
+        <p>The University of Michigan is one of the world's leading research universities, with $1.86B in research expenditures (FY2023). Consistently ranked among the top research universities by USNews and NSF, it has 19 schools and colleges, the University is rich with opportunities for collaboration and cross-disciplinary inquiry. We are located in Ann Arbor, MI, which is ranked the #1 Best College Town in the U.S. by WalletHub (2021), #2 City with the Best Public Schools in America by Niche.com (2021), and #1 Best Places to Live for Families by Fortune (2022).</p>
+        <a href="https://deptapps.engin.umich.edu/facultycandidate/apply?dept=210308&searchID=46" class="inline-flex items-center px-4 py-2 not-prose bg-umichblue dark:bg-arboretumBlue text-white rounded-sm hover:bg-opacity-90">
+            Apply Now
+            <Icon name="mdi:arrow-right" class="ml-2 w-5 h-5" />
+          </a>
+        <h3 class="text-xl font-bold mt-6 mb-2">Questions</h3>
+        <p>Please contact <a href="mailto:robotics-search@umich.edu" class="text-arboretumBlue dark:text-maize hover:underline">Christina Hollis</a>.</p>
+    
+        <p><em>The University of Michigan is an Affirmative Action, Equal Opportunity Employer with an Active Dual-Career Assistance Program. The College of Engineering is especially interested in candidates who contribute, through their research, teaching, and/or service, to the diversity and excellence of the academic community.</em></p>
+      </div>
+    </div>
+  </div>
+</MainLayout>

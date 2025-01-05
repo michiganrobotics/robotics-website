@@ -1,0 +1,70 @@
+---
+title: "Choosing exoskeleton settings like a Pandora radio station"
+date: "2023-10-19"
+categories: 
+  - "legged-locomotion-exoskeletons"
+  - "rehabilitation-robotics-brain-machine-interfaces"
+image: 
+  src: "images/image.png"
+  alt: "A student demonstrating a robotic exoskeleton."
+author: "Kate McAlpine"
+tags:
+  - "Elliott Rouse"
+videos:
+  - "OJ2ApTzZU2w"
+excerpt: "A team of engineers at the University of Michigan, Google and Georgia Tech has designed the simplest way for users to program their own exoskeleton assistance settings."
+---
+
+https://www.youtube.com/watch?v=OJ2ApTzZU2w
+
+<figcaption>
+
+Using a simple and convenient touchscreen interface, the algorithm learns the assistance preferences of the wearer. Video: Levi Hutmacher.
+
+</figcaption>
+
+
+
+Taking inspiration from music streaming services, a team of engineers at the University of Michigan, Google and Georgia Tech has designed the simplest way for users to program their own exoskeleton assistance settings.
+
+Of course, what's simple for the users is more complex underneath, as a machine learning algorithm repeatedly offers pairs of assistance profiles that are most likely to be comfortable for the wearer. The user then selects one of these two, and the predictor offers another assistance profile that it believes might be better. This approach enables users to set the exoskeleton assistance based on their preferences using a very simple interface, conducive to implementing on a smartwatch or phone.
+
+"It's essentially like Pandora music," said [Elliott Rouse](https://me.engin.umich.edu/people/faculty/elliott-rouse/), U-M associate professor of robotics and mechanical engineering and corresponding author of the study in Science Robotics. "You give it feedback, a thumbs up or thumbs down, and it curates a radio station based on your feedback. This is a similar idea, but it's with exoskeleton assistance settings. In both cases, we are creating a model of the user's preferences and using this model to optimize the user's experience."
+
+The team tested the approach with 14 participants, each wearing a pair of ankle exoskeletons as they walked at a steady pace of about 2.3 miles per hour. The volunteers could take as much time as they wanted between choices, although they were limited to 50 choices. Most participants were choosing the same assistance profile repeatedly by the 45th decision. 
+
+<figure>
+
+![](images/image.png)
+
+<figcaption>
+
+Ellie Wilson, a PhD student in mechanical engineering, demonstrates a new control strategy that customizes assistance provided by a pair of ankle exoskeletons. A machine learning algorithm presents her with two assistance profiles that it has selected based on previous data. She chooses one, and it presents another for comparison. After about 45 choices, most users have found an assistance profile that they choose repeatedly. Photo: Brenda Ahearn/Michigan Engineering
+
+</figcaption>
+
+</figure>
+
+After 50 rounds, the experimental team began testing the users to see whether the final assistance profile was truly the best—pairing it against 10 randomly generated (but plausible) profiles. On average, participants chose the settings suggested by the algorithm about nine out of 10 times, which highlights the accuracy of the proposed approach.
+
+"By using clever algorithms and a touch of AI, our system figures out what users want with easy yes-or-no questions," said Ung Hee Lee, a recent U-M doctoral graduate from mechanical engineering and first author of the study, now at the robotics company Nuro. "I'm excited that this approach will make wearable robots comfortable and easy to use, bringing them closer to becoming a normal part of our day-to-day life."
+
+The control algorithm manages four exoskeleton settings: how much assistance to give (peak torque), how long to go between peaks (timing), and how the exoskeleton both ramps up and reduces the assistance on either side of each peak. This assistance approach is based on how our calf muscle adds force to propel us forward in each step.
+
+Rouse reports that few groups are enabling users to set their own exoskeleton settings.
+
+"In most cases, controllers are tuned based on biomechanical or physiological results. The researchers are adjusting the settings on their laptops, minimizing the user's metabolic rate. Right now, that's the gold standard for exoskeleton assessment and control," Rouse said.
+
+"I think our field overemphasizes testing with metabolic rate. People are actually very insensitive to changes in their own metabolic rate, so we're developing exoskeletons to do something that people can't actually perceive." 
+
+In contrast, user preference approaches not only focus on what users can perceive but also enable them to prioritize qualities that they feel are valuable.
+
+The study builds on the team's previous effort to enable users to apply their own settings to an ankle exoskeleton. In that study, users had a touchscreen grid that put the level of assistance on one axis and the timing of the assistance on another. Users tried different points on the grid until they found one that worked well for them. 
+
+Once users had discovered what was comfortable, over the course of a couple of hours, they were then able to find their settings on the grid within a couple of minutes. The new study cuts down that longer period of discovering which settings feel best as well as offering two new parameters: how the assistance ramps up and down.
+
+The data from that earlier study were used to feed the machine learning predictor. An evolutionary algorithm produces variations based on the assistance profiles that those earlier users preferred, and then the predictor—a neural network—ranked those assistance profiles. With each choice the users made, new potential assistance profiles were generated, ranked and presented to the user alongside their previous choice. 
+
+The study was funded by X, Google's "Moonshot Factory," Robotics at Google (now Google Deepmind), and the D. Dan and Betty Kahn Foundation. The concept is currently licensed by Alphabet spinoff [Skip Innovations](https://www.skipwithjoy.com/).
+
+Study: [User preference optimization for control of ankle exoskeletons using sample efficient active learning](http://dx.doi.org/10.1126/scirobotics.adg3705) (DOI: 10.1126/scirobotics.adg3705)

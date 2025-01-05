@@ -8,6 +8,9 @@ import featureImage from '../../../images/featured-images/about-facilities.jpg';
 import backgroundImage from '../../../images/facilities/north-campus-map2.jpg';
 import nightBuildingImage from '../../../images/facilities/ford-robotics-building-at-night.jpg';
 import dayBuildingImage from '../../../images/facilities/ford-robotics-building-day.jpg';
+import mairNight from '../../../images/facilities/m-air-night.jpg';
+import mairDay from '../../../images/facilities/m-air-fall.jpg';
+
 ---
 <Layout title="Facilities">
     <div class="max-w-6xl w-11/12 mx-auto py-2">
@@ -75,12 +78,28 @@ import dayBuildingImage from '../../../images/facilities/ford-robotics-building-
                 </a>
             </div>
 
-            <div class="absolute lg:bottom-[13%] lg:left-[28%] min-[1100px]:bottom-[15%] min-[1100px]:left-[30%] min-[1150px]:bottom-[17%] min-[1150px]:left-[31%] xl:bottom-[18%] xl:left-[31%] w-64">
-                <a href="/about/mair" class="block relative group">
+            <div class="absolute lg:-bottom-[6%] lg:left-[28%] min-[1050px]:-bottom-[5%] min-[1070px]:-bottom-[4%] min-[1100px]:-bottom-[3%] min-[1100px]:left-[30%] min-[1125px]:-bottom-[1%] min-[1150px]:bottom-[2%] min-[1150px]:left-[31%] xl:left-[31%] w-64">
+                <a href="/about/facilities/m-air" class="block relative group">
                     <svg class="absolute -top-6 left-[130px] w-12 h-12 text-white transition-transform group-hover:scale-105" viewBox="0 0 24 24">
                         <path fill="currentColor" d="M12 2L1 21h22L12 2z"/>
                     </svg>
                     <div class="bg-white rounded-lg p-4 transition-all group-hover:scale-105">
+                        <div class="hidden dark:block relative h-28 -mt-4 -mx-4 mb-3 overflow-hidden rounded-t-lg">
+                            <Image 
+                                src={mairNight} 
+                                alt="M-Air at night" 
+                                class="w-full h-full object-cover transition-all"
+                                loading="eager"
+                            />
+                        </div>
+						<div class="block dark:hidden relative h-28 -mt-4 -mx-4 mb-3 overflow-hidden rounded-t-lg">
+                            <Image 
+                                src={mairDay} 
+                                alt="M-Air in the Fall" 
+                                class="w-full h-full object-cover transition-all"
+                                loading="eager"
+                            />
+                        </div>
                         <h2 class="text-lg font-bold text-umichblue mb-1">M-Air</h2>
                         <p class="text-sm mb-2 dark:text-gray-700">A 10,000 sq ft netted facility for testing aerial vehicles in all Michigan weather conditions.</p>
                         <span class="text-arboretumBlue hover:underline">Learn more →</span>
@@ -115,7 +134,7 @@ import dayBuildingImage from '../../../images/facilities/ford-robotics-building-
                     </div>
                 </a>
             </div>
-            <div class="absolute lg:bottom-[8%] lg:left-[.5%] xl:bottom-[8%] xl:left-[5%] w-64">
+            <div class="absolute lg:bottom-[10%] lg:left-[.5%] xl:bottom-[8%] xl:left-[5%] w-64">
                 <a href="https://www.engin.umich.edu/research/labs-facilities/" class="block relative group">
                     <svg class="absolute lg:rotate-[60deg] lg:-bottom-[20px] lg:left-[75px] xl:left-[50px] w-12 h-12 text-white transition-transform group-hover:scale-105" viewBox="0 0 24 24">
 					<path fill="currentColor" d="M12 2L1 21h22L12 2z"/>
@@ -155,8 +174,24 @@ import dayBuildingImage from '../../../images/facilities/ford-robotics-building-
                 </div>
             </a>
 
-            <a href="/about/mair" class="block">
+            <a href="/about/facilities/m-air" class="block">
                 <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 hover:shadow-xl border border-gray-200 dark:border-gray-700">
+                    <div class="hidden dark:block relative h-28 -mt-4 -mx-4 mb-3 overflow-hidden">
+						<Image 
+							src={mairNight} 
+							alt="M-Air at night" 
+							class="w-full h-full object-cover transition-all"
+							loading="eager"
+						/>
+					</div>
+					<div class="block dark:hidden relative h-28 -mt-4 -mx-4 mb-3 overflow-hidden">
+						<Image 
+							src={mairDay} 
+							alt="M-Air in the Fall" 
+							class="w-full h-full object-cover transition-all"
+							loading="eager"
+						/>
+					</div>
                     <h2 class="text-xl font-bold text-umichblue dark:text-white mb-2">M-Air</h2>
                     <p class="text-sm mb-4 text-gray-700 dark:text-gray-300">A 10,000 sq ft netted facility for testing aerial vehicles in all Michigan weather conditions.</p>
                     <span class="text-arboretumBlue hover:underline dark:text-blue-400">Learn more →</span>

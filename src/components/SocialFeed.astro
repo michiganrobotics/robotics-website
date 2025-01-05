@@ -36,9 +36,8 @@ const socialIcons = {
     </div>
       <div class="flex flex-wrap gap-4 justify-center mb-8 md:flex-nowrap pt-10 px-2">
       {posts.map((post) => (
-        <div class="w-80 h-96 rounded overflow-hidden shadow-lg bg-white dark:bg-gray-800 relative">
-         
-          <div class="absolute inset-0">
+        <div class="w-80 h-[28rem] rounded-sm overflow-hidden shadow-xl bg-white dark:bg-gray-800 relative transform transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl">
+          <div class="h-48 relative">
             {post.platform === 'Instagram' && post.mediaType === 'IMAGE' && post.mediaUrl && (
               <img class="w-full h-full object-cover" src={post.mediaUrl} alt="Instagram post">
             )}
@@ -49,18 +48,32 @@ const socialIcons = {
               <img class="w-full h-full object-cover" src={post.thumbnailUrl} alt={post.content}>
             )}
           </div>
-     
-          <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black opacity-70"></div>
-          <div class="absolute top-0 left-0 right-0 bg-gray-100 bg-opacity-80 dark:bg-gray-700 dark:bg-opacity-80 p-2 flex justify-between items-center">
-            <span class="text-sm italic text-gray-600 dark:text-gray-300">
-              {new Date(post.date).toLocaleDateString()}
-            </span>
-            <a href={post.link} target="_blank" rel="noopener noreferrer" class="bg-arboretumBlue hover:bg-umichblue dark:bg-arboretumBlue dark:hover:bg-umichblue text-white dark:text-gray-200 py-1 px-2 rounded-sm transition duration-300 ease-in-out flex items-center cursor-pointer">
-              View on <Icon name={socialIcons[post.platform]} class="inline w-5 h-5 ml-1 text-white dark:text-gray-300" />
-            </a>
-          </div>
-          <div class="absolute bottom-0 left-0 right-0 p-4">
-            <p class="text-white text-sm">{post.content}</p>
+
+          <div class="p-4">
+            <div class="flex justify-between items-center mb-4">
+              <span class="text-sm font-medium text-gray-600 dark:text-gray-300 flex items-center">
+                <Icon name={socialIcons[post.platform]} class="w-5 h-5 mr-2 text-gray-700 dark:text-gray-300" />
+                {post.platform}
+              </span>
+              <span class="text-sm text-gray-500 dark:text-gray-400">
+                {new Date(post.date).toLocaleDateString()}
+              </span>
+            </div>
+            
+            <p class="text-gray-700 dark:text-gray-300 text-sm mb-4 line-clamp-4">
+              {post.content}
+            </p>
+
+            <div class="absolute bottom-4 left-4 right-4">
+              <a 
+                href={post.link} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                class="w-full block text-center bg-arboretumBlue hover:bg-umichblue dark:bg-arboretumBlue dark:hover:bg-umichblue text-white dark:text-gray-200 py-2 px-4 rounded transition duration-300 ease-in-out"
+              >
+                View Full Post
+              </a>
+            </div>
           </div>
         </div>
       ))}

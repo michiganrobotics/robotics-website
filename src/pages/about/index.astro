@@ -4,6 +4,69 @@ import { Icon } from "astro-icon";
 import { YouTube } from '@astro-community/astro-embed-youtube';
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import SubNav from "../../components/SubNav.astro";
+import { Image } from "astro:assets";
+import artificialIntelligenceImage from "../../images/focus-areas/artificial-intelligence.jpg";
+import autonomousVehiclesImage from "../../images/focus-areas/autonomous-vehicles.jpg";
+import hriImage from "../../images/focus-areas/human-robot.jpg";
+import leggedRoboticsImage from "../../images/focus-areas/legged-robots.jpg";
+import manufacturingRoboticsImage from "../../images/focus-areas/manufacturing.jpg";
+import medicalRoboticsImage from "../../images/focus-areas/rehabilitation.jpg";
+import perceptionImage from "../../images/focus-areas/perception-manipulation.jpg";
+import teamsAndSwarmsImage from "../../images/focus-areas/teams-swarms.jpg";
+import safeAutonomyImage from "../../images/focus-areas/safe-autonomy.jpg";
+import slamImage from "../../images/focus-areas/slam.jpg";
+import deepLearningImage from "../../images/focus-areas/deep-learning.jpg";
+import motionPlanningImage from "../../images/focus-areas/motion-planning.jpg";
+import { getFacultyData } from "../../lib/googleSheets";
+const facultyMembers = await getFacultyData();
+const facultyPhotoLookup = Object.fromEntries(
+  facultyMembers.map(f => [f.fullName, f.photoURL])
+);
+
+// define excom members
+const excom = [
+  {
+    name: "Dawn Tilbury",
+    role: "Department Chair",
+    isExOfficio: true
+  },
+  {
+    name: "Robert Gregg",
+    isExOfficio: false
+  },
+  {
+    name: "Jessy Grizzle",
+    isExOfficio: false
+  },
+  {
+    name: "Brent Gillespie",
+    role: "Associate Director of Graduate Studies",
+    isExOfficio: false
+  },
+  {
+    name: "Mark Draelos",
+    isExOfficio: false
+  },
+  {
+    name: "Leia Stirling",
+    role: "Associate Director of Undergraduate Studies",
+    isExOfficio: true
+  },
+].map(member => ({
+  ...member,
+  photoURL: facultyPhotoLookup[member.name]
+}));
+
+const formatMember = (member) => {
+  if (member.isExOfficio) {
+    return `${member.name}, ${member.role} (ex-officio)`;
+  }
+  return member.role ? `${member.name}, ${member.role}` : member.name;
+};
+
+const committeeText = `The Robotics Department is led by the Executive Committee: ${excom.map(formatMember).join("; ")}.`;
+
+
 ---
 
 <MainLayout title="About | Michigan Robotics" description="Learn about the University of Michigan Robotics Department's vision and leadership">
@@ -83,7 +146,6 @@ import SubNav from "../../components/SubNav.astro";
         </div>
       </div>
     </section>
-
     <section class="mt-12">
       <h2 class="text-3xl font-roboto-condensed font-bold mb-6 text-umichblue dark:text-white">
         <a href="/research/focus-areas" class="flex items-center hover:underline">
@@ -91,16 +153,151 @@ import SubNav from "../../components/SubNav.astro";
           <Icon name="mdi:chevron-right" class="h-5 w-5 ml-1" />
         </a>
       </h2>
-      <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-        <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md">Artificial intelligence</div>
-        <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md">Autonomous vehicles and systems</div>
-        <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md">Human-robot interaction</div>
-        <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md">Legged robotics</div>
-        <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md">Manufacturing robotics</div>
-        <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md">Rehabilitation and medical robotics</div>
-        <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md">Perception and manipulation</div>
-        <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md">Soft robotics</div>
-        <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md">Teams and swarms</div>
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-shadow hover:scale-105">
+          <a href="/research/focus-areas/artificial-intelligence" class="block p-2">
+            <Image
+              src={artificialIntelligenceImage}
+              alt="Artificial Intelligence research"
+              class="w-full h-24 object-cover rounded-t-lg mb-2"
+              width={200}
+              height={150}
+            />
+            <span class="text-sm font-medium">Artificial intelligence</span>
+          </a>
+        </div>
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-shadow hover:scale-105">
+          <a href="/research/focus-areas/autonomous-vehicles-and-systems" class="block p-2">
+            <Image
+              src={autonomousVehiclesImage} 
+              alt="Autonomous Vehicles research"
+              class="w-full h-24 object-cover rounded-t-lg mb-2"
+              width={200}
+              height={150}
+            />
+            <span class="text-sm font-medium">Autonomous vehicles</span>
+          </a>
+        </div>
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-shadow hover:scale-105">
+          <a href="/research/focus-areas/deep-learning" class="block p-2">
+            <Image
+              src={deepLearningImage}
+              alt="Deep Learning research"
+              class="w-full h-24 object-cover rounded-t-lg mb-2"
+              width={200}
+              height={150}
+            />
+            <span class="text-sm font-medium">Deep learning</span>
+          </a>
+        </div>
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-shadow hover:scale-105">
+          <a href="/research/focus-areas/human-robot-interaction" class="block p-2">
+            <Image
+              src={hriImage}
+              alt="Human-Robot Interaction research" 
+              class="w-full h-24 object-cover rounded-t-lg mb-2"
+              width={200}
+              height={150}
+            />
+            <span class="text-sm font-medium">Human-robot interaction</span>
+          </a>
+        </div>
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-shadow hover:scale-105">
+          <a href="/research/focus-areas/legged-robotics" class="block p-2">
+            <Image
+              src={leggedRoboticsImage}
+              alt="Legged Robotics research"
+              class="w-full h-24 object-cover rounded-t-lg mb-2"
+              width={200}
+              height={150}
+            />
+            <span class="text-sm font-medium">Legged robotics</span>
+          </a>
+        </div>
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-shadow hover:scale-105">
+          <a href="/research/focus-areas/manufacturing-robotics" class="block p-2">
+            <Image
+              src={manufacturingRoboticsImage}
+              alt="Manufacturing Robotics research"
+              class="w-full h-24 object-cover rounded-t-lg mb-2"
+              width={200}
+              height={150}
+            />
+            <span class="text-sm font-medium">Manufacturing robotics</span>
+          </a>
+        </div>
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-shadow hover:scale-105">
+          <a href="/research/focus-areas/motion-planning" class="block p-2">
+            <Image
+              src={motionPlanningImage}
+              alt="Motion Planning research"
+              class="w-full h-24 object-cover rounded-t-lg mb-2"
+              width={200}
+              height={150}
+            />
+            <span class="text-sm font-medium">Motion planning</span>
+          </a>
+        </div>
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-shadow hover:scale-105">
+          <a href="/research/focus-areas/rehabilitation-and-medical-robotics" class="block p-2">
+            <Image
+              src={medicalRoboticsImage}
+              alt="Rehabilitation and Medical Robotics research"
+              class="w-full h-24 object-cover rounded-t-lg mb-2"
+              width={200}
+              height={150}
+            />
+            <span class="text-sm font-medium">Medical robotics</span>
+          </a>
+        </div>
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-shadow hover:scale-105">
+          <a href="/research/focus-areas/perception-and-manipulation" class="block p-2">
+            <Image
+              src={perceptionImage}
+              alt="Perception and Manipulation research"
+              class="w-full h-24 object-cover rounded-t-lg mb-2"
+              width={200}
+              height={150}
+            />
+            <span class="text-sm font-medium">Perception & manipulation</span>
+          </a>
+        </div>
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-shadow hover:scale-105">
+          <a href="/research/focus-areas/teams-and-swarms" class="block p-2">
+            <Image
+              src={safeAutonomyImage}
+              alt="Safe autonomy research"
+              class="w-full h-24 object-cover rounded-t-lg mb-2"
+              width={200}
+              height={150}
+            />
+            <span class="text-sm font-medium">Safe autonomy</span>
+          </a>
+        </div>
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-shadow hover:scale-105">
+          <a href="/research/focus-areas/teams-and-swarms" class="block p-2">
+            <Image
+              src={slamImage}
+              alt="SLAM research"
+              class="w-full h-24 object-cover rounded-t-lg mb-2"
+              width={200}
+              height={150}
+            />
+            <span class="text-sm font-medium">SLAM</span>
+          </a>
+        </div>
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-shadow hover:scale-105">
+          <a href="/research/focus-areas/teams-and-swarms" class="block p-2">
+            <Image
+              src={teamsAndSwarmsImage}
+              alt="Teams and Swarms research"
+              class="w-full h-24 object-cover rounded-t-lg mb-2"
+              width={200}
+              height={150}
+            />
+            <span class="text-sm font-medium">Teams & swarms</span>
+          </a>
+        </div>
       </div>
     </section>
 
@@ -137,19 +334,30 @@ import SubNav from "../../components/SubNav.astro";
     <section class="mt-12">
       <h2 class="text-3xl font-roboto-condensed font-bold mb-6 text-umichblue dark:text-white">Leadership</h2>
       <div class="bg-white dark:bg-gray-800 rounded-sm shadow-md overflow-hidden">
-        <img
-          src="https://2024.robotics.umich.edu/wp-content/uploads/sites/6/2024/01/excom-2048x272-1.jpg"
-          alt="Michigan Robotics Executive Committee"
-          class="w-full h-auto"
-          loading="lazy"
-          decoding="async"
-        />
-        <div class="p-4">
-          <p class="text-gray-600 dark:text-gray-300">
-            Michigan Robotics is led by the Executive Committee: Anouck Girard, Robert Gregg, and Dimitra Panagou, with direction from ex-officio members Chad Jenkins (Associate Director of Undergraduate Studies), Brent Gillespie (Associate Director of Graduate Studies), and Department Chair Dawn Tilbury.
-          </p>
+
+        <!-- Photo rows -->
+        <div class="flex flex-wrap justify-center mb-2">
+          {excom.map((member, index) => (
+            <div class={`w-48 text-center ${index < 3 ? 'md:w-48' : 'md:w-48'}`}>
+              <img 
+                src={member.photoURL} 
+                alt={member.name}
+                class={`w-full h-48 object-cover ${
+                  member.name === "Brent Gillespie" 
+                    ? "object-right"
+                    : member.name === "Leia Stirling"
+                      ? "object-right" 
+                      : "object-center"
+                }`}
+              />
+            </div>
+          ))}
         </div>
-      </div>
+
+      <!-- Description text -->
+      <p class="text-center text-gray-600 dark:text-gray-300 mx-auto p-2 pb-6">
+      {committeeText}
+      </p>
     </section>
 
   <section class="mt-12 mb-12">

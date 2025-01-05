@@ -1,31 +1,46 @@
 ---
 const { node } = Astro.props;
+
+// Format date helper function
+function formatDate(dateString) {
+  return new Date(dateString).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  });
+}
 ---
 
 <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
 
   <!-- Title -->
-  <h1 class="text-4xl font-roboto-condensed font-bold mb-2 leading-tight">
+  <h1 class="text-4xl font-roboto-condensed font-bold mb-4 leading-tight">
     {node.title}
   </h1>
 
-  {(node.__typename === 'Post' && node.author) && (
-  <p class="italic font-sans text-gray-600 dark:text-gray-400 mb-4 text-sm">
-    <time datetime={node.date}>
-      {new Date(node.date).toLocaleDateString('en-US', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
-      })}
-    </time>
-    {" by "}
-    <span class="font-medium text-gray-900 dark:text-gray-100">
-      {node.author.node.name}
-    </span>
-  </p>
-)}
-  
+  <!-- Date and Author -->
+  {(node.date || node.author) && (
+    <p class="italic font-sans text-gray-600 dark:text-gray-400 mb-6 text-sm flex items-center">
+      <span class="flex-grow border-t border-maize mr-4"></span>
+      <span class="flex items-center gap-1 dark:text-gray-100">
+        {node.date && (
+          <time datetime={node.date}>
+            {formatDate(node.date)}
+          </time>
+        )}
+        {node.author && (
+          <>
+            {" by "}
+            <span class="font-medium text-gray-900 dark:text-gray-100">
+              {node.author.node?.name || node.author}
+            </span>
+          </>
+        )}
+      </span>
+      
+    </p>
+  )}
   <!-- Featured Image -->
   {node.featuredImage?.node?.mediaItemUrl && (
     <figure class="mb-4">
@@ -48,12 +63,17 @@ const { node } = Astro.props;
 
   <!-- Article Content -->
   <article 
-    set:html={node.content} 
     class="prose prose-lg max-w-none mb-4 dark:prose-invert
     prose-headings:font-roboto-condensed
     prose-p:font-sans prose-p:leading-relaxed
     prose-img:rounded-sm prose-img:shadow-md"
-  />
+  >
+    {node.content ? (
+      <div set:html={node.content} />
+    ) : (
+      <slot name="content" />
+    )}
+  </article>
 
     <!-- Categories -->
     <div class="mb-4">
@@ -85,7 +105,7 @@ const { node } = Astro.props;
   
   @media (prefers-color-scheme: dark) {
     .prose figure figcaption {
-      color: #9ca3af;
+      color: #c6cad2;
     }
   }
 
