@@ -61,13 +61,10 @@ const transformedRecentPosts = await Promise.all(recentPosts.map(async (post) =>
   let imageData = null;
   if (post.data.image) {
     try {
-      const imagePath = post.data.image.src;
+      const imageName = post.data.image.src.replace('images/', '');
       imageData = {
         node: {
-          image: (await import(
-            /* @vite-ignore */
-            `../../content/news/${post.slug.split('/')[0]}/${imagePath}?url`
-          )).default,
+          image: import(`${import.meta.env.BASE_URL}src/content/news/${post.data.date.split('-')[0]}/images/${imageName}`),
           altText: post.data.image.alt
         }
       };
@@ -80,7 +77,7 @@ const transformedRecentPosts = await Promise.all(recentPosts.map(async (post) =>
     ...post,
     title: post.data.title,
     date: post.data.date,
-    uri: `/news/${post.slug}`,
+    uri: `${import.meta.env.BASE_URL}news/${post.slug}`,
     excerpt: getExcerpt(post),
     featuredImage: imageData
   };
@@ -91,13 +88,10 @@ const transformedOlderPosts = await Promise.all(selectedOlderPosts.map(async (po
   let imageData = null;
   if (post.data.image) {
     try {
-      const imagePath = post.data.image.src;
+      const imageName = post.data.image.src.replace('images/', '');
       imageData = {
         node: {
-          image: (await import(
-            /* @vite-ignore */
-            `../../content/news/${post.slug.split('/')[0]}/${imagePath}?url`
-          )).default,
+          image: import(`${import.meta.env.BASE_URL}src/content/news/${post.data.date.split('-')[0]}/images/${imageName}`),
           altText: post.data.image.alt
         }
       };
@@ -110,7 +104,7 @@ const transformedOlderPosts = await Promise.all(selectedOlderPosts.map(async (po
     ...post,
     title: post.data.title,
     date: post.data.date,
-    uri: `/news/${post.slug}`,
+    uri: `${import.meta.env.BASE_URL}news/${post.slug}`,
     excerpt: getExcerpt(post),
     featuredImage: imageData,
     categories: {
@@ -150,28 +144,31 @@ const collegeNewsItems = await collegeNewsQuery();
     
     <section id="recent-posts" class="mb-12">
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {transformedRecentPosts.map((post, index) => (
-          <a href={post.uri} class={`group block bg-white dark:bg-gray-800 shadow-md rounded-sm overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-[1.02] ${index === 0 ? 'md:col-span-2' : ''}`}>
-            {post.featuredImage && (
-              <Image 
-                src={post.featuredImage.node.image}
-                alt={post.featuredImage.node.altText}
-                width={1024}
-                height={683}
-                class={`w-full ${index === 0 ? 'h-96' : 'h-48'} object-cover`}
-              />
-            )}
-            <div class="p-4">
-              <h3 class="text-xl font-roboto font-bold mb-2 text-umichblue dark:text-gray-100 border-b-2 border-transparent group-hover:border-maize transition-all duration-300">{post.title}</h3>
-              <p class="text-sm italic font-sans text-gray-600 dark:text-gray-400 mb-4">
-                  {new Date(post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
-                </p>
-              {post.excerpt && (
-                <p class="text-gray-600 dark:text-gray-200 mb-4" set:html={post.excerpt} />
+        {transformedRecentPosts.map(async (post, index) => {
+          const imageModule = post.featuredImage ? await post.featuredImage.node.image : null;
+          return (
+            <a href={post.uri} class={`group block bg-white dark:bg-gray-800 shadow-md rounded-sm overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-[1.02] ${index === 0 ? 'md:col-span-2' : ''}`}>
+              {imageModule && (
+                <Image 
+                  src={imageModule.default}
+                  alt={post.featuredImage.node.altText}
+                  width={1024}
+                  height={683}
+                  class={`w-full ${index === 0 ? 'h-96' : 'h-48'} object-cover`}
+                />
               )}
-            </div>
-          </a>
-        ))}
+              <div class="p-4">
+                <h3 class="text-xl font-roboto font-bold mb-2 text-umichblue dark:text-gray-100 border-b-2 border-transparent group-hover:border-maize transition-all duration-300">{post.title}</h3>
+                <p class="text-sm italic font-sans text-gray-600 dark:text-gray-400 mb-4">
+                    {new Date(post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+                  </p>
+                {post.excerpt && (
+                  <p class="text-gray-600 dark:text-gray-200 mb-4" set:html={post.excerpt} />
+                )}
+              </div>
+            </a>
+          );
+        })}
       </div>
     </section><section id="events" class="mb-12">
       <div class="grid grid-cols-1 sm:flex sm:flex-row sm:gap-6">
@@ -208,30 +205,33 @@ const collegeNewsItems = await collegeNewsQuery();
     
     <section id="older-posts" class="mb-12">
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        {transformedOlderPosts.map((post) => (
-          <a href={post.uri} class="group bg-white dark:bg-gray-800 shadow-md rounded-sm overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-[1.02] flex flex-col">
-            {post.featuredImage && (
-              <Image 
-                src={post.featuredImage.node.image}
-                alt={post.featuredImage.node.altText}
-                width={1024}
-                height={683}
-                class="w-full h-48 object-cover hidden sm:block"
-              />
-            )}
-            <div class="p-4 flex-grow flex flex-col justify-between">
-              <div>
-                <span class="inline-block text-xs font-medium mr-2 px-2.5 py-0.5 rounded-sm bg-arboretumBlue text-white mb-2">
-                  {(post.categories.nodes[0]?.name || 'Robotics').replace(/-/g, ' ')}
-                </span>
-                <h3 class="text-lg font-roboto font-bold text-umichblue dark:text-gray-100 mb-2 border-b-2 border-transparent group-hover:border-maize transition-all duration-300">{post.title}</h3>
-                <p class="text-sm italic font-sans text-gray-600 dark:text-gray-400">
-                  {new Date(post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
-                </p>
+        {transformedOlderPosts.map(async (post) => {
+          const imageModule = post.featuredImage ? await post.featuredImage.node.image : null;
+          return (
+            <a href={post.uri} class="group bg-white dark:bg-gray-800 shadow-md rounded-sm overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-[1.02] flex flex-col">
+              {imageModule && (
+                <Image 
+                  src={imageModule.default}
+                  alt={post.featuredImage.node.altText}
+                  width={1024}
+                  height={683}
+                  class="w-full h-48 object-cover hidden sm:block"
+                />
+              )}
+              <div class="p-4 flex-grow flex flex-col justify-between">
+                <div>
+                  <span class="inline-block text-xs font-medium mr-2 px-2.5 py-0.5 rounded-sm bg-arboretumBlue text-white mb-2">
+                    {(post.categories.nodes[0]?.name || 'Robotics').replace(/-/g, ' ')}
+                  </span>
+                  <h3 class="text-lg font-roboto font-bold text-umichblue dark:text-gray-100 mb-2 border-b-2 border-transparent group-hover:border-maize transition-all duration-300">{post.title}</h3>
+                  <p class="text-sm italic font-sans text-gray-600 dark:text-gray-400">
+                    {new Date(post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+                  </p>
+                </div>
               </div>
-            </div>
-          </a>
-        ))}
+            </a>
+          );
+        })}
         
         {collegeNewsItems && collegeNewsItems.length > 0 && collegeNewsItems.map((newsItem) => (
           <a href={newsItem.COLLEGE_LINK} class="group bg-white dark:bg-gray-800 shadow-md rounded-sm overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-[1.02] flex flex-col">
