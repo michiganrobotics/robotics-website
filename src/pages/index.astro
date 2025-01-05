@@ -21,7 +21,7 @@ const recentPosts = await Promise.all(posts.slice(0, 3).map(async (post) => {
       const imageName = post.data.image.src.replace('images/', '');
       imageData = {
         node: {
-          image: import(`${import.meta.env.BASE_URL}src/content/news/${post.data.date.split('-')[0]}/images/${imageName}`),
+          image: import(`/src/content/news/${post.data.date.split('-')[0]}/images/${imageName}`),
           altText: post.data.image.alt
         }
       };
