@@ -8,9 +8,28 @@ import { getCollection } from 'astro:content';
 const allPosts = await getCollection('news');
 
 // Filter posts tagged with the faculty member's full name
-const relatedPosts = allPosts.filter(post => 
-  post.data.tags?.includes(faculty.fullName)
-);
+const relatedPosts = allPosts
+  .filter(post => post.data.tags?.includes(faculty.fullName))
+  .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
+
+async function getImageModule(post) {
+  if (!post.data.image?.src) return null;
+  
+  const year = post.data.date.split('-')[0];
+  const imagePath = post.data.image.src;
+  
+  try {
+    const cleanPath = imagePath.replace(/^images\//, '');
+    return await import(`../content/news/${year}/images/${cleanPath}`);
+  } catch (error) {
+    console.error('Error importing image:', error, {
+      year,
+      imagePath,
+      fullPath: `../content/news/${year}/images/${imagePath}`
+    });
+    return null;
+  }
+}
 ---
 
 <Layout title={faculty?.preferredName && faculty?.lastName ? `${faculty.preferredName} ${faculty.lastName} - Faculty Profile` : 'Faculty Profile'}>
@@ -86,28 +105,32 @@ const relatedPosts = allPosts.filter(post =>
         <div class="mt-12">
           <h2 class="text-2xl font-bold mb-4 font-roboto-condensed dark:text-white">Related news</h2>
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {relatedPosts.map((post) => (
-              <a href={`${import.meta.env.BASE_URL}news/${post.slug}`} class="group">
-                <div class="bg-white dark:bg-gray-800 rounded-sm overflow-hidden shadow-md hover:shadow-lg transition-shadow">
-                  {post.data.image?.src && (
-                    <div class="aspect-video overflow-hidden">
-                      <Image 
-                        src={import(`${import.meta.env.BASE_URL}src/content/news/${post.data.date.split('-')[0]}/images/${post.data.image.src.replace('images/', '')}`)}
-                        alt={post.data.image?.alt || post.data.title}
-                        width={400}
-                        height={225}
-                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                      />
+            {relatedPosts.map(async (post) => {
+              const imageModule = await getImageModule(post);
+
+              return (
+                <a href={`${import.meta.env.BASE_URL}news/${post.slug}`} class="group">
+                  <div class="bg-white dark:bg-gray-800 rounded-sm overflow-hidden shadow-md hover:shadow-lg transition-shadow">
+                    {imageModule && (
+                      <div class="aspect-video overflow-hidden">
+                        <Image 
+                          src={imageModule.default}
+                          alt={post.data.image?.alt || post.data.title}
+                          width={400}
+                          height={225}
+                          class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        />
+                      </div>
+                    )}
+                    <div class="p-4">
+                      <h3 class="text-lg font-medium decoration-maize decoration-2 group-hover:underline">
+                        {post.data.title}
+                      </h3>
                     </div>
-                  )}
-                  <div class="p-4">
-                    <h3 class="text-lg font-medium decoration-maize decoration-2 group-hover:underline">
-                      {post.data.title}
-                    </h3>
                   </div>
-                </div>
-              </a>
-            ))}
+                </a>
+              );
+            })}
           </div>
         </div>
       )}

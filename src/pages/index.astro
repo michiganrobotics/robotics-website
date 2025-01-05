@@ -11,37 +11,34 @@ import academicsImage from '../images/homepage/homepage-academics.jpg';
 import researchImage from '../images/homepage/homepage-research.jpg';
 import peopleImage from '../images/homepage/homepage-people.jpg';
 
-// Get all news posts and sort by date
+// Get all news posts and sort by date - this is all you need
 const allPosts = await getCollection('news');
-const posts = allPosts.sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
-const recentPosts = await Promise.all(posts.slice(0, 3).map(async (post) => {
-  let imageData = null;
-  if (post.data.image) {
-    try {
-      const imageName = post.data.image.src.replace('images/', '');
-      imageData = {
-        node: {
-          image: import(`../content/news/${post.data.date.split('-')[0]}/images/${imageName}`),
-          altText: post.data.image.alt
-        }
-      };
-    } catch (e) {
-      console.error(`Failed to load image for ${post.slug}:`, e);
-    }
-  }
-
-  return {
-    ...post,
-    title: post.data.title,
-    date: post.data.date,
-    uri: `${import.meta.env.BASE_URL}news/${post.slug}`,
-    featuredImage: imageData
-  };
-}));
+const recentPosts = allPosts
+  .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime())
+  .slice(0, 3);  // Get just the 3 most recent posts
 
 const eventsData = await eventsQuery();
 
 Astro.response.headers.set('Cache-Control','max-age=600, must-revalidate');
+
+async function getImageModule(post) {
+  if (!post.data.image?.src) return null;
+  
+  const year = post.data.date.split('-')[0];
+  const imagePath = post.data.image.src;
+  
+  try {
+    const cleanPath = imagePath.replace(/^images\//, '');
+    return await import(`../content/news/${year}/images/${cleanPath}`);
+  } catch (error) {
+    console.error('Error importing image:', error, {
+      year,
+      imagePath,
+      fullPath: `../content/news/${year}/images/${imagePath}`
+    });
+    return null;
+  }
+}
 ---
 
 <MainLayout title='Home Page'>
@@ -58,17 +55,18 @@ Astro.response.headers.set('Cache-Control','max-age=600, must-revalidate');
 
 			<div class="relative mb-16 border-t border-arboretumBlue before:absolute before:left-0 before:top-0 before:w-px before:h-1/3 before:bg-gradient-to-b before:from-arboretumBlue before:to-transparent after:absolute after:right-0 after:top-0 after:w-px after:h-1/3 after:bg-gradient-to-b after:from-arboretumBlue after:to-transparent">
 				<div class="flex justify-center mb-2 sm:mb-0">
-					<h2 class="absolute -top-6 z-10 bg-arboretumBlue text-white px-6 py-2 rounded-sm text-3xl font-bold">Latest news</h2>
+					<h2 id="latest-news" class="absolute -top-6 z-10 bg-arboretumBlue text-white px-6 py-2 rounded-sm text-3xl font-bold">Latest news</h2>
 				</div>
 				<div class="flex flex-wrap gap-4 justify-center mb-8 md:flex-nowrap pt-10 px-2">
 					{recentPosts.map(async (post) => {
-						const imageModule = post.featuredImage ? await post.featuredImage.node.image : null;
+						const imageModule = await getImageModule(post);
+						
 						return (
-							<a href={post.uri} class="group bg-white dark:bg-gray-800 shadow-md rounded-sm overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-[1.02] md:flex-1 max-w-md">
+							<a href={`${import.meta.env.BASE_URL}news/${post.slug}`} class="group bg-white dark:bg-gray-800 shadow-md rounded-sm overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-[1.02] md:flex-1 max-w-md">
 								{imageModule && (
 									<Image 
 										src={imageModule.default}
-										alt={post.featuredImage.node.altText}
+										alt={post.data.image?.alt || 'News image'}
 										width={1024}
 										height={683}
 										class="w-full h-48 object-cover"
@@ -77,12 +75,11 @@ Astro.response.headers.set('Cache-Control','max-age=600, must-revalidate');
 								<div class="relative">
 									<div class="p-4">
 										<div class="bg-arboretumBlue text-white p-2 pl-4 -ml-4">
-											<h3 class="text-xl font-roboto border-b-2 border-transparent group-hover:border-maize transition-all duration-300">{post.title}</h3>
-											
+											<h3 class="text-xl font-roboto border-b-2 border-transparent group-hover:border-maize transition-all duration-300">{post.data.title}</h3>
 										</div>
 										<div class="mt-4 text-gray-600 dark:text-gray-200">
 											<p class="text-sm italic font-sans text-arboretumBlue dark:text-gray-400">
-												{new Date(post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'numeric', day: 'numeric' })}
+												{new Date(post.data.date).toLocaleDateString('en-US', { year: 'numeric', month: 'numeric', day: 'numeric' })}
 											</p>
 											<p class="line-clamp-3" set:html={post.data.excerpt || post.body.split('<!--more-->')[0] || post.body.split('\n\n')[0]} />
 										</div>

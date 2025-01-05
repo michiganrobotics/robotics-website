@@ -8,9 +8,9 @@ import featureImage from '../../images/featured-images/news.jpg';
 import { collegeNewsQuery, eventsQuery } from '../../lib/api';
 
 const eventsData = await eventsQuery();
+
 // Helper function to get excerpt
 function getExcerpt(post) {
-  // First check for frontmatter excerpt
   if (post.data.excerpt) {
     return post.data.excerpt;
   }
@@ -43,78 +43,49 @@ const postsByCategory = remainingPosts.reduce((acc, post) => {
 
 // Select up to 8 posts for the older posts section
 let selectedOlderPosts = [];
-let usedCategories = new Set();
-
-// First pass: take up to 4 posts from each category
 Object.entries(postsByCategory).forEach(([category, posts]) => {
   const postsToAdd = posts.slice(0, 4);
   selectedOlderPosts.push(...postsToAdd);
-  usedCategories.add(category);
 });
 
 // Sort by date and take only the 8 most recent
 selectedOlderPosts.sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
 selectedOlderPosts = selectedOlderPosts.slice(0, 8);
 
-// Transform recent posts
-const transformedRecentPosts = await Promise.all(recentPosts.map(async (post) => {
-  let imageData = null;
-  if (post.data.image) {
-    try {
-      const imageName = post.data.image.src.replace('images/', '');
-      imageData = {
-        node: {
-          image: import(`../../content/news/${post.data.date.split('-')[0]}/images/${imageName}`),
-          altText: post.data.image.alt
-        }
-      };
-    } catch (e) {
-      console.error(`Failed to load image for ${post.slug}:`, e);
-    }
-  }
-
-  return {
-    ...post,
-    title: post.data.title,
-    date: post.data.date,
-    uri: `${import.meta.env.BASE_URL}news/${post.slug}`,
-    excerpt: getExcerpt(post),
-    featuredImage: imageData
-  };
-}));
-
-// Transform older posts
-const transformedOlderPosts = await Promise.all(selectedOlderPosts.map(async (post) => {
-  let imageData = null;
-  if (post.data.image) {
-    try {
-      const imageName = post.data.image.src.replace('images/', '');
-      imageData = {
-        node: {
-          image: import(`${import.meta.env.BASE_URL}src/content/news/${post.data.date.split('-')[0]}/images/${imageName}`),
-          altText: post.data.image.alt
-        }
-      };
-    } catch (e) {
-      console.error(`Failed to load image for ${post.slug}:`, e);
-    }
-  }
-
-  return {
-    ...post,
-    title: post.data.title,
-    date: post.data.date,
-    uri: `${import.meta.env.BASE_URL}news/${post.slug}`,
-    excerpt: getExcerpt(post),
-    featuredImage: imageData,
-    categories: {
-      nodes: post.data.categories?.map(cat => ({ name: cat })) || []
-    }
-  };
-}));
-
 const collegeNewsItems = await collegeNewsQuery();
+
+// Update the image path construction
+async function getImageModule(post) {
+  if (!post.data.image?.src) return null;
+  
+  const year = post.data.date.split('-')[0];
+  const imagePath = post.data.image.src;
+  
+  try {
+    // Remove any duplicate 'images' in the path
+    const cleanPath = imagePath.replace(/^images\//, '');
+    
+    // Use dynamic import with explicit file extensions
+    if (imagePath.endsWith('.jpg') || imagePath.endsWith('.jpeg')) {
+      return await import(`../../content/news/${year}/images/${cleanPath}`);
+    } else if (imagePath.endsWith('.png')) {
+      return await import(`../../content/news/${year}/images/${cleanPath}`);
+    } else if (imagePath.endsWith('.webp')) {
+      return await import(`../../content/news/${year}/images/${cleanPath}`);
+    }
+    console.warn(`Unsupported image format for ${imagePath}`);
+    return null;
+  } catch (error) {
+    console.error('Error importing image:', error, {
+      year,
+      imagePath,
+      fullPath: `../../content/news/${year}/images/${imagePath}`
+    });
+    return null;
+  }
+}
 ---
+
 <MainLayout title="News and Events">
     <div class="max-w-6xl w-11/12 mx-auto py-2">
       <Breadcrumbs />
@@ -141,36 +112,42 @@ const collegeNewsItems = await collegeNewsQuery();
         </div>
       </div>
     
-    
     <section id="recent-posts" class="mb-12">
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {transformedRecentPosts.map(async (post, index) => {
-          const imageModule = post.featuredImage ? await post.featuredImage.node.image : null;
+        {recentPosts.map(async (post, index) => {
+          const imageModule = await getImageModule(post);
+          console.log('Processing post:', {
+            slug: post.slug,
+            imageSrc: post.data.image?.src,
+            imageModule: imageModule ? 'loaded' : 'not loaded'
+          });
+          
           return (
-            <a href={post.uri} class={`group block bg-white dark:bg-gray-800 shadow-md rounded-sm overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-[1.02] ${index === 0 ? 'md:col-span-2' : ''}`}>
+            <a href={`${import.meta.env.BASE_URL}news/${post.slug}`} 
+               class={`group block bg-white dark:bg-gray-800 shadow-md rounded-sm overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-[1.02] ${index === 0 ? 'md:col-span-2' : ''}`}>
               {imageModule && (
                 <Image 
                   src={imageModule.default}
-                  alt={post.featuredImage.node.altText}
+                  alt={post.data.image?.alt || 'News image'}
                   width={1024}
                   height={683}
                   class={`w-full ${index === 0 ? 'h-96' : 'h-48'} object-cover`}
                 />
               )}
               <div class="p-4">
-                <h3 class="text-xl font-roboto font-bold mb-2 text-umichblue dark:text-gray-100 border-b-2 border-transparent group-hover:border-maize transition-all duration-300">{post.title}</h3>
+                <h3 class="text-xl font-roboto font-bold mb-2 text-umichblue dark:text-gray-100 border-b-2 border-transparent group-hover:border-maize transition-all duration-300">{post.data.title}</h3>
                 <p class="text-sm italic font-sans text-gray-600 dark:text-gray-400 mb-4">
-                    {new Date(post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
-                  </p>
-                {post.excerpt && (
-                  <p class="text-gray-600 dark:text-gray-200 mb-4" set:html={post.excerpt} />
-                )}
+                  {new Date(post.data.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+                </p>
+                <p class="text-gray-600 dark:text-gray-200 mb-4" set:html={getExcerpt(post)} />
               </div>
             </a>
           );
         })}
       </div>
-    </section><section id="events" class="mb-12">
+    </section>
+
+    <section id="events" class="mb-12">
       <div class="grid grid-cols-1 sm:flex sm:flex-row sm:gap-6">
         {eventsData.slice(0,4).map((event, index) => (
           <a href={event.permalink} class={`group bg-white dark:bg-gray-800 shadow-md rounded-sm overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-[1.02] flex flex-col mb-6 sm:mb-0 sm:flex-1 ${index !== 0 ? 'sm:ml-6' : ''}`}>
@@ -205,14 +182,16 @@ const collegeNewsItems = await collegeNewsQuery();
     
     <section id="older-posts" class="mb-12">
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        {transformedOlderPosts.map(async (post) => {
-          const imageModule = post.featuredImage ? await post.featuredImage.node.image : null;
+        {selectedOlderPosts.map(async (post) => {
+          const imageModule = await getImageModule(post);
+          
           return (
-            <a href={post.uri} class="group bg-white dark:bg-gray-800 shadow-md rounded-sm overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-[1.02] flex flex-col">
+            <a href={`${import.meta.env.BASE_URL}news/${post.slug}`} 
+               class="group bg-white dark:bg-gray-800 shadow-md rounded-sm overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-[1.02] flex flex-col">
               {imageModule && (
                 <Image 
                   src={imageModule.default}
-                  alt={post.featuredImage.node.altText}
+                  alt={post.data.image.alt}
                   width={1024}
                   height={683}
                   class="w-full h-48 object-cover hidden sm:block"
@@ -221,11 +200,11 @@ const collegeNewsItems = await collegeNewsQuery();
               <div class="p-4 flex-grow flex flex-col justify-between">
                 <div>
                   <span class="inline-block text-xs font-medium mr-2 px-2.5 py-0.5 rounded-sm bg-arboretumBlue text-white mb-2">
-                    {(post.categories.nodes[0]?.name || 'Robotics').replace(/-/g, ' ')}
+                    {(post.data.categories?.[0] || 'Robotics').replace(/-/g, ' ')}
                   </span>
-                  <h3 class="text-lg font-roboto font-bold text-umichblue dark:text-gray-100 mb-2 border-b-2 border-transparent group-hover:border-maize transition-all duration-300">{post.title}</h3>
+                  <h3 class="text-lg font-roboto font-bold text-umichblue dark:text-gray-100 mb-2 border-b-2 border-transparent group-hover:border-maize transition-all duration-300">{post.data.title}</h3>
                   <p class="text-sm italic font-sans text-gray-600 dark:text-gray-400">
-                    {new Date(post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+                    {new Date(post.data.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
                   </p>
                 </div>
               </div>
@@ -253,4 +232,5 @@ const collegeNewsItems = await collegeNewsQuery();
         ))}
       </div>
     </section>
+  </div>
 </MainLayout>
