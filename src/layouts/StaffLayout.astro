@@ -78,8 +78,14 @@ const images = import.meta.glob('/src/content/news/**/*.{jpeg,jpg,png,gif}');
               const imageName = hasImage ? post.data.image.src.replace('images/', '') : null;
               let imagePath = hasImage ? `/src/content/news/${post.data.date.split('-')[0]}/images/${imageName}` : null;
               
-              const imageModule = imagePath ? images[imagePath] : null;
-              const resolvedImage = imageModule ? await imageModule() : null;
+              let resolvedImage = null;
+              try {
+                const imageModule = imagePath ? images[imagePath] : null;
+                resolvedImage = imageModule ? await imageModule() : null;
+              } catch (error) {
+                console.warn(`Failed to load image for post "${post.data.title}":`, error);
+                resolvedImage = null;
+              }
 
               return (
                 <a href={`/news/${post.slug}`} class="group">

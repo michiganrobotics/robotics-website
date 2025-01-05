@@ -90,14 +90,18 @@ const images = import.meta.glob('/src/content/news/**/*.{jpeg,jpg,png,gif}');
           <h2 class="text-2xl font-bold mb-4 font-roboto-condensed dark:text-white">Related news</h2>
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {relatedPosts.map(async (post) => {
-              // Check if post has an image defined
               const hasImage = post.data.image?.src;
-              // Remove the 'images/' prefix if it exists in the src
               const imageName = hasImage ? post.data.image.src.replace('images/', '') : null;
               let imagePath = hasImage ? `/src/content/news/${post.data.date.split('-')[0]}/images/${imageName}` : null;
               
-              const imageModule = imagePath ? images[imagePath] : null;
-              const resolvedImage = imageModule ? await imageModule() : null;
+              let resolvedImage = null;
+              try {
+                const imageModule = imagePath ? images[imagePath] : null;
+                resolvedImage = imageModule ? await imageModule() : null;
+              } catch (error) {
+                console.warn(`Failed to load image for post "${post.data.title}":`, error);
+                resolvedImage = null;
+              }
 
               return (
                 <a href={`/news/${post.slug}`} class="group">
