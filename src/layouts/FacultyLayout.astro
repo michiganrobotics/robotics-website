@@ -89,43 +89,27 @@ const images = import.meta.glob('/src/content/news/**/*.{jpeg,jpg,png,gif}');
         <div class="mt-12">
           <h2 class="text-2xl font-bold mb-4 font-roboto-condensed dark:text-white">Related news</h2>
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {relatedPosts.map(async (post) => {
-              const hasImage = post.data.image?.src;
-              const imageName = hasImage ? post.data.image.src.replace('images/', '') : null;
-              let imagePath = hasImage ? `/src/content/news/${post.data.date.split('-')[0]}/images/${imageName}` : null;
-              
-              let resolvedImage = null;
-              try {
-                const imageModule = imagePath ? images[imagePath] : null;
-                resolvedImage = imageModule ? await imageModule() : null;
-              } catch (error) {
-                console.warn(`Failed to load image for post "${post.data.title}":`, error);
-                resolvedImage = null;
-              }
-
-              return (
-                <a href={`/news/${post.slug}`} class="group">
-                  <div class="bg-white dark:bg-gray-800 rounded-sm overflow-hidden shadow-md hover:shadow-lg transition-shadow">
-                    {resolvedImage && (
-                      <div class="aspect-video overflow-hidden">
-                        <Image 
-                          src={resolvedImage.default}
-                          alt={post.data.image?.alt || post.data.title}
-                          width={400}
-                          height={225}
-                          class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                        />
-                      </div>
-                    )}
-                    <div class="p-4">
-                      <h3 class="text-lg font-medium decoration-maize decoration-2 group-hover:underline">
-                        {post.data.title}
-                      </h3>
+            {relatedPosts.map((post) => (
+              <a href={`/news/${post.slug}`} class="group">
+                <div class="bg-white dark:bg-gray-800 rounded-sm overflow-hidden shadow-md hover:shadow-lg transition-shadow">
+                  {post.data.image?.src && (
+                    <div class="aspect-video overflow-hidden">
+                      <img 
+                        src={`/src/content/news/${post.data.date.split('-')[0]}/images/${post.data.image.src.replace('images/', '')}`}
+                        alt={post.data.image?.alt || post.data.title}
+                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        loading="lazy"
+                      />
                     </div>
+                  )}
+                  <div class="p-4">
+                    <h3 class="text-lg font-medium decoration-maize decoration-2 group-hover:underline">
+                      {post.data.title}
+                    </h3>
                   </div>
-                </a>
-              );
-            })}
+                </div>
+              </a>
+            ))}
           </div>
         </div>
       )}
