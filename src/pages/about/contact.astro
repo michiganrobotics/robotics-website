@@ -3,6 +3,7 @@ import MainLayout from "../../layouts/MainLayout.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import SubNav from "../../components/SubNav.astro";
 import { Icon } from "astro-icon";
+import GameModal from "../../components/GameModal.astro";
 ---
 
 <MainLayout title="Contact | Michigan Robotics" description="Contact information for Michigan Robotics">
@@ -82,7 +83,10 @@ import { Icon } from "astro-icon";
             <Icon name="mdi:arrow-right" class="w-4 h-4 mr-1" />
             Dan Newman
           </a>
-          <span class="mt-2 text-sm text-gray-500 dark:text-gray-400">Communications Manager</span>
+          <span class="mt-2 text-sm text-gray-500 dark:text-gray-400 cursor-pointer" id="commsManagerTitle">
+            Communications Manager
+          </span>
+          <GameModal />
         </div>
 
         <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">

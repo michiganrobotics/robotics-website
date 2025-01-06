@@ -1,0 +1,397 @@
+---
+import { Icon } from "astro-icon";
+---
+
+<div id="gameModal" class="hidden font-mono text-umichblue dark:text-white">
+  <pre id="gameCanvas" class="bg-white dark:bg-gray-800 p-4 text-base leading-none whitespace-pre"></pre>
+  <div class="md:hidden mt-4 grid grid-cols-3 gap-2 max-w-[200px] mx-auto">
+    <button class="touch-up bg-gray-200 dark:bg-gray-700 p-2 rounded">↑</button>
+    <button class="touch-down bg-gray-200 dark:bg-gray-700 p-2 rounded">↓</button>
+    <button class="touch-left bg-gray-200 dark:bg-gray-700 p-2 rounded">←</button>
+    <button class="touch-right bg-gray-200 dark:bg-gray-700 p-2 rounded">→</button>
+  </div>
+</div>
+
+<script>
+class ASCIIPhoneGame {
+  constructor() {
+    this.width = 32;
+    this.height = 13;
+    this.canvas = document.getElementById('gameCanvas');
+    this.robot = {
+      x: 15,
+      y: 6,
+      char: '[@]',
+      holding: null
+    };
+    this.phoneLines = {
+      left: Array(4).fill(null).map((_, i) => ({
+        x: 3,
+        y: 1 + i * 3,
+        char: '☎',
+        ringing: false,
+        connected: false
+      })),
+      right: Array(4).fill(null).map((_, i) => ({
+        x: this.width - 6,
+        y: 1 + i * 3,
+        char: '☎',
+        active: false,
+        connected: false
+      }))
+    };
+    
+    this.grid = Array(this.height).fill().map(() => Array(this.width).fill(' '));
+    this.animationFrame = 0;
+    this.confetti = [];
+    this.gameWon = false;
+    this.init();
+    this.escListener = (e) => {
+      if (e.key === 'Escape') {
+        this.closeGame();
+      }
+    };
+    document.addEventListener('keydown', this.escListener);
+    
+    // Add touch controls
+    this.setupTouchControls();
+  }
+
+  init() {
+    document.addEventListener('keydown', (e) => this.handleInput(e));
+    this.generateCalls();
+    this.gameLoop();
+  }
+
+  handleInput(e) {
+    e.preventDefault();
+    const oldX = this.robot.x;
+    const oldY = this.robot.y;
+
+    switch(e.key.toLowerCase()) {
+      case 'w':
+        this.robot.y = Math.max(0, this.robot.y - 1);
+        break;
+      case 's':
+        this.robot.y = Math.min(this.height - 1, this.robot.y + 1);
+        break;
+      case 'a':
+        this.robot.x = Math.max(0, this.robot.x - 1);
+        break;
+      case 'd':
+        this.robot.x = Math.min(this.width - 1, this.robot.x + 1);
+        break;
+    }
+
+    // Auto pickup/connect when near
+    if (this.robot.x !== oldX || this.robot.y !== oldY) {
+      this.handleAction();
+    }
+  }
+
+  handleAction() {
+    if (!this.robot.holding) {
+      // Try to pick up a ringing line
+      const ringingLine = this.phoneLines.left.find(line => 
+        line.ringing && this.isNear(this.robot, line)
+      );
+      if (ringingLine) {
+        this.robot.holding = ringingLine;
+        ringingLine.ringing = false;
+      }
+    } else {
+      // Try to connect to an active right-side line
+      const targetLine = this.phoneLines.right.find(line =>
+        line.active && this.isNear(this.robot, line)
+      );
+      if (targetLine) {
+        this.robot.holding.connected = true;
+        targetLine.connected = true;
+        this.robot.holding = null;
+      }
+    }
+  }
+
+  isNear(robot, line) {
+    return Math.abs(robot.x - line.x) <= 2 && Math.abs(robot.y - line.y) <= 1;
+  }
+
+  generateCalls() {
+    setInterval(() => {
+      // First, find an available incoming line
+      const availableLine = this.phoneLines.left.find(line => !line.ringing && !line.connected);
+      if (availableLine) {
+        availableLine.ringing = true;
+        
+        // Only after setting an incoming line to ring, activate a random right-side line
+        const availableRight = this.phoneLines.right.filter(line => !line.active && !line.connected);
+        if (availableRight.length > 0) {
+          // Small delay before activating outgoing line
+          setTimeout(() => {
+            availableRight[Math.floor(Math.random() * availableRight.length)].active = true;
+          }, 500);
+        }
+      }
+    }, 3000);
+  }
+
+  setupTouchControls() {
+    const touchControls = {
+      '.touch-up': { key: 'w' },
+      '.touch-down': { key: 's' },
+      '.touch-left': { key: 'a' },
+      '.touch-right': { key: 'd' }
+    };
+
+    Object.entries(touchControls).forEach(([selector, { key }]) => {
+      const button = document.querySelector(selector);
+      if (button) {
+        button.addEventListener('touchstart', (e) => {
+          e.preventDefault();
+          this.handleInput({ key, preventDefault: () => {} });
+        });
+      }
+    });
+
+    // Prevent default touch behaviors (scrolling, zooming)
+    this.canvas.addEventListener('touchstart', (e) => e.preventDefault());
+    this.canvas.addEventListener('touchmove', (e) => e.preventDefault());
+    this.canvas.addEventListener('touchend', (e) => e.preventDefault());
+  }
+
+  draw() {
+    // Clear grid
+    this.grid = Array(this.height).fill().map(() => Array(this.width).fill(' '));
+    
+    // Update animation frame
+    this.animationFrame = (this.animationFrame + 1) % 60;
+    
+    // Draw column headers
+    const incoming = "INCOMING";
+    const outgoing = "OUTGOING";
+    for (let i = 0; i < incoming.length; i++) {
+      this.grid[0][3 + i] = incoming[i];
+    }
+    for (let i = 0; i < outgoing.length; i++) {
+      this.grid[0][this.width - 9 + i] = outgoing[i];
+    }
+
+    // Update instructions for mobile
+    const instructions = window.innerWidth < 768 ? 
+      "USE BUTTONS OR WASD. ESC TO QUIT" : 
+      "USE WASD. ESC TO QUIT";
+    const startX = Math.floor((this.width - instructions.length) / 2);
+    for (let i = 0; i < instructions.length; i++) {
+      this.grid[this.height - 1][startX + i] = instructions[i];
+    }
+
+    // Draw phone lines with ringing animation
+    this.phoneLines.left.forEach(line => {
+      if (line.ringing && !line.connected) {
+        const ringFrame = Math.floor(this.animationFrame / 15) % 4;
+        const rings = ['(   )', '((  ))', '(( )))', '((()))'];
+        const ring = rings[ringFrame];
+        const startX = line.x - Math.floor(ring.length / 2) + 1;
+        
+        for (let i = 0; i < ring.length; i++) {
+          if (startX + i >= 0 && startX + i < this.width) {
+            this.grid[line.y][startX + i] = ring[i];
+          }
+        }
+      }
+      const char = line.connected ? '⚡' : line.ringing ? '☏' : '☎';
+      this.grid[line.y][line.x] = char;
+    });
+
+    this.phoneLines.right.forEach(line => {
+      if (line.active && !line.connected) {
+        const ringFrame = Math.floor(this.animationFrame / 15) % 4;
+        const rings = ['  >> ', ' >>  ', '>>   ', ' >>  '];
+        const ring = rings[ringFrame];
+        const startX = line.x - 4;
+        
+        for (let i = 0; i < ring.length; i++) {
+          if (startX + i >= 0 && startX + i < this.width) {
+            this.grid[line.y][startX + i] = ring[i];
+          }
+        }
+      }
+      const char = line.connected ? '⚡' : line.active ? '☏' : '☎';
+      this.grid[line.y][line.x] = char;
+    });
+
+    // Draw robot and line
+    if (this.robot.holding) {
+      let x = this.robot.holding.x;
+      let y = this.robot.holding.y;
+      const points = this.getLinePath(x, y, this.robot.x, this.robot.y);
+      
+      for (const point of points) {
+        if (point.x >= 0 && point.x < this.width) {
+          this.grid[point.y][point.x] = '~';
+        }
+      }
+    }
+    this.grid[this.robot.y][this.robot.x] = '@';
+
+    // Check win condition and initialize confetti if needed
+    if (!this.gameWon && this.checkWinCondition()) {
+      this.gameWon = true;
+      this.initializeConfetti();
+    }
+
+    // Draw celebration if game is won
+    if (this.gameWon) {
+      this.updateAndDrawConfetti();
+      
+      // Draw celebration message
+      const messages = [
+        "You are...",
+        "COMMUNICATIONS",
+        "MANAGER"
+      ];
+      
+      // Center the messages
+      messages.forEach((msg, idx) => {
+        const startX = Math.floor((this.width - msg.length) / 2);
+        const y = Math.floor(this.height / 2) - 1 + idx;
+        for (let i = 0; i < msg.length; i++) {
+          if (startX + i >= 0 && startX + i < this.width) {
+            this.grid[y][startX + i] = msg[i];
+          }
+        }
+      });
+    }
+
+    // Render grid
+    this.canvas.textContent = this.grid.map(row => row.join('')).join('\n');
+  }
+
+  getLinePath(x1, y1, x2, y2) {
+    const points = [];
+    const dx = Math.abs(x2 - x1);
+    const dy = Math.abs(y2 - y1);
+    const sx = x1 < x2 ? 1 : -1;
+    const sy = y1 < y2 ? 1 : -1;
+    let err = dx - dy;
+
+    while (true) {
+      points.push({x: x1, y: y1});
+      
+      if (x1 === x2 && y1 === y2) break;
+      
+      const e2 = 2 * err;
+      if (e2 > -dy) {
+        err -= dy;
+        x1 += sx;
+      }
+      if (e2 < dx) {
+        err += dx;
+        y1 += sy;
+      }
+    }
+    
+    return points;
+  }
+
+  checkWinCondition() {
+    return this.phoneLines.left.every(line => line.connected) &&
+           this.phoneLines.right.every(line => line.connected);
+  }
+
+  initializeConfetti() {
+    // Create 20 pieces of confetti
+    for (let i = 0; i < 20; i++) {
+      this.confetti.push({
+        x: Math.floor(Math.random() * this.width),
+        y: 0,
+        char: ['*', '✧', '✦', '✯', '✴'][Math.floor(Math.random() * 5)],
+        speed: 0.1 + Math.random() * 0.2,
+        offset: Math.random() * Math.PI * 2
+      });
+    }
+  }
+
+  updateAndDrawConfetti() {
+    this.confetti.forEach((piece) => {
+      piece.y += piece.speed;
+      piece.x += Math.sin(this.animationFrame * 0.1 + piece.offset) * 0.5;
+
+      const x = Math.floor(piece.x);
+      const y = Math.floor(piece.y);
+      
+      if (y >= 0 && y < this.height && x > 0 && x < this.width - 1) {
+        this.grid[y][x] = piece.char;
+      }
+
+      if (y >= this.height) {
+        piece.y = 0;
+        piece.x = Math.floor(Math.random() * (this.width - 2)) + 1;
+      }
+    });
+  }
+
+  gameLoop() {
+    this.draw();
+    requestAnimationFrame(() => this.gameLoop());
+  }
+
+  closeGame() {
+    const modal = document.getElementById('gameModal');
+    modal.style.maxHeight = '0';
+    setTimeout(() => {
+      modal.classList.add('hidden');
+      document.removeEventListener('keydown', this.escListener);
+    }, 500);
+  }
+}
+
+// Initialize game when clicking Communications Manager
+document.getElementById('commsManagerTitle').addEventListener('click', (e) => {
+  e.preventDefault(); // Prevent any default touch behavior
+  const modal = document.getElementById('gameModal');
+  if (modal.classList.contains('hidden')) {
+    modal.classList.remove('hidden');
+    modal.style.maxHeight = '0';
+    modal.style.transition = 'max-height 0.5s ease-in-out';
+    requestAnimationFrame(() => {
+      modal.style.maxHeight = '500px'; // Increased to accommodate touch controls
+    });
+    new ASCIIPhoneGame();
+  } else {
+    modal.style.maxHeight = '0';
+    setTimeout(() => {
+      modal.classList.add('hidden');
+    }, 500);
+  }
+});
+</script>
+
+<style>
+#gameModal {
+  overflow: hidden;
+}
+
+#gameCanvas {
+  font-size: 1.25rem;
+  line-height: 1.2;
+  font-family: monospace;
+  width: fit-content;
+  margin: 0 auto;
+  touch-action: none; /* Prevent default touch behaviors */
+}
+
+/* Touch button styles */
+#gameModal button {
+  font-size: 1.5rem;
+  font-weight: bold;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+#gameModal button:active {
+  background-color: #4a5568;
+  transform: translateY(1px);
+}
+</style>
