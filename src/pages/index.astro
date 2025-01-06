@@ -61,7 +61,7 @@ async function getImageModule(post) {
 						const imageModule = await getImageModule(post);
 						
 						return (
-							<a href={`${import.meta.env.BASE_URL}news/${post.slug}`} class="group bg-white dark:bg-gray-800 shadow-md rounded-sm overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-[1.02] md:flex-1 max-w-md">
+							<a href={`${import.meta.env.BASE_URL}/news/${post.slug}`} class="group bg-white dark:bg-gray-800 shadow-md rounded-sm overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-[1.02] md:flex-1 max-w-md">
 								{imageModule && (
 									<Image 
 										src={imageModule}
