@@ -3,11 +3,11 @@ import { Icon } from "astro-icon";
 ---
 
 <div id="gameModal" class="hidden font-mono text-umichblue dark:text-white">
-  <pre id="gameCanvas" class="bg-white dark:bg-gray-800 p-4 text-base leading-none whitespace-pre"></pre>
-  <div class="md:hidden mt-4 grid grid-cols-3 gap-2 max-w-[200px] mx-auto">
+  <pre id="gameCanvas" class="bg-white dark:bg-gray-800 p-4 text-xs md:text-base leading-none whitespace-pre"></pre>
+  <div class="md:hidden mt-4 flex justify-center gap-2">
+    <button class="touch-left bg-gray-200 dark:bg-gray-700 p-2 rounded">←</button>
     <button class="touch-up bg-gray-200 dark:bg-gray-700 p-2 rounded">↑</button>
     <button class="touch-down bg-gray-200 dark:bg-gray-700 p-2 rounded">↓</button>
-    <button class="touch-left bg-gray-200 dark:bg-gray-700 p-2 rounded">←</button>
     <button class="touch-right bg-gray-200 dark:bg-gray-700 p-2 rounded">→</button>
   </div>
 </div>
@@ -15,7 +15,7 @@ import { Icon } from "astro-icon";
 <script>
 class ASCIIPhoneGame {
   constructor() {
-    this.width = 32;
+    this.width = window.innerWidth < 768 ? 24 : 32;
     this.height = 13;
     this.canvas = document.getElementById('gameCanvas');
     this.robot = {
@@ -25,16 +25,16 @@ class ASCIIPhoneGame {
       holding: null
     };
     this.phoneLines = {
-      left: Array(4).fill(null).map((_, i) => ({
+      left: Array(3).fill(null).map((_, i) => ({
         x: 3,
-        y: 1 + i * 3,
+        y: 2 + i * 4,
         char: '☎',
         ringing: false,
         connected: false
       })),
-      right: Array(4).fill(null).map((_, i) => ({
+      right: Array(3).fill(null).map((_, i) => ({
         x: this.width - 6,
-        y: 1 + i * 3,
+        y: 2 + i * 4,
         char: '☎',
         active: false,
         connected: false
@@ -45,6 +45,9 @@ class ASCIIPhoneGame {
     this.animationFrame = 0;
     this.confetti = [];
     this.gameWon = false;
+    this.showIntro = true;
+    this.introStep = 0;
+    this.introTimer = 0;
     this.init();
     this.escListener = (e) => {
       if (e.key === 'Escape') {
@@ -64,7 +67,11 @@ class ASCIIPhoneGame {
   }
 
   handleInput(e) {
-    e.preventDefault();
+    // Only prevent default for game controls
+    if (['w', 'a', 's', 'd'].includes(e.key.toLowerCase())) {
+      e.preventDefault();
+    }
+    
     const oldX = this.robot.x;
     const oldY = this.robot.y;
 
@@ -162,6 +169,11 @@ class ASCIIPhoneGame {
   draw() {
     // Clear grid
     this.grid = Array(this.height).fill().map(() => Array(this.width).fill(' '));
+    
+    if (this.showIntro) {
+      this.drawIntro();
+      return;
+    }
     
     // Update animation frame
     this.animationFrame = (this.animationFrame + 1) % 60;
@@ -344,6 +356,42 @@ class ASCIIPhoneGame {
       document.removeEventListener('keydown', this.escListener);
     }, 500);
   }
+
+  drawIntro() {
+    const messages = [
+      "Communications Manager",
+      "simulator loading...",
+      "",
+      "Manage communications",
+      "to complete simulation."
+    ];
+
+    this.introTimer++;
+    if (this.introTimer > 150) { // About 1 second
+      this.introStep++;
+      this.introTimer = 0;
+      if (this.introStep >= messages.length) {
+        this.showIntro = false;
+        return;
+      }
+    }
+
+    // Draw current and previous messages
+    for (let i = 0; i <= this.introStep; i++) {
+      const msg = messages[i];
+      const startX = Math.floor((this.width - msg.length) / 2);
+      const y = Math.floor(this.height / 2) - 2 + i; // Adjusted y position to center vertically
+      
+      for (let j = 0; j < msg.length; j++) {
+        if (startX + j >= 0 && startX + j < this.width) {
+          this.grid[y][startX + j] = msg[j];
+        }
+      }
+    }
+
+    // Render grid
+    this.canvas.textContent = this.grid.map(row => row.join('')).join('\n');
+  }
 }
 
 // Initialize game when clicking Communications Manager
@@ -393,5 +441,12 @@ document.getElementById('commsManagerTitle').addEventListener('click', (e) => {
 #gameModal button:active {
   background-color: #4a5568;
   transform: translateY(1px);
+}
+
+@media (max-width: 768px) {
+  #gameCanvas {
+    font-size: 0.75rem;
+    line-height: 1;
+  }
 }
 </style>

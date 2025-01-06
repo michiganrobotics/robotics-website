@@ -1,0 +1,97 @@
+---
+import Layout from '../../layouts/MainLayout.astro';
+import { Image } from 'astro:assets';
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import SubNav from "../../components/SubNav.astro";
+import featureImage from '../../images/featured-images/partnerships.jpg';
+---
+
+<Layout title="Partnerships">
+  <div class="max-w-6xl w-11/12 mx-auto py-2">
+    <Breadcrumbs />
+  </div>
+      
+  <div class="mt-4 mb-4 max-w-6xl w-11/12 mx-auto">
+    <div class="relative rounded-sm overflow-hidden shadow-lg">
+      <div class="relative">
+        <div class="absolute inset-0">
+          <Image 
+            src={featureImage}
+            alt="An underwater robot on the surface of a lake is retrieved by two researchers."
+            class="w-full h-full object-cover object-center"
+            width={1200}
+            height={630}
+          />
+        </div>
+        <div class="relative">
+          <div class="bg-umichblue/70 dark:bg-arboretumBlue/70 backdrop-blur-[2px] p-3 sm:p-4 md:p-8 inline-block">
+            <h1 class="text-4xl font-roboto text-white font-bold">
+              <span class="relative border-b-4 border-maize">Partnerships</span>
+            </h1>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <SubNav />
+      
+    <article class="prose max-w-none dark:prose-invert mt-8">
+      <p>Michigan Robotics thrives on the principle that collaboration multiplies the quality and impact of our work. Michigan Robotics cultivates partnerships in industry and academia to promote the training, research, and deployment of robotics that serve society. Working on an individual level to organizational scale, we welcome opportunities that help us meet our mission of developing the next generation of robotics and roboticists.</p>
+
+      <div class="mt-8 space-y-8">
+        <!-- Industry Collaborations - Full Width -->
+        <div class="group relative not-prose overflow-hidden rounded-lg bg-white dark:bg-gray-800 shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 dark:border-gray-700">
+          <a href="/partnerships/industry" class="block p-8">
+            <h2 class="mb-4 text-3xl font-bold text-gray-900 dark:text-white group-hover:text-umichblue dark:group-hover:text-maize transition-colors">
+              Industry Engagement
+            </h2>
+            <p class="font-normal text-gray-600 dark:text-gray-300 leading-relaxed max-w-3xl">
+              Partner with Michigan Robotics to advance robotics innovation and shape the future of the field. Our industry partnerships program offers multiple engagement pathways, from sponsored research to student recruitment opportunities.
+            </p>
+            <div class="mt-6 inline-flex items-center text-umichblue dark:text-maize font-medium group-hover:translate-x-2 transition-transform">
+              Learn more about engagement opportunities
+              <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+              </svg>
+            </div>
+          </a>
+        </div>
+
+        <!-- Two Column Grid for Academic and Community -->
+        <div class="grid md:grid-cols-2 gap-8">
+          <!-- Academic Partnerships Info -->
+          <div class="relative not-prose overflow-hidden rounded-lg bg-white dark:bg-gray-800 shadow-lg border border-gray-100 dark:border-gray-700">
+            <div class="block p-8">
+              <h2 class="mb-4 text-2xl font-bold text-gray-900 dark:text-white">
+                Academic Collaboration
+              </h2>
+              <p class="font-normal text-gray-600 dark:text-gray-300 leading-relaxed">
+                We work with various institutions including Minority-Serving Institutions (MSIs) and Historically Black Colleges and Universities (HBCUs) to expand robotics education opportunities.
+              </p>
+              <div class="mt-6">
+                <p class="font-medium text-gray-900 dark:text-white">Contact:</p>
+                <a href="mailto:robotics-academic@umich.edu" class="text-umichblue dark:text-maize hover:underline">robotics-academic@umich.edu</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Community Partnerships Info -->
+          <div class="relative not-prose overflow-hidden rounded-lg bg-white dark:bg-gray-800 shadow-lg border border-gray-100 dark:border-gray-700">
+            <div class="block p-8">
+              <h2 class="mb-4 text-2xl font-bold text-gray-900 dark:text-white">
+                Community Organization
+              </h2>
+              <p class="font-normal text-gray-600 dark:text-gray-300 leading-relaxed">
+                We're committed to expanding robotics opportunities in our community through educational outreach and collaborative initiatives.
+              </p>
+              <div class="mt-6">
+                <p class="font-medium text-gray-900 dark:text-white">Contact:</p>
+                <a href="mailto:robotics-community@umich.edu" class="text-umichblue dark:text-maize hover:underline">robotics-community@umich.edu</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+  </div>
+</Layout>

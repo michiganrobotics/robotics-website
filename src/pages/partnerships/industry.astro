@@ -1,0 +1,67 @@
+---
+import Layout from '../../layouts/MainLayout.astro';
+import { Image } from 'astro:assets';
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import SubNav from "../../components/SubNav.astro";
+import featureImage from '../../images/featured-images/partnerships.jpg';
+import IndustryEngagementPathway from '../../components/IndustryEngagementPathway.astro';
+---
+
+<Layout title="Industry Engagement">
+  <div class="max-w-6xl w-11/12 mx-auto py-2">
+    <Breadcrumbs />
+  </div>
+      
+  <div class="mt-4 mb-4 max-w-6xl w-11/12 mx-auto">
+    <div class="relative rounded-sm overflow-hidden shadow-lg">
+      <div class="relative">
+        <div class="absolute inset-0">
+          <Image 
+            src={featureImage}
+            alt="Michigan Robotics research facilities"
+            class="w-full h-full object-cover object-center"
+            width={1200}
+            height={630}
+          />
+        </div>
+        <div class="relative">
+          <div class="bg-umichblue/70 dark:bg-arboretumBlue/70 backdrop-blur-[2px] p-3 sm:p-4 md:p-8 inline-block">
+            <h1 class="text-4xl font-roboto text-white font-bold">
+              <span class="relative border-b-4 border-maize">Industry Engagement</span>
+            </h1>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <SubNav />
+      
+    <article class="prose max-w-none dark:prose-invert mt-8">
+      <p>The University of Michigan Robotics Department welcomes industry leaders to our exclusive Industry Engagement Program. We offer multiple pathways for meaningful collaboration between academia and industry innovators.</p>
+
+      <h2>Engagement opportunities</h2>
+      <IndustryEngagementPathway />
+   
+
+      <div class="mt-8 bg-gray-50 dark:bg-gray-800 p-6 rounded-lg">
+        <h2 class="text-2xl font-bold not-prose">Additional benefits</h2>
+        <ul class="space-y-4">
+          <li><strong>Internship program:</strong> Establish multi-year internship commitments for fresh perspectives and innovative thinking</li>
+          <li><strong>Talent pipeline:</strong> Priority access to exceptional graduates in robotics and related fields</li>
+          <li><strong>Curriculum input:</strong> Shape educational programs through ongoing feedback and collaboration</li>
+          <li><strong>Campus presence:</strong> Participate in workshops, seminars, and speaking opportunities</li>
+        </ul>
+      </div>
+
+      <div class="mt-8">
+        <h2>Contact us</h2>
+        <div class="not-prose bg-white dark:bg-gray-800 p-4 rounded-lg">
+          <p class="font-bold">Industry Engagement Office</p>
+          <a href="mailto:robotics-industry@umich.edu" class="text-umichblue dark:text-maize">
+            robotics-industry@umich.edu
+          </a>
+        </div>
+      </div>
+    </article>
+  </div>
+</Layout>
