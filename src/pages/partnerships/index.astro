@@ -4,6 +4,22 @@ import { Image } from 'astro:assets';
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import SubNav from "../../components/SubNav.astro";
 import featureImage from '../../images/featured-images/partnerships.jpg';
+import { YouTube } from 'astro-embed';
+import NewsCard from '../../components/NewsCard.astro';
+import { getEntry } from 'astro:content';
+
+// Get a specific post by collection and slug
+const featuredPost = await getEntry('news', '2023/celebrating-the-robotics-outreach-ambassadors-of-2023');
+
+// Load the featured image if it exists
+let featuredImage;
+if (featuredPost?.data.image?.src) {
+  try {
+    featuredImage = (await import('../../content/news/2023/images/53105152864_7867bfe600_k.jpg')).default;
+  } catch (e) {
+    console.error("Error loading image:", e);
+  }
+}
 ---
 
 <Layout title="Partnerships">
@@ -43,7 +59,7 @@ import featureImage from '../../images/featured-images/partnerships.jpg';
         <div class="group relative not-prose overflow-hidden rounded-lg bg-white dark:bg-gray-800 shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 dark:border-gray-700">
           <a href="/partnerships/industry" class="block p-8">
             <h2 class="mb-4 text-3xl font-bold text-gray-900 dark:text-white group-hover:text-umichblue dark:group-hover:text-maize transition-colors">
-              Industry Engagement
+              Industry engagement
             </h2>
             <p class="font-normal text-gray-600 dark:text-gray-300 leading-relaxed max-w-3xl">
               Partner with Michigan Robotics to advance robotics innovation and shape the future of the field. Our industry partnerships program offers multiple engagement pathways, from sponsored research to student recruitment opportunities.
@@ -63,14 +79,16 @@ import featureImage from '../../images/featured-images/partnerships.jpg';
           <div class="relative not-prose overflow-hidden rounded-lg bg-white dark:bg-gray-800 shadow-lg border border-gray-100 dark:border-gray-700">
             <div class="block p-8">
               <h2 class="mb-4 text-2xl font-bold text-gray-900 dark:text-white">
-                Academic Collaboration
+                Academic collaboration
               </h2>
-              <p class="font-normal text-gray-600 dark:text-gray-300 leading-relaxed">
+              <p class="font-normal text-gray-600 dark:text-gray-300 mb-4">
                 We work with various institutions including Minority-Serving Institutions (MSIs) and Historically Black Colleges and Universities (HBCUs) to expand robotics education opportunities.
               </p>
+              <YouTube id="https://www.youtube.com/watch?v=sT9jH07Qa6o" class="w-full aspect-video" />
+              <p class="text-sm text-umichblue dark:text-maize hover:underline text-center mt-2"><a href="https://news.engin.umich.edu/2024/10/diversifying-robotics-with-a-one-of-a-kind-collaborative-teaching-model/">Read more about our academic collaborations.</a></p>
               <div class="mt-6">
                 <p class="font-medium text-gray-900 dark:text-white">Contact:</p>
-                <a href="mailto:robotics-academic@umich.edu" class="text-umichblue dark:text-maize hover:underline">robotics-academic@umich.edu</a>
+                <a href="mailto:robotics-academic@umich.edu" class="text-umichblue dark:text-maize hover:underline">robotics-contact@umich.edu</a>
               </div>
             </div>
           </div>
@@ -79,14 +97,26 @@ import featureImage from '../../images/featured-images/partnerships.jpg';
           <div class="relative not-prose overflow-hidden rounded-lg bg-white dark:bg-gray-800 shadow-lg border border-gray-100 dark:border-gray-700">
             <div class="block p-8">
               <h2 class="mb-4 text-2xl font-bold text-gray-900 dark:text-white">
-                Community Organization
+                Community organization
               </h2>
-              <p class="font-normal text-gray-600 dark:text-gray-300 leading-relaxed">
-                We're committed to expanding robotics opportunities in our community through educational outreach and collaborative initiatives.
+              <p class="font-normal text-gray-600 dark:text-gray-300">
+                We're committed to expanding robotics opportunities in our community through educational outreach and collaborative initiatives.</p>
               </p>
+              <div class="m-8">
+              <NewsCard
+              title={featuredPost.data.title}
+              date={new Date(featuredPost.data.date)}
+              slug={featuredPost.slug}
+              content="Read more about our outreach ambassadors."
+              image={featuredImage ? {
+                src: featuredImage,
+                alt: featuredPost.data.image?.alt
+              } : undefined}
+            />
+              </div>
               <div class="mt-6">
                 <p class="font-medium text-gray-900 dark:text-white">Contact:</p>
-                <a href="mailto:robotics-community@umich.edu" class="text-umichblue dark:text-maize hover:underline">robotics-community@umich.edu</a>
+                <a href="mailto:robotics-community@umich.edu" class="text-umichblue dark:text-maize hover:underline">robotics-contact@umich.edu</a>
               </div>
             </div>
           </div>

@@ -135,7 +135,7 @@ async function getImageModule(post) {
         })}
       </div>
     </section>
-
+    {eventsData.length > 0 && (
     <section id="events" class="mb-12">
       <div class="grid grid-cols-1 sm:flex sm:flex-row sm:gap-6">
         {eventsData.slice(0,4).map((event, index) => (
@@ -168,7 +168,7 @@ async function getImageModule(post) {
         ))}
       </div>
     </section>
-    
+    )}
     <section id="older-posts" class="mb-12">
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {selectedOlderPosts.map(async (post) => {

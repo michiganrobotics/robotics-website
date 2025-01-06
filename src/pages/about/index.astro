@@ -361,15 +361,15 @@ const committeeText = `The Robotics Department is led by the Executive Committee
         <!-- Photo rows -->
         <div class="flex flex-wrap justify-center mb-2">
           {excom.map((member, index) => (
-            <div class={`w-48 text-center ${index < 3 ? 'md:w-48' : 'md:w-48'}`}>
+            <div class={`w-24 text-center md:w-48`}>
               <img 
                 src={member.photoURL} 
                 alt={member.name}
-                class={`w-full h-48 object-cover ${
+                class={`w-full h-24 md:h-48 object-cover ${
                   member.name === "Brent Gillespie" 
-                    ? "object-right"
+                    ? "object-[100%_0%] md:object-right"
                     : member.name === "Leia Stirling"
-                      ? "object-right" 
+                      ? "object-[68%_0%] md:object-right" 
                       : "object-center"
                 }`}
               />

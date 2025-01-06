@@ -116,7 +116,7 @@ async function getImageModule(post) {
 						}
 					].map(item => (
 						<figure class="group min-w-[50%] md:min-w-[auto] flex-auto relative max-w-md overflow-hidden rounded-sm shadow-md hover:shadow-lg transition-all duration-300">
-							<a href={item.href} class="block">
+							<a href={`${import.meta.env.BASE_URL}${item.href}`} class="block">
 								<Image 
 									src={item.image}
 									alt={item.alt}
