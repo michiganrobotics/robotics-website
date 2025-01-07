@@ -173,6 +173,7 @@ function getHrClass(level) {
 <style>
   .engagement-point {
     transition: margin-bottom 0.3s ease;
+    -webkit-tap-highlight-color: transparent; /* Remove tap highlight on mobile */
   }
   .engagement-point-content {
     transition: all 0.3s ease;
@@ -209,12 +210,27 @@ function getHrClass(level) {
     .engagement-point:hover .engagement-point-media {
       max-height: 400px;
       opacity: 1;
-    } 
+    }
   }
-  .engagement-point:focus-within {
-    outline: 2px solid #007bff;
-    outline-offset: 2px;
+
+  /* Remove focus outline on mobile */
+  @media (hover: none) {
+    .engagement-point:focus {
+      outline: none;
+    }
+    .engagement-point:focus-within {
+      outline: none;
+    }
   }
+
+  /* Keep focus outline for keyboard navigation on desktop */
+  @media (hover: hover) {
+    .engagement-point:focus-within {
+      outline: 2px solid #007bff;
+      outline-offset: 2px;
+    }
+  }
+
   @media (prefers-color-scheme: dark) {
     .engagement-point-content {
       color: #f0f0f0;
@@ -239,6 +255,12 @@ function getHrClass(level) {
     // Handle click/tap events
     point.addEventListener('click', function(e) {
       e.preventDefault();
+      e.stopPropagation(); // Prevent event bubbling
+      
+      // Toggle current point
+      isExpanded = !isExpanded;
+      this.classList.toggle('expanded');
+      this.setAttribute('aria-expanded', isExpanded);
       
       // Close all other points
       document.querySelectorAll('.engagement-point').forEach(otherPoint => {
@@ -249,16 +271,13 @@ function getHrClass(level) {
         }
       });
 
-      // Toggle current point
-      isExpanded = !isExpanded;
-      this.classList.toggle('expanded');
-      this.setAttribute('aria-expanded', isExpanded);
-      
-      if (isExpanded) {
+      // Reset margin and state if closing
+      if (!isExpanded) {
+        this.style.marginBottom = '0';
+        this.blur(); // Remove focus state
+      } else {
         const contentHeight = this.querySelector('.engagement-point-media').offsetHeight;
         this.style.marginBottom = `${contentHeight}px`;
-      } else {
-        this.style.marginBottom = '0';
       }
     });
 

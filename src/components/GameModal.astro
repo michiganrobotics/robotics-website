@@ -62,7 +62,6 @@ class ASCIIPhoneGame {
 
   init() {
     document.addEventListener('keydown', (e) => this.handleInput(e));
-    this.generateCalls();
     this.gameLoop();
   }
 
@@ -367,11 +366,13 @@ class ASCIIPhoneGame {
     ];
 
     this.introTimer++;
-    if (this.introTimer > 80) { // About 1 second
+    if (this.introTimer > 70) { // About 1 second
       this.introStep++;
       this.introTimer = 0;
       if (this.introStep >= messages.length) {
         this.showIntro = false;
+        // Start generating calls after intro finishes
+        this.generateCalls();
         return;
       }
     }
