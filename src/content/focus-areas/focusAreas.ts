@@ -1,16 +1,16 @@
 // focusAreas.ts
-import artificialIntelligenceImg from '../../../images/focus-areas/artificial-intelligence.jpg';
-import autonomousVehiclesImg from '../../../images/focus-areas/autonomous-vehicles.jpg';
-import deepLearningImg from '../../../images/focus-areas/deep-learning.jpg';
-import humanRobotImg from '../../../images/focus-areas/human-robot.jpg';
-import leggedRobotsImg from '../../../images/focus-areas/legged-robots.jpg';
-import manufacturingImg from '../../../images/focus-areas/manufacturing.jpg';
-import motionPlanningImg from '../../../images/focus-areas/motion-planning.jpg';
-import rehabilitationImg from '../../../images/focus-areas/rehabilitation.jpg';
-import perceptionManipulationImg from '../../../images/focus-areas/perception-manipulation.jpg';
-import teamsSwarmsImg from '../../../images/focus-areas/teams-swarms.jpg';
-import slamImg from '../../../images/focus-areas/slam.jpg';
-import safeAutonomyImg from '../../../images/focus-areas/safe-autonomy.jpg';
+import artificialIntelligenceImg from '../../images/focus-areas/artificial-intelligence.jpg';
+import autonomousVehiclesImg from '../../images/focus-areas/autonomous-vehicles.jpg';
+import deepLearningImg from '../../images/focus-areas/deep-learning.jpg';
+import humanRobotImg from '../../images/focus-areas/human-robot.jpg';
+import leggedRobotsImg from '../../images/focus-areas/legged-robots.jpg';
+import manufacturingImg from '../../images/focus-areas/manufacturing.jpg';
+import motionPlanningImg from '../../images/focus-areas/motion-planning.jpg';
+import rehabilitationImg from '../../images/focus-areas/rehabilitation.jpg';
+import perceptionManipulationImg from '../../images/focus-areas/perception-manipulation.jpg';
+import teamsSwarmsImg from '../../images/focus-areas/teams-swarms.jpg';
+import slamImg from '../../images/focus-areas/slam.jpg';
+import safeAutonomyImg from '../../images/focus-areas/safe-autonomy.jpg';
 
 export interface FocusArea {
     title: string;

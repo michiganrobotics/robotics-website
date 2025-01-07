@@ -3,34 +3,17 @@ import Layout from './MainLayout.astro';
 import { Image } from 'astro:assets';
 const { staff } = Astro.props;
 import { getCollection } from 'astro:content';
-import type { CollectionEntry } from 'astro:content';
+import ContentImage from '../components/ContentImage.astro';
 
-// Fetch all news posts
-const allPosts = await getCollection('news');
+// Fetch all news posts with tag of staff member's full name
+const allNamedPosts = await getCollection('news', ({ data }) => {
+  return data.tags?.includes(staff.fullName);
+});
 
-// Filter posts tagged with the staff member's full name
-const relatedPosts = allPosts
-  .filter(post => post.data.tags?.includes(staff.fullName))
+// Sort posts by date
+const relatedPosts = allNamedPosts
   .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
 
-// Import all images
-const images = import.meta.glob<{ default: ImageMetadata }>('/src/content/**/*.{jpeg,jpg,png,gif}');
-
-async function getNewsImage(post: CollectionEntry<'news'>) {
-  if (!post.data.image?.src) return null;
-  
-  try {
-    const imagePath = `/src/content${post.data.image.src.replace('../content', '')}`;
-    if (imagePath in images) {
-      const image = await images[imagePath]();
-      return image.default;
-    }
-    return null;
-  } catch (error) {
-    console.error('Error in getNewsImage:', error);
-    return null;
-  }
-}
 ---
 
 <Layout title={staff?.preferredName && staff?.lastName ? `${staff.preferredName} ${staff.lastName} - Staff Profile` : 'Staff Profile'}>
@@ -91,21 +74,17 @@ async function getNewsImage(post: CollectionEntry<'news'>) {
           <h2 class="text-2xl font-bold mb-4 font-roboto-condensed dark:text-white">Related news</h2>
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {relatedPosts.map(async (post) => {
-              const image = await getNewsImage(post);
-              
               return (
                 <a href={`${import.meta.env.BASE_URL}/news/${post.slug}`} class="group">
-                  {image && (
-                    <div class="aspect-video overflow-hidden">
-                      <Image 
-                        src={image}
-                        alt={post.data.image?.alt || post.data.title}
-                        width={800}
-                        height={450}
-                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                      />
-                    </div>
-                  )}
+ <div class="relative aspect-video overflow-hidden rounded-sm shadow-lg">
+                    <ContentImage 
+                      src={post.data.image?.src}
+                      alt={post.data.image?.alt || post.data.title}
+                      width={800}
+                      height={450}
+                      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                  </div>
                   <div class="p-4">
                     <h3 class="text-lg font-medium decoration-maize decoration-2 group-hover:underline">
                       {post.data.title}

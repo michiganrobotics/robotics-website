@@ -3,7 +3,7 @@ export const prerender = true;
 import MainLayout from "../layouts/MainLayout.astro";
 import Archive from "../components/templates/Archive.astro";
 import Single from "../components/templates/Single.astro";
-import Landing from '../components/templates/Landing.astro';
+import WPLanding from '../components/templates/WPLanding.astro';
 import WPPage from '../components/templates/WPPage.astro';
 
 import { getNodeByURI, getAllUris } from "../lib/api";
@@ -18,21 +18,12 @@ export async function getStaticPaths(){
 function resolveContentTemplate(node) {
   let template;
   switch (node.__typename) {
-    case 'Post':
-      template = Single;
-      break;
     case 'Page':
       if (node.parentId === null) {
-        template = Landing;
+        template = WPLanding;
       } else {
         template = WPPage;
       }
-      break;
-    case 'Category':
-      template = Archive;
-      break;
-    case 'Tag':
-      template = Archive;
       break;
     default:
       template = Single;

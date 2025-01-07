@@ -1,0 +1,29 @@
+---
+import { ImageGlobber } from '../lib/imageGlobber';
+import { Image } from 'astro:assets';
+
+interface Props {
+  src?: string;
+  alt: string;
+  width?: number;
+  height?: number;
+  class?: string;
+  loading?: 'eager' | 'lazy';
+}
+
+const { src, alt, width = 800, height = 450, class: className = '', loading = 'lazy' } = Astro.props;
+
+const imageGlobber = ImageGlobber.getInstance();
+const image = await imageGlobber.getImage(src);
+---
+
+{image && (
+  <Image 
+    src={image}
+    alt={alt}
+    width={width}
+    height={height}
+    class={className}
+    loading={loading}
+  />
+)}

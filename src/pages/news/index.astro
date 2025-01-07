@@ -6,6 +6,7 @@ import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import { Image } from 'astro:assets';
 import featureImage from '../../images/featured-images/news.jpg';
 import { collegeNewsQuery, eventsQuery } from '../../lib/api';
+import ContentImage from '../../components/ContentImage.astro';
 
 const eventsData = await eventsQuery();
 
@@ -54,25 +55,7 @@ selectedOlderPosts = selectedOlderPosts.slice(0, 8);
 
 const collegeNewsItems = await collegeNewsQuery();
 
-// Import all images using glob pattern
-const images = import.meta.glob<{ default: ImageMetadata }>('/src/content/**/*.{jpeg,jpg,png,gif}');
 
-// Replace the existing getImageModule function with this new one
-async function getImageModule(post) {
-  if (!post.data.image?.src) return null;
-  
-  try {
-    const imagePath = `/src/content${post.data.image.src.replace('../content', '')}`;
-    if (imagePath in images) {
-      const image = await images[imagePath]();
-      return image.default;
-    }
-    return null;
-  } catch (error) {
-    console.error('Error in getImageModule:', error);
-    return null;
-  }
-}
 ---
 
 <MainLayout title="News and Events">
@@ -104,25 +87,18 @@ async function getImageModule(post) {
     <section id="recent-posts" class="mb-12">
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {recentPosts.map(async (post, index) => {
-          const imageModule = await getImageModule(post);
-          console.log('Processing post:', {
-            slug: post.slug,
-            imageSrc: post.data.image?.src,
-            imageModule: imageModule ? 'loaded' : 'not loaded'
-          });
           
           return (
             <a href={`/news/${post.slug}`} 
                class={`group block bg-white dark:bg-gray-800 shadow-md rounded-sm overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-[1.02] ${index === 0 ? 'md:col-span-2' : ''}`}>
-              {imageModule && (
-                <Image 
-                  src={imageModule}
-                  alt={post.data.image?.alt || 'News image'}
+                <ContentImage 
+                  src={post.data.image?.src}
+                  alt={post.data.image?.alt || post.data.title}
                   width={1024}
                   height={683}
                   class={`w-full ${index === 0 ? 'h-96' : 'h-48'} object-cover`}
+                  loading={`${index < 2 ? 'eager' : 'lazy'}`}
                 />
-              )}
               <div class="p-4">
                 <h3 class="text-xl font-roboto font-bold mb-2 text-umichblue dark:text-gray-100 border-b-2 border-transparent group-hover:border-maize transition-all duration-300">{post.data.title}</h3>
                 <p class="text-sm italic font-sans text-gray-600 dark:text-gray-400 mb-4">
@@ -145,9 +121,11 @@ async function getImageModule(post) {
                 upcoming event
               </span>
             </div>
-            <img 
+            <Image 
               src={event.styled_images.event_feature_large}
               alt={event.image_description || "Event image"}
+              width={1024}
+              height={683}
               class="w-full h-48 object-cover"
             />
             <div class="p-4 flex-grow flex flex-col justify-between">
@@ -183,20 +161,16 @@ async function getImageModule(post) {
     <section id="older-posts" class="mb-12">
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {selectedOlderPosts.map(async (post) => {
-          const imageModule = await getImageModule(post);
-          
           return (
             <a href={`${import.meta.env.BASE_URL}news/${post.slug}`} 
                class="group bg-white dark:bg-gray-800 shadow-md rounded-sm overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-[1.02] flex flex-col">
-              {imageModule && (
-                <Image 
-                  src={imageModule}
-                  alt={post.data.image.alt}
+                <ContentImage 
+                  src={post.data.image?.src}
+                  alt={post.data.image?.alt || post.data.title}
                   width={1024}
                   height={683}
                   class="w-full h-48 object-cover hidden sm:block"
                 />
-              )}
               <div class="p-4 flex-grow flex flex-col justify-between">
                 <div>
                   <span class="inline-block text-xs font-medium mr-2 px-2.5 py-0.5 rounded-sm bg-arboretumBlue text-white mb-2">

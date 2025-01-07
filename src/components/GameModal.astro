@@ -30,14 +30,16 @@ class ASCIIPhoneGame {
         y: 2 + i * 4,
         char: '☎',
         ringing: false,
-        connected: false
+        connected: false,
+        hasRung: false
       })),
       right: Array(3).fill(null).map((_, i) => ({
         x: this.width - 6,
         y: 2 + i * 4,
         char: '☎',
         active: false,
-        connected: false
+        connected: false,
+        hasRung: false
       }))
     };
     
@@ -124,19 +126,16 @@ class ASCIIPhoneGame {
 
   generateCalls() {
     setInterval(() => {
-      // First, find an available incoming line
-      const availableLine = this.phoneLines.left.find(line => !line.ringing && !line.connected);
-      if (availableLine) {
-        availableLine.ringing = true;
-        
-        // Only after setting an incoming line to ring, activate a random right-side line
-        const availableRight = this.phoneLines.right.filter(line => !line.active && !line.connected);
-        if (availableRight.length > 0) {
-          // Small delay before activating outgoing line
-          setTimeout(() => {
-            availableRight[Math.floor(Math.random() * availableRight.length)].active = true;
-          }, 500);
-        }
+      // Find available lines that have never rung before
+      const availableLeft = this.phoneLines.left.find(line => !line.ringing && !line.connected && !line.hasRung);
+      const availableRight = this.phoneLines.right.find(line => !line.active && !line.connected && !line.hasRung);
+
+      // Only create new calls if we have available lines on both sides
+      if (availableLeft && availableRight) {
+        availableLeft.ringing = true;
+        availableLeft.hasRung = true;
+        availableRight.active = true;
+        availableRight.hasRung = true;
       }
     }, 3000);
   }

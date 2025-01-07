@@ -276,6 +276,20 @@ export const subNavConfig: Record<string, SubNavItem[]> = {
       { title: "Advisory Board", href: "/people/advisory-board" },
       { title: "Honors and Awards", href: "/people/honors-and-awards"}
     ],
+    'people/advisory-board': [
+      { title: "Faculty", href: "/people/faculty" },
+      { title: "Staff", href: "/people/staff" },
+      { title: "Student Teams", href: "/people/student-teams" },
+      { title: "Alumni", href: "/people/alumni" },
+      { title: "Honors and Awards", href: "/people/honors-and-awards"}
+    ],
+    'people/honors-and-awards': [
+      { title: "Faculty", href: "/people/faculty" },
+      { title: "Staff", href: "/people/staff" },
+      { title: "Student Teams", href: "/people/student-teams" },
+      { title: "Alumni", href: "/people/alumni" },
+      { title: "Advisory Board", href: "/people/advisory-board"}
+    ],
     'about$': [
       { title: "Values", href: "/about/values" },
       { title: "Facilities", href: "/about/facilities" },

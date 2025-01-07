@@ -8,12 +8,16 @@ import { getNodeByURI } from '../../lib/api';
 const { uri } = Astro.params;
 const data = await getNodeByURI(uri);
 const page = data.nodeByUri;
+
+import '@wordpress/block-library/build-style/common.css';
+import '@wordpress/block-library/build-style/style.css';
+import '@wordpress/block-library/build-style/theme.css';
 ---
 <div class="max-w-6xl w-11/12 mx-auto py-2">
   <Breadcrumbs />
 </div>
 
-<div class="mt-4 mb-4 max-w-6xl w-11/12 mx-auto">
+<div id="WPpage" class="mt-4 mb-4 max-w-6xl w-11/12 mx-auto">
   <div class="relative rounded-sm overflow-hidden shadow-lg">
     {node.featuredImage?.node?.mediaItemUrl ? (
       <div class="relative">

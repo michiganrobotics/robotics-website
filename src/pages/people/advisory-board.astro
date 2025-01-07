@@ -1,9 +1,9 @@
 ---
-import Layout from '../../../layouts/MainLayout.astro';
-import { getAdvisoryBoard } from '../../../lib/googleSheets';
+import Layout from '../../layouts/MainLayout.astro';
+import { getAdvisoryBoard } from '../../lib/googleSheets';
 import { Icon } from "astro-icon";
-import Breadcrumbs from "../../../components/Breadcrumbs.astro";
-import SubNav from "../../../components/SubNav.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import SubNav from "../../components/SubNav.astro";
 
 const advisoryBoard = await getAdvisoryBoard();
 ---

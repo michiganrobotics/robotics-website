@@ -1,6 +1,5 @@
 ---
 import Hero from "../components/Hero.astro";
-import PostCard from "../components/PostCard.astro";
 import MainLayout from "../layouts/MainLayout.astro";
 import SocialFeed from '../components/SocialFeed.astro';
 import { getCollection } from 'astro:content';
@@ -10,6 +9,7 @@ import { Image } from "astro:assets";
 import academicsImage from '../images/homepage/homepage-academics.jpg';
 import researchImage from '../images/homepage/homepage-research.jpg';
 import peopleImage from '../images/homepage/homepage-people.jpg';
+import ContentImage from '../components/ContentImage.astro';
 
 // Get all news posts and sort by date - this is all you need
 const allPosts = await getCollection('news');
@@ -22,23 +22,6 @@ const recentEvents = eventsData.slice(0, 3);
 
 Astro.response.headers.set('Cache-Control','max-age=600, must-revalidate');
 
-const images = import.meta.glob<{ default: ImageMetadata }>('/src/content/**/*.{jpeg,jpg,png,gif}');
-
-async function getImageModule(post) {
-  if (!post.data.image?.src) return null;
-  
-  try {
-    const imagePath = `/src/content${post.data.image.src.replace('../content', '')}`;
-    if (imagePath in images) {
-      const image = await images[imagePath]();
-      return image.default;
-    }
-    return null;
-  } catch (error) {
-    console.error('Error in getImageModule:', error);
-    return null;
-  }
-}
 ---
 
 <MainLayout title='Home Page'>
@@ -59,19 +42,16 @@ async function getImageModule(post) {
 				</div>
 				<div class="flex flex-wrap gap-4 justify-center mb-8 md:flex-nowrap pt-10 px-2">
 					{recentPosts.map(async (post) => {
-						const imageModule = await getImageModule(post);
-						
+
 						return (
 							<a href={`${import.meta.env.BASE_URL}/news/${post.slug}`} class="group bg-white dark:bg-gray-800 shadow-md rounded-sm overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-[1.02] md:flex-1 max-w-md">
-								{imageModule && (
-									<Image 
-										src={imageModule}
-										alt={post.data.image?.alt || 'News image'}
+									<ContentImage 
+										src={post.data.image?.src}
+										alt={post.data.image?.alt || post.data.title}
 										width={1024}
 										height={683}
 										class="w-full h-48 object-cover"
 									/>
-								)}
 								<div class="relative">
 									<div class="p-4">
 										<div class="bg-arboretumBlue text-white p-2 pl-4 -ml-4">

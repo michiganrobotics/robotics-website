@@ -45,11 +45,11 @@ interface FacultyMember {
   office: string;
 }
 
-interface DataSet {
-  datasetName:string;
-  datasetDescription: string;
-  datasetOwner: string;
-  datasetLink: string;
+interface ProjectDataset {
+  projectName:string;
+  projectDescription: string;
+  projectOwner: string;
+  projectLink: string;
 }
 
 interface CourseList {
@@ -148,16 +148,16 @@ export const getFacultyData = cached(async () => {
   }));
 });
 
-export const getDatasets = cached(async () => {
+export const getProjectsDatasets = cached(async () => {
   await doc.loadInfo();
-  const sheet = doc.sheetsByTitle['Datasets'];
+  const sheet = doc.sheetsByTitle['ProjectsDatasets'];
   const rows = await sheet.getRows();
   
   return rows.map(row => ({
-    datasetName: row.get('datasetName'),
-    datasetDescription: row.get('datasetDescription'),
-    datasetOwner: row.get('datasetOwner'),
-    datasetLink: row.get('datasetLink'),
+    projectName: row.get('projectName'),
+    projectDescription: row.get('projectDescription'),
+    projectOwner: row.get('projectOwner'),
+    projectLink: row.get('projectLink'),
   }));
 });
 
