@@ -59,12 +59,6 @@ export async function homePagePostsQuery(){
                     title
                     commentCount
                     excerpt
-                    categories {
-                      nodes {
-                        name
-                        uri
-                      }
-                    }
                     featuredImage {
                       node {
                         srcSet
@@ -163,23 +157,6 @@ export async function getNodeByURI(uri){
 }
 
 export async function getAllUris(){
-  // fetch terms
-  const responseTerms = await fetch(import.meta.env.WORDPRESS_API_URL, {
-      method: 'post', 
-      headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({
-          query: `query GetAllUris {
-            terms {
-              nodes {
-                uri
-              }
-            }
-          }
-          `
-      })
-  });
-  const { data: dataTerms } = await responseTerms.json();
-
   // initial posts fetching
   let afterCursor = '';
   let allPosts = [];
@@ -246,7 +223,7 @@ export async function getAllUris(){
     afterCursor = dataPages.pages.pageInfo.hasNextPage ? dataPages.pages.pageInfo.endCursor : '';
   } while (afterCursor);
 
-  let allUris = [...dataTerms.terms.nodes, ...allPosts, ...allPages];
+  let allUris = [...allPosts, ...allPages];
 
   const uris = allUris
     .filter(node => node.uri !== null)
