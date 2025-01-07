@@ -177,9 +177,10 @@ function getHrClass(level) {
   .engagement-point-content {
     transition: all 0.3s ease;
     color: #333;
+    cursor: pointer;
   }
   .engagement-point:hover .engagement-point-content,
-  .engagement-point:focus-within .engagement-point-content {
+  .engagement-point.expanded .engagement-point-content {
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   }
   .engagement-point-media {
@@ -189,7 +190,7 @@ function getHrClass(level) {
     transition: max-height 0.3s ease, opacity 0.3s ease;
   }
   .engagement-point:hover .engagement-point-media,
-  .engagement-point:focus-within .engagement-point-media {
+  .engagement-point.expanded .engagement-point-media {
     max-height: 400px;
     opacity: 1;
   }
@@ -201,6 +202,14 @@ function getHrClass(level) {
   }
   .hr-advanced {
     background: linear-gradient(to right, #2F65A7, transparent);
+  }
+    
+  /* Only apply hover effects on devices that support hover */
+  @media (hover: hover) {
+    .engagement-point:hover .engagement-point-media {
+      max-height: 400px;
+      opacity: 1;
+    } 
   }
   .engagement-point:focus-within {
     outline: 2px solid #007bff;
@@ -224,28 +233,55 @@ function getHrClass(level) {
 
 <script>
   document.querySelectorAll('.engagement-point').forEach(point => {
-    point.addEventListener('mouseenter', function() {
-      const contentHeight = this.querySelector('.engagement-point-media').offsetHeight;
-      this.style.marginBottom = `${contentHeight}px`;
-      this.setAttribute('aria-expanded', 'true');
-    });
-    point.addEventListener('mouseleave', function() {
-      this.style.marginBottom = '0';
-      this.setAttribute('aria-expanded', 'false');
-    });
-    point.addEventListener('keydown', function(e) {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        this.classList.toggle('expanded');
-        const isExpanded = this.classList.contains('expanded');
-        this.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
-        if (isExpanded) {
-          const contentHeight = this.querySelector('.engagement-point-media').offsetHeight;
-          this.style.marginBottom = `${contentHeight}px`;
-        } else {
-          this.style.marginBottom = '0';
+    // Track if point is expanded
+    let isExpanded = false;
+
+    // Handle click/tap events
+    point.addEventListener('click', function(e) {
+      e.preventDefault();
+      
+      // Close all other points
+      document.querySelectorAll('.engagement-point').forEach(otherPoint => {
+        if (otherPoint !== point) {
+          otherPoint.style.marginBottom = '0';
+          otherPoint.setAttribute('aria-expanded', 'false');
+          otherPoint.classList.remove('expanded');
         }
+      });
+
+      // Toggle current point
+      isExpanded = !isExpanded;
+      this.classList.toggle('expanded');
+      this.setAttribute('aria-expanded', isExpanded);
+      
+      if (isExpanded) {
+        const contentHeight = this.querySelector('.engagement-point-media').offsetHeight;
+        this.style.marginBottom = `${contentHeight}px`;
+      } else {
+        this.style.marginBottom = '0';
       }
     });
+
+    // Keep hover effect for desktop only
+    if (window.matchMedia('(hover: hover)').matches) {
+      point.addEventListener('mouseenter', function() {
+        if (!isExpanded) {
+          const contentHeight = this.querySelector('.engagement-point-media').offsetHeight;
+          this.style.marginBottom = `${contentHeight}px`;
+          this.setAttribute('aria-expanded', 'true');
+          this.classList.add('expanded');
+          isExpanded = true;
+        }
+      });
+
+      point.addEventListener('mouseleave', function() {
+        if (!this.contains(document.activeElement)) {
+          this.style.marginBottom = '0';
+          this.setAttribute('aria-expanded', 'false');
+          this.classList.remove('expanded');
+          isExpanded = false;
+        }
+      });
+    }
   });
 </script>

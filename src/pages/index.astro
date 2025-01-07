@@ -18,6 +18,7 @@ const recentPosts = allPosts
   .slice(0, 3);  // Get just the 3 most recent posts
 
 const eventsData = await eventsQuery();
+const recentEvents = eventsData.slice(0, 3);
 
 Astro.response.headers.set('Cache-Control','max-age=600, must-revalidate');
 
@@ -136,11 +137,11 @@ async function getImageModule(post) {
 				</div>
 			</div>
 		
-			{eventsData.length > 0 && (
+			{recentEvents.length > 0 && (
 				<div class="relative mb-16 border-t border-matthaeiViolet before:absolute before:left-0 before:top-0 before:w-px before:h-1/3 before:bg-gradient-to-b before:from-matthaeiViolet before:to-transparent after:absolute after:right-0 after:top-0 after:w-px after:h-1/3 after:bg-gradient-to-b after:from-matthaeiViolet after:to-transparent">
 				  <h2 class="absolute -top-6 left-1/2 transform -translate-x-1/2 z-10 bg-matthaeiViolet text-white px-6 py-2 rounded-sm text-3xl font-bold">Events</h2>		
 				  <div class="flex flex-wrap gap-4 justify-center mb-4 md:flex-nowrap pt-10 px-2">	
-					{eventsData.map(event => (
+					{recentEvents.map(event => (
 					  <div key={event.id} class="group max-w-md bg-white border border-gray-200 rounded-sm shadow dark:bg-gray-800 dark:border-gray-700">
 						<a class='post-link' href={event.permalink} aria-label={event.event_title}>
 						  <section>
@@ -151,13 +152,16 @@ async function getImageModule(post) {
 							/>
 							<div class="p-5 pl-0">
 							  <div class="mb-3 text-sm italic bg-matthaeiViolet text-white inline-block pl-5 pr-2 py-1">
-								<time datetime={event.date_start}>
-								  {new Date(event.date_start).toLocaleString(undefined, {
-									hour: 'numeric',
-									minute: '2-digit',
-									year: 'numeric',
+								<time datetime={event.datetime_start}>
+								  {new Date(event.datetime_start.replace(
+									/(\d{4})(\d{2})(\d{2})T(\d{2})(\d{2})(\d{2})/,
+									"$1-$2-$3T$4:$5:$6"
+								  )).toLocaleString('en-US', {
 									month: 'long',
 									day: 'numeric',
+									year: 'numeric',
+									hour: 'numeric',
+									minute: '2-digit',
 									hour12: true
 								  })}
 								</time>
