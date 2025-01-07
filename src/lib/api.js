@@ -104,12 +104,6 @@ export async function getNodeByURI(uri){
                     uri
                     excerpt
                     content
-                    categories {
-                      nodes {
-                        name
-                        uri
-                      }
-                    }
                     featuredImage {
                       node {
                         srcSet
@@ -155,59 +149,6 @@ export async function getNodeByURI(uri){
                         }
                       }
                     }  
-                  }
-                  ... on Category {
-                    id
-                    name
-                    posts {
-                      nodes {
-                        date
-                        title
-                        excerpt
-                        uri
-                        categories {
-                          nodes {
-                            name
-                            uri
-                          }
-                        }
-                        featuredImage {
-                          node {
-                            srcSet
-                            sourceUrl
-                            altText
-                            mediaDetails {
-                              height
-                              width
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                 ... on Tag {
-                    id
-                    name
-                    description
-                    posts {
-                      nodes {
-                        date
-                        title
-                        excerpt
-                        uri
-                        featuredImage {
-                          node {
-                            srcSet
-                            sourceUrl
-                            altText
-                            mediaDetails {
-                              height
-                              width
-                            }
-                          }
-                        }
-                      }
-                    }
                   }
                 }
               }
