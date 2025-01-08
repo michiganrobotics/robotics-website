@@ -1,6 +1,6 @@
 ---
 import { fetchInstagramPosts, fetchYoutubePosts, fetchTwitterPosts } from '../lib/social';
-import { Icon } from 'astro-icon';
+import { Icon } from 'astro-icon/components';
 
 function truncateText(text, maxLength = 250) {
   return text.length <= maxLength ? text : text.slice(0, maxLength) + '...';

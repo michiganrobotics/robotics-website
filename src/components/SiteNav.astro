@@ -1,5 +1,5 @@
 ---
-import { Icon } from "astro-icon"
+import { Icon } from "astro-icon/components";
 import { mainNav, addBaseToMenuItems } from '../lib/nav';
 
 const base = import.meta.env.PROD ? import.meta.env.BASE_URL : '/';
@@ -14,7 +14,7 @@ const menuItems = addBaseToMenuItems(mainNav);
         </a>
     </div>
     <div id="menu-button" class="block text-2xl sm:text-3xl text-umichblue cursor-pointer mr-2 dark:text-maize md:hidden" aria-expanded="false" aria-controls="main-menu" role="button">&#9776;</div>
-    <nav id="main-menu" class="self-end hidden items-center justify-start flex-col absolute inset-x-0 top-24 border-b-8 border-maize border-double bg-gray-100 z-40 dark:bg-gray-700 md:flex md:flex-row md:border-none md:static md:justify-end md:bg-transparent md:-mb-1 transition-all duration-300">
+    <nav id="main-menu" class="self-end !hidden items-center justify-start flex-col absolute inset-x-0 top-24 border-b-8 border-maize border-double bg-gray-100 z-40 dark:bg-gray-700 md:!flex md:flex-row md:border-none md:static md:justify-end md:bg-transparent md:-mb-1 transition-all duration-300">
         <ul class="flex m-0 p-0 px-2 md:px-0 list-none flex-col items-center md:flex-row w-full md:w-auto">
             {menuItems.map((menuItem) => (
                 <li class="my-4 dark:text-white md:ml-5 md:my-0 relative group w-full md:w-auto">
@@ -81,11 +81,11 @@ const menuItems = addBaseToMenuItems(mainNav);
     }
 @media (min-width: 768px) {
     .group:hover .dropdown-content {
-        @apply block;
+        @apply !block;
     }
 
     .group\/child:hover .dropdown-content {
-        @apply block;
+        @apply !block;
     }
 
     .group:hover .dropdown-content::before,
@@ -122,6 +122,10 @@ const menuItems = addBaseToMenuItems(mainNav);
         border-bottom: 8px solid transparent;
         border-left: 8px solid #ffcb05;
     }
+}
+
+.dropdown-content {
+    @apply hidden;
 }
 </style>
 

@@ -6,7 +6,7 @@ const getLink = (path: string) => {
   }
   // In production, use BASE_URL
   const baseURL = import.meta.env.BASE_URL;
-  return baseURL + path;
+  return baseURL.endsWith('/') ? baseURL + path.slice(1) : baseURL + path;
 };
 
 interface Props {

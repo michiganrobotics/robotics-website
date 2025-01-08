@@ -1,5 +1,5 @@
 ---
-import { Icon } from "astro-icon"
+import { Icon } from "astro-icon/components";
 const currentYear = new Date().getFullYear();
 import { Image } from "astro:assets";
 import Link from '../components/Link.astro';
@@ -33,7 +33,7 @@ const randomIllustration = illustrations[Math.floor(Math.random() * illustration
         <div class="md:flex md:justify-between">
           <div class="mb-6 md:mb-0">
                <a href="/" class='flex items-center' aria-label="Home - Michigan Robotics Logo">
-                  <Icon name="roboticsUMLogo" class="h-16 mr-3"/>
+                  <Icon name="roboticsUMLogo" class="text-[4rem] mr-3"/>
               </a>
           </div>
           <div class="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-4">
@@ -88,19 +88,19 @@ const randomIllustration = illustrations[Math.floor(Math.random() * illustration
           <div class="flex justify-center sm:justify-end">
               <div class="flex flex-row space-x-2 text-white">
                   <a href="https://www.instagram.com/umrobotics/" target="_blank" rel="noopener noreferrer" aria-label="Michigan Robotics on Instagram">
-                      <Icon name="mdi:instagram" class="w-10 text-gray-500 hover:text-gray-900 dark:hover:text-white" />
+                      <Icon name="mdi:instagram" class="text-[2.5rem] text-gray-500 hover:text-gray-900 dark:hover:text-white" />
                   </a>
                   <a href="https://www.linkedin.com/company/university-of-michigan-robotics/" target="_blank" rel="noopener noreferrer" aria-label="Michigan Robotics on LinkedIn">
-                      <Icon name="mdi:linkedin" class="w-10 text-gray-500 hover:text-gray-900 dark:hover:text-white" />
+                      <Icon name="mdi:linkedin" class="text-[2.5rem] text-gray-500 hover:text-gray-900 dark:hover:text-white" />
                   </a>
                   <a href="https://github.com/michiganrobotics/" target="_blank" rel="noopener noreferrer" aria-label="Michigan Robotics on GitHub">
-                      <Icon name="mdi:github" class="w-10 text-gray-500 hover:text-gray-900 dark:hover:text-white" />
+                      <Icon name="mdi:github" class="text-[2.5rem] text-gray-500 hover:text-gray-900 dark:hover:text-white" />
                   </a>
                   <a href="https://www.youtube.com/channel/UC-WH2n-SkB166pUq5o5ULUg" target="_blank" rel="noopener noreferrer" aria-label="Michigan Robotics on YouTube">
-                      <Icon name="mdi:youtube" class="w-10 text-gray-500 hover:text-gray-900 dark:hover:text-white" />
+                      <Icon name="mdi:youtube" class="text-[2.5rem] text-gray-500 hover:text-gray-900 dark:hover:text-white" />
                   </a>
                   <a href="https://www.twitter.com/umrobotics" target="_blank" rel="noopener noreferrer" aria-label="Michigan Robotics on Twitter">
-                      <Icon name="twitter-x-logo" class="w-10 text-gray-500 hover:text-gray-900 dark:hover:text-white" />
+                      <Icon name="twitter-x-logo" class="text-[2.5rem] text-gray-500 hover:text-gray-900 dark:hover:text-white" />
                   </a>
               </div>
           </div>

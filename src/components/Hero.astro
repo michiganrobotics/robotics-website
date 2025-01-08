@@ -1,11 +1,18 @@
 ---
-import { Icon } from 'astro-icon';
+import { Icon } from 'astro-icon/components';
+import Link from '../components/Link.astro';
 
+// Use the same getLink logic for media paths
+const getLink = (path: string) => {
+  if (import.meta.env.DEV) {
+    return `http://localhost:4321${path}`;
+  }
+  const baseURL = import.meta.env.BASE_URL;
+  return baseURL.endsWith('/') ? baseURL + path.slice(1) : baseURL + path;
+};
 
-// Define video and image paths - adjust these to match your actual file locations
-const base = process.env.NODE_ENV === 'production' ? '/rob-astro-23' : '';
-const videoPath = `${base}/robotics-promo-2022.mp4`;
-const posterPath = `${base}/robotics-promo-poster.jpg`;
+const videoPath = getLink('/robotics-promo-2022.mp4');
+const posterPath = getLink('/robotics-promo-poster.jpg');
 
 ---
 
