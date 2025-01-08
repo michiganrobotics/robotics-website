@@ -2,7 +2,7 @@
 title: "$1M for open-source first-responder robots"
 date: "2021-09-16"
 categories: 
-  - "legged-locomotion-exoskeletons"
+  - "legged-robots"
   - "motion-planning"
 image: 
   src: "../content/news/2021/images/51205991070_b13b38d47c_k.jpg"

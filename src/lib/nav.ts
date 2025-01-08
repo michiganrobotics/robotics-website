@@ -249,6 +249,8 @@ export const subNavConfig: Record<string, SubNavItem[]> = {
       { title: "Honors and Awards", href: "/people/honors-and-awards"}
     ],
     'people/faculty': [
+      { title: "Emeritus Faculty", href: "/people/faculty/emeritus" },
+      { title: "Affiliate Faculty", href: "/people/faculty/affiliate" },
       { title: "Staff", href: "/people/staff" },
       { title: "Student Teams", href: "/people/student-teams" },
       { title: "Advisory Board", href: "/people/advisory-board" },

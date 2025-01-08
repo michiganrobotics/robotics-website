@@ -7,7 +7,7 @@ import { Image } from 'astro:assets';
 import featureImage from '../../images/featured-images/news.jpg';
 import { collegeNewsQuery, eventsQuery } from '../../lib/api';
 import ContentImage from '../../components/ContentImage.astro';
-
+import Link from '../../components/Link.astro';
 const eventsData = await eventsQuery();
 
 // Helper function to get excerpt
@@ -55,7 +55,6 @@ selectedOlderPosts = selectedOlderPosts.slice(0, 8);
 
 const collegeNewsItems = await collegeNewsQuery();
 
-
 ---
 
 <MainLayout title="News and Events">
@@ -89,7 +88,7 @@ const collegeNewsItems = await collegeNewsQuery();
         {recentPosts.map(async (post, index) => {
           
           return (
-            <a href={`/news/${post.slug}`} 
+            <Link href={`/news/${post.slug}`} 
                class={`group block bg-white dark:bg-gray-800 shadow-md rounded-sm overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-[1.02] ${index === 0 ? 'md:col-span-2' : ''}`}>
                 <ContentImage 
                   src={post.data.image?.src}
@@ -106,7 +105,7 @@ const collegeNewsItems = await collegeNewsQuery();
                 </p>
                 <p class="text-gray-600 dark:text-gray-200 mb-4" set:html={getExcerpt(post)} />
               </div>
-            </a>
+            </Link>
           );
         })}
       </div>
@@ -162,7 +161,7 @@ const collegeNewsItems = await collegeNewsQuery();
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {selectedOlderPosts.map(async (post) => {
           return (
-            <a href={`${import.meta.env.BASE_URL}news/${post.slug}`} 
+            <Link href={`/news/${post.slug}`} 
                class="group bg-white dark:bg-gray-800 shadow-md rounded-sm overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-[1.02] flex flex-col">
                 <ContentImage 
                   src={post.data.image?.src}
@@ -182,7 +181,7 @@ const collegeNewsItems = await collegeNewsQuery();
                   </p>
                 </div>
               </div>
-            </a>
+            </Link>
           );
         })}
         

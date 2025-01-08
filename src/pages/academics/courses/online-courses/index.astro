@@ -86,7 +86,7 @@ const courses = [
     <article class="prose max-w-none dark:prose-invert mt-8">
       <p>Michigan Robotics publishes many courses online, which can be freely accessed through sites like GitHub and YouTube. These courses typically include all lecture videos, notes, textbooks, homework, projects, and exams.</p>
     </article>
-    <div class="mt-12 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+    <div class="mt-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
       {courses.map(course => (
         <div class="course-card group">
           <a href={course.link} class="block">

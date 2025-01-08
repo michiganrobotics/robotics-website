@@ -1,0 +1,60 @@
+---
+import Layout from '../layouts/MainLayout.astro';
+import { Image } from 'astro:assets';
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import SubNav from "../components/SubNav.astro";
+import Link from '../components/Link.astro';
+const illustrations = [
+    { src: (await import('../../public/illustrations/anymal.png')).default, alt: "Cute ANYmal quadruped robot illustration", width: 100},
+    { src: (await import('../../public/illustrations/arm-cleaning.png')).default, alt: "Cute robotic arm cleaning illustration", width: 75},
+    { src: (await import('../../public/illustrations/autonomous-car.png')).default, alt: "Cute self-driving car illustration", width: 100},
+    { src: (await import('../../public/illustrations/digit.png')).default, alt: "Cute Digit bipedal robot illustration", width: 50},
+    { src: (await import('../../public/illustrations/fetch.png')).default, alt: "Cute Fetch mobile manipulator robot illustration", width: 75},
+    { src: (await import('../../public/illustrations/mbot.png')).default, alt: "Cute MBot wheeled robot illustration", width: 75},
+    { src: (await import('../../public/illustrations/quadcopter.png')).default, alt: "Cute quadcopter drone illustration", width: 100},
+    { src: (await import('../../public/illustrations/rover.png')).default, alt: "Cute planetary rover illustration", width: 100},
+    { src: (await import('../../public/illustrations/soft-robot.png')).default, alt: "Cute soft robot crawling illustration", width: 75},
+    { src: (await import('../../public/illustrations/space.png')).default, alt: "Cute space robotics illustration", width: 100},
+    { src: (await import('../../public/illustrations/staircase.png')).default, alt: "Person with bionic knee climbing stairs illustration", width: 75},
+    { src: (await import('../../public/illustrations/tv-screen.png')).default, alt: "Cute robot interface screen illustration", width: 50},
+    { src: (await import('../../public/illustrations/underwater.png')).default, alt: "Cute underwater robot illustration", width: 100}
+];
+
+const randomIllustration = illustrations[Math.floor(Math.random() * illustrations.length)];
+
+
+---
+
+<Layout title="404 | Michigan Robotics">
+  <div class="max-w-6xl w-11/12 mx-auto py-2">
+    <Breadcrumbs />
+  </div>
+      
+  <div class="mt-4 mb-4 max-w-6xl w-11/12 mx-auto">
+    <div class="w-full bg-umichblue dark:bg-arboretumBlue shadow-lg">
+      <div class="p-3 sm:p-4 md:p-8">
+        <h1 class="text-4xl font-roboto text-white font-bold">
+          <span class="relative border-b-4 border-maize leading-relaxed sm:leading-tight">404</span>
+        </h1>
+      </div>
+    </div>
+
+    <SubNav />
+    <article class="prose max-w-none dark:prose-invert">
+      <div class="space-y-6">
+
+        <h2 class="text-3xl font-roboto-condensed font-bold text-umichblue dark:text-white mt-8">Page not found</h2>
+        <Image 
+        src={randomIllustration.src} 
+        alt={randomIllustration.alt} 
+        width={randomIllustration.width} 
+        height={50} 
+        class="h-auto" 
+    />
+          <p>The page you are looking for does not exist. Please check the URL and try again.</p>
+
+        <p><Link href="/" class="text-arboretumBlue dark:text-maize hover:underline">Return to the homepage.</Link></p>
+      </div>
+    </article>
+  </div>
+</Layout>

@@ -1,0 +1,20 @@
+---
+const getLink = (path: string) => {
+  // In development, prepend with localhost URL
+  if (import.meta.env.DEV) {
+    return `http://localhost:4321${path}`;
+  }
+  // In production, use BASE_URL
+  const baseURL = import.meta.env.BASE_URL;
+  return baseURL + path;
+};
+
+interface Props {
+  href: string;
+  class?: string;
+}
+
+const { href, class: className, ...rest } = Astro.props;
+---
+
+<a href={getLink(href)} class={className} {...rest}><slot /></a>

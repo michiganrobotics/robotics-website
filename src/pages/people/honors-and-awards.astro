@@ -5,10 +5,42 @@ import { Image } from 'astro:assets';
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import SubNav from "../../components/SubNav.astro";
 import { getAwards } from '../../lib/googleSheets';
-
+import { getFacultyData } from '../../lib/googleSheets';
+import { getStaffData } from '../../lib/googleSheets';
 import featureImage from '../../images/featured-images/people-honors-and-awards.jpg';
+import Link from '../../components/Link.astro';
+
+const faculty = await getFacultyData();
+const staff = await getStaffData();
 
 const awards = await getAwards();
+
+// Match award recipients with profiles
+const matchedAwards = awards.map(award => {
+  const matchedFaculty = faculty.find(profile => profile.fullName === award.awardRecipient);
+  const matchedStaff = staff.find(profile => profile.fullName === award.awardRecipient);
+  
+  if (matchedFaculty) {
+    return {
+      ...award,
+      profileUrl: `faculty/${matchedFaculty.slug}`,
+      profileType: 'faculty'
+    };
+  } else if (matchedStaff) {
+    return {
+      ...award,
+      profileUrl: `staff/${matchedStaff.slug}`,
+      profileType: 'staff'
+    };
+  } else {
+    return {
+      ...award,
+      profileUrl: null,
+      profileType: null
+    };
+  }
+});
+
 ---
 
 <Layout title="Awards">
@@ -67,10 +99,16 @@ const awards = await getAwards();
                 </tr>
               </thead>
               <tbody>
-                {awards.map((award) => (
+                {matchedAwards.map((award) => (
                   <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                     <td scope="row" class="px-6 py-4">
-                      {award.awardRecipient}
+                      {award.profileUrl ? (
+                        <Link href={`/people/${award.profileUrl}`} class="hover:underline">
+                          {award.awardRecipient}
+                        </Link>
+                      ) : (
+                        award.awardRecipient
+                      )}
                     </td>
                     <td class="px-6 py-4" role="cell">
                       {award.awardYear}
@@ -84,6 +122,7 @@ const awards = await getAwards();
                   </tr>
                 ))}
               </tbody>
+              
             </table>
           </div>
 

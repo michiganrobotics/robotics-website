@@ -10,7 +10,7 @@ import academicsImage from '../images/homepage/homepage-academics.jpg';
 import researchImage from '../images/homepage/homepage-research.jpg';
 import peopleImage from '../images/homepage/homepage-people.jpg';
 import ContentImage from '../components/ContentImage.astro';
-
+import Link from '../components/Link.astro';
 // Get all news posts and sort by date - this is all you need
 const allPosts = await getCollection('news');
 const recentPosts = allPosts
@@ -44,7 +44,7 @@ Astro.response.headers.set('Cache-Control','max-age=600, must-revalidate');
 					{recentPosts.map(async (post) => {
 
 						return (
-							<a href={`${import.meta.env.BASE_URL}/news/${post.slug}`} class="group bg-white dark:bg-gray-800 shadow-md rounded-sm overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-[1.02] md:flex-1 max-w-md">
+							<Link href={`/news/${post.slug}`} class="group bg-white dark:bg-gray-800 shadow-md rounded-sm overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-[1.02] md:flex-1 max-w-md">
 									<ContentImage 
 										src={post.data.image?.src}
 										alt={post.data.image?.alt || post.data.title}
@@ -65,7 +65,7 @@ Astro.response.headers.set('Cache-Control','max-age=600, must-revalidate');
 										</div>
 									</div>
 								</div>
-							</a>
+							</Link>
 						);
 					})}
 				</div>
@@ -97,7 +97,7 @@ Astro.response.headers.set('Cache-Control','max-age=600, must-revalidate');
 						}
 					].map(item => (
 						<figure class="group min-w-[50%] md:min-w-[auto] flex-auto relative max-w-md overflow-hidden rounded-sm shadow-md hover:shadow-lg transition-all duration-300">
-							<a href={`${import.meta.env.BASE_URL}${item.href}`} class="block">
+							<Link href={item.href} class="block">
 								<Image 
 									src={item.image}
 									alt={item.alt}
@@ -111,7 +111,7 @@ Astro.response.headers.set('Cache-Control','max-age=600, must-revalidate');
 										<span class="block w-0 h-0.5 bg-maize transition-all duration-300 group-hover:w-full" />
 									</p>
 								</div>
-							</a>
+							</Link>
 						</figure>
 					))}
 				</div>

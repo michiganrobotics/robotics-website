@@ -32,8 +32,16 @@ const relatedPosts = allNamedPosts
         <!-- Faculty Details -->
         <div class="md:col-span-2">
           <h1 class="text-4xl font-bold mb-2 font-roboto-condensed">{faculty.fullName}</h1>
-          <p class="text-xl text-arboretumBlue dark:text-taubmanTeal mb-4">{faculty.title}</p>
-          
+          <div class="mb-4">
+          <p class="text-xl text-arboretumBlue dark:text-taubmanTeal">
+            {faculty.title}, {faculty.department1}{faculty.department2 && ` and ${faculty.department2}`}
+          </p>
+          {(faculty.additionalTitle1 || faculty.additionalTitle2) && (
+            <p class="text-lg text-gray-600 dark:text-gray-300 italic font-roboto-condensed">
+              {faculty.additionalTitle1}{faculty.additionalTitle2 && <><br />{faculty.additionalTitle2}</>}
+            </p>
+          )}
+          </div>
           <!-- Contact Info -->
           <div class="mb-6 space-y-4">
             {faculty.email && (

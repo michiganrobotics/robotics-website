@@ -4,6 +4,7 @@ import { Image } from 'astro:assets';
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import SubNav from "../../components/SubNav.astro";
 import featuredImage from '../../images/featured-images/people.jpg';
+import Link from '../../components/Link.astro';
 ---
 
 <Layout title="People | Michigan Robotics">
@@ -26,13 +27,13 @@ import featuredImage from '../../images/featured-images/people.jpg';
         <div class="space-y-6">
           <h2 class="text-3xl font-roboto-condensed font-bold text-umichblue dark:text-white mt-8">Our Robotics community</h2>
           
-          <p>The Robotics Department brings together <a href="/people/faculty" class="text-arboretumBlue dark:text-maize hover:underline">faculty</a>, affiliate faculty, and students from many backgrounds, including anthropology, art, architecture, and engineering. Our emeritus faculty set the stage for the entire robotics field.</p>
+          <p>The Robotics Department brings together <Link href="/people/faculty" class="text-arboretumBlue dark:text-maize hover:underline">faculty</Link>, <Link href="/people/faculty/affiliate" class="text-arboretumBlue dark:text-maize hover:underline">affiliate faculty</Link>, and students from many backgrounds, including anthropology, art, architecture, and engineering. Our <Link href="/people/faculty/emeritus" class="text-arboretumBlue dark:text-maize hover:underline">emeritus faculty</Link> set the stage for the entire robotics field.</p>
 
-          <p><a href="/people/student-teams" class="text-arboretumBlue dark:text-maize hover:underline">Student teams</a> take part in a wide range of competitions that explore all aspects of robotics.</p>
+          <p><Link href="/people/student-teams" class="text-arboretumBlue dark:text-maize hover:underline">Student teams</Link> take part in a wide range of competitions that explore all aspects of robotics.</p>
 
-          <p>Our <a href="/people/alumni" class="text-arboretumBlue dark:text-maize hover:underline">alumni</a> are sought after by both industry and academia, from start-ups focused on autonomy to other top Robotics programs.</p>
+          <p>Our <Link href="/people/alumni" class="text-arboretumBlue dark:text-maize hover:underline">alumni</Link> are sought after by both industry and academia, from start-ups focused on autonomy to other top Robotics programs.</p>
 
-          <p>Our dedicated <a href="/people/staff" class="text-arboretumBlue dark:text-maize hover:underline">staff</a> are here to serve all members of the Robotics community. Please reach out if you need assistance.</p>
+          <p>Our dedicated <Link href="/people/staff" class="text-arboretumBlue dark:text-maize hover:underline">staff</Link> are here to serve all members of the Robotics community. Please reach out if you need assistance.</p>
         </div>
 
         <div class="rounded-lg overflow-hidden shadow-lg">

@@ -2,6 +2,7 @@
 import { Icon } from "astro-icon"
 const currentYear = new Date().getFullYear();
 import { Image } from "astro:assets";
+import Link from '../components/Link.astro';
 const illustrations = [
     { src: (await import('../../public/illustrations/anymal.png')).default, alt: "Cute ANYmal quadruped robot illustration", width: 100},
     { src: (await import('../../public/illustrations/arm-cleaning.png')).default, alt: "Cute robotic arm cleaning illustration", width: 75},
@@ -19,7 +20,7 @@ const illustrations = [
 ];
 
 const randomIllustration = illustrations[Math.floor(Math.random() * illustrations.length)];
-const BASE = process.env.NODE_ENV === 'production' ? '/rob-astro-23' : '';
+
 ---
 <style>
     footer p {
@@ -49,10 +50,10 @@ const BASE = process.env.NODE_ENV === 'production' ? '/rob-astro-23' : '';
                   <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Partnerships</h2>
                   <ul class="text-gray-500 dark:text-gray-300 font-medium">
                       <li class="mb-4">
-                          <a href={`${BASE}/partnerships/industry`} class="hover:underline" aria-label="Industry Engagement">Industry</a>
+                          <Link href={`/partnerships/industry`} class="hover:underline" aria-label="Industry Engagement">Industry</Link>
                       </li>
                       <li>
-                          <a href={`${BASE}/partnerships`} class="hover:underline" aria-label="Community Partnerships">Community</a>
+                          <Link href={`/partnerships`} class="hover:underline" aria-label="Community Partnerships">Community</Link>
                       </li>
                   </ul>
               </div>
@@ -60,10 +61,10 @@ const BASE = process.env.NODE_ENV === 'production' ? '/rob-astro-23' : '';
                   <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Connect</h2>
                   <ul class="text-gray-500 dark:text-gray-300 font-medium">
                       <li class="mb-4">
-                          <a href={`${BASE}/news`} class="hover:underline" aria-label="News and Events">News & Events</a>
+                          <Link href={`/news`} class="hover:underline" aria-label="News and Events">News & Events</Link>
                       </li>
                       <li>
-                        <a href={`${BASE}/about/contact`} class="hover:underline" aria-label="Contact Michigan Robotics">Contact Us</a>
+                        <Link href={`/about/contact`} class="hover:underline" aria-label="Contact Michigan Robotics">Contact Us</Link>
                     </li>
                   </ul>
               </div>
@@ -71,10 +72,10 @@ const BASE = process.env.NODE_ENV === 'production' ? '/rob-astro-23' : '';
                   <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Resources</h2>
                   <ul class="text-gray-500 dark:text-gray-300 font-medium">
                       <li class="mb-4">
-                          <a href={`${BASE}/academics/current-students`} class="hover:underline" aria-label="Current Students">Current Students</a>
+                          <Link href={`/academics/current-students`} class="hover:underline" aria-label="Current Students">Current Students</Link>
                       </li>
                       <li>
-                          <a href={`${BASE}/about/facilities`} class="hover:underline" aria-label="Michigan Robotics Facilities">Facilities</a>
+                          <Link href={`/about/facilities`} class="hover:underline" aria-label="Michigan Robotics Facilities">Facilities</Link>
                       </li>
                   </ul>
               </div>

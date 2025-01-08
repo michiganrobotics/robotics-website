@@ -21,14 +21,14 @@ const teams = [
     shortName: "FAMNM",
     description: "The mission of FAMNM is to inspire K-12 students to pursue STEM, business and community outreach opportunities; to support Michigan FIRST teams, mentors and volunteers, and to develop a professional network of FIRST supporters at the University of Michigan.",
     website: "FAMNM Website",
-    link: "#",
+    link: "https://famnm.club/",
     image: famnmImage
   },
   {
     name: "MRover",
     description: "The Michigan Mars Rover team (MRover) is a student-run, multidisciplinary organization whose mission is to design, build, and field a rover in the University Rover Challenge -- an international competition where off-road robots compete in a simulated astronaut-assist mission on Mars.",
     website: "MRover Website",
-    link: "#",
+    link: "http://mrover.org/",
     image: mroverImage
   },
   {
@@ -36,14 +36,14 @@ const teams = [
     shortName: "MAAV",
     description: "Michigan Autonomous Aerial Vehicles (MAAV) members design, manufacture, program, and test every aspect of a small, autonomous quadrotor. Members will gain experience and apply skills in areas such as structural design and manufacturing, embedded programming, control theory, navigation and mapping, and computer vision.",
     website: "MAAV Website",
-    link: "#",
+    link: "http://www.maavumich.org/",
     image: maavImage
   },
   {
     name: "Michigan RoboSub",
     description: "Advancing Autonomous Underwater Vehicle technology (AUV) by engineering a RoboSub that can perform various incredible sub-nautical tasks, like sonar navigation and torpedo target shooting using machine learning and computer vision.",
     website: "RoboSub Website",
-    link: "#",
+    link: "https://maizepages.umich.edu/organization/michiganrobosub",
     image: robosubImage
   },
   {
@@ -51,21 +51,21 @@ const teams = [
     shortName: "ARV",
     description: "ARV is an engineering design team building a fully autonomous vehicle for the Intelligent Ground Vehicle Competition. We hope to scale our project to build a compact, street legal, federally-compliant, autonomous car capable of transporting two passengers.",
     website: "ARV Website",
-    link: "#",
+    link: "http://umarv.com/",
     image: arvImage
   },
   {
     name: "UM::Autonomy",
     description: "UM::Autonomy members design and build a water-surface vehicle capable of navigating and performing various naval operations without any human interaction. Meeting this objective requires expertise from multiple fields for tasks such as sensor integration, control system design, hull design, and funding management.",
     website: "UM::Autonomy Website",
-    link: "#",
+    link: "http://www.umautonomy.com/",
     image: umautonomyImage
   },
   {
     name: "M-Fly",
     description: "M-Fly is a Society of Automotive Engineers Aerospace Design team at the University of Michigan dedicated to promoting opportunities for students to practice applying their knowledge to aerospace [robotics] projects outside the classroom.",
     website: "M-Fly Website",
-    link: "#",
+    link: "http://www.umich.edu/~mfly/",
     image: mflyImage
   },
   {
@@ -73,7 +73,7 @@ const teams = [
     shortName: "MEZ",
     description: "Located in the University of Michigan's Detroit Center, the Michigan Engineering Zone (MEZ) is a safe and supportive forum where Detroit students acquire the knowledge and tools they need to propel themselves to higher education and careers in science, technology, engineering, and mathematics (STEM) through challenging and exciting hands-on experiences. The FIRST Robotics teams of 12 Detroit high schools stand center stage at the MEZ.",
     website: "MEZ Website",
-    link: "#",
+    link: "https://mez.engin.umich.edu/",
     image: mezImage
   },
   {
@@ -81,7 +81,7 @@ const teams = [
     shortName: "MNP",
     description: "Michigan Neuroprosthetics (MNP) aims to design cost affordable, accessible, and scalable myoelectric prostheses for children. MNP focuses on partnering with individuals and local communities to build prosthetics devices in order to alter the way in which an individual can access and interact with the world.",
     website: "MNP Website",
-    link: "#",
+    link: "https://maizepages.umich.edu/organization/mnp",
     image: mnpImage
   },
   {
@@ -89,7 +89,7 @@ const teams = [
     shortName: "STARX",
     description: "The Strength Augmenting Robotic eXoskeletons (STARX) student design team is looking to expand the field of powered exoskeleton technology to a practical and accessible level.",
     website: "STARX Website",
-    link: "#",
+    link: "http://starx.engin.umich.edu/home",
     image: starxImage
   },
   {
@@ -97,17 +97,19 @@ const teams = [
     shortName: "MTBR",
     description: "MTBR | Hail Robotics designs, programs, manufactures, and tests robots that compete annually in the VEX U competition - the collegiate division of the biggest robotics competition in the world.",
     website: "MTBR Website",
-    link: "#",
+    link: "https://maizepages.umich.edu/organization/mtbr",
     image: mtbrImage
   },
   {
     name: "MRacing",
     description: "MRacing is the University of Michigan's Formula SAE team, designing and building high-performance race cars while integrating advanced robotics and autonomous systems technology.",
     website: "MRacing Website",
-    link: "#",
+    link: "https://www.mracing.engin.umich.edu/",
     image: mracingImage
   }
 ];
+
+teams.sort(() => Math.random() - 0.5);
 ---
 
 
@@ -150,7 +152,7 @@ const teams = [
           <a href={team.link} class="group bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300">
             <div class="aspect-video bg-gray-100 dark:bg-gray-700 relative overflow-hidden">
               {team.image ? (
-                <Image src={team.image} alt={team.name} class="w-full h-full object-cover" />
+                <Image src={team.image} alt={team.name} class="w-full h-full object-cover group-hover:scale-105 transition-all duration-300" />
               ) : (
                 <div class="absolute inset-0 flex items-center justify-center text-4xl font-bold text-gray-300 dark:text-gray-600">
                   {team.shortName || team.name.charAt(0)}
@@ -158,7 +160,7 @@ const teams = [
               )}
             </div>
             <div class="p-6">
-              <h2 class="text-xl font-bold text-gray-900 dark:text-white group-hover:text-umichblue dark:group-hover:text-maize transition-colors">
+              <h2 class="text-xl font-bold text-gray-900 dark:text-white group-hover:text-arboretumBlue dark:group-hover:text-maize transition-colors">
                 {team.name}
                 {team.shortName && 
                   <span class="text-sm font-normal text-gray-500 dark:text-gray-400 ml-2">

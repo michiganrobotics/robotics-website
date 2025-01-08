@@ -2,7 +2,7 @@
 title: "U-M, Humotech partner to bring open-source bionic leg to research labs"
 date: "2021-12-16"
 categories: 
-  - "rehabilitation-robotics-brain-machine-interfaces"
+  - "rehabilitation"
 image: 
   src: "../content/news/2021/images/47954861313_0d6b8f9772_k.jpg"
   alt: "A patient tests an open-source robotic leg on a treadmill."

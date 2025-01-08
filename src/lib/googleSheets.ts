@@ -42,6 +42,15 @@ interface FacultyMember {
   title: string;
   affiliation: string;
   photoURL: string;
+  email: string;
+  additionalTitle1: string;
+  additionalTitle2: string;
+  department1: string;
+  department2: string;
+  researchInterests: string;
+  googleScholar: string;
+  labWebsite: string;
+  website: string;
   office: string;
 }
 
@@ -111,6 +120,19 @@ interface Alumni {
   degree: string;
 }
 
+interface AffiliateFaculty {
+  fullName: string;
+  preferredName: string;
+  firstName: string;
+  lastName: string;
+  affiliation: string;
+  email: string;
+  department1: string;
+  department2: string;
+  researchInterests: string;
+  googleScholar: string;
+  website: string;
+}
 
 function createSlug(name: string): string {
   return name
@@ -139,12 +161,42 @@ export const getFacultyData = cached(async () => {
     title: row.get('title'),
     affiliation: row.get('affiliation'),
     photoURL: row.get('photoURL'),
-    office: row.get('office'),
     email: row.get('email'),
+    additionalTitle1: row.get('additionalTitle1'),
+    additionalTitle2: row.get('additionalTitle2'),
+    department1: row.get('department1'),
+    department2: row.get('department2'),
     researchInterests: row.get('researchInterests'),
     googleScholar: row.get('googleScholar'),
     labWebsite: row.get('labWebsite'),
     website: row.get('website'),
+    office: row.get('office'),
+  }));
+});
+
+export const getEmeritusFacultyData = cached(async () => {
+  await doc.loadInfo();
+  const sheet = doc.sheetsByTitle['Emeritus'];
+  const rows = await sheet.getRows();
+  return rows.map(row => ({
+    slug: createSlug(row.get('fullName')),
+    fullName: row.get('fullName'),
+    preferredName: row.get('preferredName'),
+    firstName: row.get('firstName'),
+    lastName: row.get('lastName'),
+    title: row.get('title'),
+    affiliation: row.get('affiliation'),
+    photoURL: row.get('photoURL'),
+    email: row.get('email'),
+    additionalTitle1: row.get('additionalTitle1'),
+    additionalTitle2: row.get('additionalTitle2'),
+    department1: row.get('department1'),
+    department2: row.get('department2'),
+    researchInterests: row.get('researchInterests'),
+    googleScholar: row.get('googleScholar'),
+    labWebsite: row.get('labWebsite'),
+    website: row.get('website'),
+    office: row.get('office'),
   }));
 });
 
@@ -245,5 +297,24 @@ export const getAlumni = cached(async (): Promise<Alumni[]> => {
     title: row.get('title'),
     graduationYear: row.get('graduationYear'),
     degree: row.get('degree'),
+  }));
+});
+
+export const getAffiliateFacultyData = cached(async (): Promise<AffiliateFaculty[]> => {
+  await doc.loadInfo();
+  const sheet = doc.sheetsByTitle['Affiliate'];
+  const rows = await sheet.getRows();
+  return rows.map(row => ({
+    fullName: row.get('fullName'),
+    preferredName: row.get('preferredName'),
+    firstName: row.get('firstName'),
+    lastName: row.get('lastName'),
+    affiliation: row.get('affiliation'),
+    email: row.get('email'),
+    department1: row.get('department1'),
+    department2: row.get('department2'),
+    researchInterests: row.get('researchInterests'),
+    googleScholar: row.get('googleScholar'),
+    website: row.get('website'),
   }));
 });

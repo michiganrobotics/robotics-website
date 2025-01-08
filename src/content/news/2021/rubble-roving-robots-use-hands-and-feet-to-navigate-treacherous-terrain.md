@@ -2,7 +2,7 @@
 title: "Rubble-roving robots use hands and feet to navigate treacherous terrain"
 date: "2021-08-13"
 categories: 
-  - "robot-perception-manipulation"
+  - "perception-manipulation"
 image: 
   src: "../content/news/2021/images/virtual-humanoid.jpg"
   alt: "A virtual robot shows different modes of motion, with only feet, with one hand, or with both, as it traverses rough terrain."

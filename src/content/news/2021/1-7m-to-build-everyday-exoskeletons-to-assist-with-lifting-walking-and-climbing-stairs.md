@@ -2,7 +2,7 @@
 title: "$1.7M to build everyday exoskeletons to assist with lifting, walking and climbing stairs"
 date: "2021-10-04"
 categories: 
-  - "rehabilitation-robotics-brain-machine-interfaces"
+  - "rehabilitation"
 image: 
   src: "../content/news/2021/images/gregg-exo-model.jpg"
   alt: "A model of the powered exoskeleton on the hip, knee and ankle joints."

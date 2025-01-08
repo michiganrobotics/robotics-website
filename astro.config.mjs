@@ -9,7 +9,7 @@ import sitemap from "@astrojs/sitemap";
 export default defineConfig({
   output: 'static',
   site: 'https://dnewms.github.io',
-  base: process.env.NODE_ENV === 'production' ? '/rob-astro-23' : '/',
+  base: process.env.NODE_ENV === 'production' ? '/rob-astro-23' : '',
   integrations: [
     tailwind(), 
     preact(), 
@@ -25,8 +25,7 @@ export default defineConfig({
         
         function visitLinks(tree) {
           if (tree.type === 'link' && !tree.url.startsWith('/') && !tree.url.startsWith('http')) {
-            const base = process.env.NODE_ENV === 'production' ? '/rob-astro-23' : '';
-            tree.url = `${base}/academics/courses/online-courses/${courseId}/${tree.url}`;
+            tree.url = `${import.meta.env.BASE_URL}/academics/courses/online-courses/${courseId}/${tree.url}`;
           }
           
           if (tree.children) {
