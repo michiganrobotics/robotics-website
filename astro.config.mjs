@@ -5,11 +5,12 @@ import embeds from 'astro-embed/integration';
 import tailwind from "@astrojs/tailwind";
 import preact from "@astrojs/preact";
 import sitemap from "@astrojs/sitemap";
+const isGitHubPages = process.env.GITHUB_ACTIONS === 'true';
 
 export default defineConfig({
   output: 'static',
-  site: 'https://dnewms.github.io',
-  base: process.env.NODE_ENV === 'production' ? '/rob-astro-23' : '',
+  site: isGitHubPages ? 'https://dnewms.github.io' : 'https://umrob.netlify.com',
+  base: isGitHubPages ? '/rob-astro-23' : '/',
   integrations: [
     tailwind(), 
     preact(), 
