@@ -62,21 +62,21 @@ const collegeNewsItems = await collegeNewsQuery();
       <Breadcrumbs />
     </div>
     <div class="mt-4 mb-8 max-w-6xl w-11/12 mx-auto">
-      <div class="relative rounded-sm overflow-hidden mb-8">
+      <div class="relative rounded-sm overflow-hidden mb-8 feature-image-container">
         <div class="relative">
           <div class="absolute inset-0">
             <Image 
               src={featureImage} 
               alt="Feature image description"
               width={1200}
-              height={600}
+              height={115}
               class="w-full h-full object-cover"
             />
           </div>
           <div class="relative">
             <div class="bg-umichblue/70 dark:bg-arboretumBlue/70 backdrop-blur-[2px] p-3 sm:p-4 md:p-8 inline-block">
               <h1 class="text-4xl font-roboto text-white font-bold">
-                <span class="relative border-b-4 border-maize leading-relaxed sm:leading-tight group-hover:border-maize transition-all duration-300">News and events</span>
+                <div class="relative border-b-4 border-maize leading-relaxed sm:leading-tight">News and events</div>
               </h1>
             </div>
           </div>
@@ -207,3 +207,11 @@ const collegeNewsItems = await collegeNewsQuery();
     </section>
   </div>
 </MainLayout>
+
+<style>
+  /* Add these styles */
+  h1, h2, h3 {
+    font-display: swap;
+  }
+
+</style>

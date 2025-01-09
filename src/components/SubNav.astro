@@ -59,8 +59,7 @@ const configuredItems = Object.entries(subNavConfig)
               bg-white/95 dark:bg-gray-900/95 
               shadow-md rounded-b-lg
               p-4 backdrop-blur-sm
-              border-x border-b border-gray-200 dark:border-gray-700"
-              style="opacity: var(--initial-opacity, 1)">
+              border-x border-b border-gray-200 dark:border-gray-700">
     {configuredItems.map((item) => (
       <a 
         href={item.href || item.uri}
@@ -81,20 +80,3 @@ const configuredItems = Object.entries(subNavConfig)
     ))}
   </nav>
 )}
-
-<script>
-  // Only apply the fade-in animation when navigating between pages
-  document.addEventListener('astro:after-swap', () => {
-    document.documentElement.style.setProperty('--initial-opacity', '0');
-    requestAnimationFrame(() => {
-      document.documentElement.style.setProperty('--initial-opacity', '1');
-    });
-  });
-</script>
-
-<style>
-  /* Update transition to use standard CSS transition instead of animation */
-  nav {
-    transition: opacity 0.3s ease-in-out;
-  }
-</style>
