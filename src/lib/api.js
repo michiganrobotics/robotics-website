@@ -1,52 +1,88 @@
-export async function navQuery(){
-    const siteNavQueryRes = await fetch(import.meta.env.WORDPRESS_API_URL, {
-        method: 'post', 
-        headers: {'Content-Type':'application/json'},
-        body: JSON.stringify({
-            query: `{
-  menus(where: {location: PRIMARY}) {
-    nodes {
-      name
-      menuItems(where: {parentId: 0}) {
-        nodes {
-          uri
-          url
-          order
-          label
-          childItems {
-            nodes {
-              uri
-              url
-              order
-              label
-              childItems {
-                nodes {
-                  uri
-                  url
-                  order
-                  label
+import { mockWordPressData, mockURIs } from './mockWordPressData';
+
+const IS_DEV = import.meta.env.DEV;
+const API_URL = import.meta.env.PUBLIC_WORDPRESS_API_URL;
+
+export async function navQuery() {
+  if (IS_DEV) {
+    return mockWordPressData;
+  }
+  // Add error handling
+  if (!API_URL) {
+    console.error('WordPress API URL is not defined');
+    return {
+      menus: { nodes: [] },
+      generalSettings: {}
+    };
+  }
+
+  try {
+    const response = await fetch(API_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        query: `
+          query NavQuery {
+            menus {
+              nodes {
+                name
+                menuItems(where: {parentId: 0}) {
+                  nodes {
+                    uri
+                    url
+                    order
+                    label
+                    childItems {
+                      nodes {
+                        uri
+                        url
+                        order
+                        label
+                        childItems {
+                          nodes {
+                            uri
+                            url
+                            order
+                            label
+                          }
+                        }
+                      }
+                    }
+                  }
                 }
               }
             }
+            generalSettings {
+              title
+              url
+              description
+            }
           }
-        }
-      }
-    }
-  }
-  generalSettings {
-    title
-    url
-    description
-  }
-}
-            `
-        })
+        `
+      }),
     });
-    const{ data } = await siteNavQueryRes.json();
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const { data } = await response.json();
     return data;
+  } catch (error) {
+    console.error('Error fetching nav data:', error);
+    return {
+      menus: { nodes: [] },
+      generalSettings: {}
+    };
+  }
 }
 
 export async function homePagePostsQuery(){
+    if (IS_DEV) {
+        return { posts: mockWordPressData.posts };
+    }
     const response = await fetch(import.meta.env.WORDPRESS_API_URL, {
         method: 'post', 
         headers: {'Content-Type':'application/json'},
@@ -82,6 +118,9 @@ export async function homePagePostsQuery(){
 
 
 export async function getNodeByURI(uri){
+    if (IS_DEV) {
+        return { nodeByUri: mockWordPressData.nodeByUri };
+    }
     const response = await fetch(import.meta.env.WORDPRESS_API_URL, {
         method: 'post', 
         headers: {'Content-Type':'application/json'},
@@ -157,6 +196,9 @@ export async function getNodeByURI(uri){
 }
 
 export async function getAllUris(){
+  if (IS_DEV) {
+    return mockURIs;
+  }
   // initial posts fetching
   let afterCursor = '';
   let allPosts = [];

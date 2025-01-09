@@ -4,221 +4,233 @@ import { mainNav, addBaseToMenuItems } from '../lib/nav';
 
 const base = import.meta.env.PROD ? import.meta.env.BASE_URL : '/';
 const menuItems = addBaseToMenuItems(mainNav);
-
 ---
 
 <header class="mt-6 max-w-6xl w-11/12 mx-auto border-b pb-4 border-umichblue dark:border-white h-16 flex justify-between items-center min-w-[200px]">
-    <div class="ml-2 self-end md:ml-0">
-        <a href={base} class="block" aria-label="Home - Michigan Robotics Logo">
-            <Icon name="roboticsLogo" class="w-32 sm:w-48 h-auto"/>
-        </a>
-    </div>
-    <div id="menu-button" class="block text-2xl sm:text-3xl text-umichblue cursor-pointer mr-2 dark:text-maize md:hidden" aria-expanded="false" aria-controls="main-menu" role="button">&#9776;</div>
-    <nav id="main-menu" class="self-end hidden items-center justify-start flex-col absolute inset-x-0 top-24 border-b-8 border-maize border-double bg-gray-100 z-40 dark:bg-gray-700 md:flex md:flex-row md:border-none md:static md:justify-end md:bg-transparent md:-mb-1 transition-all duration-300">
-        <ul class="flex m-0 p-0 px-2 md:px-0 list-none flex-col items-center md:flex-row w-full md:w-auto">
+
+  <!-- Left Logo -->
+  <div class="ml-2 self-end md:ml-0">
+    <a href={base} class="block" aria-label="Home - Michigan Robotics Logo">
+      <Icon name="roboticsLogo" class="w-32 sm:w-48 h-auto" />
+    </a>
+  </div>
+
+  <!-- Mobile Menu (details/summary) -->
+  <details class="md:hidden">
+    <summary class="text-2xl sm:text-3xl text-umichblue mr-2 dark:text-maize list-none">&#9776;</summary>
+       <nav class="absolute inset-x-0 top-24 border-b-8 border-maize border-double bg-gray-100 z-40 dark:bg-gray-700">
+        <ul class="flex m-0 p-0 px-2 list-none flex-col items-center w-full">
             {menuItems.map((menuItem) => (
-                <li class="my-4 dark:text-white md:ml-5 md:my-0 relative group w-full md:w-auto">
-                    <div class="flex items-center justify-between px-4 md:px-0">
+                <li class="w-full dark:text-white">
+                    <div class="flex items-center">
                         <a href={menuItem.uri || '/'} 
-                           class="group-hover:underline group-hover:decoration-maize group-hover:decoration-2 flex-grow"
+                           class="flex-grow px-4 py-3 hover:underline hover:decoration-maize hover:decoration-2"
                            aria-label={menuItem.label}>
                             {menuItem.label}
                         </a>
                         {menuItem.childItems.nodes.length > 0 && (
-                            <button class="dropdown-button p-2 ml-2 md:hidden rounded-sm bg-gray-200 hover:bg-gray-300 dark:bg-gray-600 dark:hover:bg-gray-500" aria-expanded="false" aria-controls={`dropdown-${menuItem.id}`} role="button">
-                                <span class="inline-block transition-transform duration-300 text-umichblue dark:text-maize">▼</span>
-                            </button>
+                            <div>
+                             <button class="px-4 py-3 text-umichblue dark:text-maize bg-gray-200 dark:bg-gray-600 rounded-sm hover:bg-gray-300 dark:hover:bg-gray-500 ml-2"
+        onclick="const details = this.closest('li').querySelector('details'); details.open = !details.open; this.querySelector('.arrow').classList.toggle('rotate-180')">
+    <span class="arrow transform transition-transform duration-200">▼</span>
+</button>
+                            </div>
                         )}
                     </div>
                     {menuItem.childItems.nodes.length > 0 && (
-                        <div id={`dropdown-${menuItem.id}`} class="dropdown-content pt-1 hidden md:block">
-                            <ul class="bg-gray-100 dark:bg-gray-700 md:dark:bg-gray-500 md:border md:border-maize md:absolute md:left-0 md:mt-2 md:min-w-[200px] rounded-sm md:opacity-0 md:invisible group-hover:opacity-100 group-hover:visible transition-all duration-300" role="menu">
-                                <li class="triangle"></li>
+                        <details class="w-full">
+                            <summary class="hidden">Toggle Menu</summary>
+                            <ul class="pl-6 bg-gray-50 dark:bg-gray-800">
                                 {menuItem.childItems.nodes.map((childItem) => (
-                                    <li class="relative group/child pl-6 md:pl-0" role="menuitem">
-                                        <div class="flex items-center justify-between px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-600">
+                                    <li>
+                                        <div class="flex items-center">
                                             <a href={childItem.uri || '/'} 
-                                               class="w-full group-hover/child:underline group-hover/child:decoration-maize group-hover/child:decoration-2"
+                                               class="flex-grow px-4 py-3 hover:underline hover:decoration-maize hover:decoration-2"
                                                aria-label={childItem.label}>
                                                 {childItem.label}
                                             </a>
                                             {childItem.childItems.nodes.length > 0 && (
-                                                <button class="dropdown-button p-2 ml-2 md:hidden rounded-sm bg-gray-200 hover:bg-gray-300 dark:bg-gray-500 dark:hover:bg-gray-500" aria-expanded="false" aria-controls={`dropdown-${childItem.id}`} role="button">
-                                                    <span class="inline-block transition-transform duration-300 text-umichblue dark:text-maize">▼</span>
-                                                </button>
+                                                <div>
+                                                   <button class="px-4 py-3 text-umichblue dark:text-maize bg-gray-200 dark:bg-gray-600 rounded-sm hover:bg-gray-300 dark:hover:bg-gray-500 ml-2"
+        onclick="const details = this.closest('li').querySelector('details'); details.open = !details.open; this.querySelector('.arrow').classList.toggle('rotate-180')">
+    <span class="arrow transform transition-transform rotate-180 duration-200">▲</span>
+</button>
+                                                </div>
                                             )}
                                         </div>
                                         {childItem.childItems.nodes.length > 0 && (
-                                            <ul id={`dropdown-${childItem.id}`} class="dropdown-content hidden md:border md:border-maize bg-gray-100 dark:bg-gray-700 md:dark:bg-gray-500 md:absolute md:left-full md:top-0 md:ml-1 min-w-[200px] rounded-sm md:opacity-0 md:invisible group-hover/child:opacity-100 group-hover/child:visible transition-all duration-300" role="menu">
-                                                <li class="triangle-right"></li>
-                                                {childItem.childItems.nodes.map((grandChildItem) => (
-                                                    <li class="px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-600 pl-8 md:pl-4" role="menuitem">
-                                                        <a href={grandChildItem.uri || '/'} 
-                                                           class="block w-full hover:underline hover:decoration-maize hover:decoration-2"
-                                                           aria-label={grandChildItem.label}>
-                                                            {grandChildItem.label}
-                                                        </a>
-                                                    </li>
-                                                ))}
-                                            </ul>
+                                            <details>
+                                                <summary class="hidden">Toggle Submenu</summary>
+                                                <ul class="pl-6 bg-gray-50 dark:bg-gray-800">
+                                                    {childItem.childItems.nodes.map((grandChildItem) => (
+                                                        <li>
+                                                            <a href={grandChildItem.uri || '/'} 
+                                                               class="block px-4 py-3 hover:underline hover:decoration-maize hover:decoration-2"
+                                                               aria-label={grandChildItem.label}>
+                                                                {grandChildItem.label}
+                                                            </a>
+                                                        </li>
+                                                    ))}
+                                                </ul>
+                                            </details>
                                         )}
                                     </li>
                                 ))}
                             </ul>
-                        </div>
+                        </details>
                     )}
                 </li>
             ))}
         </ul>
     </nav>
+</details>
+
+  <!-- Desktop Nav -->
+  <nav class="hidden md:flex self-end items-center justify-end z-[11]">
+    <ul class="flex m-0 p-0 list-none">
+      {menuItems.map((menuItem) => (
+        <li class="ml-5 relative group underline-offset-[3px]" key={menuItem.label}>
+          <a href={menuItem.uri || '/'} 
+             class="group-hover:underline group-hover:decoration-maize group-hover:decoration-2"
+             aria-label={menuItem.label}>
+            {menuItem.label}
+          </a>
+          {menuItem.childItems.nodes.length > 0 && (
+            <div class="hidden group-hover:block absolute transform -translate-x-1/2 left-1/2 mt-2 min-w-[200px]">
+              <ul class="bg-gray-200 dark:bg-gray-500 border border-maize rounded-sm">
+                <!-- Triangle pointing up -->
+                <li class="triangle"></li>
+                {menuItem.childItems.nodes.map((childItem) => (
+                  <li class="relative group/child" key={childItem.label}>
+                    <a
+                      href={childItem.uri || '/'}
+                      class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600
+                             group-hover/child:underline group-hover/child:decoration-maize group-hover/child:decoration-2"
+                      aria-label={childItem.label}
+                    >
+                      {childItem.label}
+                    </a>
+                    {/* If there are grandchildren, nest a second-level dropdown */}
+                    {childItem.childItems.nodes.length > 0 && (
+                      <ul class="hidden group-hover/child:block absolute left-full top-0 ml-1 min-w-[200px]
+                                 bg-gray-200 dark:bg-gray-500 border border-maize rounded-sm">
+                        <li class="triangle-right"></li>
+                        {childItem.childItems.nodes.map((grandChildItem) => (
+                          <li key={grandChildItem.label}>
+                            <a
+                              href={grandChildItem.uri || '/'}
+                              class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600
+                                     hover:underline hover:decoration-maize hover:decoration-2"
+                              aria-label={grandChildItem.label}
+                            >
+                              {grandChildItem.label}
+                            </a>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </li>
+      ))}
+    </ul>
+  </nav>
+
 </header>
 
 <style>
-    @media (max-width: 767px) {
-        nav.show-nav {
-            @apply flex;
-        }
-    }
+/* Desktop Hover Mechanics */
 @media (min-width: 768px) {
-    .group:hover .dropdown-content {
-        @apply block;
+    /* Create invisible padding around dropdown trigger area */
+    .group {
+      position: relative;
+    }
+    
+    /* Increase hover area without changing visual spacing */
+    .group::after {
+      content: '';
+      position: absolute;
+      top: -10px;
+      left: -10px;
+      right: -10px;
+      bottom: -10px;
+      pointer-events: auto;
+      z-index: 1;
     }
 
-    .group\/child:hover .dropdown-content {
-        @apply block;
+    /* Keep dropdown in position but extend hover area */
+    .group > div {
+      pointer-events: none;
+      margin-top: 2px;
+    }
+    
+    .group > div > ul {
+      pointer-events: auto;
     }
 
-    .group:hover .dropdown-content::before,
-    .group\/child:hover .dropdown-content::before {
-        @apply content-[''] absolute top-full left-0 w-full h-5;
+    /* Show dropdown on hover of extended area */
+    .group:hover > div,
+    .group > div:hover {
+      display: block;
     }
 
-    .group\/child {
-        @apply relative;
-    }
-
-    .group\/child:hover::before {
-        @apply content-[''] absolute left-full top-0 w-5 h-full;
-    }
-
-    .dropdown-content {
-        @apply absolute top-full left-0 rounded-sm;
-    }
-
-    .group\/child .dropdown-content {
-        @apply absolute left-full top-0 mt-0 ml-1;
-    }
-
+    /* Triangle indicators */
     .triangle {
-        @apply w-0 h-0 absolute -top-[10px] left-5 z-[100];
-        border-left: 12px solid transparent;
-        border-right: 12px solid transparent;
-        border-top: 12px solid #ffcb05;
+      @apply w-0 h-0 absolute -top-[1px] left-1/2 z-[100] -translate-x-1/2;
+      border-left: 12px solid transparent;
+      border-right: 12px solid transparent;
+      border-top: 12px solid #ffcb05;
+    }
+    
+    .triangle-right {
+      @apply w-0 h-0 absolute top-[10px] -left-1 z-[100];
+      border-top: 8px solid transparent;
+      border-bottom: 8px solid transparent;
+      border-left: 8px solid #ffcb05;
+    }
+  }
+
+  /* Mobile Menu Styling */
+  @media (max-width: 767px) {
+    /* Menu item with dropdown */
+    .mobile-menu-item {
+      @apply flex items-center justify-between border-b border-gray-200 dark:border-gray-600;
     }
 
-    .triangle-right {
-        @apply w-0 h-0 absolute top-[10px] -left-1 z-[100];
-        border-top: 8px solid transparent;
-        border-bottom: 8px solid transparent;
-        border-left: 8px solid #ffcb05;
+    button.px-4.py-3 {
+      @apply bg-gray-200 dark:bg-gray-600 rounded-sm hover:bg-gray-300 dark:hover:bg-gray-500;
+      margin-left: 8px;
     }
+    /* Subtle background for child menus */
+    .mobile-submenu {
+      @apply bg-gray-50 dark:bg-gray-800;
+    }
+ /* Mobile menu styles */
+     .arrow {
+        display: inline-block;
+        transition: transform 0.3s ease;
+    }
+
+    /* Only target direct summary children of details */
+    details > summary > .arrow {
+        transition: transform 0.3s ease;
+    }
+
+    /* Only affect the immediate arrow of an open details element */
+    details[open] > summary > .arrow {
+        transform: rotate(180deg);
+    }
+
+    /* Remove default arrow from details */
+    details > summary {
+        list-style: none;
+    }
+    details > summary::-webkit-details-marker {
+        display: none;
+    }
+
 }
 </style>
-
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const menuButton = document.getElementById('menu-button');
-        const nav = document.querySelector('nav');
-        const dropdownButtons = document.querySelectorAll('.dropdown-button');
-
-        let startY = 0;
-        let isScrolling = false;
-
-        // Menu button toggle
-        menuButton?.addEventListener('click', () => {
-            const isExpanded = menuButton.getAttribute('aria-expanded') === 'true';
-            menuButton.setAttribute('aria-expanded', String(!isExpanded));
-            nav?.classList.toggle('show-nav');
-        });
-
-        // Mobile dropdown functionality
-        dropdownButtons.forEach(button => {
-            button.addEventListener('click', (e) => {
-                if (window.innerWidth < 768 && !isScrolling) {
-                    const parentLi = button.closest('li');
-                    const dropdownContent = parentLi?.querySelector('.dropdown-content');
-                    const caret = button.querySelector('span');
-
-                    // Close other dropdowns at the same level
-                    const siblingDropdowns = parentLi?.parentElement?.querySelectorAll('.dropdown-content:not(.hidden)');
-                    siblingDropdowns?.forEach(dropdown => {
-                        if (dropdown !== dropdownContent) {
-                            dropdown.classList.add('hidden');
-                            const otherCaret = dropdown.parentElement?.querySelector('span');
-                            if (otherCaret) otherCaret.style.transform = 'rotate(0deg)';
-                        }
-                    });
-
-                    // Toggle current dropdown
-                    dropdownContent?.classList.toggle('hidden');
-                    if (caret) {
-                        caret.style.transform = dropdownContent?.classList.contains('hidden') 
-                            ? 'rotate(0deg)' 
-                            : 'rotate(180deg)';
-                    }
-
-                    const isExpanded = button.getAttribute('aria-expanded') === 'true';
-                    button.setAttribute('aria-expanded', String(!isExpanded));
-
-                    e.preventDefault();
-                    e.stopPropagation();
-                }
-            });
-        });
-
-        // Track touch start position
-        document.addEventListener('touchstart', (e) => {
-            startY = e.touches[0].clientY;
-            isScrolling = false;
-        });
-
-        // Detect scroll during touch move
-        document.addEventListener('touchmove', (e) => {
-            const currentY = e.touches[0].clientY;
-            if (Math.abs(currentY - startY) > 10) { // Threshold of 10px
-                isScrolling = true;
-            }
-        });
-
-        // Close dropdowns when clicking outside
-        document.addEventListener('click', (e) => {
-            if (window.innerWidth < 768 && !isScrolling) {
-                const dropdowns = document.querySelectorAll('.dropdown-content:not(.hidden)');
-                const target = e.target as Node;
-                dropdowns.forEach(dropdown => {
-                    if (dropdown instanceof Node && !dropdown.contains(target)) {
-                        dropdown.classList.add('hidden');
-                        const caret = dropdown.parentElement?.querySelector('span');
-                        if (caret) caret.style.transform = 'rotate(0deg)';
-                    }
-                });
-            }
-        });
-
-        // Handle window resize
-        window.addEventListener('resize', () => {
-            if (window.innerWidth >= 768) {
-                const dropdowns = document.querySelectorAll('.dropdown-content');
-                dropdowns.forEach(dropdown => {
-                    dropdown.classList.remove('hidden');
-                    dropdown.classList.add('md:block');
-                });
-            } else {
-                const dropdowns = document.querySelectorAll('.dropdown-content');
-                dropdowns.forEach(dropdown => {
-                    dropdown.classList.add('hidden');
-                });
-            }
-        });
-    });
-</script>

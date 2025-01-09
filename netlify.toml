@@ -1,0 +1,14 @@
+[build]
+command = "npm run build"
+publish = "dist"
+
+[dev]
+command = "npm run dev"
+framework = "#auto"
+targetPort = 4321
+port = 8888
+publish = "dist"
+
+[[edge_functions]]
+  path = "/*"
+  function = "delay"
