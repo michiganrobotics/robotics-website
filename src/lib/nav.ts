@@ -235,6 +235,12 @@ export const subNavConfig: Record<string, SubNavItem[]> = {
       { title: "Focus Areas", href: "/research/focus-areas" },
       { title: "Open-Source Projects & Datasets", href: "/research/projects-and-datasets" }
     ],
+    'academics$': [
+      { title: "Undergraduate", href: "/academics/undergraduate" },
+      { title: "Graduate", href: "/academics/graduate" },
+      { title: "Courses", href: "/academics/courses" },
+      { title: "Current Students", href: "/academics/current-students" }
+    ],
     'academics/courses': [
       { title: "Current Term Courses", href: "/academics/courses/current-term" },
       { title: "Complete Course List", href: "/academics/courses/complete-course-list" },

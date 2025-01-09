@@ -1,0 +1,19 @@
+---
+import { YouTube } from '@astro-community/astro-embed-youtube';
+
+interface Props {
+  url: string;
+  caption?: string;
+  class?: string;
+}
+
+const { url, caption, class: className } = Astro.props;
+---
+<figure class={`block w-full aspect-video mb-8 ${className}`}>
+  <YouTube id={url} />
+  {caption && (
+    <figcaption class="mt-2 text-sm text-gray-600 dark:text-gray-200 italic">
+      {caption}
+    </figcaption>
+  )}
+</figure>

@@ -1,0 +1,48 @@
+---
+import Layout from '../../layouts/MainLayout.astro';
+import { getEntry } from 'astro:content';
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import ContentImage from "../../components/ContentImage.astro";
+import Subnav from "../../components/Subnav.astro";
+import { components } from '../../content/config';
+// Get the index content from the academics collection
+const page = await getEntry('academics', 'index');
+const { Content } = await page.render();
+---
+
+<Layout title={`${page.data.title} | Michigan Robotics`}>
+  <main>
+    <div class="max-w-6xl w-11/12 mx-auto py-2">
+      <Breadcrumbs />
+    </div>
+    <div class="mt-4 mb-4 max-w-6xl w-11/12 mx-auto">
+        <div class="relative rounded-sm overflow-hidden shadow-lg">
+          <div class="relative">
+            <div class="absolute inset-0">
+                {page.data.image && (
+                    <ContentImage 
+                      src={page.data.image.src} 
+                      alt={page.data.image.alt}
+                      class="w-full h-full object-cover object-center"
+                      width={1200}
+                      height={630}
+                    />
+                  )}
+            </div>
+            <div class="relative">
+              <div class="bg-umichblue/70 dark:bg-arboretumBlue/70 backdrop-blur-[2px] p-3 sm:p-4 md:p-8 inline-block">
+                <h1 class="text-4xl font-roboto text-white font-bold">
+                  <span class="relative border-b-4 border-maize">{page.data.title}</span>
+                </h1>
+              </div>
+            </div>
+          </div>
+        </div>   <Subnav />
+    </div>
+ 
+    <article class="prose dark:prose-invert max-w-6xl w-11/12 mx-auto">
+
+      <Content components={components} />
+    </article>
+  </main>
+</Layout>

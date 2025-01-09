@@ -1,0 +1,46 @@
+---
+import Layout from '../../layouts/MainLayout.astro';
+import { getCollection } from 'astro:content';
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+
+// Generate static paths for all academic pages
+export async function getStaticPaths() {
+  const academicPages = await getCollection('academics');
+  return academicPages.map(page => ({
+    params: { slug: page.slug },
+    props: { page },
+  }));
+}
+
+const { page } = Astro.props;
+const { Content } = await page.render();
+---
+
+<Layout title={`${page.data.title} | Michigan Robotics`}>
+  <main>
+    <div class="max-w-6xl w-11/12 mx-auto py-2">
+      <Breadcrumbs />
+    </div>
+    
+    <div class="mt-4 mb-4 max-w-6xl w-11/12 mx-auto">
+      <div class="w-full bg-umichblue dark:bg-arboretumBlue shadow-lg">
+        <div class="p-3 pb-6 md:p-8">
+          <h1 class="text-4xl font-roboto text-white font-bold">
+            <span class="relative border-b-4 border-maize">{page.data.title}</span>
+          </h1>
+        </div>
+      </div>
+    </div>
+
+    <article class="prose dark:prose-invert max-w-6xl w-11/12 mx-auto">
+      {page.data.image && (
+        <img 
+          src={page.data.image.src} 
+          alt={page.data.image.alt}
+          class="w-full rounded-sm shadow-lg mb-8"
+        />
+      )}
+      <Content />
+    </article>
+  </main>
+</Layout>

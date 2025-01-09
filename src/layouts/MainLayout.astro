@@ -94,6 +94,12 @@ import '../../fonts/fonts.css';
 			crossorigin
 			fetchpriority="high"
 		/>
+		<style is:inline>
+			body {
+			  visibility: hidden;
+			  opacity: 0;
+			}
+		  </style>
 	</head>
 	<body class="bg-gray-100 dark:bg-gray-700 dark:text-white">
 		<main class="m-auto mb-20">
@@ -104,7 +110,14 @@ import '../../fonts/fonts.css';
 	</body>
 </html>
 
-<style is:global>
+
+  
+  <style is:global>
+	body {
+	  visibility: visible;
+	  opacity: 1;
+	  transition: visibility 0.2s linear, opacity 0.2s linear;
+	}  
 	.wp-block-columns{
 		gap:2em;
 	}
@@ -128,9 +141,5 @@ import '../../fonts/fonts.css';
 	}
 	body {
 		transition: background-color 0s;
-	}
-	main {
-		content-visibility: auto;
-		contain-intrinsic-size: 1px 5000px;
 	}
 </style>
