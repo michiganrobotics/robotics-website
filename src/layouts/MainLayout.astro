@@ -87,6 +87,14 @@ import '@fontsource/open-sans';
 			}}
 		/>
 		<slot name="head"/>
+		<link 
+			rel="preload" 
+			href="/node_modules/@fontsource/roboto-condensed/files/roboto-condensed-latin-400-normal.woff2" 
+			as="font" 
+			type="font/woff2" 
+			crossorigin
+			fetchpriority="high"
+		/>
 	</head>
 	<body class="bg-gray-100 dark:bg-gray-700 dark:text-white">
 		<main class="m-auto mb-20">
@@ -115,5 +123,15 @@ import '@fontsource/open-sans';
 	}
 	header {
 		min-height: 4rem;
+	}
+	h1, h2, h3, .font-roboto {
+		font-display: swap;
+	}
+	body {
+		transition: background-color 0s;
+	}
+	main {
+		content-visibility: auto;
+		contain-intrinsic-size: 1px 5000px;
 	}
 </style>
