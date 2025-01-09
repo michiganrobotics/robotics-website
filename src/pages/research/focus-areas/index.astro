@@ -2,10 +2,10 @@
 // src/pages/focus-areas/index.astro
 import Layout from '../../../layouts/MainLayout.astro';
 import { focusAreas } from '../../../content/focus-areas/focusAreas';
-import { Icon } from 'astro-icon';
 import { Image } from 'astro:assets';
 import Breadcrumbs from "../../../components/Breadcrumbs.astro";
 import SubNav from '../../../components/SubNav.astro';
+import Link from '../../../components/Link.astro';
 
 
 import featureImage from '../../../images/featured-images/research-focus-areas.jpg';
@@ -15,7 +15,6 @@ const fadeInAnimations = [
   'fade-in-right',
   'fade-in-top'
 ];
-const BASE = process.env.NODE_ENV === 'production' ? '/rob-astro-23' : '';
 
 ---
 
@@ -32,6 +31,7 @@ const BASE = process.env.NODE_ENV === 'production' ? '/rob-astro-23' : '';
                     src={featureImage}
                     alt=""
                     class="w-full h-full object-cover"
+                    loading="eager"
                   />
                 </div>
                 <div class="relative">
@@ -48,7 +48,7 @@ const BASE = process.env.NODE_ENV === 'production' ? '/rob-astro-23' : '';
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
             {focusAreas.map((area) => (
               <div class="group cursor-pointer">
-                <a href={`${BASE}/research/focus-areas/${area.slug}`} 
+                <Link href={`/research/focus-areas/${area.slug}`} 
                    class="block relative overflow-hidden rounded-lg shadow-lg">
                   <div class="aspect-auto relative">
                     <Image 
@@ -69,7 +69,7 @@ const BASE = process.env.NODE_ENV === 'production' ? '/rob-astro-23' : '';
                       </div>
                     </div>
                   </div>
-                </a>
+                </Link>
               </div>
             ))}
           </div>

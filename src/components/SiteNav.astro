@@ -88,56 +88,47 @@ const menuItems = addBaseToMenuItems(mainNav);
   <!-- Desktop Nav -->
   <nav class="hidden md:flex self-end items-center justify-end z-[11]">
     <ul class="flex m-0 p-0 list-none">
-      {menuItems.map((menuItem) => (
-        <li class="ml-5 relative group underline-offset-[3px]" key={menuItem.label}>
-          <a href={menuItem.uri || '/'} 
-             class="group-hover:underline group-hover:decoration-maize group-hover:decoration-2"
-             aria-label={menuItem.label}>
-            {menuItem.label}
-          </a>
-          {menuItem.childItems.nodes.length > 0 && (
-            <div class="hidden group-hover:block absolute transform -translate-x-1/2 left-1/2 mt-2 min-w-[200px]">
-              <ul class="bg-gray-200 dark:bg-gray-500 border border-maize rounded-sm">
-                <!-- Triangle pointing up -->
-                <li class="triangle"></li>
-                {menuItem.childItems.nodes.map((childItem) => (
-                  <li class="relative group/child" key={childItem.label}>
-                    <a
-                      href={childItem.uri || '/'}
-                      class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600
-                             group-hover/child:underline group-hover/child:decoration-maize group-hover/child:decoration-2"
-                      aria-label={childItem.label}
-                    >
-                      {childItem.label}
-                    </a>
-                    {/* If there are grandchildren, nest a second-level dropdown */}
-                    {childItem.childItems.nodes.length > 0 && (
-                      <ul class="hidden group-hover/child:block absolute left-full top-0 ml-1 min-w-[200px]
-                                 bg-gray-200 dark:bg-gray-500 border border-maize rounded-sm">
-                        <li class="triangle-right"></li>
-                        {childItem.childItems.nodes.map((grandChildItem) => (
-                          <li key={grandChildItem.label}>
-                            <a
-                              href={grandChildItem.uri || '/'}
-                              class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600
-                                     hover:underline hover:decoration-maize hover:decoration-2"
-                              aria-label={grandChildItem.label}
-                            >
-                              {grandChildItem.label}
-                            </a>
-                          </li>
-                        ))}
-                      </ul>
-                    )}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-        </li>
-      ))}
+        {menuItems.map((menuItem) => (
+            <li class="ml-5 relative group">
+                <a href={menuItem.uri || '/'} 
+                   class="block group-hover:underline group-hover:decoration-maize group-hover:decoration-2"
+                   aria-label={menuItem.label}>
+                    {menuItem.label}
+                </a>
+                {menuItem.childItems.nodes.length > 0 && (
+                    <div class="hidden group-hover:block absolute left-0 mt-2 min-w-[200px]">
+                        <ul class="bg-gray-100 dark:bg-gray-500 border border-maize rounded-sm">
+                            <li class="triangle"></li>
+                            {menuItem.childItems.nodes.map((childItem) => (
+                                <li class="relative group/child">
+                                    <a href={childItem.uri || '/'} 
+                                       class="block px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-600 group-hover/child:underline group-hover/child:decoration-maize group-hover/child:decoration-2"
+                                       aria-label={childItem.label}>
+                                        {childItem.label}
+                                    </a>
+                                    {childItem.childItems.nodes.length > 0 && (
+                                        <ul class="hidden group-hover/child:block absolute left-full top-0 ml-1 min-w-[200px] bg-gray-100 dark:bg-gray-500 border border-maize rounded-sm">
+                                            <li class="triangle-right"></li>
+                                            {childItem.childItems.nodes.map((grandChildItem) => (
+                                                <li>
+                                                    <a href={grandChildItem.uri || '/'} 
+                                                       class="block px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-600 hover:underline hover:decoration-maize hover:decoration-2"
+                                                       aria-label={grandChildItem.label}>
+                                                        {grandChildItem.label}
+                                                    </a>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    )}
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                )}
+            </li>
+        ))}
     </ul>
-  </nav>
+</nav>
 
 </header>
 
@@ -157,7 +148,7 @@ const menuItems = addBaseToMenuItems(mainNav);
       left: -10px;
       right: -10px;
       bottom: -10px;
-      pointer-events: auto;
+      pointer-events: none;
       z-index: 1;
     }
 
@@ -165,8 +156,11 @@ const menuItems = addBaseToMenuItems(mainNav);
     .group > div {
       pointer-events: none;
       margin-top: 2px;
+      margin-left: -4rem;
     }
-    
+    li.ml-5:last-child > div:nth-child(2) {
+      margin-left: -5rem;
+    }
     .group > div > ul {
       pointer-events: auto;
     }
@@ -191,7 +185,7 @@ const menuItems = addBaseToMenuItems(mainNav);
       border-bottom: 8px solid transparent;
       border-left: 8px solid #ffcb05;
     }
-  }
+}
 
   /* Mobile Menu Styling */
   @media (max-width: 767px) {
