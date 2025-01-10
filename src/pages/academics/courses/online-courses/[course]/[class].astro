@@ -1,22 +1,22 @@
 ---
 import Layout from '../../../../../layouts/MainLayout.astro';
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 
 export async function getStaticPaths() {
   const courseEntries = await getCollection('courses');
   
   return courseEntries
     .filter(entry => {
-      const [_, className] = entry.slug.split('/');
+      const [_, className] = entry.id.split('/');
       return className && className !== 'index'; // Skip index files and root entries
     })
     .map(entry => {
-      const [course, className] = entry.slug.split('/');
+      const [course, className] = entry.id.split('/');
       return {
         params: { course, class: className },
         props: { 
           entry,
-          courseEntry: courseEntries.find(e => e.slug === `${course}/index` || e.slug === course)
+          courseEntry: courseEntries.find(e => e.id === `${course}/index` || e.id === course)
         }
       };
     });
@@ -26,7 +26,7 @@ const { entry, courseEntry } = Astro.props;
 if (!entry) {
   throw new Error(`No class found for course: ${Astro.params.course}, class: ${Astro.params.class}`);
 }
-const { Content } = await entry.render();
+const { Content } = await render(entry);
 ---
 
 <Layout title={`${courseEntry?.data.title} - ${entry.data.title}`}>

@@ -44,7 +44,7 @@ Astro.response.headers.set('Cache-Control','max-age=600, must-revalidate');
 					{recentPosts.map(async (post) => {
 
 						return (
-							<Link href={`/news/${post.slug}`} class="group bg-white dark:bg-gray-800 shadow-md rounded-sm overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-[1.02] md:flex-1 max-w-md">
+						<Link href={`/news/${new Date(post.data.date).getFullYear()}/${post.id.split('/')[1]}`} class="group bg-white dark:bg-gray-800 shadow-md rounded-sm overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-[1.02] md:flex-1 max-w-md">
 									<ContentImage 
 										src={post.data.image?.src}
 										alt={post.data.image?.alt || post.data.title}

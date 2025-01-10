@@ -1,6 +1,7 @@
 ---
 title: "U-M partners with autonomous air mobility center"
 date: "2023-10-13"
+excerpt: "The University of Michigan is proud to be a partner in the pioneering Center for Autonomous Air Mobility and Sensing (CAAMS). This recognized National Science Foundation (NSF) Industry-University Cooperative Research Center (I-UCRC), established in 2022, conducts cutting-edge research and training in autonomous air mobility and sensing technology."
 categories: 
   - "autonomous-connected-vehicles"
 image: 

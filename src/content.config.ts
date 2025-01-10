@@ -1,7 +1,8 @@
 import { defineCollection, z } from 'astro:content';
+import { glob } from 'astro/loaders';
 
 const news = defineCollection({
-  type: 'content',
+  loader: glob({ pattern: "**/*.md", base: "./src/content/news" }),
   schema: ({ image }) => z.object({
     title: z.string(),
     date: z.string(),
@@ -19,9 +20,12 @@ const news = defineCollection({
 });
 
 const focusAreas = defineCollection({
-  type: 'content',
+  loader: glob({ pattern: ["*.md", "*.mdx"], base: "./src/content/focus-areas" }),
   schema: z.object({
     title: z.string(),
+    description: z.string().optional(),
+    image: z.string().optional(),
+    imageAlt: z.string().optional(),
     videos: z.array(z.string()).optional(),
     images: z.array(z.object({
       src: z.string(),
@@ -31,7 +35,7 @@ const focusAreas = defineCollection({
 });
 
 const courses = defineCollection({
-  type: 'content',
+  loader: glob({ pattern: ["**/*.md", "**/*.mdx"], base: "./src/content/courses" }),
   schema: z.object({
     title: z.string(),
     date: z.string().optional(),
@@ -42,7 +46,7 @@ const courses = defineCollection({
 });
 
 const academics = defineCollection({
-  type: 'content',
+  loader: glob({ pattern: ["**/*.md", "**/*.mdx"], base: "./src/content/academics" }),
   schema: ({ image }) => z.object({
     title: z.string(),
     description: z.string().optional(),
@@ -54,3 +58,10 @@ const academics = defineCollection({
     featured: z.boolean().optional(),
   }),
 });
+
+export const collections = {
+  news,
+  focusAreas,
+  courses,
+  academics,
+};

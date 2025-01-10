@@ -1,13 +1,14 @@
 ---
 import Layout from '../../../layouts/MainLayout.astro';
 import Single from '../../../components/templates/Single.astro';
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 
 export async function getStaticPaths() {
   const newsEntries = await getCollection('news');
+  
   return newsEntries.map(entry => {
-    const year = entry.slug.split('/')[0];
-    const slug = entry.slug.split('/')[1];
+    const year = entry.data.date.split('-')[0];
+    const slug = entry.id.split('/')[1];
     
     return {
       params: { year, slug },
@@ -17,7 +18,7 @@ export async function getStaticPaths() {
 }
 
 const { entry } = Astro.props;
-const { Content } = await entry.render();
+const { Content } = await render(entry);
 
 // Transform entry data to match Single template's expected node structure
 const node = {

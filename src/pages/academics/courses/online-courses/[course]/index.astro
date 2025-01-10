@@ -1,27 +1,36 @@
 ---
 import Layout from '../../../../../layouts/MainLayout.astro';
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 import Breadcrumbs from '../../../../../components/Breadcrumbs.astro';
 
 export async function getStaticPaths() {
   const courseEntries = await getCollection('courses');
   
-  // Get unique course names
-  const courseNames = [...new Set(courseEntries.map(entry => entry.slug.split('/')[0]))];
+  // Get unique course names from the entries
+  const courses = [...new Set(courseEntries.map(entry => {
+    // Handle both cases: entries in root and in subdirectories
+    return entry.id.includes('/') ? entry.id.split('/')[0] : entry.id;
+  }))];
   
-  return courseNames.map(course => ({
-    params: { course },
-    props: { 
-      entry: courseEntries.find(e => e.slug === `${course}/index` || e.slug === course)
-    }
-  }));
+  return courses.map(course => {
+    return {
+      params: { course },
+      props: { 
+        entry: courseEntries.find(e => e.id === `${course}/index` || e.id === course),
+        courseEntries: courseEntries.filter(e => {
+          const entryPath = e.id.includes('/') ? e.id.split('/')[0] : e.id;
+          return entryPath === course && e.id !== `${course}/index`;
+        })
+      }
+    };
+  });
 }
 
 const { entry } = Astro.props;
 if (!entry) {
   throw new Error(`No course found: ${Astro.params.course}`);
 }
-const { Content } = await entry.render();
+const { Content } = await render(entry);
 ---
 
 <Layout title={entry.data.title}>

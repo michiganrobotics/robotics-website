@@ -1,5 +1,5 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 import MainLayout from "../../layouts/MainLayout.astro";
 import { Icon } from 'astro-icon/components';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
@@ -16,18 +16,41 @@ const eventsData = await eventsQuery();
 
 
 // Helper function to get excerpt
-function getExcerpt(post) {
-  if (post.data.excerpt) {
-    return post.data.excerpt;
-  }
-  
-  if (post.body.includes('<!--more-->')) {
-    return post.body.split('<!--more-->')[0];
-  } else {
-    const firstParagraph = post.body.split('\n\n')[0];
+async function getExcerpt(post) {
+  try {
+    // If there's a manual excerpt, use it
+    if (post.data.excerpt) {
+      return post.data.excerpt;
+    }
+    
+    // Render the content
+    const rendered = await post.render();
+    
+    // If no rendered content, return empty string
+    if (!rendered?.content) {
+      console.warn(`No content found for post: ${post.id}`);
+      return '';
+    }
+    
+    const content = rendered.content;
+    
+    // Look for more tag
+    if (content.includes('<!--more-->')) {
+      return content.split('<!--more-->')[0];
+    }
+    
+    // Fall back to first paragraph
+    const paragraphs = content.split('\n\n');
+    if (paragraphs.length === 0) return '';
+    
+    const firstParagraph = paragraphs[0];
     return firstParagraph.length > 200 
       ? firstParagraph.slice(0, 200) + '...'
       : firstParagraph;
+      
+  } catch (error) {
+    console.error(`Error getting excerpt for post ${post.id}:`, error);
+    return '';
   }
 }
 
@@ -93,7 +116,7 @@ const collegeNewsItems = await collegeNewsQuery();
         {recentPosts.map(async (post, index) => {
           
           return (
-            <Link href={`/news/${post.slug}`} 
+            <Link href={`/news/${new Date(post.data.date).getFullYear()}/${post.id.split('/')[1]}`} 
                class={`group block bg-white dark:bg-gray-800 shadow-md rounded-sm overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-[1.02] ${index === 0 ? 'md:col-span-2' : ''}`}>
                 <ContentImage 
                   src={post.data.image?.src}
@@ -166,7 +189,7 @@ const collegeNewsItems = await collegeNewsQuery();
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {selectedOlderPosts.slice(0, 4).map(async (post) => {
           return (
-            <Link href={`/news/${post.slug}`} 
+            <Link href={`/news/${new Date(post.data.date).getFullYear()}/${post.id.split('/')[1]}`} 
                class="group bg-white dark:bg-gray-800 shadow-md rounded-sm overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-[1.02] flex flex-col">
                 <ContentImage 
                   src={post.data.image?.src}
@@ -208,7 +231,7 @@ const collegeNewsItems = await collegeNewsQuery();
 
         {selectedOlderPosts.slice(4).map(async (post) => {
           return (
-            <Link href={`/news/${post.slug}`} 
+            <Link href={`/news/${new Date(post.data.date).getFullYear()}/${post.id.split('/')[1]}`} 
                class="group bg-white dark:bg-gray-800 shadow-md rounded-sm overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-[1.02] flex flex-col">
                 <ContentImage 
                   src={post.data.image?.src}

@@ -1,14 +1,16 @@
 ---
 import Layout from '../../../layouts/MainLayout.astro';
-import { focusAreas } from '../../../content/focus-areas/focusAreas';
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 import { Image } from 'astro:assets';
+import ContentImage from '../../../components/ContentImage.astro';
 import Breadcrumbs from "../../../components/Breadcrumbs.astro";
-import ContentImage from "../../../components/ContentImage.astro";
+
+import { focusAreas } from '../../../content/focus-areas/focusAreas';
+
 export async function getStaticPaths() {
-  const focusAreaEntries = await getCollection('focus-areas');
+  const focusAreaEntries = await getCollection('focusAreas');
   return focusAreas.map(area => {
-    const content = focusAreaEntries.find(entry => entry.slug === area.slug);
+    const content = focusAreaEntries.find(entry => entry.data.slug === area.slug);
     return {
       params: { slug: area.slug },
       props: { area, content }
@@ -17,12 +19,20 @@ export async function getStaticPaths() {
 }
 
 const { area, content } = Astro.props;
-const contentComponent = content ? await content.render() : null;
+
+let Content;
+if (content) {
+  const rendered = await render(content);
+  Content = rendered.Content;
+}
+
 const allAreaPosts = await getCollection('news', ({ data }) => {
-  return data.categories?.some(category => 
-    category.toLowerCase().includes(area.slug.toLowerCase()) ||
-    area.slug.toLowerCase().includes(category.toLowerCase())
-  );
+  if (!data.categories) return false;
+  return data.categories.some(category => {
+    if (!category) return false;
+    return category.toLowerCase().includes(area.slug.toLowerCase()) ||
+           area.slug.toLowerCase().includes(category.toLowerCase());
+  });
 });
 
 const relatedPosts = allAreaPosts
@@ -38,7 +48,7 @@ const relatedPosts = allAreaPosts
       <div class="absolute inset-0">
         <Image 
           src={area.image}
-          alt={area.imageAlt}
+          alt={area.imageAlt || area.title}
           class="w-full h-full object-cover"
         />
         <div class="absolute inset-0 bg-gradient-to-r from-gray-900 via-gray-900/70 to-transparent" />
@@ -55,35 +65,38 @@ const relatedPosts = allAreaPosts
     </div>
     <div class="max-w-6xl mx-auto mt-12">
       <article class="prose prose-lg dark:prose-invert max-w-none">
-        <contentComponent.Content />
-          {/* Related News Section */}
-      {relatedPosts.length > 0 && (
-        <div class="mt-12">
-          <h2 class="text-2xl font-bold mb-4 font-roboto-condensed dark:text-white">Related news</h2>
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {relatedPosts.map(async (post) => {
-              return (
-                <a href={`${import.meta.env.BASE_URL}/news/${post.slug}`} class="group no-underline">
-                  <div class="relative aspect-video overflow-hidden rounded-sm shadow-lg">
-                    <ContentImage 
-                      src={post.data.image?.src}
-                      alt={post.data.image?.alt || post.data.title}
-                      width={800}
-                      height={450}
-                      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
-                  </div>
-                  <div class="p-4">
-                    <h3 class="not-prose text-lg font-medium group-hover:decoration-maize group-hover:decoration-2 group-hover:underline">
-                      {post.data.title}
-                    </h3>
-                  </div>
-                </a>
-              );
-            })}
+        {Content ? <Content /> : (
+          <p>No additional content available for this focus area.</p>
+        )}
+
+        {/* Related News Section */}
+        {relatedPosts.length > 0 && (
+          <div class="mt-12">
+            <h2 class="text-2xl font-bold mb-4 font-roboto-condensed dark:text-white">Related news</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {relatedPosts.map(async (post) => {
+                return (
+                  <a href={`${import.meta.env.BASE_URL}/news/${post.slug}`} class="group no-underline">
+                    <div class="relative aspect-video overflow-hidden rounded-sm shadow-lg">
+                      <ContentImage 
+                        src={post.data.image?.src}
+                        alt={post.data.image?.alt || post.data.title}
+                        width={800}
+                        height={450}
+                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                    </div>
+                    <div class="p-4">
+                      <h3 class="not-prose text-lg font-medium group-hover:decoration-maize group-hover:decoration-2 group-hover:underline">
+                        {post.data.title}
+                      </h3>
+                    </div>
+                  </a>
+                );
+              })}
+            </div>
           </div>
-        </div>
-      )}
+        )}
       </article>
     </div>
   </div>

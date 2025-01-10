@@ -1,6 +1,6 @@
 ---
 import Layout from '../../layouts/MainLayout.astro';
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import { components } from '../../components/components';
 import ContentImage from "../../components/ContentImage.astro";
@@ -9,13 +9,13 @@ import SubNav from "../../components/SubNav.astro";
 export async function getStaticPaths() {
   const academicPages = await getCollection('academics');
   return academicPages.map(page => ({
-    params: { slug: page.slug },
+    params: { slug: page.data.slug },
     props: { page },
   }));
 }
 
 const { page } = Astro.props;
-const { Content } = await page.render();
+const { Content } = await render(page);
 ---
 
 <Layout title={`${page.data.title} | Michigan Robotics`}>

@@ -1,13 +1,13 @@
 ---
 import Layout from '../../layouts/MainLayout.astro';
-import { getEntry } from 'astro:content';
+import { getEntry, render } from 'astro:content';
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import ContentImage from "../../components/ContentImage.astro";
 import SubNav from "../../components/SubNav.astro";
 import { components } from '../../components/components';
 // Get the index content from the academics collection
 const page = await getEntry('academics', 'index');
-const { Content } = await page.render();
+const { Content } = await render(page);
 ---
 
 <Layout title={`${page.data.title} | Michigan Robotics`}>
