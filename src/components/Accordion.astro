@@ -1,53 +1,52 @@
 ---
 interface Props {
   title: string;
-  id: string;
-  headingLevel?: 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
 }
 
-const { title, id, headingLevel = 'h3' } = Astro.props;
-const HeadingTag = headingLevel;
+const { title } = Astro.props;
 ---
 
-<div class="accordion border-2 border-gray-200 rounded-md mb-4">
-  <HeadingTag class="m-0">
-    <button
-      id={`accordion-button-${id}`}
-      class="flex justify-between items-center w-full p-4 text-left bg-white dark:bg-arboretumBlue dark:text-white hover:bg-gray-50 dark:hover:bg-arboretumBlue/80 transition-colors rounded-md"
-      aria-expanded="false"
-      aria-controls={`accordion-content-${id}`}
-    >
-      <span class="font-medium">{title}</span>
-      <svg 
-        class="w-5 h-5 transition-transform" 
-        fill="none" 
-        stroke="currentColor" 
-        viewBox="0 0 24 24" 
-        xmlns="http://www.w3.org/2000/svg"
-        aria-hidden="true"
-      >
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-      </svg>
-    </button>
-  </HeadingTag>
-  <div 
-    id={`accordion-content-${id}`}
-    class="hidden p-4 prose dark:prose-invert max-w-none bg-white dark:bg-arboretumBlue dark:text-white rounded-md"
-    role="region"
-    aria-labelledby={`accordion-button-${id}`}
+<div class="accordion border border-gray-200 dark:border-gray-700 rounded-lg mb-4 overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-200">
+  <button
+    class="flex justify-between items-center w-full p-5 text-left bg-gray-50 dark:bg-arboretumBlue/40 text-gray-800 dark:text-white hover:bg-gray-100 dark:hover:bg-arboretumBlue/60 transition-all duration-200"
+    onclick="this.setAttribute('aria-expanded', this.getAttribute('aria-expanded') === 'true' ? 'false' : 'true'); this.querySelector('svg').classList.toggle('rotate-180'); this.nextElementSibling.classList.toggle('hidden')"
+    aria-expanded="false"
   >
-    <slot />
+    <span class="font-medium text-lg font-roboto">{title}</span>
+    <svg 
+      class="w-5 h-5 transform transition-transform duration-200" 
+      fill="none" 
+      stroke="currentColor" 
+      viewBox="0 0 24 24" 
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path 
+        stroke-linecap="round" 
+        stroke-linejoin="round" 
+        stroke-width="2" 
+        d="M19 9l-7 7-7-7"
+      ></path>
+    </svg>
+  </button>
+  <div class="hidden">
+    <div class="p-6 bg-white dark:bg-arboretumBlue prose dark:prose-invert max-w-none dark:prose-ul:text-white dark:prose-ol:text-white dark:marker:text-white">
+      <slot />
+    </div>
   </div>
 </div>
 
-<script>
-  document.querySelectorAll('.accordion button').forEach(button => {
-    button.addEventListener('click', () => {
-      const expanded = button.getAttribute('aria-expanded') === 'true' || false;
-      button.setAttribute('aria-expanded', !expanded);
-      button.querySelector('svg').classList.toggle('rotate-180');
-      const content = button.closest('.accordion').querySelector('[role="region"]');
-      content.classList.toggle('hidden');
-    });
-  });
-</script>
+<style>
+  .accordion .button-component {
+    @apply bg-umichblue text-white dark:bg-maize dark:text-white hover:bg-umichblue/90 dark:hover:bg-maize/90 transition-colors;
+  }
+
+  /* Smooth animation for content */
+  .accordion button[aria-expanded="true"] + div {
+    @apply block;
+  }
+
+  /* Add a subtle border between items when expanded */
+  .accordion button[aria-expanded="true"] {
+    @apply border-b border-gray-200 dark:border-gray-700;
+  }
+</style>

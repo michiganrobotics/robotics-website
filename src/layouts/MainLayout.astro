@@ -15,19 +15,18 @@ interface Props {
 
 const { 
 	title,
-	description = "Michigan Robotics is advancing the field of robotics through groundbreaking research and education.",
-	image = "/social/og-default.jpg"  // default fallback image
+	description = "Work together. Create smart machines. Serve society.",
+	image = "../public/social/og-default.jpg"  // default fallback image
 } = Astro.props;
 
 const siteUrl = "https://robotics.umich.edu";
 
-import '../../fonts/fonts.css';
 ---
 
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="../../public/favicon.ico" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.ico" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
 		<meta name="robots" content="noindex, nofollow">
@@ -88,18 +87,13 @@ import '../../fonts/fonts.css';
 		<slot name="head"/>
 		<link 
 			rel="preload" 
-			href="../../fonts/RobotoCondensed-Regular.woff2"
+			href="/fonts/RobotoCondensed-Regular.woff2"
 			as="font" 
 			type="font/woff2" 
 			crossorigin
 			fetchpriority="high"
 		/>
-		<style is:inline>
-			body {
-			  visibility: hidden;
-			  opacity: 0;
-			}
-		  </style>
+		<link rel="stylesheet" href="/fonts/fonts.css">
 	</head>
 	<body class="bg-gray-100 dark:bg-gray-700 dark:text-white">
 		<main class="m-auto mb-20">
@@ -113,11 +107,6 @@ import '../../fonts/fonts.css';
 
   
   <style is:global>
-	body {
-	  visibility: visible;
-	  opacity: 1;
-	  transition: visibility 0.2s linear, opacity 0.2s linear;
-	}  
 	.wp-block-columns{
 		gap:2em;
 	}
@@ -139,7 +128,5 @@ import '../../fonts/fonts.css';
 	h1, h2, h3, .font-roboto {
 		font-display: swap;
 	}
-	body {
-		transition: background-color 0s;
-	}
+
 </style>

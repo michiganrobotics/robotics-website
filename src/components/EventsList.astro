@@ -7,7 +7,7 @@ const eventsData = await eventsQuery();
 {eventsData.length > 0 && (
     <section id="events" class="mb-12">
         <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-6">Events</h2>
-      <div class="grid grid-cols-1 sm:flex sm:flex-row sm:gap-6">
+      <div class="grid grid-cols-1 sm:flex sm:flex-row sm:gap-6 not-prose">
         {eventsData.slice(0,4).map((event, index) => (
           <a href={event.permalink} class={`group bg-white dark:bg-gray-800 shadow-md rounded-sm overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-[1.02] flex flex-col mb-6 last:mb-0 sm:mb-0 sm:flex-1 ${index !== 0 ? 'sm:ml-6' : ''}`}>
             <div class="relative">
