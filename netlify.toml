@@ -8,7 +8,3 @@ framework = "#auto"
 targetPort = 4321
 port = 8888
 publish = "dist"
-
-[[edge_functions]]
-  path = "/*"
-  function = "delay"

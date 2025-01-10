@@ -1,11 +1,11 @@
 ---
 import SiteNav from "../components/SiteNav.astro"; 
 import SiteFooter from "../components/SiteFooter.astro";
-import { navQuery } from "../lib/api";
+// import { navQuery } from "../lib/api";
 import { SEO } from 'astro-seo';
 
-const { menus, generalSettings } = await navQuery();
-const primaryMenu = menus.nodes[0];
+// const { menus, generalSettings } = await navQuery();
+// const primaryMenu = menus.nodes[0];
 
 interface Props {
 	title: string;
@@ -88,7 +88,7 @@ import '../../fonts/fonts.css';
 		<slot name="head"/>
 		<link 
 			rel="preload" 
-			href="/fonts/RobotoCondensed-Regular.woff2"
+			href="../../fonts/RobotoCondensed-Regular.woff2"
 			as="font" 
 			type="font/woff2" 
 			crossorigin

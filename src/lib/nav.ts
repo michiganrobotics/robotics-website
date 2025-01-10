@@ -239,7 +239,7 @@ export const subNavConfig: Record<string, SubNavItem[]> = {
       { title: "Undergraduate", href: "/academics/undergraduate" },
       { title: "Graduate", href: "/academics/graduate" },
       { title: "Courses", href: "/academics/courses" },
-      { title: "Current Students", href: "/academics/current-students" }
+      { title: "Student Services", href: "/academics/student-services" }
     ],
     'academics/courses': [
       { title: "Current Term Courses", href: "/academics/courses/current-term" },
@@ -320,6 +320,12 @@ export const subNavConfig: Record<string, SubNavItem[]> = {
       { title: "Faculty Jobs", href: "/about/jobs" },
       { title: "Contact", href: "/about/contact"}
     ],
+    'about/values': [
+      { title: "About", href: "/about" },
+      { title: "Facilities", href: "/about/facilities" },
+      { title: "Faculty Jobs", href: "/about/jobs" },
+      { title: "Contact", href: "/about/contact"}
+    ],
     'about/facilities': [
       { title: "Ford Robotics Building", href: "/about/facilities/ford-robotics-building" },
       { title: "M-Air", href: "/about/facilities/m-air" },
@@ -333,6 +339,7 @@ export const subNavConfig: Record<string, SubNavItem[]> = {
     ],
     'about/faculty-jobs': [
       { title: "Apply", href: "https://deptapps.engin.umich.edu/facultycandidate/apply?dept=210308&searchID=46", external: true },
+      { title: "About", href: "/about" },
       { title: "Values", href: "/about/values" },
       { title: "Facilities", href: "/about/facilities" },
       { title: "Contact", href: "/about/contact"}

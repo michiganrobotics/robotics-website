@@ -89,6 +89,7 @@ interface StaffMember {
   profileSummary: string;
   email: string;
   phone: string;
+  studentServices: boolean;
 }
 
 interface Awards {
@@ -265,6 +266,7 @@ export const getStaffData = cached(async (): Promise<StaffMember[]> => {
     profileSummary: row.get('profileSummary')?.replace(/(<([^>]+)>)/gi, ''), // Strip HTML tags
     email: row.get('email'),
     phone: row.get('phone'),
+    studentServices: row.get('studentServices') === 'TRUE',
   }));
 });
 

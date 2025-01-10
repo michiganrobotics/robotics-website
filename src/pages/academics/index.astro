@@ -4,7 +4,7 @@ import { getEntry } from 'astro:content';
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import ContentImage from "../../components/ContentImage.astro";
 import SubNav from "../../components/SubNav.astro";
-import { components } from '../../content/config';
+import { components } from '../../components/components';
 // Get the index content from the academics collection
 const page = await getEntry('academics', 'index');
 const { Content } = await page.render();
@@ -41,7 +41,7 @@ const { Content } = await page.render();
          <SubNav />
     </div>
  
-    <article class="prose dark:prose-invert max-w-6xl w-11/12 mx-auto">
+    <article class="prose dark:prose-invert max-w-6xl w-11/12 mx-auto prose-headings:font-roboto prose-h2:text-3xl prose-h3:text-2xl prose-h4:text-xl prose-h5:text-lg prose-h6:text-base prose-headings:font-bold">
 
       <Content components={components} />
     </article>

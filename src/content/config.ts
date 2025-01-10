@@ -1,9 +1,5 @@
 import { defineCollection, z } from 'astro:content';
 
-import Button from '../components/Button.astro';
-import VideoRight from '../components/VideoRight.astro';
-import VideoCenter from '../components/VideoCenter.astro';
-
 const news = defineCollection({
   type: 'content',
   schema: ({ image }) => z.object({
@@ -58,16 +54,3 @@ const academics = defineCollection({
     featured: z.boolean().optional(),
   }),
 });
-
-export const collections = {
-  'news': news,
-  'focus-areas': focusAreas,
-  'courses': courses,
-  'academics': academics,
-};
-
-export const components = {
-  Button,
-  VideoRight,
-  VideoCenter,
-};

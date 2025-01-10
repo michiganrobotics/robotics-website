@@ -46,7 +46,6 @@ export default defineConfig({
   vite: {
     define: {
       'import.meta.env.BASE_URL': isGitHubPages ? '"/rob-astro-23"' : '"/"',
-      'import.meta.env.PUBLIC_WORDPRESS_API_URL': JSON.stringify(process.env.PUBLIC_WORDPRESS_API_URL),
     },
     build: {
       rollupOptions: {

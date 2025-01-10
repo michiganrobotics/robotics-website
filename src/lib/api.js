@@ -1,284 +1,284 @@
-import { mockWordPressData, mockURIs } from './mockWordPressData';
+// import { mockWordPressData, mockURIs } from './mockWordPressData';
 
-const IS_DEV = import.meta.env.DEV;
-const API_URL = import.meta.env.PUBLIC_WORDPRESS_API_URL;
+// const IS_DEV = import.meta.env.DEV;
+// const API_URL = import.meta.env.WORDPRESS_API_URL;
 
-export async function navQuery() {
-  if (IS_DEV) {
-    return mockWordPressData;
-  }
-  // Add error handling
-  if (!API_URL) {
-    console.error('WordPress API URL is not defined');
-    return {
-      menus: { nodes: [] },
-      generalSettings: {}
-    };
-  }
+// export async function navQuery() {
+//   if (IS_DEV) {
+//     return mockWordPressData;
+//   }
+//   // Add error handling
+//   if (!API_URL) {
+//     console.error('WordPress API URL is not defined');
+//     return {
+//       menus: { nodes: [] },
+//       generalSettings: {}
+//     };
+//   }
 
-  try {
-    const response = await fetch(API_URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        query: `
-          query NavQuery {
-            menus {
-              nodes {
-                name
-                menuItems(where: {parentId: 0}) {
-                  nodes {
-                    uri
-                    url
-                    order
-                    label
-                    childItems {
-                      nodes {
-                        uri
-                        url
-                        order
-                        label
-                        childItems {
-                          nodes {
-                            uri
-                            url
-                            order
-                            label
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-            generalSettings {
-              title
-              url
-              description
-            }
-          }
-        `
-      }),
-    });
+//   try {
+//     const response = await fetch(API_URL, {
+//       method: 'POST',
+//       headers: {
+//         'Content-Type': 'application/json',
+//       },
+//       body: JSON.stringify({
+//         query: `
+//           query NavQuery {
+//             menus {
+//               nodes {
+//                 name
+//                 menuItems(where: {parentId: 0}) {
+//                   nodes {
+//                     uri
+//                     url
+//                     order
+//                     label
+//                     childItems {
+//                       nodes {
+//                         uri
+//                         url
+//                         order
+//                         label
+//                         childItems {
+//                           nodes {
+//                             uri
+//                             url
+//                             order
+//                             label
+//                           }
+//                         }
+//                       }
+//                     }
+//                   }
+//                 }
+//               }
+//             }
+//             generalSettings {
+//               title
+//               url
+//               description
+//             }
+//           }
+//         `
+//       }),
+//     });
 
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
+//     if (!response.ok) {
+//       throw new Error(`HTTP error! status: ${response.status}`);
+//     }
 
-    const { data } = await response.json();
-    return data;
-  } catch (error) {
-    console.error('Error fetching nav data:', error);
-    return {
-      menus: { nodes: [] },
-      generalSettings: {}
-    };
-  }
-}
+//     const { data } = await response.json();
+//     return data;
+//   } catch (error) {
+//     console.error('Error fetching nav data:', error);
+//     return {
+//       menus: { nodes: [] },
+//       generalSettings: {}
+//     };
+//   }
+// }
 
-export async function homePagePostsQuery(){
-    if (IS_DEV) {
-        return { posts: mockWordPressData.posts };
-    }
-    const response = await fetch(import.meta.env.WORDPRESS_API_URL, {
-        method: 'post', 
-        headers: {'Content-Type':'application/json'},
-        body: JSON.stringify({
-            query: `{
-                posts(first:25) {
-                  nodes {
-                    date
-                    uri
-                    title
-                    commentCount
-                    excerpt
-                    featuredImage {
-                      node {
-                        srcSet
-                        sourceUrl
-                        altText
-                        mediaDetails {
-                          height
-                          width
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            `
-        })
-    });
-    const{ data } = await response.json();
-    return data;
-}
+// export async function homePagePostsQuery(){
+//     if (IS_DEV) {
+//         return { posts: mockWordPressData.posts };
+//     }
+//     const response = await fetch(import.meta.env.WORDPRESS_API_URL, {
+//         method: 'post', 
+//         headers: {'Content-Type':'application/json'},
+//         body: JSON.stringify({
+//             query: `{
+//                 posts(first:25) {
+//                   nodes {
+//                     date
+//                     uri
+//                     title
+//                     commentCount
+//                     excerpt
+//                     featuredImage {
+//                       node {
+//                         srcSet
+//                         sourceUrl
+//                         altText
+//                         mediaDetails {
+//                           height
+//                           width
+//                         }
+//                       }
+//                     }
+//                   }
+//                 }
+//               }
+//             `
+//         })
+//     });
+//     const{ data } = await response.json();
+//     return data;
+// }
 
 
-export async function getNodeByURI(uri){
-    if (IS_DEV) {
-        return { nodeByUri: mockWordPressData.nodeByUri };
-    }
-    const response = await fetch(import.meta.env.WORDPRESS_API_URL, {
-        method: 'post', 
-        headers: {'Content-Type':'application/json'},
-        body: JSON.stringify({
-            query: `query GetNodeByURI($uri: String!) {
-                nodeByUri(uri: $uri) {
-                  __typename
-                  isContentNode
-                  isTermNode
-                  ... on Post {
-                    id
-                    title
-                    date
-                    uri
-                    excerpt
-                    content
-                    featuredImage {
-                      node {
-                        srcSet
-                        sourceUrl
-                        altText
-                        mediaDetails {
-                          height
-                          width
-                        }
-                      }
-                    }
-                     author {
-                      node {
-                        name
-                        }
-                    }  
-                  }
-                  ... on Page {
-                    id
-                    title
-                    uri
-                    date
-                    content
-                    parentId
-                    featuredImage {
-                      node {
-                        mediaItemUrl
-                        srcSet
-                        sourceUrl
-                        altText
-                        mediaDetails {
-                          height
-                          width
-                        }
-                      }
-                    }
-                    children(first: 6, where: { orderby: { field: MENU_ORDER, order: ASC } }) {
-                      nodes{
-                        id
-                        uri
-                         ... on NodeWithTitle {
-                          title
-                        }
-                      }
-                    }  
-                  }
-                }
-              }
-            `,
-            variables: {
-                uri: uri
-            }
-        })
-    });
-    const{ data } = await response.json();
-    return data;
-}
+// export async function getNodeByURI(uri){
+//     if (IS_DEV) {
+//         return { nodeByUri: mockWordPressData.nodeByUri };
+//     }
+//     const response = await fetch(import.meta.env.WORDPRESS_API_URL, {
+//         method: 'post', 
+//         headers: {'Content-Type':'application/json'},
+//         body: JSON.stringify({
+//             query: `query GetNodeByURI($uri: String!) {
+//                 nodeByUri(uri: $uri) {
+//                   __typename
+//                   isContentNode
+//                   isTermNode
+//                   ... on Post {
+//                     id
+//                     title
+//                     date
+//                     uri
+//                     excerpt
+//                     content
+//                     featuredImage {
+//                       node {
+//                         srcSet
+//                         sourceUrl
+//                         altText
+//                         mediaDetails {
+//                           height
+//                           width
+//                         }
+//                       }
+//                     }
+//                      author {
+//                       node {
+//                         name
+//                         }
+//                     }  
+//                   }
+//                   ... on Page {
+//                     id
+//                     title
+//                     uri
+//                     date
+//                     content
+//                     parentId
+//                     featuredImage {
+//                       node {
+//                         mediaItemUrl
+//                         srcSet
+//                         sourceUrl
+//                         altText
+//                         mediaDetails {
+//                           height
+//                           width
+//                         }
+//                       }
+//                     }
+//                     children(first: 6, where: { orderby: { field: MENU_ORDER, order: ASC } }) {
+//                       nodes{
+//                         id
+//                         uri
+//                          ... on NodeWithTitle {
+//                           title
+//                         }
+//                       }
+//                     }  
+//                   }
+//                 }
+//               }
+//             `,
+//             variables: {
+//                 uri: uri
+//             }
+//         })
+//     });
+//     const{ data } = await response.json();
+//     return data;
+// }
 
-export async function getAllUris(){
-  if (IS_DEV) {
-    return mockURIs;
-  }
-  // initial posts fetching
-  let afterCursor = '';
-  let allPosts = [];
-  let allPages = [];
+// export async function getAllUris(){
+//   if (IS_DEV) {
+//     return mockURIs;
+//   }
+//   // initial posts fetching
+//   let afterCursor = '';
+//   let allPosts = [];
+//   let allPages = [];
 
-  do {
-    const responsePosts = await fetch(import.meta.env.WORDPRESS_API_URL, {
-      method: 'post', 
-      headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({
-          query: `
-          query GetAllUris($afterCursor: String) {
-            posts(first: 100, after: $afterCursor) {
-              pageInfo {
-                hasNextPage
-                endCursor
-              }
-              nodes {
-                uri
-              }
-            }
-          }
-          `,
-          variables: {
-            afterCursor
-          }
-      })
-    });
+//   do {
+//     const responsePosts = await fetch(import.meta.env.WORDPRESS_API_URL, {
+//       method: 'post', 
+//       headers: {'Content-Type':'application/json'},
+//       body: JSON.stringify({
+//           query: `
+//           query GetAllUris($afterCursor: String) {
+//             posts(first: 100, after: $afterCursor) {
+//               pageInfo {
+//                 hasNextPage
+//                 endCursor
+//               }
+//               nodes {
+//                 uri
+//               }
+//             }
+//           }
+//           `,
+//           variables: {
+//             afterCursor
+//           }
+//       })
+//     });
 
-    const { data: dataPosts } = await responsePosts.json();
-    allPosts = [...allPosts, ...dataPosts.posts.nodes];
-    afterCursor = dataPosts.posts.pageInfo.hasNextPage ? dataPosts.posts.pageInfo.endCursor : '';
-  } while (afterCursor);
+//     const { data: dataPosts } = await responsePosts.json();
+//     allPosts = [...allPosts, ...dataPosts.posts.nodes];
+//     afterCursor = dataPosts.posts.pageInfo.hasNextPage ? dataPosts.posts.pageInfo.endCursor : '';
+//   } while (afterCursor);
 
-  // initial pages fetching
-  afterCursor = ''; // reset cursor for pages
+//   // initial pages fetching
+//   afterCursor = ''; // reset cursor for pages
 
-  do {
-    const responsePages = await fetch(import.meta.env.WORDPRESS_API_URL, {
-      method: 'post', 
-      headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({
-          query: `
-          query GetAllUris($afterCursor: String) {
-            pages(first: 100, after: $afterCursor) {
-              pageInfo {
-                hasNextPage
-                endCursor
-              }
-              nodes {
-                uri
-              }
-            }
-          }
-          `,
-          variables: {
-            afterCursor
-          }
-      })
-    });
+//   do {
+//     const responsePages = await fetch(import.meta.env.WORDPRESS_API_URL, {
+//       method: 'post', 
+//       headers: {'Content-Type':'application/json'},
+//       body: JSON.stringify({
+//           query: `
+//           query GetAllUris($afterCursor: String) {
+//             pages(first: 100, after: $afterCursor) {
+//               pageInfo {
+//                 hasNextPage
+//                 endCursor
+//               }
+//               nodes {
+//                 uri
+//               }
+//             }
+//           }
+//           `,
+//           variables: {
+//             afterCursor
+//           }
+//       })
+//     });
 
-    const { data: dataPages } = await responsePages.json();
-    allPages = [...allPages, ...dataPages.pages.nodes];
-    afterCursor = dataPages.pages.pageInfo.hasNextPage ? dataPages.pages.pageInfo.endCursor : '';
-  } while (afterCursor);
+//     const { data: dataPages } = await responsePages.json();
+//     allPages = [...allPages, ...dataPages.pages.nodes];
+//     afterCursor = dataPages.pages.pageInfo.hasNextPage ? dataPages.pages.pageInfo.endCursor : '';
+//   } while (afterCursor);
 
-  let allUris = [...allPosts, ...allPages];
+//   let allUris = [...allPosts, ...allPages];
 
-  const uris = allUris
-    .filter(node => node.uri !== null)
-    .map(node => {
-      let trimmedURI = node.uri.substring(1);
-      trimmedURI = trimmedURI.substring(0, trimmedURI.length - 1)
-      return {params: {
-        uri: trimmedURI
-      }}
-    })
-    .filter(({ params }) => params.uri !== ''); // Filtering out the home page URI
-  return uris;
-}
+//   const uris = allUris
+//     .filter(node => node.uri !== null)
+//     .map(node => {
+//       let trimmedURI = node.uri.substring(1);
+//       trimmedURI = trimmedURI.substring(0, trimmedURI.length - 1)
+//       return {params: {
+//         uri: trimmedURI
+//       }}
+//     })
+//     .filter(({ params }) => params.uri !== ''); // Filtering out the home page URI
+//   return uris;
+// }
 
 function truncateDescription(description, maxLength = 250) {
   if (description.length <= maxLength) return description;

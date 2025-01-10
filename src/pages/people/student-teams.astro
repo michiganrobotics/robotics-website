@@ -2,6 +2,7 @@
 import Layout from '../../layouts/MainLayout.astro';
 import { Image } from 'astro:assets';
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import SubNav from "../../components/SubNav.astro";
 import featureImage from '../../images/featured-images/people-student-teams.jpg';
 import famnmImage from '../../images/student-teams/famnm.jpg';
 import mroverImage from '../../images/student-teams/mrover.jpg';
@@ -141,6 +142,7 @@ teams.sort(() => Math.random() - 0.5);
           </div>
         </div>
       </div>
+      <SubNav />
     </div>
 
     <article class="prose max-w-none dark:prose-invert mt-8">

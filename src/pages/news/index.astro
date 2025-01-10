@@ -8,7 +8,12 @@ import featureImage from '../../images/featured-images/news.jpg';
 import { collegeNewsQuery, eventsQuery } from '../../lib/api';
 import ContentImage from '../../components/ContentImage.astro';
 import Link from '../../components/Link.astro';
+import { LinkPreview } from 'astro-embed';
+
+
+
 const eventsData = await eventsQuery();
+
 
 // Helper function to get excerpt
 function getExcerpt(post) {
@@ -51,7 +56,7 @@ Object.entries(postsByCategory).forEach(([category, posts]) => {
 
 // Sort by date and take only the 8 most recent
 selectedOlderPosts.sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
-selectedOlderPosts = selectedOlderPosts.slice(0, 8);
+selectedOlderPosts = selectedOlderPosts.slice(0, 7);
 
 const collegeNewsItems = await collegeNewsQuery();
 
@@ -114,7 +119,7 @@ const collegeNewsItems = await collegeNewsQuery();
     <section id="events" class="mb-12">
       <div class="grid grid-cols-1 sm:flex sm:flex-row sm:gap-6">
         {eventsData.slice(0,4).map((event, index) => (
-          <a href={event.permalink} class={`group bg-white dark:bg-gray-800 shadow-md rounded-sm overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-[1.02] flex flex-col mb-6 sm:mb-0 sm:flex-1 ${index !== 0 ? 'sm:ml-6' : ''}`}>
+          <a href={event.permalink} class={`group bg-white dark:bg-gray-800 shadow-md rounded-sm overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-[1.02] flex flex-col mb-6 last:mb-0 sm:mb-0 sm:flex-1 ${index !== 0 ? 'sm:ml-6' : ''}`}>
             <div class="relative">
               <span class="absolute top-2 left-0 text-xs font-medium px-4 py-1 bg-matthaeiViolet text-white shadow-md">
                 upcoming event
@@ -159,7 +164,49 @@ const collegeNewsItems = await collegeNewsQuery();
     )}
     <section id="older-posts" class="mb-12">
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        {selectedOlderPosts.map(async (post) => {
+        {selectedOlderPosts.slice(0, 4).map(async (post) => {
+          return (
+            <Link href={`/news/${post.slug}`} 
+               class="group bg-white dark:bg-gray-800 shadow-md rounded-sm overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-[1.02] flex flex-col">
+                <ContentImage 
+                  src={post.data.image?.src}
+                  alt={post.data.image?.alt || post.data.title}
+                  width={1024}
+                  height={683}
+                  class="w-full h-48 object-cover hidden sm:block"
+                />
+              <div class="p-4 flex-grow flex flex-col justify-between">
+                <div>
+                  <span class="inline-block text-xs font-medium mr-2 px-2.5 py-0.5 rounded-sm bg-arboretumBlue text-white mb-2">
+                    {(post.data.categories?.[0] || 'Robotics').replace(/-/g, ' ')}
+                  </span>
+                  <h3 class="text-lg font-roboto font-bold text-umichblue dark:text-gray-100 mb-2 border-b-2 border-transparent group-hover:border-maize transition-all duration-300">{post.data.title}</h3>
+                  <p class="text-sm italic font-sans text-gray-600 dark:text-gray-400">
+                    {new Date(post.data.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+                  </p>
+                </div>
+              </div>
+            </Link>
+          );
+        })}
+        
+        <div class="group bg-white dark:bg-gray-800 shadow-md rounded-sm overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-[1.02] flex flex-col">
+          <div class="w-full h-20 bg-umichblue dark:bg-arboretumBlue flex items-center justify-center hidden sm:flex">
+            <Icon name="mdi:email-newsletter" class="text-[3rem] text-white" />
+          </div>
+          <div class="p-4 flex-grow flex flex-col justify-between">
+            <div>
+              <span class="inline-block text-xs font-medium mr-2 px-2.5 py-0.5 rounded-sm bg-arboretumBlue text-white mb-2">
+                substack newsletter
+              </span>
+                <div class="w-full">
+<LinkPreview id="https://umrobotics.substack.com/" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {selectedOlderPosts.slice(4).map(async (post) => {
           return (
             <Link href={`/news/${post.slug}`} 
                class="group bg-white dark:bg-gray-800 shadow-md rounded-sm overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-[1.02] flex flex-col">

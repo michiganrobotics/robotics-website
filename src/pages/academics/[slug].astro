@@ -2,7 +2,9 @@
 import Layout from '../../layouts/MainLayout.astro';
 import { getCollection } from 'astro:content';
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
-import { components } from '../../content/config';
+import { components } from '../../components/components';
+import ContentImage from "../../components/ContentImage.astro";
+import SubNav from "../../components/SubNav.astro";
 // Generate static paths for all academic pages
 export async function getStaticPaths() {
   const academicPages = await getCollection('academics');
@@ -23,24 +25,34 @@ const { Content } = await page.render();
     </div>
     
     <div class="mt-4 mb-4 max-w-6xl w-11/12 mx-auto">
-      <div class="w-full bg-umichblue dark:bg-arboretumBlue shadow-lg">
-        <div class="p-3 pb-6 md:p-8">
-          <h1 class="text-4xl font-roboto text-white font-bold">
-            <span class="relative border-b-4 border-maize">{page.data.title}</span>
-          </h1>
+      <div class="relative rounded-sm overflow-hidden shadow-lg">
+        <div class="relative">
+          <div class="absolute inset-0">
+              {page.data.image && (
+                  <ContentImage 
+                    src={page.data.image.src} 
+                    alt={page.data.image.alt}
+                    class="w-full h-full object-cover object-center"
+                    width={1200}
+                    height={630}
+                  />
+                )}
+          </div>
+          <div class="relative">
+            <div class="bg-umichblue/70 dark:bg-arboretumBlue/70 backdrop-blur-[2px] p-3 sm:p-4 md:p-8 inline-block">
+              <h1 class="text-4xl font-roboto text-white font-bold">
+                <span class="relative border-b-4 border-maize">{page.data.title}</span>
+              </h1>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
+      </div>  
+       <SubNav />
+  </div>
 
-    <article class="prose dark:prose-invert max-w-6xl w-11/12 mx-auto">
-      {page.data.image && (
-        <img 
-          src={page.data.image.src} 
-          alt={page.data.image.alt}
-          class="w-full rounded-sm shadow-lg mb-8"
-        />
-      )}
-      <Content components={components} />
-    </article>
+  <article class="prose dark:prose-invert max-w-6xl w-11/12 mx-auto prose-headings:font-roboto prose-h2:text-3xl prose-h2:mt-6 prose-h3:text-2xl prose-h4:text-xl prose-h5:text-lg prose-h6:text-base prose-headings:font-bold">
+
+    <Content components={components} />
+  </article>
   </main>
 </Layout>

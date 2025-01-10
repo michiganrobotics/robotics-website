@@ -8,43 +8,34 @@ import { Icon } from 'astro-icon/components';
             <h1 class="text-5xl font-bold font-roboto-condensed leading">Stay up to date</h1>
             <p class="text-lg text-PumaBlack dark:text-gray-300">Sign up for our quarterly newsletter, and follow us on social media</p>
         </div>
-        <div id="custom-substack-embed"></div>
-
-        <script>
-          window.CustomSubstackWidget = {
-            substackUrl: "umrobotics.substack.com",
-            placeholder: "example@gmail.com",
-            buttonText: "Subscribe",
-            theme: "custom",
-            colors: {
-              primary: "#2F65A7",
-              input: "#FFFFFF",
-              email: "#000000",
-              text: "#FFFFFF",
-            },
-            // Go to substackapi.com to unlock custom redirect
-        
-          };
-        </script>
-        <script src="https://substackapi.com/widget.js" async></script>
+        <div class="aspect-video w-full md:w-2/3 max-w-sm sm:max-w-md md:max-w-lg lg:max-w-2xl xl:max-w-3xl mx-auto rounded-lg shadow-lg overflow-hidden">
+            <iframe 
+              src="https://umrobotics.substack.com/embed" 
+              class="w-full h-full"
+              width="480" 
+              height="320" 
+              frameborder="0" 
+              scrolling="no"
+            ></iframe>
+          </div>
+          
         
         <div class="flex flex-row justify-center space-x-2 text-white">
             <a href="https://www.instagram.com/umrobotics/" target="_blank" rel="noopener noreferrer">
-                <Icon name="mdi:instagram" class="w-10 hover:text-arboretumBlue" />
+                <Icon name="mdi:instagram" class="text-[2.5rem] hover:text-arboretumBlue" />
             </a>
             <a href="https://www.linkedin.com/company/university-of-michigan-robotics/" target="_blank" rel="noopener noreferrer">
-                <Icon name="mdi:linkedin" class="w-10 hover:text-arboretumBlue" />
+                <Icon name="mdi:linkedin" class="text-[2.5rem] hover:text-arboretumBlue" />
             </a>
             <a href="https://github.com/michiganrobotics/" target="_blank" rel="noopener noreferrer">
-                <Icon name="mdi:github" class="w-10 hover:text-arboretumBlue" />
+                <Icon name="mdi:github" class="text-[2.5rem] hover:text-arboretumBlue" />
             </a>
             <a href="https://www.youtube.com/channel/UC-WH2n-SkB166pUq5o5ULUg" target="_blank" rel="noopener noreferrer">
-                <Icon name="mdi:youtube" class="w-10 hover:text-arboretumBlue" />
+                <Icon name="mdi:youtube" class="text-[2.5rem] hover:text-arboretumBlue" />
             </a>
             <a href="https://www.twitter.com/umrobotics" target="_blank" rel="noopener noreferrer">
-                <Icon name="twitter-x-logo" class="w-10 hover:text-arboretumBlue" />
+                <Icon name="twitter-x-logo" class="text-[2.5rem] hover:text-arboretumBlue" />
             </a>
         </div>
     </div>
 </section>
-
