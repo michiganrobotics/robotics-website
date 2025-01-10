@@ -2,5 +2,36 @@
 const { href, text } = Astro.props;
 ---
 
-<div class="my-8"><a href={href} class="block text-xl bg-umichblue text-white dark:bg-arboretumBlue dark:text-white px-6 py-4 w-full rounded-md hover:bg-umichblue/80 dark:hover:bg-arboretumBlue/80 no-underline transition-colors duration-300 button-component">{text}</a></div>
+<div class="my-4">
+  <a 
+    href={href} 
+    class="inline-flex items-center justify-center text-base sm:text-lg w-full sm:w-auto 
+    bg-umichblue text-white dark:bg-arboretumBlue dark:text-white 
+    px-4 sm:px-6 py-2.5 sm:py-3 rounded-md 
+    hover:bg-umichblue/90 dark:hover:bg-arboretumBlue/90 
+    transform hover:-translate-y-0.5 
+    transition-all duration-200 
+    shadow-md hover:shadow-lg 
+    focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-umichblue dark:focus:ring-arboretumBlue
+    no-underline button-component
+    whitespace-normal break-words"
+  >
+    <span class="flex-1 text-center">{text}</span>
+    <svg 
+      class="flex-shrink-0 ml-2 -mr-1 w-4 h-4" 
+      fill="none" 
+      stroke="currentColor" 
+      viewBox="0 0 24 24" 
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path 
+        stroke-linecap="round" 
+        stroke-linejoin="round" 
+        stroke-width="2" 
+        d="M9 5l7 7-7 7"
+      ></path>
+    </svg>
+  </a>
+</div>
+
 
