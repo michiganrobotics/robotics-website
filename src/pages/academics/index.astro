@@ -3,7 +3,7 @@ import Layout from '../../layouts/MainLayout.astro';
 import { getEntry } from 'astro:content';
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import ContentImage from "../../components/ContentImage.astro";
-import Subnav from "../../components/Subnav.astro";
+import SubNav from "../../components/SubNav.astro";
 import { components } from '../../content/config';
 // Get the index content from the academics collection
 const page = await getEntry('academics', 'index');
@@ -37,7 +37,8 @@ const { Content } = await page.render();
               </div>
             </div>
           </div>
-        </div>   <Subnav />
+        </div>  
+         <SubNav />
     </div>
  
     <article class="prose dark:prose-invert max-w-6xl w-11/12 mx-auto">

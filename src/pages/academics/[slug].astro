@@ -2,7 +2,7 @@
 import Layout from '../../layouts/MainLayout.astro';
 import { getCollection } from 'astro:content';
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
-
+import { components } from '../../content/config';
 // Generate static paths for all academic pages
 export async function getStaticPaths() {
   const academicPages = await getCollection('academics');
@@ -40,7 +40,7 @@ const { Content } = await page.render();
           class="w-full rounded-sm shadow-lg mb-8"
         />
       )}
-      <Content />
+      <Content components={components} />
     </article>
   </main>
 </Layout>
