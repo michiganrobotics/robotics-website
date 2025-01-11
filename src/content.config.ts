@@ -21,16 +21,14 @@ const news = defineCollection({
 
 const focusAreas = defineCollection({
   loader: glob({ pattern: ["*.md", "*.mdx"], base: "./src/content/focus-areas" }),
-  schema: z.object({
+  schema: ({ image }) => z.object({
     title: z.string(),
-    description: z.string().optional(),
-    image: z.string().optional(),
-    imageAlt: z.string().optional(),
-    videos: z.array(z.string()).optional(),
+    description: z.string(),
+    icon: z.string(),
     images: z.array(z.object({
-      src: z.string(),
+      src: image(),
       alt: z.string(),
-    })).optional(),
+    })),
   }),
 });
 

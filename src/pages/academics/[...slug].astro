@@ -9,7 +9,9 @@ import SubNav from "../../components/SubNav.astro";
 export async function getStaticPaths() {
   const academicPages = await getCollection('academics');
   return academicPages.map(page => ({
-    params: { slug: page.data.slug },
+    params: { 
+      slug: page.id
+    },
     props: { page },
   }));
 }

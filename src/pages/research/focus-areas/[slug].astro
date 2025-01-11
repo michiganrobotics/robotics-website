@@ -5,33 +5,30 @@ import { Image } from 'astro:assets';
 import ContentImage from '../../../components/ContentImage.astro';
 import Breadcrumbs from "../../../components/Breadcrumbs.astro";
 
-import { focusAreas } from '../../../content/focus-areas/focusAreas';
-
 export async function getStaticPaths() {
   const focusAreaEntries = await getCollection('focusAreas');
-  return focusAreas.map(area => {
-    const content = focusAreaEntries.find(entry => entry.data.slug === area.slug);
-    return {
-      params: { slug: area.slug },
-      props: { area, content }
-    };
-  });
+  return focusAreaEntries.map(entry => ({
+    params: { slug: entry.id },
+    props: { entry }
+  }));
 }
 
-const { area, content } = Astro.props;
+const { entry } = Astro.props;
 
-let Content;
-if (content) {
-  const rendered = await render(content);
-  Content = rendered.Content;
-}
+const { Content } = await render(entry);
 
-const allAreaPosts = await getCollection('news', ({ data }) => {
-  if (!data.categories) return false;
+const allAreaPosts = await getCollection('news', ({ data, slug }) => {
+  if (!data.categories || !data.categories.length) return false;
+    
   return data.categories.some(category => {
     if (!category) return false;
-    return category.toLowerCase().includes(area.slug.toLowerCase()) ||
-           area.slug.toLowerCase().includes(category.toLowerCase());
+    
+    const normalizedCategory = String(category).toLowerCase().trim();
+    const normalizedAreaId = String(entry.id).toLowerCase().trim();
+    
+    return normalizedCategory === normalizedAreaId || 
+           normalizedCategory.includes(normalizedAreaId) || 
+           normalizedAreaId.includes(normalizedCategory);
   });
 });
 
@@ -39,7 +36,7 @@ const relatedPosts = allAreaPosts
   .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
 ---
 
-<Layout title={area.title}>
+<Layout title={entry.data.title}>
   <div class="max-w-6xl w-11/12 mx-auto py-2">
     <Breadcrumbs />
   </div>
@@ -47,8 +44,8 @@ const relatedPosts = allAreaPosts
     <div class="relative rounded-lg overflow-hidden shadow-2xl">
       <div class="absolute inset-0">
         <Image 
-          src={area.image}
-          alt={area.imageAlt || area.title}
+          src={entry.data.images[0].src}
+          alt={entry.data.images[0].alt}
           class="w-full h-full object-cover"
         />
         <div class="absolute inset-0 bg-gradient-to-r from-gray-900 via-gray-900/70 to-transparent" />
@@ -56,18 +53,16 @@ const relatedPosts = allAreaPosts
       
       <div class="relative px-8 py-16">
         <h1 class="text-5xl font-bold text-white mb-4">
-          {area.title}
+          {entry.data.title}
         </h1>
         <p class="text-xl text-gray-200 max-w-2xl">
-          {area.description}
+          {entry.data.description}
         </p>
       </div>
     </div>
     <div class="max-w-6xl mx-auto mt-12">
       <article class="prose prose-lg dark:prose-invert max-w-none">
-        {Content ? <Content /> : (
-          <p>No additional content available for this focus area.</p>
-        )}
+        <Content />
 
         {/* Related News Section */}
         {relatedPosts.length > 0 && (
