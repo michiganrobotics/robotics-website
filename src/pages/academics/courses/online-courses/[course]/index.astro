@@ -8,37 +8,76 @@ export async function getStaticPaths() {
   
   // Get unique course names from the entries
   const courses = [...new Set(courseEntries.map(entry => {
-    // Handle both cases: entries in root and in subdirectories
-    return entry.id.includes('/') ? entry.id.split('/')[0] : entry.id;
+    const parts = entry.id.split('/');
+    return parts[0];
   }))];
   
   return courses.map(course => {
+    // Find the index entry (either course/index.md or course.md)
+    const indexEntry = courseEntries.find(e => 
+      e.id === `${course}/index` || e.id === course
+    );
+    
+    // Get related entries (excluding the index entry)
+    const relatedEntries = courseEntries.filter(e => {
+      const entryPath = e.id.split('/')[0];
+      return entryPath === course && 
+             e.id !== course && // Exclude the root course entry
+             e.id !== `${course}/index`; // Exclude the index entry
+    });
+    
+    console.log(`For course ${course}:`, {
+      indexEntry: indexEntry?.id,
+      relatedEntriesCount: relatedEntries.length,
+      firstRelatedEntry: relatedEntries[0]?.id
+    });
+    
+    if (!indexEntry && relatedEntries.length === 0) {
+      console.warn(`Warning: No content found for course: ${course}`);
+    }
+    
     return {
       params: { course },
       props: { 
-        entry: courseEntries.find(e => e.id === `${course}/index` || e.id === course),
-        courseEntries: courseEntries.filter(e => {
-          const entryPath = e.id.includes('/') ? e.id.split('/')[0] : e.id;
-          return entryPath === course && e.id !== `${course}/index`;
-        })
+        entry: indexEntry || relatedEntries[0], // Fallback to first related entry if no index
+        courseEntries: relatedEntries
       }
     };
   });
 }
 
-const { entry } = Astro.props;
+const { entry, courseEntries } = Astro.props;
+console.log("Current course:", Astro.params.course);
+console.log("Found entry:", entry?.id);
+console.log("Related entries count:", courseEntries?.length);
+
 if (!entry) {
   throw new Error(`No course found: ${Astro.params.course}`);
 }
+
 const { Content } = await render(entry);
 ---
 
 <Layout title={entry.data.title}>
   <div class="max-w-6xl w-11/12 mx-auto py-12">
-    
     <article class="prose prose-lg prose-invert max-w-none">
       <h1>{entry.data.title}</h1>
       <Content />
+      
+      {courseEntries && courseEntries.length > 0 && (
+        <div class="mt-8">
+          <h2>Course Materials</h2>
+          <ul>
+            {courseEntries.map(entry => (
+              <li>
+                <a href={`/academics/courses/online-courses/${Astro.params.course}/${entry.id.split('/').pop()}`}>
+                  {entry.data.title}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </article>
   </div>
 </Layout>
