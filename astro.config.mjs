@@ -50,9 +50,21 @@ export default defineConfig({
     build: {
       rollupOptions: {
         output: {
-          assetFileNames: 'assets/[name][extname]',
-          chunkFileNames: 'assets/[name].js',
-          entryFileNames: 'assets/[name].js',
+          manualChunks(id) {
+            if (id.includes('node_modules')) {
+              return 'vendor';
+            }
+          },
+          assetFileNames: 'assets/[name]-[hash][extname]',
+          chunkFileNames: 'assets/[name]-[hash].js',
+          entryFileNames: 'assets/[name]-[hash].js',
+        }
+      },
+      target: 'esnext',
+      minify: 'terser',
+      terserOptions: {
+        compress: {
+          drop_console: true
         }
       }
     }

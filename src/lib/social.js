@@ -41,7 +41,8 @@ import axios from 'axios';
           content: tweet.text,
           date: tweet.created_at,
           platform: 'X',
-          link: `https://twitter.com/umrobotics/status/${tweet.id}`
+          link: `https://twitter.com/umrobotics/status/${tweet.id}`,
+          loading: 'lazy'
         }));
 
       // Update cache
@@ -104,7 +105,8 @@ import axios from 'axios';
         mediaType: post.media_type,
         date: post.timestamp,
         platform: 'Instagram',
-        link: post.permalink
+        link: post.permalink,
+        loading: 'lazy'
       }));
 
       // Update cache
@@ -147,7 +149,8 @@ import axios from 'axios';
         thumbnailUrl: item.snippet.thumbnails.high.url,
         date: item.snippet.publishedAt,
         platform: 'YouTube',
-        link: `https://www.youtube.com/watch?v=${item.id.videoId}`
+        link: `https://www.youtube.com/watch?v=${item.id.videoId}`,
+        loading: 'lazy'
       }));
 
       // Update cache
