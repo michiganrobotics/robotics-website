@@ -49,4 +49,9 @@ const { title } = Astro.props;
   .accordion button[aria-expanded="true"] {
     @apply border-b border-gray-200 dark:border-gray-700;
   }
+
+  /* Add a default bottom border that's transparent */
+  .accordion button {
+    @apply border-b border-transparent;
+  }
 </style>
