@@ -10,7 +10,7 @@ import { collegeNewsQuery, eventsQuery } from '../../lib/api';
 import ContentImage from '../../components/ContentImage.astro';
 import Link from '../../components/Link.astro';
 import { LinkPreview } from 'astro-embed';
-
+import substackImage from '../../images/substackSubscribe.jpg';
 
 
 const eventsData = await eventsQuery();
@@ -196,7 +196,7 @@ const collegeNewsItems = await collegeNewsQuery();
         
         <a href="https://umrobotics.substack.com" class="group bg-white dark:bg-gray-800 shadow-md rounded-sm overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-[1.02] flex flex-col">
           <Image
-            src="/src/images/substackSubscribe.jpg"
+            src={substackImage}
             alt="Michigan Robotics Newsletter"
             width={540}
             height={360}

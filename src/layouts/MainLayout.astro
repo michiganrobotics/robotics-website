@@ -93,6 +93,9 @@ const siteUrl = "https://robotics.umich.edu";
 			onload="this.onload=null;this.rel='stylesheet'"
 			crossorigin="anonymous"
 		>
+		<script is:inline>
+			document.documentElement.classList.add('is-loading');
+		  </script>
 		<noscript>
 			<link rel="stylesheet" href="/fonts/fonts.css">
 		</noscript>
@@ -104,11 +107,23 @@ const siteUrl = "https://robotics.umich.edu";
 		</main>
 		<SiteFooter></SiteFooter>
 	</body>
+	<script is:inline>
+		window.addEventListener('load', () => {
+		  document.documentElement.classList.remove('is-loading');
+		});
+	  </script>
 </html>
-
-
   
   <style is:global>
+	html.is-loading {
+	visibility: hidden;
+	opacity: 0;
+	}
+	html {
+	visibility: visible;
+	opacity: 1;
+	transition: opacity 0.2s linear;
+	}
 	.wp-block-columns{
 		gap:2em;
 	}
@@ -151,5 +166,4 @@ const siteUrl = "https://robotics.umich.edu";
 		text-wrap: balance;
 		min-height: 1.2em;
 	}
-
 </style>

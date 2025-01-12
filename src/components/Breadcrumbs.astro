@@ -28,7 +28,7 @@ function generateBreadcrumbs() {
 const breadcrumbs = generateBreadcrumbs();
 ---
 <div class="max-w-6xl w-11/12 mx-auto py-2">
-<div class="flex items-center justify-end text-xs text-gray-600 dark:text-gray-300">
+<div class="flex items-center justify-end text-xs text-gray-700 dark:text-gray-300">
   <nav aria-label="Breadcrumb">
     <ol class="flex items-center space-x-2">
       <li>
@@ -36,7 +36,7 @@ const breadcrumbs = generateBreadcrumbs();
       </li>
       {breadcrumbs.map((breadcrumb, index) => (
         <li class="flex items-center space-x-2">
-          <span class="text-gray-600 dark:text-gray-300">&gt;</span>
+          <span class="text-gray-700 dark:text-gray-300">&gt;</span>
           <a 
             href={breadcrumb.href}
             class={`hover:text-umichblue dark:hover:text-taubmanTeal ${index === breadcrumbs.length - 1 ? 'text-gray-500 dark:text-gray-300' : ''}`}
