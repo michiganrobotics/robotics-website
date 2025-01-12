@@ -2,7 +2,7 @@
 // edit this file to add new menu items on main nav across pages or subnav of a specific page
 
 
-const base = import.meta.env.PROD ? import.meta.env.BASE_URL : '/';
+const base = process.env.GITHUB_ACTIONS === 'true' ? '/rob-astro-23' : '';
 
 interface MenuItem {
   label: string;

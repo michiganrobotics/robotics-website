@@ -1,6 +1,8 @@
 ---
 import { Icon } from 'astro-icon/components';
 import { LinkPreview } from 'astro-embed';
+import { Image } from 'astro:assets';
+import substackSubscribe from '/src/images/substackSubscribe.jpg';
 ---
 
 <section class="mx-2 m-auto mb-4 bg-uMMATan md:mx-12 md:max-w-5xl md:mx-auto rounded-sm text-umichblue dark:bg-gray-800 dark:text-gray-50">
@@ -9,8 +11,10 @@ import { LinkPreview } from 'astro-embed';
             <h1 class="text-5xl font-bold font-roboto-condensed leading">Stay up to date</h1>
             <p class="text-lg text-PumaBlack dark:text-gray-300">Sign up for our quarterly newsletter, and follow us on social media</p>
         </div>
-        <div class="aspect-video w-full md:w-2/3 max-w-sm sm:max-w-md md:max-w-lg lg:max-w-2xl xl:max-w-3xl mx-auto shadow-lg overflow-hidden">
-            <LinkPreview id="https://umrobotics.substack.com/" />
+        <div class="aspect-video w-full md:w-2/3 max-w-sm sm:max-w-md md:max-w-lg lg:max-w-2xl xl:max-w-3xl mx-auto shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300">
+            <a href="https://umrobotics.substack.com" target="_blank" rel="noopener noreferrer" aria-label="Michigan Robotics Newsletter: research, news, videos, and events from the frontier of robotics research.">
+                <Image src={substackSubscribe} alt="Link preview of subscribing to our substack with text Michigan Robotics Newsletter: research, news, videos, and events from the frontier of robotics research." class="w-full h-full object-cover" />
+            </a>
           </div>
           
         

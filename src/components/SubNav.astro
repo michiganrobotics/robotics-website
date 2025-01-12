@@ -15,7 +15,7 @@ interface Props {
 
 const { wordpressPage } = Astro.props;
 
-const BASE = process.env.NODE_ENV === 'production' ? '/rob-astro-23' : '';
+const BASE = process.env.GITHUB_ACTIONS === 'true' ? '/rob-astro-23' : '';
 const pathname = new URL(Astro.request.url).pathname;
 const trimmedPath = pathname
   .replace(new RegExp(`^${BASE}`), '') // Remove base path only from start
