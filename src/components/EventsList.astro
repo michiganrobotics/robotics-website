@@ -18,9 +18,12 @@ const eventsData = await eventsQuery();
             <Image 
               src={event.styled_images.event_feature_large}
               alt={event.image_description || "Event image"}
-              width={1024}
-              height={683}
+              width={446}
+              height={297}
               class="w-full h-48 object-cover"
+              loading="lazy"
+              format="webp"
+              quality={80}
             />
             <div class="p-4 flex-grow flex flex-col justify-between">
               <div>

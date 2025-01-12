@@ -1,6 +1,7 @@
 ---
 import { fetchInstagramPosts, fetchYoutubePosts, fetchTwitterPosts } from '../lib/social';
 import { Icon } from 'astro-icon/components';
+import { Image } from 'astro:assets';
 
 function truncateText(text, maxLength = 250) {
   return text.length <= maxLength ? text : text.slice(0, maxLength) + '...';
@@ -45,16 +46,40 @@ const socialIcons = {
               (post.platform !== 'Instagram' && post.thumbnailUrl)) ? (
               <div class="h-44 relative">
                 {post.platform === 'Instagram' && post.mediaType === 'IMAGE' && post.mediaUrl && (
-                  <img class="w-full h-full object-cover" src={post.mediaUrl} alt="Instagram post" />
+                  <Image 
+                    src={post.mediaUrl} 
+                    alt="Instagram post"
+                    width={320}
+                    height={176}
+                    class="w-full h-full object-cover"
+                  />
                 )}
                 {post.platform === 'Instagram' && post.mediaType === 'VIDEO' && post.thumbnailUrl && (
-                  <img class="w-full h-full object-cover" src={post.thumbnailUrl} alt="Instagram video thumbnail" />
+                  <Image 
+                    src={post.thumbnailUrl} 
+                    alt="Instagram video thumbnail"
+                    width={320}
+                    height={176}
+                    class="w-full h-full object-cover"
+                  />
                 )}
                 {post.platform === 'X' && post.mediaType === 'IMAGE' && post.mediaUrl && (
-                  <img class="w-full h-full object-cover" src={post.mediaUrl} alt="X/Twitter post" />
+                  <Image 
+                    src={post.mediaUrl} 
+                    alt="X/Twitter post"
+                    width={320}
+                    height={176}
+                    class="w-full h-full object-cover"
+                  />
                 )}
                 {post.platform !== 'Instagram' && post.thumbnailUrl && (
-                  <img class="w-full h-full object-cover" src={post.thumbnailUrl} alt={post.content} />
+                  <Image 
+                    src={post.thumbnailUrl} 
+                    alt={post.content}
+                    width={320}
+                    height={176}
+                    class="w-full h-full object-cover"
+                  />
                 )}
               </div>
             ) : (
