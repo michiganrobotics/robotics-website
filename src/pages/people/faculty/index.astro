@@ -2,27 +2,14 @@
 import Layout from '../../../layouts/MainLayout.astro';
 import { getFacultyData } from '../../../lib/googleSheets';
 import Breadcrumbs from "../../../components/Breadcrumbs.astro";
-import SubNav from "../../../components/SubNav.astro";
+import PageTitle from "../../../components/PageTitle.astro";
 
 const facultyMembers = await getFacultyData();
 ---
 
 <Layout title="Faculty Directory">
-  <main>
-    <div class="max-w-6xl w-11/12 mx-auto py-2">
-      <Breadcrumbs />
-    </div>
-    
-    <div class="mt-4 mb-4 max-w-6xl w-11/12 mx-auto">
-      <div class="w-full bg-umichblue dark:bg-arboretumBlue shadow-lg">
-        <div class="p-3 pb-6 md:p-8">
-          <h1 class="text-4xl font-roboto text-white font-bold">
-            <span class="relative border-b-4 border-maize">Faculty Directory</span>
-          </h1>
-        </div>
-      </div>
-      <SubNav />
-    </div>
+<Breadcrumbs />
+<PageTitle title="Faculty Directory" />
     <div class="mx-2 m-auto mb-4 md:mx-12">
       <div class="relative mb-16">
        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-6 pt-10 px-2">
@@ -46,5 +33,4 @@ const facultyMembers = await getFacultyData();
         </div>
       </div>
     </div>
-  </main>
 </Layout>

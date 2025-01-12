@@ -3,6 +3,7 @@ import { getCollection, render } from 'astro:content';
 import MainLayout from "../../layouts/MainLayout.astro";
 import { Icon } from 'astro-icon/components';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import PageTitle from '../../components/PageTitle.astro';
 import { Image } from 'astro:assets';
 import featureImage from '../../images/featured-images/news.jpg';
 import { collegeNewsQuery, eventsQuery } from '../../lib/api';
@@ -84,34 +85,11 @@ selectedOlderPosts = selectedOlderPosts.slice(0, 7);
 const collegeNewsItems = await collegeNewsQuery();
 
 ---
-
 <MainLayout title="News and Events">
-    <div class="max-w-6xl w-11/12 mx-auto py-2">
-      <Breadcrumbs />
-    </div>
-    <div class="mt-4 mb-8 max-w-6xl w-11/12 mx-auto">
-      <div class="relative rounded-sm overflow-hidden mb-8 feature-image-container">
-        <div class="relative">
-          <div class="absolute inset-0">
-            <Image 
-              src={featureImage} 
-              alt="Feature image description"
-              width={1200}
-              height={115}
-              class="w-full h-full object-cover"
-            />
-          </div>
-          <div class="relative">
-            <div class="bg-umichblue/70 dark:bg-arboretumBlue/70 backdrop-blur-[2px] p-3 sm:p-4 md:p-8 inline-block">
-              <h1 class="text-4xl font-roboto text-white font-bold">
-                <div class="relative border-b-4 border-maize leading-relaxed sm:leading-tight">News and events</div>
-              </h1>
-            </div>
-          </div>
-        </div>
-      </div>
-    
-    <section id="recent-posts" class="mb-12">
+  <Breadcrumbs />
+  <PageTitle title="News and Events" image={featureImage} imageAlt="Researchers work on a state-of-the-art bipedal robot in the Walking Robotics Lab." />
+<div class="max-w-6xl w-11/12 mx-auto">
+  <section id="recent-posts" class="mb-12">
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {recentPosts.map(async (post, index) => {
           

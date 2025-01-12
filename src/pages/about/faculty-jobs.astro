@@ -3,27 +3,17 @@ import MainLayout from "../../layouts/MainLayout.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import SubNav from "../../components/SubNav.astro";
 import { Icon } from "astro-icon/components";
+import PageTitle from "../../components/PageTitle.astro";
 ---
 
 <MainLayout title="Faculty Jobs | Michigan Robotics" description="Join Michigan Robotics as a faculty member">
-  <div class="max-w-6xl w-11/12 mx-auto py-2">
-    <Breadcrumbs />
-  </div>
+  <Breadcrumbs />
+  <PageTitle title="Faculty Jobs" />
 
-  <div class="mt-4 mb-4 max-w-6xl w-11/12 mx-auto">
-    <div class="w-full bg-umichblue dark:bg-arboretumBlue shadow-lg">
-      <div class="p-3 sm:p-4 md:p-8">
-        <h1 class="text-4xl font-roboto text-white font-bold">
-          <span class="relative border-b-4 border-maize leading-relaxed sm:leading-tight">Faculty Jobs</span>
-        </h1>
-      </div>
-    </div>
-    <SubNav />
-
-    <div class="mt-8">
+    <div class="prose dark:prose-invert mt-4 mb-4 max-w-6xl w-11/12 mx-auto">
       <p class="text-xl font-semibold text-arboretumBlue dark:text-maize mb-4">Work together. Create smart machines. Serve society.</p>
 
-      <p class="mb-6">We invite applicants to join our mission to accelerate advances in robotics for the benefit of society.</p>
+      <p>We invite applicants to join our mission to accelerate advances in robotics for the benefit of society.</p>
 
       <h2 class="text-3xl font-roboto-condensed font-bold mb-4 text-umichblue dark:text-white">Tenure-track faculty</h2>
 

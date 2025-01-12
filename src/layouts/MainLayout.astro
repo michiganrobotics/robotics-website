@@ -23,13 +23,15 @@ const siteUrl = "https://robotics.umich.edu";
 
 ---
 
+<!DOCTYPE html>
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.ico" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
 		<meta name="robots" content="noindex, nofollow">
+		<link rel="icon" type="image/svg+xml" href="/favicon.ico" />
+		<slot name="head"/>
 		<SEO
 			title={title}
 			description={description}
@@ -83,15 +85,6 @@ const siteUrl = "https://robotics.umich.edu";
 					"areaServed": "Ann Arbor, Michigan"
 				}
 			}}
-		/>
-		<slot name="head"/>
-		<link 
-			rel="preload" 
-			href="/fonts/RobotoCondensed-Regular.woff2"
-			as="font" 
-			type="font/woff2" 
-			crossorigin
-			fetchpriority="high"
 		/>
 		<link rel="stylesheet" href="/fonts/fonts.css">
 	</head>

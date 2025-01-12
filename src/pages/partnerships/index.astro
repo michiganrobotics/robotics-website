@@ -2,7 +2,7 @@
 import Layout from '../../layouts/MainLayout.astro';
 import { Image } from 'astro:assets';
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
-import SubNav from "../../components/SubNav.astro";
+import PageTitle from "../../components/PageTitle.astro";
 import featureImage from '../../images/featured-images/partnerships.jpg';
 import { YouTube } from 'astro-embed';
 import NewsCard from '../../components/NewsCard.astro';
@@ -23,35 +23,10 @@ if (featuredPost?.data.image?.src) {
 ---
 
 <Layout title="Partnerships">
-  <div class="max-w-6xl w-11/12 mx-auto py-2">
-    <Breadcrumbs />
-  </div>
-      
-  <div class="mt-4 mb-4 max-w-6xl w-11/12 mx-auto">
-    <div class="relative rounded-sm overflow-hidden shadow-lg">
-      <div class="relative">
-        <div class="absolute inset-0">
-          <Image 
-            src={featureImage}
-            alt="An underwater robot on the surface of a lake is retrieved by two researchers."
-            class="w-full h-full object-cover object-center"
-            width={1200}
-            height={630}
-          />
-        </div>
-        <div class="relative">
-          <div class="bg-umichblue/70 dark:bg-arboretumBlue/70 backdrop-blur-[2px] p-3 sm:p-4 md:p-8 inline-block">
-            <h1 class="text-4xl font-roboto text-white font-bold">
-              <span class="relative border-b-4 border-maize">Partnerships</span>
-            </h1>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <SubNav />
-      
-    <article class="prose max-w-none dark:prose-invert mt-8">
+  <Breadcrumbs />
+  <PageTitle title="Partnerships" image={featureImage} imageAlt="Robots stand around the Robot Garden terrain testing ground." />
+     
+    <div class="prose dark:prose-invert mt-4 mb-4 max-w-6xl w-11/12 mx-auto">
       <p>Michigan Robotics thrives on the principle that collaboration multiplies the quality and impact of our work. Michigan Robotics cultivates partnerships in industry and academia to promote the training, research, and deployment of robotics that serve society. Working on an individual level to organizational scale, we welcome opportunities that help us meet our mission of developing the next generation of robotics and roboticists.</p>
 
       <div class="mt-8 space-y-8">
@@ -122,6 +97,5 @@ if (featuredPost?.data.image?.src) {
           </div>
         </div>
       </div>
-    </article>
-  </div>
+    </div>
 </Layout>

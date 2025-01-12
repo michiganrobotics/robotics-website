@@ -2,41 +2,17 @@
 import Layout from '../../layouts/MainLayout.astro';
 import { Image } from 'astro:assets';
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
-import SubNav from "../../components/SubNav.astro";
+import PageTitle from "../../components/PageTitle.astro";
 import featureImage from '../../images/featured-images/partnerships.jpg';
 import IndustryEngagementPathway from '../../components/IndustryEngagementPathway.astro';
 ---
 
 <Layout title="Industry Engagement">
-  <div class="max-w-6xl w-11/12 mx-auto py-2">
-    <Breadcrumbs />
-  </div>
-      
-  <div class="mt-4 mb-4 max-w-6xl w-11/12 mx-auto">
-    <div class="relative rounded-sm overflow-hidden shadow-lg">
-      <div class="relative">
-        <div class="absolute inset-0">
-          <Image 
-            src={featureImage}
-            alt="Michigan Robotics research facilities"
-            class="w-full h-full object-cover object-center"
-            width={1200}
-            height={630}
-          />
-        </div>
-        <div class="relative">
-          <div class="bg-umichblue/70 dark:bg-arboretumBlue/70 backdrop-blur-[2px] p-3 sm:p-4 md:p-8 inline-block">
-            <h1 class="text-4xl font-roboto text-white font-bold">
-              <span class="relative border-b-4 border-maize">Industry Engagement</span>
-            </h1>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <SubNav />
-      
-    <article class="prose max-w-none dark:prose-invert mt-8">
+  <Breadcrumbs />
+  <PageTitle title="Industry Engagement" image={featureImage} imageAlt="Michigan Robotics research facilities" />
+ 
+    <div class="prose dark:prose-invert mt-4 mb-4 max-w-6xl w-11/12 mx-auto">
+      <h2 class="text-xl font-roboto text-umichblue dark:text-white leading-relaxed font-normal">Developing the next generation of robotics and roboticists together</h2>
       <p>The University of Michigan Robotics Department welcomes industry leaders to our exclusive Industry Engagement Program. We offer multiple pathways for meaningful collaboration between academia and industry innovators.</p>
 
       <h2>Engagement opportunities</h2>
@@ -62,6 +38,5 @@ import IndustryEngagementPathway from '../../components/IndustryEngagementPathwa
           </a>
         </div>
       </div>
-    </article>
-  </div>
+    </div>
 </Layout>

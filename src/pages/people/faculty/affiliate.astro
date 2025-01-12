@@ -3,7 +3,7 @@ import Layout from '../../../layouts/MainLayout.astro';
 import { getAffiliateFacultyData } from '../../../lib/googleSheets';
 import { Icon } from "astro-icon/components";
 import Breadcrumbs from "../../../components/Breadcrumbs.astro";
-import SubNav from "../../../components/SubNav.astro";
+import PageTitle from "../../../components/PageTitle.astro";
 
 const facultyMembers = await getAffiliateFacultyData();
 facultyMembers.sort((a, b) => a.lastName.localeCompare(b.lastName));
@@ -11,23 +11,12 @@ facultyMembers.sort((a, b) => a.lastName.localeCompare(b.lastName));
 
 <Layout title="Affiliate Faculty">
   <main>
-    <div class="max-w-6xl w-11/12 mx-auto py-2">
-      <Breadcrumbs />
-    </div>
-    
-    <div class="mt-4 mb-4 max-w-6xl w-11/12 mx-auto">
-      <div class="w-full bg-umichblue dark:bg-arboretumBlue shadow-lg">
-        <div class="p-3 pb-6 md:p-8">
-          <h1 class="text-4xl font-roboto text-white font-bold">
-            <span class="relative border-b-4 border-maize">Affiliate Faculty</span>
-          </h1>
-        </div>
-      </div>
-      <SubNav />
-    </div>
+    <Breadcrumbs />
+    <PageTitle title="Affiliate Faculty" />
+    <div class="prose dark:prose-invert mt-4 mb-4 max-w-6xl w-11/12 mx-auto">
+      <p>The Robotics Department is fortunate to have a strong network of affiliate faculty members who contribute to our research and educational programs. These individuals are experts in various fields related to robotics and are dedicated to advancing the field through collaboration and mentorship.</p>
 
-    <div class="max-w-6xl w-11/12 mx-auto">
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 pt-10 px-2">
+      <div class="not-prose grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 px-2">
         {facultyMembers.map((faculty) => (
           <div class="bg-white dark:bg-gray-800 p-6 rounded-sm shadow-md">
             <div class="flex flex-col md:flex-row justify-between">
@@ -83,5 +72,5 @@ facultyMembers.sort((a, b) => a.lastName.localeCompare(b.lastName));
         ))}
       </div>
     </div>
-  </main>
+  </div>
 </Layout>

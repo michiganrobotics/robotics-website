@@ -3,46 +3,20 @@ import Layout from '../../layouts/MainLayout.astro';
 import { getEntry, render } from 'astro:content';
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import ContentImage from "../../components/ContentImage.astro";
-import SubNav from "../../components/SubNav.astro";
+import PageTitle from "../../components/PageTitle.astro";
 import { components } from '../../components/components';
 // Get the index content from the academics collection
 const page = await getEntry('academics', 'index');
 const { Content } = await render(page);
+
 ---
 
-<Layout title={`${page.data.title} | Michigan Robotics`}>
-  <main>
-    <div class="max-w-6xl w-11/12 mx-auto py-2">
-      <Breadcrumbs />
-    </div>
-    <div class="mt-4 mb-4 max-w-6xl w-11/12 mx-auto">
-        <div class="relative rounded-sm overflow-hidden shadow-lg">
-          <div class="relative">
-            <div class="absolute inset-0">
-                {page.data.image && (
-                    <ContentImage 
-                      src={page.data.image.src} 
-                      alt={page.data.image.alt}
-                      class="w-full h-full object-cover object-center"
-                      width={1200}
-                      height={630}
-                    />
-                  )}
-            </div>
-            <div class="relative">
-              <div class="bg-umichblue/70 dark:bg-arboretumBlue/70 backdrop-blur-[2px] p-3 sm:p-4 md:p-8 inline-block">
-                <h1 class="text-4xl font-roboto text-white font-bold">
-                  <span class="relative border-b-4 border-maize">{page.data.title}</span>
-                </h1>
-              </div>
-            </div>
-          </div>
-        </div>  
-         <SubNav />
-    </div>
+<Layout title={`${page.data.title} | Michigan Robotics`}> 
+  <Breadcrumbs />
+  <PageTitle title={page.data.title} image={page.data.image.src} imageAlt={page.data.image.alt} />
  
-    <article class="prose dark:prose-invert max-w-6xl w-11/12 mx-auto prose-headings:font-roboto prose-h2:text-3xl prose-h3:text-2xl prose-h4:text-xl prose-h5:text-lg prose-h6:text-base prose-headings:font-bold">
-
+    <article class="prose dark:prose-invert max-w-6xl w-11/12 mx-auto mt-4 mb-4 prose-headings:font-roboto prose-h2:text-3xl prose-h3:text-2xl prose-h4:text-xl prose-h5:text-lg prose-h6:text-base prose-headings:font-bold">
+      <h2 class="text-xl font-roboto text-umichblue dark:text-white leading-relaxed font-normal not-prose">{page.data.subtitle}</h2>
       <Content components={components} />
     </article>
   </main>

@@ -3,7 +3,7 @@ import MainLayout from "../../layouts/MainLayout.astro";
 import { Icon } from "astro-icon/components";
 import { YouTube } from '@astro-community/astro-embed-youtube';
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
-import SubNav from "../../components/SubNav.astro";
+import PageTitle from "../../components/PageTitle.astro";
 import { Image } from "astro:assets";
 import artificialIntelligenceImage from "../../images/focus-areas/artificial-intelligence.jpg";
 import autonomousVehiclesImage from "../../images/focus-areas/autonomous-vehicles.jpg";
@@ -70,19 +70,9 @@ const committeeText = `The Robotics Department is led by the Executive Committee
 ---
 
 <MainLayout title="About | Michigan Robotics" description="Learn about the University of Michigan Robotics Department's vision and leadership">
-  <div class="max-w-6xl w-11/12 mx-auto py-2">
-    <Breadcrumbs />
-  </div>
-
-  <div class="mt-4 mb-4 max-w-6xl w-11/12 mx-auto">
-    <div class="w-full bg-umichblue dark:bg-arboretumBlue shadow-lg">
-      <div class="p-3 sm:p-4 md:p-8">
-        <h1 class="text-4xl font-roboto text-white font-bold">
-          <span class="relative border-b-4 border-maize leading-relaxed sm:leading-tight">About Michigan Robotics</span>
-        </h1>
-      </div>
-    </div>
-    <SubNav />
+  <Breadcrumbs />
+  <PageTitle title="About Michigan Robotics" />
+<div class="mt-4 mb-4 max-w-6xl w-11/12 mx-auto">
     <div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-8">
       <section>
         <h2 class="text-3xl font-roboto-condensed font-bold mb-4 text-umichblue dark:text-white">Our mission</h2>

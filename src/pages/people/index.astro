@@ -2,27 +2,16 @@
 import Layout from '../../layouts/MainLayout.astro';
 import { Image } from 'astro:assets';
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
-import SubNav from "../../components/SubNav.astro";
+import PageTitle from "../../components/PageTitle.astro";
 import featuredImage from '../../images/featured-images/people.jpg';
 import Link from '../../components/Link.astro';
 ---
 
 <Layout title="People | Michigan Robotics">
-  <div class="max-w-6xl w-11/12 mx-auto py-2">
-    <Breadcrumbs />
-  </div>
-      
-  <div class="mt-4 mb-4 max-w-6xl w-11/12 mx-auto">
-    <div class="w-full bg-umichblue dark:bg-arboretumBlue shadow-lg">
-      <div class="p-3 sm:p-4 md:p-8">
-        <h1 class="text-4xl font-roboto text-white font-bold">
-          <span class="relative border-b-4 border-maize leading-relaxed sm:leading-tight">People</span>
-        </h1>
-      </div>
-    </div>
+  <Breadcrumbs />
+  <PageTitle title="People" />
 
-    <SubNav />
-    <article class="prose max-w-none dark:prose-invert">
+    <div class="prose max-w-6xl w-11/12 mx-auto dark:prose-invert">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div class="space-y-6">
           <h2 class="text-3xl font-roboto-condensed font-bold text-umichblue dark:text-white mt-8">Our Robotics community</h2>
@@ -44,6 +33,5 @@ import Link from '../../components/Link.astro';
           />
         </div>
       </div>
-    </article>
-  </div>
+    </div>
 </Layout>

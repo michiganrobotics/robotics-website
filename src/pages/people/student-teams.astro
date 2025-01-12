@@ -2,7 +2,7 @@
 import Layout from '../../layouts/MainLayout.astro';
 import { Image } from 'astro:assets';
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
-import SubNav from "../../components/SubNav.astro";
+import PageTitle from "../../components/PageTitle.astro";
 import featureImage from '../../images/featured-images/people-student-teams.jpg';
 import famnmImage from '../../images/student-teams/famnm.jpg';
 import mroverImage from '../../images/student-teams/mrover.jpg';
@@ -118,38 +118,14 @@ teams.sort(() => Math.random() - 0.5);
   title="Student Teams | Michigan Robotics"
   description="Our students are proud to be highly involved and active members of their community. Student teams are an opportunity for them to meet people, apply classroom concepts to real applications, have fun, and make a difference."
   image="/social/og-teams.jpg">
-  <div class="max-w-6xl w-11/12 mx-auto py-2">
-    <Breadcrumbs />
-  </div>
-      
-  <div class="mt-4 mb-4 max-w-6xl w-11/12 mx-auto">
-    <div class="relative rounded-sm overflow-hidden shadow-lg">
-      <div class="relative">
-        <div class="absolute inset-0">
-          <Image 
-            src={featureImage}
-            alt="A collection of tools and drill bits in front of a drill press"
-            class="w-full h-full object-cover object-[10%_60%]"
-            width={1200}
-            height={630}
-          />
-        </div>
-        <div class="relative">
-          <div class="bg-umichblue/70 dark:bg-arboretumBlue/70 backdrop-blur-[2px] p-3 sm:p-4 md:p-8 inline-block">
-            <h1 class="text-4xl font-roboto text-white font-bold">
-              <span class="relative border-b-4 border-maize">Student Teams</span>
-            </h1>
-          </div>
-        </div>
-      </div>
-      <SubNav />
-    </div>
+<Breadcrumbs />
+<PageTitle title="Student Teams" image={featureImage} imageAlt="A collection of tools and drill bits in front of a drill press" imagePosition="10% 60%"/>
 
-    <article class="prose max-w-none dark:prose-invert mt-8">
+<div class="prose dark:prose-invert mt-4 mb-4 max-w-6xl w-11/12 mx-auto">
       <p>Our students are proud to be highly involved and active members of their community. Student teams are an opportunity for them to meet people, apply classroom concepts to real applications, have fun, and make a difference.</p>
-    </article>
+    
 
-      <div class="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 not-prose">
         {teams.map(team => (
           <a href={team.link} class="group bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300">
             <div class="aspect-video bg-gray-100 dark:bg-gray-700 relative overflow-hidden">

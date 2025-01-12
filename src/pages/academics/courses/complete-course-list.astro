@@ -1,10 +1,9 @@
 ---
 // src/pages/focus-areas/index.astro
 import Layout from '../../../layouts/MainLayout.astro';
-import { Icon } from 'astro-icon/components';
 import { Image } from 'astro:assets';
 import Breadcrumbs from "../../../components/Breadcrumbs.astro";
-import SubNav from "../../../components/SubNav.astro";
+import PageTitle from "../../../components/PageTitle.astro";
 import { getCourseList } from '../../../lib/googleSheets';
 
 import featureImage from '../../../images/featured-images/academics-complete-course-list.jpg';
@@ -13,30 +12,9 @@ const courseList = await getCourseList();
 ---
 
 <Layout title="Complete Course List">
-    <div class="max-w-6xl w-11/12 mx-auto py-2">
-        <Breadcrumbs />
-      </div>
-      
-      <div class="mt-4 mb-16 max-w-6xl w-11/12 mx-auto">
-        <div class="relative rounded-sm overflow-hidden shadow-lg mb-8">
-            <div class="relative">
-                <div class="absolute inset-0">
-                  <Image 
-                    src={featureImage}
-                    alt=""
-                    class="w-full h-full object-cover object-[25%_75%]"
-                  />
-                </div>
-                <div class="relative">
-                  <div class="bg-umichblue/70 dark:bg-arboretumBlue/70 backdrop-blur-[2px] p-3 sm:p-4 md:p-8 inline-block">
-                    <h1 class="text-4xl font-roboto text-white font-bold">
-                      <span class="relative border-b-4 border-maize leading-relaxed sm:leading-tight">Complete Course List</span>
-                    </h1>
-                  </div>
-                </div>
-              </div>
-          </div>
-          <SubNav />
+    <Breadcrumbs />
+    <PageTitle title="Complete Course List" image={featureImage} imageAlt="Students studying in the Robotics Building atrium" imagePosition="25% 75%" />
+      <div class="prose dark:prose-invert max-w-6xl w-11/12 mx-auto mt-4 mb-4">
           <p class="mb-4">
             These robotics and robotics-related courses satisfy robotics undergraduate or graduate degree requirements. These courses are typically offered different terms. To find out which robotics courses are currently offered this term, see current term courses.
           </p>

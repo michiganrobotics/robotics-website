@@ -4,26 +4,17 @@ import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import SubNav from "../../components/SubNav.astro";
 import { Icon } from "astro-icon/components";
 import GameModal from "../../components/GameModal.astro";
+import PageTitle from "../../components/PageTitle.astro";
 ---
 
 <MainLayout title="Contact | Michigan Robotics" description="Contact information for Michigan Robotics">
+  <Breadcrumbs />
+  <PageTitle title="Contact us" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" slot="head"/>
   <script is:inline src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 
-  <div class="max-w-6xl w-11/12 mx-auto py-2">
-    <Breadcrumbs />
-  </div>
 
-  <div class="mt-4 mb-4 max-w-6xl w-11/12 mx-auto">
-    <div class="w-full bg-umichblue dark:bg-arboretumBlue shadow-lg">
-      <div class="p-3 sm:p-4 md:p-8">
-        <h1 class="text-4xl font-roboto text-white font-bold">
-          <span class="relative border-b-4 border-maize leading-relaxed sm:leading-tight">Contact Us</span>
-        </h1>
-      </div>
-    </div>
-    <SubNav />
-    <div class="mt-8">
+    <div class="mt-8 mb-4 max-w-6xl w-11/12 mx-auto">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
         <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
           <div class="flex items-center mb-4">

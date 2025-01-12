@@ -2,32 +2,21 @@
 import Layout from '../../layouts/MainLayout.astro';
 import { getAdvisoryBoard } from '../../lib/googleSheets';
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
-import SubNav from "../../components/SubNav.astro";
+import PageTitle from "../../components/PageTitle.astro";
 
 const advisoryBoard = await getAdvisoryBoard();
 ---
 
 <Layout title="Advisory Board">
   <main>
-    <div class="max-w-6xl w-11/12 mx-auto py-2">
-      <Breadcrumbs />
-    </div>
+    <Breadcrumbs />
+    <PageTitle title="Advisory Board" />
     
-    <div class="mt-4 mb-4 max-w-6xl w-11/12 mx-auto">
-      <div class="w-full bg-umichblue dark:bg-arboretumBlue shadow-lg">
-        <div class="p-3 pb-6 md:p-8">
-          <h1 class="text-4xl font-roboto text-white font-bold">
-            <span class="relative border-b-4 border-maize">Advisory Board</span>
-          </h1>
-        </div>
-      </div>
-      <SubNav />
+
+    <div class="prose dark:prose-invert mt-4 mb-4 max-w-6xl w-11/12 mx-auto">
+      <h2 class="text-xl font-roboto text-umichblue dark:text-white leading-relaxed font-normal">Distinguished members rotating from industry, academia, and government</h2>
+      <p>The group is an invaluable resource to the Robotics Department in shaping our program with the insight of external feedback. Members meet regularly to discuss departmental vision, strategies and issues and provide advice to the chair.</p>
     </div>
-    <p class="prose max-w-6xl mx-auto w-11/12 dark:prose-invert">
-      Distinguished members rotating from industry, academia and government comprise the Robotics Advisory Board.</p>
-      <p class="mt-2 prose max-w-6xl mx-auto w-11/12 dark:prose-invert">
-The group is an invaluable resource to the Robotics Department in shaping our program with the insight of external feedback. Members meet regularly to discuss departmental vision, strategies and issues and provide advice to the chair.
-    </p>
     <div class="mx-2 m-auto mb-4 md:mx-12">
       <div class="relative mb-16">
       

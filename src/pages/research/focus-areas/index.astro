@@ -4,6 +4,7 @@ import Layout from '../../../layouts/MainLayout.astro';
 import { getCollection } from 'astro:content';
 import { Image } from 'astro:assets';
 import Breadcrumbs from "../../../components/Breadcrumbs.astro";
+import PageTitle from "../../../components/PageTitle.astro";
 import SubNav from '../../../components/SubNav.astro';
 import Link from '../../../components/Link.astro';
 import ContentImage from '../../../components/ContentImage.astro';
@@ -19,32 +20,9 @@ const sortedAreas = focusAreas.sort((a, b) =>
 ---
 
 <Layout title="Research Focus Areas">
-    <div class="max-w-6xl w-11/12 mx-auto py-2">
-        <Breadcrumbs />
-    </div>
-      
-    <div class="mt-4 mb-4 max-w-6xl w-11/12 mx-auto">
-        <div class="relative rounded-sm overflow-hidden shadow-lg">
-            <div class="relative">
-                <div class="absolute inset-0">
-                  <Image 
-                    src={featureImage}
-                    alt="Research Focus Areas"
-                    class="w-full h-full object-cover"
-                    loading="eager"
-                  />
-                </div>
-                <div class="relative">
-                  <div class="bg-umichblue/70 dark:bg-arboretumBlue/70 backdrop-blur-[2px] p-3 sm:p-4 md:p-8 inline-block">
-                    <h1 class="text-4xl font-roboto text-white font-bold">
-                      <span class="relative border-b-4 border-maize leading-relaxed sm:leading-tight">Research Focus Areas</span>
-                    </h1>
-                  </div>
-                </div>
-              </div>
-          </div>
-          <SubNav />
-      
+    <Breadcrumbs />
+    <PageTitle title="Research Focus Areas" image={featureImage} imageAlt="A quadcopter drone in flight at M-Air testing facility" />
+      <div class="mt-4 mb-4 max-w-6xl w-11/12 mx-auto">
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
             {sortedAreas.map((area) => (
               <div class="group cursor-pointer">
@@ -73,6 +51,6 @@ const sortedAreas = focusAreas.sort((a, b) =>
               </div>
             ))}
           </div>
-    </div>
+      </div>
 </Layout>
           

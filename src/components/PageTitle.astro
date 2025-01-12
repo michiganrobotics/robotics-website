@@ -1,0 +1,53 @@
+---
+interface Props {
+  title: string;
+  image?: ImageMetadata;
+  imageAlt?: string;
+  imagePosition?: string; // Optional object-position value
+}
+
+import { Image } from 'astro:assets';
+import SubNav from './SubNav.astro';
+const { 
+  title, 
+  image, 
+  imageAlt,
+  imagePosition = "object-center" // Default value matching original
+} = Astro.props;
+---
+
+<div class="mt-4 sm:mb-2 max-w-6xl w-11/12 mx-auto">
+    {image && (
+    <div class="relative rounded-sm overflow-hidden shadow-lg">
+     <div class="relative">
+        <div class="absolute inset-0">
+          <Image 
+            src={image}
+            alt={imageAlt}
+            class="w-full h-32 object-cover"
+            style={`object-position: ${imagePosition};`}
+            width={1200}
+            height={630}
+          />
+        </div>
+      </div>
+      <div class="relative">
+        <div class="bg-umichblue/70 dark:bg-arboretumBlue/70 backdrop-blur-[2px] p-3 sm:p-4 md:p-8 inline-block">
+          <h1 class="text-4xl font-roboto text-white font-bold">
+            <span class="relative border-b-4 border-maize">{title}</span>
+          </h1>
+        </div>
+      </div>
+    </div>
+        )}
+  {!image && (
+      <div class="w-full bg-umichblue dark:bg-arboretumBlue shadow-lg h-24">
+        <div class="p-6">
+          <h1 class="text-4xl font-roboto text-white font-bold">
+            <span class="relative border-b-4 border-maize">{title}</span>
+          </h1>
+        </div>
+      </div>
+    )}
+    <SubNav />
+</div> 
