@@ -86,7 +86,16 @@ const siteUrl = "https://robotics.umich.edu";
 				}
 			}}
 		/>
-		<link rel="stylesheet" href="/fonts/fonts.css">
+		<link 
+			rel="preload" 
+			href="/fonts/fonts.css" 
+			as="style" 
+			onload="this.onload=null;this.rel='stylesheet'"
+			crossorigin="anonymous"
+		>
+		<noscript>
+			<link rel="stylesheet" href="/fonts/fonts.css">
+		</noscript>
 	</head>
 	<body class="bg-gray-100 dark:bg-gray-700 dark:text-white">
 		<main class="m-auto mb-20">
@@ -120,6 +129,27 @@ const siteUrl = "https://robotics.umich.edu";
 	}
 	h1, h2, h3, .font-roboto {
 		font-display: swap;
+	}
+
+	/* Add system font fallbacks */
+	:root {
+		--font-fallback-sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+		--font-fallback-condensed: Arial Narrow, Arial, sans-serif;
+	}
+
+	/* Update font families with fallbacks */
+	.font-roboto {
+		font-family: 'Open Sans', var(--font-fallback-sans);
+	}
+
+	.font-roboto-condensed {
+		font-family: 'Roboto Condensed', var(--font-fallback-condensed);
+	}
+
+	/* Pre-define spaces for text elements that use custom fonts */
+	h1, h2, h3, .text-4xl {
+		text-wrap: balance;
+		min-height: 1.2em;
 	}
 
 </style>

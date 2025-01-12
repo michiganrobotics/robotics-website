@@ -5,6 +5,8 @@
     font-weight: 400;
     font-style: normal;
     font-display: swap;
+    size-adjust: 97.9%;
+    ascent-override: 93%;
 }
 
 /* Bold */
@@ -14,6 +16,8 @@
     font-weight: 700;
     font-style: normal;
     font-display: swap;
+    size-adjust: 97.9%;
+    ascent-override: 93%;
 }
 
 /* Regular */
@@ -23,6 +27,8 @@
     font-weight: 400;
     font-style: normal;
     font-display: swap;
+    size-adjust: 100%;
+    ascent-override: 90%;
 }
 
 /* Bold */
@@ -32,6 +38,8 @@
     font-weight: 700;
     font-style: normal;
     font-display: swap;
+    size-adjust: 100%;
+    ascent-override: 90%;
 }
 
 @font-face {
