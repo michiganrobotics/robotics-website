@@ -1,25 +1,37 @@
 ---
 import SiteNav from "../components/SiteNav.astro"; 
 import SiteFooter from "../components/SiteFooter.astro";
-// import { navQuery } from "../lib/api";
 import { SEO } from 'astro-seo';
 
-// const { menus, generalSettings } = await navQuery();
-// const primaryMenu = menus.nodes[0];
+function getOgImageUrl({ title, description, bgImage }) {
+	const params = new URLSearchParams();
+	if (title) params.set('title', title);
+	if (description) params.set('description', description);
+	if (bgImage) params.set('bgImage', bgImage);
+	
+	return `/api/og-image?${params.toString()}`;
+}
 
 interface Props {
 	title: string;
 	description?: string;
 	image?: string;
+	bgImage?: string;
 }
 
 const { 
 	title,
 	description = "Work together. Create smart machines. Serve society.",
-	image = "../public/social/og-default.jpg"  // default fallback image
+	image,
+	bgImage
 } = Astro.props;
 
 const siteUrl = "https://robotics.umich.edu";
+const ogImageUrl = image || getOgImageUrl({ 
+	title, 
+	description, 
+	bgImage 
+});
 
 ---
 
@@ -39,7 +51,7 @@ const siteUrl = "https://robotics.umich.edu";
 				basic: {
 					title,
 					type: "website",
-					image: `${siteUrl}${image}`,
+					image: ogImageUrl,
 				},
 				optional: {
 					description,
@@ -50,7 +62,7 @@ const siteUrl = "https://robotics.umich.edu";
 					alt: "Michigan Robotics",
 					width: 1200,
 					height: 630,
-					type: "image/jpeg",
+					type: "image/png",
 				}
 			}}
 			twitter={{
@@ -58,7 +70,7 @@ const siteUrl = "https://robotics.umich.edu";
 				site: "@UMRobotics",
 				title,
 				description,
-				image: `${siteUrl}${image}`,
+				image: ogImageUrl,
 			}}
 			extend={{
 				meta: [
