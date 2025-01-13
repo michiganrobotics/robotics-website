@@ -1,5 +1,5 @@
 import { ImageResponse } from 'https://deno.land/x/og_edge@0.0.6/mod.ts';
-import React from 'https://esm.sh/react';
+
 export default async (req: Request) => {
   const url = new URL(req.url);
   const img = url.searchParams.get('img') || '/social/og-default.jpg'; // fallback
@@ -10,6 +10,18 @@ export default async (req: Request) => {
   console.log('Background URL:', backgroundUrl);
 
   try {
+    // Fetch background image
+    const bgResponse = await fetch(backgroundUrl);
+    console.log('Background Image Status:', bgResponse.status);
+    console.log('Background Image Content-Type:', bgResponse.headers.get('Content-Type'));
+    if (!bgResponse.ok) throw new Error(`Failed to fetch background image: ${bgResponse.statusText}`);
+
+    // Fetch logo image
+    const logoResponse = await fetch(logoUrl);
+    console.log('Logo Image Status:', logoResponse.status);
+    console.log('Logo Image Content-Type:', logoResponse.headers.get('Content-Type'));
+    if (!logoResponse.ok) throw new Error(`Failed to fetch logo: ${logoResponse.statusText}`);
+
     return new ImageResponse(
       <div style={{ width: 1200, height: 630, position: 'relative' }}>
         <img
@@ -37,5 +49,4 @@ export default async (req: Request) => {
 
 export const config = {
   path: '/preview-image',
-  excludedPath: ['/robotics-og-logo.png', '/assets/*'], // Exclude static assets
 };
