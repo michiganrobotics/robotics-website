@@ -90,7 +90,6 @@ const collegeNewsItems = await collegeNewsQuery();
   <PageTitle title="News and Events" image={featureImage} imageAlt="Researchers work on a state-of-the-art bipedal robot in the Walking Robotics Lab." />
 <div class="max-w-6xl w-11/12 mx-auto mt-4">
   <section id="recent-posts" class="mb-12">
-    <h2 class="hidden">Recent news</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {recentPosts.map(async (post, index) => {
           
@@ -106,7 +105,7 @@ const collegeNewsItems = await collegeNewsQuery();
                   loading={`${index < 2 ? 'eager' : 'lazy'}`}
                 />
               <div class="p-4">
-                <h3 class="text-xl font-roboto font-bold mb-2 text-umichblue dark:text-gray-100 border-b-2 border-transparent group-hover:border-maize transition-all duration-300">{post.data.title}</h3>
+                <h2 class="text-xl font-roboto font-bold mb-2 text-umichblue dark:text-gray-100 border-b-2 border-transparent group-hover:border-maize transition-all duration-300">{post.data.title}</h2>
                 <p class="text-sm italic font-sans text-gray-600 dark:text-gray-400 mb-4">
                   {new Date(post.data.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
                 </p>
@@ -119,7 +118,6 @@ const collegeNewsItems = await collegeNewsQuery();
     </section>
     {eventsData.length > 0 && (
     <section id="events" class="mb-12">
-          <h2 class="hidden">Upcoming events</h2>
       <div class="grid grid-cols-1 sm:flex sm:flex-row sm:gap-6">
         {eventsData.slice(0,4).map((event, index) => (
           <a href={event.permalink} class={`group bg-white dark:bg-gray-800 shadow-md rounded-sm overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-[1.02] flex flex-col mb-6 last:mb-0 sm:mb-0 sm:flex-1 ${index !== 0 ? 'sm:ml-6' : ''}`}>
@@ -151,10 +149,10 @@ const collegeNewsItems = await collegeNewsQuery();
 									hour12: true
 								  })}
 								</time>   </p>
-                <h3 class="text-lg font-roboto font-bold text-umichblue dark:text-gray-100 mb-2 border-b-2 border-transparent group-hover:border-maize transition-all duration-300">
+                <h2 class="text-lg font-roboto font-bold text-umichblue dark:text-gray-100 mb-2 border-b-2 border-transparent group-hover:border-maize transition-all duration-300">
                   {event.event_title}
                   <Icon name="mdi:open-in-new" class="inline w-4 h-4 ml-1" />
-                </h3>
+                </h2>
                 {event.event_subtitle && (
                   <h4 class="text-base font-roboto text-gray-600 dark:text-gray-300 mb-2">{event.event_subtitle}</h4>
                 )}
@@ -166,7 +164,6 @@ const collegeNewsItems = await collegeNewsQuery();
     </section>
     )}
     <section id="older-posts" class="mb-12">
-      <h2 class="hidden">Older news</h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {selectedOlderPosts.slice(0, 4).map(async (post) => {
           return (
@@ -184,7 +181,7 @@ const collegeNewsItems = await collegeNewsQuery();
                   <span class="inline-block text-xs font-medium mr-2 px-2.5 py-0.5 rounded-sm bg-arboretumBlue text-white mb-2">
                     {(post.data.categories?.[0] || 'Robotics').replace(/-/g, ' ')}
                   </span>
-                  <h3 class="text-lg font-roboto font-bold text-umichblue dark:text-gray-100 mb-2 border-b-2 border-transparent group-hover:border-maize transition-all duration-300">{post.data.title}</h3>
+                  <h2 class="text-lg font-roboto font-bold text-umichblue dark:text-gray-100 mb-2 border-b-2 border-transparent group-hover:border-maize transition-all duration-300">{post.data.title}</h2>
                   <p class="text-sm italic font-sans text-gray-600 dark:text-gray-400">
                     {new Date(post.data.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
                   </p>
@@ -207,10 +204,10 @@ const collegeNewsItems = await collegeNewsQuery();
               <span class="inline-block text-xs font-medium mr-2 px-2.5 py-0.5 rounded-sm bg-arboretumBlue text-white mb-2">
                 substack newsletter
               </span>
-              <h3 class="text-lg font-roboto font-bold text-umichblue dark:text-gray-100 mb-2 border-b-2 border-transparent group-hover:border-maize transition-all duration-300">
+              <h2 class="text-lg font-roboto font-bold text-umichblue dark:text-gray-100 mb-2 border-b-2 border-transparent group-hover:border-maize transition-all duration-300">
                 Michigan Robotics Newsletter
                 <Icon name="mdi:open-in-new" class="inline w-4 h-4 ml-1" />
-              </h3>
+              </h2>
               <p class="text-sm italic font-sans text-gray-600 dark:text-gray-400">
                 umrobotics.substack.com
               </p>
@@ -234,7 +231,7 @@ const collegeNewsItems = await collegeNewsQuery();
                   <span class="inline-block text-xs font-medium mr-2 px-2.5 py-0.5 rounded-sm bg-arboretumBlue text-white mb-2">
                     {(post.data.categories?.[0] || 'Robotics').replace(/-/g, ' ')}
                   </span>
-                  <h3 class="text-lg font-roboto font-bold text-umichblue dark:text-gray-100 mb-2 border-b-2 border-transparent group-hover:border-maize transition-all duration-300">{post.data.title}</h3>
+                  <h2 class="text-lg font-roboto font-bold text-umichblue dark:text-gray-100 mb-2 border-b-2 border-transparent group-hover:border-maize transition-all duration-300">{post.data.title}</h2>
                   <p class="text-sm italic font-sans text-gray-600 dark:text-gray-400">
                     {new Date(post.data.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
                   </p>

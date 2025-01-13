@@ -68,5 +68,54 @@ export default defineConfig({
         }
       }
     }
+  },
+  image: {
+    domains: [
+      'events.umich.edu',
+      'robotics.umich.edu',
+      'www.umich.edu',
+      'news.engin.umich.edu',
+      'www.instagram.com',
+      'www.facebook.com',
+      'www.linkedin.com',
+      'www.youtube.com',
+      'www.x.com',
+    ],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '**.umich.edu'
+      },
+      {
+        protocol: 'https',
+        hostname: '**.engineering'
+      },
+      {
+        protocol: 'https',
+        hostname: '**.instagram.com'
+      },
+      {
+        protocol: 'https',
+        hostname: '**.facebook.com'
+      },
+      {
+        protocol: 'https',
+        hostname: '**.linkedin.com'
+      },
+      {
+        protocol: 'https',
+        hostname: '**.youtube.com'
+      },
+      {
+        protocol: 'https',
+        hostname: '**.x.com'
+      }
+    ],
+    service: {
+      entrypoint: 'astro/assets/services/sharp'
+    },
+    format: ['webp', 'avif', 'png', 'jpg'],
+    fallbackFormat: 'png',
+    defaultQuality: 80
   }
 });

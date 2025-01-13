@@ -20,6 +20,14 @@ export async function getStaticPaths() {
 const { entry } = Astro.props;
 const { Content } = await render(entry);
 
+// Create excerpt for SEO description
+const description = entry.data.excerpt || entry.data.description || `${entry.data.title}`;
+
+// Get featured image URL for SEO
+const socialImage = entry.data.image 
+  ? `/src/content/news/${entry.data.image.src}`
+  : undefined; // Will fall back to default if undefined
+
 // Transform entry data to match Single template's expected node structure
 const node = {
   title: entry.data.title,
@@ -31,9 +39,9 @@ const node = {
       uri: `/category/${cat}`
     }))
   } : null,
-  featuredImage: entry.data.coverImage ? {
+  featuredImage: entry.data.image ? {
     node: {
-      mediaItemUrl: `/src/content/news/${entry.data.coverImage}`,
+      mediaItemUrl: `/src/content/news/${entry.data.image.src}`,
       altText: entry.data.title
     }
   } : null,
@@ -41,7 +49,11 @@ const node = {
 };
 ---
 
-<Layout title={entry.data.title}>
+<Layout 
+  title={entry.data.title}
+  description={description}
+  image={socialImage}
+>
   <Single node={node}>
     <Content slot="content" />
   </Single>
