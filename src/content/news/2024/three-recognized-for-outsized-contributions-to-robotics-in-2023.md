@@ -16,7 +16,7 @@ excerpt: "Robotics honors staff and faculty who create a welcoming community, ex
 
 <figure>
 
-![Abhishek Narula and Peter Gaskell sort through a table of Mbot PICO+ chips in the ROB 550 lab.](images/2023-06-26-11.47.29-1024x683.jpg)
+![Abhishek Narula and Peter Gaskell sort through a table of Mbot PICO+ chips in the ROB 550 lab.](/images/2023-06-26-11.47.29-1024x683.jpg)
 
 <figcaption>
 

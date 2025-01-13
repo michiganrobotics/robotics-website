@@ -16,15 +16,11 @@ interface Props {
 const { 
 	title,
 	description = "Work together. Create smart machines. Serve society.",
-	image = "/social/og-default.jpg",  // default fallback image
+	image = "../public/social/og-default.jpg"  // default fallback image
 } = Astro.props;
 
 const siteUrl = "https://robotics.umich.edu";
 
-const ogImageUrl =
-  image !== "/social/og-default.jpg"
-    ? `https://umrob.netlify.app/preview-image?img=${image}`
-    : `https://umrob.netlify.app/preview-image`;
 ---
 
 <!DOCTYPE html>
@@ -43,7 +39,7 @@ const ogImageUrl =
 				basic: {
 					title,
 					type: "website",
-					image: ogImageUrl,
+					image: `${image}`,
 				},
 				optional: {
 					description,
@@ -62,7 +58,7 @@ const ogImageUrl =
 				site: "@UMRobotics",
 				title,
 				description,
-				image: ogImageUrl,
+				image: `${image}`,
 			}}
 			extend={{
 				meta: [

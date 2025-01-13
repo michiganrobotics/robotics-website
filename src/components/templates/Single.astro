@@ -41,25 +41,6 @@ function formatDate(dateString) {
       
     </p>
   )}
-  <!-- Featured Image -->
-  {node.featuredImage?.node?.mediaItemUrl && (
-    <figure class="mb-4">
-      <img
-        class="w-full h-auto rounded-sm shadow-lg"
-        src={node.featuredImage.node.mediaItemUrl}
-        srcset={node.featuredImage.node.srcSet}
-        alt={node.featuredImage.node.altText || ''}
-        loading="lazy"
-        width={node.featuredImage.node.mediaDetails?.width}
-        height={node.featuredImage.node.mediaDetails?.height}
-      />
-      {node.featuredImage.node.caption && (
-        <figcaption class="mt-2 text-sm text-gray-600 dark:text-gray-400 italic">
-          {node.featuredImage.node.caption}
-        </figcaption>
-      )}
-    </figure>
-  )}
 
   <!-- Article Content -->
   <article 

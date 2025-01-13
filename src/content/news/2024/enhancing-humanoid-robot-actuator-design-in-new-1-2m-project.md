@@ -16,7 +16,7 @@ excerpt: "Researchers at the University of Michigan have been awarded a $1.2 mil
 
 <figure>
 
-![A Digit bipedal robot holds a package in the lobby of the Robotics Building at the University of Michigan.](images/52667228760_cb7d3d70a7_k-1024x758.jpg)
+![A Digit bipedal robot holds a package in the lobby of the Robotics Building at the University of Michigan.](./images/52667228760_cb7d3d70a7_k-1024x758.jpg)
 
 <figcaption>
 
