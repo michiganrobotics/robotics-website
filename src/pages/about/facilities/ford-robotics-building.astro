@@ -7,8 +7,9 @@ import featureImage from '../../../images/featured-images/about-facilities.jpg';
 import { YouTube } from 'astro-embed';
 import nightBuildingImage from '../../../images/facilities/ford-robotics-building-at-night.jpg';
 import dayBuildingImage from '../../../images/facilities/ford-robotics-building-day.jpg';
+import ogImage from '/public/social/about-facilities.jpg';
 ---
-<Layout title="Ford Robotics Building">
+<Layout title="Ford Robotics Building" image={ogImage.src} description="The Ford Robotics Building at U-M is a national centerpiece in robotics research, learning, and collaboration." >
     <Breadcrumbs />
     <PageTitle title="Ford Robotics Building" image={featureImage} imageAlt="The Robot Playground at the Ford Robotics Building" />
     <article class="prose max-w-6xl w-11/12 mx-auto dark:prose-invert mt-8">
@@ -100,7 +101,7 @@ import dayBuildingImage from '../../../images/facilities/ford-robotics-building-
 				</ul>
 			</div>
 
-			<div>
+			<div id="visitor-info">
 				<h2 class="text-2xl font-bold text-umichblue dark:text-white mb-4">Address</h2>
 				<p class="mb-6">
 					Ford Motor Company Robotics Building<br>
