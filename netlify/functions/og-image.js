@@ -1,23 +1,22 @@
-const fetch = require('node-fetch'); // For fetching images
-const satori = require('satori'); // For rendering JSX to SVG
-const { Resvg } = require('@resvg/resvg-js'); // For converting SVG to PNG
+import fetch from 'node-fetch';
+import satori from 'satori';
+import { Resvg } from '@resvg/resvg-js';
 
-exports.handler = async (event) => {
+export async function handler(event) {
   try {
     const { queryStringParameters } = event;
-    const img = queryStringParameters.img || '/social/og-default.jpg'; // Fallback image
+    const img = queryStringParameters.img || '/social/og-default.jpg';
     const logoUrl = 'https://umrob.netlify.app/robotics-og-logo.png';
     const backgroundUrl = `https://umrob.netlify.app${img}`;
 
     console.log('Logo URL:', logoUrl);
     console.log('Background URL:', backgroundUrl);
 
-    // Fetch background image
+    // Fetch images
     const bgResponse = await fetch(backgroundUrl);
     if (!bgResponse.ok) throw new Error(`Failed to fetch background image: ${bgResponse.statusText}`);
     const bgBuffer = await bgResponse.arrayBuffer();
 
-    // Fetch logo image
     const logoResponse = await fetch(logoUrl);
     if (!logoResponse.ok) throw new Error(`Failed to fetch logo: ${logoResponse.statusText}`);
     const logoBuffer = await logoResponse.arrayBuffer();
@@ -25,7 +24,7 @@ exports.handler = async (event) => {
     console.log('Background Image Size:', bgBuffer.byteLength);
     console.log('Logo Image Size:', logoBuffer.byteLength);
 
-    // Render JSX to SVG using Satori
+    // Render SVG using Satori
     const svg = await satori(
       {
         type: 'div',
@@ -71,7 +70,7 @@ exports.handler = async (event) => {
       {
         width: 1200,
         height: 630,
-        fonts: [], // Add custom fonts if needed
+        fonts: [],
       }
     );
 
@@ -83,11 +82,10 @@ exports.handler = async (event) => {
       statusCode: 200,
       headers: {
         'Content-Type': 'image/png',
-        // Optional caching headers:
         'Cache-Control': 'public, max-age=3600, immutable',
       },
       body: pngData.toString('base64'),
-      isBase64Encoded: true, // Required for binary responses in Netlify Functions
+      isBase64Encoded: true,
     };
   } catch (error) {
     console.error('Error generating image:', error);
@@ -96,4 +94,4 @@ exports.handler = async (event) => {
       body: JSON.stringify({ error: error.message }),
     };
   }
-};
+}
