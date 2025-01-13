@@ -91,7 +91,7 @@ const menuItems = addBaseToMenuItems(mainNav);
         {menuItems.map((menuItem) => (
             <li class="ml-5 relative group">
                 <a href={menuItem.uri || '/'} 
-                   class="block group-hover:underline group-hover:decoration-maize group-hover:decoration-2"
+                   class="block group-hover:underline underline-offset-4 group-hover:decoration-maize group-hover:decoration-2"
                    aria-label={menuItem.label}>
                     {menuItem.label}
                 </a>
@@ -102,7 +102,7 @@ const menuItems = addBaseToMenuItems(mainNav);
                             {menuItem.childItems.nodes.map((childItem) => (
                                 <li class="relative group/child">
                                     <a href={childItem.uri || '/'} 
-                                       class="block px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-600 group-hover/child:underline group-hover/child:decoration-maize group-hover/child:decoration-2"
+                                       class="block px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-600 group-hover/child:underline underline-offset-4 group-hover/child:decoration-maize group-hover/child:decoration-2"
                                        aria-label={childItem.label}>
                                         {childItem.label}
                                     </a>
@@ -112,7 +112,7 @@ const menuItems = addBaseToMenuItems(mainNav);
                                             {childItem.childItems.nodes.map((grandChildItem) => (
                                                 <li>
                                                     <a href={grandChildItem.uri || '/'} 
-                                                       class="block px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-600 hover:underline hover:decoration-maize hover:decoration-2"
+                                                       class="block px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-600 hover:underline underline-offset-4 hover:decoration-maize hover:decoration-2"
                                                        aria-label={grandChildItem.label}>
                                                         {grandChildItem.label}
                                                     </a>
