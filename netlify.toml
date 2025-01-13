@@ -2,6 +2,5 @@
 command = "npm run build"
 publish = "dist"
 
-[[edge_functions]]
-function = "og-image"
-path = "/preview-image"
+[functions]
+directory = "netlify/functions"
