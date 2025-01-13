@@ -1,3 +1,6 @@
+/** @jsx h */
+/** @jsxFrag Fragment */
+import { h } from 'https://esm.sh/preact';
 import { ImageResponse } from 'https://deno.land/x/og_edge@0.0.6/mod.ts';
 
 export default async (req: Request) => {
