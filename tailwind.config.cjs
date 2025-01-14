@@ -30,6 +30,10 @@ module.exports = {
 					css: {
 					  'blockquote p:first-of-type::before': false,
 					  'blockquote p:last-of-type::after': false,
+					  h2: {			
+						marginTop: '1.5rem',
+						marginBottom: '1.25rem',
+					  },
 					},
 				},
 				invert: {

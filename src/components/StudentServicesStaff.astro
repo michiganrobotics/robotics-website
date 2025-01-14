@@ -11,7 +11,7 @@ const studentServicesStaff = staff.filter(member => member.studentServices)
     {studentServicesStaff.map(member => (
       <div class="flex">
         <a
-          href={`${Astro.url.pathname}/${member.slug}`}
+          href={`/people/staff/${member.slug}`}
           class="block w-full rounded-sm shadow-md hover:shadow-lg transition-shadow p-4 bg-white dark:bg-gray-800"
         >
           <div class="aspect-w-1 aspect-h-1 mb-3">
