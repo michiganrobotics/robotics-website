@@ -2,6 +2,7 @@
 import Layout from '../../../../layouts/MainLayout.astro';
 import Single from '../../../../components/templates/Single.astro';
 import { getCollection, render } from 'astro:content';
+import { components } from '../../../../components/components';
 
 export async function getStaticPaths() {
   const newsEntries = await getCollection('news');
@@ -53,7 +54,7 @@ const node = {
   image={ogImage}
 >
   <Single node={node}>
-    <Content slot="content" />
+    <Content slot="content" components={components}/>
   </Single>
 </Layout>
 

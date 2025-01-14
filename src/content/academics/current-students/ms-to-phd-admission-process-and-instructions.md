@@ -1,0 +1,21 @@
+---
+title: "MS to PhD Admission Process and Instructions"
+date: "2017-06-26"
+---
+
+Current Robotics MS students interested in the Robotics PhD program must apply by following the Rackham application process. If admitted, students will have the same opportunities and program requirements as any other student entering with a relevant master’s degree.
+
+Current U-M Master’s Program students who want to be strong applicants for the PhD Program should excel in their master’s coursework and complete the following steps:
+
+1. 1. Students should establish a research relationship with a potential research advisor in Robotics and perform one or more semesters of directed research (ROB 590) with that advisor. Students should recognize that such directed research projects are on a “trial basis” for both the student and the faculty member.
+    2. Submit an application to Rackham following the traditional Dec. 1st PhD application deadline for Fall admission (we do not offer winter admission) and pay the nominal $10 application fee.
+
+**Apply to the PhD program:**
+
+Applications for the PhD program must be accompanied by 3 letters of recommendation, one of which is a (confidential) letter of support from the student’s anticipated research advisor that endorses the application, describes the time frame of the student’s directed research activities, and expresses an intent to mentor and support financially the student if they are admitted to the PhD Program.
+
+The application must also include a statement of purpose, personal statement, and CV. It is not necessary to resubmit TOEFL scores, or transcripts.
+
+Based on the application materials, the Graduate Admissions Committee will decide whether to admit the applicant to the PhD Program.
+
+Admitted students who transition from the master’s program will be subject to the same milestone timelines as students who arrive with relevant master’s degrees from elsewhere. However, U-M master’s students who enter the PhD program often may reach those milestones sooner because of the directed research performed during master’s studies.

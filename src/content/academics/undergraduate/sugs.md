@@ -1,0 +1,118 @@
+---
+title: "Sequential Undergraduate/Graduate Studies (SUGS)"
+date: "2023-08-29"
+---
+
+The Robotics SUGS program makes it possible for admitted students to complete a combined Robotics Bachelor’s of Science in Engineering (BSE) and Master’s of Science (MS) in five years. Students admitted to the Robotics SUGS program have the opportunity to use 9-12 credits taken during their undergraduate degree towards their 30 credit graduate degree.
+
+This leaves 18-21 credits required to complete their Masters, which can be accomplished in one year with two semesters of graduate coursework.  SUGS students must complete a minimum of two full semesters (minimum of nine credits hours each term) at the graduate level and must begin their Master’s program immediately after completing their Bachelor’s degree. 
+
+# Admission Guidelines for the SUGS Program in Robotics
+
+## Eligibility 
+
+To be eligible for the Robotics SUGS program, a student must satisfy the following minimum requirements: 
+
+- Current U of M-Ann Arbor Robotics undergraduate student
+
+- Have a 3.5 cumulative grade point average
+
+- Not pursuing a dual-degree in either their undergraduate or graduate program. Dual degree students may still apply to the traditional Master’s program.
+
+## Application Timeline
+
+- During their **junior year**, students must meet with a Robotics Undergraduate Academic Advisor to file an [Intent to Apply Form](http://robotics.umich.edu/wp-content/uploads/2023/10/SUGS-Intent-to-Apply-Form.pdf) for the Robotics SUGS program. Students can work with the advisor to outline a preliminary study plan to make the appropriate course selections. 
+
+- During their **senior year**, students apply for the SUGS program using the Rackham graduate application. See application deadlines below.
+
+# How to Apply
+
+The [Horace H. Rackham School of Graduate Studies at the University of Michigan](https://rackham.umich.edu/) regulates all  graduate admissions, and the application for admission will therefore technically be made to  Rackham. The Robotics Department will review all application materials and make admission  recommendations, following which, Rackham will officially confirm this decision. 
+
+For detailed information on Rackham’s minimum admissions criteria and application procedures, please visit: [https://rackham.umich.edu/admissions/](https://rackham.umich.edu/admissions/)  
+
+## Application Requirements
+
+- **Intent to Apply Form:** Ideally completed in junior year and returned to a Robotics Undergraduate Advisor.  
+    
+
+- **[SUGS Course Election Form](http://www.rackham.umich.edu/downloads/oard-sugs-election-form.pdf "SUGS Course Election Form")** - This can be filled out as early as your junior year and due by the time of application. It is a guide for identifying and planning out the double-counting and transfer of courses. It should be filled out with an Undergraduate Academic Advisor in an appointment who will keep the form on file. You will not need to submit this form with the online Rackham application.
+
+- **Minimum cumulative GPA requirement: 3.5.** This minimum GPA is required at the time of filling out the Intent to Apply Form as well as the completion of the Bachelor's degree.
+
+- **Online Application:** The Robotics MS degree is through the Rackham Graduate School, and their [online application](https://rackham.umich.edu/admissions/).
+
+- **1 Letter of Recommendation:** The electronic submission of recommendation letters is  required and processed through the SUGS application. This letter must come from a University of Michigan professor.
+
+- **Statement of Purpose:** The Statement of Purpose should be a concise, well-written statement about an applicant's academic and research background, career goals, and how this graduate program will help meet career and educational objectives.
+
+- **Personal Statement:** The Personal Statement is an essay about how an applicant's background and life experiences, including cultural, geographical, financial, and educational or other opportunities or challenges, motivated the decision to pursue a graduate degree at the University of Michigan. For example, if an applicant grew up in  a community where educational, cultural, or other opportunities were either especially  plentiful or especially lacking, they might discuss the impact this had on their development and interests. This should be a discussion of the journey that has led to  the decision to seek a graduate degree.  
+
+- **Curriculum Vitae (CV/Resume):** 1-4 pages summary of education, experience, and accomplishments.
+
+- **(****_Optional_****) Scientific/technical writing publications/sample**: Applicants are encouraged but not required to submit up to two publications that have been accepted by reputable peer-reviewed  journals. These submissions are used to assist the department to potentially match student and faculty interests and will not be a dominant factor in admission decisions.
+    - Please note: additional writing samples will not be reviewed. 
+
+- **Materials Not Required:** Transcripts or GRE. 
+
+##  Application Deadlines
+
+**Fall Term**: January 15th  
+**Winter Term**: October 1st
+
+## Rackham Application Fee:
+
+U.S. Citizens and Permanent Residents: $75
+
+Non-Residents: $90
+
+Note: Fee Waivers are not currently available
+
+## Additional Details
+
+- Rackham will accept a maximum of 9 credits to be double counted between the  undergraduate and graduate degrees, even if the credit for specific courses to be double counted adds to more than 9 credit hours. Any excess credit cannot be counted toward any other Rackham degree requirement. For example, a student wants to double count 3 courses and the total credits for the 3 courses equals 10. Rackham will double count the maximum of 9. The 1 remaining credit cannot count toward another Rackham degree requirement but it can continue to count toward an undergraduate degree requirement. SUGS students do not dual register as both an undergraduate and graduate student.
+
+- The double counted courses will appear on the undergraduate transcript. Double counted credits can only come from graduate level technical electives, math, and/or general electives.
+
+- The Robotics department will allow a maximum of 3 credits to be transferred into the  Rackham graduate degree, in addition to the 9 double counted credits. This differs from double counting because these transfer credits cannot be used for any portion of the undergraduate degree. The transfer credit will appear on the graduate transcript.
+
+- All double counted, transfer courses, or courses being used as alternatives to MS degree requirements (i.e. ROB 550) must have minimum grades of a "B" and be applicable to the MS (Robotics) degree requirements.  
+
+- SUGS students must enroll in Rackham for a **minimum of two full terms** (at least 9 credits per term), paying full Rackham tuition.  
+
+- Admission deferment is not allowed. **Robotics SUGS students must enroll in Rackham immediately upon completion of their undergraduate degree**. In certain situations, admitted SUGS students may have up to 6 credits of the undergraduate program outstanding upon beginning their first term as a graduate student. They are expected to complete these outstanding credits immediately in their first term of their graduate career and then work with their advisor to transfer\* the credits from their graduate career to their undergraduate career. The undergraduate degree can be awarded as soon as the degree requirements are met. If there are medical/personal/etc. reasons for deferment, a student may submit a petition to the Robotics department.
+    - \*Please note that the use of “transfer” here has a different meaning than used elsewhere on this page. 
+
+- Should a SUGS student seek admission to a Ph.D. program, the standard criteria and application materials would be required.
+
+## Financial Assistance
+
+- **Research Assistantships**: SUGS students are encouraged to contact faculty with similar [research interests](https://robotics.umich.edu/research/focus-areas/) during their senior year to discuss any potential funding opportunities. 
+
+- **Graduate Student Instructor (GSI) Positions:** These highly competitive graduate student positions are available for application for Fall and Winter terms. Applications are generally accepted in March for the Fall term and October for the Winter term. Domestic students are eligible to apply for GSI positions beginning their first term. International students who have passed the [UM Oral English Test](https://michiganassessment.org/michigan-tests/gsi-oet/) are eligible to apply beginning their second term. In general, the order of preference for GSI positions from highest to lowest is Ph.D. students, full-time Masters students, then SUGS students.
+
+##  Admission Decisions
+
+**Fall Terms:** mid-March through April
+
+**Winter Terms:** mid to late October
+
+### FAQ 
+
+- **Can I apply to start SUGS Winter term if I'm graduating in a fall term?** Yes, we accept winter term applicants. Since SUGS requires students to begin their graduate program immediately after finishing their undergraduate requirements, only students graduating in a fall term are eligible for winter admission. The deadline to apply for a winter term is October 1.
+
+- **Are non-ROB students able to apply to the ROB SUGS program?** At this time, no. We will update this page once this changes.
+
+- **Can courses taken "P/F" be double-counted or transferred?** No they cannot. All double counted, transfer courses, or courses being used as alternatives to MS degree requirements (i.e. ROB 550) must have minimum grades of a "B" and be applicable to the MS (Robotics) degree requirements.  As a grade of "P" is equivalent to a "C-" or better for undergraduate students we cannot guarantee that a grade of "B" or better was earned.
+
+- **Am I required to take ROB 550?** The ROB 550 requirement can be waived for SUGS students who complete the following courses as an undergrad: ROB 320 + ROB 330 -OR- ROB 320 + EECS 467 with a final grade of "B" or higher. Note: If ROB 550 has been waived for a student they may still elect to take this course. Additionally, though the ROB 550 requirement is waived, it does not waive the 30 credit minimum degree requirement of the MS program.
+
+- **ROB 550 was waived for me. May I still take ROB 502?** No. As the Robotics Department doesn't allow ROB 502 to be taken after ROB 550, SUGS students for whom ROB 550 was waived cannot take ROB 502.
+
+- **I have taken several MATH courses. Am I still required to take ROB 501?** Yes, all Robotics MS students are required to take ROB 501.
+
+- **Can I double-count and/or transfer only part of a course?** If a student has multiple courses that add up to more than 9 credits, part of a course may be double-counted so as not to exceed the 9 credit double-counting maximum. Courses must be transferred in their entirety.
+
+- **Can I complete the SUGS program part-time?** No. Rackham requires "SUGS students must enroll in Rackham only for two full terms minimum, paying full tuition." ("full tuition" = enrolled in 9+ credits)
+
+- **Can I double count a course towards the MS requirements that I'm already double counting towards a BSE elective and a minor requirement?** Yes!

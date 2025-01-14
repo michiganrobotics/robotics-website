@@ -1,0 +1,104 @@
+---
+title: "Graduate Application & Fees"
+date: "2016-12-08"
+---
+
+Prospective students interested in applying to the Robotics Graduate Program must submit a Rackham Graduate School [online application](https://rackham.umich.edu/admissions/applying/).
+
+Prospective students will create an Apply-Web Account to access the Rackham application.
+
+Please make sure to review all [application requirements and information](https://robotics.umich.edu/academic-program/admissions-info/) before applying.
+
+## Application Fees and Payment
+
+Rackham Graduate School [lists required fees and waiver](https://rackham.umich.edu/admissions/applying/application-fee-and-waivers/) information, which includes:
+
+- United States citizen & permanent resident: $75
+- Non-Resident citizen: $90
+- Current University of Michigan (U-M) Ann Arbor Rackham graduate student: $10
+- The application fee is non-refundable and subject to change.
+- All prospective students pay the application fee in order for their application to be processed and submitted to Robotics, unless they received an approved Rackham application fee waiver or a need-based fee grant.
+- For information about fee waivers and need-based grants for Ph.D. and MSE applicants, see the [Rackham website](https://rackham.umich.edu/admissions/applying/application-fee-and-waivers/). The Robotics Program does not give fee waivers or grants.  
+
+## Frequently Asked Questions (FAQs)
+
+How are tuition and fees determined?
+
+Tuition and fees are established by the University Michigan Board of Regents annually.
+
+How much is the tuition to attend Robotics graduate program?
+
+The [Office of the Registrar](http://www.ro.umich.edu/tuition/) provides the tuition rates for a current academic year. The Rackham Graduate School has additional tuition information on their [Cost of Attendance for Graduate Students web page](https://rackham.umich.edu/admissions/considering-grad-school/cost-of-attendance/). The [Office of Financial Aid](https://finaid.umich.edu/) also has information relating to the cost to attend the University of Michigan.
+
+Can Robotics review my application before I pay the application fee to let me know if I am admissible?
+
+The application fee must be paid before an application will be processed or reviewed by the Graduate Admission Committee. We do not provide an early review of a resume to see if an applicant should apply or not. We ask applicants who are interested in applying to our program, to apply and submit all application materials.
+
+I have a bachelor's degree and I am thinking of obtaining a Ph.D., but I'm not sure. Should I apply to the Master's or Doctoral programs?
+
+If you are not sure, you should apply for the Master's program, but you should definitely express your Ph.D. interest on the application. If your long-term interests are to obtain a Ph.D., then we encourage applicants to apply directly to the Doctoral program. This allows you to work more efficiently towards candidacy. If you are not admitted to the Doctoral program, the Graduate Admissions Committee will automatically consider you for the Master's program when they are reviewing the application, as long as you do not already have a relevant Master's degree.
+
+Can I apply to the Ph.D. program with just a Bachelor's degree?
+
+Yes you can. You would be considered a Direct Ph.D. student. This means if you are admitted to the Ph.D. program, you would earn your Master's degree along the way to obtaining your Ph.D.
+
+If my GPA or GRE scores are low, will I have a chance of being admitted to the program?
+
+Application materials undergo a comprehensive review by the Robotics Graduate Admissions Committee. The committee is a group of faculty that review all applications submitted; they determine how many students will be admitted to the program and provide recommendations for admission.
+
+What is the amount for the enrollment deposit?
+
+The Robotics graduate program does _not_ require an applicant to submit an enrollment deposit.
+
+Is the deadline date when I need to have all my application materials submitted by? Or is this just for the online application to be submitted?
+
+Applicants are asked to adhere to the application deadline for the application and supporting documents. However, we understand that there might be a delay in the receipt of letters of recommendation, test scores or transcripts to arrive. Receiving application materials after the deadline may result in a delay of the items being processed and reviewed by the Graduate Admission Committee. We ask that all applicants submit all required application materials by the deadline.
+
+I received my degree and graduated from the Rackham Graduate School.  Would I be considered a Change of Program student? How much would my application fee be?
+
+Change of Program students are **_currently enrolled_** in a Rackham graduate program.  The student must submit a new full application and pay the application fee. Additional information can be found on [Rackham's Apply for Change of Program link](https://rackham.umich.edu/admissions/current-and-former-rackham-students/#change-of-program).
+
+Can I attend the University of Michigan part-time for the Ph.D. program?
+
+Ph.D. students are required to be enrolled full-time during the Fall and Winter terms. Additional information can be found at the Rackham Graduate School's [Ph.D. Students and Registration Policy link](https://rackham.umich.edu/navigating-your-degree/phd-students-and-registration-policy/).
+
+How can I obtain a University of Michigan Identification (UMID) number?
+
+Applicants who apply to Robotics will receive a UMID number after submitting the online application to Rackham. See Rackham's [Register for Your University of Michigan Identification Number (UMID) link](https://rackham.umich.edu/admissions/checklist-for-completing-the-application-process#create-umid) for more information. If you do not receive the UMID number in ten days from submitting the application, please contact Rackham directly at [rackadmis@umich.edu](mailto:rackadmis@umich.edu).
+
+I listed the wrong date of birth on the online application. How can I revise this?
+
+If your date of birth is incorrect on your application, please notify the Rackham Graduate School immediately at [rackadmis@umich.edu](mailto:rackadmis@umich.edu). Rackham will need your full name, UMID number, and a copy of your U.S. Driver's License or Passport as proof of the correct birthdate.
+
+My name is wrong on the online application. How can I revise it?
+
+To request a name change or correction, applicants can e-mail, mail or fax a signed letter requesting the change along with a photocopy of a legal document (marriage license, driver's license, social security card, birth certificate, etc.) with their names spelled correctly. Applicants can also stop by the Office of the Registrar with a picture ID and the Social Security card or passport.
+
+The request can be sent to:
+
+_Student Services  
+Office of the Registrar  
+University of Michigan  
+1219 LS&A Building; 500 S. State Street  
+Ann Arbor, MI 48109-1385  
+Fax request can be sent to: 734.763.9053_
+
+How do I check the status of my application?
+
+Before viewing whether your application and materials have been received you must:  
+     1. Submit an application  
+     2. Receive a University of Michigan ID number (sent 5 business days after Rackham receives the application)  
+     3. Create a Friend Account, if you do not have a UMICH uniqname and Kerberos password  
+     4. Log into Wolverine Access and select New & Prospective Student Business.
+
+Allow 10 business days, after completing the steps above, to view your application and materials.
+
+You can confirm the receipt of the following via Wolverine Access:
+
+- Test scores
+- Transcripts from institutions that awarded the Bachelor's, Master's, Professional, and/or Doctoral degree.
+- Recommendations can be tracked through the online application system, ApplyWeb Account, activity page, or in your Wolverine Access account.
+
+How can I update my application to correct an error or to include an updated transcript, a submitted or accepted paper, or new award?
+
+Unfortunately, as we receive so many applications and update requests, we cannot update applications once submitted.

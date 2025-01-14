@@ -1,0 +1,102 @@
+---
+title: "Summer Undergraduate Research in Engineering (SURE)"
+date: "2024-01-16"
+---
+
+SURE offers summer research internships to outstanding current U-M undergraduate students who have completed their sophomore or junior year (preference will be given to those who have completed three years of study) by the time of their internship.  Participants have the opportunity to conduct 10-12 weeks of full-time summer research with some of the country’s leading faculty in a wide range of engineering disciplines. The program provides opportunities for students to assess their interests and potential in pursuing research at the Masters or Ph.D. level in graduate school.  
+
+All participants must apply online through the [SURE website](https://sure.engin.umich.edu/).  Accepted applicants receive guidance by a faculty advisor in a College of Engineering research facility, a stipend of $6,000, attend regular meetings and engage in activities that help prepare students for graduate school.
+
+**Selection Process**: [Eligible](https://sure.engin.umich.edu/gradadmissions_sure_eligibility-html/) applications will be reviewed by department staff and provided to the Faculty Mentors, who will review your application materials for their selection. It is possible that they will reach out to you directly for further information. You do not need to do anything else or reach out to the Faculty Mentors, but if you have any specific questions regarding a SURE Project, you are welcome to reach out to the listed Faculty Mentor. Any notification of an offer will be sent from the SURE Manager. Learn more: [https://sure.engin.umich.edu/](https://sure.engin.umich.edu/)  
+  
+**Frequently Asked Questions:**  
+Question: **Should I reach out to the Faculty Mentor of the project?**  
+Answer: You're welcome to, but it's not a requirement. It would be a good idea to reach out if you have any specific questions about the project, expectations, and/or simply wish to begin a connection. Any listed Alternate Contacts below are typically PhDs that you could be working closely with, and may also be a good source for information.  
+  
+Question: **Can I take a class while doing SURE?  
+**Answer: Yes, you can, as long as it doesn't interfere with your SURE commitment. Taking one class could work, but any more would be more difficult to manage while working 30-40 hours a week in the lab. It's also advised that you discuss this with faculty mentor.  
+  
+Question: **I'm graduating with my BSE in April/May, can I still participate if I'm heading to graduate school in the Fall?**  
+Answer: No, unfortunately. The SURE program is only available to current undergraduate students.  
+  
+Additional SURE FAQS can be found [here](https://sure.engin.umich.edu/faq/).  
+
+**General Timeline**:  
+December - Application opens **December 2, 2024**  
+January – Application is due **January 8, 2025**  
+February – Applications are reviewed. Offers may go out in late February  
+March – Offers are sent out  
+April – Offers may still be issued during this time  
+May – SURE Projects may begin
+
+_The [2025 SURE Application](https://sure.engin.umich.edu/gradadmissions_sure_suresropapplication-html/) is closed for submissions._
+
+## **Robotics 2025 SURE Research Projects**
+
+**Robotics Project #1: Evaluations of human-robot interactions in operational environments**  
+**Faculty Mentor**: Leia Stirling, leias[@umich.edu](mailto:uniqname@umich.edu)  
+**Prerequisites**: N/A  
+**Project Description**: In this interdisciplinary research group, we bring together methods from human factors, biomechanics, and robotics. We strive to understand the physical and cognitive interactions for goal-oriented human task performance and support operational decision making that relies on manual task performance. These goals may include reducing musculoskeletal injury risks, supporting telehealth, and improving technology usability. However, the term performance is not universally defined and requires learning about the desired task goals and the sub-tasks and motions the human will need to accomplish them.
+
+There are different projects students may support:
+
+- Upper Extremity Exoskeletons for Industrial Applications: Exoskeletons are currently being evaluated for many different applications. In this project, the student may support the development of a study and/or data analysis related to an powered elbow exoskeleton designed to support activities of daily living.
+
+- Space Telerobotics: In this project, the student may support the development of a simulation study and/or data analysis related to operating a small robotic satellite that inspects a simulated space station.
+
+- Home-based Social Robotics: In this project, students will explore how different age populations use and interact with the Amazon Astro robot.
+
+**Research Mode**: In Lab
+
+**Robotics Project #2: Development and Validation of an Assistive Ankle Exoskeleton Controller**  
+**Faculty Mentor**: Robert Gregg, rdgregg@umich.edu  
+**Alternative Contact:** Katharine Walters, kwalte@umich.edu  
+**Prerequisites**: Python, Matlab, Solidworks  
+**Project Description**: The goal of this project is to assist with the development and validation of a controller for an assistive, powered ankle exoskeleton for able-bodied users and users with a gait pathology or impairment. Controller development involves data-driven optimization and simulation in Matlab and real-time implementation in Python using our powered ankle exoskeleton. The student will assist with exoskeleton hardware improvements, controller development, and/or human subject validation experiments and data analysis. If interested and time allows, the student will be able to help with tasks outside of the ankle exoskeleton controller development and validation. Outside of technical work, the student is invited to join weekly lab group meetings.  
+**Research Mode**: In Lab
+
+**Project #3: Virtual Reality (VR) Guided Microsurgery Robotics System**  
+**Faculty Mentor**: Mark Draelos, mdraelos@umich.edu  
+**Alternative Contact:** Jiawei Liu, ljiawei@umich.edu  
+**Prerequisites**: Preferred experience includes C++, VR/3D reconstruction, and signal processing.  
+**Project Description**: This project focuses on developing an advanced robotic microsurgical platform that integrates live optical coherence tomography (OCT) imaging with virtual reality (VR), artificial intelligence (AI), and precision robotics to enhance microsurgical procedures. The system will incorporate a dual-arm robotic setup, where each robotic arm is equipped with microsurgical instruments designed for ultra-precise manipulation of tissues and suturing. By utilizing OCT, the system provides real-time, volumetric imaging of microscopic structures, allowing surgeons to visualize the surgical field in three dimensions at a human-perceptible scale within a VR environment. This addresses the limitations of human motor skills and perception at sub-millimeter scales by effectively "resizing" microsurgical tasks to match human capabilities. The student is expected to help develop a GUI for the robotic system, and perform 3D reconstruction of medical images and the surgical operation environment in VR.  
+**Research Mode**: In Lab
+
+**Project #4: Robotic Eye Imaging**  
+**Faculty Mentor**: Mark Draelos, mdraelos@umich.edu  
+**Alternative Contact**: Genggeng Zhou, ggzhou@umich.edu  
+**Prerequisites**: Experience with Python, basic knowledge of robot kinematics, data processing.  
+**Project Description**: Optical coherence tomography (OCT) is an indispensable imaging modality for the diagnosis and management of many common eye diseases. Unfortunately, clinical OCT is deployed almost universally as a tabletop device in ophthalmology specialty clinics, with the exception of uncommon handheld systems, and requires a patient who can sit upright and participate in imaging. In this project, we aim to develop a mobile robotic OCT system that integrates medical imaging technologies and robotics. The system will feature (1) identification and localization of patients, (2) real-time trajectory planning and update with safety considerations and obstacle avoidance capabilities, and (3) motion prediction and compensation of patient movements. We will evaluate performance of the system both in simulation and in real world scenarios with mannequin, and potentially with healthy volunteers. Skills/experience you will acquire in this project include but not limited to: programming, computer vision, motion planning and control.  
+**Research Mode**: In Lab
+
+**Project #5: Mobile Manipulation for Agricultural Applications**  
+**Faculty Mentor**: Dmitry Berenson, dmitryb@umich.edu  
+**Prerequisites**: Strong programming experience (EECS 281.) Experience with robotics and/or agriculture is a plus.  
+**Project Description**: There are many farming tasks, such as pulling weeds, identifying diseases, harvesting, and applying fertilizer that could be done by robots. However, robotics lack the intelligence to do these tasks in a wide range of environments. This project will focus on developing software and algorithms for the Spot robot in order to allow it to perform farming tasks. This will include work on navigation, perception, and manipulation.  
+**Research Mode**: In Lab
+
+**Project #6: Develop CAN Devices for Custom Bipedal Robot**  
+**Faculty Mentor**: Yanran Ding, yanrand@umich.edu  
+**Alternative Contact**: Yue Qin, yueqin@umich.edu  
+**Prerequisites**: Experience with electronics board design and testing  
+**Project Description**: The goal of this project is to develop a CAN interface board for a custom bipedal robot. The student is expected to design the CAN board that is able to control multiple BLDC motors at a 1k Hz. SPI will be used to communicate between a computer (e.g. Jetson) and microcontrollers (e.g. STM32), which sends out CAN signals to motor controllers. The student is responsible for the design, fabrication and testing of the CAN interface board. Required skills include electronic board design with Altium and C/C++ coding.  
+The goal of this project is to develop a CAN interface board for a custom bipedal robot. The student is expected to design the CAN board that is able to control multiple BLDC motors at a 1k Hz. SPI will be used to communicate between a computer (e.g. Jetson) and microcontrollers (e.g. STM32), which sends out CAN signals to motor controllers. The student is responsible for the design, fabrication and testing of the CAN interface board. Required skills include electronic board design with Altium and C/C++ coding.  
+**Research Mode**: In Lab
+
+**Project #7: Development of an Integrated Hardware and Software Platform for Advanced Mobile Manipulation Research**  
+**Faculty Mentor**: Ram Vasudevan, ramv@umich.edu  
+Alternative Contact: Challen Enninful Adu, enninful@umich.edu  
+**Prerequisites**: Experience in python and ROS.  
+**Project Description**: Our lab is working to develop algorithms for mobile manipulation that allow robots to safely navigate, understand, and interact with their surroundings. We do so by combining modern computer vision techniques with provably-safe planning and control strategies. This project aims to develop a hardware platform for mobile manipulation research. 
+
+There will be three goals for the project. The first is to assemble a robot by combining an existing mobile base and a robot arm, and to develop a ROS package that commands all the actuators of the combined system. The second will be to deploy and tune a control algorithm for both platforms and to verify the tracking performance. The final goal will be to work with other lab members to deploy our mobile manipulation algorithms to the new robot.  
+**Research Mode**: In Lab
+
+**Robotics Project #8: Development of a Robust Perception System for Enhanced Mobile Manipulation in Robotics**  
+**Faculty Mentor**: Ram Vasudevan, ramv@umich.edu  
+**Alternative Contact**: Seth Isaacson, sethgi@umich.edu  
+**Prerequisites**: Experience in python required. Experience with computer vision or machine learning is desired, but not required.  
+**Project Description**: Our lab is working to develop algorithms for mobile manipulation that allow robots to safely navigate, understand, and interact with their surroundings. We do so by combining modern computer vision techniques with provably-safe planning and control strategies. This project aims to develop a perception system for a new mobile manipulator. 
+
+There are three goals for the project. The first stage will require selecting and mounting an RGB-D camera, inertial sensor, and LiDAR on the robot and calibrating each sensor. Next, a simultaneous localization and mapping (SLAM) system will be implemented. The final goal will be to work with other lab members to deploy our mobile manipulation algorithms to the new robot.   
+**Research Mode**: In Lab

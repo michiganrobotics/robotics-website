@@ -1,0 +1,58 @@
+---
+title: "Robotics:  Acting Core Area Course List"
+date: "2014-06-11"
+---
+
+The following courses can satisfy the Acting Core Area Breadth Requirement for the Robotics MS/PhD program:
+
+- [AEROSP 470](https://bulletin.engin.umich.edu/courses/aero/#subnav-3): Control of Aerospace Vehicles **\***
+- [AEROSP 573](https://bulletin.engin.umich.edu/courses/aero/#subnav-3): Dynamics & Control of Spacecraft
+- AEROSP 584: Navigation & Guidance of Aerospace Vehicles
+- [AEROSP 740](https://bulletin.engin.umich.edu/courses/aero/#subnav-5): Applied Nonlinear Control
+- [AEROSP 740](https://bulletin.engin.umich.edu/courses/aero/#subnav-5): Multi-Agent Control
+- [AEROSP 740](https://bulletin.engin.umich.edu/courses/aero/#subnav-5): Model Predictive Control
+- [EECS 460](https://bulletin.engin.umich.edu/courses/eecs/#subnav-3): Control Systems Analysis and Design **\***
+- [EECS 461](https://bulletin.engin.umich.edu/courses/eecs/#subnav-3): Embedded Control Systems 
+- [EECS 558](https://bulletin.engin.umich.edu/courses/eecs/#subnav-4): Stochastic Control
+- [EECS 560/MECHENG 564](https://bulletin.engin.umich.edu/courses/eecs/#subnav-4): Linear Systems Theory
+- [EECS 561/MECHENG 561](https://bulletin.engin.umich.edu/courses/eecs/#subnav-4): Design of Digital Control Systems
+- [EECS 562/AEROSP 551](https://bulletin.engin.umich.edu/courses/eecs/#subnav-4): Nonlinear Systems and Control
+- [EECS 563](https://bulletin.engin.umich.edu/courses/eecs/#subnav-4): Hybrid Systems: Specification, Verification, & Control
+- [EECS 565/AEROSP 580](https://bulletin.engin.umich.edu/courses/eecs/#subnav-4): Linear Feedback Control Systems
+- [EECS 566](https://bulletin.engin.umich.edu/courses/eecs/#subnav-4): Discrete Event Systems
+- EECS 598: Control Theory for Biological Sensorimotor Systems
+- [MECHENG 461](https://bulletin.engin.umich.edu/courses/me/#subnav-2): Automatic Control **\***
+- [MECHENG 540/AEROSP 540](https://bulletin.engin.umich.edu/courses/me/#subnav-3): Intermediate Dynamics
+- [MECHENG 542](https://bulletin.engin.umich.edu/courses/me/#subnav-3): Vehicle Dynamics
+- [MECHENG 543](https://bulletin.engin.umich.edu/courses/me/#subnav-3): Analytical & Computational Dynamics I
+- MECHENG 545/ISD 546/CEE 577: Dynamics and Control of Connected Vehicles
+- [MECHENG 548](https://bulletin.engin.umich.edu/courses/me/#subnav-3): Applied Nonlinear Dynamics
+- [MECHENG 552](https://bulletin.engin.umich.edu/courses/me/#subnav-3): Mechatronic Systems Design
+- [MECHENG 568](https://bulletin.engin.umich.edu/courses/me/#subnav-3): Vehicle Control Systems
+- [MECHENG 584](https://bulletin.engin.umich.edu/courses/me/#subnav-3): Advanced Mechatronics for Manufacturing
+- NAVARCH 483: Marine Control Systems
+- [NAVARCH 540](https://bulletin.engin.umich.edu/courses/name/#subnav-4): Marine Dynamics II
+- [NAVARCH 583](https://bulletin.engin.umich.edu/courses/name/#subnav-4): Adaptive Control
+- ROB 422/EECS465: Introduction to Algorithmic Robotics
+- [ROB 464/EECS 464](https://bulletin.engin.umich.edu/courses/eecs/#subnav-3): Hands-on-Robotics \*\*Can only count if taken before ROB 550
+- [ROB 510/EECS 567/MECHENG 567](https://bulletin.engin.umich.edu/courses/eecs/#subnav-4): Robot Kinematics and Dynamics
+- ROB 511: Robot Operating Systems
+- ROB 520 (formerly EECS 598): Motion Planning
+- [ROB 535&599/MECHENG 599/NAVARCH 599&565/EECS 498](https://bulletin.engin.umich.edu/courses/name/#subnav-4): Self-Driving Cars
+- [ROB 560](https://www.embirlab.com/bioinspiration): Bioinspiration
+- ROB 599: Robot Control
+- ROB 599: Soft Robotics
+- ROB 599: Multi-Robot Systems
+- ROB 572/NAVARCH 569: Marine Robotics
+- ROB 646/MECHENG 646: Mechanics of Human Movement
+
+\* Only one of these 3 courses can count toward the robotics graduate degrees
+
+Special Topics Courses:
+
+- AEROSP 740: Applied Nonlinear Control
+- AEROSP 740: Visual Navigation for Autonomous Aerial Vehicles
+- EECS 598: Robot Modeling and Control
+- MATSCIE 593: Soft Robotic Materials and Actuators
+- MECHENG 599: Introduction to Robotic Manipulation
+- NAVARCH 599: Autonomous Underwater Vehicles

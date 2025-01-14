@@ -1,0 +1,46 @@
+---
+title: "Funding for Graduate Students"
+date: "2019-03-19"
+---
+
+## Master's funding
+
+Students admitted to the Master's program are expected to secure their own financial support. A student may fund their education through personal funds, loans, [financial aid](http://finaid.umich.edu/), or a combination of these options.
+
+Regarding fellowships, research assistantships, or teaching assistantships: unfortunately, there are more Master's students than opportunities.  While a position might be available, you should expect to at least pay for all of your first year of study. While in your first year, you can look for financial support, but no guarantees can be provided.
+
+All available GSI positions are posted [here](http://careers.umich.edu/search/advanced?career_interest=172&work_location=&position=&regular_temporary=&keyword=&all_words=&this_phrase=&words1=&words2=&words3=&posting_date=&job_id=&department=&title=) cyclically before each term, while GSRA positions need to be found by talking with faculty directly. The Student Services Office does not keep a list of faculty hiring GSRAs.
+
+The University of Michigan establishes [standard student budgets](http://finaid.umich.edu/cost-of-attendance/) each year to help students plan how they will pay for their graduate program.
+
+## PhD funding
+
+Students admitted to the PhD program will be offered a full funding package.
+
+The offer usually entails five years of funding for students that enter the program after receiving a bachelor's degree or four years of funding for students that come into the program with a master's degree in a relevant area of study.
+
+Financial support includes a stipend, tuition and registration fees, as well as health and dental benefits.
+
+Support is offered in the form of a fellowship, Graduate Student Research Assistantship (GSRA), or Graduate Student Instructorship (GSI).
+
+## Tuition
+
+To find the cost of attending the Robotics Institute, [visit this Registrar site](https://ro.umich.edu/tuition-residency/tuition-fees?academic_year=159&college_school=22&full_half_term=35&level_of_study=38) and confirm the years of attendance and term, while making sure the College is "School of Engineering" and Level of Study is "Graduate".
+
+The cost for Robotics students is located in the Rackham table, the third table on the site.
+
+## Funding resources
+
+- [Graduate Student Appointments](http://umjobs.org/graduate_student/)
+
+- [Student (Campus) Employment](https://studentemployment.umich.edu/)
+
+- [Rackham Funding Resources](http://www.rackham.umich.edu/funding)
+
+- [UM Office of Financial Aid](https://finaid.umich.edu/graduate-students/)
+
+- [UM Library- Graduate Student Funding @ U-M](https://guides.lib.umich.edu/c.php?g=401592&p=3055555)
+
+- [College of Engineering](https://scholarships.engin.umich.edu/masters-students/)
+
+- [Scholarship and Aid for International Students](https://finaid.umich.edu/apply-aid/international-students)
