@@ -1,19 +1,7 @@
 ---
 import { subNavConfig } from '../lib/nav';
 import { Icon } from 'astro-icon/components';
-
-interface Props {
-  wordpressPage?: {
-    children?: {
-      nodes: {
-        uri: string;
-        title: string;
-      }[];
-    };
-  };
-}
-
-const { wordpressPage } = Astro.props;
+import NewsSearch from './NewsSearch.astro';
 
 const BASE = process.env.GITHUB_ACTIONS === 'true' ? '/rob-astro-23' : '';
 const pathname = new URL(Astro.request.url).pathname;
@@ -30,14 +18,6 @@ const addBase = (uri: string, external?: boolean) => {
   return BASE + (cleanUri.startsWith('/') ? cleanUri : '/' + cleanUri);
 };
 
-// Process WordPress children to add base path if needed
-if (wordpressPage?.children?.nodes) {
-  wordpressPage.children.nodes = wordpressPage.children.nodes.map(node => ({
-    ...node,
-    uri: addBase(node.uri)
-  }));
-}
-
 // Process configured nav items to add base path
 Object.entries(subNavConfig).forEach(([key, items]) => {
   subNavConfig[key] = items.map(item => ({
@@ -46,12 +26,14 @@ Object.entries(subNavConfig).forEach(([key, items]) => {
   }));
 });
 
-// Try exact matches with $ suffix first, then regular paths, then first segment, then WordPress children
+// Try exact matches with $ suffix first, then regular paths, then first segment
 const configuredItems = Object.entries(subNavConfig)
   .find(([key]) => key.endsWith('$') && key.slice(0, -1) === trimmedPath)?.[1] ||
   subNavConfig[trimmedPath] || 
   subNavConfig[trimmedPath.split('/')[0]] || 
-  (wordpressPage?.children?.nodes || []);
+  [];
+
+const isNewsPage = trimmedPath === 'news';
 ---
 
 {configuredItems.length > 0 && (
@@ -62,23 +44,27 @@ const configuredItems = Object.entries(subNavConfig)
               border-x border-b border-gray-200 dark:border-gray-700
               transition-opacity duration-200
               min-h-[3.5rem] sm:min-h-[4rem] md:min-h-[4.5rem]">
-    {configuredItems.map((item) => (
-      <a 
-        href={item.href || item.uri}
-        class={`px-2 py-1 sm:px-3 sm:py-1.5 md:px-4 md:py-2 rounded-sm 
-                text-xs sm:text-sm md:text-sm 
-                bg-arboretumBlue/5 dark:bg-white/10 
-                hover:bg-arboretumBlue/20 dark:hover:bg-white/20
-                text-umichblue dark:text-gray-100
-                transition-opacity duration-200
-                border border-umichblue/30 dark:border-white/10 
-                hover:border-umichblue/50 dark:hover:border-white/20
-                backdrop-blur-sm
-                ${pathname === (item.href || item.uri) ? 'bg-arboretumBlue/20 border-umichblue/50' : ''}`}
-      >
-        {item.title}
-        {item.external && <Icon name="mdi:open-in-new" class="inline w-4 h-4 ml-1" />}
-      </a>
-    ))}
+    {isNewsPage ? (
+      <NewsSearch />
+    ) : (
+      configuredItems.map((item) => (
+        <a 
+          href={item.href}
+          class={`px-2 py-1 sm:px-3 sm:py-1.5 md:px-4 md:py-2 rounded-sm 
+                  text-xs sm:text-sm md:text-sm 
+                  bg-arboretumBlue/5 dark:bg-white/10 
+                  hover:bg-arboretumBlue/20 dark:hover:bg-white/20
+                  text-umichblue dark:text-gray-100
+                  transition-opacity duration-200
+                  border border-umichblue/30 dark:border-white/10 
+                  hover:border-umichblue/50 dark:hover:border-white/20
+                  backdrop-blur-sm
+                  ${pathname === item.href ? 'bg-arboretumBlue/20 border-umichblue/50' : ''}`}
+        >
+          {item.title}
+          {item.external && <Icon name="mdi:open-in-new" class="inline w-4 h-4 ml-1" />}
+        </a>
+      ))
+    )}
   </nav>
 )}

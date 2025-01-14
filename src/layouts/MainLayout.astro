@@ -16,7 +16,7 @@ interface Props {
 const { 
 	title,
 	description = "Work together. Create smart machines. Serve society.",
-	image = "../public/social/og-default.jpg"  // default fallback image
+	image = "/social/og-default.jpg"  // default fallback image
 } = Astro.props;
 
 const siteUrl = "https://robotics.umich.edu";
@@ -39,7 +39,7 @@ const siteUrl = "https://robotics.umich.edu";
 				basic: {
 					title,
 					type: "website",
-					image: `${image}`,
+					image: `${siteUrl}${image}`,
 				},
 				optional: {
 					description,
@@ -58,7 +58,7 @@ const siteUrl = "https://robotics.umich.edu";
 				site: "@UMRobotics",
 				title,
 				description,
-				image: `${image}`,
+				image: `${siteUrl}${image}`,
 			}}
 			extend={{
 				meta: [
@@ -148,13 +148,14 @@ const siteUrl = "https://robotics.umich.edu";
 
 	/* Add system font fallbacks */
 	:root {
-		--font-fallback-sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+		--font-fallback-sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Oxygen, Ubuntu, Cantarell, sans-serif;
 		--font-fallback-condensed: Arial Narrow, Arial, sans-serif;
+		--font-fallback-roboto: 'Helvetica Neue', Arial, sans-serif;
 	}
 
 	/* Update font families with fallbacks */
 	.font-roboto {
-		font-family: 'Open Sans', var(--font-fallback-sans);
+		font-family: 'Roboto', var(--font-fallback-roboto);
 	}
 
 	.font-roboto-condensed {
@@ -165,5 +166,9 @@ const siteUrl = "https://robotics.umich.edu";
 	h1, h2, h3, .text-4xl {
 		text-wrap: balance;
 		min-height: 1.2em;
+	}
+
+	.font-open-sans {
+		font-family: 'Open Sans', var(--font-fallback-sans);
 	}
 </style>

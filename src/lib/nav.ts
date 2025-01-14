@@ -349,6 +349,9 @@ export const subNavConfig: Record<string, SubNavItem[]> = {
       { title: "Values", href: "/about/values" },
       { title: "Facilities", href: "/about/facilities" },
       { title: "Contact", href: "/about/contact"}
+    ],
+    'news$': [
+      { title: "News", href: "/news" } // placeholder for news search bar }
     ]
   };
   
