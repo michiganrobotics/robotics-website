@@ -75,11 +75,11 @@ export default defineConfig({
       'robotics.umich.edu',
       'www.umich.edu',
       'news.engin.umich.edu',
-      'www.instagram.com',
-      'www.facebook.com',
-      'www.linkedin.com',
-      'www.youtube.com',
-      'www.x.com',
+      'i.ytimg.com',
+      'img.youtube.com',
+      'cdninstagram.com',
+      'scontent.cdninstagram.com',
+      'pbs.twimg.com',
     ],
     remotePatterns: [
       {
@@ -90,31 +90,15 @@ export default defineConfig({
         protocol: 'https',
         hostname: '**.engineering'
       },
-      {
-        protocol: 'https',
-        hostname: '**.instagram.com'
-      },
-      {
-        protocol: 'https',
-        hostname: '**.facebook.com'
-      },
-      {
-        protocol: 'https',
-        hostname: '**.linkedin.com'
-      },
-      {
-        protocol: 'https',
-        hostname: '**.youtube.com'
-      },
-      {
-        protocol: 'https',
-        hostname: '**.x.com'
-      },
+      { protocol: 'https', hostname: '**.ytimg.com' },
+      { protocol: 'https', hostname: '**.youtube.com' },
+      { protocol: 'https', hostname: '**.cdninstagram.com' },
+      { protocol: 'https', hostname: '**.twimg.com' },
       {
         protocol: "https",
         hostname: "events.umich.edu",
         pathname: "/media/**"
-      }
+      },
     ],
     service: {
       entrypoint: 'astro/assets/services/sharp'
