@@ -11,8 +11,9 @@ const getLink = (path: string) => {
   return baseURL.endsWith('/') ? baseURL + path.slice(1) : baseURL + path;
 };
 
-const videoPath = getLink('/robotics-promo-2022.mp4');
-const posterPath = getLink('/robotics-promo-poster.jpg');
+const videoMp4Path = getLink('/robotics-promo-2025.mp4');
+const videoWebmPath = getLink('/robotics-promo-2025.webm');
+const posterPath = getLink('/blue-tile.png');
 
 ---
 
@@ -23,30 +24,18 @@ const posterPath = getLink('/robotics-promo-poster.jpg');
         Work together. Create smart machines. Serve society.
       </div>
 
-      <div class="absolute inset-0 w-full h-full bg-black">
-        <img 
-          src={posterPath}
-          alt="Michigan Robotics promotional video poster frame"
-          class="absolute inset-0 w-full h-full object-cover"
-          id="fallback-image"
-          height={350}
-          width={2000}
-          priority
-          fetchpriority="high"
-        />
-        
+      <div class="absolute inset-0 w-full h-full bg-umichblue">
         <video 
           id="hero-video"
           class="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-300"
           playsinline
           muted
-          preload="metadata"
-          poster={posterPath}
-          loading="lazy"
+          preload="none"
           aria-label="Background video showing Michigan Robotics research and education"
         >
-          <source src={videoPath} type="video/mp4">
-          <p>Your browser doesn't support HTML5 video. Here is a <a href={videoPath}>link to the video</a> instead.</p>
+          <source src={videoWebmPath} type="video/webm">
+          <source src={videoMp4Path} type="video/mp4">
+          <p>Your browser doesn't support HTML5 video. Here is a <a href={videoMp4Path}>link to the video</a> instead.</p>
         </video>
 
         <button 
@@ -74,10 +63,9 @@ const posterPath = getLink('/robotics-promo-poster.jpg');
 <script>
   const video = document.getElementById('hero-video') as HTMLVideoElement;
   const control = document.getElementById('video-control') as HTMLButtonElement;
-  const fallbackImage = document.getElementById('fallback-image') as HTMLImageElement;
   const loadingIndicator = document.getElementById('loading-indicator') as HTMLDivElement;
   
-  if (video && control && fallbackImage && loadingIndicator) {
+  if (video && control && loadingIndicator) {
     const pauseIcon = control.querySelector('.pause-icon');
     const playIcon = control.querySelector('.play-icon');
     let isVideoSupported = true;
@@ -97,7 +85,6 @@ const posterPath = getLink('/robotics-promo-poster.jpg');
     video.addEventListener('loadeddata', () => {
       if (isVideoSupported) {
         video.classList.remove('opacity-0');
-        fallbackImage.classList.add('opacity-0');
         loadingIndicator.remove();
         control.classList.remove('hidden');
         tryPlayVideo();
@@ -113,17 +100,6 @@ const posterPath = getLink('/robotics-promo-poster.jpg');
           showFallback();
         }
       }
-    }
-
-    // Handle loading errors
-    video.addEventListener('error', showFallback);
-
-    // Show fallback image
-    function showFallback() {
-      video.classList.add('opacity-0');
-      fallbackImage.classList.remove('opacity-0');
-      control.classList.add('hidden');
-      loadingIndicator.remove();
     }
 
     // Toggle play/pause
