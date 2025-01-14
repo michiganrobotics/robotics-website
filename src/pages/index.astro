@@ -48,7 +48,7 @@ Astro.response.headers.set('Cache-Control','max-age=600, must-revalidate');
 									<ContentImage 
 										src={post.data.image?.src}
 										alt={post.data.image?.alt || post.data.title}
-										width={600}
+										width={450}
 										height={192}
 										class="w-full h-48 object-cover"
 										loading="lazy"
@@ -102,7 +102,7 @@ Astro.response.headers.set('Cache-Control','max-age=600, must-revalidate');
 								<Image 
 									src={item.image}
 									alt={item.alt}
-									width={600}
+									width={450}
 									height={192}
 									class="w-full h-auto md:h-auto object-cover aspect-[2/1] md:aspect-auto transition-all duration-500 group-hover:scale-105"
 									loading="lazy"
@@ -127,11 +127,12 @@ Astro.response.headers.set('Cache-Control','max-age=600, must-revalidate');
 					  <div key={event.id} class="group max-w-md bg-white border border-gray-200 rounded-sm shadow dark:bg-gray-800 dark:border-gray-700">
 						<a class='post-link' href={event.permalink} aria-label={event.event_title}>
 						  <section>
-							<img class="rounded-t-sm"
+							<Image
+							  class="rounded-t-sm"
 							  src={event.styled_images.event_feature_large} 
 							  alt={event.image_description}
 							  height={300}
-							  width={600}
+							  width={446}
 							  loading='lazy'
 							/>
 							<div class="p-5 pl-0">

@@ -10,7 +10,7 @@ import { collegeNewsQuery, eventsQuery } from '../../lib/api';
 import ContentImage from '../../components/ContentImage.astro';
 import Link from '../../components/Link.astro';
 import { LinkPreview } from 'astro-embed';
-import substackImage from '../../images/substackSubscribe.jpg';
+import substackImage from '../../images/substackNewsSubscribe.jpg';
 import NewsSearch from '../../components/NewsSearch.astro';
 
 
@@ -159,7 +159,7 @@ const collegeNewsItems = await collegeNewsQuery();
                   <Icon name="mdi:open-in-new" class="inline w-4 h-4 ml-1" />
                 </h2>
                 {event.event_subtitle && (
-                  <h4 class="text-base font-roboto text-gray-600 dark:text-gray-300 mb-2">{event.event_subtitle}</h4>
+                  <h3 class="text-base font-roboto text-gray-600 dark:text-gray-300 mb-2">{event.event_subtitle}</h3>
                 )}
               </div>
             </div>
