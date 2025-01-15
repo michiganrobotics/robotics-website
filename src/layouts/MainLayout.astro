@@ -124,18 +124,7 @@ const siteUrl = "https://umrob.netlify.app";
 	opacity: 1;
 	transition: opacity;
 	}
-	.wp-block-columns{
-		gap:2em;
-	}
-	.wp-block-button__link{
-		text-decoration:none;
-	}
-	.wp-block-button__link:hover{
-		text-decoration:underline;
-	}
-	.wp-block-embed-youtube{
-		margin: 1em 0;
-	}
+
 	html {
 		font-display: swap;
 	}
@@ -170,5 +159,18 @@ const siteUrl = "https://umrob.netlify.app";
 
 	.font-open-sans {
 		font-family: 'Open Sans', var(--font-fallback-sans);
+	}
+
+	figure {
+  	@apply my-4;
+	}
+	figure.aspect-video {
+		@apply mb-4;
+	}
+	figure img {
+	@apply w-full rounded-sm shadow-md;
+	}
+	.prose img {
+		@apply mb-0;
 	}
 </style>

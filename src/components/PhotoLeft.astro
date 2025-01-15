@@ -1,0 +1,26 @@
+---
+import { Image } from 'astro:assets';
+
+interface Props {
+  image: ImageMetadata;
+  alt: string;
+  caption?: string;
+  width?: number;
+}
+
+const { image, alt, caption, width = 400 } = Astro.props;
+---
+
+<figure class="float-left mr-8 mb-8 md:w-[400px]">
+  <Image 
+    src={image} 
+    alt={alt}
+    width={width}
+    class="rounded-sm shadow-md w-full"
+  />
+  {caption && (
+    <figcaption class="mt-2 text-sm text-gray-600 dark:text-gray-200 italic">
+      {caption}
+    </figcaption>
+  )}
+</figure> 

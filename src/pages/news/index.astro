@@ -4,7 +4,7 @@ import MainLayout from "../../layouts/MainLayout.astro";
 import { Icon } from 'astro-icon/components';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import PageTitle from '../../components/PageTitle.astro';
-import { Image } from 'astro:assets';
+import { Image, getImage } from 'astro:assets';
 import featureImage from '../../images/featured-images/news.jpg';
 import { collegeNewsQuery, eventsQuery } from '../../lib/api';
 import ContentImage from '../../components/ContentImage.astro';
@@ -97,18 +97,26 @@ const collegeNewsItems = await collegeNewsQuery();
   <section id="recent-posts" class="mb-12">
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {recentPosts.map(async (post, index) => {
-          
+          // Get the optimized image if it exists
+          const postImage = post.data.image?.src ? await getImage({
+            src: post.data.image.src,
+            width: index === 0 ? 760 : 368,
+            height: index === 0 ? 384 : 192,
+          }) : null;
+
           return (
             <Link href={`/news/${new Date(post.data.date).getFullYear()}/${post.id.split('/')[1]}`} 
                class={`group block bg-white dark:bg-gray-800 shadow-md rounded-sm overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-[1.02] ${index === 0 ? 'md:col-span-2' : ''}`}>
-                <ContentImage 
-                  src={post.data.image?.src}
-                  alt={post.data.image?.alt || post.data.title}
-                  width={`${index === 0 ? 760 : 368}`}
-                  height={`${index === 0 ? 384 : 192}`}
-                  class={`w-full ${index === 0 ? 'h-96' : 'h-48'} object-cover`}
-                  loading={`${index < 2 ? 'eager' : 'lazy'}`}
-                />
+                {postImage ? (
+                  <img 
+                    src={postImage.src}
+                    alt={post.data.image?.alt || post.data.title}
+                    width={index === 0 ? 760 : 368}
+                    height={index === 0 ? 384 : 192}
+                    class={`w-full ${index === 0 ? 'h-96' : 'h-48'} object-cover`}
+                    loading={`${index < 2 ? 'eager' : 'lazy'}`}
+                  />
+                ) : null}
               <div class="p-4">
                 <h2 class="text-xl leading-tight font-roboto font-bold mb-2 text-umichblue dark:text-gray-100 border-b-2 border-transparent group-hover:border-maize transition-all duration-300">{post.data.title}</h2>
                 <p class="text-sm italic font-sans text-gray-600 dark:text-gray-400 mb-4">
@@ -134,7 +142,7 @@ const collegeNewsItems = await collegeNewsQuery();
             <Image 
               src={event.styled_images.event_feature_large}
               alt={event.image_description || "Event image"}
-              width={552}
+              width={Math.floor(1152 / Math.min(eventsData.slice(0,4).length, 3))}
               height={368}
               class="w-full h-48 object-cover"
             />
@@ -171,16 +179,24 @@ const collegeNewsItems = await collegeNewsQuery();
     <section id="older-posts" class="mb-12">
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {selectedOlderPosts.slice(0, 4).map(async (post) => {
+          const postImage = post.data.image?.src ? await getImage({
+            src: post.data.image.src,
+            width: 540,
+            height: 360,
+          }) : null;
+
           return (
             <Link href={`/news/${new Date(post.data.date).getFullYear()}/${post.id.split('/')[1]}`} 
                class="group bg-white dark:bg-gray-800 shadow-md rounded-sm overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-[1.02] flex flex-col">
-                <ContentImage 
-                  src={post.data.image?.src}
-                  alt={post.data.image?.alt || post.data.title}
-                  width={540}
-                  height={360}
-                  class="w-full h-48 object-cover hidden sm:block"
-                />
+                {postImage ? (
+                  <img 
+                    src={postImage.src}
+                    alt={post.data.image?.alt || post.data.title}
+                    width={540}
+                    height={360}
+                    class="w-full h-48 object-cover hidden sm:block"
+                  />
+                ) : null}
               <div class="p-4 flex-grow flex flex-col justify-between">
                 <div>
                   <span class="inline-block text-xs font-medium mr-2 px-2.5 py-0.5 rounded-sm bg-arboretumBlue text-white mb-2">
@@ -221,16 +237,24 @@ const collegeNewsItems = await collegeNewsQuery();
         </a>
 
         {selectedOlderPosts.slice(4).map(async (post) => {
+          const postImage = post.data.image?.src ? await getImage({
+            src: post.data.image.src,
+            width: 540,
+            height: 360,
+          }) : null;
+
           return (
             <Link href={`/news/${new Date(post.data.date).getFullYear()}/${post.id.split('/')[1]}`} 
                class="group bg-white dark:bg-gray-800 shadow-md rounded-sm overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-[1.02] flex flex-col">
-                <ContentImage 
-                  src={post.data.image?.src}
-                  alt={post.data.image?.alt || post.data.title}
-                  width={540}
-                  height={360}
-                  class="w-full h-48 object-cover hidden sm:block"
-                />
+                {postImage ? (
+                  <img 
+                    src={postImage.src}
+                    alt={post.data.image?.alt || post.data.title}
+                    width={540}
+                    height={360}
+                    class="w-full h-48 object-cover hidden sm:block"
+                  />
+                ) : null}
               <div class="p-4 flex-grow flex flex-col justify-between">
                 <div>
                   <span class="inline-block text-xs font-medium mr-2 px-2.5 py-0.5 rounded-sm bg-arboretumBlue text-white mb-2">

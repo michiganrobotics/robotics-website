@@ -3,6 +3,8 @@ import Layout from './MainLayout.astro';
 import ContentImage from '../components/ContentImage.astro';
 const { faculty } = Astro.props;
 import { getCollection } from 'astro:content';
+import { getImage } from 'astro:assets';
+import Link from '../components/Link.astro';
 
 // Fetch all news posts with tag of faculty member's full name
 const allNamedPosts = await getCollection('news', ({ data }) => {
@@ -96,23 +98,32 @@ const relatedPosts = allNamedPosts
           <h2 class="text-2xl font-bold mb-4 font-roboto-condensed dark:text-white">Related news</h2>
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {relatedPosts.map(async (post) => {
+              const postImage = post.data.image?.src ? await getImage({
+                src: post.data.image.src,
+                width: 450,
+                height: 300,
+              }) : null;
+
               return (
-                <a href={`${import.meta.env.BASE_URL}/news/${post.slug}`} class="group">
+                <Link href={`${import.meta.env.BASE_URL}/news/${new Date(post.data.date).getFullYear()}/${post.id.split('/')[1]}`} 
+                  class="group">
                   <div class="relative aspect-video overflow-hidden rounded-sm shadow-lg">
-                    <ContentImage 
-                      src={post.data.image?.src}
-                      alt={post.data.image?.alt || post.data.title}
-                      width={800}
-                      height={450}
-                      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
+                    {postImage ? (
+                      <img 
+                        src={postImage.src}
+                        alt={post.data.image?.alt || post.data.title}
+                        width={450}
+                        height={300}
+                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                    ) : null}
                   </div>
                   <div class="p-4">
                     <h3 class="text-lg font-medium decoration-maize decoration-2 group-hover:underline">
                       {post.data.title}
                     </h3>
                   </div>
-                </a>
+                </Link>
               );
             })}
           </div>

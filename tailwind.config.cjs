@@ -28,17 +28,29 @@ module.exports = {
 			typography: ({ theme }) => ({
 				DEFAULT: {
 					css: {
-					  'blockquote p:first-of-type::before': false,
-					  'blockquote p:last-of-type::after': false,
-					  h2: {			
-						marginTop: '1.5rem',
-						marginBottom: '1.25rem',
-					  },
+						'blockquote p:first-of-type::before': false,
+						'blockquote p:last-of-type::after': false,
+						'figure figcaption': {
+							marginTop: '0.5em',
+							fontSize: '0.875em',
+							lineHeight: '1.4285714',
+							fontStyle: 'italic',
+							color: theme('colors.gray.600'),
+						},
+						h2: {			
+							marginTop: '1.5rem',
+							marginBottom: '1.25rem',
+						},
 					},
 				},
 				invert: {
 					css: {
+						'--tw-prose-counters': theme('colors.maize'),
+						'--tw-prose-bullets': theme('colors.maize'),
 						'--tw-prose-body': theme('colors.gray[200]'),
+						'figure figcaption': {
+							color: theme('colors.gray.200'),
+						},
 					}
 				}
 			}),

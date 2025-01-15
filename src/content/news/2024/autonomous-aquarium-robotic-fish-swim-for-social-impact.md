@@ -1,16 +1,20 @@
 ---
 title: "Autonomous aquarium: robotic fish swim for social impact"
 date: "2024-05-23"
+seoDescription: "Students engineered a robotic school of fish prototype, named Swarm Fish."
+excerpt: "Three University of Michigan students engineered a robotic school of fish prototype, named Swarm Fish, as part of their class project in ROB 203: Robotics Mechanisms."
+image: 
+  src: "images/SwarmFish-1024x683.jpg"
+  alt: "Two hands place a robotic fish in an LED-lit aquarium, next to a robot fish already in the water."
+
 categories: 
   - "robotics-community"
-image: 
-  src: "../content/news/2024/images/SwarmFish-1024x683.jpg"
-  alt: "Two hands place a robotic fish in an LED-lit aquarium, next to a robot fish already in the water."
-author: "Dan Newman"
 tags:
   - "Derrick Yeo"
   - "Chad Jenkins"
-excerpt: "Three University of Michigan students engineered a robotic school of fish prototype, named Swarm Fish, as part of their class project in ROB 203: Robotics Mechanisms."
+  - "Swarm Fish"
+  - "ROB 203"
+author: "Dan Newman"
 ---
 
 <figure>

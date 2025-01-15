@@ -8,23 +8,12 @@ import { YouTube } from 'astro-embed';
 import NewsCard from '../../components/NewsCard.astro';
 import { getEntry } from 'astro:content';
 
-// Get a specific post by collection and slug
-const featuredPost = await getEntry('news', '2023/celebrating-the-robotics-outreach-ambassadors-of-2023');
-
-// Load the featured image if it exists
-let featuredImage;
-if (featuredPost?.data.image?.src) {
-  try {
-    featuredImage = (await import('../../content/news/2023/images/53105152864_7867bfe600_k.jpg')).default;
-  } catch (e) {
-    console.error("Error loading image:", e);
-  }
-}
+const featuredPost = await getEntry('news', '2024/robotics-outreach-ambassadors-of-2024');
 ---
 
 <Layout title="Partnerships">
   <Breadcrumbs />
-  <PageTitle title="Partnerships" image={featureImage} imageAlt="Robots stand around the Robot Garden terrain testing ground." />
+  <PageTitle title="Partnerships" imageAlt="Robots stand around the Robot Garden terrain testing ground." />
      
     <div class="prose dark:prose-invert mt-8 mb-4 max-w-6xl w-11/12 mx-auto">
       <p>Michigan Robotics thrives on the principle that collaboration multiplies the quality and impact of our work. Michigan Robotics cultivates partnerships in industry and academia to promote the training, research, and deployment of robotics that serve society. Working on an individual level to organizational scale, we welcome opportunities that help us meet our mission of developing the next generation of robotics and roboticists.</p>
@@ -80,12 +69,12 @@ if (featuredPost?.data.image?.src) {
               <div class="m-4 sm:m-8">
               <NewsCard
               title={featuredPost.data.title}
-              date={new Date(featuredPost.data.date)}
-              slug={featuredPost.slug}
-              content="Read more about our outreach ambassadors."
-              image={featuredImage ? {
-                src: featuredImage,
-                alt: featuredPost.data.image?.alt
+              date={featuredPost.data.date}
+              slug={featuredPost.id.split('/')[1]}
+              excerpt="Read more about our outreach ambassadors."
+              image={featuredPost.data.image ? {
+                src: featuredPost.data.image.src,
+                alt: featuredPost.data.image.alt
               } : undefined}
             />
               </div>

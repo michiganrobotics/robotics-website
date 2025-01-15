@@ -4,6 +4,11 @@ import VideoRight from '../components/VideoRight.astro';
 import VideoCenter from '../components/VideoCenter.astro';
 import Accordion from '../components/Accordion.astro';
 import EventsList from '../components/EventsList.astro';  
+import TextAndMedia from '../components/TextAndMedia.astro';
+import PhotoLeft from '../components/PhotoLeft.astro';
+import ColumnList from '../components/ColumnList.astro';
+import { YouTube } from 'astro-embed';
+import { LinkPreview } from 'astro-embed';
 
 export const components = {
   Button,
@@ -12,5 +17,12 @@ export const components = {
   VideoCenter,
   Accordion,
   EventsList,
+  TextAndMedia,
+  PhotoLeft,
+  YouTube,
+  LinkPreview,
+  ColumnList,
 };
+
+
 

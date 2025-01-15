@@ -1,12 +1,14 @@
 ---
 title: "Robotics faculty and student awarded MLK Spirit Awards"
 date: "2023-01-17"
-categories: 
-  - "robotics-community"
+seoDescription: "The North Campus Deans presented Professors Jessy Grizzle and Leia Stirling and PhD student Yves Nazon with MLK Spirit Awards."
+excerpt: "Honoring efforts that exemplify the leadership of Dr. Martin Luther King, Jr., the North Campus Deans presented Professors Jessy Grizzle and Leia Stirling and PhD student Yves Nazon with MLK Spirit Awards."
 image: 
-  src: "../content/news/2023/images/2023MLK.Website-Banner-2048x1152-1-1024x576.jpg"
+  src: "images/2023MLK.Website-Banner-2048x1152-1-1024x576.jpg"
   alt: "A bust of Martin Luther King Jr. with text '2023 North Campus Deans' Martin Luther King Spirit Awards'"
 author: "Dan Newman"
+categories: 
+  - "robotics-community"
 tags:
   - "Jessy Grizzle"
   - "Leia Stirling"
@@ -17,8 +19,6 @@ tags:
 Honoring efforts that exemplify the leadership of Dr. Martin Luther King, Jr., the North Campus Deans presented Professors Jessy Grizzle and Leia Stirling and PhD student Yves Nazon with MLK Spirit Awards.
 
 The [North Campus Deans' MLK Spirit Awards](https://culture.engin.umich.edu/an-inclusive-campus/mlk-spirit-awards/) recognizes students, faculty, and staff for "their commitment to social justice, diversity, equity, and inclusion, including within the context of the pandemic and our reignited sense of urgency to address root causes of social injustice." The award ceremony took place Monday, January 16, 2023.
-
-<!--more-->
 
 https://twitter.com/LeiaStirling/status/1615178999663136768
 
@@ -40,7 +40,7 @@ Nazon's nomination focused on connecting with students that may have never consi
 
 <figure>
 
-![](images/52300183375_f8d3925650_k-1024x683.jpg)
+![Yves Nazon works with a ballbot for ROB 311](images/52300183375_f8d3925650_k-1024x683.jpg)
 
 <figcaption>
 

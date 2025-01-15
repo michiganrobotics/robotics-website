@@ -28,6 +28,7 @@
     "google-spreadsheet": "^4.1.4",
     "image-size": "^1.2.0",
     "preact": "^10.25.2",
+    "rehype-figure": "^1.0.1",
     "satori": "^0.12.1",
     "sharp": "^0.33.5",
     "tailwindcss": "^3.4.17"

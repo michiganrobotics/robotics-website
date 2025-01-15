@@ -1,6 +1,6 @@
 ---
 import Layout from '../../../../layouts/MainLayout.astro';
-import Single from '../../../../components/templates/Single.astro';
+import News from '../../../../components/templates/News.astro';
 import { getCollection, render } from 'astro:content';
 import { components } from '../../../../components/components';
 
@@ -21,30 +21,29 @@ export async function getStaticPaths() {
 const { entry } = Astro.props;
 const { Content } = await render(entry);
 
+// Get all focus areas to map categories to titles
+const focusAreas = await getCollection('focusAreas');
+const categoryTitles = Object.fromEntries(
+  focusAreas.map(area => [area.id, area.data.title.toLowerCase()])
+);
 // Create excerpt for SEO description
-const description = entry.data.excerpt || entry.data.description || `${entry.data.title}`;
+const description = entry.data.seoDescription || entry.data.excerpt || `${entry.data.title}`;
 
 // Generate OG image URL
-const ogImage = `/news/${entry.data.date.split('-')[0]}/${entry.id.split('/')[1]}/og-image.png`;
+const ogImage = `/_generated-og/${entry.data.date.split('-')[0]}-${entry.id.split('/')[1]}.png`;
 
 // Transform entry data to match Single template's expected node structure
 const node = {
   title: entry.data.title,
   date: entry.data.date,
-  author: entry.data.author || null,
+  author: entry.data.author,
   categories: entry.data.categories ? {
     nodes: entry.data.categories.map(cat => ({
       name: cat,
+      prettyName: categoryTitles[cat] || cat.replace(/-/g, ' '),
       uri: `/category/${cat}`
     }))
-  } : null,
-  featuredImage: entry.data.image ? {
-    node: {
-      mediaItemUrl: `/src/content/news/${entry.data.image.src}`,
-      altText: entry.data.title
-    }
-  } : null,
-  __typename: 'Post'
+  } : null
 };
 ---
 
@@ -53,13 +52,7 @@ const node = {
   description={description}
   image={ogImage}
 >
-  <Single node={node}>
+  <News node={node}>
     <Content slot="content" components={components}/>
-  </Single>
+  </News>
 </Layout>
-
-<style>
-  :global(.content-wrapper) {
-    display: none;
-  }
-</style>

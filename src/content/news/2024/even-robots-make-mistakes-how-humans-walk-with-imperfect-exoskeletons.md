@@ -1,19 +1,23 @@
 ---
 title: "Even robots make mistakes: How humans walk with imperfect exoskeletons"
 date: "2024-03-12"
+seoDescription: "When a lower limb exoskeleton does not operate properly, some users recover their step quickly while others overcompensate with their hip or ankle. Credit: Brenda Ahearn, Michigan Engineering."
+excerpt: "When a lower limb exoskeleton does not operate properly, some users recover their step quickly while others overcompensate with their hip or ankle. Credit: Brenda Ahearn, Michigan Engineering."
+image: 
+  src: "images/52035779917_46c224da4d_k.jpg"
+  alt: "A person wearing sturdy boots and jeans walks on a treadmill wearing a metal brace from the ankle to just below the knee."
 categories: 
   - "human-robot-interaction"
-  - "legged-locomotion-exoskeletons"
-image: 
-  src: "../content/news/2024/images/52035779917_46c224da4d_k.jpg"
-  alt: "A person wearing sturdy boots and jeans walks on a treadmill wearing a metal brace from the ankle to just below the knee."
-author: "Dan Newman"
+  - "legged-robots"
+  - "rehabilitation"
 tags:
   - "Leia Stirling"
-excerpt: "When a lower limb exoskeleton does not operate properly, some users recover their step quickly while others overcompensate with their hip or ankle. Credit: Brenda Ahearn, Michigan Engineering."
+  - "Man I Wu"
+  - "exoskeletons"
+author: "Patricia DeLacey"
 ---
 
-**_Researchers assessed the impact of exoskeleton accuracy on walking behavior, working towards co-adaptive exoskeleton algorithms_**
+**Researchers assessed the impact of exoskeleton accuracy on walking behavior, working towards co-adaptive exoskeleton algorithms.**
 
 <figure>
 
@@ -21,7 +25,7 @@ excerpt: "When a lower limb exoskeleton does not operate properly, some users re
 
 <figcaption>
 
-_When a lower limb exoskeleton does not operate properly, some users recover their step quickly while others overcompensate with their hip or ankle. Credit: Brenda Ahearn, Michigan Engineering._
+When a lower limb exoskeleton does not operate properly, some users recover their step quickly while others overcompensate with their hip or ankle. Credit: Brenda Ahearn, Michigan Engineering.
 
 </figcaption>
 
@@ -31,9 +35,7 @@ When lower limb exoskeletons—mechanical structures worn on the leg—do not op
 
 The results, published in [_IEEE Robotics and Automation Letters_](https://doi.org/10.1109/LRA.2024.3366010)_,_ inform the development of future co-adaptive exoskeleton algorithms—meaning both the person and exoskeleton learn from and adjust to one another.
 
-<!--more-->
-
-**“**Exoskeletons are a potentially very exciting technology to support mobility, but they also can create new cognitive demands and mental representations that people need to learn to use for them to be effective,” said [Leia Stirling,](https://ioe.engin.umich.edu/people/stirling-leia/) an associate professor of robotics and industrial and operations engineering and co-author on the paper. 
+"Exoskeletons are a potentially very exciting technology to support mobility, but they also can create new cognitive demands and mental representations that people need to learn to use for them to be effective,” said [Leia Stirling,](https://ioe.engin.umich.edu/people/stirling-leia/) an associate professor of robotics and industrial and operations engineering and co-author on the paper. 
 
 “It’s important to understand that not everybody will respond to technology in the same way,” added Stirling.
 

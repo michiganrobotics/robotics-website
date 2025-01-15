@@ -1,11 +1,17 @@
 ---
 title: "Robotics Student Award Winners of 2023"
 date: "2023-03-29"
+seoDescription: "The exceptional achievements of this year's award-winning students in academia and leadership have brought pride to the new Robotics Department."
+excerpt: "The exceptional achievements of this year's award-winning students in academia and leadership have brought pride to the new Robotics Department."
+
+image: 
+  src: "images/2023-01-17-15.27.04-cropped-1024x504.jpg"
+  alt: "A student smiles with the iconic yellow staircase of the Robotics Building in the background."
+
 categories: 
   - "robotics-community"
-image: 
-  src: "../content/news/2023/images/2023-01-17-15.27.04-cropped-1024x504.jpg"
-  alt: "A student smiles with the iconic yellow staircase of the Robotics Building in the background."
+tags:
+  - "Student Awards"
 author: "Dan Newman"
 ---
 
@@ -22,8 +28,6 @@ Prince Kuevor, winner of the Kabamba Award, pictured before presenting a PhD def
 </figure>
 
 The exceptional achievements of this year's award-winning students in academia and leadership have brought pride to the new Robotics Department. These students have displayed a remarkable commitment to their education, research, and community. We extend our congratulations to the recipients:
-
-<!--more-->
 
 **Alexander Bowler**  
 _Tau Beta Pi First Year Student Awards_  

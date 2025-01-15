@@ -10,9 +10,19 @@ interface Props {
 const { url, caption, class: className } = Astro.props;
 ---
 <figure class={`block w-full aspect-video mb-8 lg:float-right lg:w-[400px] lg:ml-8 ${className}`}>
-  <YouTube id={url} />
+  <YouTube 
+  id={url} 
+  class="w-full h-full" 
+  playsInline={true} 
+  params={{
+      rel: 0,
+      modestbranding: 1,
+      playsinline: 1,
+      controls: 1
+    }}
+  />
   {caption && (
-    <figcaption class="mt-2 text-sm text-gray-600 dark:text-gray-200 italic">
+    <figcaption class="mt-3.5 text-[0.875em] leading-[1.4285714] text-gray-600 dark:text-gray-200 italic">
       {caption}
     </figcaption>
   )}

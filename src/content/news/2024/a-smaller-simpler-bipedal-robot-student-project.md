@@ -1,40 +1,35 @@
 ---
 title: "A smaller, simpler bipedal robot student project"
 date: "2024-11-11"
-categories: 
-  - "legged-locomotion-exoskeletons"
-  - "robotics-community"
-image: 
-  src: "../content/news/2024/images/David-11-of-22-scaled.jpg"
-  alt: "A 3D-printed bipedal robot inspired by the design of a commercial-scale robot aims to provide an open-source platform for studying and applying reinforcement learning."
+seoDescription: "A 3D-printed bipedal robot, inspired by a commercial-scale robot, provides an open-source platform"
 excerpt: "A 3D-printed bipedal robot inspired by the design of a commercial-scale robot aims to provide an open-source platform for studying and applying reinforcement learning."
+
+image: 
+  src: "images/David-11-of-22-scaled.jpg"
+  alt: "A 3D-printed bipedal robot inspired by the design of a commercial-scale robot aims to provide an open-source platform for studying and applying reinforcement learning."
+categories: 
+  - "legged-robots"
+  - "robotics-community"
+tags:
+  - "David Ho"
+  - "Legolas"
+  - "bipedal robot"
 author: "Dan Newman"
 ---
 
-![](https://lh7-rt.googleusercontent.com/docsz/AD_4nXdqi0FHrluCgDEoIp5-dU4TNoJMPf-Dp0DK-SUi11Pn4tPXCs7wTqKicNq9HuLL0chugwyY7XXbYtgigDiJaczkBvPAx7rUBA1_CexaWByvMG7hdxkwJpLBL7-8tvnocmaMm43V?key=M8YMg5SjM3ghujloSBwXoVWs)
+![Legolas the robot walks around with support from a string gantry](images/legolas.gif)
 
 A 3D-printed bipedal robot inspired by the design of a commercial-scale robot aims to provide an open-source platform for studying and applying reinforcement learning. David Ho, a master’s student in robotics at University of Michigan, developed the one-foot-tall robot, named Legolas.
 
 The design of Legolas is inspired by Agility Robotics’ Cassie robot. This includes inverted legs, like the namesake Cassowary bird.
 
-<!--more-->
-
 <figure>
 
-https://www.flickr.com/photos/michigan-engineering/23994308957/in/photolist-Hge6Wz-Hge5Cn-22a9CZm-Hge5RP-22a9D4u-Hge5te-22a9Dj9-Cyi6HB-22a9Dby-Hge6xt-Hge6FV-22a9Dt7-Cyi7pB-Hge5Xa-Cyi772-Hge62t-Hge64H-Hge6KT-22cQvgn-Hge6Qx-Cyi7ft-2nqD9Vx-2nqLVSR-2nqJuWL-2nqLXTV-2nqLVVB-2nqLW2Z-2oeZ5pf-2jk16jh-2egekUQ-2of2jdh-2of2Ejc-2of1zUt-2oeWxXo-2of1zac-2of1Az1-2of2irT-2oeWwa5-2of1xz3-2of1ycq-2oeWvwX
+![Researchers unbox and test Cassie, Prof. Jessy Grizzle's new robot with serial number 001, in August, 2017.](images/cassie-in-grizzle-lab.jpg)
 
 <figcaption>
-
-Researchers unbox and test Cassie, Prof. Jessy Grizzle's new robot with serial number 001, in August, 2017. 
-   
-Photo: Joseph Xu/Michigan Engineering, Communications & Marketing  
-  
-
-
+Researchers unbox and test Cassie, Prof. Jessy Grizzle's new robot with serial number 001, in August, 2017. Photo: Joseph Xu/Michigan Engineering, Communications & Marketing  
 </figcaption>
-
-
-
 </figure>
 
 “I was particularly inspired by the structure of Cassie’s legs,” Ho said. “Agility Robotics' mathematical and physics-based solution that inadvertently mimicked natural biomechanical structures was fascinating. It’s incredible how their practical approach converged toward biomimicry.”
@@ -45,7 +40,7 @@ Ho began the project as a mechanical engineering student at Texas A&M University
 
 <figure>
 
-![](images/David-15-of-22-copy.jpg)
+![David Ho sits at a workbench with the Legolas bipedal robot](images/David-15-of-22-copy.jpg)
 
 <figcaption>
 

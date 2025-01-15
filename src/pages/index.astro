@@ -5,7 +5,7 @@ import SocialFeed from '../components/SocialFeed.astro';
 import { getCollection } from 'astro:content';
 import { eventsQuery } from "../lib/api";
 import EmailSignup from "../components/EmailSignup.astro";
-import { Image } from "astro:assets";
+import { Image, getImage } from "astro:assets";
 import academicsImage from '../images/homepage/homepage-academics.jpg';
 import researchImage from '../images/homepage/homepage-research.jpg';
 import peopleImage from '../images/homepage/homepage-people.jpg';
@@ -42,17 +42,25 @@ Astro.response.headers.set('Cache-Control', 'public, max-age=86400, must-revalid
 				</div>
 				<div class="flex flex-wrap gap-4 justify-center mb-8 md:flex-nowrap pt-10 px-2">
 					{recentPosts.map(async (post) => {
+						const postImage = post.data.image?.src ? await getImage({
+							src: post.data.image.src,
+							width: 450,
+							height: 192,
+						}) : null;
 
 						return (
-						<Link href={`/news/${new Date(post.data.date).getFullYear()}/${post.id.split('/')[1].replace(/\.mdx?$/, '')}`} class="group bg-white dark:bg-gray-800 shadow-md rounded-sm overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-[1.02] md:flex-1 max-w-md">
-									<ContentImage 
-										src={post.data.image?.src}
+							<Link href={`/news/${new Date(post.data.date).getFullYear()}/${post.id.split('/')[1].replace(/\.mdx?$/, '')}`} 
+								class="group bg-white dark:bg-gray-800 shadow-md rounded-sm overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-[1.02] md:flex-1 max-w-md">
+								{postImage ? (
+									<img 
+										src={postImage.src}
 										alt={post.data.image?.alt || post.data.title}
 										width={450}
 										height={192}
 										class="w-full h-48 object-cover"
 										loading="lazy"
 									/>
+								) : null}
 								<div class="relative">
 									<div class="p-4">
 										<div class="bg-arboretumBlue text-white p-2 pl-4 -ml-4">

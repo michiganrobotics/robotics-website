@@ -1,0 +1,23 @@
+---
+interface Props {
+  items: string[];
+  columns?: number;
+}
+
+const { items, columns = 2 } = Astro.props;
+
+const itemsPerColumn = Math.ceil(items.length / columns);
+const columnArray = Array.from({ length: columns }, (_, i) => 
+  items.slice(i * itemsPerColumn, (i + 1) * itemsPerColumn)
+);
+---
+
+<div class="grid md:grid-cols-2 gap-x-8 gap-y-2 my-2">
+  {columnArray.map((column) => (
+    <ul class="list-disc list-inside space-y-2">
+      {column.map((item) => (
+        <li>{item}</li>
+      ))}
+    </ul>
+  ))}
+</div> 

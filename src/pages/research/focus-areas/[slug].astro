@@ -1,9 +1,10 @@
 ---
 import Layout from '../../../layouts/MainLayout.astro';
 import { getCollection, render } from 'astro:content';
-import { Image } from 'astro:assets';
+import { Image, getImage } from 'astro:assets';
 import ContentImage from '../../../components/ContentImage.astro';
 import Breadcrumbs from "../../../components/Breadcrumbs.astro";
+import Link from '../../../components/Link.astro';
 
 export async function getStaticPaths() {
   const focusAreaEntries = await getCollection('focusAreas');
@@ -17,37 +18,28 @@ const { entry } = Astro.props;
 
 const { Content } = await render(entry);
 
-const allAreaPosts = await getCollection('news', ({ data, slug }) => {
+// Get related news posts based on matching category
+const allAreaPosts = await getCollection('news', ({ data }) => {
   if (!data.categories || !data.categories.length) return false;
-    
-  return data.categories.some(category => {
-    if (!category) return false;
-    
-    const normalizedCategory = String(category).toLowerCase().trim();
-    const normalizedAreaId = String(entry.id).toLowerCase().trim();
-    
-    return normalizedCategory === normalizedAreaId || 
-           normalizedCategory.includes(normalizedAreaId) || 
-           normalizedAreaId.includes(normalizedCategory);
-  });
+  return data.categories.includes(entry.id);
 });
 
 const relatedPosts = allAreaPosts
   .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
 ---
 
-<Layout title={entry.data.title}>
-  <div class="max-w-6xl w-11/12 mx-auto py-2">
+<Layout title={entry.data.title} description={entry.data.description} >
     <Breadcrumbs />
-  </div>
   <div class="max-w-6xl w-11/12 mx-auto pt-4 pb-12">
     <div class="relative rounded-lg overflow-hidden shadow-2xl">
       <div class="absolute inset-0">
-        <Image 
-          src={entry.data.images[0].src}
-          alt={entry.data.images[0].alt}
-          class="w-full h-full object-cover"
-        />
+        {entry.data.images?.[0] && (
+          <Image 
+            src={entry.data.images[0].src}
+            alt={entry.data.images[0].alt}
+            class="w-full h-full object-cover"
+          />
+        )}
         <div class="absolute inset-0 bg-gradient-to-r from-gray-900 via-gray-900/70 to-transparent" />
       </div>
       
@@ -70,23 +62,32 @@ const relatedPosts = allAreaPosts
             <h2 class="text-2xl font-bold mb-4 font-roboto-condensed dark:text-white">Related news</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {relatedPosts.map(async (post) => {
+                const postImage = post.data.image?.src ? await getImage({
+                  src: post.data.image.src,
+                  width: 450,
+                  height: 300,
+                }) : null;
+
                 return (
-                  <a href={`${import.meta.env.BASE_URL}/news/${post.slug}`} class="group no-underline">
+                  <Link href={`${import.meta.env.BASE_URL}/news/${new Date(post.data.date).getFullYear()}/${post.id.split('/')[1]}`} 
+                    class="group no-underline">
                     <div class="relative aspect-video overflow-hidden rounded-sm shadow-lg">
-                      <ContentImage 
-                        src={post.data.image?.src}
-                        alt={post.data.image?.alt || post.data.title}
-                        width={800}
-                        height={450}
-                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                      />
+                      {postImage ? (
+                        <img 
+                          src={postImage.src}
+                          alt={post.data.image?.alt || post.data.title}
+                          width={450}
+                          height={300}
+                          class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        />
+                      ) : null}
                     </div>
                     <div class="p-4">
                       <h3 class="not-prose text-lg font-medium group-hover:decoration-maize group-hover:decoration-2 group-hover:underline">
                         {post.data.title}
                       </h3>
                     </div>
-                  </a>
+                  </Link>
                 );
               })}
             </div>

@@ -1,15 +1,20 @@
 ---
 title: "Katherine Skinner awarded NSF CAREER grant"
 date: "2024-06-14"
+seoDescription: "Katie Skinner was awarded the National Science Foundation’s Faculty Early Career Development (CAREER) grant for a project “to provide new capabilities for marine robotic systems to map, visualize, and navigate underwater sites autonomously."
+excerpt: "Katie Skinner was awarded the National Science Foundation’s Faculty Early Career Development (CAREER) grant for a project “to provide new capabilities for marine robotic systems to map, visualize, and navigate underwater sites autonomously."
+image: 
+  src: "images/52120423534_429f727a64_k.jpg"
+  alt: "Two researchers on a boat, as one of them points to the sonar data they are collecting on a screen."
 categories: 
   - "robotics-community"
-image: 
-  src: "../content/news/2024/images/52120423534_429f727a64_k.jpg"
-  alt: "Two researchers on a boat, as one of them points to the sonar data they are collecting on a screen."
-author: "Dan Newman"
+  - "deep-learning"
 tags:
   - "Katie Skinner"
-excerpt: "Katie Skinner was awarded the National Science Foundation’s Faculty Early Career Development (CAREER) grant for a project “to provide new capabilities for marine robotic systems to map, visualize, and navigate underwater sites autonomously."
+  - "NSF CAREER Grant"
+  - "award"
+  - "underwater robotics"
+author: "Dan Newman"
 ---
 
 <figure>
@@ -24,13 +29,11 @@ Professor Katie Skinner discusses the freshly captured footage of a shipwreck Mo
 
 </figure>
 
-[Katherine (Katie) Skinner](https://robotics.umich.edu/profile/katherine-skinner/ "Katie Skinner"), assistant professor of robotics, was awarded the National Science Foundation’s Faculty Early Career Development (CAREER) grant for a [project](https://www.nsf.gov/awardsearch/showAward?AWD_ID=2337774&HistoricalAwards=false) titled “CAREER: Adaptive Multimodal Fusion for Robust Robot Perception in Underwater Environments”, which aims “to provide new capabilities for marine robotic systems to map, visualize, and navigate underwater sites autonomously.”
+[Katherine (Katie) Skinner](https://robotics.umich.edu/people/faculty/katie-skinner/ "Katie Skinner"), assistant professor of robotics, was awarded the National Science Foundation’s Faculty Early Career Development (CAREER) grant for a [project](https://www.nsf.gov/awardsearch/showAward?AWD_ID=2337774&HistoricalAwards=false) titled “CAREER: Adaptive Multimodal Fusion for Robust Robot Perception in Underwater Environments”, which aims “to provide new capabilities for marine robotic systems to map, visualize, and navigate underwater sites autonomously.”
 
 “These new capabilities will be achieved using innovative machine learning methods to simultaneously capture the robot’s surroundings and pinpoint the robot’s location by combining acoustic and visual information,” the award abstract states. 
 
 “Project outcomes will be demonstrated for use in archaeology by mapping historically significant shipwreck sites. The results will also apply to tasks such as underwater construction, infrastructure maintenance, and emergency response.”
-
-<!--more-->
 
 Skinner leads the [Field Robotics Group](https://fieldrobotics.engin.umich.edu), whose work spans robotics, computer vision, and machine learning with a focus on enabling autonomy in dynamic, unstructured, or remote environments across sea, land, air, and space. 
 

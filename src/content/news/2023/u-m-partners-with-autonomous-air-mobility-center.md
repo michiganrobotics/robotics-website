@@ -1,20 +1,29 @@
 ---
 title: "U-M partners with autonomous air mobility center"
 date: "2023-10-13"
+seoDescription: "Prominent areas of concentrated research include assured autonomy, AI/ML for aviation, unmanned aircraft systems, air mobility and air taxi systems, certification, testing, and evaluation, aerodynamics and design, robotics, and sensing applications."
 excerpt: "The University of Michigan is proud to be a partner in the pioneering Center for Autonomous Air Mobility and Sensing (CAAMS). This recognized National Science Foundation (NSF) Industry-University Cooperative Research Center (I-UCRC), established in 2022, conducts cutting-edge research and training in autonomous air mobility and sensing technology."
-categories: 
-  - "autonomous-connected-vehicles"
+
 image: 
-  src: "../content/news/2023/images/2018-M-Air-First-Flight-Event005-1024x683.jpg"
+  src: "images/2018-M-Air-First-Flight-Event005-1024x683.jpg"
   alt: "Autonomous aerial vehicles are flown at M-Air, an advanced robotics testing facility for air, sea, and land, on North Campus of the University of Michigan in Ann Arbor, MI."
-author: "Dan Newman"
+
+categories: 
+  - "autonomous-vehicles"
+  - "teams-swarms"
+
 tags:
   - "Dimitra Panagou"
+  - "CAAMS"
+  - "NSF"
+  - "I-UCRC"
+  - "auotnomous air mobility"
+author: "Dan Newman"
 ---
 
 <figure>
 
-![](images/2018-M-Air-First-Flight-Event005-1024x683.jpg)
+![A drone flying at night with navigation lights on under a netted facility with larger spotlights in a grid.](images/2018-M-Air-First-Flight-Event005-1024x683.jpg)
 
 <figcaption>
 
@@ -24,11 +33,9 @@ Autonomous aerial vehicles are flown at M-Air, an advanced robotics testing faci
 
 </figure>
 
-The University of Michigan is proud to be a partner in the pioneering [Center for Autonomous Air Mobility and Sensing](https://caams.center/) (CAAMS). This recognized National Science Foundation (NSF) [Industry-University Cooperative Research Center](https://iucrc.nsf.gov) (I-UCRC), established in 2022, conducts cutting-edge research and training in autonomous air mobility and sensing technology.
+The University of Michigan is proud to be a partner in the pioneering [Center for Autonomous Air Mobility and Sensing](https://caams.center/) (CAAMS). This recognized National Science Foundation (NSF) [Industry-University Cooperative Research Center](https://iucrc.nsf.gov) (IUCRC), established in 2022, conducts cutting-edge research and training in autonomous air mobility and sensing technology.
 
 "As a contributing member, the University of Michigan is enabling advancements at the forefront of research on autonomous aerospace vehicles and systems," said Dimitra Panagou, associate professor of robotics and aerospace engineering, and U-M's site director for CAAMS.
-
-<!--more-->
 
 CAAMS is the only NSF-funded autonomous air mobility research center and is a collaboration of universities, including U-M, University of Colorado Boulder, Brigham Young University, Virginia Tech, Texas A&M, and Penn State.
 

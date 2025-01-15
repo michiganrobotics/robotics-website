@@ -1,15 +1,18 @@
 ---
 title: "College robots, tweaked with Scratch, inspire younger students"
 date: "2024-09-23"
-categories: 
-  - "robotics-community"
+seoDescription: "MBots can be simplified to introduce younger students without any programming knowledge to robotics."
+excerpt: "Brody Riopelle (CE 2024) recently proved that MBots, a University of Michigan educational robotics platform designed for teaching robotics to undergraduate and graduate students, could be simplified to introduce younger students without any programming knowledge to robotics."
 image: 
-  src: "../content/news/2024/images/c4s-3.jpg"
+  src: "images/c4s-3.jpg"
   alt: "A student works on a laptop with Scratch programming as an MBot robot sets off into a maze made of plastic barriers."
 author: "Dan Newman"
+categories: 
+  - "robotics-community"
 tags:
   - "Brody Riopelle"
-excerpt: "Brody Riopelle (CE 2024) recently proved that MBots, a University of Michigan educational robotics platform designed for teaching robotics to undergraduate and graduate students, could be simplified to introduce younger students without any programming knowledge to robotics."
+  - "Scratch"
+  - "MBot"
 ---
 
 <figure>
@@ -30,13 +33,11 @@ By using [Scratch](https://scratch.mit.edu/), a coding language with a simple vi
 
 Riopelle now works as an engineer in the U-M Robotics Department under the guidance of Chad Jenkins, professor of robotics, with support from the Sloan Foundation. He became involved with the Center for Success Network in Pontiac, MI, through his high school teacher, Serge Danielson-Francois. Together, they brainstormed ideas for establishing a robotics camp for underserved students and collaborated with Kendra Pitts, the Community Literacy Program Coordinator at the Center for Success.
 
-<!--more-->
-
 The MBot was key to their plan.
 
 <figure>
 
-![An MBot, a two-wheeled robot, stands ready for instruction while three students work together to program it in the background.](images/c4s-3-300x300.jpg)
+![An MBot, a two-wheeled robot, stands ready for instruction while three students work together to program it in the background.](images/c4s-3.jpg)
 
 <figcaption>
 
@@ -72,7 +73,7 @@ What did the students at the Center for Success think?
 
 <figure>
 
-![A group of students and instructors pose in a group holding MBot robots up while a few wear golden medallions of completion in a classroom.](images/c4s-2-1024x614.jpg)
+![A group of students and instructors pose in a group holding MBot robots up while a few wear golden medallions of completion in a classroom.](images/c4s-2.jpg)
 
 <figcaption>
 

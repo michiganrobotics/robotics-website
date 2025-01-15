@@ -11,7 +11,7 @@ For more information on preparing your robotics graduate application, see instru
 
 [Lab site](https://patricialvesoliveira.com/)
 
-> I’m looking for a candidate who can communicate who they are, what they have achieved, and where they see themselves in the future. Even if they do not align with what the applicant writes, this reveals how they think and can drive my interest. I look for candidates who go beyond buzzwords and research hypes and instead reveal insight. The candidate should be able to describe projects they led or were a central part of, detail how their role in the project contributed to its fruition, and describe challenges they faced and how they overcame them (or explain why they didn’t). My lab is focused on human-robot interaction - the word “interaction” is key and I try to understand who the applicant is and how they can complement my lab at a research and human levels.
+> I’m looking for a candidate who can communicate who they are, what they have achieved, and where they see themselves in the! future. Even if they do not align with what the applicant writes, this reveals how they think and can drive my interest. I look for candidates who go beyond buzzwords and research hypes and instead reveal insight. The candidate should be able to describe projects they led or were a central part of, detail how their role in the project contributed to its fruition, and describe challenges they faced and how they overcame them (or explain why they didn’t). My lab is focused on human-robot interaction - the word “interaction” is key and I try to understand who the applicant is and how they can complement my lab at a research and human levels.
 
 ## **Steven Ceron**
 

@@ -18,8 +18,8 @@ const eventsData = await eventsQuery();
             <Image 
               src={event.styled_images.event_feature_large}
               alt={event.image_description || "Event image"}
-              width={552}
-              height={192}
+              width={Math.floor(1152 / Math.min(eventsData.slice(0,4).length, 3))}
+              height={368}
               class="w-full h-48 object-cover"
               loading="lazy"
               format="webp"
