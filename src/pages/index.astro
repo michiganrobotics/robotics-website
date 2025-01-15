@@ -20,7 +20,7 @@ const recentPosts = allPosts
 const eventsData = await eventsQuery();
 const recentEvents = eventsData.slice(0, 3);
 
-Astro.response.headers.set('Cache-Control','max-age=600, must-revalidate');
+Astro.response.headers.set('Cache-Control', 'public, max-age=86400, must-revalidate');
 
 ---
 

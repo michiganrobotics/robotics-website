@@ -20,6 +20,23 @@ export async function getStaticPaths() {
 
 export const GET: APIRoute = async function get({ params, props }) {
   try {
+    // Add far-future cache headers
+    const cacheHeaders = {
+      "Content-Type": "image/png",
+      "Cache-Control": "public, max-age=31536000, immutable",
+      "CDN-Cache-Control": "public, max-age=31536000, immutable",
+      "Surrogate-Control": "public, max-age=31536000, immutable"
+    };
+
+    // Check if image exists in _generated-og directory
+    const ogImagePath = `./public/_generated-og/${params.year}-${params.slug}.png`;
+    try {
+      const existingImage = await fs.readFile(ogImagePath);
+      return new Response(existingImage, { headers: cacheHeaders });
+    } catch (e) {
+      // Image doesn't exist yet, generate it
+    }
+
     const bgImage = typeof props.data?.image === 'object' 
       ? props.data.image.src 
       : props.data?.image || 'social/og-default.jpg';
@@ -143,12 +160,11 @@ export const GET: APIRoute = async function get({ params, props }) {
       .png()
       .toBuffer();
 
-    return new Response(png, {
-      headers: {
-        "Content-Type": "image/png",
-        "Cache-Control": "public, max-age=31536000",
-      },
-    });
+    // Save the generated image for future use
+    await fs.mkdir('./public/_generated-og', { recursive: true });
+    await fs.writeFile(ogImagePath, png);
+
+    return new Response(png, { headers: cacheHeaders });
   } catch (error) {
     return new Response('Error generating image', { status: 500 });
   }
