@@ -5,18 +5,7 @@ import { YouTube } from '@astro-community/astro-embed-youtube';
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import PageTitle from "../../components/PageTitle.astro";
 import { Image } from "astro:assets";
-import artificialIntelligenceImage from "../../images/focus-areas/artificial-intelligence.jpg";
-import autonomousVehiclesImage from "../../images/focus-areas/autonomous-vehicles.jpg";
-import hriImage from "../../images/focus-areas/human-robot.jpg";
-import leggedRoboticsImage from "../../images/focus-areas/legged-robots.jpg";
-import manufacturingRoboticsImage from "../../images/focus-areas/manufacturing.jpg";
-import medicalRoboticsImage from "../../images/focus-areas/rehabilitation.jpg";
-import perceptionImage from "../../images/focus-areas/perception-manipulation.jpg";
-import teamsAndSwarmsImage from "../../images/focus-areas/teams-swarms.jpg";
-import safeAutonomyImage from "../../images/focus-areas/safe-autonomy.jpg";
-import slamImage from "../../images/focus-areas/slam.jpg";
-import deepLearningImage from "../../images/focus-areas/deep-learning.jpg";
-import motionPlanningImage from "../../images/focus-areas/motion-planning.jpg";
+import { getCollection } from 'astro:content';
 import { getFacultyData } from "../../lib/googleSheets";
 const facultyMembers = await getFacultyData();
 const facultyPhotoLookup = Object.fromEntries(
@@ -66,6 +55,8 @@ const formatMember = (member) => {
 
 const committeeText = `The Robotics Department is led by the Executive Committee: ${excom.map(formatMember).join("; ")}.`;
 
+// Get focus areas collection
+const focusAreas = await getCollection('focusAreas');
 
 ---
 
@@ -144,150 +135,20 @@ const committeeText = `The Robotics Department is led by the Executive Committee
         </a>
       </h2>
       <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
-        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-shadow hover:scale-105">
-          <a href="/research/focus-areas/artificial-intelligence" class="block p-2">
-            <Image
-              src={artificialIntelligenceImage}
-              alt="Artificial Intelligence research"
-              class="w-full h-24 object-cover rounded-t-lg mb-2"
-              width={200}
-              height={150}
-            />
-            <span class="text-sm font-medium">Artificial intelligence</span>
-          </a>
-        </div>
-        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-shadow hover:scale-105">
-          <a href="/research/focus-areas/autonomous-vehicles-and-systems" class="block p-2">
-            <Image
-              src={autonomousVehiclesImage} 
-              alt="Autonomous Vehicles research"
-              class="w-full h-24 object-cover rounded-t-lg mb-2"
-              width={200}
-              height={150}
-            />
-            <span class="text-sm font-medium">Autonomous vehicles</span>
-          </a>
-        </div>
-        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-shadow hover:scale-105">
-          <a href="/research/focus-areas/deep-learning" class="block p-2">
-            <Image
-              src={deepLearningImage}
-              alt="Deep Learning research"
-              class="w-full h-24 object-cover rounded-t-lg mb-2"
-              width={200}
-              height={150}
-            />
-            <span class="text-sm font-medium">Deep learning</span>
-          </a>
-        </div>
-        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-shadow hover:scale-105">
-          <a href="/research/focus-areas/human-robot-interaction" class="block p-2">
-            <Image
-              src={hriImage}
-              alt="Human-Robot Interaction research" 
-              class="w-full h-24 object-cover rounded-t-lg mb-2"
-              width={200}
-              height={150}
-            />
-            <span class="text-sm font-medium">Human-robot interaction</span>
-          </a>
-        </div>
-        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-shadow hover:scale-105">
-          <a href="/research/focus-areas/legged-robotics" class="block p-2">
-            <Image
-              src={leggedRoboticsImage}
-              alt="Legged Robotics research"
-              class="w-full h-24 object-cover rounded-t-lg mb-2"
-              width={200}
-              height={150}
-            />
-            <span class="text-sm font-medium">Legged robotics</span>
-          </a>
-        </div>
-        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-shadow hover:scale-105">
-          <a href="/research/focus-areas/manufacturing-robotics" class="block p-2">
-            <Image
-              src={manufacturingRoboticsImage}
-              alt="Manufacturing Robotics research"
-              class="w-full h-24 object-cover rounded-t-lg mb-2"
-              width={200}
-              height={150}
-            />
-            <span class="text-sm font-medium">Manufacturing robotics</span>
-          </a>
-        </div>
-        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-shadow hover:scale-105">
-          <a href="/research/focus-areas/motion-planning" class="block p-2">
-            <Image
-              src={motionPlanningImage}
-              alt="Motion Planning research"
-              class="w-full h-24 object-cover rounded-t-lg mb-2"
-              width={200}
-              height={150}
-            />
-            <span class="text-sm font-medium">Motion planning</span>
-          </a>
-        </div>
-        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-shadow hover:scale-105">
-          <a href="/research/focus-areas/rehabilitation-and-medical-robotics" class="block p-2">
-            <Image
-              src={medicalRoboticsImage}
-              alt="Rehabilitation and Medical Robotics research"
-              class="w-full h-24 object-cover rounded-t-lg mb-2"
-              width={200}
-              height={150}
-            />
-            <span class="text-sm font-medium">Medical robotics</span>
-          </a>
-        </div>
-        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-shadow hover:scale-105">
-          <a href="/research/focus-areas/perception-and-manipulation" class="block p-2">
-            <Image
-              src={perceptionImage}
-              alt="Perception and Manipulation research"
-              class="w-full h-24 object-cover rounded-t-lg mb-2"
-              width={200}
-              height={150}
-            />
-            <span class="text-sm font-medium">Perception & manipulation</span>
-          </a>
-        </div>
-        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-shadow hover:scale-105">
-          <a href="/research/focus-areas/teams-and-swarms" class="block p-2">
-            <Image
-              src={safeAutonomyImage}
-              alt="Safe autonomy research"
-              class="w-full h-24 object-cover rounded-t-lg mb-2"
-              width={200}
-              height={150}
-            />
-            <span class="text-sm font-medium">Safe autonomy</span>
-          </a>
-        </div>
-        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-shadow hover:scale-105">
-          <a href="/research/focus-areas/teams-and-swarms" class="block p-2">
-            <Image
-              src={slamImage}
-              alt="SLAM research"
-              class="w-full h-24 object-cover rounded-t-lg mb-2"
-              width={200}
-              height={150}
-            />
-            <span class="text-sm font-medium">SLAM</span>
-          </a>
-        </div>
-        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-shadow hover:scale-105">
-          <a href="/research/focus-areas/teams-and-swarms" class="block p-2">
-            <Image
-              src={teamsAndSwarmsImage}
-              alt="Teams and Swarms research"
-              class="w-full h-24 object-cover rounded-t-lg mb-2"
-              width={200}
-              height={150}
-            />
-            <span class="text-sm font-medium">Teams & swarms</span>
-          </a>
-        </div>
+        {focusAreas.map((area) => (
+          <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-shadow hover:scale-105">
+            <a href={`/research/focus-areas/${area.id}`} class="block p-2">
+              <Image
+                src={area.data.images[0].src}
+                alt={`${area.data.title} research`}
+                class="w-full h-24 object-cover rounded-t-lg mb-2"
+                width={200}
+                height={150}
+              />
+              <span class="text-sm font-medium">{area.data.title}</span>
+            </a>
+          </div>
+        ))}
       </div>
     </section>
 

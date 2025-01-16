@@ -52,7 +52,7 @@ Astro.response.headers.set('Cache-Control', 'public, max-age=86400, must-revalid
 							<Link href={`/news/${new Date(post.data.date).getFullYear()}/${post.id.split('/')[1].replace(/\.mdx?$/, '')}`} 
 								class="group bg-white dark:bg-gray-800 shadow-md rounded-sm overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-[1.02] md:flex-1 max-w-md">
 								{postImage ? (
-									<img 
+									<Image 
 										src={postImage.src}
 										alt={post.data.image?.alt || post.data.title}
 										width={450}

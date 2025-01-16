@@ -4,7 +4,7 @@ import { Image } from 'astro:assets';
 const { staff } = Astro.props;
 import { getCollection } from 'astro:content';
 import ContentImage from '../components/ContentImage.astro';
-import { getImage } from 'astro:assets';
+import { Image, getImage } from 'astro:assets';
 import Link from '../components/Link.astro';
 
 // Fetch all news posts with tag of staff member's full name
@@ -88,7 +88,7 @@ const relatedPosts = allNamedPosts
                   class="group">
                   <div class="relative aspect-video overflow-hidden rounded-sm shadow-lg not-prose">
                     {postImage ? (
-                      <img 
+                      <Image 
                         src={postImage.src}
                         alt={post.data.image?.alt || post.data.title}
                         width={450}

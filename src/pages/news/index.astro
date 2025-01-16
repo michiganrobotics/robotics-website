@@ -85,6 +85,11 @@ Object.entries(postsByCategory).forEach(([category, posts]) => {
 selectedOlderPosts.sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
 selectedOlderPosts = selectedOlderPosts.slice(0, 7);
 
+const focusAreas = await getCollection('focusAreas');
+const categoryTitles = Object.fromEntries(
+  focusAreas.map(area => [area.id, area.data.title.toLowerCase()])
+);
+
 const collegeNewsItems = await collegeNewsQuery();
 
 ---
@@ -108,7 +113,7 @@ const collegeNewsItems = await collegeNewsQuery();
             <Link href={`/news/${new Date(post.data.date).getFullYear()}/${post.id.split('/')[1]}`} 
                class={`group block bg-white dark:bg-gray-800 shadow-md rounded-sm overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-[1.02] ${index === 0 ? 'md:col-span-2' : ''}`}>
                 {postImage ? (
-                  <img 
+                  <Image 
                     src={postImage.src}
                     alt={post.data.image?.alt || post.data.title}
                     width={index === 0 ? 760 : 368}
@@ -188,43 +193,47 @@ const collegeNewsItems = await collegeNewsQuery();
           return (
             <Link href={`/news/${new Date(post.data.date).getFullYear()}/${post.id.split('/')[1]}`} 
                class="group bg-white dark:bg-gray-800 shadow-md rounded-sm overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-[1.02] flex flex-col">
-                {postImage ? (
-                  <img 
-                    src={postImage.src}
-                    alt={post.data.image?.alt || post.data.title}
-                    width={540}
-                    height={360}
-                    class="w-full h-48 object-cover hidden sm:block"
-                  />
-                ) : null}
-              <div class="p-4 flex-grow flex flex-col justify-between">
-                <div>
-                  <span class="inline-block text-xs font-medium mr-2 px-2.5 py-0.5 rounded-sm bg-arboretumBlue text-white mb-2">
-                    {(post.data.categories?.[0] || 'Robotics').replace(/-/g, ' ')}
+                <div class="relative">
+                  <span class="absolute top-2 left-0 text-xs font-medium px-4 py-1 bg-arboretumBlue text-white shadow-md z-10">
+                    {categoryTitles[post.data.categories?.[0]] || 'robotics community'}
                   </span>
-                  <h2 class="text-lg leading-tight font-roboto font-bold text-umichblue dark:text-gray-100 mb-2 border-b-2 border-transparent group-hover:border-maize transition-all duration-300">{post.data.title}</h2>
-                  <p class="text-sm italic font-sans text-gray-600 dark:text-gray-400">
-                    {new Date(post.data.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
-                  </p>
+                  {postImage ? (
+                    <Image 
+                      src={postImage.src}
+                      alt={post.data.image?.alt || post.data.title}
+                      width={540}
+                      height={360}
+                      class="w-full h-48 object-cover hidden sm:block"
+                    />
+                  ) : null}
                 </div>
-              </div>
+                <div class="p-4 flex-grow flex flex-col justify-between">
+                  <div>
+                    <h2 class="text-lg leading-tight font-roboto font-bold text-umichblue dark:text-gray-100 mb-2 border-b-2 border-transparent group-hover:border-maize transition-all duration-300">{post.data.title}</h2>
+                    <p class="text-sm italic font-sans text-gray-600 dark:text-gray-400">
+                      {new Date(post.data.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+                    </p>
+                  </div>
+                </div>
             </Link>
           );
         })}
         
         <a href="https://umrobotics.substack.com" class="group bg-white dark:bg-gray-800 shadow-md rounded-sm overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-[1.02] flex flex-col">
-          <Image
-            src={substackImage}
-            alt="Michigan Robotics Newsletter"
-            width={540}
-            height={360}
-            class="w-full h-48 object-cover hidden sm:block"
-          />
+          <div class="relative">
+            <span class="absolute top-2 left-0 text-xs font-medium px-4 py-1 bg-arboretumBlue text-white shadow-md z-10">
+              substack newsletter
+            </span>
+            <Image
+              src={substackImage}
+              alt="Michigan Robotics Newsletter"
+              width={540}
+              height={360}
+              class="w-full h-48 object-cover hidden sm:block"
+            />
+          </div>
           <div class="p-4 flex-grow flex flex-col justify-between">
             <div>
-              <span class="inline-block text-xs font-medium mr-2 px-2.5 py-0.5 rounded-sm bg-arboretumBlue text-white mb-2">
-                substack newsletter
-              </span>
               <h2 class="text-lg leading-tight font-roboto font-bold text-umichblue dark:text-gray-100 mb-2 border-b-2 border-transparent group-hover:border-maize transition-all duration-300">
                 Michigan Robotics Newsletter
                 <Icon name="mdi:open-in-new" class="inline w-4 h-4 ml-1" />
@@ -246,26 +255,28 @@ const collegeNewsItems = await collegeNewsQuery();
           return (
             <Link href={`/news/${new Date(post.data.date).getFullYear()}/${post.id.split('/')[1]}`} 
                class="group bg-white dark:bg-gray-800 shadow-md rounded-sm overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-[1.02] flex flex-col">
-                {postImage ? (
-                  <img 
-                    src={postImage.src}
-                    alt={post.data.image?.alt || post.data.title}
-                    width={540}
-                    height={360}
-                    class="w-full h-48 object-cover hidden sm:block"
-                  />
-                ) : null}
-              <div class="p-4 flex-grow flex flex-col justify-between">
-                <div>
-                  <span class="inline-block text-xs font-medium mr-2 px-2.5 py-0.5 rounded-sm bg-arboretumBlue text-white mb-2">
-                    {(post.data.categories?.[0] || 'Robotics').replace(/-/g, ' ')}
+                <div class="relative">
+                  <span class="absolute top-2 left-0 text-xs font-medium px-4 py-1 bg-arboretumBlue text-white shadow-md z-10">
+                    {categoryTitles[post.data.categories?.[0]] || 'robotics community'}
                   </span>
-                  <h2 class="text-lg leading-tight font-roboto font-bold text-umichblue dark:text-gray-100 mb-2 border-b-2 border-transparent group-hover:border-maize transition-all duration-300">{post.data.title}</h2>
-                  <p class="text-sm italic font-sans text-gray-600 dark:text-gray-400">
-                    {new Date(post.data.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
-                  </p>
+                  {postImage ? (
+                    <Image 
+                      src={postImage.src}
+                      alt={post.data.image?.alt || post.data.title}
+                      width={540}
+                      height={360}
+                      class="w-full h-48 object-cover hidden sm:block"
+                    />
+                  ) : null}
                 </div>
-              </div>
+                <div class="p-4 flex-grow flex flex-col justify-between">
+                  <div>
+                    <h2 class="text-lg leading-tight font-roboto font-bold text-umichblue dark:text-gray-100 mb-2 border-b-2 border-transparent group-hover:border-maize transition-all duration-300">{post.data.title}</h2>
+                    <p class="text-sm italic font-sans text-gray-600 dark:text-gray-400">
+                      {new Date(post.data.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+                    </p>
+                  </div>
+                </div>
             </Link>
           );
         })}
