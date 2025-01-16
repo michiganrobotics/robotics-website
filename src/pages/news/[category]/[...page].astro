@@ -1,0 +1,123 @@
+---
+import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
+import Layout from '../../../layouts/MainLayout.astro';
+import Link from '../../../components/Link.astro';
+import { Icon } from 'astro-icon/components';
+import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import PageTitle from '../../../components/PageTitle.astro';
+
+interface GetStaticPathsParams {
+  paginate: (items: any[], opts: { params: Record<string, string>, pageSize: number, props?: Record<string, any> }) => any[];
+}
+
+export async function getStaticPaths({ paginate }: GetStaticPathsParams) {
+  const allNews = await getCollection('news');
+  
+  // Get unique categories from all news posts
+  const categories = [...new Set(
+    allNews.flatMap(post => post.data.categories)
+  )];
+  
+  // Create paths for each category
+  return categories.map(category => {
+    const categoryPosts = allNews.filter(post => 
+      post.data.categories.includes(category)
+    ).sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
+
+    return paginate(categoryPosts, {
+      params: { category },
+      pageSize: 12,
+      props: { category }
+    });
+  }).flat();
+}
+
+const { page, category } = Astro.props;
+const { data: posts, currentPage, lastPage, url } = page;
+
+// Create a friendly category name
+const focusAreas = await getCollection('focusAreas');
+const categoryTitles = Object.fromEntries(
+  focusAreas.map(area => [area.id, area.data.title])
+);
+
+const categoryName = category === 'robotics-community' ? 'Robotics Community' : (categoryTitles[category] || category.replace(/-/g, ' '));
+
+function formatDate(dateString: string): string {
+  return new Date(dateString).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  });
+}
+---
+
+<Layout title={`${categoryName} News - Michigan Robotics`}>
+  <Breadcrumbs />
+  <PageTitle title={`News from ${categoryName}`} />
+
+  <div class="max-w-6xl w-11/12 mx-auto mt-8">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      {posts.map((post: any) => (
+        <Link 
+          href={`/news/${new Date(post.data.date).getFullYear()}/${post.id.split('/')[1]}`}
+          class="group bg-white dark:bg-gray-800 shadow-md rounded-sm overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-[1.02] flex flex-col"
+        >
+          {post.data.image?.src && (
+            <Image 
+              src={post.data.image.src}
+              alt={post.data.image?.alt || post.data.title}
+              width={540}
+              height={360}
+              class="w-full h-48 object-cover"
+            />
+          )}
+          <div class="p-4 flex-grow flex flex-col justify-between">
+            <div>
+              <h2 class="text-lg leading-tight font-roboto font-bold text-umichblue dark:text-gray-100 mb-2 border-b-2 border-transparent group-hover:border-maize transition-all duration-300">
+                {post.data.title}
+              </h2>
+              <p class="text-sm italic font-sans text-gray-600 dark:text-gray-400">
+                {formatDate(post.data.date)}
+              </p>
+              {post.data.excerpt && (
+                <p class="text-gray-600 dark:text-gray-200 mt-2 text-sm">
+                  {post.data.excerpt}
+                </p>
+              )}
+            </div>
+          </div>
+        </Link>
+      ))}
+    </div>
+
+    {lastPage > 1 && (
+      <div class="flex justify-center items-center gap-4 mt-12 mb-8">
+        {currentPage > 1 && (
+          <Link
+            href={url.prev}
+            class="px-4 py-2 bg-white dark:bg-gray-800 shadow-md rounded-sm hover:shadow-lg transition-all duration-300"
+          >
+            <Icon name="mdi:chevron-left" class="inline w-5 h-5 mr-1" />
+            Previous
+          </Link>
+        )}
+        
+        <span class="text-gray-600 dark:text-gray-400">
+          Page {currentPage} of {lastPage}
+        </span>
+        
+        {currentPage < lastPage && (
+          <Link
+            href={url.next}
+            class="px-4 py-2 bg-white dark:bg-gray-800 shadow-md rounded-sm hover:shadow-lg transition-all duration-300"
+          >
+            Next
+            <Icon name="mdi:chevron-right" class="inline w-5 h-5 ml-1" />
+          </Link>
+        )}
+      </div>
+    )}
+  </div>
+</Layout> 

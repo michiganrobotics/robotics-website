@@ -69,9 +69,10 @@ const relatedPosts = allAreaPosts
                 }) : null;
 
                 return (
-                  <Link href={`/news/${new Date(post.data.date).getFullYear()}/${post.id.split('/')[1]}`} 
-                    class="group no-underline">
-                    <div class="relative aspect-video overflow-hidden rounded-sm shadow-lg">
+                  <div class="group bg-white dark:bg-gray-900 rounded-sm overflow-hidden shadow-lg">
+                    <Link href={`/news/${new Date(post.data.date).getFullYear()}/${post.id.split('/')[1]}`} 
+                      class="group no-underline">
+                      <div class="relative aspect-video overflow-hidden rounded-sm shadow-lg not-prose">
                       {postImage ? (
                         <img 
                           src={postImage.src}
@@ -86,8 +87,9 @@ const relatedPosts = allAreaPosts
                       <h3 class="not-prose text-lg font-medium group-hover:decoration-maize group-hover:decoration-2 group-hover:underline">
                         {post.data.title}
                       </h3>
-                    </div>
-                  </Link>
+                      </div>
+                    </Link>
+                  </div>
                 );
               })}
             </div>

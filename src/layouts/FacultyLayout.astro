@@ -105,9 +105,10 @@ const relatedPosts = allNamedPosts
               }) : null;
 
               return (
+              <div class="group bg-white dark:bg-gray-900 rounded-sm overflow-hidden shadow-lg">
                 <Link href={`/news/${new Date(post.data.date).getFullYear()}/${post.id.split('/')[1]}`} 
                   class="group">
-                  <div class="relative aspect-video overflow-hidden rounded-sm shadow-lg">
+                  <div class="relative aspect-video overflow-hidden rounded-sm shadow-lg not-prose">
                     {postImage ? (
                       <img 
                         src={postImage.src}
@@ -124,6 +125,7 @@ const relatedPosts = allNamedPosts
                     </h3>
                   </div>
                 </Link>
+                </div>
               );
             })}
           </div>
