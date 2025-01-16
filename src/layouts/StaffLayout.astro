@@ -83,7 +83,7 @@ const relatedPosts = allNamedPosts
               }) : null;
 
               return (
-                <Link href={`${import.meta.env.BASE_URL}/news/${new Date(post.data.date).getFullYear()}/${post.id.split('/')[1]}`} 
+                <Link href={`/news/${new Date(post.data.date).getFullYear()}/${post.id.split('/')[1]}`} 
                   class="group">
                   <div class="relative aspect-video overflow-hidden rounded-sm shadow-lg">
                     {postImage ? (
