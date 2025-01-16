@@ -24,9 +24,12 @@ const news = defineCollection({
     seoDescription: z.string().optional(),
     excerpt: z.string().optional(),
     image: z.object({
-      src: image(),
-      alt: z.string(),
-    }).optional(),
+      src: image().default("/public/social/og-default.jpg"),
+      alt: z.string().default("University of Michigan Robotics"),
+    }).optional().default({
+      src: "/public/social/og-default.jpg",
+      alt: "University of Michigan Robotics"
+    }),
     categories: z.array(z.enum([
       'artificial-intelligence',
       'autonomous-vehicles',
