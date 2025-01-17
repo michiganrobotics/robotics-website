@@ -135,6 +135,21 @@ interface AffiliateFaculty {
   website: string;
 }
 
+interface Student {
+  preferredFullName: string;
+  lastName: string;
+  degree: 'PhD' | 'MS' | 'BS';
+  researchGroup: string;
+  advisors: string;
+  researchInterests: string;
+  email: string;
+  website?: string;
+  googleScholar?: string;
+  github?: string;
+  jobSeekingStatus?: 'not currently seeking' | 'seeking internship' | 'seeking employment';
+  linkedin?: string;
+}
+
 function createSlug(name: string): string {
   return name
     .toLowerCase()
@@ -318,5 +333,25 @@ export const getAffiliateFacultyData = cached(async (): Promise<AffiliateFaculty
     researchInterests: row.get('researchInterests'),
     googleScholar: row.get('googleScholar'),
     website: row.get('website'),
+  }));
+});
+
+export const getStudentData = cached(async (): Promise<Student[]> => {
+  await doc.loadInfo();
+  const sheet = doc.sheetsByTitle['Students'];
+  const rows = await sheet.getRows();
+  return rows.map(row => ({
+    preferredFullName: row.get('preferredFullName'),
+    lastName: row.get('lastName'),
+    degree: row.get('degree'),
+    researchGroup: row.get('researchGroup'),
+    advisors: row.get('advisors'),
+    researchInterests: row.get('researchInterests'),
+    email: row.get('email'),
+    website: row.get('website'),
+    googleScholar: row.get('googleScholar'),
+    github: row.get('github'),
+    seekingStatus: row.get('seekingStatus'),
+    linkedin: row.get('linkedin'),
   }));
 });

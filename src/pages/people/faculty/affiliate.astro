@@ -16,31 +16,40 @@ facultyMembers.sort((a, b) => a.lastName.localeCompare(b.lastName));
     <div class="prose dark:prose-invert mt-4 mb-4 max-w-6xl w-11/12 mx-auto">
       <p>The Robotics Department is fortunate to have a strong network of affiliate faculty members who contribute to our research and educational programs. These individuals are experts in various fields related to robotics and are dedicated to advancing the field through collaboration and mentorship.</p>
 
-      <div class="not-prose grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 px-2">
+      <div class="not-prose mb-6">
+        <input 
+          type="text" 
+          id="facultySearch" 
+          placeholder="Search by name, department, or research interests..." 
+          class="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-arboretumBlue dark:focus:ring-taubmanTeal focus:border-transparent"
+        >
+      </div>
+
+      <div id="facultyGrid" class="not-prose grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 px-2">
         {facultyMembers.map((faculty) => (
-          <div class="bg-white dark:bg-gray-800 p-6 rounded-sm shadow-md">
+          <div class="faculty-card bg-white dark:bg-gray-800 p-6 rounded-sm shadow-md">
             <div class="flex flex-col md:flex-row justify-between">
               <div class="flex-1">
                 <h2 class="text-xl font-bold text-gray-900 dark:text-white">
                   {faculty.preferredName} {faculty.lastName}
                 </h2>
 
-                <p class="text-arboretumBlue dark:text-taubmanTeal text-sm mt-1">
+                <p class="text-arboretumBlue dark:text-taubmanTeal text-sm mt-1 faculty-department">
                   {faculty.department1}{faculty.department2 && ` and ${faculty.department2}`}
                 </p>
-                <p class="text-gray-600 dark:text-gray-300 text-sm mt-2 italic">
+                <p class="text-gray-600 dark:text-gray-300 text-sm mt-2 italic faculty-affiliation">
                   {faculty.affiliation}
                 </p>
                 
-                {/* Expandable Research Interests */}
-             {/* <details class="mt-4">
+                      {/* Expandable Research Interests */}
+              <details class="mt-4">
                   <summary class="text-sm font-medium cursor-pointer hover:text-arboretumBlue dark:hover:text-taubmanTeal">
                     Research Interests
                   </summary>
-                  <p class="mt-2 text-sm text-gray-600 dark:text-gray-300 pl-4">
+                  <p class="faculty-search-data mt-2 text-sm text-gray-600 dark:text-gray-300 pl-4">
                     {faculty.researchInterests}
                   </p>
-                </details> */}
+                </details>
               </div> 
 
               <div class="flex flex-row items-start md:items-center gap-4 mt-4 md:mt-0">
@@ -72,5 +81,29 @@ facultyMembers.sort((a, b) => a.lastName.localeCompare(b.lastName));
         ))}
       </div>
     </div>
-  </div>
+  </main>
 </Layout>
+
+<script>
+  const searchInput = document.getElementById('facultySearch') as HTMLInputElement;
+  const facultyCards = document.querySelectorAll('.faculty-card');
+
+  searchInput.addEventListener('input', (e) => {
+    const searchTerm = (e.target as HTMLInputElement).value.toLowerCase();
+
+    facultyCards.forEach((card) => {
+      const name = card.querySelector('h2')?.textContent?.toLowerCase() || '';
+      const department = card.querySelector('.faculty-department')?.textContent?.toLowerCase() || '';
+      const affiliation = card.querySelector('.faculty-affiliation')?.textContent?.toLowerCase() || '';
+      const searchData = card.querySelector('.faculty-search-data')?.textContent?.toLowerCase() || '';
+
+      const matches = 
+        name.includes(searchTerm) || 
+        department.includes(searchTerm) || 
+        affiliation.includes(searchTerm) ||
+        searchData.includes(searchTerm);
+
+      card.style.display = matches ? '' : 'none';
+    });
+  });
+</script>

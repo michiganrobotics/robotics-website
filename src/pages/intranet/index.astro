@@ -1,0 +1,304 @@
+---
+import MainLayout from '../../layouts/MainLayout.astro';
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import PageTitle from "../../components/PageTitle.astro";
+import { Icon } from "astro-icon/components";
+
+const sections = {
+  building: {
+    title: "Building",
+    links: [
+      {
+        text: "General building map",
+        url: "https://www.dropbox.com/scl/fi/f4qgl5o2bu8eaw04iu2od/building-map-general-2024.pdf"
+      },
+      {
+        text: "Wiki",
+        url: "https://docs.google.com/document/d/1uULvy324XQPQb2adQmx-FWBln96syexD-_mzzv79jUY/"
+      },
+      {
+        text: "Building maintenance request",
+        description: "Email: coe-facilities-help@umich.edu"
+      },
+      {
+        text: "Room reservations",
+        url: "https://deptapps.engin.umich.edu/scheduling/?dept=210308"
+      },
+      {
+        text: "Atrium reservation form",
+        url: "https://docs.google.com/forms/d/e/1FAIpQLSejyppTUR70QxGRJj6_jcBlO_vNx3acMdVOx2wp9by07H-5iw/viewform"
+      },
+      {
+        text: "Small Event Catering",
+        url: "https://docs.google.com/forms/d/e/1FAIpQLSfcwfumOVzzmKIk3A_as2NZ7thu551SB_wY_rtLELkXzgBEhg/viewform"
+      },
+      {
+        text: "Space request",
+        url: "https://docs.google.com/forms/d/e/1FAIpQLSepuzlb7IQchnzKGWL_SNCFb1a9uAcOIgFeKvYJ-JWWIB8Mxg/viewform"
+      },
+      {
+        text: "Deliveries and packages",
+        url: "https://docs.google.com/document/d/11AI8aUeWoeGzSsJmfPbPF9nMifhDxKeAh-wkjNwIrvw/"
+      }
+    ]
+  },
+  it: {
+    title: "IT Resources",
+    links: [
+      {
+        text: "Connect to wired network",
+        url: "https://docs.google.com/document/d/1zKgSzZWGI2Hw7g4Ds7D7k5g4urPYUjuP2ONT34mbnQo/"
+      },
+      {
+        text: "Phone manual",
+        url: "https://www.cisco.com/c/en/us/td/docs/voice_ip_comm/cuipph/8800-series/english/user-guide/P881_BK_C3A802A0_00_cisco-ip-phone-8800-user_guide/P881_BK_C3A802A0_00_cisco-ip-phone-8800-user_guide_chapter_01.html"
+      },
+      {
+        text: "Printing setup",
+        url: "https://docs.google.com/document/d/1aC8tJQZMqGxVHorQL4HOvWmkz0dn-MNH83NJT-kCCUg/"
+      },
+      {
+        text: "Fax how-to",
+        url: "https://docs.google.com/document/d/1lWsIEGx_R8wJoJch05eYKGqRMGDaYGZFGT7eDPkSLyI/"
+      },
+      {
+        text: "Display setup",
+        url: "https://docs.google.com/document/d/120ce_nKzH82Cjh9QZIYXLDCwSZ5CqanlP1foTaYE7mg/"
+      },
+      {
+        text: "IT Help / Create a ticket",
+        description: "Contact David Parkin: IT-Help-Robotics@umich.edu"
+      }
+    ]
+  },
+  department: {
+    title: "Department",
+    links: [
+      {
+        text: "Bylaws",
+        url: "https://docs.google.com/document/d/1DKFJ1trOrYDGgjL1K8IVTPk56UVukzzbmHf9j0Z8d6E/"
+      },
+      {
+        text: "Purchasing",
+        url: "https://deptapps.engin.umich.edu/order/index/newform?dept=210308"
+      },
+      {
+        text: "Purchasing instructions",
+        url: "https://docs.google.com/document/d/1wDdRHeSoE3shV4FTMwPzKv4n3F8vf1YK/"
+      },
+      {
+        text: "Travel guidelines & reimbursement",
+        url: "https://docs.google.com/document/d/1bSWnEMF9uvNNSRkaCThgoCZ0osYIwZDmTaWWESZmBac/"
+      },
+      {
+        text: "Faculty search system",
+        url: "https://deptapps.engin.umich.edu/facultysearch/committee?dept=210308"
+      },
+      {
+        text: "Calendar",
+        url: "https://calendar.google.com/calendar/u/0?cid=dW1pY2guZWR1XzE1YWkzcTRrc3NvZXR2M29mZGJmZG42NHA4QGdyb3VwLmNhbGVuZGFyLmdvb2dsZS5jb20"
+      },
+      {
+        text: "Mcommunity email lists",
+        url: "https://docs.google.com/document/d/1aWUJKjZv0nMOTuV9-pDmqn0tC5hQcntMO3j-TbEAUWQ/"
+      },
+      {
+        text: "Robotics Institute Task Force",
+        url: "https://sites.google.com/umich.edu/robotics-institute-task-force/home"
+      }
+    ]
+  },
+  academics: {
+    title: "Academics",
+    links: [
+      {
+        text: "Graduate Program guide",
+        url: "https://docs.google.com/document/d/e/2PACX-1vTCjWRdEl4wM_n4oIU875yAzzG_4tBdmqnJcj4gNntgyG3Q5LY0qw_J_ei5nqmMEi1ljJpfvLbGCzdJ/pub"
+      },
+      {
+        text: "Undergraduate Program guide",
+        url: "http://robotics.umich.edu/undergrad-guide"
+      }
+    ]
+  },
+  outreach: {
+    title: "Outreach",
+    links: [
+      {
+        text: "Outreach opportunities",
+        url: "https://docs.google.com/spreadsheets/d/19nhZK_DM6uF_YKqY0mlQarLoiZuDJGgBw6g0dWkxZkg/"
+      },
+      {
+        text: "Outreach Ambassador tracking form 2024-25",
+        url: "https://docs.google.com/forms/d/e/1FAIpQLScCeyhrKtlSWBLor1DH4_sU_4uYzYV7KAovBGjg21VLFpDQZQ/viewform"
+      },
+      {
+        text: "Student funding request form",
+        url: "https://docs.google.com/forms/d/e/1FAIpQLScRMEHaY3C9rI7vcnbFRH4vCD81UHnn6mbvmU1kPSA6Tj1tPw/viewform"
+      }
+    ]
+  },
+  makerspace: {
+    title: "Makerspace",
+    links: [
+      {
+        text: "Tool reservation",
+        url: "https://www.supersaas.com/schedule/WSTPC/FRB_Makerspace_Tool_Calendar"
+      },
+      {
+        text: "3D printing request",
+        url: "https://docs.google.com/forms/d/e/1FAIpQLSecbRId6WVnP8wdAnKEcu0s-GnVLIk4kG8aaqG5kz5xkJgl-Q/viewform"
+      },
+      {
+        text: "Wilson Center Training Sessions",
+        url: "https://teamprojects.engin.umich.edu/home/training/"
+      }
+    ]
+  },
+  mair: {
+    title: "M-Air",
+    links: [
+      {
+        text: "M-Air Google Calendar",
+        url: "https://calendar.google.com/calendar/embed?src=umich.edu_q4p3pqpesecd8tlmlcu5aioplg%40group.calendar.google.com"
+      },
+      {
+        text: "Reservation",
+        description: "Contact: mair-info@umich.edu"
+      }
+    ]
+  }
+};
+
+// Icons for each section
+const sectionIcons = {
+  building: "mdi:office-building",
+  it: "mdi:desktop-classic",
+  department: "mdi:domain",
+  academics: "mdi:school",
+  outreach: "mdi:account-group",
+  makerspace: "mdi:tools",
+  mair: "mdi:drone"
+};
+---
+
+<MainLayout title="Department Intranet">
+  <Breadcrumbs />
+  <PageTitle title="Department Intranet" />
+
+  <div class="max-w-6xl mx-auto py-8">
+    <!-- Search Bar -->
+    <div class="mb-8 not-prose">
+      <div class="relative max-w-full mx-auto">
+        <input 
+          type="text" 
+          id="search" 
+          placeholder="Search resources..." 
+          class="w-full h-10 px-4 py-2 rounded border dark:border-gray-700 
+                 bg-white dark:bg-gray-800 text-gray-900 dark:text-white
+                 focus:outline-none focus:ring-2 focus:ring-umichblue dark:focus:ring-taubmanTeal"
+        >
+      </div>
+    </div>
+
+    <!-- Quick Links -->
+    <div class="mb-8 bg-white dark:bg-gray-800 rounded shadow-md p-6" id="quick-links">
+      <h2 class="text-2xl font-roboto-condensed font-bold text-umichblue dark:text-white mb-4 flex items-center">
+        <Icon name="mdi:star" class="w-6 h-6 text-umichblue dark:text-arboretumBlue mr-2" />
+        Frequently Used
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <a href="https://deptapps.engin.umich.edu/order/index/newform?dept=210308" 
+           class="flex items-center text-arboretumBlue dark:text-taubmanTeal hover:underline hover:text-umichblue dark:hover:text-white">
+          <Icon name="mdi:cart" class="w-4 h-4 mr-2" />
+          Purchase Request
+        </a>
+        <a href="https://deptapps.engin.umich.edu/scheduling/?dept=210308" 
+           class="flex items-center text-arboretumBlue dark:text-taubmanTeal hover:underline hover:text-umichblue dark:hover:text-white">
+          <Icon name="mdi:calendar" class="w-4 h-4 mr-2" />
+          Room Reservations
+        </a>
+        <a href="mailto:IT-Help-Robotics@umich.edu" 
+           class="flex items-center text-arboretumBlue dark:text-taubmanTeal hover:underline hover:text-umichblue dark:hover:text-white">
+          <Icon name="mdi:help" class="w-4 h-4 mr-2" />
+          IT Help
+        </a>
+      </div>
+    </div>
+
+    <!-- Main Resource Grid -->
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {Object.entries(sections).map(([key, section]) => (
+        <div class="bg-white dark:bg-gray-800 rounded shadow-md p-6">
+          <h2 class="text-2xl font-roboto-condensed font-bold text-umichblue dark:text-white mb-4 flex items-center">
+            <Icon name={sectionIcons[key]} class="w-6 h-6 text-umichblue dark:text-arboretumBlue mr-2" />
+            {section.title}
+          </h2>
+          <ul class="space-y-3">
+            {section.links.map(link => (
+              <li class="resource-item">
+                {link.url ? (
+                  <a href={link.url} 
+                     class="text-arboretumBlue dark:text-taubmanTeal hover:underline hover:text-umichblue dark:hover:text-white flex items-center" 
+                     target="_blank">
+                    <Icon name="mdi:arrow-right" class="w-4 h-4 mr-1" />
+                    {link.text}
+                  </a>
+                ) : (
+                  <div>
+                    <div class="font-medium dark:text-white flex items-center">
+                      <Icon name="mdi:information" class="w-4 h-4 mr-1 text-gray-500 dark:text-gray-400" />
+                      {link.text}
+                    </div>
+                    <div class="text-sm text-gray-600 dark:text-gray-400 ml-5">
+                      {link.description.includes('@') ? (
+                        <>
+                          Email: <a href={`mailto:${link.description.split(': ')[1]}`} 
+                            class="text-arboretumBlue dark:text-taubmanTeal hover:underline hover:text-umichblue dark:hover:text-white">
+                            {link.description.split(': ')[1]}
+                          </a>
+                        </>
+                      ) : (
+                        link.description
+                      )}
+                    </div>
+                  </div>
+                )}
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </div>
+</MainLayout>
+
+<script>
+  // Search functionality
+  const searchInput = document.getElementById('search');
+  const resourceItems = document.querySelectorAll('.resource-item');
+  const quickLinksSection = document.getElementById('quick-links');
+
+  searchInput?.addEventListener('input', (e) => {
+    const searchTerm = (e.target as HTMLInputElement).value.toLowerCase();
+    
+    // Hide/show quick links section based on search
+    if (quickLinksSection) {
+      quickLinksSection.style.display = searchTerm ? 'none' : '';
+    }
+    
+    resourceItems.forEach(item => {
+      const text = item.textContent?.toLowerCase() || '';
+      const matches = text.includes(searchTerm);
+      (item as HTMLElement).style.display = matches ? '' : 'none';
+      
+      // Show/hide section cards if they have no visible items
+      const parentCard = item.closest('.bg-white');
+      if (parentCard) {
+        const visibleItems = Array.from(parentCard.querySelectorAll('.resource-item'))
+          .some(item => (item as HTMLElement).style.display !== 'none');
+        (parentCard as HTMLElement).style.display = visibleItems ? '' : 'none';
+      }
+    });
+  });
+</script> 

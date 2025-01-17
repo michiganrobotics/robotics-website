@@ -1,0 +1,166 @@
+---
+import Layout from '../../../layouts/MainLayout.astro';
+import { getStudentData } from '../../../lib/googleSheets';
+import { Icon } from "astro-icon/components";
+import Breadcrumbs from "../../../components/Breadcrumbs.astro";
+import PageTitle from "../../../components/PageTitle.astro";
+
+const students = await getStudentData();
+students.sort((a, b) => a.lastName.localeCompare(b.lastName));
+---
+
+<Layout title="Students">
+  <main>
+    <Breadcrumbs />
+    <PageTitle title="Students" />
+    <div class="prose dark:prose-invert mt-4 mb-4 max-w-6xl w-11/12 mx-auto">
+      <div class="not-prose mb-6 flex flex-wrap gap-4">
+        <input 
+          type="text" 
+          id="studentSearch" 
+          placeholder="Search by name, research interests, or lab..." 
+          class="flex-1 p-2 border border-gray-300 dark:border-gray-600 rounded-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
+        >
+        <select id="degreeFilter" class="p-2 px-4 border border-gray-300 dark:border-gray-600 rounded-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-white">
+          <option value="">All programs</option>
+          <option value="PhD">PhD</option>
+          <option value="MS">Master's</option>
+          <option value="BS">Bachelor's</option>
+        </select>
+        <select id="statusFilter" class="p-2 px-4 border border-gray-300 dark:border-gray-600 rounded-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-white">
+          <option value="">All recruiting statuses</option>
+          <option value="seeking internship">Seeking internship</option>
+          <option value="seeking employment">Seeking employment</option>
+        </select>
+      </div>
+
+      <div id="studentGrid" class="not-prose grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {students.map((student) => (
+          <div class="student-card bg-white dark:bg-gray-800 p-6 rounded-sm shadow-md" 
+               data-degree={student.degree}
+               data-status={student.jobSeekingStatus}>
+            <div class="flex flex-col">
+              <h2 class="text-xl font-bold text-gray-900 dark:text-white">
+                {student.preferredFullName}
+              </h2>
+              
+              <p class="text-arboretumBlue dark:text-taubmanTeal text-sm mt-1">
+                {student.degree} Student
+              </p>
+
+              {student.researchGroup && (
+                <p class="text-gray-600 dark:text-gray-300 text-sm mt-1">
+                  <span class="text-xs uppercase tracking-wider text-gray-500 dark:text-gray-400">Research Group</span><br>
+                  {student.researchGroup}
+                </p>
+              )}
+
+              {student.advisors && (
+                <p class="text-gray-600 dark:text-gray-300 text-sm mt-1">
+                  <span class="text-xs uppercase tracking-wider text-gray-500 dark:text-gray-400">Advisor{student.advisors.includes(',') ? 's' : ''}</span>
+                  <br>
+                  {student.advisors}
+                </p>
+              )}
+
+              {student.researchInterests && (
+                <p class="text-gray-600 dark:text-gray-300 text-sm mt-4">
+                  <span class="text-xs uppercase tracking-wider text-gray-500 dark:text-gray-400">Research Interests</span><br>
+                  {student.researchInterests}
+                </p>
+              )}
+
+              <div class="flex gap-3 mt-4">
+                {student.email && (
+                  <a href={`mailto:${student.email}`}
+                     class="text-gray-600 dark:text-gray-300 hover:text-arboretumBlue dark:hover:text-taubmanTeal"
+                     title="Email">
+                    <Icon name="mdi:email" class="w-5 h-5" />
+                  </a>
+                )}
+                {student.website && (
+                  <a href={student.website}
+                     target="_blank"
+                     rel="noopener noreferrer"
+                     class="text-gray-600 dark:text-gray-300 hover:text-arboretumBlue dark:hover:text-taubmanTeal"
+                     title="Website">
+                    <Icon name="mdi:web" class="w-5 h-5" />
+                  </a>
+                )}
+                {student.googleScholar && (
+                  <a href={student.googleScholar}
+                     target="_blank"
+                     rel="noopener noreferrer"
+                     class="text-gray-600 dark:text-gray-300 hover:text-arboretumBlue dark:hover:text-taubmanTeal"
+                     title="Google Scholar">
+                    <Icon name="mdi:school" class="w-5 h-5" />
+                  </a>
+                )}
+                {student.github && (
+                  <a href={student.github}
+                     target="_blank"
+                     rel="noopener noreferrer"
+                     class="text-gray-600 dark:text-gray-300 hover:text-arboretumBlue dark:hover:text-taubmanTeal"
+                     title="GitHub">
+                    <Icon name="mdi:github" class="w-5 h-5" />
+                  </a>
+                )}
+                {student.linkedin && (
+                  <a href={student.linkedin}
+                     target="_blank"
+                     rel="noopener noreferrer"
+                     class="text-gray-600 dark:text-gray-300 hover:text-arboretumBlue dark:hover:text-taubmanTeal"
+                     title="LinkedIn">
+                    <Icon name="mdi:linkedin" class="w-5 h-5" />
+                  </a>
+                )}
+              </div>
+
+              {student.jobSeekingStatus && student.jobSeekingStatus !== 'not currently seeking' && (
+                <div class="mt-4 inline-block">
+                  <span class="px-2 py-1 text-xs rounded-full bg-arboretumBlue dark:bg-taubmanTeal text-white">
+                    {student.jobSeekingStatus === 'seeking internship' ? 'Seeking Internship' : 'Seeking Employment'}
+                  </span>
+                </div>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <p class="text-sm text-gray-500 dark:text-gray-400 mt-8 italic">
+        Note: This directory is opt-in and does not represent all students currently enrolled.
+      </p>
+    </div>
+  </main>
+</Layout>
+
+<script>
+  const searchInput = document.getElementById('studentSearch') as HTMLInputElement;
+  const degreeFilter = document.getElementById('degreeFilter') as HTMLSelectElement;
+  const statusFilter = document.getElementById('statusFilter') as HTMLSelectElement;
+  const studentCards = document.querySelectorAll('.student-card');
+
+  function filterStudents() {
+    const searchTerm = searchInput.value.toLowerCase();
+    const degreeValue = degreeFilter.value;
+    const statusValue = statusFilter.value;
+
+    studentCards.forEach((card) => {
+      const textContent = card.textContent?.toLowerCase() || '';
+      const degree = card.getAttribute('data-degree');
+      const status = card.getAttribute('data-status');
+
+      const matchesSearch = textContent.includes(searchTerm);
+      const matchesDegree = !degreeValue || degree === degreeValue;
+      const matchesStatus = !statusValue || status === statusValue;
+
+      const matches = matchesSearch && matchesDegree && matchesStatus;
+      (card as HTMLElement).style.display = matches ? '' : 'none';
+    });
+  }
+
+  searchInput.addEventListener('input', filterStudents);
+  degreeFilter.addEventListener('change', filterStudents);
+  statusFilter.addEventListener('change', filterStudents);
+</script> 
