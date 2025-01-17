@@ -14,24 +14,26 @@ students.sort((a, b) => a.lastName.localeCompare(b.lastName));
     <Breadcrumbs />
     <PageTitle title="Students" />
     <div class="prose dark:prose-invert mt-4 mb-4 max-w-6xl w-11/12 mx-auto">
-      <div class="not-prose mb-6 flex flex-wrap gap-4">
+      <div class="not-prose mb-6 flex flex-col sm:flex-row gap-4">
         <input 
           type="text" 
           id="studentSearch" 
           placeholder="Search by name, research interests, or lab..." 
-          class="flex-1 p-2 border border-gray-300 dark:border-gray-600 rounded-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
+          class="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
         >
-        <select id="degreeFilter" class="p-2 px-4 border border-gray-300 dark:border-gray-600 rounded-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-white">
-          <option value="">All programs</option>
-          <option value="PhD">PhD</option>
-          <option value="MS">Master's</option>
-          <option value="BS">Bachelor's</option>
-        </select>
-        <select id="statusFilter" class="p-2 px-4 border border-gray-300 dark:border-gray-600 rounded-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-white">
-          <option value="">All recruiting statuses</option>
-          <option value="seeking internship">Seeking internship</option>
-          <option value="seeking employment">Seeking employment</option>
-        </select>
+        <div class="flex gap-4">
+          <select id="degreeFilter" class="w-full sm:w-auto p-2 px-2 sm:px-4 border text-sm border-gray-300 dark:border-gray-600 rounded-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-white">
+            <option value="">Academic program</option>
+            <option value="PhD">PhD</option>
+            <option value="MS">Master's</option>
+            <option value="BS">Bachelor's</option>
+          </select>
+          <select id="statusFilter" class="w-full sm:w-auto p-2 px-2 sm:px-4 text-sm border border-gray-300 dark:border-gray-600 rounded-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-white">
+            <option value="">Work availability</option>
+            <option value="seeking internship">Seeking internship</option>
+            <option value="seeking employment">Seeking employment</option>
+          </select>
+        </div>
       </div>
 
       <div id="studentGrid" class="not-prose grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">

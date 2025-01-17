@@ -5,6 +5,39 @@ import PageTitle from "../../components/PageTitle.astro";
 import { Icon } from "astro-icon/components";
 
 const sections = {
+  department: {
+    title: "Department",
+    links: [
+      {
+        text: "Bylaws",
+        url: "https://docs.google.com/document/d/1DKFJ1trOrYDGgjL1K8IVTPk56UVukzzbmHf9j0Z8d6E/edit?usp=sharing"
+      },
+      {
+        text: "Calendar",
+        url: "https://calendar.google.com/calendar/u/0?cid=dW1pY2guZWR1XzE1YWkzcTRrc3NvZXR2M29mZGJmZG42NHA4QGdyb3VwLmNhbGVuZGFyLmdvb2dsZS5jb20"
+      },
+      {
+        text: "Mcommunity email lists",
+        url: "https://docs.google.com/document/d/1aWUJKjZv0nMOTuV9-pDmqn0tC5hQcntMO3j-TbEAUWQ/edit"
+      },
+      {
+        text: "Robotics Institute Task Force",
+        url: "https://sites.google.com/umich.edu/robotics-institute-task-force/home"
+      },
+      {
+        text: "ROB Org Chart (Updated 3.28.24)",
+        url: "https://www.dropbox.com/scl/fi/263j494yzqm1msxyaczn9/ROB-Org-Chart-3.28.24.pdf?rlkey=g1ab64kc48n63joei9juewtbu&dl=0"
+      },
+      {
+        text: "Service Assignments",
+        url: "https://docs.google.com/document/d/13n8S1TeOgByk4SkL0POml5nLMGGwEgdQTxYE9wAkZHU/edit?usp=sharing"
+      },
+      {
+        text: "Lunch and Learn recordings",
+        url: "https://drive.google.com/drive/folders/10C7619W-zsGFUPifG2m3-JXaj7T54N0e?usp=sharing"
+      }
+    ]
+  },
   building: {
     title: "Building",
     links: [
@@ -71,40 +104,20 @@ const sections = {
       }
     ]
   },
-  department: {
-    title: "Department",
+  purchasing: {
+    title: "Purchasing & Travel",
     links: [
-      {
-        text: "Bylaws",
-        url: "https://docs.google.com/document/d/1DKFJ1trOrYDGgjL1K8IVTPk56UVukzzbmHf9j0Z8d6E/"
-      },
       {
         text: "Purchasing",
         url: "https://deptapps.engin.umich.edu/order/index/newform?dept=210308"
       },
       {
         text: "Purchasing instructions",
-        url: "https://docs.google.com/document/d/1wDdRHeSoE3shV4FTMwPzKv4n3F8vf1YK/"
+        url: "https://docs.google.com/document/d/1wDdRHeSoE3shV4FTMwPzKv4n3F8vf1YK/edit"
       },
       {
         text: "Travel guidelines & reimbursement",
-        url: "https://docs.google.com/document/d/1bSWnEMF9uvNNSRkaCThgoCZ0osYIwZDmTaWWESZmBac/"
-      },
-      {
-        text: "Faculty search system",
-        url: "https://deptapps.engin.umich.edu/facultysearch/committee?dept=210308"
-      },
-      {
-        text: "Calendar",
-        url: "https://calendar.google.com/calendar/u/0?cid=dW1pY2guZWR1XzE1YWkzcTRrc3NvZXR2M29mZGJmZG42NHA4QGdyb3VwLmNhbGVuZGFyLmdvb2dsZS5jb20"
-      },
-      {
-        text: "Mcommunity email lists",
-        url: "https://docs.google.com/document/d/1aWUJKjZv0nMOTuV9-pDmqn0tC5hQcntMO3j-TbEAUWQ/"
-      },
-      {
-        text: "Robotics Institute Task Force",
-        url: "https://sites.google.com/umich.edu/robotics-institute-task-force/home"
+        url: "https://docs.google.com/document/d/1bSWnEMF9uvNNSRkaCThgoCZ0osYIwZDmTaWWESZmBac/edit?usp=sharing"
       }
     ]
   },
@@ -118,6 +131,10 @@ const sections = {
       {
         text: "Undergraduate Program guide",
         url: "http://robotics.umich.edu/undergrad-guide"
+      },
+      {
+        text: "UGRAB",
+        url: "https://deptapps.engin.umich.edu/app/staff/appfile?dept=210308"
       }
     ]
   },
@@ -135,6 +152,31 @@ const sections = {
       {
         text: "Student funding request form",
         url: "https://docs.google.com/forms/d/e/1FAIpQLScRMEHaY3C9rI7vcnbFRH4vCD81UHnn6mbvmU1kPSA6Tj1tPw/viewform"
+      },
+      {
+        text: "Audio tour",
+        url: "http://audio.robotics.umich.edu/"
+      },
+      {
+        text: "Student-led tour sign up",
+        url: "https://form.jotform.com/212225992207151"
+      }
+    ]
+  },
+  faculty: {
+    title: "Faculty Resources",
+    links: [
+      {
+        text: "Faculty search system",
+        url: "https://deptapps.engin.umich.edu/facultysearch/committee?dept=210308"
+      },
+      {
+        text: "Faculty Activity Report (FAR)",
+        url: "https://deptapps.engin.umich.edu/far/home?dept=210308"
+      },
+      {
+        text: "Faculty Research Admin Assignments",
+        url: "https://docs.google.com/spreadsheets/d/13EN8rXQY5QetGVJ2NEg8m8DEVW0o9o-gLJS2tg8NRlk/edit?usp=sharing"
       }
     ]
   },
@@ -167,6 +209,51 @@ const sections = {
         description: "Contact: mair-info@umich.edu"
       }
     ]
+  },
+  communications: {
+    title: "Communications & Marketing",
+    links: [
+      {
+        text: "All Michigan Robotics Communications Resources",
+        url: "https://drive.google.com/drive/u/0/folders/16Y-QifDAcqtZNPigTK2OjXLLWW0DJFM5"
+      },
+      {
+        text: "Slideshows and sample slides",
+        url: "https://drive.google.com/drive/u/0/folders/1-CLlDUaSdQd6rUvY98adGBDReYIErO8e"
+      },
+      {
+        text: "Logos (vector and raster)",
+        url: "https://drive.google.com/drive/u/0/folders/1lL88YgX3dYwVhqQAF1HaCRRENy4J29At"
+      },
+      {
+        text: "Letterhead",
+        url: "https://drive.google.com/drive/u/0/folders/1j3erkedH_mde0zeR19fYYWy-D6lPxvCr"
+      },
+      {
+        text: "Business card ordering information",
+        url: "https://drive.google.com/drive/u/0/folders/1AmUwUKjf3-8czLES_Tq8eoifLWFK93_M"
+      },
+      {
+        text: "Images and Zoom backgrounds",
+        url: "https://drive.google.com/drive/u/0/folders/1YhlkrunPK0WFKf-zrGkXcnpLkeJjaSXm"
+      },
+      {
+        text: "Rapid Research article request",
+        url: "https://form.asana.com/?k=QXWWtmrae3jZr5gsiy1Byg&d=939514425027676"
+      },
+      {
+        text: "Robotics Content Submission form",
+        url: "https://docs.google.com/forms/d/e/1FAIpQLSems8fcRc8jlR-B_PlLu85P8rqzjwC-b59lyJmXVZu9xF6UOg/viewform"
+      },
+      {
+        text: "Robotics Branded Apparel & Gear Shop",
+        url: "https://www.aatwebstore.com/UMBOT/shop/home"
+      },
+      {
+        text: "More information",
+        description: "Contact Dan Newman: dnewms@umich.edu"
+      }
+    ]
   }
 };
 
@@ -174,11 +261,14 @@ const sections = {
 const sectionIcons = {
   building: "mdi:office-building",
   it: "mdi:desktop-classic",
-  department: "mdi:domain",
+  purchasing: "mdi:cart",
   academics: "mdi:school",
   outreach: "mdi:account-group",
   makerspace: "mdi:tools",
-  mair: "mdi:drone"
+  communications: "mdi:bullhorn",
+  mair: "mdi:drone",
+  faculty: "mdi:account-tie",
+  department: "mdi:domain"
 };
 ---
 
@@ -186,9 +276,9 @@ const sectionIcons = {
   <Breadcrumbs />
   <PageTitle title="Department Intranet" />
 
-  <div class="max-w-6xl mx-auto py-8">
+  <div class="max-w-6xl w-11/12 mx-auto my-4">
     <!-- Search Bar -->
-    <div class="mb-8 not-prose">
+    <div class="mb-4 not-prose">
       <div class="relative max-w-full mx-auto">
         <input 
           type="text" 
@@ -210,17 +300,17 @@ const sectionIcons = {
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
         <a href="https://deptapps.engin.umich.edu/order/index/newform?dept=210308" 
            class="flex items-center text-arboretumBlue dark:text-taubmanTeal hover:underline hover:text-umichblue dark:hover:text-white">
-          <Icon name="mdi:cart" class="w-4 h-4 mr-2" />
+          <Icon name="mdi:cart" class="w-4 h-4 mr-2 text-gray-500 dark:text-gray-400" />
           Purchase Request
         </a>
         <a href="https://deptapps.engin.umich.edu/scheduling/?dept=210308" 
            class="flex items-center text-arboretumBlue dark:text-taubmanTeal hover:underline hover:text-umichblue dark:hover:text-white">
-          <Icon name="mdi:calendar" class="w-4 h-4 mr-2" />
+          <Icon name="mdi:calendar" class="w-4 h-4 mr-2 text-gray-500 dark:text-gray-400" />
           Room Reservations
         </a>
         <a href="mailto:IT-Help-Robotics@umich.edu" 
            class="flex items-center text-arboretumBlue dark:text-taubmanTeal hover:underline hover:text-umichblue dark:hover:text-white">
-          <Icon name="mdi:help" class="w-4 h-4 mr-2" />
+          <Icon name="mdi:help" class="w-4 h-4 mr-2 text-gray-500 dark:text-gray-400" />
           IT Help
         </a>
       </div>
@@ -231,7 +321,7 @@ const sectionIcons = {
       {Object.entries(sections).map(([key, section]) => (
         <div class="bg-white dark:bg-gray-800 rounded shadow-md p-6">
           <h2 class="text-2xl font-roboto-condensed font-bold text-umichblue dark:text-white mb-4 flex items-center">
-            <Icon name={sectionIcons[key]} class="w-6 h-6 text-umichblue dark:text-arboretumBlue mr-2" />
+            <Icon name={sectionIcons[key]} class="w-6 h-6 text-umichblue dark:text-maize mr-2" />
             {section.title}
           </h2>
           <ul class="space-y-3">
@@ -239,15 +329,15 @@ const sectionIcons = {
               <li class="resource-item">
                 {link.url ? (
                   <a href={link.url} 
-                     class="text-arboretumBlue dark:text-taubmanTeal hover:underline hover:text-umichblue dark:hover:text-white flex items-center" 
+                     class="text-arboretumBlue dark:text-taubmanTeal hover:underline hover:text-umichblue dark:hover:text-white flex items-start" 
                      target="_blank">
-                    <Icon name="mdi:arrow-right" class="w-4 h-4 mr-1" />
+                    <Icon name="mdi:arrow-right" class="w-4 h-4 mr-1 text-gray-500 dark:text-gray-400 mt-1" />
                     {link.text}
                   </a>
                 ) : (
                   <div>
-                    <div class="font-medium dark:text-white flex items-center">
-                      <Icon name="mdi:information" class="w-4 h-4 mr-1 text-gray-500 dark:text-gray-400" />
+                    <div class="font-medium dark:text-white flex items-start">
+                      <Icon name="mdi:information" class="w-4 h-4 mr-1 text-gray-500 dark:text-gray-400 mt-1" />
                       {link.text}
                     </div>
                     <div class="text-sm text-gray-600 dark:text-gray-400 ml-5">
