@@ -4,6 +4,7 @@ import { getStudentData } from '../../../lib/googleSheets';
 import { Icon } from "astro-icon/components";
 import Breadcrumbs from "../../../components/Breadcrumbs.astro";
 import PageTitle from "../../../components/PageTitle.astro";
+import featuredImage from "../../../images/featured-images/people-students.jpg";
 
 const students = await getStudentData();
 students.sort((a, b) => a.lastName.localeCompare(b.lastName));
@@ -12,7 +13,7 @@ students.sort((a, b) => a.lastName.localeCompare(b.lastName));
 <Layout title="Students">
   <main>
     <Breadcrumbs />
-    <PageTitle title="Students" />
+    <PageTitle title="Students" image={featuredImage} imageAlt="A silhouette of a student working in the Robotics Building" imagePosition="15% 70%" />
     <div class="prose dark:prose-invert mt-4 mb-4 max-w-6xl w-11/12 mx-auto">
       <div class="not-prose mb-6 flex flex-col sm:flex-row gap-4">
         <input 

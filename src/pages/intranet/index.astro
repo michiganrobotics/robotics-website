@@ -3,6 +3,7 @@ import MainLayout from '../../layouts/MainLayout.astro';
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import PageTitle from "../../components/PageTitle.astro";
 import { Icon } from "astro-icon/components";
+import featuredImage from "../../images/featured-images/intranet.jpg";
 
 const sections = {
   department: {
@@ -274,7 +275,7 @@ const sectionIcons = {
 
 <MainLayout title="Department Intranet">
   <Breadcrumbs />
-  <PageTitle title="Department Intranet" />
+  <PageTitle title="Department Intranet" image={featuredImage} imageAlt="Robotics Building window facade in the sunrise" />
 
   <div class="max-w-6xl w-11/12 mx-auto my-4">
     <!-- Search Bar -->
@@ -294,23 +295,23 @@ const sectionIcons = {
     <!-- Quick Links -->
     <div class="mb-8 bg-white dark:bg-gray-800 rounded shadow-md p-6" id="quick-links">
       <h2 class="text-2xl font-roboto-condensed font-bold text-umichblue dark:text-white mb-4 flex items-center">
-        <Icon name="mdi:star" class="w-6 h-6 text-umichblue dark:text-arboretumBlue mr-2" />
+        <Icon name="mdi:star" class="w-6 h-6 text-umichblue dark:text-maize mr-2" />
         Frequently Used
       </h2>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
         <a href="https://deptapps.engin.umich.edu/order/index/newform?dept=210308" 
-           class="flex items-center text-arboretumBlue dark:text-taubmanTeal hover:underline hover:text-umichblue dark:hover:text-white">
-          <Icon name="mdi:cart" class="w-4 h-4 mr-2 text-gray-500 dark:text-gray-400" />
+           class="flex items-center text-gray-900 dark:text-white hover:text-arboretumBlue dark:hover:text-taubmanTeal">
+          <Icon name="mdi:cart" class="w-4 h-4 mr-2 text-arboretumBlue dark:text-taubmanTeal" />
           Purchase Request
         </a>
         <a href="https://deptapps.engin.umich.edu/scheduling/?dept=210308" 
-           class="flex items-center text-arboretumBlue dark:text-taubmanTeal hover:underline hover:text-umichblue dark:hover:text-white">
-          <Icon name="mdi:calendar" class="w-4 h-4 mr-2 text-gray-500 dark:text-gray-400" />
+           class="flex items-center text-gray-900 dark:text-white hover:text-arboretumBlue dark:hover:text-taubmanTeal">
+          <Icon name="mdi:calendar" class="w-4 h-4 mr-2 text-arboretumBlue dark:text-taubmanTeal" />
           Room Reservations
         </a>
         <a href="mailto:IT-Help-Robotics@umich.edu" 
-           class="flex items-center text-arboretumBlue dark:text-taubmanTeal hover:underline hover:text-umichblue dark:hover:text-white">
-          <Icon name="mdi:help" class="w-4 h-4 mr-2 text-gray-500 dark:text-gray-400" />
+           class="flex items-center text-gray-900 dark:text-white hover:text-arboretumBlue dark:hover:text-taubmanTeal">
+          <Icon name="mdi:help" class="w-4 h-4 mr-2 text-arboretumBlue dark:text-taubmanTeal" />
           IT Help
         </a>
       </div>
@@ -329,22 +330,22 @@ const sectionIcons = {
               <li class="resource-item">
                 {link.url ? (
                   <a href={link.url} 
-                     class="text-arboretumBlue dark:text-taubmanTeal hover:underline hover:text-umichblue dark:hover:text-white flex items-start" 
+                     class="text-gray-900 dark:text-white hover:text-arboretumBlue dark:hover:text-taubmanTeal flex items-start" 
                      target="_blank">
-                    <Icon name="mdi:arrow-right" class="w-4 h-4 mr-1 text-gray-500 dark:text-gray-400 mt-1" />
+                    <Icon name="mdi:arrow-right" class="w-4 h-4 mr-1 text-arboretumBlue dark:text-taubmanTeal mt-1" />
                     {link.text}
                   </a>
                 ) : (
                   <div>
                     <div class="font-medium dark:text-white flex items-start">
-                      <Icon name="mdi:information" class="w-4 h-4 mr-1 text-gray-500 dark:text-gray-400 mt-1" />
+                      <Icon name="mdi:information" class="w-4 h-4 mr-1 text-arboretumBlue dark:text-taubmanTeal mt-1" />
                       {link.text}
                     </div>
                     <div class="text-sm text-gray-600 dark:text-gray-400 ml-5">
                       {link.description.includes('@') ? (
                         <>
                           Email: <a href={`mailto:${link.description.split(': ')[1]}`} 
-                            class="text-arboretumBlue dark:text-taubmanTeal hover:underline hover:text-umichblue dark:hover:text-white">
+                            class="text-gray-900 dark:text-white hover:text-arboretumBlue dark:hover:text-taubmanTeal">
                             {link.description.split(': ')[1]}
                           </a>
                         </>
