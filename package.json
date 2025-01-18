@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@astrojs/mdx": "^4.0.3",
+    "@astrojs/netlify": "^6.1.0",
     "@astrojs/node": "^9.0.0",
     "@astrojs/preact": "^4.0.0",
     "@astrojs/sitemap": "^3.2.1",

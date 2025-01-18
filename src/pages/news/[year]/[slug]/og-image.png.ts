@@ -20,12 +20,12 @@ export async function getStaticPaths() {
 
 export const GET: APIRoute = async function get({ params, props }) {
   try {
-    // Add far-future cache headers
+    // Add far-future cache headers with stale-while-revalidate
     const cacheHeaders = {
       "Content-Type": "image/png",
-      "Cache-Control": "public, max-age=31536000, immutable",
-      "CDN-Cache-Control": "public, max-age=31536000, immutable",
-      "Surrogate-Control": "public, max-age=31536000, immutable"
+      "Cache-Control": "public, max-age=31536000, stale-while-revalidate=86400, immutable",
+      "CDN-Cache-Control": "public, max-age=31536000, stale-while-revalidate=86400, immutable",
+      "Surrogate-Control": "public, max-age=31536000, stale-while-revalidate=86400, immutable"
     };
 
     // Check if image exists in _generated-og directory
