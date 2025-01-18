@@ -1,0 +1,95 @@
+media:
+  input: src/content/academics/images
+  output: /src/content/academics/images
+  extensions: [jpg, jpeg, png, gif, svg]
+
+content:
+  - name: academics
+    label: Academic Pages
+    type: collection
+    path: src/content/academics
+    icon: graduationCap
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+      - name: subtitle
+        label: Subtitle
+        type: string
+      - name: description
+        label: Description
+        type: text
+      - name: image
+        label: Featured Image
+        type: object
+        fields:
+          - name: src
+            label: Image Path
+            type: image
+            required: true
+          - name: alt
+            label: Alt Text
+            type: string
+            required: true
+      - name: order
+        label: Display Order
+        type: number
+      - name: featured
+        label: Featured
+        type: boolean
+        default: false
+      - name: body
+        label: Content
+        type: rich-text
+        required: true
+    view:
+      fields: [title, order, featured]
+      primary: title
+      sort: [order, title]
+      default:
+        sort: order
+        order: asc
+
+  - name: news
+    label: News Articles
+    type: collection
+    path: src/content/news
+    icon: newspaper
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+      - name: date
+        label: Publication Date
+        type: date
+        required: true
+      - name: author
+        label: Author
+        type: string
+      - name: categories
+        label: Categories
+        type: select
+        list: true
+        options:
+          multiple: true
+          values: [research, education, outreach, awards]
+      - name: excerpt
+        label: Excerpt
+        type: text
+      - name: seoDescription
+        label: SEO Description
+        type: text
+      - name: body
+        label: Content
+        type: rich-text
+        required: true
+    filename: '{year}-{month}-{day}-{primary}'
+    view:
+      fields: [title, date, author, categories]
+      primary: title
+      sort: [date, title]
+      default:
+        sort: date
+        order: desc
