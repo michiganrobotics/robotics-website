@@ -4,15 +4,16 @@ import { getAffiliateFacultyData } from '../../../lib/googleSheets';
 import { Icon } from "astro-icon/components";
 import Breadcrumbs from "../../../components/Breadcrumbs.astro";
 import PageTitle from "../../../components/PageTitle.astro";
+import featuredImage from "../../../images/featured-images/people-affiliate.jpg";
 
 const facultyMembers = await getAffiliateFacultyData();
 facultyMembers.sort((a, b) => a.lastName.localeCompare(b.lastName));
 ---
 
-<Layout title="Affiliate Faculty">
+<Layout title="Affiliate Faculty" >
   <main>
     <Breadcrumbs />
-    <PageTitle title="Affiliate Faculty" />
+    <PageTitle title="Affiliate Faculty" image={featuredImage} imageAlt="Materials Science and Engineering Assistant Professor Abdon Pena-Francesch, works on soft magnetic polymer gels in his BioInspired Materials Laboratory." imagePosition="0% 75%"/>
     <div class="prose dark:prose-invert mt-4 mb-4 max-w-6xl w-11/12 mx-auto">
       <p>The Robotics Department is fortunate to have a strong network of affiliate faculty members who contribute to our research and educational programs. These individuals are experts in various fields related to robotics and are dedicated to advancing the field through collaboration and mentorship.</p>
 
@@ -21,38 +22,37 @@ facultyMembers.sort((a, b) => a.lastName.localeCompare(b.lastName));
           type="text" 
           id="facultySearch" 
           placeholder="Search by name, department, or research interests..." 
+          aria-label="Search for faculty members"
           class="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-arboretumBlue dark:focus:ring-taubmanTeal focus:border-transparent"
         >
       </div>
 
-      <div id="facultyGrid" class="not-prose grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 px-2">
+      <div id="facultyGrid" class="not-prose grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {facultyMembers.map((faculty) => (
-          <div class="faculty-card bg-white dark:bg-gray-800 p-6 rounded-sm shadow-md">
-            <div class="flex flex-col md:flex-row justify-between">
-              <div class="flex-1">
-                <h2 class="text-xl font-bold text-gray-900 dark:text-white">
-                  {faculty.preferredName} {faculty.lastName}
-                </h2>
+          <div class="faculty-card bg-white dark:bg-gray-800 p-6 rounded-sm shadow-md transition-all duration-200 ease-in-out hover:shadow-lg hover:scale-[1.01]">
+            <div class="flex flex-col">
+              <h2 class="text-xl font-bold text-gray-900 dark:text-white">
+                {faculty.preferredName} {faculty.lastName}
+              </h2>
 
-                <p class="text-arboretumBlue dark:text-taubmanTeal text-sm mt-1 faculty-department">
-                  {faculty.department1}{faculty.department2 && ` and ${faculty.department2}`}
-                </p>
-                <p class="text-gray-600 dark:text-gray-300 text-sm mt-2 italic faculty-affiliation">
-                  {faculty.affiliation}
-                </p>
-                
-                      {/* Expandable Research Interests */}
+              <p class="text-arboretumBlue dark:text-taubmanTeal text-sm mt-1 faculty-department">
+                {faculty.department1}{faculty.department2 && ` and ${faculty.department2}`}
+              </p>
+              <p class="text-gray-600 dark:text-gray-300 text-sm mt-2 italic faculty-affiliation">
+                {faculty.affiliation}
+              </p>
+              
+              {/* Expandable Research Interests */}
               <details class="mt-4">
-                  <summary class="text-sm font-medium cursor-pointer hover:text-arboretumBlue dark:hover:text-taubmanTeal">
-                    Research Interests
-                  </summary>
-                  <p class="faculty-search-data mt-2 text-sm text-gray-600 dark:text-gray-300 pl-4">
-                    {faculty.researchInterests}
-                  </p>
-                </details>
-              </div> 
+                <summary class="text-sm font-medium cursor-pointer hover:text-arboretumBlue dark:hover:text-taubmanTeal">
+                  Research Interests
+                </summary>
+                <p class="faculty-search-data mt-2 text-sm text-gray-600 dark:text-gray-300 pl-4">
+                  {faculty.researchInterests}
+                </p>
+              </details>
 
-              <div class="flex flex-row items-start md:items-center gap-4 mt-4 md:mt-0">
+              <div class="flex gap-3 mt-4 flex-wrap items-center">
                 {faculty.googleScholar && (
                   <a 
                     href={faculty.googleScholar}
@@ -61,7 +61,7 @@ facultyMembers.sort((a, b) => a.lastName.localeCompare(b.lastName));
                     class="text-gray-600 dark:text-gray-300 hover:text-arboretumBlue dark:hover:text-taubmanTeal"
                     title="Google Scholar"
                   >
-                    <Icon name="mdi:school" class="w-6 h-6" />
+                    <Icon name="mdi:school" class="w-5 h-5" />
                   </a>
                 )}
                 {faculty.website && (
@@ -72,7 +72,7 @@ facultyMembers.sort((a, b) => a.lastName.localeCompare(b.lastName));
                     class="text-gray-600 dark:text-gray-300 hover:text-arboretumBlue dark:hover:text-taubmanTeal"
                     title="Website"
                   >
-                    <Icon name="mdi:web" class="w-6 h-6" />
+                    <Icon name="mdi:web" class="w-5 h-5" />
                   </a>
                 )}
               </div>
@@ -96,12 +96,18 @@ facultyMembers.sort((a, b) => a.lastName.localeCompare(b.lastName));
       const department = card.querySelector('.faculty-department')?.textContent?.toLowerCase() || '';
       const affiliation = card.querySelector('.faculty-affiliation')?.textContent?.toLowerCase() || '';
       const searchData = card.querySelector('.faculty-search-data')?.textContent?.toLowerCase() || '';
+      const details = card.querySelector('details');
 
       const matches = 
         name.includes(searchTerm) || 
         department.includes(searchTerm) || 
         affiliation.includes(searchTerm) ||
         searchData.includes(searchTerm);
+
+      // Auto-expand details if there's a search term, collapse if empty
+      if (details) {
+        details.open = searchTerm.length > 0;
+      }
 
       card.style.display = matches ? '' : 'none';
     });

@@ -142,6 +142,12 @@ export const mainNav: MenuItem[] = [
             childItems: { nodes: [] }
           },
           {
+            label: "Students",
+            uri: "/people/students",
+            id: "people-students",
+            childItems: { nodes: [] }
+          },
+          {
             label: "Student Teams",
             uri: "/people/student-teams",
             id: "people-student-teams",
@@ -249,6 +255,7 @@ export const subNavConfig: Record<string, SubNavItem[]> = {
     'people$': [
       { title: "Faculty", href: "/people/faculty" },
       { title: "Staff", href: "/people/staff" },
+      { title: "Students", href: "/people/students" },
       { title: "Student Teams", href: "/people/student-teams" },
       { title: "Advisory Board", href: "/people/advisory-board" },
       { title: "Alumni", href: "/people/alumni" },
@@ -258,6 +265,7 @@ export const subNavConfig: Record<string, SubNavItem[]> = {
       { title: "Emeritus Faculty", href: "/people/faculty/emeritus" },
       { title: "Affiliate Faculty", href: "/people/faculty/affiliate" },
       { title: "Staff", href: "/people/staff" },
+      { title: "Students", href: "/people/students" },
       { title: "Student Teams", href: "/people/student-teams" },
       { title: "Advisory Board", href: "/people/advisory-board" },
       { title: "Alumni", href: "/people/alumni" },
@@ -265,6 +273,7 @@ export const subNavConfig: Record<string, SubNavItem[]> = {
     ],
     'people/faculty/emeritus': [
       { title: "Faculty", href: "/people/faculty" },
+      { title: "Affiliate Faculty", href: "/people/faculty/affiliate" },
       { title: "Staff", href: "/people/staff" },
       { title: "Student Teams", href: "/people/student-teams" },
       { title: "Advisory Board", href: "/people/advisory-board" },
@@ -273,6 +282,7 @@ export const subNavConfig: Record<string, SubNavItem[]> = {
     ],
     'people/faculty/affiliate': [
       { title: "Faculty", href: "/people/faculty" },
+      { title: "Emeritus Faculty", href: "/people/faculty/emeritus" },
       { title: "Staff", href: "/people/staff" },
       { title: "Student Teams", href: "/people/student-teams" },
       { title: "Advisory Board", href: "/people/advisory-board" },
@@ -281,6 +291,7 @@ export const subNavConfig: Record<string, SubNavItem[]> = {
     ],
     'people/staff': [
       { title: "Faculty", href: "/people/faculty" },
+      { title: "Students", href: "/people/students" },
       { title: "Student Teams", href: "/people/student-teams" },
       { title: "Advisory Board", href: "/people/advisory-board" },
       { title: "Alumni", href: "/people/alumni" },
@@ -289,6 +300,7 @@ export const subNavConfig: Record<string, SubNavItem[]> = {
     'people/alumni': [
       { title: "Faculty", href: "/people/faculty" },
       { title: "Staff", href: "/people/staff" },
+      { title: "Students", href: "/people/students" },
       { title: "Student Teams", href: "/people/student-teams" },
       { title: "Advisory Board", href: "/people/advisory-board" },
       { title: "Honors and Awards", href: "/people/honors-and-awards"}
@@ -296,6 +308,7 @@ export const subNavConfig: Record<string, SubNavItem[]> = {
     'people/student-teams': [
       { title: "Faculty", href: "/people/faculty" },
       { title: "Staff", href: "/people/staff" },
+      { title: "Students", href: "/people/students" },
       { title: "Alumni", href: "/people/alumni" },
       { title: "Advisory Board", href: "/people/advisory-board" },
       { title: "Honors and Awards", href: "/people/honors-and-awards"}
@@ -303,6 +316,7 @@ export const subNavConfig: Record<string, SubNavItem[]> = {
     'people/advisory-board': [
       { title: "Faculty", href: "/people/faculty" },
       { title: "Staff", href: "/people/staff" },
+      { title: "Students", href: "/people/students" },
       { title: "Student Teams", href: "/people/student-teams" },
       { title: "Alumni", href: "/people/alumni" },
       { title: "Honors and Awards", href: "/people/honors-and-awards"}
@@ -310,6 +324,7 @@ export const subNavConfig: Record<string, SubNavItem[]> = {
     'people/honors-and-awards': [
       { title: "Faculty", href: "/people/faculty" },
       { title: "Staff", href: "/people/staff" },
+      { title: "Students", href: "/people/students" },
       { title: "Student Teams", href: "/people/student-teams" },
       { title: "Alumni", href: "/people/alumni" },
       { title: "Advisory Board", href: "/people/advisory-board"}

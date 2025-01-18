@@ -67,3 +67,5 @@ pnpm-lock.yaml
 
 # Local Netlify folder
 .netlify
+
+node_modules

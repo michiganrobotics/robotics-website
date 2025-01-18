@@ -21,6 +21,7 @@ students.sort((a, b) => a.lastName.localeCompare(b.lastName));
           id="studentSearch" 
           placeholder="Search by name, research interests, or lab..." 
           class="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
+          aria-label="Search for students by name, research interests, or lab"
         >
         <div class="flex gap-4">
           <select id="degreeFilter" class="w-full sm:w-auto p-2 px-2 sm:px-4 border text-sm border-gray-300 dark:border-gray-600 rounded-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-white">
@@ -39,7 +40,7 @@ students.sort((a, b) => a.lastName.localeCompare(b.lastName));
 
       <div id="studentGrid" class="not-prose grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {students.map((student) => (
-          <div class="student-card bg-white dark:bg-gray-800 p-6 rounded-sm shadow-md" 
+          <div class="student-card bg-white dark:bg-gray-800 p-6 rounded-sm shadow-md transition-all duration-200 ease-in-out hover:shadow-lg hover:scale-[1.01]" 
                data-degree={student.degree}
                data-status={student.jobSeekingStatus}>
             <div class="flex flex-col">
@@ -50,6 +51,21 @@ students.sort((a, b) => a.lastName.localeCompare(b.lastName));
               <p class="text-arboretumBlue dark:text-taubmanTeal text-sm mt-1">
                 {student.degree} Student
               </p>
+
+              <div class="flex flex-wrap gap-2 mt-1">
+                {student.jobSeekingStatus && student.jobSeekingStatus !== 'not currently seeking' && (
+                  <span class="inline-flex px-2 py-1 text-xs rounded-full bg-arboretumBlue dark:bg-taubmanTeal text-white">
+                    {student.jobSeekingStatus === 'seeking internship' ? 'Seeking internship' : 'Seeking employment'}
+                  </span>
+                )}
+                {student.outreachAmbassador && (
+                  <a href="/news/2024/robotics-outreach-ambassadors-of-2024/"
+                     class="inline-flex items-center gap-1 px-2 py-1 text-xs rounded-full bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-100 hover:bg-yellow-200 dark:hover:bg-yellow-800 transition-colors whitespace-normal">
+                    <Icon name="mdi:star" class="w-4 h-4 flex-shrink-0" />
+                    <span class="inline-block">Outreach Ambassador</span>
+                  </a>
+                )}
+              </div>
 
               {student.researchGroup && (
                 <p class="text-gray-600 dark:text-gray-300 text-sm mt-1">
@@ -73,7 +89,7 @@ students.sort((a, b) => a.lastName.localeCompare(b.lastName));
                 </p>
               )}
 
-              <div class="flex gap-3 mt-4">
+              <div class="flex gap-3 mt-4 flex-wrap items-center">
                 {student.email && (
                   <a href={`mailto:${student.email}`}
                      class="text-gray-600 dark:text-gray-300 hover:text-arboretumBlue dark:hover:text-taubmanTeal"
@@ -119,19 +135,12 @@ students.sort((a, b) => a.lastName.localeCompare(b.lastName));
                 )}
               </div>
 
-              {student.jobSeekingStatus && student.jobSeekingStatus !== 'not currently seeking' && (
-                <div class="mt-4 inline-block">
-                  <span class="px-2 py-1 text-xs rounded-full bg-arboretumBlue dark:bg-taubmanTeal text-white">
-                    {student.jobSeekingStatus === 'seeking internship' ? 'Seeking Internship' : 'Seeking Employment'}
-                  </span>
-                </div>
-              )}
             </div>
           </div>
         ))}
       </div>
 
-      <p class="text-sm text-gray-500 dark:text-gray-400 mt-8 italic">
+      <p class="text-sm text-gray-600 dark:text-gray-300 mt-8 italic">
         Note: This directory is opt-in and does not represent all students currently enrolled.
       </p>
     </div>

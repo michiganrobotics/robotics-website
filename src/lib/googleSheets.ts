@@ -148,6 +148,7 @@ interface Student {
   github?: string;
   jobSeekingStatus?: 'not currently seeking' | 'seeking internship' | 'seeking employment';
   linkedin?: string;
+  outreachAmbassador?: boolean;
 }
 
 function createSlug(name: string): string {
@@ -351,7 +352,8 @@ export const getStudentData = cached(async (): Promise<Student[]> => {
     website: row.get('website'),
     googleScholar: row.get('googleScholar'),
     github: row.get('github'),
-    seekingStatus: row.get('seekingStatus'),
+    jobSeekingStatus: row.get('jobSeekingStatus'),
     linkedin: row.get('linkedin'),
+    outreachAmbassador: row.get('outreachAmbassador') === 'TRUE',
   }));
 });
