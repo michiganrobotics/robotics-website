@@ -6,12 +6,13 @@ import respectImage from "../../images/values/values-respect.jpg";
 import outreachImage from "../../images/values/values-outreach.jpg";
 import integrityImage from "../../images/values/values-integrity.jpg";
 import PageTitle from "../../components/PageTitle.astro";
+import featureImage from "../../images/featured-images/about-values.jpg";
 import ogImage from '/public/social/values-outreach.jpg';
 ---
 
 <MainLayout title="Values | Michigan Robotics" description="Learn about the values and principles that guide Michigan Robotics" image={ogImage.src}>
   <Breadcrumbs />
-  <PageTitle title="Values" />
+  <PageTitle title="Values" image={featureImage} imageAlt="Michigan Robotics values" imagePosition="0% 51%"/>
 
     <div class="prose dark:prose-invert max-w-6xl w-11/12 mx-auto mt-8 mb-4">
       <p class="text-xl">Michigan Robotics is committed to providing its members with an environment filled with integrity, enthusiasm, and respect. We value everyone.</p>

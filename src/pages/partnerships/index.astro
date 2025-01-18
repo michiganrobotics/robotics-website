@@ -11,9 +11,9 @@ import { getEntry } from 'astro:content';
 const featuredPost = await getEntry('news', '2024/robotics-outreach-ambassadors-of-2024');
 ---
 
-<Layout title="Partnerships">
+<Layout title="Partnerships | Michigan Robotics" image={featureImage.src} description="Michigan Robotics cultivates partnerships in industry and academia to promote the training, research, and deployment of robotics that serve society.">
   <Breadcrumbs />
-  <PageTitle title="Partnerships" imageAlt="Robots stand around the Robot Garden terrain testing ground." />
+  <PageTitle title="Partnerships" image={featureImage} imageAlt="MBot components scattered on a table before assembly." imagePosition="0% 90%" />
      
     <div class="prose dark:prose-invert mt-8 mb-4 max-w-6xl w-11/12 mx-auto">
       <p>Michigan Robotics thrives on the principle that collaboration multiplies the quality and impact of our work. Michigan Robotics cultivates partnerships in industry and academia to promote the training, research, and deployment of robotics that serve society. Working on an individual level to organizational scale, we welcome opportunities that help us meet our mission of developing the next generation of robotics and roboticists.</p>

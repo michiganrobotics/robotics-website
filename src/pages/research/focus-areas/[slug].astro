@@ -15,7 +15,6 @@ export async function getStaticPaths() {
 }
 
 const { entry } = Astro.props;
-
 const { Content } = await render(entry);
 
 // Get related news posts based on matching category
@@ -24,19 +23,30 @@ const allAreaPosts = await getCollection('news', ({ data }) => {
   return data.categories.includes(entry.id);
 });
 
+// Get focus areas collection to ensure consistent image handling
+const focusAreas = await getCollection('focusAreas');
+const areaData = focusAreas.find(area => area.id === entry.id)?.data;
+const areaImage = areaData?.image?.src || null;
+const areaImageAlt = areaData?.image?.alt || null;
+
 const relatedPosts = allAreaPosts
   .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
 ---
 
-<Layout title={entry.data.title} description={entry.data.description} >
+<Layout 
+  title={`${entry.data.title} | Michigan Robotics`} 
+  description={entry.data.description} 
+  image={areaImage ? areaImage.src : undefined}
+  imageAlt={areaImageAlt}
+>
     <Breadcrumbs />
   <div class="max-w-6xl w-11/12 mx-auto pt-4 pb-12">
     <div class="relative rounded-lg overflow-hidden shadow-2xl">
       <div class="absolute inset-0">
-        {entry.data.images?.[0] && (
+        {areaImage && (
           <Image 
-            src={entry.data.images[0].src}
-            alt={entry.data.images[0].alt}
+            src={areaImage}
+            alt={areaImageAlt || entry.data.title}
             class="w-full h-full object-cover"
           />
         )}

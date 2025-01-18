@@ -139,7 +139,7 @@ const focusAreas = await getCollection('focusAreas');
           <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-shadow hover:scale-105">
             <a href={`/research/focus-areas/${area.id}`} class="block p-2">
               <Image
-                src={area.data.images[0].src}
+                src={area.data.image?.src}
                 alt={`${area.data.title} research`}
                 class="w-full h-24 object-cover rounded-t-lg mb-2"
                 width={200}

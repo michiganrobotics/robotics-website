@@ -1,6 +1,7 @@
 ---
 import Layout from './MainLayout.astro';
 import ContentImage from '../components/ContentImage.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
 const { faculty } = Astro.props;
 import { getCollection } from 'astro:content';
 import { Image,getImage } from 'astro:assets';
@@ -16,7 +17,8 @@ const relatedPosts = allNamedPosts
   .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
 ---
 
-<Layout title={faculty?.preferredName && faculty?.lastName ? `${faculty.preferredName} ${faculty.lastName} - Faculty Profile` : 'Faculty Profile'}>
+<Layout title={faculty?.preferredName && faculty?.lastName ? `${faculty.preferredName} ${faculty.lastName} | Robotics Faculty Profile` : 'Faculty Profile' } image={faculty.photoURL} imageAlt={faculty.fullName} description={`Learn more about Michigan Robotics faculty member ${faculty.fullName}`}>
+  <Breadcrumbs />
   {faculty ? (
     <main class="mt-4 max-w-4xl mx-auto py-8 px-4 font-roboto text-PumaBlack dark:text-white bg-white dark:bg-umichblue">
       <div class="grid md:grid-cols-3 gap-8">

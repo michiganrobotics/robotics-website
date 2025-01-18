@@ -16,7 +16,8 @@ RewriteCond %{REQUEST_URI} ^/profile/(n-harris-mcclamroch|benjamin-kuipers|galip
 RewriteRule ^profile/(.+)/?$ /faculty/emeritus/$1 [R=301,L]
 
 # Rule for students
-RewriteRule ^people/students/?$ /people [R=301,L]
+RewriteCond %{REQUEST_URI} ^/profile/(ray-zhang|xiaotong-chen|peter-mitrano|alex-manohar|daphna-raz|neha-pusalkar|ruikun-luo|shengao-wang|akshay-mathur|marcela-de-los-rios|nikhil-devraj|harsh-jhaveri|isha-bhatt|onur-bagoren|emma-reznick|mingjie-bi|rui-chen|shreya-phirke|oluwami-wami-dosunmuogunbi|thirumalaesh-ashokkumar|siddharth-anilkumar-bhurat|aayushi-shrivastava|manohar-bhat|ke-liu|zheyuan-zhang|deepak-nagalla|peter-stratton|tzuyuan-justin-lin|chien-erh-cynthia-lin|joseph-kim|ziyou-wu|kajal-awasthi|vinay-angara|soham-sachin-purohit|saket-pradhan|trushant-adeshara|ye-li|miranda-mittleman|trinh-huynh-trinh-huynh|christopher-nesler|xiangyu-peng|mark-nail|andrea-sipos|nishant-kheterpal|alphonsus-adubredu|challen-enninful-adu|ross-cortino|luis-cubillos|chenghao-lin|brandon-apodaca|mohamad-louai-shehab|advaith-sethuraman|katharine-walters|anja-sheppard|lus-marques|shambhavi-singh|yulun-zhuang|xiaohao-xu|patrick-tosh|mudasir-ahmad-ganaie|m-eva-mungai|alia-gilbert|bo-fu|grant-gibson)/?$
+RewriteRule ^profile/(.+)$ /people/students [R=301,L]
 
 # Rule for news:
 RewriteRule ^(\d{4})/(.+)$ /news/$1/$2 [R=301,L]

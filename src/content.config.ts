@@ -7,10 +7,10 @@ const focusAreas = defineCollection({
     title: z.string(),
     description: z.string(),
     icon: z.string(),
-    images: z.array(z.object({
+    image: z.object({
       src: image(),
       alt: z.string()
-    })).optional(),
+    }).optional(),
     videos: z.array(z.string()).optional(),
     slug: z.string(),
   })

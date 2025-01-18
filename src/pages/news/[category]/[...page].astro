@@ -39,11 +39,12 @@ const { data: posts, currentPage, lastPage, url } = page;
 // Create a friendly category name
 const focusAreas = await getCollection('focusAreas');
 const categoryTitles = Object.fromEntries(
-  focusAreas.map(area => [area.id, area.data.title])
+  focusAreas.map(area => [area.id, area.data])
 );
 
-const categoryName = category === 'robotics-community' ? 'Robotics Community' : (categoryTitles[category] || category.replace(/-/g, ' '));
-
+const categoryName = category === 'robotics-community' ? 'the Michigan Robotics community' : (categoryTitles[category]?.title || category.replace(/-/g, ' '));
+const categoryImage = categoryTitles[category]?.image?.src || null;
+const categoryImageAlt = categoryTitles[category]?.image?.alt || null;
 function formatDate(dateString: string): string {
   return new Date(dateString).toLocaleDateString('en-US', {
     year: 'numeric',
@@ -53,9 +54,9 @@ function formatDate(dateString: string): string {
 }
 ---
 
-<Layout title={`${categoryName} News - Michigan Robotics`}>
+<Layout title={`${categoryName} News | Michigan Robotics`} description={`Robotics news about ${categoryName} at the University of Michigan`}>
   <Breadcrumbs />
-  <PageTitle title={`News from ${categoryName}`} />
+  <PageTitle title={`News about ${categoryName}`} image={categoryImage} imageAlt={categoryImageAlt} />
 
   <div class="max-w-6xl w-11/12 mx-auto mt-8">
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
