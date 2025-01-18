@@ -9,8 +9,7 @@ publish = "dist"
 [[headers]]
   for = "/_generated-og/*"
   [headers.values]
-    Cache-Control = "public, max-age=31536000, stale-while-revalidate=86400, immutable"
-    X-Content-Type-Options = "nosniff"
+    Cache-Control = "public, max-age=31536000, immutable"
 
 [[headers]]
   for = "/assets/*"
@@ -28,12 +27,6 @@ publish = "dist"
   for = "/assets/images/*"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
-
-# Cache news pages
-[[headers]]
-  for = "/news/*"
-  [headers.values]
-    Cache-Control = "public, max-age=3600, stale-while-revalidate=86400"
 
 [[edge_functions]]
 path = "/intranet/*"

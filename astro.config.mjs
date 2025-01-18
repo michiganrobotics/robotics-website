@@ -6,7 +6,6 @@ import tailwind from "@astrojs/tailwind";
 import preact from "@astrojs/preact";
 import sitemap from "@astrojs/sitemap";
 import icon from "astro-icon";
-import netlify from '@astrojs/netlify';
 const isGitHubPages = process.env.GITHUB_ACTIONS === 'true';
 const isNetlify = process.env.NETLIFY_BUILD === 'true';
 
@@ -115,6 +114,4 @@ export default defineConfig({
     fallbackFormat: 'png',
     defaultQuality: 80
   },
-
-  adapter: netlify()
 });
