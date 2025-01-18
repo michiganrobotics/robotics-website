@@ -36,6 +36,8 @@
     "tailwindcss": "^3.4.17"
   },
   "devDependencies": {
+    "@stackbit/cms-git": "^1.0.32",
+    "@stackbit/types": "^2.1.12",
     "@tailwindcss/typography": "^0.5.10",
     "terser": "^5.37.0"
   }
