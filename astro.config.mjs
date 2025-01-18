@@ -6,15 +6,20 @@ import tailwind from "@astrojs/tailwind";
 import preact from "@astrojs/preact";
 import sitemap from "@astrojs/sitemap";
 import icon from "astro-icon";
+import netlify from '@astrojs/netlify';
 const isGitHubPages = process.env.GITHUB_ACTIONS === 'true';
 const isNetlify = process.env.NETLIFY_BUILD === 'true';
 
 export default defineConfig({
   output: 'static',
+
+  // Default for local development
   site: isGitHubPages ? 'https://dnewms.github.io' : 
         isNetlify ? 'https://umrob.netlify.com' : 
-        'http://localhost:4321', // Default for local development
+        'http://localhost:4321',
+
   base: isGitHubPages ? '/rob-astro-23' : '/',
+
   integrations: [
     icon(),
     tailwind(), 
@@ -23,6 +28,7 @@ export default defineConfig({
     embeds(), 
     mdx()
   ],
+
   markdown: {
     remarkPlugins: [
       () => (tree, file) => {
@@ -43,6 +49,7 @@ export default defineConfig({
       }
     ],
   },
+
   vite: {
     define: {
       'import.meta.env.BASE_URL': isGitHubPages ? '"/rob-astro-23"' : '"/"',
@@ -69,6 +76,7 @@ export default defineConfig({
       }
     }
   },
+
   image: {
     domains: [
       'events.umich.edu',
@@ -106,5 +114,7 @@ export default defineConfig({
     format: ['webp', 'avif', 'png', 'jpg'],
     fallbackFormat: 'png',
     defaultQuality: 80
-  }
+  },
+
+  adapter: netlify()
 });
