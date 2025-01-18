@@ -5,9 +5,6 @@ publish = "dist"
 [[plugins]]
   package = "@netlify/plugin-lighthouse"
 
-[[plugins]]
-  package = "@astrojs/netlify"
-
 # Cache assets
 [[headers]]
   for = "/_generated-og/*"

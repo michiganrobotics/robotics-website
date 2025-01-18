@@ -105,7 +105,7 @@ export default defineConfig({
       {
         protocol: "https",
         hostname: "events.umich.edu",
-        pathname: "/media/**"
+        pathname: "/media/*"
       },
     ],
     service: {
