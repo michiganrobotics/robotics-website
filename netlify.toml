@@ -6,7 +6,7 @@ publish = "dist"
   package = "@netlify/plugin-lighthouse"
 
 [[plugins]]
-  package = "@astro/netlify"
+  package = "@astrojs/netlify"
 
 # Cache assets
 [[headers]]
