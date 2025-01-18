@@ -19,36 +19,78 @@ export async function getStaticPaths() {
 }
 
 export const GET: APIRoute = async function get({ params, props }) {
+  let bgImage = 'social/og-default.jpg';
+  
   try {
-    // Add far-future cache headers with stale-while-revalidate
-    const cacheHeaders = {
-      "Content-Type": "image/png",
-      "Cache-Control": "public, max-age=31536000, stale-while-revalidate=86400, immutable",
-      "CDN-Cache-Control": "public, max-age=31536000, stale-while-revalidate=86400, immutable",
-      "Surrogate-Control": "public, max-age=31536000, stale-while-revalidate=86400, immutable"
-    };
-
-    // Check if image exists in _generated-og directory
-    const ogImagePath = `./public/_generated-og/${params.year}-${params.slug}.png`;
-    try {
-      const existingImage = await fs.readFile(ogImagePath);
-      return new Response(existingImage, { headers: cacheHeaders });
-    } catch (e) {
-      // Image doesn't exist yet, generate it
+    if (props.data?.image) {
+      // Handle Astro Image object
+      if (typeof props.data.image === 'object' && props.data.image !== null) {
+        const imageObj = props.data.image as { src?: { src: string } };
+        if (imageObj.src?.src) {
+          // Check if it's the default OG image
+          if (imageObj.src.src.includes('og-default')) {
+            bgImage = 'social/og-default.jpg';
+          }
+          // Handle asset paths that start with /assets/
+          else if (imageObj.src.src.startsWith('/assets/')) {
+            bgImage = imageObj.src.src.slice(1); // Remove leading slash
+          } 
+          // Handle content images that start with images/
+          else if (imageObj.src.src.startsWith('images/')) {
+            bgImage = `news/${params.year}/${imageObj.src.src}`;
+          } else {
+            bgImage = imageObj.src.src.replace(/^\//, '').replace(/^(public|src)\//, '');
+          }
+        }
+      }
     }
 
-    const bgImage = typeof props.data?.image === 'object' 
-      ? props.data.image.src 
-      : props.data?.image || 'social/og-default.jpg';
+    console.log('Final image path:', bgImage);
+    
+    const isDefaultImage = bgImage === 'social/og-default.jpg' || bgImage.includes('og-default');
+    const isAssetImage = !isDefaultImage && bgImage.startsWith('assets/');
+    
+    // Load and process the background image
+    let backgroundData;
+    try {
+      if (isDefaultImage) {
+        backgroundData = await fs.readFile(`./public/social/og-default.jpg`);
+      } else if (isAssetImage) {
+        try {
+          backgroundData = await fs.readFile(`./src/${bgImage}`);
+        } catch (error) {
+          try {
+            backgroundData = await fs.readFile(`./dist/${bgImage}`);
+          } catch (error2) {
+            try {
+              backgroundData = await fs.readFile(`./public/${bgImage}`);
+            } catch (error3) {
+              console.error('Failed to find image in any location:', bgImage);
+              backgroundData = await fs.readFile(`./public/social/og-default.jpg`);
+            }
+          }
+        }
+      } else {
+        backgroundData = await fs.readFile(`./src/content/${bgImage}`);
+      }
+      
+      // Convert PNG to JPEG if necessary
+      if (bgImage.toLowerCase().endsWith('.png')) {
+        backgroundData = await sharp(backgroundData)
+          .jpeg()
+          .toBuffer();
+      }
+      
+      console.log('Successfully loaded image data');
+    } catch (error) {
+      console.error('Error loading background image:', error);
+      backgroundData = await fs.readFile(`./public/social/og-default.jpg`);
+    }
 
-    const isDefaultImage = bgImage === 'social/og-default.jpg';
-    const cleanBgPath = bgImage.replace('../content/', '');
-
-    // Only load logo if not using default image
-    const [robotoData, logoData, backgroundData] = await Promise.all([
+    // Load font and logo
+    const [robotoData, logoData] = await Promise.all([
       fs.readFile("./public/fonts/Roboto-Bold.ttf"),
-      isDefaultImage ? null : fs.readFile("./public/robotics-og-logo.png"),
-      fs.readFile(isDefaultImage ? `./public/${bgImage}` : `./src/content/${cleanBgPath}`)
+      isDefaultImage ? null : fs.readFile("./public/robotics-og-logo.png")
     ]);
 
     const bgDimensions = sizeOf(backgroundData);
@@ -160,12 +202,47 @@ export const GET: APIRoute = async function get({ params, props }) {
       .png()
       .toBuffer();
 
-    // Save the generated image for future use
-    await fs.mkdir('./public/_generated-og', { recursive: true });
-    await fs.writeFile(ogImagePath, png);
+    // Add static file generation during build
+    if (import.meta.env.PROD) {
+      const outputDir = 'dist/_generated-og';
+      const cacheDir = '.netlify/cache/og-images';
+      
+      await fs.mkdir(outputDir, { recursive: true });
+      await fs.mkdir(cacheDir, { recursive: true });
+      
+      const fileName = `${params.year}-${params.slug}.png`;
+      const outputPath = `${outputDir}/${fileName}`;
+      const cachePath = `${cacheDir}/${fileName}`;
 
-    return new Response(png, { headers: cacheHeaders });
+      // Check if cached version exists
+      try {
+        const cachedImage = await fs.readFile(cachePath);
+        await fs.writeFile(outputPath, cachedImage);
+        console.log('Using cached OG image for:', fileName);
+      } catch {
+        // Generate new image if not in cache
+        await fs.writeFile(outputPath, png);
+        await fs.writeFile(cachePath, png);
+        console.log('Generated new OG image for:', fileName);
+      }
+    }
+
+    return new Response(png, {
+      headers: {
+        "Content-Type": "image/png",
+        "Cache-Control": "public, max-age=31536000",
+      },
+    });
   } catch (error) {
+    console.error('Error generating OG image:', error);
+    console.error('Debug info:', {
+      imagePath: bgImage,
+      contentData: props.data,
+      imageData: props.data?.image,
+      params,
+      defaultImage: bgImage === 'social/og-default.jpg' || bgImage.includes('og-default'),
+      isAssetImage: bgImage.startsWith('assets/')
+    });
     return new Response('Error generating image', { status: 500 });
   }
 };
