@@ -13,7 +13,7 @@ const { Content } = await render(page);
 
 <Layout title={`${page.data.title} | Michigan Robotics`}> 
   <Breadcrumbs />
-  <PageTitle title={page.data.title} image={page.data.image.src} imageAlt={page.data.image.alt} />
+  <PageTitle title={page.data.title} image={page.data.image?.src} imageAlt={page.data.image?.alt} />
  
     <article class="prose dark:prose-invert max-w-6xl w-11/12 mx-auto mt-4 mb-4 prose-headings:font-roboto prose-h2:text-3xl prose-h3:text-2xl prose-h4:text-xl prose-h5:text-lg prose-h6:text-base prose-headings:font-bold">
       <h2 class="text-xl font-roboto text-umichblue dark:text-white leading-relaxed font-normal not-prose mt-8 mb-4">{page.data.subtitle}</h2>

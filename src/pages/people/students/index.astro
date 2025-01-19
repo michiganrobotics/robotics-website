@@ -11,7 +11,7 @@ const students = await getStudentData();
 students.sort((a, b) => a.lastName.localeCompare(b.lastName));
 ---
 
-<Layout title="Students | Michigan Robotics" description="University of Michigan Robotics students who are advancing the field of robotics." image={ogFeatureImage}>
+<Layout title="Students | Michigan Robotics" description="University of Michigan Robotics students who are advancing the field of robotics." image={ogFeatureImage.src}>
   <main>
     <Breadcrumbs />
     <PageTitle title="Students" image={featuredImage} imageAlt="A silhouette of a student working in the Robotics Building" imagePosition="15% 70%" />

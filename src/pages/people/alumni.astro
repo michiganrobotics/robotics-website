@@ -12,7 +12,7 @@ const alumni = await getAlumni();
 const sortedAlumni = [...alumni].sort((a, b) => Number(b.graduationYear) - Number(a.graduationYear));
 ---
 
-<Layout title="Alumni | Michigan Robotics" image={ogFeatureImage} description="Michigan Robotics alumni who are making a difference in the field of robotics.">
+<Layout title="Alumni | Michigan Robotics" image={ogFeatureImage.src} description="Michigan Robotics alumni who are making a difference in the field of robotics.">
     <Breadcrumbs />
     <PageTitle title="Alumni" image={featureImage} imageAlt="Graduates file in for commencement" />
           <div class="prose dark:prose-invert mt-8 mb-4 max-w-6xl w-11/12 mx-auto">

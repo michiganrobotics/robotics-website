@@ -10,7 +10,7 @@ const facultyMembers = await getAffiliateFacultyData();
 facultyMembers.sort((a, b) => a.lastName.localeCompare(b.lastName));
 ---
 
-<Layout title="Affiliate Faculty | Michigan Robotics" image={ogFeatureImage} description="Michigan Robotics affiliate faculty members who contribute to our research and educational programs.">
+<Layout title="Affiliate Faculty | Michigan Robotics" image={ogFeatureImage.src} description="Michigan Robotics affiliate faculty members who contribute to our research and educational programs.">
   <main>
     <Breadcrumbs />
     <PageTitle title="Affiliate Faculty" image={featuredImage} imageAlt="Materials Science and Engineering Assistant Professor Abdon Pena-Francesch, works on soft magnetic polymer gels in his BioInspired Materials Laboratory." imagePosition="0% 75%"/>
