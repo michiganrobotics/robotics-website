@@ -1,23 +1,48 @@
 ---
 interface Props {
-  items: string[];
   columns?: number;
 }
 
-const { items, columns = 2 } = Astro.props;
-
-const itemsPerColumn = Math.ceil(items.length / columns);
-const columnArray = Array.from({ length: columns }, (_, i) => 
-  items.slice(i * itemsPerColumn, (i + 1) * itemsPerColumn)
-);
+const { columns = 2 } = Astro.props;
 ---
 
-<div class="grid md:grid-cols-2 gap-x-8 gap-y-2 my-2">
-  {columnArray.map((column) => (
-    <ul class="list-disc list-inside space-y-2">
-      {column.map((item) => (
-        <li>{item}</li>
-      ))}
-    </ul>
-  ))}
-</div> 
+<div class={`grid md:grid-cols-${columns} gap-x-8 gap-y-2 my-2`}>
+  <div class="contents" id="column-list-container">
+    <slot />
+  </div>
+</div>
+
+<script>
+  // Find all ColumnList instances
+  const containers = document.querySelectorAll('#column-list-container');
+  
+  containers.forEach(container => {
+    if (!container.firstElementChild?.matches('ul')) return;
+    
+    const list = container.firstElementChild;
+    const items = Array.from(list.children);
+    const columns = parseInt(container.parentElement?.style.getPropertyValue('--columns') || '2');
+    const itemsPerColumn = Math.ceil(items.length / columns);
+    
+    // Create columns
+    for (let i = 0; i < columns; i++) {
+      const columnItems = items.slice(i * itemsPerColumn, (i + 1) * itemsPerColumn);
+      if (columnItems.length === 0) continue;
+      
+      const ul = document.createElement('ul');
+      ul.className = 'list-disc list-inside space-y-2';
+      columnItems.forEach(item => ul.appendChild(item.cloneNode(true)));
+      container.appendChild(ul);
+    }
+    
+    // Remove original list
+    list.remove();
+  });
+</script>
+
+<style>
+  /* Ensure the grid columns are respected */
+  .grid {
+    --columns: v-bind(columns);
+  }
+</style> 

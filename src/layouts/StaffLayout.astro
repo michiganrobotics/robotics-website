@@ -5,7 +5,7 @@ import Breadcrumbs from '../components/Breadcrumbs.astro';
 const { staff } = Astro.props;
 import { getCollection } from 'astro:content';
 import ContentImage from '../components/ContentImage.astro';
-import { Image, getImage } from 'astro:assets';
+import { getImage } from 'astro:assets';
 import Link from '../components/Link.astro';
 
 // Fetch all news posts with tag of staff member's full name
@@ -27,9 +27,11 @@ const relatedPosts = allNamedPosts
         <!-- Profile Photo -->
         <div class="md:col-span-1">
           {staff.photoURL && (
-            <img
+            <Image
               src={staff.photoURL}
               alt={staff.fullName}
+              width={732}
+              height={488}
               class="w-full rounded-sm shadow-lg"
             />
           )}

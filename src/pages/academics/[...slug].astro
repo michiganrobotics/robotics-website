@@ -21,7 +21,7 @@ const { page } = Astro.props;
 const { Content } = await render(page);
 ---
 
-<Layout title={`${page.data.title} | Michigan Robotics`}>
+<Layout title={`${page.data.title} | Michigan Robotics`} image={page.data.image?.src.src} imageAlt={page.data.image?.alt} description={page.data.description}>
   <main>
     <Breadcrumbs />
     <PageTitle title={page.data.title} image={page.data.image?.src} imageAlt={page.data.image?.alt} />

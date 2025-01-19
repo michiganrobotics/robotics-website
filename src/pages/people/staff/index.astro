@@ -3,6 +3,7 @@ import Layout from '../../../layouts/MainLayout.astro';
 import { getStaffData } from '../../../lib/googleSheets';
 import Breadcrumbs from "../../../components/Breadcrumbs.astro";
 import PageTitle from "../../../components/PageTitle.astro";
+import { Image } from 'astro:assets';
 
 const staffMembers = await getStaffData();
 ---
@@ -20,9 +21,11 @@ const staffMembers = await getStaffData();
               class="block rounded-sm shadow-md hover:shadow-lg transition-shadow p-4 bg-white dark:bg-gray-800"
             >
               {staff.photoURL && (
-                <img
+                <Image
                   src={staff.photoURL}
                   alt={staff.fullName}
+                  width={566}
+                  height={192}
                   class="w-full h-48 object-cover rounded-sm mb-3"
                 />
               )}

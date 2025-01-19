@@ -25,9 +25,11 @@ const relatedPosts = allNamedPosts
         <!-- Profile Photo -->
         <div class="md:col-span-1">
           {faculty.photoURL && (
-            <img
+            <Image
               src={faculty.photoURL}
               alt={faculty.fullName}
+              width={732}
+              height={488}
               class="w-full rounded-sm shadow-lg"
             />
           )}
