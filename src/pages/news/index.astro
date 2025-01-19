@@ -11,6 +11,7 @@ import ContentImage from '../../components/ContentImage.astro';
 import Link from '../../components/Link.astro';
 import { LinkPreview } from 'astro-embed';
 import substackImage from '../../images/substackNewsSubscribe.jpg';
+import ogFeatureImage from '../../images/featured-images/og/news.jpg';
 import NewsSearch from '../../components/NewsSearch.astro';
 
 
@@ -93,7 +94,7 @@ const categoryTitles = Object.fromEntries(
 const collegeNewsItems = await collegeNewsQuery();
 
 ---
-<MainLayout title="News and Events | Michigan Robotics" image={featureImage.src} description="Latest robotics news and upcoming events from the University of Michigan">
+<MainLayout title="News and Events | Michigan Robotics" image={ogFeatureImage.src} description="Latest robotics news and upcoming events from the University of Michigan">
   <Breadcrumbs />
   <PageTitle title="News and Events" image={featureImage} imageAlt="Researchers work on a state-of-the-art bipedal robot in the Walking Robotics Lab." imagePosition="0% 40%"/>
   
@@ -194,7 +195,7 @@ const collegeNewsItems = await collegeNewsQuery();
             <Link href={`/news/${new Date(post.data.date).getFullYear()}/${post.id.split('/')[1]}`} 
                class="group bg-white dark:bg-gray-800 shadow-md rounded-sm overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-[1.02] flex flex-col">
                 <div class="relative">
-                  <span class="absolute top-2 left-0 text-xs font-medium px-4 py-1 bg-arboretumBlue text-white shadow-md z-10">
+                  <span class="hidden sm:block absolute top-2 left-0 text-xs font-medium px-4 py-1 bg-arboretumBlue text-white shadow-md z-10">
                     {categoryTitles[post.data.categories?.[0]] || 'robotics community'}
                   </span>
                   {postImage ? (
@@ -209,6 +210,9 @@ const collegeNewsItems = await collegeNewsQuery();
                 </div>
                 <div class="p-4 flex-grow flex flex-col justify-between">
                   <div>
+                    <span class="sm:hidden inline-block text-xs font-medium mr-2 px-4 py-1 bg-arboretumBlue text-white mb-2">
+                      {categoryTitles[post.data.categories?.[0]] || 'robotics community'}
+                    </span>
                     <h2 class="text-lg leading-tight font-roboto font-bold text-umichblue dark:text-gray-100 mb-2 border-b-2 border-transparent group-hover:border-maize transition-all duration-300">{post.data.title}</h2>
                     <p class="text-sm italic font-sans text-gray-600 dark:text-gray-400">
                       {new Date(post.data.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
@@ -221,7 +225,7 @@ const collegeNewsItems = await collegeNewsQuery();
         
         <a href="https://umrobotics.substack.com" class="group bg-white dark:bg-gray-800 shadow-md rounded-sm overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-[1.02] flex flex-col">
           <div class="relative">
-            <span class="absolute top-2 left-0 text-xs font-medium px-4 py-1 bg-arboretumBlue text-white shadow-md z-10">
+            <span class="hidden sm:block absolute top-2 left-0 text-xs font-medium px-4 py-1 bg-arboretumBlue text-white shadow-md z-10">
               substack newsletter
             </span>
             <Image
@@ -231,6 +235,13 @@ const collegeNewsItems = await collegeNewsQuery();
               height={360}
               class="w-full h-48 object-cover hidden sm:block"
             />
+          </div>
+          <div class="p-4 flex-grow flex flex-col justify-between">
+            <div>
+              <span class="sm:hidden inline-block text-xs font-medium mr-2 px-4 py-1 bg-arboretumBlue text-white mb-2">
+                substack newsletter
+              </span>
+            </div>
           </div>
           <div class="p-4 flex-grow flex flex-col justify-between">
             <div>
@@ -256,7 +267,7 @@ const collegeNewsItems = await collegeNewsQuery();
             <Link href={`/news/${new Date(post.data.date).getFullYear()}/${post.id.split('/')[1]}`} 
                class="group bg-white dark:bg-gray-800 shadow-md rounded-sm overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-[1.02] flex flex-col">
                 <div class="relative">
-                  <span class="absolute top-2 left-0 text-xs font-medium px-4 py-1 bg-arboretumBlue text-white shadow-md z-10">
+                  <span class="hidden sm:block absolute top-2 left-0 text-xs font-medium px-4 py-1 bg-arboretumBlue text-white shadow-md z-10">
                     {categoryTitles[post.data.categories?.[0]] || 'robotics community'}
                   </span>
                   {postImage ? (
@@ -271,6 +282,9 @@ const collegeNewsItems = await collegeNewsQuery();
                 </div>
                 <div class="p-4 flex-grow flex flex-col justify-between">
                   <div>
+                    <span class="sm:hidden inline-block text-xs font-medium mr-2 px-4 py-1 bg-arboretumBlue text-white mb-2">
+                      {categoryTitles[post.data.categories?.[0]] || 'robotics community'}
+                    </span>
                     <h2 class="text-lg leading-tight font-roboto font-bold text-umichblue dark:text-gray-100 mb-2 border-b-2 border-transparent group-hover:border-maize transition-all duration-300">{post.data.title}</h2>
                     <p class="text-sm italic font-sans text-gray-600 dark:text-gray-400">
                       {new Date(post.data.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}

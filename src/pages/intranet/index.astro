@@ -4,7 +4,7 @@ import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import PageTitle from "../../components/PageTitle.astro";
 import { Icon } from "astro-icon/components";
 import featuredImage from "../../images/featured-images/intranet.jpg";
-
+import ogFeatureImage from "../../images/featured-images/og/intranet.jpg";
 const sections = {
   department: {
     title: "Department",
@@ -273,7 +273,7 @@ const sectionIcons = {
 };
 ---
 
-<MainLayout title="Department Intranet | Michigan Robotics">
+<MainLayout title="Department Intranet | Michigan Robotics" image={ogFeatureImage} imageAlt="The glass facade of the Robotics Building glowing in the sunrise" description="A list of resources for Michigan Robotics faculty, staff, and students.">
   <Breadcrumbs />
   <PageTitle title="Department Intranet" image={featuredImage} imageAlt="Robotics Building window facade in the sunrise" />
 

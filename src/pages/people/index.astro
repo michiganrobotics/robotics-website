@@ -4,10 +4,11 @@ import { Image } from 'astro:assets';
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import PageTitle from "../../components/PageTitle.astro";
 import featuredImage from '../../images/featured-images/people.jpg';
+import ogFeatureImage from '../../images/featured-images/og/people.jpg';
 import Link from '../../components/Link.astro';
 ---
 
-<Layout title="People | Michigan Robotics" description="Michigan Robotics faculty, staff, students, and alumni who are advancing the field of robotics.">
+<Layout title="People | Michigan Robotics" description="Michigan Robotics faculty, staff, students, and alumni who are advancing the field of robotics." image={ogFeatureImage}>
   <Breadcrumbs />
   <PageTitle title="People" />
 

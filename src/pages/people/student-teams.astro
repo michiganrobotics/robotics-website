@@ -4,6 +4,7 @@ import { Image } from 'astro:assets';
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import PageTitle from "../../components/PageTitle.astro";
 import featureImage from '../../images/featured-images/people-student-teams.jpg';
+import ogFeatureImage from '../../images/featured-images/og/people-student-teams.jpg';
 import famnmImage from '../../images/student-teams/famnm.jpg';
 import mroverImage from '../../images/student-teams/mrover.jpg';
 import maavImage from '../../images/student-teams/maav.jpg';
@@ -117,7 +118,7 @@ teams.sort(() => Math.random() - 0.5);
 <Layout 
   title="Student Teams | Michigan Robotics"
   description="Student teams are an opportunity to meet people, apply classroom concepts to real applications, have fun, compete, and make a difference."
-  image="/social/og-teams.jpg">
+  image={ogFeatureImage}>
 <Breadcrumbs />
 <PageTitle title="Student Teams" image={featureImage} imageAlt="A collection of tools and drill bits in front of a drill press" imagePosition="10% 60%"/>
 

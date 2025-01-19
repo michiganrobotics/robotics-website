@@ -5,12 +5,13 @@ import { Icon } from "astro-icon/components";
 import Breadcrumbs from "../../../components/Breadcrumbs.astro";
 import PageTitle from "../../../components/PageTitle.astro";
 import featuredImage from "../../../images/featured-images/people-students.jpg";
+import ogFeatureImage from "../../../images/featured-images/og/people-students.jpg";
 
 const students = await getStudentData();
 students.sort((a, b) => a.lastName.localeCompare(b.lastName));
 ---
 
-<Layout title="Students | Michigan Robotics" description="University of Michigan Robotics students who are advancing the field of robotics.">
+<Layout title="Students | Michigan Robotics" description="University of Michigan Robotics students who are advancing the field of robotics." image={ogFeatureImage}>
   <main>
     <Breadcrumbs />
     <PageTitle title="Students" image={featuredImage} imageAlt="A silhouette of a student working in the Robotics Building" imagePosition="15% 70%" />

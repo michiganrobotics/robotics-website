@@ -7,11 +7,11 @@ import featureImage from '../../images/featured-images/partnerships.jpg';
 import { YouTube } from 'astro-embed';
 import NewsCard from '../../components/NewsCard.astro';
 import { getEntry } from 'astro:content';
-
+import ogFeatureImage from '../../images/featured-images/og/partnerships.jpg';
 const featuredPost = await getEntry('news', '2024/robotics-outreach-ambassadors-of-2024');
 ---
 
-<Layout title="Partnerships | Michigan Robotics" image={featureImage.src} description="Michigan Robotics cultivates partnerships in industry and academia to promote the training, research, and deployment of robotics that serve society.">
+<Layout title="Partnerships | Michigan Robotics" image={ogFeatureImage} description="Michigan Robotics cultivates partnerships in industry and academia to promote the training, research, and deployment of robotics that serve society.">
   <Breadcrumbs />
   <PageTitle title="Partnerships" image={featureImage} imageAlt="MBot components scattered on a table before assembly." imagePosition="0% 90%" />
      

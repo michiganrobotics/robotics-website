@@ -9,6 +9,7 @@ import SubNav from '../../../components/SubNav.astro';
 import Link from '../../../components/Link.astro';
 import ContentImage from '../../../components/ContentImage.astro';
 import featureImage from '../../../images/featured-images/research-focus-areas.jpg';
+import ogFeatureImage from '../../../images/featured-images/og/research-focus-areas.jpg';
 
 // Get all focus areas from the content collection
 const focusAreas = await getCollection('focusAreas');
@@ -19,7 +20,7 @@ const sortedAreas = focusAreas.sort((a, b) =>
 
 ---
 
-<Layout title="Research Focus Areas | Michigan Robotics" description="University of Michigan Robotics research focuses on a wide range of areas and applications.">
+<Layout title="Research Focus Areas | Michigan Robotics" description="University of Michigan Robotics research focuses on a wide range of areas and applications." image={ogFeatureImage}>
     <Breadcrumbs />
     <PageTitle title="Research Focus Areas" image={featureImage} imageAlt="A quadcopter drone in flight at M-Air testing facility" />
       <div class="mt-4 mb-4 max-w-6xl w-11/12 mx-auto">
