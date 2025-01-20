@@ -54,8 +54,10 @@ const matchedAwards = awards.map(award => {
      
           <div class="relative overflow-x-auto shadow-md sm:rounded-lg p-4 not-prose">
             <div class="mb-4">
+              <label for="searchInput" class="sr-only">Search awards</label>
               <input type="text" id="searchInput" placeholder="Search awards..." 
                 class="p-2 border rounded-lg w-full dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                aria-label="Search awards"
               />
             </div>
             <table class="w-full text-sm text-left text-gray-500 dark:text-gray-200">

@@ -1,11 +1,30 @@
 ---
 import Layout from '../../../layouts/MainLayout.astro';
-import { getStaffData } from '../../../lib/googleSheets';
+import { getStaffData, getProfileImagePath } from '../../../lib/googleSheets';
 import Breadcrumbs from "../../../components/Breadcrumbs.astro";
 import PageTitle from "../../../components/PageTitle.astro";
 import { Image } from 'astro:assets';
 
 const staffMembers = await getStaffData();
+
+// Get all profile images
+const images = import.meta.glob('/src/images/profile-images/*.{png,jpg,jpeg,gif,webp}');
+const robotProfile = await import('../../../images/profile-images/robot-profile.jpg');
+
+// Process image paths
+const profileImages = await Promise.all(
+  staffMembers.map(async (staff) => {
+    const imagePath = getProfileImagePath(staff);
+    const imageLoader = images[imagePath];
+    
+    if (imageLoader) {
+      const image = await imageLoader();
+      return image.default;
+    }
+    
+    return robotProfile.default;
+  })
+);
 ---
 
 <Layout title="Staff Directory | Michigan Robotics" description="Michigan Robotics staff members who support the department's research and educational programs.">
@@ -15,20 +34,24 @@ const staffMembers = await getStaffData();
     <div class="mx-2 m-auto mb-4 md:mx-12">
       <div class="relative mb-16">
        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-6 pt-10 px-2">
-          {staffMembers.map((staff) => (
+          {staffMembers.map((staff, index) => (
             <a
               href={`${Astro.url.pathname}/${staff.slug}`}
-              class="block rounded-sm shadow-md hover:shadow-lg transition-shadow p-4 bg-white dark:bg-gray-800"
+              class="block rounded-sm shadow-md hover:shadow-lg transition-all duration-200 ease-in-out hover:scale-[1.02] p-4 bg-white dark:bg-gray-800"
             >
-              {staff.photoURL && (
-                <Image
-                  src={staff.photoURL}
-                  alt={staff.fullName}
-                  width={566}
-                  height={192}
-                  class="w-full h-48 object-cover rounded-sm mb-3"
-                />
-              )}
+              <Image
+                src={profileImages[index]}
+                alt={`Portrait of ${staff.fullName}`}
+                width={566}
+                height={192}
+                loading={index < 2 || 
+                  (index < 4 && 'sm:hidden') || 
+                  (index < 6 && 'md:hidden') || 
+                  (index < 8 && 'lg:hidden') || 
+                  (index < 10 && 'xl:hidden') || 
+                  (index < 12 && '2xl:hidden') ? 'eager' : 'lazy'}
+                class="w-full h-48 object-cover rounded-sm mb-3"
+              />
               <h2 class="text-lg font-bold mb-1 text-gray-900 dark:text-white">{staff.preferredName} {staff.lastName}</h2>
               <p class="text-sm text-arboretumBlue dark:text-taubmanTeal">{staff.title}</p>
               <p class="text-xs text-gray-600 dark:text-gray-300">{staff.affiliation}</p>

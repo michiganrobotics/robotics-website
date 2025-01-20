@@ -1,10 +1,30 @@
 ---
 import Layout from '../../layouts/MainLayout.astro';
-import { getAdvisoryBoard } from '../../lib/googleSheets';
+import { getAdvisoryBoard, getProfileImagePath } from '../../lib/googleSheets';
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import PageTitle from "../../components/PageTitle.astro";
+import { Image } from 'astro:assets';
 
 const advisoryBoard = await getAdvisoryBoard();
+
+// Get all profile images
+const images = import.meta.glob('/src/images/profile-images/*.{png,jpg,jpeg,gif,webp}');
+const robotProfile = await import('../../images/profile-images/robot-profile.jpg');
+
+// Process image paths
+const profileImages = await Promise.all(
+  advisoryBoard.map(async (member) => {
+    const imagePath = getProfileImagePath(member);
+    const imageLoader = images[imagePath];
+    
+    if (imageLoader) {
+      const image = await imageLoader();
+      return image.default;
+    }
+    
+    return robotProfile.default;
+  })
+);
 ---
 
 <Layout title="Advisory Board | Michigan Robotics" description="Michigan Robotics advisory board members who provide valuable insights and support to the department's research and educational programs.">
@@ -12,31 +32,33 @@ const advisoryBoard = await getAdvisoryBoard();
     <Breadcrumbs />
     <PageTitle title="Advisory Board" />
     
-
     <div class="prose dark:prose-invert mt-8 mb-4 max-w-6xl w-11/12 mx-auto">
       <h2 class="text-xl font-roboto text-umichblue dark:text-white leading-relaxed font-normal">Distinguished members rotating from industry, academia, and government</h2>
       <p>The group is an invaluable resource to the Robotics Department in shaping our program with the insight of external feedback. Members meet regularly to discuss departmental vision, strategies and issues and provide advice to the chair.</p>
     </div>
     <div class="mx-2 m-auto mb-4 md:mx-12">
       <div class="relative mb-16">
-      
        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-6 pt-10 px-2">
-          {advisoryBoard.map((advisoryBoard) => (
-            <div class="block rounded-sm shadow-md hover:shadow-lg transition-shadow p-4 bg-white dark:bg-gray-800"            >
-              {advisoryBoard.photoURL && (
-                <img
-                  src={advisoryBoard.photoURL}
-                  alt={advisoryBoard.fullName}
-                  class="w-full object-cover aspect-square rounded-sm mb-3"
-                  width={200}
-                  height={200}
-                />
-              )}
-              <h2 class="text-lg font-bold mb-1 text-gray-900 dark:text-white">{advisoryBoard.firstName} {advisoryBoard.lastName}</h2>
-              <p class="text-sm text-arboretumBlue dark:text-taubmanTeal">{advisoryBoard.title1}</p>
-              <p class="text-sm text-gray-600 dark:text-gray-300">{advisoryBoard.organization1}</p>
-              <p class="text-sm mt-2 text-arboretumBlue dark:text-taubmanTeal">{advisoryBoard.title2}</p>
-              <p class="text-sm text-gray-600 dark:text-gray-300">{advisoryBoard.organization2}</p>
+          {advisoryBoard.map((member, index) => (
+            <div class="block rounded-sm shadow-md hover:shadow-lg transition-shadow p-4 bg-white dark:bg-gray-800">
+              <Image
+                src={profileImages[index]}
+                alt={`Portrait of ${member.fullName}`}
+                width={566}
+                height={566}
+                loading={index < 2 || 
+                  (index < 4 && 'sm:hidden') || 
+                  (index < 6 && 'md:hidden') || 
+                  (index < 8 && 'lg:hidden') || 
+                  (index < 10 && 'xl:hidden') || 
+                  (index < 12 && '2xl:hidden') ? 'eager' : 'lazy'}
+                class="w-full object-cover aspect-square rounded-sm mb-3"
+              />
+              <h2 class="text-lg font-bold mb-1 text-gray-900 dark:text-white">{member.firstName} {member.lastName}</h2>
+              <p class="text-sm text-arboretumBlue dark:text-taubmanTeal">{member.title1}</p>
+              <p class="text-sm text-gray-600 dark:text-gray-300">{member.organization1}</p>
+              <p class="text-sm mt-2 text-arboretumBlue dark:text-taubmanTeal">{member.title2}</p>
+              <p class="text-sm text-gray-600 dark:text-gray-300">{member.organization2}</p>
             </div>
           ))}
         </div>

@@ -4,9 +4,7 @@ import { Image } from 'astro:assets';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 const { staff } = Astro.props;
 import { getCollection } from 'astro:content';
-import ContentImage from '../components/ContentImage.astro';
-import { getImage } from 'astro:assets';
-import Link from '../components/Link.astro';
+import { getProfileImagePath } from '../lib/googleSheets';
 
 // Fetch all news posts with tag of staff member's full name
 const allNamedPosts = await getCollection('news', ({ data }) => {
@@ -17,24 +15,37 @@ const allNamedPosts = await getCollection('news', ({ data }) => {
 const relatedPosts = allNamedPosts
   .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
 
+// Get all profile images
+const images = import.meta.glob('/src/images/profile-images/*.{png,jpg,jpeg,gif,webp}');
+const robotProfile = await import('../images/profile-images/robot-profile.jpg');
+
+// Get profile image
+const imagePath = getProfileImagePath(staff);
+const imageLoader = images[imagePath];
+let profileImage;
+
+if (imageLoader) {
+  profileImage = await imageLoader();
+} else {
+  profileImage = robotProfile;
+}
+
 ---
 
-<Layout title={staff?.preferredName && staff?.lastName ? `${staff.preferredName} ${staff.lastName} | Robotics Staff Profile` : 'Staff Profile'} image={staff.photoURL} imageAlt={staff.fullName} description={`Learn more about Michigan Robotics staff member ${staff.fullName}`}>
+<Layout title={staff?.preferredName && staff?.lastName ? `${staff.preferredName} ${staff.lastName} | Robotics Staff Profile` : 'Staff Profile'} image={profileImage.default.src} imageAlt={staff.fullName} description={`Learn more about Michigan Robotics staff member ${staff.fullName}`}>
   <Breadcrumbs />
   {staff ? (
     <main class="mt-4 max-w-4xl mx-auto py-8 px-4 font-roboto text-PumaBlack dark:text-white bg-white dark:bg-umichblue">
       <div class="grid md:grid-cols-3 gap-8">
         <!-- Profile Photo -->
         <div class="md:col-span-1">
-          {staff.photoURL && (
-            <Image
-              src={staff.photoURL}
-              alt={staff.fullName}
-              width={732}
-              height={488}
-              class="w-full rounded-sm shadow-lg"
-            />
-          )}
+          <Image
+            src={profileImage.default}
+            alt={staff.fullName}
+            width={732}
+            height={488}
+            class="w-full rounded-sm shadow-lg"
+          />
         </div>
         
         <!-- Staff Details -->

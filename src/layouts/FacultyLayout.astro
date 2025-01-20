@@ -4,8 +4,9 @@ import ContentImage from '../components/ContentImage.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 const { faculty } = Astro.props;
 import { getCollection } from 'astro:content';
-import { Image,getImage } from 'astro:assets';
+import { Image, getImage } from 'astro:assets';
 import Link from '../components/Link.astro';
+import { getProfileImagePath } from '../lib/googleSheets';
 
 // Fetch all news posts with tag of faculty member's full name
 const allNamedPosts = await getCollection('news', ({ data }) => {
@@ -15,24 +16,37 @@ const allNamedPosts = await getCollection('news', ({ data }) => {
 // Sort posts by date
 const relatedPosts = allNamedPosts
   .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
+
+// Get all profile images
+const images = import.meta.glob('/src/images/profile-images/*.{png,jpg,jpeg,gif,webp}');
+const robotProfile = await import('../images/profile-images/robot-profile.jpg');
+
+// Get profile image
+const imagePath = getProfileImagePath(faculty);
+const imageLoader = images[imagePath];
+let profileImage;
+
+if (imageLoader) {
+  profileImage = await imageLoader();
+} else {
+  profileImage = robotProfile;
+}
 ---
 
-<Layout title={faculty?.preferredName && faculty?.lastName ? `${faculty.preferredName} ${faculty.lastName} | Robotics Faculty Profile` : 'Faculty Profile' } image={faculty.photoURL} imageAlt={faculty.fullName} description={`Learn more about Michigan Robotics faculty member ${faculty.fullName}`}>
+<Layout title={faculty?.preferredName && faculty?.lastName ? `${faculty.preferredName} ${faculty.lastName} | Robotics Faculty Profile` : 'Faculty Profile' } image={profileImage.default.src} imageAlt={faculty.fullName} description={`Learn more about Michigan Robotics faculty member ${faculty.fullName}`}>
   <Breadcrumbs />
   {faculty ? (
     <main class="mt-4 max-w-4xl mx-auto py-8 px-4 font-roboto text-PumaBlack dark:text-white bg-white dark:bg-umichblue">
       <div class="grid md:grid-cols-3 gap-8">
         <!-- Profile Photo -->
         <div class="md:col-span-1">
-          {faculty.photoURL && (
-            <Image
-              src={faculty.photoURL}
-              alt={faculty.fullName}
-              width={732}
-              height={488}
-              class="w-full rounded-sm shadow-lg"
-            />
-          )}
+          <Image
+            src={profileImage.default}
+            alt={faculty.fullName}
+            width={732}
+            height={488}
+            class="w-full rounded-sm shadow-lg"
+          />
         </div>
         
         <!-- Faculty Details -->

@@ -41,7 +41,7 @@ interface FacultyMember {
   lastName: string;
   title: string;
   affiliation: string;
-  photoURL: string;
+  UMID: string;
   email: string;
   additionalTitle1: string;
   additionalTitle2: string;
@@ -84,7 +84,7 @@ interface StaffMember {
   lastName: string;
   title: string;
   affiliation: string;
-  photoURL: string;
+  UMID: string;
   office: string;
   profileSummary: string;
   email: string;
@@ -107,7 +107,6 @@ interface AdvisoryBoard {
   organization1: string;
   title2: string;
   organization2: string;
-  photoURL: string;
 }
 
 interface Alumni {
@@ -165,6 +164,24 @@ function createSlug(name: string): string {
     .replace(/(^-|-$)+/g, '');
 }
 
+// Change from function to export const
+export const getProfileImagePath = (person: { UMID?: string, firstName?: string, lastName?: string }): string => {
+  const baseImagePath = '/src/images/profile-images/';
+  
+  // Try UMID first if available
+  if (person.UMID) {
+    return `${baseImagePath}${person.UMID}.jpg`;
+  }
+  
+  // Try firstname-lastname if available
+  if (person.firstName && person.lastName) {
+    return `${baseImagePath}${person.firstName.toLowerCase()}-${person.lastName.toLowerCase()}.jpg`;
+  }
+  
+  // Randomly choose between the two fallback images
+  return `${baseImagePath}${Math.random() < 0.5 ? 'robot-profile.jpg' : 'robot-profile2.jpg'}`;
+};
+
 export const getFacultyData = cached(async () => {
   await doc.loadInfo();
   const sheet = doc.sheetsByTitle['Faculty'];
@@ -177,7 +194,7 @@ export const getFacultyData = cached(async () => {
     lastName: row.get('lastName'),
     title: row.get('title'),
     affiliation: row.get('affiliation'),
-    photoURL: row.get('photoURL'),
+    UMID: row.get('UMID'),
     email: row.get('email'),
     additionalTitle1: row.get('additionalTitle1'),
     additionalTitle2: row.get('additionalTitle2'),
@@ -203,7 +220,7 @@ export const getEmeritusFacultyData = cached(async () => {
     lastName: row.get('lastName'),
     title: row.get('title'),
     affiliation: row.get('affiliation'),
-    photoURL: row.get('photoURL'),
+    UMID: row.get('UMID'),
     email: row.get('email'),
     additionalTitle1: row.get('additionalTitle1'),
     additionalTitle2: row.get('additionalTitle2'),
@@ -277,9 +294,9 @@ export const getStaffData = cached(async (): Promise<StaffMember[]> => {
     lastName: row.get('lastName'),
     title: row.get('title'),
     affiliation: row.get('affiliation'),
-    photoURL: row.get('photoURL'),
+    UMID: row.get('UMID'),
     office: row.get('office'),
-    profileSummary: row.get('profileSummary')?.replace(/(<([^>]+)>)/gi, ''), // Strip HTML tags
+    profileSummary: row.get('profileSummary')?.replace(/(<([^>]+)>)/gi, ''),
     email: row.get('email'),
     phone: row.get('phone'),
     studentServices: row.get('studentServices') === 'TRUE',
@@ -294,11 +311,10 @@ export const getAdvisoryBoard = cached(async (): Promise<AdvisoryBoard[]> => {
     firstName: row.get('firstName'),
     lastName: row.get('lastName'),
     fullName: row.get('fullName'),
-    title1: row.get('title1'),  
+    title1: row.get('title1'),
     organization1: row.get('organization1'),
     title2: row.get('title2'),
     organization2: row.get('organization2'),
-    photoURL: row.get('photoURL'),
   }));
 });
 

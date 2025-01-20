@@ -105,7 +105,7 @@ const groupedPoints = {
   "Mid-Level": engagementPoints.filter(p => p.level === "Mid-Level"),
   "Advanced": engagementPoints.filter(p => p.level === "Advanced")
 };
-function getHrClass(level) {
+function getHrClass(level: string) {
     switch(level) {
       case 'Initial': return 'hr-initial';
       case 'Mid-Level': return 'hr-mid-level';
@@ -126,21 +126,27 @@ function getHrClass(level) {
           {points.map((point) => (
             <div 
               class="engagement-point" 
-              role="article" 
-              aria-labelledby={`engagement-title-${point.title}`}
+              role="button"
+              aria-labelledby={`engagement-title-${point.title.toLowerCase().replace(/\s+/g, '-')}`}
               tabindex="0"
               aria-expanded="false"
+              aria-controls={`content-${point.title.toLowerCase().replace(/\s+/g, '-')}`}
             >
               <div class={`engagement-point-content rounded-lg shadow-sm p-4 border border-gray-100 dark:border-gray-700 dark:bg-gray-800 ${level === 'Initial' ? 'bg-maize bg-opacity-5' : ''} ${level === 'Mid-Level' ? 'bg-taubmanTeal bg-opacity-10' : ''} ${level === 'Advanced' ? 'bg-arboretumBlue bg-opacity-10' : ''}`}>
                 <div class="flex items-start gap-3">
                   <div class={`w-3 h-3 mt-1.5 rounded-full transition-colors duration-300 ${level === 'Initial' ? 'bg-maize dark:bg-maize' : ''} ${level === 'Mid-Level' ? 'bg-taubmanTeal' : ''} ${level === 'Advanced' ? 'bg-arboretumBlue' : ''}`}></div>
                   <div class="w-full">
-                    <h4 id={`engagement-title-${point.title}`} class="font-bold text-gray-900 dark:text-white not-prose ">{point.title}</h4>
+                    <h4 id={`engagement-title-${point.title.toLowerCase().replace(/\s+/g, '-')}`} class="font-bold text-gray-900 dark:text-white not-prose ">{point.title}</h4>
                     <p class="text-sm text-gray-600 dark:text-gray-300 not-prose">{point.description}</p>
                   </div>
                 </div>
                 {point.media && (
-                  <div class="engagement-point-media mt-4 space-y-3">
+                  <div 
+                    id={`content-${point.title.toLowerCase().replace(/\s+/g, '-')}`}
+                    role="region" 
+                    class="engagement-point-media mt-4 space-y-3"
+                    aria-labelledby={`engagement-title-${point.title.toLowerCase().replace(/\s+/g, '-')}`}
+                  >
                     {point.media.type === "image" && (
                       <div class="rounded-lg overflow-hidden">
                         <Image 
@@ -148,7 +154,9 @@ function getHrClass(level) {
                           alt={point.media.alt} 
                           class="w-full h-48 object-cover" 
                           width={1200} 
-                          height={630} 
+                          height={630}
+                          format="webp"
+                          quality={80}
                         />
                         <p class="text-sm text-gray-500 dark:text-gray-400 mt-2" set:html={point.media.description}></p>
                       </div>
@@ -248,23 +256,23 @@ function getHrClass(level) {
 </style>
 
 <script>
-  document.querySelectorAll('.engagement-point').forEach(point => {
+  document.querySelectorAll('.engagement-point').forEach((point: HTMLElement) => {
     let isExpanded = false;
     const isMobile = window.matchMedia('(hover: none)').matches;
 
     // Handle click/tap events
-    point.addEventListener('click', function(e) {
-      if (!isMobile) return; // Only handle clicks on mobile
+    point.addEventListener('click', function(this: HTMLElement, e: Event) {
+      if (!isMobile) return;
       
       e.preventDefault();
       e.stopPropagation();
       
-      const mediaContent = this.querySelector('.engagement-point-media');
+      const mediaContent = this.querySelector('.engagement-point-media') as HTMLElement;
       
       // Toggle the current point
       isExpanded = !isExpanded;
       this.classList.toggle('expanded');
-      this.setAttribute('aria-expanded', isExpanded);
+      this.setAttribute('aria-expanded', String(isExpanded));
       
       if (isExpanded) {
         mediaContent.style.maxHeight = `${mediaContent.scrollHeight}px`;
@@ -275,20 +283,22 @@ function getHrClass(level) {
       }
       
       // Close other points
-      document.querySelectorAll('.engagement-point').forEach(otherPoint => {
+      document.querySelectorAll('.engagement-point').forEach((otherPoint: HTMLElement) => {
         if (otherPoint !== this) {
-          const otherMedia = otherPoint.querySelector('.engagement-point-media');
-          otherPoint.classList.remove('expanded');
-          otherPoint.setAttribute('aria-expanded', 'false');
-          otherMedia.style.maxHeight = '0';
-          otherMedia.style.opacity = '0';
+          const otherMedia = otherPoint.querySelector('.engagement-point-media') as HTMLElement;
+          if (otherMedia) {
+            otherPoint.classList.remove('expanded');
+            otherPoint.setAttribute('aria-expanded', 'false');
+            otherMedia.style.maxHeight = '0';
+            otherMedia.style.opacity = '0';
+          }
         }
       });
     });
 
     // Desktop hover behavior
     if (!isMobile) {
-      point.addEventListener('mouseenter', function() {
+      point.addEventListener('mouseenter', function(this: HTMLElement) {
         if (!isExpanded) {
           this.classList.add('expanded');
           this.setAttribute('aria-expanded', 'true');
@@ -296,7 +306,7 @@ function getHrClass(level) {
         }
       });
 
-      point.addEventListener('mouseleave', function() {
+      point.addEventListener('mouseleave', function(this: HTMLElement) {
         if (!this.contains(document.activeElement)) {
           this.classList.remove('expanded');
           this.setAttribute('aria-expanded', 'false');

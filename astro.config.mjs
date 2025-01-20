@@ -86,7 +86,7 @@ export default defineConfig({
       'img.youtube.com',
       'cdninstagram.com',
       'scontent.cdninstagram.com',
-      'pbs.twimg.com',
+      'pbs.twimg.com'
     ],
     remotePatterns: [
       {
@@ -101,11 +101,10 @@ export default defineConfig({
       { protocol: 'https', hostname: '**.youtube.com' },
       { protocol: 'https', hostname: '**.cdninstagram.com' },
       { protocol: 'https', hostname: '**.twimg.com' },
-      {
-        protocol: "https",
+      {  protocol: "https",
         hostname: "events.umich.edu",
         pathname: "/media/*"
-      },
+      }
     ],
     service: {
       entrypoint: 'astro/assets/services/sharp'
