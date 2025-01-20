@@ -6,6 +6,7 @@ import tailwind from "@astrojs/tailwind";
 import preact from "@astrojs/preact";
 import sitemap from "@astrojs/sitemap";
 import icon from "astro-icon";
+
 const isGitHubPages = process.env.GITHUB_ACTIONS === 'true';
 const isNetlify = process.env.NETLIFY_BUILD === 'true';
 

@@ -1,12 +1,56 @@
 ---
 import Layout from './MainLayout.astro';
-import ContentImage from '../components/ContentImage.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
-const { faculty } = Astro.props;
 import { getCollection } from 'astro:content';
 import { Image, getImage } from 'astro:assets';
 import Link from '../components/Link.astro';
 import { getProfileImagePath } from '../lib/googleSheets';
+
+console.log('Starting FacultyLayout render');
+const { faculty } = Astro.props;
+
+// Debug logging
+console.log('Processing faculty member:', {
+  name: faculty.fullName,
+  UMID: faculty.UMID,
+  firstName: faculty.firstName,
+  lastName: faculty.lastName
+});
+
+// Get all profile images with absolute paths
+const images = import.meta.glob('/src/images/profile-images/*.{png,jpg,jpeg,gif,webp}');
+const robotProfile = await import('../images/profile-images/robot-profile.jpg');
+
+// Get profile image
+let profileImage = robotProfile; // Default to robot profile
+let imagePath;
+
+console.log('About to process images');
+try {
+  imagePath = getProfileImagePath(faculty);
+  console.log('Generated image path:', imagePath);
+  console.log('Available image paths:', Object.keys(images));
+  
+  const imageLoader = images[imagePath];
+  if (imageLoader) {
+    console.log('Found matching image loader');
+    const loadedImage = await imageLoader();
+    if (loadedImage && loadedImage.default) {
+      profileImage = loadedImage;
+      console.log('Successfully loaded image');
+    } else {
+      console.log('Image loader returned invalid result');
+    }
+  } else {
+    console.log('No matching image loader found, using fallback');
+  }
+} catch (error) {
+  console.error('Error in image processing:', {
+    faculty: faculty.fullName,
+    imagePath,
+    error: error.message
+  });
+}
 
 // Fetch all news posts with tag of faculty member's full name
 const allNamedPosts = await getCollection('news', ({ data }) => {
@@ -16,24 +60,14 @@ const allNamedPosts = await getCollection('news', ({ data }) => {
 // Sort posts by date
 const relatedPosts = allNamedPosts
   .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
-
-// Get all profile images
-const images = import.meta.glob('/src/images/profile-images/*.{png,jpg,jpeg,gif,webp}');
-const robotProfile = await import('../images/profile-images/robot-profile.jpg');
-
-// Get profile image
-const imagePath = getProfileImagePath(faculty);
-const imageLoader = images[imagePath];
-let profileImage;
-
-if (imageLoader) {
-  profileImage = await imageLoader();
-} else {
-  profileImage = robotProfile;
-}
 ---
 
-<Layout title={faculty?.preferredName && faculty?.lastName ? `${faculty.preferredName} ${faculty.lastName} | Robotics Faculty Profile` : 'Faculty Profile' } image={profileImage.default.src} imageAlt={faculty.fullName} description={`Learn more about Michigan Robotics faculty member ${faculty.fullName}`}>
+<Layout 
+  title={faculty?.preferredName && faculty?.lastName ? `${faculty.preferredName} ${faculty.lastName} | Robotics Faculty Profile` : 'Faculty Profile' } 
+  image={profileImage?.default?.src || robotProfile.default.src} 
+  imageAlt={faculty.fullName} 
+  description={`Learn more about Michigan Robotics faculty member ${faculty.fullName}`}
+>
   <Breadcrumbs />
   {faculty ? (
     <main class="mt-4 max-w-4xl mx-auto py-8 px-4 font-roboto text-PumaBlack dark:text-white bg-white dark:bg-umichblue">
@@ -41,7 +75,7 @@ if (imageLoader) {
         <!-- Profile Photo -->
         <div class="md:col-span-1">
           <Image
-            src={profileImage.default}
+            src={profileImage?.default || robotProfile.default}
             alt={faculty.fullName}
             width={732}
             height={488}
@@ -53,15 +87,16 @@ if (imageLoader) {
         <div class="md:col-span-2">
           <h1 class="text-4xl font-bold mb-2 font-roboto-condensed">{faculty.fullName}</h1>
           <div class="mb-4">
-          <p class="text-xl text-arboretumBlue dark:text-taubmanTeal">
-            {faculty.title}, {faculty.department1}{faculty.department2 && ` and ${faculty.department2}`}
-          </p>
-          {(faculty.additionalTitle1 || faculty.additionalTitle2) && (
-            <p class="text-lg text-gray-600 dark:text-gray-300 italic font-roboto-condensed">
-              {faculty.additionalTitle1}{faculty.additionalTitle2 && <><br />{faculty.additionalTitle2}</>}
+            <p class="text-xl text-arboretumBlue dark:text-taubmanTeal">
+              {faculty.title}, {faculty.department1}{faculty.department2 && ` and ${faculty.department2}`}
             </p>
-          )}
+            {(faculty.additionalTitle1 || faculty.additionalTitle2) && (
+              <p class="text-lg text-gray-600 dark:text-gray-300 italic font-roboto-condensed">
+                {faculty.additionalTitle1}{faculty.additionalTitle2 && <><br />{faculty.additionalTitle2}</>}
+              </p>
+            )}
           </div>
+
           <!-- Contact Info -->
           <div class="mb-6 space-y-4">
             {faculty.email && (
@@ -72,6 +107,12 @@ if (imageLoader) {
                 </a>
               </p>
             )}
+            {faculty.office && (
+              <p class="flex flex-col">
+                <span class="font-bold text-xs uppercase tracking-wider text-gray-600 dark:text-gray-300">Office</span>
+                <span class="text-lg">{faculty.office}</span>
+              </p>
+            )}
             {faculty.researchInterests && (
               <p class="flex flex-col">
                 <span class="font-bold text-xs uppercase tracking-wider text-gray-600 dark:text-gray-300">Research Interests</span>
@@ -80,75 +121,43 @@ if (imageLoader) {
             )}
           </div>
 
-          <!-- Additional Links -->
-          <div class="space-y-4">
-            {faculty.googleScholar && (
-              <p class="flex flex-col">
-                <span class="font-bold text-xs uppercase tracking-wider text-gray-600 dark:text-gray-300">Google Scholar</span>
-                <a href={faculty.googleScholar} target="_blank" rel="noopener noreferrer" class="hover:underline text-lg text-rackhamGreen dark:text-maize">
-                  View Profile
-                </a>
-              </p>
+          <!-- External Links -->
+          <div class="flex flex-wrap gap-4">
+            {faculty.website && (
+              <Link href={faculty.website} external>Personal Website</Link>
             )}
             {faculty.labWebsite && (
-              <p class="flex flex-col">
-                <span class="font-bold text-xs uppercase tracking-wider text-gray-600 dark:text-gray-300">Lab Website</span>
-                <a href={faculty.labWebsite} target="_blank" rel="noopener noreferrer" class="hover:underline text-lg text-rackhamGreen dark:text-maize">
-                  Visit Lab Website
-                </a>
-              </p>
+              <Link href={faculty.labWebsite} external>Lab Website</Link>
             )}
-            {faculty.website && (
-              <p class="flex flex-col">
-                <span class="font-bold text-xs uppercase tracking-wider text-gray-600 dark:text-gray-300">Personal Website</span>
-                <a href={faculty.website} target="_blank" rel="noopener noreferrer" class="hover:underline text-lg text-rackhamGreen dark:text-maize">
-                  Visit Personal Website
-                </a>
-              </p>
+            {faculty.googleScholar && (
+              <Link href={faculty.googleScholar} external>Google Scholar</Link>
             )}
           </div>
+
+          <!-- Related News -->
+          {relatedPosts.length > 0 && (
+            <div class="mt-8">
+              <h2 class="text-2xl font-bold mb-4">Related News</h2>
+              <ul class="space-y-4">
+                {relatedPosts.map(post => (
+                  <li>
+                    <a href={`/news/${post.slug}`} class="hover:underline">
+                      <p class="text-lg font-medium">{post.data.title}</p>
+                      <p class="text-sm text-gray-600 dark:text-gray-300">
+                        {new Date(post.data.date).toLocaleDateString('en-US', {
+                          year: 'numeric',
+                          month: 'long',
+                          day: 'numeric'
+                        })}
+                      </p>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
       </div>
-
-      {/* Related News Section */}
-      {relatedPosts.length > 0 && (
-        <div class="mt-12">
-          <h2 class="text-2xl font-bold mb-4 font-roboto-condensed dark:text-white">Related news</h2>
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {relatedPosts.map(async (post) => {
-              const postImage = post.data.image?.src ? await getImage({
-                src: post.data.image.src,
-                width: 450,
-                height: 300,
-              }) : null;
-
-              return (
-              <div class="group bg-white dark:bg-gray-900 rounded-sm overflow-hidden shadow-lg">
-                <Link href={`/news/${new Date(post.data.date).getFullYear()}/${post.id.split('/')[1]}`} 
-                  class="group">
-                  <div class="relative aspect-video overflow-hidden rounded-sm shadow-lg not-prose">
-                    {postImage ? (
-                      <Image 
-                        src={postImage.src}
-                        alt={post.data.image?.alt || post.data.title}
-                        width={450}
-                        height={300}
-                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                      />
-                    ) : null}
-                  </div>
-                  <div class="p-4">
-                    <h3 class="text-lg font-medium decoration-maize decoration-2 group-hover:underline">
-                      {post.data.title}
-                    </h3>
-                  </div>
-                </Link>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      )}
     </main>
   ) : (
     <p class="text-center text-angellHallAsh dark:text-burtonTowerBeige">Error loading faculty data...</p>

@@ -166,20 +166,28 @@ function createSlug(name: string): string {
 
 // Change from function to export const
 export const getProfileImagePath = (person: { UMID?: string, firstName?: string, lastName?: string }): string => {
+  if (!person) {
+    console.error('No person object provided to getProfileImagePath');
+    return '/src/images/profile-images/robot-profile.jpg';
+  }
+
   const baseImagePath = '/src/images/profile-images/';
   
   // Try UMID first if available
-  if (person.UMID) {
-    return `${baseImagePath}${person.UMID}.jpg`;
+  if (person.UMID && typeof person.UMID === 'string' && person.UMID.trim()) {
+    return `${baseImagePath}${person.UMID.trim()}.jpg`;
   }
   
   // Try firstname-lastname if available
-  if (person.firstName && person.lastName) {
-    return `${baseImagePath}${person.firstName.toLowerCase()}-${person.lastName.toLowerCase()}.jpg`;
+  if (person.firstName && person.lastName && 
+      typeof person.firstName === 'string' && typeof person.lastName === 'string' &&
+      person.firstName.trim() && person.lastName.trim()) {
+    const fileName = `${person.firstName.trim().toLowerCase()}-${person.lastName.trim().toLowerCase()}.jpg`;
+    return `${baseImagePath}${fileName}`;
   }
   
-  // Randomly choose between the two fallback images
-  return `${baseImagePath}${Math.random() < 0.5 ? 'robot-profile.jpg' : 'robot-profile2.jpg'}`;
+  console.warn('Using fallback image for:', person);
+  return `${baseImagePath}robot-profile.jpg`;
 };
 
 export const getFacultyData = cached(async () => {
