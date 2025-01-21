@@ -74,8 +74,20 @@ export default async function(request: Request, context: Context) {
 
     const tokenData = await tokenResponse.json();
     console.log('Token exchange response:', tokenData);
-    if (!tokenData.access_token) {
+    if (!tokenData.id_token) {
       console.error('Token exchange failed:', tokenData);
+      return Response.redirect('/');
+    }
+
+    // Verify the token before setting cookie
+    try {
+      const JWKS = await getJWKS(config);
+      await jwtVerify(tokenData.id_token, JWKS, {
+        issuer: "https://shibboleth.umich.edu",
+        audience: OIDC_CONFIG.clientId
+      });
+    } catch (error) {
+      console.error('Initial token verification failed:', error);
       return Response.redirect('/');
     }
     
@@ -83,7 +95,7 @@ export default async function(request: Request, context: Context) {
       status: 302,
       headers: {
         'Location': state,
-        'Set-Cookie': `umich_token=${tokenData.access_token}; Path=/; HttpOnly; Secure; SameSite=Lax`,
+        'Set-Cookie': `umich_token=${tokenData.id_token}; Path=/; HttpOnly; Secure; SameSite=Lax`,
       },
     });
   }
@@ -103,13 +115,24 @@ export default async function(request: Request, context: Context) {
   // Verify existing token
   try {
     const JWKS = await getJWKS(config);
-    await jwtVerify(token, JWKS, {
+    console.log('Got JWKS, verifying token...');
+    console.log('Token to verify:', token);
+    
+    const verified = await jwtVerify(token, JWKS, {
       issuer: "https://shibboleth.umich.edu",
       audience: OIDC_CONFIG.clientId
     });
+    console.log('Token verified:', verified);
     return context.next();
   } catch (error) {
     console.error('Token verification failed:', error);
+    if (error instanceof Error) {
+      console.error('Error details:', {
+        name: error.name,
+        message: error.message,
+        stack: error.stack
+      });
+    }
     return Response.redirect('/');
   }
 } 
