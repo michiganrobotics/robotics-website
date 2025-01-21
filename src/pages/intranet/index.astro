@@ -6,9 +6,6 @@ import { Icon } from "astro-icon/components";
 import featuredImage from "../../images/featured-images/intranet.jpg";
 import ogFeatureImage from "../../images/featured-images/og/intranet.jpg";
 
-// Get user info from edge function
-const userName = Astro.request.headers.get('X-User-Name')?.split(' ')[0] || 'Friend';
-
 const sections = {
   department: {
     title: "Department",
@@ -430,46 +427,49 @@ const sectionIcons = {
   </div>
 </MainLayout>
 
-<script define:vars={{ userName }}>
+<script>
+// Get user name from header
+const userName = document.querySelector('meta[name="x-user-name"]')?.getAttribute('content')?.split(' ')[0] || 'Friend';
+
 // ASCII Robot frames
 const frames = [
-`
-   _____
-  [     ]
-   |___| 
-  /|   |\\
- /_|___|_\\
-   |   |
-   |___|
-  `,
-`
-   _____
-  [^   ^]  Hi
-   |___| 
-  /|   |\\
- /_|___|_\\
-   |   |
-   |___|
-  `,
-`
-   _____
-  [^   ^]  Hi ${userName}!
-   |___| 
-  /|   |\\
- /_|___|_\\
-   |   |
-   |___|
-  `,
-`
-   _____
-  [^   ^]  Hi ${userName}! 
-   |___| /  Welcome to the
-  /|   |\\   Robotics Intranet
- /_|___|_\\
-   |   |
-   |___|
   `
-];
+     _____
+    [     ]
+     |___| 
+    /|   |\\
+   /_|___|_\\
+     |   |
+     |___|
+    `,
+  `
+     _____
+    [^   ^]  Hi
+     |___| 
+    /|   |\\
+   /_|___|_\\
+     |   |
+     |___|
+    `,
+  `
+     _____
+    [^   ^]  Hi ${userName}!
+     |___| 
+    /|   |\\
+   /_|___|_\\
+     |   |
+     |___|
+    `,
+  `
+     _____
+    [^   ^]  Hi ${userName}! 
+     |___| /  Welcome to the
+    /|   |\\   Robotics Intranet
+   /_|___|_\\
+     |   |
+     |___|
+    `
+].map(frame => frame.replace('${userName}', userName));  // Replace userName in frames
 
 let currentFrame = 0;
 const robotEl = document.getElementById('robot-animation');
