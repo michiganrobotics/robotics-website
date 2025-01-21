@@ -123,7 +123,13 @@ export default async function(request: Request, context: Context) {
       audience: OIDC_CONFIG.clientId
     });
     console.log('Token verified:', verified);
-    return context.next();
+    // Add user info to request context
+    const headers = new Headers();
+    headers.set('X-User-Name', verified.payload.name || '');
+    headers.set('X-User-Email', verified.payload.email || '');
+    headers.set('X-User-Roles', JSON.stringify(verified.payload.eduperson_affiliation || []));
+    
+    context.next({ headers });
   } catch (error) {
     console.error('Token verification failed:', error);
     if (error instanceof Error) {
