@@ -41,7 +41,10 @@ export default async function(request: Request, context: Context) {
 
   if (url.pathname === '/auth/callback') {
     const code = url.searchParams.get('code');
+    const state = url.searchParams.get('state') || '/intranet';
+    console.log('Callback received with code:', code);
     if (!code) {
+      console.log('No code in callback, redirecting home');
       return Response.redirect('/');
     }
 
@@ -61,6 +64,7 @@ export default async function(request: Request, context: Context) {
     });
 
     const tokenData = await tokenResponse.json();
+    console.log('Token exchange response:', tokenData);
     if (!tokenData.access_token) {
       console.error('Token exchange failed:', tokenData);
       return Response.redirect('/');
@@ -69,7 +73,7 @@ export default async function(request: Request, context: Context) {
     return new Response('', {
       status: 302,
       headers: {
-        'Location': '/intranet',
+        'Location': state,
         'Set-Cookie': `umich_token=${tokenData.access_token}; Path=/; HttpOnly; Secure; SameSite=Lax`,
       },
     });
@@ -82,7 +86,7 @@ export default async function(request: Request, context: Context) {
     authUrl.searchParams.set('response_type', 'code');
     authUrl.searchParams.set('scope', OIDC_CONFIG.scope);
     authUrl.searchParams.set('redirect_uri', OIDC_CONFIG.redirectUri(request));
-    authUrl.searchParams.set('state', url.pathname);
+    authUrl.searchParams.set('state', '/intranet');
 
     return Response.redirect(authUrl.toString());
   }
