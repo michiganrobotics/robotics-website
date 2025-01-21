@@ -1,27 +1,45 @@
 ---
 //list of student services staff members
-
-import { getStaffData } from '../lib/googleSheets';
+import { getStaffData, getProfileImagePath } from '../lib/googleSheets';
+import { Image, getImage } from 'astro:assets';
 
 const staff = await getStaffData();
+const studentServicesStaff = staff.filter(member => member.studentServices);
 
-const studentServicesStaff = staff.filter(member => member.studentServices)
+// Get all profile images
+const images = import.meta.glob('/src/images/profile-images/*.{png,jpg,jpeg,gif,webp}');
+const robotProfile = await import('../images/profile-images/robot-profile.jpg');
+
+// Process image paths
+const profileImages = await Promise.all(
+  studentServicesStaff.map(async (staff) => {
+    const imagePath = getProfileImagePath(staff);
+    const imageLoader = images[imagePath];
+    
+    if (imageLoader) {
+      const image = await imageLoader();
+      return image.default;
+    }
+    
+    return robotProfile.default;
+  })
+);
 --- 
 <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 not-prose w-full">
-    {studentServicesStaff.map(member => (
+    {studentServicesStaff.map((member, index) => (
       <div class="flex">
         <a
           href={`/people/staff/${member.slug}`}
           class="block w-full rounded-sm shadow-md hover:shadow-lg transition-shadow p-4 bg-white dark:bg-gray-800"
         >
           <div class="aspect-w-1 aspect-h-1 mb-3">
-            {member.photoURL && (
-              <img
-                src={member.photoURL}
-                alt={member.fullName}
-                class="w-full h-full object-cover rounded-sm"
-              />
-            )}
+            <Image
+              src={profileImages[index]}
+              alt={`Portrait of ${member.fullName}`}
+              width={400}
+              height={400}
+              class="w-full h-full object-cover rounded-sm"
+            />
           </div>
           <h2 class="text-lg font-bold mb-1 text-gray-900 dark:text-white">
             {member.preferredName} {member.lastName}

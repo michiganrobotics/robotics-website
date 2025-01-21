@@ -5,6 +5,7 @@ import { Image, getImage } from 'astro:assets';
 import ContentImage from '../../../components/ContentImage.astro';
 import Breadcrumbs from "../../../components/Breadcrumbs.astro";
 import Link from '../../../components/Link.astro';
+import { components } from '../../../components/components';
 
 export async function getStaticPaths() {
   const focusAreaEntries = await getCollection('focusAreas');
@@ -64,7 +65,7 @@ const relatedPosts = allAreaPosts
     </div>
     <div class="max-w-6xl mx-auto mt-12">
       <article class="prose prose-lg dark:prose-invert max-w-none">
-        <Content />
+        <Content components={components} />
 
         {/* Related News Section */}
         {relatedPosts.length > 0 && (

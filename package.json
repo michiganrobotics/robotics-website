@@ -23,6 +23,7 @@
     "astro-icon": "^1.1.5",
     "astro-seo": "^0.8.4",
     "axios": "^1.7.9",
+    "d3": "^7.9.0",
     "dotenv": "^16.4.5",
     "fast-xml-parser": "^4.5.1",
     "google-auth-library": "^9.15.0",
