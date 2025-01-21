@@ -123,24 +123,7 @@ export default async function(request: Request, context: Context) {
       audience: OIDC_CONFIG.clientId
     });
     console.log('Token verified:', verified);
-    // Inject meta tags with user info
-    return new Response(await context.next(), {
-      headers: {
-        'Set-Cookie': `umich_token=${token}; Path=/; HttpOnly; Secure; SameSite=Lax`,
-      },
-      transforms: [
-        {
-          html: (html: string) => {
-            const metaTags = `
-              <meta name="x-user-name" content="${verified.payload.name || ''}" />
-              <meta name="x-user-email" content="${verified.payload.email || ''}" />
-              <meta name="x-user-roles" content="${JSON.stringify(verified.payload.eduperson_affiliation || [])}" />
-            `;
-            return html.replace('</head>', `${metaTags}</head>`);
-          }
-        }
-      ]
-    });
+    return context.next();
   } catch (error) {
     console.error('Token verification failed:', error);
     if (error instanceof Error) {
