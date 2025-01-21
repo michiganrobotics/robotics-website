@@ -1,5 +1,5 @@
 import type { Context } from "@netlify/edge-functions";
-import { jwtVerify } from "jose";
+import { jwtVerify, createRemoteJWKSet } from "jose";
 
 // Using the well-known configuration URL like the Flask example
 const OIDC_CONFIG = {
@@ -10,8 +10,17 @@ const OIDC_CONFIG = {
     const url = new URL(request.url);
     return `${url.protocol}//${url.host}/auth/callback`;
   },
-  scope: 'openid profile email'  // Standard scopes from examples
+  scope: 'openid profile email eduperson_affiliation edumember'  // Match scopes from ITS
 };
+
+let JWKS: any = null;
+
+async function getJWKS(config: any) {
+  if (!JWKS) {
+    JWKS = createRemoteJWKSet(new URL(config.jwks_uri));
+  }
+  return JWKS;
+}
 
 async function getOIDCConfig() {
   const response = await fetch(OIDC_CONFIG.discoveryUrl);
@@ -93,9 +102,14 @@ export default async function(request: Request, context: Context) {
 
   // Verify existing token
   try {
-    await jwtVerify(token, new TextEncoder().encode(OIDC_CONFIG.clientSecret));
+    const JWKS = await getJWKS(config);
+    await jwtVerify(token, JWKS, {
+      issuer: "https://shibboleth.umich.edu",
+      audience: OIDC_CONFIG.clientId
+    });
     return context.next();
-  } catch {
+  } catch (error) {
+    console.error('Token verification failed:', error);
     return Response.redirect('/');
   }
 } 
