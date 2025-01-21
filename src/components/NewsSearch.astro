@@ -44,7 +44,9 @@ const searchableNews = allPosts.map(post => ({
       news.title.toLowerCase().includes(searchTerm) ||
       news.excerpt.toLowerCase().includes(searchTerm) ||
       news.category.toLowerCase().includes(searchTerm)
-    ).slice(0, 5);
+    )
+    .sort((a, b) => new Date(b.date) - new Date(a.date))
+    .slice(0, 5);
 
     if (filteredNews.length > 0) {
       const resultsHtml = filteredNews

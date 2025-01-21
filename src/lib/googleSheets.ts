@@ -1,6 +1,10 @@
 import { GoogleSpreadsheet } from 'google-spreadsheet';
 import { JWT } from 'google-auth-library';
 import dotenv from 'dotenv';
+import fs from 'fs/promises';
+import fsSync from 'fs';
+import path from 'path';
+import https from 'https';
 
 dotenv.config();
 
@@ -148,6 +152,7 @@ interface Student {
   jobSeekingStatus?: 'not currently seeking' | 'seeking internship' | 'seeking employment';
   linkedin?: string;
   outreachAmbassador?: boolean;
+  profileImage?: string;
 }
 
 function createSlug(name: string): string {
@@ -361,23 +366,135 @@ export const getAffiliateFacultyData = cached(async (): Promise<AffiliateFaculty
   }));
 });
 
+// Add this function to download and cache images
+async function cacheGoogleDriveImage(url: string, fileName: string): Promise<string | null> {
+  if (!url) return null;
+
+  const cacheDir = path.join(process.cwd(), 'src/images/cached-profiles');
+  const imagePath = path.join(cacheDir, `${fileName}.jpg`);
+  
+  try {
+    // Check if image already exists in cache
+    await fs.access(imagePath);
+    return `/src/images/cached-profiles/${fileName}.jpg`;
+  } catch {
+    // Image doesn't exist, download it
+    try {
+      // Ensure cache directory exists
+      await fs.mkdir(cacheDir, { recursive: true });
+      
+      // Download image with redirect handling
+      await new Promise((resolve, reject) => {
+        const request = https.get(url, {
+          headers: {
+            'User-Agent': 'Mozilla/5.0',
+          },
+          followAllRedirects: true,
+        }, (response) => {
+          // Handle redirects manually if needed
+          if (response.statusCode === 302 || response.statusCode === 301) {
+            const redirectUrl = response.headers.location;
+            if (redirectUrl) {
+              // Make a new request to the redirect URL
+              https.get(redirectUrl, {
+                headers: {
+                  'User-Agent': 'Mozilla/5.0',
+                },
+              }, (redirectResponse) => {
+                if (redirectResponse.statusCode !== 200) {
+                  reject(new Error(`Failed to download image after redirect: ${redirectResponse.statusCode}`));
+                  return;
+                }
+                const fileStream = fsSync.createWriteStream(imagePath);
+                redirectResponse.pipe(fileStream);
+                fileStream.on('finish', () => {
+                  fileStream.close();
+                  resolve(true);
+                });
+              }).on('error', reject);
+              return;
+            }
+          }
+
+          if (response.statusCode !== 200) {
+            reject(new Error(`Failed to download image: ${response.statusCode}`));
+            return;
+          }
+
+          const fileStream = fsSync.createWriteStream(imagePath);
+          response.pipe(fileStream);
+          fileStream.on('finish', () => {
+            fileStream.close();
+            resolve(true);
+          });
+        }).on('error', reject);
+
+        request.end();
+      });
+
+      return `/src/images/cached-profiles/${fileName}.jpg`;
+    } catch (error) {
+      console.error(`Failed to cache image for ${fileName}:`, error);
+      return null;
+    }
+  }
+}
+
+// Modify the getGoogleDriveDirectImageUrl function
+async function getGoogleDriveDirectImageUrl(url: string, studentName: string): Promise<string | null> {
+  if (!url) return null;
+  
+  if (url.includes('drive.google.com/file/d/')) {
+    const fileId = url.match(/\/d\/(.*?)\//)?.[1];
+    
+    if (fileId) {
+      const thumbnailUrl = `https://drive.google.com/thumbnail?id=${fileId}&sz=w400`;
+      const safeFileName = studentName.toLowerCase().replace(/[^a-z0-9]/g, '-');
+      return await cacheGoogleDriveImage(thumbnailUrl, safeFileName);
+    }
+  }
+  
+  return url;
+}
+
 export const getStudentData = cached(async (): Promise<Student[]> => {
   await doc.loadInfo();
   const sheet = doc.sheetsByTitle['Students'];
   const rows = await sheet.getRows();
-  return rows.map(row => ({
-    preferredFullName: row.get('preferredFullName'),
-    lastName: row.get('lastName'),
-    degree: row.get('degree'),
-    researchGroup: row.get('researchGroup'),
-    advisors: row.get('advisors'),
-    researchInterests: row.get('researchInterests'),
-    email: row.get('email'),
-    website: row.get('website'),
-    googleScholar: row.get('googleScholar'),
-    github: row.get('github'),
-    jobSeekingStatus: row.get('jobSeekingStatus'),
-    linkedin: row.get('linkedin'),
-    outreachAmbassador: row.get('outreachAmbassador') === 'TRUE',
+  
+  // Process all images in parallel
+  const students = await Promise.all(rows.map(async row => {
+    const profileImage = await getGoogleDriveDirectImageUrl(
+      row.get('profileImage'),
+      row.get('preferredFullName')
+    );
+
+    // Ensure we have at least a name to work with
+    const preferredFullName = row.get('preferredFullName') || row.get('lastName') || 'Unknown Student';
+    const lastName = row.get('lastName') || preferredFullName.split(' ').pop() || preferredFullName;
+
+    return {
+      preferredFullName,
+      lastName,
+      degree: row.get('degree') as 'PhD' | 'MS' | 'BS',
+      researchGroup: row.get('researchGroup') || '',
+      advisors: row.get('advisors') || '',
+      researchInterests: row.get('researchInterests') || '',
+      email: row.get('email') || '',
+      website: row.get('website'),
+      googleScholar: row.get('googleScholar'),
+      github: row.get('github'),
+      jobSeekingStatus: row.get('jobSeekingStatus'),
+      linkedin: row.get('linkedin'),
+      outreachAmbassador: row.get('outreachAmbassador') === 'TRUE',
+      profileImage,
+    };
   }));
+
+  // Filter out any invalid entries
+  return students.filter(student => 
+    student.preferredFullName && 
+    student.lastName && 
+    student.degree
+  );
 });

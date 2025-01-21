@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets';
 import Layout from '../../../layouts/MainLayout.astro';
 import { getStudentData } from '../../../lib/googleSheets';
 import { Icon } from "astro-icon/components";
@@ -7,8 +8,17 @@ import PageTitle from "../../../components/PageTitle.astro";
 import featuredImage from "../../../images/featured-images/people-students.jpg";
 import ogFeatureImage from "../../../images/featured-images/og/people-students.jpg";
 
+// Import all images from the cached-profiles directory
+const cachedImages = import.meta.glob('/src/images/cached-profiles/*.jpg');
+const defaultProfileImage = await import('../../../images/profile-images/robot-profile.jpg');
+
 const students = await getStudentData();
-students.sort((a, b) => a.lastName.localeCompare(b.lastName));
+// Add null checks and fallbacks for sorting
+students.sort((a, b) => {
+  const lastNameA = a.lastName || a.preferredFullName || '';
+  const lastNameB = b.lastName || b.preferredFullName || '';
+  return lastNameA.localeCompare(lastNameB);
+});
 ---
 
 <Layout title="Students | Michigan Robotics" description="University of Michigan Robotics students who are advancing the field of robotics." image={ogFeatureImage.src}>
@@ -45,13 +55,33 @@ students.sort((a, b) => a.lastName.localeCompare(b.lastName));
                data-degree={student.degree}
                data-status={student.jobSeekingStatus}>
             <div class="flex flex-col">
-              <h2 class="text-xl font-bold text-gray-900 dark:text-white">
-                {student.preferredFullName}
-              </h2>
-              
-              <p class="text-arboretumBlue dark:text-taubmanTeal text-sm mt-1">
-                {student.degree} Student
-              </p>
+              <div class="flex items-center gap-4 mb-3">
+                {student.profileImage ? (
+                  <Image
+                    src={cachedImages[student.profileImage]()}
+                    alt={`${student.preferredFullName}'s profile photo`}
+                    width={256}
+                    height={256}
+                    class="w-16 h-16 rounded-full object-cover bg-gray-100 dark:bg-gray-700"
+                  />
+                ) : (
+                  <Image
+                    src={defaultProfileImage.default}
+                    alt="Default profile photo"
+                    width={256}
+                    height={256}
+                    class="w-16 h-16 rounded-full object-cover bg-gray-100 dark:bg-gray-700"
+                  />
+                )}
+                <div>
+                  <h2 class="text-xl font-bold text-gray-900 dark:text-white">
+                    {student.preferredFullName}
+                  </h2>
+                  <p class="text-arboretumBlue dark:text-taubmanTeal text-sm">
+                    {student.degree} Student
+                  </p>
+                </div>
+              </div>
 
               <div class="flex flex-wrap gap-2 mt-1">
                 {student.jobSeekingStatus && student.jobSeekingStatus !== 'not currently seeking' && (

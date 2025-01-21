@@ -3,7 +3,6 @@ import SiteNav from "../components/SiteNav.astro";
 import SiteFooter from "../components/SiteFooter.astro";
 // import { navQuery } from "../lib/api";
 import { SEO } from 'astro-seo';
-import { ClientRouter } from 'astro:transitions';
 
 // const { menus, generalSettings } = await navQuery();
 // const primaryMenu = menus.nodes[0];
@@ -32,7 +31,6 @@ const siteUrl = "https://umrob.netlify.app";
 		<meta name="generator" content={Astro.generator} />
 		<meta name="robots" content="noindex, nofollow">
 		<link rel="icon" type="image/svg+xml" href="/favicon.ico" />
-		<ClientRouter />
 		<slot name="head"/>
 		<SEO
 			title={title}
@@ -104,10 +102,10 @@ const siteUrl = "https://umrob.netlify.app";
 	</head>
 	<body class="bg-gray-100 dark:bg-gray-700 dark:text-white">
 		<main class="m-auto mb-20">
-			<SiteNav transition:persist></SiteNav>
+			<SiteNav></SiteNav>
 			<slot></slot>
 		</main>
-		<SiteFooter transition:persist></SiteFooter>
+		<SiteFooter></SiteFooter>
 	</body>
 	<script is:inline>
 		window.addEventListener('load', () => {

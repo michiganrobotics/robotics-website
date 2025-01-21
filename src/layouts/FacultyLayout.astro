@@ -6,16 +6,8 @@ import { Image, getImage } from 'astro:assets';
 import Link from '../components/Link.astro';
 import { getProfileImagePath } from '../lib/googleSheets';
 
-console.log('Starting FacultyLayout render');
 const { faculty } = Astro.props;
 
-// Debug logging
-console.log('Processing faculty member:', {
-  name: faculty.fullName,
-  UMID: faculty.UMID,
-  firstName: faculty.firstName,
-  lastName: faculty.lastName
-});
 
 // Get all profile images with absolute paths
 const images = import.meta.glob('/src/images/profile-images/*.{png,jpg,jpeg,gif,webp}');
@@ -25,24 +17,14 @@ const robotProfile = await import('../images/profile-images/robot-profile.jpg');
 let profileImage = robotProfile; // Default to robot profile
 let imagePath;
 
-console.log('About to process images');
 try {
   imagePath = getProfileImagePath(faculty);
-  console.log('Generated image path:', imagePath);
-  console.log('Available image paths:', Object.keys(images));
-  
   const imageLoader = images[imagePath];
   if (imageLoader) {
-    console.log('Found matching image loader');
     const loadedImage = await imageLoader();
     if (loadedImage && loadedImage.default) {
       profileImage = loadedImage;
-      console.log('Successfully loaded image');
-    } else {
-      console.log('Image loader returned invalid result');
     }
-  } else {
-    console.log('No matching image loader found, using fallback');
   }
 } catch (error) {
   console.error('Error in image processing:', {
@@ -66,7 +48,7 @@ const relatedPosts = allNamedPosts
   title={faculty?.preferredName && faculty?.lastName ? `${faculty.preferredName} ${faculty.lastName} | Robotics Faculty Profile` : 'Faculty Profile' } 
   image={profileImage?.default?.src || robotProfile.default.src} 
   imageAlt={faculty.fullName} 
-  description={`Learn more about Michigan Robotics faculty member ${faculty.fullName}`}
+  description={`Learn more about Michigan Robotics faculty member ${faculty.fullName}.`}
 >
   <Breadcrumbs />
   {faculty ? (
