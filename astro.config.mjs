@@ -3,7 +3,6 @@ import node from "@astrojs/node";
 import mdx from '@astrojs/mdx';
 import embeds from 'astro-embed/integration';
 import tailwind from "@astrojs/tailwind";
-import preact from "@astrojs/preact";
 import sitemap from "@astrojs/sitemap";
 import icon from "astro-icon";
 
@@ -23,7 +22,6 @@ export default defineConfig({
   integrations: [
     icon(),
     tailwind(), 
-    preact(), 
     sitemap(), 
     embeds(), 
     mdx()

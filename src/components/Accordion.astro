@@ -1,15 +1,18 @@
 ---
 interface Props {
   title: string;
+  id?: string;
+  headingLevel?: string;
 }
 
-const { title } = Astro.props;
+const { title, id, headingLevel = "h2" } = Astro.props;
+const HeadingTag = headingLevel;
 ---
 
 <div class="accordion border border-gray-200 dark:border-gray-700 rounded-lg mb-4 overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-200">
   <button
     class="flex justify-between items-center w-full p-5 text-left bg-gray-50 dark:bg-arboretumBlue/40 text-gray-800 dark:text-white hover:bg-gray-100 dark:hover:bg-arboretumBlue/60 transition-all duration-200"
-    onclick="this.setAttribute('aria-expanded', this.getAttribute('aria-expanded') === 'true' ? 'false' : 'true'); this.querySelector('svg').classList.toggle('rotate-180'); this.nextElementSibling.classList.toggle('hidden')"
+    onclick="this.setAttribute('aria-expanded', this.getAttribute('aria-expanded') === 'true' ? 'false' : 'true'); this.querySelector('svg').classList.toggle('rotate-180'); this.nextElementSibling.classList.toggle('hidden'); if(this.getAttribute('aria-expanded') === 'true' && window.location.hash === '#' + this.nextElementSibling.querySelector('h2,h3,h4,h5,h6').id) { setTimeout(() => this.nextElementSibling.querySelector('h2,h3,h4,h5,h6').scrollIntoView({ behavior: 'smooth' }), 100); }"
     aria-expanded="false"
   >
     <span class="font-medium text-lg font-roboto">{title}</span>
@@ -55,3 +58,49 @@ const { title } = Astro.props;
     @apply border-b border-transparent;
   }
 </style>
+
+<script>
+  // Handle initial load with hash
+  document.addEventListener('DOMContentLoaded', () => {
+    if (window.location.hash) {
+      const targetHeading = document.querySelector(window.location.hash);
+      if (targetHeading) {
+        const accordionContent = targetHeading.closest('.accordion div.hidden');
+        if (accordionContent) {
+          const accordionButton = accordionContent.previousElementSibling;
+          // Open the accordion
+          accordionButton.setAttribute('aria-expanded', 'true');
+          accordionButton.querySelector('svg').classList.toggle('rotate-180');
+          accordionContent.classList.remove('hidden');
+          // Scroll after a brief delay to allow content to expand
+          setTimeout(() => {
+            targetHeading.scrollIntoView({ behavior: 'smooth' });
+          }, 100);
+        }
+      }
+    }
+  });
+
+  // Handle clicks on anchor links
+  document.addEventListener('click', (e) => {
+    const link = e.target.closest('a');
+    if (link && link.hash && link.origin + link.pathname === window.location.origin + window.location.pathname) {
+      const targetHeading = document.querySelector(link.hash);
+      if (targetHeading) {
+        const accordionContent = targetHeading.closest('.accordion div.hidden');
+        if (accordionContent) {
+          e.preventDefault();
+          const accordionButton = accordionContent.previousElementSibling;
+          // Open the accordion
+          accordionButton.setAttribute('aria-expanded', 'true');
+          accordionButton.querySelector('svg').classList.toggle('rotate-180');
+          accordionContent.classList.remove('hidden');
+          // Scroll after a brief delay to allow content to expand
+          setTimeout(() => {
+            targetHeading.scrollIntoView({ behavior: 'smooth' });
+          }, 100);
+        }
+      }
+    }
+  });
+</script>
