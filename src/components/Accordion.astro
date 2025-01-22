@@ -57,6 +57,17 @@ const HeadingTag = headingLevel;
   .accordion button {
     @apply border-b border-transparent;
   }
+
+  /* Safari-only scroll margin */
+  @supports (-webkit-hyphens:none) {
+    .accordion h2,
+    .accordion h3,
+    .accordion h4,
+    .accordion h5,
+    .accordion h6 {
+      scroll-margin-top: 100px;
+    }
+  }
 </style>
 
 <script>
