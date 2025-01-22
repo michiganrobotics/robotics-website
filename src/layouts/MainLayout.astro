@@ -1,11 +1,8 @@
 ---
 import SiteNav from "../components/SiteNav.astro"; 
 import SiteFooter from "../components/SiteFooter.astro";
-// import { navQuery } from "../lib/api";
 import { SEO } from 'astro-seo';
 
-// const { menus, generalSettings } = await navQuery();
-// const primaryMenu = menus.nodes[0];
 
 interface Props {
 	title: string;
@@ -112,6 +109,8 @@ const siteUrl = "https://umrob.netlify.app";
 		  document.documentElement.classList.remove('is-loading');
 		});
 	  </script>
+		<script data-goatcounter="https://robotics-umich-edu.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
 </html>
   
   <style is:global>

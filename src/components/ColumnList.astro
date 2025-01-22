@@ -6,8 +6,8 @@ interface Props {
 const { columns = 2 } = Astro.props;
 ---
 
-<div class={`grid md:grid-cols-${columns} gap-x-8 gap-y-2 my-2`}>
-  <div class="contents" id="column-list-container">
+<div class={`grid md:grid-cols-${columns} gap-x-8 gap-y-4`}>
+  <div class="contents [&>div]:mt-0 [&>div>h3:first-child]:mt-0" id="column-list-container">
     <slot />
   </div>
 </div>
@@ -30,7 +30,7 @@ const { columns = 2 } = Astro.props;
       if (columnItems.length === 0) continue;
       
       const ul = document.createElement('ul');
-      ul.className = 'list-disc list-inside space-y-2';
+      ul.className = 'list-disc list-inside';
       columnItems.forEach(item => ul.appendChild(item.cloneNode(true)));
       container.appendChild(ul);
     }

@@ -1,9 +1,6 @@
 // src/config/navigation.ts
 // edit this file to add new menu items on main nav across pages or subnav of a specific page
 
-
-const base = process.env.GITHUB_ACTIONS === 'true' ? '/rob-astro-23' : '';
-
 interface MenuItem {
   label: string;
   uri: string;
@@ -17,6 +14,7 @@ interface SubNavItem {
   title: string;
   href: string;
   external?: boolean;
+  anchor?: boolean;
 }
 
 // edit main nav items here
@@ -94,9 +92,9 @@ export const mainNav: MenuItem[] = [
             childItems: { nodes: [] }
           },
           {
-            label: "Current Students",
-            uri: "/academics/current-students",
-            id: "academics-current-students",
+            label: "Student Services",
+            uri: "/academics/student-services",
+            id: "academics-student-services",
             childItems: { nodes: [] }
           }
         ]
@@ -218,7 +216,7 @@ export const addBaseToMenuItems = (items: any[]) => {
   return items.map(item => {
     const newItem = {
       ...item,
-      uri: `${base.replace(/\/$/, '')}/${item.uri?.replace(/^\//, '')}` || '/'
+      uri: item.uri || '/'
     };
     
     if (item.childItems?.nodes?.length > 0) {
@@ -246,6 +244,12 @@ export const subNavConfig: Record<string, SubNavItem[]> = {
       { title: "Graduate", href: "/academics/graduate" },
       { title: "Courses", href: "/academics/courses" },
       { title: "Student Services", href: "/academics/student-services" }
+    ],
+    'academics/student-services': [
+      { title: "Academic Advising", href: "/academics/student-services#academic-advising", anchor: true },
+      { title: "Student Resources", href: "/academics/student-services#student-resources", anchor: true },
+      { title: "Staff", href: "/academics/student-services#student-services-staff", anchor: true },
+      { title: "Communicate to our students", href: "/academics/student-services#communicate-to-our-students", anchor: true }
     ],
     'academics/courses': [
       { title: "Current Term Courses", href: "/academics/courses/current-term" },

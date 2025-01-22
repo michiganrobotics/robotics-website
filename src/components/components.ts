@@ -9,6 +9,8 @@ import PhotoLeft from '../components/PhotoLeft.astro';
 import ColumnList from '../components/ColumnList.astro';
 import { YouTube } from 'astro-embed';
 import { LinkPreview } from 'astro-embed';
+import { Image } from 'astro:assets';
+import PhotoGallery from '../components/PhotoGallery.astro';
 
 export const components = {
   Button,
@@ -22,6 +24,8 @@ export const components = {
   YouTube,
   LinkPreview,
   ColumnList,
+  PhotoGallery,
+  Image,
 };
 
 

@@ -174,10 +174,17 @@
 /profile/grant-gibson /people/students 301
 
 # Other redirects
-/:year/:slug /news/:year/:slug 301
+/20:year(\\d{2})/:slug /news/20:year/:slug 301   # Only matches years starting with 20
 /about/media /about/contact 301
 /research/datasets /research/projects-and-datasets 301
 /academics/current-students /academics/student-services 301
+/undergrad-guide https://docs.google.com/document/d/1S2JqdV4nay4NPOCW_27Jc6UZhChaKCZ9miSFnOtk69k/edit 301
+/irosforum https://sites.google.com/umich.edu/roboticseducationforum/ 301
+/dtcenter https://sites.google.com/umich.edu/digitaltwincenter 301
+/gear https://www.aatwebstore.com/UMBOT/shop/home 301
+/academics/current-students/graduate-student-instructor-gsi-positions /academics/current-students/student-appointments/ 301
+/exos https://sites.google.com/umich.edu/icra-2025-exoskeleton-workshop/home 301
+/grad-guide https://docs.google.com/document/d/e/2PACX-1vTCjWRdEl4wM_n4oIU875yAzzG_4tBdmqnJcj4gNntgyG3Q5LY0qw_J_ei5nqmMEi1ljJpfvLbGCzdJ/pub 301
 
 # Fallback redirects
 /profile/* /people 301

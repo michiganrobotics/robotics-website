@@ -63,6 +63,7 @@ const isNewsPage = trimmedPath === 'news';
         >
           {item.title}
           {item.external && <Icon name="mdi:open-in-new" class="inline w-4 h-4 ml-1" />}
+          {item.anchor && <Icon name="mdi:arrow-down-right" class="inline w-4 h-4 ml-1" />}
         </a>
       ))
     )}

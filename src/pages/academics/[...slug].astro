@@ -6,6 +6,7 @@ import { components } from '../../components/components';
 import ContentImage from "../../components/ContentImage.astro";
 import PageTitle from "../../components/PageTitle.astro";
 
+
 // Generate static paths for all academic pages
 export async function getStaticPaths() {
   const academicPages = await getCollection('academics');

@@ -7,9 +7,11 @@ import PageTitle from "../../components/PageTitle.astro";
 import { Image } from "astro:assets";
 import { getCollection } from 'astro:content';
 import { getFacultyData } from "../../lib/googleSheets";
+import { getProfileImagePath } from '../../lib/googleSheets';
+
 const facultyMembers = await getFacultyData();
 const facultyPhotoLookup = Object.fromEntries(
-  facultyMembers.map(f => [f.fullName, f.photoURL])
+  facultyMembers.map(f => [f.fullName, getProfileImagePath(f)])
 );
 
 // define excom members

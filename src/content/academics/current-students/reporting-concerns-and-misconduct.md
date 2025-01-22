@@ -5,7 +5,7 @@ date: "2019-10-22"
 
 If you encounter behavior or misconduct that does not follow Robotics [values](https://robotics.umich.edu/about/values/) or University of Michigan [policies](https://spg.umich.edu/), or are unsure if you have experienced such behavior, there are many resources and contacts available for you.
 
-A key distinction in the available contacts, however, is whether the contact must share your concerns on prohibited behavior, including sexual assault, harassment, violence, stalking, or retaliation, with the University’s Equity, Civil Rights, and Title IX Office (ECRT, formerly known as the [Office of Institutional Equity](https://oie.umich.edu/), or OIE) or whether the contact can keep your conversation confidential. Staff and faculty who must immediately report prohibited behavior are called “Individuals with Reporting Obligations,” or IROs.
+A key distinction in the available contacts, however, is whether the contact must share your concerns on prohibited behavior, including sexual assault, harassment, violence, stalking, or retaliation, with the University’s [Equity, Civil Rights, and Title IX Office](https://ecrt.umich.edu/) (ECRT) or whether the contact can keep your conversation confidential. Staff and faculty who must immediately report prohibited behavior are called “Individuals with Reporting Obligations,” or IROs.
 
 If you want to maintain confidentiality, or are uncertain whether you want a formal complaint filed, your first action might be to contact those who are not considered IROs.
 
@@ -25,7 +25,7 @@ Outside of Robotics, those who _can_ guarantee confidentiality include:
 
 ## **Formal, non-confidential issues**
 
-Be aware that if you share information with the following contacts, considered IROs, they are mandated to share any prohibited conduct with the ECRT Office, formerly known as the Office of Institutional Equity, and your issue will not remain private and confidential.
+Be aware that if you share information with the following contacts, considered IROs, they are mandated to share any prohibited conduct with the ECRT Office, and your issue will not remain private and confidential.
 
 In Robotics, IRO employees that must report any misconduct include:
 
@@ -45,7 +45,7 @@ Outside of Robotics, those that must report any misconduct include:
 
 - [University Ethics, Integrity, and Compliance](https://compliance.umich.edu/report-a-concern/)
 
-- [Equity, Civil Rights and Title IX Office](https://sexualmisconduct.umich.edu/reporting-process/) (ECRT, formerly known as the [Office of Institutional Equity](https://oie.umich.edu/))
+- [Equity, Civil Rights and Title IX Office](https://ecrt.umich.edu/) (ECRT)
 
 Please also note, if an individual is an IRO in any role they hold, they are an IRO in _every_ aspect. This means faculty who employ people, such as student temps, GSRAs, or postdocs, are considered to be IROs and must always report any instances of discrimination or harassment.
 
@@ -57,4 +57,4 @@ As stated in our values, we strive for a community built on respect and integrit
 
 The only office that has the authority to investigate and adjudicate complaints is the ECRT, formerly known as OIE. It is important to be aware that once you begin working with ECRT, you, the target of your complaint, and any witnesses will be treated equally formally. For this reason, we have provided contacts not responsible to report misconduct, highlighted above. These contacts can prepare you for reporting in a clear manner as well as provide support throughout the process. Ultimately, reporting is absolutely important for meaningful changes in behavior and culture to take place.
 
-The main thing I want you to know is that you do not have to do this alone. Robotics will support you. Robotics Graduate Coordinator Denise Edmund can help you to make contact with fellow students, if you wish. Some of your peers have first-hand knowledge of our values and actions. And while I am required to report any misconduct immediately, we are also there to support you, as is the CoE Office of Student Affairs.
+The main thing I want you to know is that you do not have to do this alone. Robotics will support you. And while I am required to report any misconduct immediately, we are also there to support you, as is the CoE Office of Student Affairs.
