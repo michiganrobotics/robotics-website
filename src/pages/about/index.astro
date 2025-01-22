@@ -6,16 +6,34 @@ import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import PageTitle from "../../components/PageTitle.astro";
 import { Image } from "astro:assets";
 import { getCollection } from 'astro:content';
-import { getFacultyData } from "../../lib/googleSheets";
-import { getProfileImagePath } from '../../lib/googleSheets';
+import { getFacultyData, getProfileImagePath } from '../../lib/googleSheets';
+import { getFacultyData as oldGetFacultyData } from "../../lib/googleSheets";
+
+const images = import.meta.glob('/src/images/profile-images/*.{png,jpg,jpeg,gif,webp}');
+const robotProfile = await import('../../images/profile-images/robot-profile.jpg');
 
 const facultyMembers = await getFacultyData();
 const facultyPhotoLookup = Object.fromEntries(
   facultyMembers.map(f => [f.fullName, getProfileImagePath(f)])
 );
 
-// define excom members
-const excom = [
+const getProfileImage = async (imagePath: string) => {
+  const imageLoader = images[imagePath];
+  if (imageLoader) {
+    const image = await imageLoader();
+    return image.default;
+  }
+  return robotProfile.default;
+};
+
+interface ExcomMember {
+  name: string;
+  role?: string;
+  isExOfficio: boolean;
+  photoURL?: any; // Using any here since the image type is complex
+}
+
+const excom = await Promise.all([
   {
     name: "Dawn Tilbury",
     role: "Department Chair",
@@ -43,12 +61,12 @@ const excom = [
     role: "Associate Director of Undergraduate Studies",
     isExOfficio: true
   },
-].map(member => ({
+].map(async member => ({
   ...member,
-  photoURL: facultyPhotoLookup[member.name]
-}));
+  photoURL: await getProfileImage(facultyPhotoLookup[member.name])
+})));
 
-const formatMember = (member) => {
+const formatMember = (member: ExcomMember) => {
   if (member.isExOfficio) {
     return `${member.name}, ${member.role} (ex-officio)`;
   }
@@ -213,11 +231,13 @@ const focusAreas = await getCollection('focusAreas');
 
         <!-- Photo rows -->
         <div class="flex flex-wrap justify-center mb-2">
-          {excom.map((member, index) => (
+          {excom.map((member) => (
             <div class={`w-24 text-center md:w-48`}>
-              <img 
-                src={member.photoURL} 
+              <Image 
+                src={member.photoURL}
                 alt={member.name}
+                width={200}
+                height={200}
                 class={`w-full h-24 md:h-48 object-cover ${
                   member.name === "Brent Gillespie" 
                     ? "object-[100%_0%] md:object-right"
