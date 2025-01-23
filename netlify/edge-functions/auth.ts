@@ -134,10 +134,13 @@ export default async function(request: Request, context: Context) {
       });
     }
 
-    // Clear the expired/invalid token cookie
-    const response = Response.redirect('/');
-    response.headers.set('Set-Cookie', 'umich_token=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT; HttpOnly; Secure; SameSite=Lax');
-    
-    return response;
+    // Create a new Response with the cookie clearing header
+    return new Response(null, {
+      status: 302,
+      headers: {
+        'Location': '/',
+        'Set-Cookie': 'umich_token=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT; HttpOnly; Secure; SameSite=Lax'
+      }
+    });
   }
 } 
