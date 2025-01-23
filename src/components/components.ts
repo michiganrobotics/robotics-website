@@ -15,6 +15,7 @@ import TwoColumn from '../components/TwoColumn.astro';
 import TextWithImage from '../components/TextWithImage.astro';
 import NewsCard from '../components/NewsCard.astro';
 import Pill from '../components/Pill.astro';
+import SpeakerProfile from '../components/SpeakerProfile.astro';
 
 export const components = {
   Button,
@@ -34,6 +35,7 @@ export const components = {
   TextWithImage,
   NewsCard,
   Pill,
+  SpeakerProfile
 };
 
 

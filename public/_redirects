@@ -184,6 +184,7 @@
 /gear https://www.aatwebstore.com/UMBOT/shop/home 301
 /exos https://sites.google.com/umich.edu/icra-2025-exoskeleton-workshop/home 301
 /grad-guide https://docs.google.com/document/d/e/2PACX-1vTCjWRdEl4wM_n4oIU875yAzzG_4tBdmqnJcj4gNntgyG3Q5LY0qw_J_ei5nqmMEi1ljJpfvLbGCzdJ/pub 301
+/academics/undergraduate/undergraduate-sure /academics/undergraduate/sure 301
 
 # Fallback redirects
 /profile/* /people 301

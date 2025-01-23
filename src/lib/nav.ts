@@ -54,6 +54,12 @@ export const mainNav: MenuItem[] = [
                   uri: "/academics/undergraduate/sugs",
                   id: "academics-undergraduate-sugs",
                   childItems: { nodes: [] }
+                },
+                {
+                  label: "SURE",
+                  uri: "/academics/undergraduate/sure",
+                  id: "academics-undergraduate-sure",
+                  childItems: { nodes: [] }
                 }
               ]
             }
@@ -315,6 +321,35 @@ export const subNavConfig: Record<string, SubNavItem[]> = {
       { title: "Program Requirements", href: "/academics/undergraduate/program-requirements" },
       { title: "Current Course Offerings", href: "/academics/courses/course-offerings" },
       { title: "Pathways Speaker Series", href: "/academics/undergraduate/robotics-pathways-speaker-series" },
+    ],
+    'academics/undergraduate/program-requirements': [
+      { title: "Undergraduate Program", href: "/academics/undergraduate" },
+      { title: "Robotics and College Requirements", href: "/academics/undergraduate/program-requirements#robotics-and-college-requirements", anchor: true },
+      { title: "Advising & Scheduling", href: "/academics/undergraduate/scheduling" },
+      { title: "Program Guide", href: "http://robotics.umich.edu/undergrad-guide", external: true }
+    ],
+    'academics/undergraduate/scheduling': [
+      { title: "Undergraduate Program", href: "/academics/undergraduate" },
+      { title: "Program Requirements", href: "/academics/undergraduate/program-requirements" },
+      { title: "Sample Schedules", href: "/academics/undergraduate/scheduling#sample--editable-schedules", anchor: true },
+      { title: "Scheduling Advice", href: "/academics/undergraduate/scheduling#scheduling-advice", anchor: true }
+    ],
+    'academics/undergraduate/robotics-pathways-speaker-series': [
+      { title: "Undergraduate Program", href: "/academics/undergraduate" },
+      { title: "Program Requirements", href: "/academics/undergraduate/program-requirements" },
+      { title: "Advising & Scheduling", href: "/academics/undergraduate/scheduling" }
+    ],
+    'academics/undergraduate/sugs': [
+      { title: "Undergraduate Program", href: "/academics/undergraduate" },
+      { title: "SUGS Deadlines", href: "/academics/undergraduate/sugs#application-deadlines", anchor: true },
+      { title: "Advising & Scheduling", href: "/academics/undergraduate/scheduling" },
+      { title: "Program Requirements", href: "/academics/undergraduate/program-requirements" }
+    ],
+    'academics/undergraduate/sure': [
+      { title: "Undergraduate Program", href: "/academics/undergraduate" },
+      { title: "SURE Projects", href: "/academics/undergraduate/sure#robotics-sure-projects", anchor: true },
+      { title: "Advising & Scheduling", href: "/academics/undergraduate/scheduling" },
+      { title: "Program Requirements", href: "/academics/undergraduate/program-requirements" }
     ],
     'people$': [
       { title: "Faculty", href: "/people/faculty" },
