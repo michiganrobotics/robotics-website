@@ -7,50 +7,48 @@ import featureImage from '../../../../images/featured-images/academics-online-co
 import ogFeatureImage from '../../../../images/featured-images/og/academics-online-courses.jpg';
 
 // Import course images
-const courseImages = {
-  rob101: "http://2024.robotics.umich.edu/wp-content/uploads/sites/6/2020/12/rob101-insta.jpg",
-  rob102: "http://2024.robotics.umich.edu/wp-content/uploads/sites/6/2022/02/ROB-102.jpg",
-  rob311: "https://2024.robotics.umich.edu/wp-content/uploads/sites/6/2023/06/ROB311-courses.jpg",
-  rob320: "https://2024.robotics.umich.edu/wp-content/uploads/sites/6/2022/02/rob320.jpg",
-  rob501: "http://2024.robotics.umich.edu/wp-content/uploads/sites/6/2022/02/rob501.jpg",
-  rob502: "http://2024.robotics.umich.edu/wp-content/uploads/sites/6/2022/05/rob-502.jpg",
-  rob530: "https://2024.robotics.umich.edu/wp-content/uploads/sites/6/2022/02/rob530.jpg"
-};
+import rob101 from '../../../../images/online-courses/rob101.jpg';
+import rob102 from '../../../../images/online-courses/rob102.jpg';
+import rob311 from '../../../../images/online-courses/rob311.jpg';
+import rob320 from '../../../../images/online-courses/rob320.jpg';
+import rob501 from '../../../../images/online-courses/rob501.jpg';
+import rob502 from '../../../../images/online-courses/rob502.jpg';
+import rob530 from '../../../../images/online-courses/rob530.jpg';
 
 const courses = [
   {
     title: "ROB 101: Computational Linear Algebra",
-    image: courseImages.rob101,
+    image: rob101,
     link: "https://github.com/michiganrobotics/rob101/tree/main/Fall%202021"
   },
   {
     title: "ROB 102: Introduction to AI and Programming",
-    image: courseImages.rob102,
+    image: rob102,
     link: "https://robotics102.github.io"
   },
   {
     title: "ROB 311: How to Build Robots and Make Them Move",
-    image: courseImages.rob311,
+    image: rob311,
     link: "https://github.com/michiganrobotics/rob311"
   },
   {
     title: "ROB 320: Robot Operating Systems",
-    image: courseImages.rob320,
+    image: rob320,
     link: "https://autorob.org"
   },
   {
     title: "ROB 501: Mathematics for Robotics",
-    image: courseImages.rob501,
+    image: rob501,
     link: "https://github.com/michiganrobotics/rob501"
   },
   {
     title: "ROB 502: Programming for Robotics",
-    image: courseImages.rob502,
+    image: rob502,
     link: "/academics/courses/online-courses/rob502-f20/"
   },
   {
     title: "ROB 530: Mobile Robotics",
-    image: courseImages.rob530,
+    image: rob530,
     link: "https://github.com/UMich-CURLY-teaching/UMich-ROB-530-public"
   }
 ];
@@ -67,9 +65,11 @@ const courses = [
         <div class="course-card group">
           <a href={course.link} class="block">
             <div class="relative mb-4 overflow-hidden rounded-lg">
-              <img 
+              <Image 
                 src={course.image} 
                 alt={course.title}
+                width={300}
+                height={200}
                 class="w-full h-56 object-cover transform transition-all duration-500 group-hover:scale-95"
               />
               <div class="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>

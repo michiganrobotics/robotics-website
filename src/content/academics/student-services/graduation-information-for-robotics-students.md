@@ -5,15 +5,15 @@ date: "2024-08-30"
 
 ## **For MS Students**
 
-Per the [Robotics Grad Manual](https://docs.google.com/document/d/e/2PACX-1vTCjWRdEl4wM_n4oIU875yAzzG_4tBdmqnJcj4gNntgyG3Q5LY0qw_J_ei5nqmMEi1ljJpfvLbGCzdJ/pub), a student who has fulfilled all degree requirements must apply for graduation in the term in which completion is expected and will be prohibited from further enrollment. 
+Per the [Robotics Grad Manual](https://robotics.umich.edu/grad-guide/), a student who has fulfilled all degree requirements must apply for graduation in the term in which completion is expected and will be prohibited from further enrollment. 
 
-Once the student has [Applied for Graduation](https://csprod.dsc.umich.edu/htmldoc/eng/dftie/lsaa/htm/sr_ss_graduation.html) they must submit the completed and signed [MS Degree Worksheet](http://robotics.umich.edu/wp-content/uploads/2023/01/MS-degree-worksheet-Jan23.pdf) to [robotics-sso@umich.edu](mailto:robotics-sso@umich.edu). 
+Once the student has [Applied for Graduation](https://csprod.dsc.umich.edu/htmldoc/eng/dftie/lsaa/htm/sr_ss_graduation.html) they must submit the completed and signed [MS Degree Worksheet](https://robotics.umich.edu/ms-degree-worksheet/) to [robotics-sso@umich.edu](mailto:robotics-sso@umich.edu). 
 
 **PhD Embedded MS**
 
 Students who enter the PhD Program without a master's degree in Robotics may decide to have a MS degree in Robotics conferred once they have completed the degree requirements. Students should inform the Robotics SSO that they would like the master's degree conferred. The Graduate Coordinator will request that the Registrar’s Office add the MS program to the student’s record. The student is then required to apply for graduation via the Wolverine Access system. 
 
-Once the student has [Applied for Graduation](https://csprod.dsc.umich.edu/htmldoc/eng/dftie/lsaa/htm/sr_ss_graduation.html) they must submit the completed and signed [MS Degree Worksheet](http://robotics.umich.edu/wp-content/uploads/2023/01/MS-degree-worksheet-Jan23.pdf) to [robotics-sso@umich.edu](mailto:robotics-sso@umich.edu). 
+Once the student has [Applied for Graduation](https://csprod.dsc.umich.edu/htmldoc/eng/dftie/lsaa/htm/sr_ss_graduation.html) they must submit the completed and signed [MS Degree Worksheet](https://robotics.umich.edu/ms-degree-worksheet/) to [robotics-sso@umich.edu](mailto:robotics-sso@umich.edu). 
 
 ## **Deadlines to Apply for Graduation**
 

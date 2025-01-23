@@ -29,13 +29,13 @@ Be aware that if you share information with the following contacts, considered I
 
 In Robotics, IRO employees that must report any misconduct include:
 
-- [Kimberly Mann](https://robotics.umich.edu/profile/kimberly-mann/), Unit Administrator
+- [Kimberly Mann](https://robotics.umich.edu/people/staff/kimberly-mann/), Unit Administrator
 
-- [Dawn Tilbury](https://robotics.umich.edu/profile/dawn-tilbury/ "Dawn Tilbury"), Chair
+- [Dawn Tilbury](https://robotics.umich.edu/people/faculty/dawn-tilbury/ "Dawn Tilbury"), Chair
 
-- [Brent Gillespie](https://robotics.umich.edu/profile/brent-gillespie/), Associate Director of the Graduate Program
+- [Brent Gillespie](https://robotics.umich.edu/people/faculty/brent-gillespie/), Associate Director of the Graduate Program
 
-- [Damen Provost](https://robotics.umich.edu/profile/damen-provost/), Managing Director
+- [Damen Provost](https://robotics.umich.edu/people/staff/damen-provost/), Managing Director
 
 Outside of Robotics, those that must report any misconduct include:
 

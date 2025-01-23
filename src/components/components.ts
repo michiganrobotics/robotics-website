@@ -11,7 +11,7 @@ import { YouTube } from 'astro-embed';
 import { LinkPreview } from 'astro-embed';
 import { Image } from 'astro:assets';
 import PhotoGallery from '../components/PhotoGallery.astro';
-
+import TwoColumn from '../components/TwoColumn.astro';
 export const components = {
   Button,
   MaizeButton,
@@ -26,6 +26,7 @@ export const components = {
   ColumnList,
   PhotoGallery,
   Image,
+  TwoColumn,
 };
 
 

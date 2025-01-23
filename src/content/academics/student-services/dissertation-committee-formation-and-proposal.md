@@ -7,7 +7,7 @@ date: "2020-10-07"
 
 At least one month before the thesis proposal, the student must have their Dissertation Committee approved by both the Robotics Grad Chair and Rackham.
 
-The completed [Dissertation Committee Form](http://robotics.umich.edu/wp-content/uploads/2023/08/dissertation-committee-form_09-23.pdf) should be sent by email to the Robotics Grad Coordinator. If requesting a committee member that does not follow [Rackham's Guidelines for Dissertation Committee Service](https://rackham.umich.edu/faculty-and-staff/dissertation-committees/guidelines-for-dissertation-committee-service/) ("Special Member"), please also submit the proposed member's CV as well as a short memo detailing the nominee’s expertise in the dissertation topic.
+The completed [Dissertation Committee Form](http://robotics.umich.edu/dissertation-committee-form/) should be sent by email to the Robotics Grad Coordinator. If requesting a committee member that does not follow [Rackham's Guidelines for Dissertation Committee Service](https://rackham.umich.edu/faculty-and-staff/dissertation-committees/guidelines-for-dissertation-committee-service/) ("Special Member"), please also submit the proposed member's CV as well as a short memo detailing the nominee’s expertise in the dissertation topic.
 
 In collaboration with the Dissertation Chair(s), the student forms a Dissertation Committee following specific guidelines regarding the composition of the Committee. A Robotics Ph.D. student’s dissertation committee first must satisfy [Rackham’s Guidelines for Dissertation Committees](https://rackham.umich.edu/faculty-and-staff/dissertation-committees/). 
 
@@ -41,9 +41,9 @@ During the Thesis Proposal presentation, the student should:
 
 During and after the Thesis Proposal presentation, the Dissertation Committee will explore the proposed research with the student in order to provide guidance and make an evaluation of its suitability. The committee will determine if the student has or does not have an acceptable proposal. 
 
-The Ph.D. [Thesis Proposal Form](http://robotics.umich.edu/wp-content/uploads/2020/10/thesis-proposal-form_oct2020.pdf) must be completed and returned to the Graduate Coordinator after the Thesis Proposal.
+The Ph.D. [Thesis Proposal Form](http://robotics.umich.edu/thesis-proposal-form/) must be completed and returned to the Graduate Coordinator after the Thesis Proposal.
 
-Additionally, as noted in the [graduate program manual](https://docs.google.com/document/d/e/2PACX-1vTCjWRdEl4wM_n4oIU875yAzzG_4tBdmqnJcj4gNntgyG3Q5LY0qw_J_ei5nqmMEi1ljJpfvLbGCzdJ/pub):
+Additionally, as noted in the [graduate program manual](https://robotics.umich.edu/grad-guide/):
 
 _Failure to have an acceptable proposal requires revising the proposal and within 12 months presenting another formal oral presentation that is deemed satisfactory by the committee._
 

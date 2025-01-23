@@ -41,6 +41,9 @@ module.exports = {
 							marginTop: '1.5rem',
 							marginBottom: '1.25rem',
 						},
+						'.columnlist ul h3:first-child': {
+							marginTop: '0',
+						},
 					},
 				},
 				invert: {

@@ -1,0 +1,43 @@
+---
+interface Props {
+  leftWidth?: string;
+  rightWidth?: string;
+}
+
+const { leftWidth = "50%", rightWidth = "50%" } = Astro.props;
+---
+
+<div class="two-column">
+  <div class="left-column">
+    <slot name="left" />
+  </div>
+  <div class="right-column">
+    <slot name="right" />
+  </div>
+</div>
+
+<style>
+  .two-column {
+    display: grid;
+    grid-template-columns: var(--left-width) var(--right-width);
+    gap: 2rem;
+    margin: 1rem 0;
+  }
+  
+  @media (max-width: 768px) {
+    .two-column {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+  // Set custom properties for column widths
+  const twoColumns = document.querySelectorAll('.two-column');
+  twoColumns.forEach(col => {
+    const leftWidth = col.parentElement?.getAttribute('left-width') || '50%';
+    const rightWidth = col.parentElement?.getAttribute('right-width') || '50%';
+    col.style.setProperty('--left-width', leftWidth);
+    col.style.setProperty('--right-width', rightWidth);
+  });
+</script> 

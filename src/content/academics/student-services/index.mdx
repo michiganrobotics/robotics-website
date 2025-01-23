@@ -1,6 +1,6 @@
 ---
 title: Robotics Student Services
-subtitle: Get help and resources for your academic journey
+subtitle: Welcome to the Robotics Student Services Office (SSO)
 description: Michigan Robotics has a dedicated team of staff to support students in their academic and professional development, including academic advising, career services, events, and more.
 image:
   src: "/src/content/academics/images/student-services.jpg"
@@ -8,13 +8,13 @@ image:
 order: 2
 
 ---
-import StaffList from '../../components/StudentServicesStaff.astro';
+import StaffList from '../../../components/StudentServicesStaff.astro';
 import { Image } from 'astro:assets';
-import janne from 'images/janne.jpeg';
-import trushant from 'images/trushant.jpg';
+import janne from '../images/janne.jpeg';
+import trushant from '../images/trushant.jpg';
 
-
-Welcome to the Robotics Student Services Office (SSO)!
+<TwoColumn>
+<div slot="left">
 
 Our dedicated team is here to support Robotics students through every step of their academic path with needs like registration and enrollment help, academic advising, referrals, filling out forms, letter requests, and more. 
 
@@ -23,41 +23,53 @@ If you have a question and aren't sure where to begin looking for an answer, com
 ## Email inquiries
 
 You can contact us via email at robotics-sso@umich.edu. Our team is committed to providing timely responses to all your questions and during peak advising times during the school year. Email is the quickest way to receive a response, and is best for things like letter requests, waitlist inquiries, and other items not requiring an appointment.
+</div>
 
-## Student Services staff
+<div slot="right">
+<figure>
+![Two students watch their ballbot balance on top of a basketball, one holding a leash in case it falls.](../images/rob311.jpg)
+<figcaption>The end of term Ball-bot Competition in Robotics 311 in the atrium of the Ford Robotics Building.</figcaption>
+</figure>
 
-<StaffList />
-
+</div>
+</TwoColumn>
 ## Academic advising
 
-<Accordion title="Undergraduate advising" id="undergraduate-advising" headingLevel="h3">
-  [Frequently Asked Questions and Advising for Undergraduates](https://docs.google.com/document/d/1C2yH4iB3OYoQRcv61bLOFCD7Wj-TIxx2t5rTvDrlXe8/edit?usp=sharing)
+<TwoColumn>
+<div slot="left">
 
-  To schedule an appointment with our undergraduate academic advisors, please visit our online scheduling portal. Our staff advisors are available to meet remotely and in-person throughout the calendar year.
+### Undergraduate advising
 
-  <MaizeButton href="https://myadvising.lsa.umich.edu/appointments/offices/ROB" text="Schedule undergraduate advising" />
-  
-  ### Who can I meet with? 
+To schedule an appointment with our undergraduate academic advisors, please visit our online scheduling portal. Our staff advisors are available to meet remotely and in-person throughout the calendar year.
 
-  #### Staff Advisors
-  Racheal and Kyle are available to handle questions regarding course planning, course enrollment, degree audits, declaring Robotics, exploring ways to get involved, and connecting to various University resources.
+Before scheduling an appointment, you might find an easy answer in [Undergraduate Student Advising Frequently Asked Questions](https://docs.google.com/document/d/1C2yH4iB3OYoQRcv61bLOFCD7Wj-TIxx2t5rTvDrlXe8/edit?usp=sharing).
 
-  #### Faculty Advisors
-  Faculty advisors are also available during the school year to handle questions that are more technical and career-oriented regarding in the field of Robotics, answering questions about industry, graduate school, and technical, course content.
+<MaizeButton href="https://myadvising.lsa.umich.edu/appointments/offices/ROB" text="Schedule undergraduate advising" />
 
-  #### Drop-In Advising
-  Virtual drop-In advising is available for undergraduate students during the Fall and Winter terms who have quick questions. For meetings that need more than 10-15 minutes, students may be asked to reschedule for a longer appointment at a later time which can be scheduled using the link above.
+<Accordion title="Who can I meet with for undergraduate advising?" id="undergraduate-who" headingLevel="h4">
 
-  Drop-In Advising Fall 2024 Schedule:
+#### Staff Advisors
+Racheal and Kyle are available to handle questions regarding course planning, course enrollment, degree audits, declaring Robotics, exploring ways to get involved, and connecting to various University resources.
 
-  Dates and Time: TBD
-  Please note: Drop-In advising will not be available during....
+#### Faculty Advisors
+Faculty advisors are also available during the school year to handle questions that are more technical and career-oriented regarding in the field of Robotics, answering questions about industry, graduate school, and technical, course content.
 
-  Join the Drop-in Advising queue Link
-  For students looking to receive career planning advising, Robotics Faculty Advisors will be available on select days.
+#### Drop-In Advising
+Virtual drop-In advising is available for undergraduate students during the Fall and Winter terms who have quick questions. For meetings that need more than 10-15 minutes, students may be asked to reschedule for a longer appointment at a later time which can be scheduled using the link above.
+
+Drop-In Advising Fall 2024 Schedule:
+
+Dates and Time: TBD
+Please note: Drop-In advising will not be available during....
+
+Join the Drop-in Advising queue Link
+For students looking to receive career planning advising, Robotics Faculty Advisors will be available on select days.
 </Accordion>
+</div>
 
-<Accordion title="Graduate advising" id="graduate-advising" headingLevel="h3">
+<div slot="right">
+
+### Graduate advising
 
 To schedule an appointment with our Graduate Coordinator, please use the link below:
 
@@ -65,12 +77,12 @@ To schedule an appointment with our Graduate Coordinator, please use the link be
 
 Our Graduate Coordinator is available to meet remotely and in-person throughout the calendar year.
 
-#### Who Can I Meet With?
+<Accordion title="Who can I meet with for graduate advising?" id="graduate-who" headingLevel="h4">
 
-##### Graduate Coordinator
+#### Graduate Coordinator
 Denise is available to handle questions regarding degree requirements, navigating policies and challenging situations, forms and letter requests, fellowships, and connecting to various University resources.
 
-##### Peer Advisors
+#### Peer Advisors
 Peer Advisors are current Robotics students who are able to help answer questions regarding course selection, and providing personal insight into student and campus life as a graduate student in the College of Engineering.
 
 <div class="grid grid-cols-2 gap-4">
@@ -92,7 +104,6 @@ Trushant is available on Tuesdays and Thursdays from 3pm to 5pm through Zoom or 
 <Image src={janne} alt="Nick Jänne" width={200} height={200} class="rounded-full shadow-lg"  />
 
 ###### Nick Jänne
-
 Nick is a 2nd-year PhD student in Robotics, researching how robots can improve their scope of capabilities in the real world by learning from humans. He also hopes to one day build human habitats on the Moon and Mars using a team of robots and humans. Nick received his Bachelors of Computer Engineering degree from the University of Michigan in 2023, and has a passion for reading and writing on the next generation of artificial intelligence.
 
 Nick is available on Wednesdays 3:00-5:00PM and Thursdays 1:00-3:00PM in the 2rd Floor Collaboration Space.
@@ -102,30 +113,27 @@ Nick is available on Wednesdays 3:00-5:00PM and Thursdays 1:00-3:00PM in the 2rd
 
 </div>
 
-##### Associate Graduate Chair
+#### Associate Graduate Chair
 Professor Brent Gillespie is available to meet with students to discuss challenging situations, assistance with independent study, research, career guidance, and welcomes feedback on the student experience in the Robotics graduate programs.
 
 ##### Open Office Hours: TBD
 3236 FRB
 </Accordion>
-<Accordion title="Preparing for advising appointments" id="preparing-for-advising-appointments" headingLevel="h3">
-Check the following, applicable FAQ and Advising websites to see if your question can be answered there:
-<ul>
-<li>Undergraduates</li>
-<li>Graduates</li>
-<li><a href="https://robotics.umich.edu/academic-program/current-students/registering-for-classes/">How to Register for a Course</a> ((edit to be UG inclusive))</li>
-</ul>
+</div>
+</TwoColumn>
+
+## Preparing for advising appointments
 
 If you need a signature for a form, it is helpful and time saving to prepare your forms in advance. Here are some common forms that are requested:
-<ul>
-<li>Undergraduate CPT (domestic and international)</li>
-<li>Graduate CPT (domestic and international)</li>
-<li><a href="http://www.rackham.umich.edu/downloads/oard-sugs-election-form.pdf">SUGS Course Election Form</a></li>
-<li><a href="https://finaid.umich.edu/managing-your-aid/satisfactory-academic-progress">Satisfactory Academic Progress (SAP) form</a></li>
-<li><a href="https://registrar.engin.umich.edu/about/forms/">CoE Add/Drop/Edit Form</a></li>
-</ul>
+- Undergraduate CPT (domestic and international)
+- Graduate CPT (domestic and international)
+- [SUGS Course Election Form](http://www.rackham.umich.edu/downloads/oard-sugs-election-form.pdf)
+- [Satisfactory Academic Progress (SAP) form](https://finaid.umich.edu/managing-your-aid/satisfactory-academic-progress)
+- [CoE Add/Drop/Edit Form](https://registrar.engin.umich.edu/about/forms/)
 
-</Accordion>
+## Student Services staff
+
+<StaffList />
 
 ## Communicate to our students
 <Accordion title="How to send announcements to current students" id="how-to-send-announcements-to-current-students" headingLevel="h3">
@@ -150,49 +158,107 @@ After emailing these groups the SSO staff will receive a request to approve your
   Job postings should be sent to the <a href="https://career.engin.umich.edu/">Engineering Career Resource Center (ECRC)</a>. The Engineering Career Resource Center (ECRC) hosts <a href="https://career.engin.umich.edu/about-engineering-careers/">Engineering Careers, by 12twenty</a>, an online system that allows you to post employment opportunities that will be easily accessible to all of our students. Your posting will appear on the system (used by all our undergraduate and graduate students) and will be emailed to all students who have expressed an interest in that type of job. You will find the Engineering Careers login page <a href="https://engin-umich.12twenty.com/hire">here</a>.
 </Accordion>
 
-<EventsList />
-
 ## Student Resources
 
 <ColumnList columns={2}>
+
+<div>
+### Mcommunity lists
+-  <a href="https://documentation.its.umich.edu/node/352#JoinResign" title="joining">Joining/resigning instructions</a>
+- <a href="https://mcommunity.umich.edu/group/Robotics%20Events" title="Robotics Events">Robotics Events</a>, to find out about robotics-related events
+- <a href="https://mcommunity.umich.edu/group/Robotics%20Jobs" title="Robotics Jobs">Robotics Jobs</a>, to receive job opportunities in academic, industry and government positions
+</div>
+
 <div>
 ### Undergraduate Resources
 - [Robotics Undergraduate Program Guide](http://robotics.umich.edu/undergrad-guide)
+- [Robotics Undergraduate Student Council](https://robotics.umich.edu/academics/student-services/robotics-undergraduate-student-council/)
 - [Scheduling and Advising Information](https://robotics.umich.edu/academics/undergraduate/scheduling/)
 - [Sequential Undergraduate/Graduate Studies (SUGS)](https://robotics.umich.edu/academics/undergraduate/sugs/)
 - [Robotics Pathways & Careers Speaker Series](https://robotics.umich.edu/academics/undergraduate/robotics-pathways-speaker-series/)
 - [Undergrad Q&A Piazza](http://piazza.com/umich/winter2022/roboticsugqa)
 - [Join the Undergrad Info Email List](https://mcommunity.umich.edu/group/Robotics%20Undergraduate%20Info)
+</div>
 
+<div>
 ### Graduate Resources
 - [Graduate Program Manual](https://docs.google.com/document/d/e/2PACX-1vTCjWRdEl4wM_n4oIU875yAzzG_4tBdmqnJcj4gNntgyG3Q5LY0qw_J_ei5nqmMEi1ljJpfvLbGCzdJ/pub)
 - [Graduate Advising](https://robotics.umich.edu/academics/graduate/graduate-advising/)
-- [Graduate Student Council](https://robotics.umich.edu/academic-program/current-students/robotics-graduate-student-council/)
+- [Graduate Student Council](https://robotics.umich.edu/academics/student-services/robotics-graduate-student-council/)
 - [Current Term Courses](https://robotics.umich.edu/course-offerings/)
-- [Course Registration Guide](https://robotics.umich.edu/academic-program/current-students/registering-for-classes/)
+- [Course Registration Guide](https://robotics.umich.edu/academics/student-services/registering-for-classes/)
+</div>
 
+<div>
 ### Master's Resources
-- [MS Degree Worksheet](http://robotics.umich.edu/wp-content/uploads/2023/01/MS-degree-worksheet-Jan23.pdf)
-- [MS to PhD Admission Process](https://robotics.umich.edu/ms-to-phd-admission-process-and-instructions/)
+- [MS Degree Worksheet](http://robotics.umich.edu/ms-degree-worksheet/)
+- [MS to PhD Admission Process](https://robotics.umich.edu/academics/student-services/ms-to-phd-admission-process-and-instructions/)
 - [Dual Degree Instructions](https://robotics.umich.edu/academic-program/admissions-info/add-a-degreedual-degree-instructions/)
 - [Transfer of Credit](https://docs.google.com/document/d/e/2PACX-1vTCjWRdEl4wM_n4oIU875yAzzG_4tBdmqnJcj4gNntgyG3Q5LY0qw_J_ei5nqmMEi1ljJpfvLbGCzdJ/pub#h.3whwml4)
 </div>
+
 <div>
 ### PhD Resources
-- [Dissertation Committee & Thesis Proposal](https://robotics.umich.edu/academics/current-students/dissertation-committee-formation-and-proposal/)
-- [CQE Requirements](http://robotics.umich.edu/wp-content/uploads/2024/09/Robotics-CQE-Instructions_Fall-2024.pdf)
+- [Dissertation Committee & Thesis Proposal](https://robotics.umich.edu/academics/student-services/dissertation-committee-formation-and-proposal/)
+- [CQE Requirements](http://robotics.umich.edu/cqe-requirements)
 - [Rackham Doctoral Requirements](https://rackham.umich.edu/navigating-your-degree/completing-doctoral-degree-requirements/#before)
 - [Changing PhD Advisors](https://drive.google.com/file/d/1DikoqwrhSeiqFP0AtCHjrlOMc2eSeomT/view?usp=sharing)
+</div>
 
+<div>
 ### International Student Resources
 - [International Center](https://internationalcenter.umich.edu/)
-- [CPT/OPT Instructions](https://robotics.umich.edu/cptopt-instructions/)
-- [Reduced Course Load](https://robotics.umich.edu/reduced-course-load/)
-- [I-20 Extensions](https://robotics.umich.edu/i-20-extensions/)
-
-### Support & Assistance
-- [Student Appointments](https://robotics.umich.edu/academics/current-students/student-appointments/)
-- [Report Concerns/Misconduct](https://robotics.umich.edu/academic-program/current-students/reporting-concerns-and-misconduct/)
-- [C.A.R.E. Center Support](https://care.engin.umich.edu/student-support-services/)
+- [CPT/OPT Instructions](https://robotics.umich.edu/academics/student-services/cptopt-instructions/)
+- [Reduced Course Load](https://robotics.umich.edu/academics/student-services/reduced-course-load/)
+- [I-20 Extensions](https://robotics.umich.edu/academics/student-services/i-20-extensions/)
 </div>
+
+<div>
+### Student Appointments:
+- [Information on working for the department as a student](https://robotics.umich.edu/academics/student-services/student-appointments/)
+</div>
+
+<div>
+### Reporting Concerns:
+- [Reporting concerns or misconduct](https://robotics.umich.edu/academics/student-services/reporting-concerns-and-misconduct/)
+</div>
+
+<div>
+### Seeking Assistance:
+- [Find help through the C.A.R.E. Center](https://care.engin.umich.edu/student-support-services/)
+</div>
+
+<div>
+### University Resources:
+- [Engineering Course Guide](https://bulletin.engin.umich.edu/courses/)
+- [GSI Guidebook](http://www.crlt.umich.edu/gsis/gsi_guide)
+- [Academic Calendar & Add-Drop Deadlines](https://ro.umich.edu/calendars)
+- [Rackham Doctoral Degree Deadlines](http://www.rackham.umich.edu/current-students/policies/doctoral/phd-students/doctoral-degree-deadlines)
+- [Rackham Dissertation Handbook](https://www.rackham.umich.edu/downloads/oard-dissertation-handbook.pdf) 
+- [Rackham New Student Guide](http://www.rackham.umich.edu/current-students/life-at-michigan/guide)
+- [Rackham Policies, Procedures, and Forms](http://www.rackham.umich.edu/current-students/policies)
+- [Robotics Research Guide](https://guides.lib.umich.edu/robotics)
+
+</div>
+
+<div>
+### Marketing Resources:
+- [Robotics Communications resources (slides, templates, logos)](https://drive.google.com/drive/folders/16Y-QifDAcqtZNPigTK2OjXLLWW0DJFM5?usp=share_link)
+- [Submit a story, award, accomplishment, or content to the department](https://docs.google.com/forms/d/e/1FAIpQLSems8fcRc8jlR-B_PlLu85P8rqzjwC-b59lyJmXVZu9xF6UOg/viewform)
+</div>
+
+<div>
+### Career Resources:
+- [Engineering Career Resource Center](http://career.engin.umich.edu/)
+
+</div>  
+
+<div>
+### English Language Resources:
+- [English Language Institute](https://lsa.umich.edu/eli)
+- [Academic English Courses](https://lsa.umich.edu/eli/grad-students-scholars/courses.html)
+- [Language Clinics](https://lsa.umich.edu/eli/language-clinics.html)
+- [Conversation Circles](https://lsa.umich.edu/eli/conversation-circles.html)
+</div>
+
 </ColumnList>

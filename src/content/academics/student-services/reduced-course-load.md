@@ -16,7 +16,7 @@ Students are only allowed one reduced course load for academic difficulties or m
     1. **Completion of Course Study** (last semester in the program). Please note to be on a reduced course load you have to have requirements remaining towards your graduate program.
         1. Finalize registration. Your registration must accurately reflect the course(s) you will be taking your final term.
         2. [Apply for graduation](https://rackham.umich.edu/navigating-your-degree/apply-for-graduation/).
-        3. Complete [MS Degree Worksheet](http://robotics.umich.edu/wp-content/uploads/2023/01/MS-degree-worksheet-Jan23.pdf) and submit to robotics-sso@umich.edu.
+        3. Complete [MS Degree Worksheet](https://robotics.umich.edu/ms-degree-worksheet/) and submit to robotics-sso@umich.edu.
         4. You will receive a RCL letter from the Graduate Program Coordinator within 2 business days.
         5. Submit all paperwork to the International Center by the drop/add deadline in the term in which you are applying.
     2. **Academic Difficulties**

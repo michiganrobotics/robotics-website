@@ -246,15 +246,44 @@ export const subNavConfig: Record<string, SubNavItem[]> = {
       { title: "Student Services", href: "/academics/student-services" }
     ],
     'academics/student-services': [
+      { title: "Academics", href: "/academics" },
       { title: "Academic Advising", href: "/academics/student-services#academic-advising", anchor: true },
       { title: "Student Resources", href: "/academics/student-services#student-resources", anchor: true },
       { title: "Staff", href: "/academics/student-services#student-services-staff", anchor: true },
       { title: "Communicate to our students", href: "/academics/student-services#communicate-to-our-students", anchor: true }
     ],
+    'academics/student-services/registering-for-classes': [
+      { title: "Student Services", href: "/academics/student-services" },
+      { title: "Add a class", href: "/academics/student-services/registering-for-classes#add-a-class", anchor: true },
+      { title: "Drop a class", href: "/academics/student-services/registering-for-classes#drop-a-class", anchor: true },
+      { title: "Waitlists", href: "/academics/student-services/registering-for-classes#waitlist", anchor: true },
+      { title: "Independent Study", href: "/academics/student-services/registering-for-classes#enroll-in-an-independent-study-rob-590690990995", anchor: true },
+      { title: "Auditing Classes", href: "/academics/student-services/registering-for-classes#visitaudit-a-course", anchor: true }
+    ],
     'academics/courses': [
-      { title: "Current Term Courses", href: "/academics/courses/current-term" },
+      { title: "Current Term Courses", href: "/academics/courses/course-offerings" },
       { title: "Complete Course List", href: "/academics/courses/complete-course-list" },
-      { title: "Online Courses", href: "/academics/courses/online-courses" }
+      { title: "Free Online Courses", href: "/academics/courses/online-courses" },
+      { title: "Course Guide", href: "https://docs.google.com/spreadsheets/d/1qXqC4uJqZYVOadw0eIn9LAWEu_8lLwX65nOFFohlj4Y/edit?usp=sharing", external: true },
+      { title: "Course Override Requests", href: "/academics/courses#course-override-requests", anchor: true }
+    ],
+    'academics/courses/course-offerings': [
+      { title: "Current Term Courses", href: "/academics/courses/course-offerings" },
+      { title: "Complete Course List", href: "/academics/courses/complete-course-list" },
+      { title: "Free Online Courses", href: "/academics/courses/online-courses" },
+      { title: "Course Guide", href: "https://docs.google.com/spreadsheets/d/1qXqC4uJqZYVOadw0eIn9LAWEu_8lLwX65nOFFohlj4Y/edit?usp=sharing", external: true },
+      { title: "Course Override Requests", href: "/academics/courses#course-override-requests", anchor: true }
+    ],
+    'academics/courses/online-courses': [
+      { title: "Academics", href: "/academics" },
+      { title: "Courses", href: "/academics/courses" },
+      { title: "Current Term Courses", href: "/academics/courses/course-offerings" },
+      { title: "Complete Course List", href: "/academics/courses/complete-course-list" },
+    ],
+    'academics/graduate/': [
+      { title: "Admissions", href: "/academics/graduate/admissions" },
+      { title: "Degree Requirements", href: "/academics/graduate/degree-requirements" },
+      { title: "Advising", href: "/academics/graduate/graduate-advising" }
     ],
     'people$': [
       { title: "Faculty", href: "/people/faculty" },

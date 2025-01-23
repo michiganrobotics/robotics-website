@@ -4,45 +4,72 @@ interface Props {
 }
 
 const { columns = 2 } = Astro.props;
+
+// Map number of columns to Tailwind classes
+const columnClasses = {
+  2: 'lg:grid-cols-2',
+  3: 'lg:grid-cols-3',
+  4: 'lg:grid-cols-4'
+};
+
+const columnClass = columnClasses[columns as keyof typeof columnClasses] || 'lg:grid-cols-2';
 ---
 
-<div class={`grid md:grid-cols-${columns} gap-x-8 gap-y-4`}>
-  <div class="contents [&>div]:mt-0 [&>div>h3:first-child]:mt-0" id="column-list-container">
+<div class={`columnlist grid grid-cols-1 ${columnClass} gap-4 items-start`}>
+  <ul class="list-disc list-inside">
     <slot />
-  </div>
+  </ul>
 </div>
 
-<script>
-  // Find all ColumnList instances
-  const containers = document.querySelectorAll('#column-list-container');
-  
-  containers.forEach(container => {
-    if (!container.firstElementChild?.matches('ul')) return;
-    
-    const list = container.firstElementChild;
-    const items = Array.from(list.children);
-    const columns = parseInt(container.parentElement?.style.getPropertyValue('--columns') || '2');
-    const itemsPerColumn = Math.ceil(items.length / columns);
-    
-    // Create columns
-    for (let i = 0; i < columns; i++) {
-      const columnItems = items.slice(i * itemsPerColumn, (i + 1) * itemsPerColumn);
-      if (columnItems.length === 0) continue;
-      
-      const ul = document.createElement('ul');
-      ul.className = 'list-disc list-inside';
-      columnItems.forEach(item => ul.appendChild(item.cloneNode(true)));
-      container.appendChild(ul);
-    }
-    
-    // Remove original list
-    list.remove();
-  });
-</script>
-
 <style>
-  /* Ensure the grid columns are respected */
-  .grid {
-    --columns: v-bind(columns);
+  /* Allow the ul to span multiple columns */
+  ul {
+    @apply col-span-full;
+    column-count: 1;
   }
-</style> 
+
+  @media (min-width: 1024px) {
+    ul {
+      column-count: var(--columns);
+      column-gap: 1rem;
+    }
+  }
+
+  /* Keep items together and add spacing */
+  :global(ul li) {
+    @apply break-inside-avoid-column mb-2;
+  }
+
+  /* Keep each section together */
+  :global(ul > div) {
+    @apply break-inside-avoid-column;
+    display: inline-block;
+    width: 100%;
+  }
+
+  /* Style nested lists */
+  :global(ul > li > ul) {
+    @apply ml-4 mt-1;
+    column-count: 1 !important;
+  }
+
+  :global(ul > li > ul > li) {
+    @apply mb-1;
+  }
+
+  /* Override prose margins */
+  :global(.prose ul li h2),
+  :global(.prose ul li h3),
+  :global(.prose ul li h4) {
+    margin-top: 0;
+  }
+</style>
+
+<script>
+  // Set the column count
+  const lists = document.querySelectorAll('div > ul');
+  lists.forEach(list => {
+    const columns = list.parentElement?.className.match(/lg:grid-cols-(\d+)/)?.[1] || '2';
+    (list as HTMLElement).style.setProperty('--columns', columns);
+  });
+</script> 

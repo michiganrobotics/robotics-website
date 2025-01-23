@@ -25,12 +25,12 @@ const profileImages = await Promise.all(
   })
 );
 --- 
-<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 not-prose w-full">
+<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4 not-prose w-full">
     {studentServicesStaff.map((member, index) => (
       <div class="flex">
         <a
           href={`/people/staff/${member.slug}`}
-          class="block w-full rounded-sm shadow-md hover:shadow-lg transition-shadow p-4 bg-white dark:bg-gray-800"
+          class="block w-full rounded-sm shadow-md hover:shadow-lg hover:scale-[102%] transition-all duration-300 ease-in-out p-4 bg-white dark:bg-gray-800"
         >
           <div class="aspect-w-1 aspect-h-1 mb-3">
             <Image
