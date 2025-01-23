@@ -37,7 +37,7 @@ const { leftWidth = "50%", rightWidth = "50%" } = Astro.props;
   twoColumns.forEach(col => {
     const leftWidth = col.parentElement?.getAttribute('left-width') || '50%';
     const rightWidth = col.parentElement?.getAttribute('right-width') || '50%';
-    col.style.setProperty('--left-width', leftWidth);
-    col.style.setProperty('--right-width', rightWidth);
+    (col as HTMLElement).style.setProperty('--left-width', leftWidth);
+    (col as HTMLElement).style.setProperty('--right-width', rightWidth);
   });
 </script> 

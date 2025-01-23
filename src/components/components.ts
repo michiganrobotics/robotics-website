@@ -12,6 +12,10 @@ import { LinkPreview } from 'astro-embed';
 import { Image } from 'astro:assets';
 import PhotoGallery from '../components/PhotoGallery.astro';
 import TwoColumn from '../components/TwoColumn.astro';
+import TextWithImage from '../components/TextWithImage.astro';
+import NewsCard from '../components/NewsCard.astro';
+import Pill from '../components/Pill.astro';
+
 export const components = {
   Button,
   MaizeButton,
@@ -27,6 +31,9 @@ export const components = {
   PhotoGallery,
   Image,
   TwoColumn,
+  TextWithImage,
+  NewsCard,
+  Pill,
 };
 
 

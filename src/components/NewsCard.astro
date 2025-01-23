@@ -1,13 +1,15 @@
 ---
 import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
 
 interface Props {
   title: string;
   date: string;
   slug: string;
   excerpt?: string;
+  href?: string;
   image?: {
-    src: ImageMetadata;  // Changed to ImageMetadata type
+    src: ImageMetadata;
     alt: string;
   };
   isLarge?: boolean;
@@ -17,22 +19,27 @@ const {
   title, 
   date, 
   slug, 
-  excerpt, 
+  excerpt,
+  href,
   image, 
   isLarge = false 
 } = Astro.props;
+
+const linkPath = href || `/news/${new Date(date).getFullYear()}/${slug}`;
 ---
 
-<a href={`/news/${new Date(date).getFullYear()}/${slug}`} 
-   class={`group block bg-gray-100 dark:bg-gray-700 shadow-md rounded-sm overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-[1.02] ${isLarge ? 'md:col-span-2' : ''}`}>
-  {image && (
-    <Image 
-      src={image.src}
-      alt={image.alt || 'News image'}
-      width={isLarge ? 760 : 450}
-      height={isLarge ? 384 : 300}
-      class={`w-full ${isLarge ? 'h-96' : 'h-48'} object-cover`}
-    />
+<a href={linkPath} 
+   class={`group block bg-gray-100 dark:bg-matthaeiViolet shadow-md rounded-sm not-prose overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-[1.02] ${isLarge ? 'md:col-span-2' : ''}`}>
+  {image?.src && (
+    <div class="aspect-video overflow-hidden">
+      <Image 
+        src={image.src}
+        alt={image.alt}
+        width={isLarge ? 760 : 450}
+        height={isLarge ? 384 : 300}
+        class={`w-full h-full object-cover`}
+      />
+    </div>
   )}
   <div class="p-4">
     <h3 class="text-xl font-roboto font-bold mb-2 text-umichblue dark:text-gray-100 border-b-2 border-transparent group-hover:border-maize transition-all duration-300">{title}</h3>

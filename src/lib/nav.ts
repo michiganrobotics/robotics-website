@@ -280,10 +280,41 @@ export const subNavConfig: Record<string, SubNavItem[]> = {
       { title: "Current Term Courses", href: "/academics/courses/course-offerings" },
       { title: "Complete Course List", href: "/academics/courses/complete-course-list" },
     ],
-    'academics/graduate/': [
+    'academics/graduate': [
       { title: "Admissions", href: "/academics/graduate/admissions" },
       { title: "Degree Requirements", href: "/academics/graduate/degree-requirements" },
       { title: "Advising", href: "/academics/graduate/graduate-advising" }
+    ],
+    'academics/graduate/admissions': [
+      { title: "Apply", href: "https://rackham.umich.edu/admissions/applying/", external: true },
+      { title: "Application Requirements", href: "/academics/graduate/admissions#application-requirements", anchor: true },
+      { title: "Deadlines", href: "/academics/graduate/admissions#deadlines", anchor: true },
+      { title: "Common Questions", href: "/academics/graduate/admissions#common-questions", anchor: true },
+      { title: "Contact", href: "/academics/graduate/admissions#contact", anchor: true }
+    ],
+    // Use this pattern to match any path that starts with academics/graduate/admissions/
+    '^academics/graduate/admissions/': [
+      { title: "Graduate Program", href: "/academics/graduate" },
+      { title: "Admissions", href: "/academics/graduate/admissions" },
+    ],
+    'academics/graduate/degree-requirements': [
+      { title: "Graduate Program", href: "/academics/graduate" },
+      { title: "Credit Requirements", href: "/academics/graduate/degree-requirements#credit-requirements", anchor: true },
+      { title: "1st Year Students", href: "/academics/graduate/degree-requirements#1st-year-students", anchor: true },
+      { title: "Grade Requirements", href: "/academics/graduate/degree-requirements#grade-requirements", anchor: true },
+      { title: "Graduate Advising", href: "/academics/graduate/graduate-advising" }
+    ],
+    'academics/graduate/graduate-advising': [
+      { title: "Graduate Program", href: "/academics/graduate" },
+      { title: "Degree Requirements", href: "/academics/graduate/degree-requirements" },
+      { title: "Peer Advisors", href: "/academics/graduate/graduate-advising#graduate-peer-advising", anchor: true },
+      { title: "Departmental Petitions", href: "/academics/graduate/graduate-advising#departmental-petitions", anchor: true }
+    ],
+    'academics/undergraduate': [
+      { title: "Advising & scheduling", href: "/academics/undergraduate/scheduling" },
+      { title: "Program Requirements", href: "/academics/undergraduate/program-requirements" },
+      { title: "Current Course Offerings", href: "/academics/courses/course-offerings" },
+      { title: "Pathways Speaker Series", href: "/academics/undergraduate/robotics-pathways-speaker-series" },
     ],
     'people$': [
       { title: "Faculty", href: "/people/faculty" },

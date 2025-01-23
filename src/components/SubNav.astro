@@ -26,10 +26,18 @@ Object.entries(subNavConfig).forEach(([key, items]) => {
   }));
 });
 
-// Try exact matches with $ suffix first, then regular paths, then first segment
+// Try exact matches with $ suffix first, then regex patterns, then regular paths, then first segment
 const configuredItems = Object.entries(subNavConfig)
-  .find(([key]) => key.endsWith('$') && key.slice(0, -1) === trimmedPath)?.[1] ||
-  subNavConfig[trimmedPath] || 
+  .find(([key]) => {
+    if (key.endsWith('$') && key.slice(0, -1) === trimmedPath) {
+      return true;
+    }
+    if (key.startsWith('^')) {
+      const pattern = new RegExp(key);
+      return pattern.test(trimmedPath);
+    }
+    return key === trimmedPath;
+  })?.[1] || 
   subNavConfig[trimmedPath.split('/')[0]] || 
   [];
 

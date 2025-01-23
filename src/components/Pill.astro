@@ -1,0 +1,35 @@
+---
+interface Props {
+  type: 'ms' | 'phd';
+}
+
+const { type } = Astro.props;
+
+const bgColor = type === 'ms' ? '#00274C' : '#FFCB05';
+const textColor = type === 'ms' ? 'white' : '#00274C';
+---
+
+<span class={`pill ${type}`}>
+  {type.toUpperCase()}
+</span>
+
+<style>
+  .pill {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.8em;
+    font-weight: 500;
+    margin-left: 8px;
+  }
+
+  .ms {
+    background-color: #00274C;
+    color: white;
+  }
+
+  .phd {
+    background-color: #FFCB05;
+    color: #00274C;
+  }
+</style> 
