@@ -133,6 +133,11 @@ export default async function(request: Request, context: Context) {
         stack: error.stack
       });
     }
-    return Response.redirect('/');
+
+    // Clear the expired/invalid token cookie
+    const response = Response.redirect('/');
+    response.headers.set('Set-Cookie', 'umich_token=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT; HttpOnly; Secure; SameSite=Lax');
+    
+    return response;
   }
 } 
