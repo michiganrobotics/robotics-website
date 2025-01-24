@@ -107,7 +107,7 @@ export default async function(request: Request, context: Context) {
     authUrl.searchParams.set('response_type', 'code');
     authUrl.searchParams.set('scope', OIDC_CONFIG.scope);
     authUrl.searchParams.set('redirect_uri', OIDC_CONFIG.redirectUri(request));
-    authUrl.searchParams.set('state', '/intranet');
+    authUrl.searchParams.set('state', url.pathname);
 
     return Response.redirect(authUrl.toString());
   }
@@ -117,9 +117,6 @@ export default async function(request: Request, context: Context) {
     const JWKS = await getJWKS(config);
     console.log('Got JWKS, verifying token...');
     console.log('Token to verify:', token);
-    
-    const now = new Date();
-    console.log('Current time for verification:', now.toISOString());
     
     const verified = await jwtVerify(token, JWKS, {
       issuer: "https://shibboleth.umich.edu",
@@ -138,11 +135,19 @@ export default async function(request: Request, context: Context) {
       });
     }
 
+    // If token is expired or invalid, clear it and redirect to login
+    const authUrl = new URL(config.authorization_endpoint);
+    authUrl.searchParams.set('client_id', OIDC_CONFIG.clientId);
+    authUrl.searchParams.set('response_type', 'code');
+    authUrl.searchParams.set('scope', OIDC_CONFIG.scope);
+    authUrl.searchParams.set('redirect_uri', OIDC_CONFIG.redirectUri(request));
+    authUrl.searchParams.set('state', url.pathname);
+
     // Create a new Response with the cookie clearing header
     return new Response(null, {
       status: 302,
       headers: {
-        'Location': '/',
+        'Location': authUrl.toString(),
         'Set-Cookie': 'umich_token=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT; HttpOnly; Secure; SameSite=Lax'
       }
     });

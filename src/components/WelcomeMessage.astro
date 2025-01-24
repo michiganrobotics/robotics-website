@@ -1,0 +1,87 @@
+---
+
+let userName = "Friend";
+
+---
+
+<div class="welcome-message fixed bottom-4 left-4 z-50 hidden md:block">
+  <pre id="ascii-robot" class="text-umichblue dark:text-maize font-mono text-sm whitespace-pre" data-user-name={userName}></pre>
+</div>
+
+<script>
+  const robot = document.getElementById('ascii-robot');
+  const welcomeMessage = document.querySelector('.welcome-message');
+  const userName = robot?.getAttribute('data-user-name') || 'Friend';
+  
+  const frames = [
+    `
+    ╭──────────╮
+    │ MICHIGAN │
+    │ ROBOTICS │
+    ╰──────────╯
+      [◉ _ ◉]  
+     /|_____|\\ 
+      |=====|     Hello!
+      d     b    
+    `,
+    `
+    ╭──────────╮
+    │ MICHIGAN │
+    │ ROBOTICS │
+    ╰──────────╯
+      [◉ = ◉]  
+     \\|_____|/  
+      |=====|     Hello!
+      d     b    
+    `
+  ];
+  let currentFrame = 0;
+  let animationInterval: ReturnType<typeof setInterval>;
+
+  if (robot && welcomeMessage) {
+    // Start fade in
+    welcomeMessage.classList.add('fade-in');
+    
+    // Start animation
+    animationInterval = setInterval(() => {
+      robot.textContent = frames[currentFrame];
+      currentFrame = (currentFrame + 1) % frames.length;
+    }, 800);
+
+    // Start fade out after 5 seconds
+    setTimeout(() => {
+      welcomeMessage.classList.remove('fade-in');
+      welcomeMessage.classList.add('fade-out');
+      // Remove from DOM after fade completes
+      setTimeout(() => {
+        welcomeMessage.remove();
+        clearInterval(animationInterval);
+      }, 500);
+    }, 5000);
+  }
+</script>
+
+<style>
+  .welcome-message {
+    filter: drop-shadow(0 4px 3px rgb(0 0 0 / 0.07)) drop-shadow(0 2px 2px rgb(0 0 0 / 0.06));
+    opacity: 0;
+  }
+
+  .fade-in {
+    animation: fadeIn 0.5s ease-in forwards;
+  }
+
+  .fade-out {
+    animation: fadeOut 0.5s ease-out forwards;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+  }
+</style> 

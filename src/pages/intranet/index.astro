@@ -2,9 +2,14 @@
 import MainLayout from '../../layouts/MainLayout.astro';
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import PageTitle from "../../components/PageTitle.astro";
+import WelcomeMessage from "../../components/WelcomeMessage.astro";
 import { Icon } from "astro-icon/components";
 import featuredImage from "../../images/featured-images/intranet.jpg";
 import ogFeatureImage from "../../images/featured-images/og/intranet.jpg";
+
+// Opt out of static generation for this page to enable server-side features (cookies, auth)
+export const prerender = false;
+
 const sections = {
   department: {
     title: "Department",
@@ -331,6 +336,7 @@ const sectionIcons = {
 <MainLayout title="Department Intranet | Michigan Robotics" image={ogFeatureImage.src} imageAlt="The glass facade of the Robotics Building glowing in the sunrise" description="A list of resources for Michigan Robotics faculty, staff, and students.">
   <Breadcrumbs />
   <PageTitle title="Department Intranet" image={featuredImage} imageAlt="Robotics Building window facade in the sunrise" />
+  <WelcomeMessage />
 
   <div class="max-w-6xl w-11/12 mx-auto my-4">
     <!-- Search Bar -->

@@ -280,6 +280,12 @@ export const subNavConfig: Record<string, SubNavItem[]> = {
       { title: "Course Guide", href: "https://docs.google.com/spreadsheets/d/1qXqC4uJqZYVOadw0eIn9LAWEu_8lLwX65nOFFohlj4Y/edit?usp=sharing", external: true },
       { title: "Course Override Requests", href: "/academics/courses#course-override-requests", anchor: true }
     ],
+    'academics/courses/complete-course-list': [
+      { title: "Academics", href: "/academics" },
+      { title: "Courses", href: "/academics/courses" },
+      { title: "Current Term Courses", href: "/academics/courses/course-offerings" },
+      { title: "Course Guide", href: "https://docs.google.com/spreadsheets/d/1qXqC4uJqZYVOadw0eIn9LAWEu_8lLwX65nOFFohlj4Y/edit?usp=sharing", external: true },
+    ],
     'academics/courses/online-courses': [
       { title: "Academics", href: "/academics" },
       { title: "Courses", href: "/academics/courses" },
@@ -450,6 +456,7 @@ export const subNavConfig: Record<string, SubNavItem[]> = {
     'about/facilities/ford-robotics-building': [
       { title: "Facilities", href: "/about/facilities" },
       { title: "M-Air", href: "/about/facilities/m-air" },
+      { title: "Tours", href: "/about/facilities/ford-robotics-building#tours", anchor: true }
     ],
     'about/faculty-jobs': [
       { title: "Apply", href: "https://deptapps.engin.umich.edu/facultycandidate/apply?dept=210308&searchID=46", external: true },
