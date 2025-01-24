@@ -28,24 +28,24 @@ function generateBreadcrumbs() {
 const breadcrumbs = generateBreadcrumbs();
 ---
 <div class="max-w-6xl w-11/12 mx-auto py-2">
-<div class="flex items-center justify-end text-xs text-gray-700 dark:text-gray-300">
-  <nav aria-label="Breadcrumb">
-    <ol class="flex items-center space-x-2">
-      <li>
-        <a href="/" class="hover:text-umichblue dark:hover:text-taubmanTeal">Home</a>
-      </li>
-      {breadcrumbs.map((breadcrumb, index) => (
-        <li class="flex items-center space-x-2">
-          <span class="text-gray-700 dark:text-gray-300">&gt;</span>
-          <a 
-            href={breadcrumb.href}
-            class={`hover:text-umichblue dark:hover:text-taubmanTeal ${index === breadcrumbs.length - 1 ? 'text-gray-600 dark:text-gray-300' : ''}`}
-          >
-            {breadcrumb.text}
-          </a>
+  <div class="flex justify-end text-xs text-gray-700 dark:text-gray-300">
+    <nav aria-label="Breadcrumb">
+      <ol class="flex flex-wrap items-center gap-2 justify-end">
+        <li>
+          <a href="/" class="hover:text-umichblue dark:hover:text-taubmanTeal">Home</a>
         </li>
-      ))}
-    </ol>
-  </nav>
+        {breadcrumbs.map((breadcrumb, index) => (
+          <li class="flex items-center gap-2">
+            <span class="text-gray-700 dark:text-gray-300">&gt;</span>
+            <a 
+              href={breadcrumb.href}
+              class={`hover:text-umichblue dark:hover:text-taubmanTeal ${index === breadcrumbs.length - 1 ? 'text-gray-600 dark:text-gray-300' : ''}`}
+            >
+              {breadcrumb.text}
+            </a>
+          </li>
+        ))}
+      </ol>
+    </nav>
   </div>
 </div>
