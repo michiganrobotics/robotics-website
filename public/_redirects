@@ -178,6 +178,8 @@
 /research/datasets /research/projects-and-datasets 301
 /academics/current-students /academics/student-services 301
 /academics/current-students/* /academics/student-services/:splat 301
+/about/mair /about/facilities/m-air 301
+
 /undergrad-guide https://docs.google.com/document/d/1S2JqdV4nay4NPOCW_27Jc6UZhChaKCZ9miSFnOtk69k/edit 301
 /irosforum https://sites.google.com/umich.edu/roboticseducationforum/ 301
 /dtcenter https://sites.google.com/umich.edu/digitaltwincenter 301
@@ -195,4 +197,7 @@
 
 # Fallback redirects
 /profile/* /people 301
-/news/* /news 301 
+/news/* /news 301
+
+# Academic program redirect
+/academic-program/* /academics/:splat 301 

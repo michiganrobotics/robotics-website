@@ -22,7 +22,7 @@ The [North Campus Deans' MLK Spirit Awards](https://culture.engin.umich.edu/an-i
 
 https://twitter.com/LeiaStirling/status/1615178999663136768
 
-Grizzle's nomination centered on his work in expanding access to engineering curriculum. Grizzle led the creation of [ROB 101](https://2024.robotics.umich.edu/2020/now-available-robotics-101-online/ "Now available: Robotics 101 online"), Computational Linear Algebra, making it inclusive from the ground up and added entirely new avenues for dissemination of materials.
+Grizzle's nomination centered on his work in expanding access to engineering curriculum. Grizzle led the creation of [ROB 101](https://robotics.umich.edu/2020/now-available-robotics-101-online/ "Now available: Robotics 101 online"), Computational Linear Algebra, making it inclusive from the ground up and added entirely new avenues for dissemination of materials.
 
 Working with Professors Jenkins and Ghaffari at U-M, and Professor Joseph at Morehouse College, the course featured:
 
