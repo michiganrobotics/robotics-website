@@ -118,10 +118,13 @@ export default async function(request: Request, context: Context) {
     console.log('Got JWKS, verifying token...');
     console.log('Token to verify:', token);
     
+    const now = new Date();
+    console.log('Current time for verification:', now.toISOString());
+    
     const verified = await jwtVerify(token, JWKS, {
       issuer: "https://shibboleth.umich.edu",
       audience: OIDC_CONFIG.clientId,
-      currentDate: new Date() // Explicitly provide current time for validation
+      clockTolerance: '5 minutes'
     });
     console.log('Token verified:', verified);
     return context.next();
