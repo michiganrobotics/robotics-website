@@ -22,8 +22,10 @@ const recentEvents = eventsData.slice(0, 3);
 
 Astro.response.headers.set('Cache-Control', 'public, max-age=86400, must-revalidate');
 
----
 
+---
+<script slot="head" src="https://identity.netlify.com/v1/netlify-identity-widget.js">
+</script>
 <MainLayout title='Home Page'>
 	<main>
 		<Hero></Hero>
@@ -178,6 +180,17 @@ Astro.response.headers.set('Cache-Control', 'public, max-age=86400, must-revalid
 		</div>
 	</main>
 </MainLayout>
+<script>
+	if (window.netlifyIdentity) {
+	  window.netlifyIdentity.on("init", (user) => {
+		if (!user) {
+		  window.netlifyIdentity.on("login", () => {
+			document.location.href = "/admin/";
+		  });
+		}
+	  });
+	}
+  </script>
 <style is:inline>
 	.publication-name > a:nth-child(1) {
 		@apply no-underline;
