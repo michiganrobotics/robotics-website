@@ -5,12 +5,15 @@ import embeds from 'astro-embed/integration';
 import tailwind from "@astrojs/tailwind";
 import sitemap from "@astrojs/sitemap";
 import icon from "astro-icon";
+import netlify from '@astrojs/netlify';
 
 const isGitHubPages = process.env.GITHUB_ACTIONS === 'true';
 const isNetlify = process.env.NETLIFY_BUILD === 'true';
 
 export default defineConfig({
   output: 'static',
+
+  adapter: isNetlify ? netlify() : undefined,
 
   // Default for local development
   site: isGitHubPages ? 'https://dnewms.github.io' : 
