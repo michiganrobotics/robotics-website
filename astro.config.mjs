@@ -5,22 +5,17 @@ import embeds from 'astro-embed/integration';
 import tailwind from "@astrojs/tailwind";
 import sitemap from "@astrojs/sitemap";
 import icon from "astro-icon";
-import netlify from '@astrojs/netlify';
 
-const isGitHubPages = process.env.GITHUB_ACTIONS === 'true';
 const isNetlify = process.env.NETLIFY_BUILD === 'true';
 
 export default defineConfig({
   output: 'static',
 
-  adapter: isNetlify ? netlify() : undefined,
+  // Simplified site config
+  site: isNetlify ? 'https://umrob.netlify.com' : 'http://localhost:4321',
 
-  // Default for local development
-  site: isGitHubPages ? 'https://dnewms.github.io' : 
-        isNetlify ? 'https://umrob.netlify.com' : 
-        'http://localhost:4321',
-
-  base: isGitHubPages ? '/rob-astro-23' : '/',
+  // Remove GitHub Pages base path
+  base: '/',
 
   integrations: [
     icon(),
@@ -53,7 +48,7 @@ export default defineConfig({
 
   vite: {
     define: {
-      'import.meta.env.BASE_URL': isGitHubPages ? '"/rob-astro-23"' : '"/"',
+      'import.meta.env.BASE_URL': '"/"',
     },
     build: {
       rollupOptions: {

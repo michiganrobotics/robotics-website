@@ -172,7 +172,7 @@ collections:
         name: "image"
         widget: "object"
         fields:
-          - { label: "Image", name: "src", widget: "image", default: "/public/social/og-default.jpg" }
+          - { label: "Image", name: "src", widget: "image", default: "/social/og-default.jpg" }
           - { label: "Alt Text", name: "alt", widget: "string", default: "University of Michigan Robotics" }
       - label: "Categories"
         name: "categories"

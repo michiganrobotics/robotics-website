@@ -11,6 +11,30 @@ import researchImage from '../images/homepage/homepage-research.jpg';
 import peopleImage from '../images/homepage/homepage-people.jpg';
 import ContentImage from '../components/ContentImage.astro';
 import Link from '../components/Link.astro';
+
+// Add these type definitions at the top of the file
+interface Event {
+  id: string;
+  permalink: string;
+  event_title: string;
+  event_subtitle: string;
+  styled_images: {
+    event_feature_large: string;
+  };
+  image_description: string;
+  datetime_start: string;
+  description: string;
+}
+
+// Add type definition for Netlify Identity
+declare global {
+  interface Window {
+    netlifyIdentity: {
+      on: (event: string, callback: (user?: any) => void) => void;
+    };
+  }
+}
+
 // Get all news posts and sort by date - this is all you need
 const allPosts = await getCollection('news');
 const recentPosts = allPosts
@@ -75,7 +99,7 @@ Astro.response.headers.set('Cache-Control', 'public, max-age=86400, must-revalid
 											<p class="text-sm italic font-sans text-arboretumBlue dark:text-gray-400">
 												{new Date(post.data.date).toLocaleDateString('en-US', { year: 'numeric', month: 'numeric', day: 'numeric' })}
 											</p>
-											<p class="line-clamp-3" set:html={post.data.excerpt || post.body.split('<!--more-->')[0] || post.body.split('\n\n')[0]} />
+											<p class="line-clamp-3" set:html={post.data.excerpt || (post.body && post.body.split('<!--more-->')[0]) || (post.body && post.body.split('\n\n')[0])} />
 										</div>
 									</div>
 								</div>
@@ -136,7 +160,7 @@ Astro.response.headers.set('Cache-Control', 'public, max-age=86400, must-revalid
 				<div class="relative mb-16 border-t border-matthaeiViolet before:absolute before:left-0 before:top-0 before:w-px before:h-1/3 before:bg-gradient-to-b before:from-matthaeiViolet before:to-transparent after:absolute after:right-0 after:top-0 after:w-px after:h-1/3 after:bg-gradient-to-b after:from-matthaeiViolet after:to-transparent">
 				  <h2 class="absolute -top-6 left-1/2 transform -translate-x-1/2 z-10 bg-matthaeiViolet text-white px-6 py-2 rounded-sm text-3xl font-bold">Events</h2>		
 				  <div class="flex flex-wrap gap-4 justify-center mb-4 md:flex-nowrap pt-10 px-2">	
-					{recentEvents.map(event => (
+					{recentEvents.map((event: Event) => (
 					  <div key={event.id} class="group max-w-md bg-white border border-gray-200 rounded-sm shadow dark:bg-gray-800 dark:border-gray-700">
 						<a class='post-link' href={event.permalink} aria-label={event.event_title}>
 						  <section>
@@ -184,16 +208,32 @@ Astro.response.headers.set('Cache-Control', 'public, max-age=86400, must-revalid
 	</main>
 </MainLayout>
 <script>
-	if (window.netlifyIdentity) {
-	  window.netlifyIdentity.on("init", (user) => {
-		if (!user) {
-		  window.netlifyIdentity.on("login", () => {
-			document.location.href = "/admin/";
-		  });
-		}
-	  });
-	}
-  </script>
+  // Load Netlify Identity widget asynchronously
+  function loadNetlifyIdentity() {
+    const script = document.createElement('script');
+    script.src = 'https://identity.netlify.com/v1/netlify-identity-widget.js';
+    script.async = true;
+    script.onload = function() {
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.on("init", user => {
+          if (!user) {
+            window.netlifyIdentity.on("login", () => {
+              document.location.href = "/admin/";
+            });
+          }
+        });
+      }
+    };
+    document.head.appendChild(script);
+  }
+
+  // Load the widget after the page has loaded
+  if (document.readyState === 'complete') {
+    loadNetlifyIdentity();
+  } else {
+    window.addEventListener('load', loadNetlifyIdentity);
+  }
+</script>
 <style is:inline>
 	.publication-name > a:nth-child(1) {
 		@apply no-underline;
