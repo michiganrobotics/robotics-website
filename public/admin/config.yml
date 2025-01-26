@@ -1,0 +1,213 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "public/uploads"
+public_folder: "/uploads"
+
+collections:
+  - name: "focus-areas"
+    label: "Focus Areas"
+    folder: "src/content/focus-areas"
+    create: true
+    extension: "mdx"
+    format: "frontmatter"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Description", name: "description", widget: "string" }
+      - { label: "Icon", name: "icon", widget: "string" }
+      - label: "Image"
+        name: "image"
+        widget: "object"
+        required: false
+        fields:
+          - { label: "Image", name: "src", widget: "image" }
+          - { label: "Alt Text", name: "alt", widget: "string" }
+      - { label: "Videos", name: "videos", widget: "list", required: false }
+      - { label: "Slug", name: "slug", widget: "string" }
+      - { label: "Body", name: "body", widget: "markdown" }
+
+  - name: "news"
+    label: "News"
+    folder: "src/content/news"
+    create: true
+    path: "{{year}}/{{slug}}"
+    extension: "mdx"
+    format: "frontmatter"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Date", name: "date", widget: "datetime" }
+      - { label: "SEO Description", name: "seoDescription", widget: "string", required: false }
+      - { label: "Excerpt", name: "excerpt", widget: "text", required: false }
+      - label: "Image"
+        name: "image"
+        widget: "object"
+        fields:
+          - { label: "Image", name: "src", widget: "image", default: "/public/social/og-default.jpg" }
+          - { label: "Alt Text", name: "alt", widget: "string", default: "University of Michigan Robotics" }
+      - label: "Categories"
+        name: "categories"
+        widget: "select"
+        multiple: true
+        options:
+          - { label: "Artificial Intelligence", value: "artificial-intelligence" }
+          - { label: "Autonomous Vehicles", value: "autonomous-vehicles" }
+          - { label: "Deep Learning", value: "deep-learning" }
+          - { label: "Human-Robot Interaction", value: "human-robot-interaction" }
+          - { label: "Legged Robots", value: "legged-robots" }
+          - { label: "Manufacturing", value: "manufacturing" }
+          - { label: "Motion Planning", value: "motion-planning" }
+          - { label: "Perception & Manipulation", value: "perception-manipulation" }
+          - { label: "Rehabilitation", value: "rehabilitation" }
+          - { label: "Safe Autonomy", value: "safe-autonomy" }
+          - { label: "SLAM", value: "slam" }
+          - { label: "Teams & Swarms", value: "teams-swarms" }
+          - { label: "Robotics Community", value: "robotics-community" }
+      - { label: "Tags", name: "tags", widget: "list", required: false }
+      - { label: "Author", name: "author", widget: "string", required: false }
+      - { label: "Featured", name: "featured", widget: "boolean", required: false }
+      - { label: "Body", name: "body", widget: "markdown" }
+
+  - name: "courses"
+    label: "Courses"
+    folder: "src/content/courses"
+    create: true
+    extension: "mdx"
+    format: "frontmatter"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Date", name: "date", widget: "datetime", required: false }
+      - { label: "Description", name: "description", widget: "text", required: false }
+      - { label: "Image", name: "image", widget: "string", required: false }
+      - { label: "Image Alt Text", name: "imageAlt", widget: "string", required: false }
+      - { label: "Body", name: "body", widget: "markdown" }
+
+  - name: "academics-root"
+    label: "Academics Main"
+    folder: "src/content/academics"
+    create: true
+    filter: {field: "filepath", pattern: "^[^/]+$"}
+    extension: "mdx"
+    format: "frontmatter"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Subtitle", name: "subtitle", widget: "string", required: false }
+      - { label: "Description", name: "description", widget: "text", required: false }
+      - label: "Image"
+        name: "image"
+        widget: "object"
+        required: false
+        fields:
+          - { label: "Image", name: "src", widget: "image" }
+          - { label: "Alt Text", name: "alt", widget: "string" }
+      - { label: "Order", name: "order", widget: "number", required: false }
+      - { label: "Featured", name: "featured", widget: "boolean", default: true }
+      - { label: "Body", name: "body", widget: "markdown" }
+
+  - name: "academics-graduate-root"
+    label: "Graduate Program Main"
+    folder: "src/content/academics/graduate"
+    create: true
+    filter: {field: "filepath", pattern: "^[^/]+$"}
+    extension: "mdx"
+    format: "frontmatter"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Subtitle", name: "subtitle", widget: "string", required: false }
+      - { label: "Description", name: "description", widget: "text", required: false }
+      - label: "Image"
+        name: "image"
+        widget: "object"
+        required: false
+        fields:
+          - { label: "Image", name: "src", widget: "image" }
+          - { label: "Alt Text", name: "alt", widget: "string" }
+      - { label: "Order", name: "order", widget: "number", required: false }
+      - { label: "Featured", name: "featured", widget: "boolean", default: true }
+      - { label: "Body", name: "body", widget: "markdown" }
+
+  - name: "academics-graduate-admissions"
+    label: "Graduate Admissions"
+    folder: "src/content/academics/graduate/admissions"
+    create: true
+    filter: {field: "filepath", pattern: "^[^/]+$"}
+    extension: "mdx"
+    format: "frontmatter"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Subtitle", name: "subtitle", widget: "string", required: false }
+      - { label: "Description", name: "description", widget: "text", required: false }
+      - label: "Image"
+        name: "image"
+        widget: "object"
+        required: false
+        fields:
+          - { label: "Image", name: "src", widget: "image" }
+          - { label: "Alt Text", name: "alt", widget: "string" }
+      - { label: "Order", name: "order", widget: "number", required: false }
+      - { label: "Featured", name: "featured", widget: "boolean", default: true }
+      - { label: "Body", name: "body", widget: "markdown" }
+
+  - name: "academics-graduate-application"
+    label: "Graduate Application"
+    folder: "src/content/academics/graduate/admissions/graduate-application"
+    create: true
+    extension: "mdx"
+    format: "frontmatter"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Subtitle", name: "subtitle", widget: "string", required: false }
+      - { label: "Description", name: "description", widget: "text", required: false }
+      - label: "Image"
+        name: "image"
+        widget: "object"
+        required: false
+        fields:
+          - { label: "Image", name: "src", widget: "image" }
+          - { label: "Alt Text", name: "alt", widget: "string" }
+      - { label: "Order", name: "order", widget: "number", required: false }
+      - { label: "Featured", name: "featured", widget: "boolean", default: true }
+      - { label: "Body", name: "body", widget: "markdown" }
+
+  - name: "academics-graduate-requirements"
+    label: "Graduate Degree Requirements"
+    folder: "src/content/academics/graduate/degree-requirements"
+    create: true
+    extension: "mdx"
+    format: "frontmatter"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Subtitle", name: "subtitle", widget: "string", required: false }
+      - { label: "Description", name: "description", widget: "text", required: false }
+      - label: "Image"
+        name: "image"
+        widget: "object"
+        required: false
+        fields:
+          - { label: "Image", name: "src", widget: "image" }
+          - { label: "Alt Text", name: "alt", widget: "string" }
+      - { label: "Order", name: "order", widget: "number", required: false }
+      - { label: "Featured", name: "featured", widget: "boolean", default: true }
+      - { label: "Body", name: "body", widget: "markdown" }
+
+  - name: "academics-undergraduate"
+    label: "Academics Undergraduate"
+    folder: "src/content/academics/undergraduate"
+    create: true
+    extension: "mdx"
+    format: "frontmatter"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Subtitle", name: "subtitle", widget: "string", required: false }
+      - { label: "Description", name: "description", widget: "text", required: false }
+      - label: "Image"
+        name: "image"
+        widget: "object"
+        required: false
+        fields:
+          - { label: "Image", name: "src", widget: "image" }
+          - { label: "Alt Text", name: "alt", widget: "string" }
+      - { label: "Order", name: "order", widget: "number", required: false }
+      - { label: "Featured", name: "featured", widget: "boolean", default: true }
+      - { label: "Body", name: "body", widget: "markdown" }
+
