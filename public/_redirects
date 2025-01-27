@@ -172,8 +172,10 @@
 /profile/bo-fu /people/students 301
 /profile/grant-gibson /people/students 301
 
+# News redirects - handle year-based URLs
+/20* /news/:splat 301
+
 # Other redirects
-/20:year(\\d{2})/:slug /news/20:year/:slug 301   # Only matches years starting with 20
 /about/media /about/contact 301
 /research/datasets /research/projects-and-datasets 301
 /academics/current-students /academics/student-services 301
@@ -201,6 +203,3 @@
 
 # Academic program redirect
 /academic-program/* /academics/:splat 301
-
-# Handle 404s
-/* /404.html 404 

@@ -1,0 +1,46 @@
+{
+  "access": {
+    "serviceAuth": {
+      "providers": {
+        "umich": {
+          "type": "oidc",
+          "config": {
+            "clientId": "${UMICH_CLIENT_ID}",
+            "clientSecret": "${UMICH_CLIENT_SECRET}",
+            "authorizationEndpoint": "https://shibboleth.umich.edu/idp/profile/oidc/authorize",
+            "tokenEndpoint": "https://shibboleth.umich.edu/idp/profile/oidc/token",
+            "certificatesEndpoint": "https://shibboleth.umich.edu/.well-known/openid-configuration/jwks",
+            "userInfoEndpoint": "https://shibboleth.umich.edu/idp/profile/oidc/userinfo"
+          }
+        }
+      }
+    },
+    "policies": [
+      {
+        "name": "Intranet Access",
+        "decision": "allow",
+        "include": [
+          {
+            "email_domain": ["umich.edu"]
+          }
+        ],
+        "paths": [
+          "/intranet/*",
+          "/auth/*"
+        ]
+      },
+      {
+        "name": "Admin Access",
+        "decision": "allow",
+        "include": [
+          {
+            "email": ["dnewms@umich.edu"]
+          }
+        ],
+        "paths": [
+          "/admin/*"
+        ]
+      }
+    ]
+  }
+} 

@@ -4,10 +4,33 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Content Manager</title>
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
     <link href="/admin/config.yml" type="text/yaml" rel="cms-config-url" />
   </head>
   <body>
     <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+    <script>
+      // Configure Decap CMS to use Cloudflare Access for authentication
+      window.CMS_MANUAL_INIT = true;
+      const initCMS = () => {
+        CMS.init({
+          config: {
+            backend: {
+              name: 'github',
+              repo: 'dnewms/rob-astro-23',
+              branch: 'main',
+              base_url: window.location.origin,
+              auth_endpoint: 'auth'
+            },
+            // ... rest of your CMS config
+          }
+        });
+      };
+      
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initCMS);
+      } else {
+        initCMS();
+      }
+    </script>
   </body>
 </html> 

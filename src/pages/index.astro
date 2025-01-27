@@ -26,15 +26,6 @@ interface Event {
   description: string;
 }
 
-// Add type definition for Netlify Identity
-declare global {
-  interface Window {
-    netlifyIdentity: {
-      on: (event: string, callback: (user?: any) => void) => void;
-    };
-  }
-}
-
 // Get all news posts and sort by date - this is all you need
 const allPosts = await getCollection('news');
 const recentPosts = allPosts
@@ -203,33 +194,6 @@ Astro.response.headers.set('Cache-Control', 'public, max-age=86400, must-revalid
 		</div>
 	</main>
 </MainLayout>
-<script>
-  // Load Netlify Identity widget asynchronously
-  function loadNetlifyIdentity() {
-    const script = document.createElement('script');
-    script.src = 'https://identity.netlify.com/v1/netlify-identity-widget.js';
-    script.async = true;
-    script.onload = function() {
-      if (window.netlifyIdentity) {
-        window.netlifyIdentity.on("init", user => {
-          if (!user) {
-            window.netlifyIdentity.on("login", () => {
-              document.location.href = "/admin/";
-            });
-          }
-        });
-      }
-    };
-    document.head.appendChild(script);
-  }
-
-  // Load the widget after the page has loaded
-  if (document.readyState === 'complete') {
-    loadNetlifyIdentity();
-  } else {
-    window.addEventListener('load', loadNetlifyIdentity);
-  }
-</script>
 <style is:inline>
 	.publication-name > a:nth-child(1) {
 		@apply no-underline;

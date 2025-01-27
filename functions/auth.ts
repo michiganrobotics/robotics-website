@@ -1,4 +1,3 @@
-import type { Context } from "@netlify/edge-functions";
 import { jwtVerify, createRemoteJWKSet } from "jose";
 
 // Using the well-known configuration URL like the Flask example
@@ -27,15 +26,19 @@ async function getOIDCConfig() {
   return response.json();
 }
 
-export default async function(request: Request, context: Context) {
+export async function onRequest({ request, env, context }: { request: Request; env: any; context: any }) {
   const url = new URL(request.url);
   console.log('Auth function called for:', url.pathname);
-  const token = context.cookies.get('umich_token');
+  
+  // Get token from cookie
+  const token = request.headers.get('cookie')?.split(';')
+    .find(c => c.trim().startsWith('umich_token='))
+    ?.split('=')[1];
 
   // Only check auth for intranet pages
   if (!url.pathname.startsWith('/intranet') && url.pathname !== '/auth/callback') {
     console.log('Skipping auth for non-protected path');
-    return context.next();
+    return await context.next();
   }
 
   // Get OIDC endpoints from discovery URL
@@ -43,9 +46,9 @@ export default async function(request: Request, context: Context) {
   console.log('Got OIDC config:', config);
 
   // Development bypass
-  if (process.env.NODE_ENV === 'development') {
+  if (env.NODE_ENV === 'development') {
     console.log('Development mode - bypassing auth');
-    return context.next();
+    return await context.next();
   }
 
   if (url.pathname === '/auth/callback') {
@@ -116,15 +119,14 @@ export default async function(request: Request, context: Context) {
   try {
     const JWKS = await getJWKS(config);
     console.log('Got JWKS, verifying token...');
-    console.log('Token to verify:', token);
     
-    const verified = await jwtVerify(token, JWKS, {
+    await jwtVerify(token, JWKS, {
       issuer: "https://shibboleth.umich.edu",
       audience: OIDC_CONFIG.clientId,
       clockTolerance: '5 minutes'
     });
-    console.log('Token verified:', verified);
-    return context.next();
+    console.log('Token verified');
+    return await context.next();
   } catch (error) {
     console.error('Token verification failed:', error);
     if (error instanceof Error) {

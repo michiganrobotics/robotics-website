@@ -1,0 +1,25 @@
+{
+  "build": {
+    "command": "npm run build",
+    "output": "dist",
+    "environment": {
+      "NODE_VERSION": "18"
+    }
+  },
+  "routes": [
+    {
+      "pattern": "/intranet/*",
+      "access": "authenticated"
+    },
+    {
+      "pattern": "/admin/*",
+      "access": "authenticated"
+    }
+  ],
+  "functions": {
+    "auth": {
+      "memory": 128,
+      "maxDuration": 10
+    }
+  }
+} 
