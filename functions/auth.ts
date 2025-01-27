@@ -1,10 +1,14 @@
 import { jwtVerify, createRemoteJWKSet } from "jose";
 
+interface Env {
+  UMICH_CLIENT_ID: string;
+  UMICH_CLIENT_SECRET: string;
+  NODE_ENV?: string;
+}
+
 // Using the well-known configuration URL like the Flask example
 const OIDC_CONFIG = {
   discoveryUrl: 'https://shibboleth.umich.edu/.well-known/openid-configuration',
-  clientId: process.env.UMICH_CLIENT_ID!,
-  clientSecret: process.env.UMICH_CLIENT_SECRET!,
   redirectUri: (request: Request) => {
     const url = new URL(request.url);
     return `${url.protocol}//${url.host}/auth/callback`;
@@ -26,7 +30,7 @@ async function getOIDCConfig() {
   return response.json();
 }
 
-export async function onRequest({ request, env, context }: { request: Request; env: any; context: any }) {
+export async function onRequest({ request, env, context }: { request: Request; env: Env; context: any }) {
   const url = new URL(request.url);
   console.log('Auth function called for:', url.pathname);
   
@@ -69,8 +73,8 @@ export async function onRequest({ request, env, context }: { request: Request; e
       body: new URLSearchParams({
         grant_type: 'authorization_code',
         code,
-        client_id: OIDC_CONFIG.clientId,
-        client_secret: OIDC_CONFIG.clientSecret,
+        client_id: env.UMICH_CLIENT_ID,
+        client_secret: env.UMICH_CLIENT_SECRET,
         redirect_uri: OIDC_CONFIG.redirectUri(request),
       }),
     });
@@ -87,7 +91,7 @@ export async function onRequest({ request, env, context }: { request: Request; e
       const JWKS = await getJWKS(config);
       await jwtVerify(tokenData.id_token, JWKS, {
         issuer: "https://shibboleth.umich.edu",
-        audience: OIDC_CONFIG.clientId
+        audience: env.UMICH_CLIENT_ID
       });
     } catch (error) {
       console.error('Initial token verification failed:', error);
@@ -106,7 +110,7 @@ export async function onRequest({ request, env, context }: { request: Request; e
   // No token = redirect to login
   if (!token) {
     const authUrl = new URL(config.authorization_endpoint);
-    authUrl.searchParams.set('client_id', OIDC_CONFIG.clientId);
+    authUrl.searchParams.set('client_id', env.UMICH_CLIENT_ID);
     authUrl.searchParams.set('response_type', 'code');
     authUrl.searchParams.set('scope', OIDC_CONFIG.scope);
     authUrl.searchParams.set('redirect_uri', OIDC_CONFIG.redirectUri(request));
@@ -122,7 +126,7 @@ export async function onRequest({ request, env, context }: { request: Request; e
     
     await jwtVerify(token, JWKS, {
       issuer: "https://shibboleth.umich.edu",
-      audience: OIDC_CONFIG.clientId,
+      audience: env.UMICH_CLIENT_ID,
       clockTolerance: '5 minutes'
     });
     console.log('Token verified');
@@ -139,7 +143,7 @@ export async function onRequest({ request, env, context }: { request: Request; e
 
     // If token is expired or invalid, clear it and redirect to login
     const authUrl = new URL(config.authorization_endpoint);
-    authUrl.searchParams.set('client_id', OIDC_CONFIG.clientId);
+    authUrl.searchParams.set('client_id', env.UMICH_CLIENT_ID);
     authUrl.searchParams.set('response_type', 'code');
     authUrl.searchParams.set('scope', OIDC_CONFIG.scope);
     authUrl.searchParams.set('redirect_uri', OIDC_CONFIG.redirectUri(request));
