@@ -200,4 +200,7 @@
 /news/* /news 301
 
 # Academic program redirect
-/academic-program/* /academics/:splat 301 
+/academic-program/* /academics/:splat 301
+
+# Handle 404s
+/* /404.html 404 

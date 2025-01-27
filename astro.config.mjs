@@ -6,15 +6,13 @@ import tailwind from "@astrojs/tailwind";
 import sitemap from "@astrojs/sitemap";
 import icon from "astro-icon";
 
-const isNetlify = process.env.NETLIFY_BUILD === 'true';
-
 export default defineConfig({
   output: 'static',
 
-  // Simplified site config
-  site: isNetlify ? 'https://umrob.netlify.com' : 'http://localhost:4321',
+  // Site config
+  site: 'https://robotics.umich.edu',
 
-  // Remove GitHub Pages base path
+  // Base path
   base: '/',
 
   integrations: [
