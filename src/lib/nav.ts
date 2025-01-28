@@ -245,6 +245,14 @@ export const subNavConfig: Record<string, SubNavItem[]> = {
       { title: "Focus Areas", href: "/research/focus-areas" },
       { title: "Open-Source Projects & Datasets", href: "/research/projects-and-datasets" }
     ],
+    'research/focus-areas': [
+      { title: "Research", href: "/research/" },
+      { title: "Open-Source Projects & Datasets", href: "/research/projects-and-datasets" }
+    ],
+    'research/projects-and-datasets': [
+      { title: "Research", href: "/research/" },
+      { title: "Focus Areas", href: "/research/focus-areas" }
+    ],
     'academics$': [
       { title: "Undergraduate", href: "/academics/undergraduate" },
       { title: "Graduate", href: "/academics/graduate" },
@@ -397,6 +405,14 @@ export const subNavConfig: Record<string, SubNavItem[]> = {
     'people/staff': [
       { title: "Faculty", href: "/people/faculty" },
       { title: "Students", href: "/people/students" },
+      { title: "Student Teams", href: "/people/student-teams" },
+      { title: "Advisory Board", href: "/people/advisory-board" },
+      { title: "Alumni", href: "/people/alumni" },
+      { title: "Honors and Awards", href: "/people/honors-and-awards"}
+    ],
+    'people/students': [
+      { title: "Faculty", href: "/people/faculty" },
+      { title: "Staff", href: "/people/staff" },
       { title: "Student Teams", href: "/people/student-teams" },
       { title: "Advisory Board", href: "/people/advisory-board" },
       { title: "Alumni", href: "/people/alumni" },

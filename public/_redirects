@@ -1,4 +1,47 @@
-# Affiliate faculty redirects
+# ======================
+# People Redirects
+# ======================
+
+# Faculty Redirects
+## Core Faculty
+/profile/patricia-alves-oliveira /people/faculty/patricia-alves-oliveira 301
+/profile/cameron-aubin /people/faculty/cameron-aubin 301
+/profile/kira-barton /people/faculty/kira-barton 301
+/profile/dmitry-berenson /people/faculty/dmitry-berenson 301
+/profile/bernadette-bucher /people/faculty/bernadette-bucher 301
+/profile/jamie-budd /people/faculty/jamie-budd 301
+/profile/steven-ceron /people/faculty/steven-ceron 301
+/profile/cynthia-chestek /people/faculty/cynthia-chestek 301
+/profile/jason-corso /people/faculty/jason-corso 301
+/profile/yanran-ding /people/faculty/yanran-ding 301
+/profile/mark-draelos /people/faculty/mark-draelos 301
+/profile/xiaoxiao-du /people/faculty/xiaoxiao-du 301
+/profile/nima-fazeli /people/faculty/nima-fazeli 301
+/profile/greg-formosa /people/faculty/greg-formosa 301
+/profile/peter-gaskell /people/faculty/peter-gaskell 301
+/profile/deanna-gates /people/faculty/deanna-gates 301
+/profile/maani-ghaffari /people/faculty/maani-ghaffari 301
+/profile/brent-gillespie /people/faculty/brent-gillespie 301
+/profile/anouck-girard /people/faculty/anouck-girard 301
+/profile/robert-gregg /people/faculty/robert-gregg 301
+/profile/jessy-grizzle /people/faculty/jessy-grizzle 301
+/profile/xiaonan-sean-huang /people/faculty/xiaonan-sean-huang 301
+/profile/chad-jenkins /people/faculty/chad-jenkins 301
+/profile/christoforos-mavrogiannis /people/faculty/christoforos-mavrogiannis 301
+/profile/talia-moore /people/faculty/talia-moore 301
+/profile/necmiye-ozay /people/faculty/necmiye-ozay 301
+/profile/dimitra-panagou /people/faculty/dimitra-panagou 301
+/profile/lionel-robert /people/faculty/lionel-robert 301
+/profile/elliott-rouse /people/faculty/elliott-rouse 301
+/profile/katherine-skinner /people/faculty/katherine-skinner 301
+/profile/leia-stirling /people/faculty/leia-stirling 301
+/profile/yulun-tian /people/faculty/yulun-tian 301
+/profile/dawn-tilbury /people/faculty/dawn-tilbury 301
+/profile/ram-vasudevan /people/faculty/ram-vasudevan 301
+/profile/xi-jessie-yang /people/faculty/xi-jessie-yang 301
+/profile/derrick-yeo /people/faculty/derrick-yeo 301
+
+## Affiliate Faculty
 /profile/shorya-awtar /people/faculty/affiliate 301
 /profile/shan-bao /people/faculty/affiliate 301
 /profile/brian-umberger /people/faculty/affiliate 301
@@ -39,45 +82,15 @@
 /profile/zhengya-zhang /people/faculty/affiliate 301
 /people/affiliate-faculty /people/faculty/affiliate 301
 
-# Faculty member redirects
-/profile/patricia-alves-oliveira /people/faculty/patricia-alves-oliveira 301
-/profile/cameron-aubin /people/faculty/cameron-aubin 301
-/profile/kira-barton /people/faculty/kira-barton 301
-/profile/dmitry-berenson /people/faculty/dmitry-berenson 301
-/profile/bernadette-bucher /people/faculty/bernadette-bucher 301
-/profile/jamie-budd /people/faculty/jamie-budd 301
-/profile/steven-ceron /people/faculty/steven-ceron 301
-/profile/cynthia-chestek /people/faculty/cynthia-chestek 301
-/profile/jason-corso /people/faculty/jason-corso 301
-/profile/yanran-ding /people/faculty/yanran-ding 301
-/profile/mark-draelos /people/faculty/mark-draelos 301
-/profile/xiaoxiao-du /people/faculty/xiaoxiao-du 301
-/profile/nima-fazeli /people/faculty/nima-fazeli 301
-/profile/greg-formosa /people/faculty/greg-formosa 301
-/profile/peter-gaskell /people/faculty/peter-gaskell 301
-/profile/deanna-gates /people/faculty/deanna-gates 301
-/profile/maani-ghaffari /people/faculty/maani-ghaffari 301
-/profile/brent-gillespie /people/faculty/brent-gillespie 301
-/profile/anouck-girard /people/faculty/anouck-girard 301
-/profile/robert-gregg /people/faculty/robert-gregg 301
-/profile/jessy-grizzle /people/faculty/jessy-grizzle 301
-/profile/xiaonan-sean-huang /people/faculty/xiaonan-sean-huang 301
-/profile/chad-jenkins /people/faculty/chad-jenkins 301
-/profile/christoforos-mavrogiannis /people/faculty/christoforos-mavrogiannis 301
-/profile/talia-moore /people/faculty/talia-moore 301
-/profile/necmiye-ozay /people/faculty/necmiye-ozay 301
-/profile/dimitra-panagou /people/faculty/dimitra-panagou 301
-/profile/lionel-robert /people/faculty/lionel-robert 301
-/profile/elliott-rouse /people/faculty/elliott-rouse 301
-/profile/katherine-skinner /people/faculty/katherine-skinner 301
-/profile/leia-stirling /people/faculty/leia-stirling 301
-/profile/yulun-tian /people/faculty/yulun-tian 301
-/profile/dawn-tilbury /people/faculty/dawn-tilbury 301
-/profile/ram-vasudevan /people/faculty/ram-vasudevan 301
-/profile/xi-jessie-yang /people/faculty/xi-jessie-yang 301
-/profile/derrick-yeo /people/faculty/derrick-yeo 301
+## Emeritus Faculty
+/profile/n-harris-mcclamroch /people/faculty/emeritus/n-harris-mcclamroch 301
+/profile/benjamin-kuipers /people/faculty/emeritus/benjamin-kuipers 301
+/profile/galip-ulsoy /people/faculty/emeritus/galip-ulsoy 301
+/profile/john-laird /people/faculty/emeritus/john-laird 301
+/profile/yoram-koren /people/faculty/emeritus/yoram-koren 301
+/profile/ed-durfee /people/faculty/emeritus/ed-durfee 301
 
-# Staff member redirects
+# Staff Redirects
 /profile/teresa-blackburn /people/staff/teresa-blackburn 301
 /profile/kayla-dombrowski /people/staff/kayla-dombrowski 301
 /profile/denise-edmund /people/staff/denise-edmund 301
@@ -98,15 +111,7 @@
 /profile/shaw-sun /people/staff/shaw-sun 301
 /profile/tiffanny-walsh /people/staff/tiffanny-walsh 301
 
-# Emeritus faculty redirects
-/profile/n-harris-mcclamroch /people/faculty/emeritus/n-harris-mcclamroch 301
-/profile/benjamin-kuipers /people/faculty/emeritus/benjamin-kuipers 301
-/profile/galip-ulsoy /people/faculty/emeritus/galip-ulsoy 301
-/profile/john-laird /people/faculty/emeritus/john-laird 301
-/profile/yoram-koren /people/faculty/emeritus/yoram-koren 301
-/profile/ed-durfee /people/faculty/emeritus/ed-durfee 301
-
-# Student redirects
+# Student Redirects
 /profile/ray-zhang /people/students 301
 /profile/xiaotong-chen /people/students 301
 /profile/peter-mitrano /people/students 301
@@ -172,13 +177,24 @@
 /profile/bo-fu /people/students 301
 /profile/grant-gibson /people/students 301
 
-# Other redirects
+# ======================
+# Content Redirects
+# ======================
+
+# News Redirects
 /20:year(\\d{2})/:slug /news/20:year/:slug 301   # Only matches years starting with 20
-/about/media /about/contact 301
-/research/datasets /research/projects-and-datasets 301
+/news/* /news 301
+
+# Academic Redirects
+/academic-program/* /academics/:splat 301
 /academics/current-students /academics/student-services 301
 /academics/current-students/* /academics/student-services/:splat 301
-/about/mair /about/facilities/m-air 301
+/academics/undergraduate/undergraduate-sure /academics/undergraduate/sure 301
+/academics/courses/complete-course-listing /academics/courses/complete-course-list 301
+
+# ======================
+# External Links
+# ======================
 
 /undergrad-guide https://docs.google.com/document/d/1S2JqdV4nay4NPOCW_27Jc6UZhChaKCZ9miSFnOtk69k/edit 301
 /irosforum https://sites.google.com/umich.edu/roboticseducationforum/ 301
@@ -186,18 +202,17 @@
 /gear https://www.aatwebstore.com/UMBOT/shop/home 301
 /exos https://sites.google.com/umich.edu/icra-2025-exoskeleton-workshop/home 301
 /grad-guide https://docs.google.com/document/d/e/2PACX-1vTCjWRdEl4wM_n4oIU875yAzzG_4tBdmqnJcj4gNntgyG3Q5LY0qw_J_ei5nqmMEi1ljJpfvLbGCzdJ/pub 301
-/academics/undergraduate/undergraduate-sure /academics/undergraduate/sure 301
-/academics/courses/complete-course-listing /academics/courses/complete-course-list 301
-/ms-degree-worksheet https://drive.google.com/file/d/1ZPS6inTrSrrHqF8r5d8z-4_efOGLwfmW/view?usp=share_link 301
-/cqe-requirements https://drive.google.com/file/d/1SV2G1ygSNBHxvXOnGQ8ZIqUcQNC1foA8/view?usp=share_link 301
-/dissertation-committee-form https://drive.google.com/file/d/1KgsbgXpfWuZ5pyhpP-H346BHayd0iz94/view?usp=share_link 301
-/thesis-proposal-form https://drive.google.com/file/d/1qAIWNF4-1K6wtZn6MQ_0Pbf8gs8yw-jT/view?usp=share_link 301
-/sugs-intent https://drive.google.com/file/d/1L8-nwtPG4gO8offmWiK67prymYZwFs9-/view?usp=share_link 301
-/change-of-advisor https://drive.google.com/file/d/1sc5kq10wHp6bcs_TrZEg8OSdHlcllJXN/view?usp=share_link 301
 
-# Fallback redirects
-/profile/* /people 301
-/news/* /news 301
+# ======================
+# Facility & Resource Redirects
+# ======================
 
-# Academic program redirect
-/academic-program/* /academics/:splat 301 
+/about/media /about/contact 301
+/about/mair /about/facilities/m-air 301
+/research/datasets /research/projects-and-datasets 301
+
+# ======================
+# Fallback Redirects
+# ======================
+
+/profile/* /people 301 
