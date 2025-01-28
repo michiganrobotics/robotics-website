@@ -275,6 +275,7 @@ export const subNavConfig: Record<string, SubNavItem[]> = {
       { title: "Auditing Classes", href: "/academics/student-services/registering-for-classes#visitaudit-a-course", anchor: true }
     ],
     'academics/courses': [
+      { title: "Academics", href: "/academics" },
       { title: "Current Term Courses", href: "/academics/courses/course-offerings" },
       { title: "Complete Course List", href: "/academics/courses/complete-course-list" },
       { title: "Free Online Courses", href: "/academics/courses/online-courses" },
@@ -282,7 +283,8 @@ export const subNavConfig: Record<string, SubNavItem[]> = {
       { title: "Course Override Requests", href: "/academics/courses#course-override-requests", anchor: true }
     ],
     'academics/courses/course-offerings': [
-      { title: "Current Term Courses", href: "/academics/courses/course-offerings" },
+      { title: "Academics", href: "/academics" },
+      { title: "Courses", href: "/academics/courses" },
       { title: "Complete Course List", href: "/academics/courses/complete-course-list" },
       { title: "Free Online Courses", href: "/academics/courses/online-courses" },
       { title: "Course Guide", href: "https://docs.google.com/spreadsheets/d/1qXqC4uJqZYVOadw0eIn9LAWEu_8lLwX65nOFFohlj4Y/edit?usp=sharing", external: true },
@@ -306,6 +308,7 @@ export const subNavConfig: Record<string, SubNavItem[]> = {
       { title: "Advising", href: "/academics/graduate/graduate-advising" }
     ],
     'academics/graduate/admissions': [
+      { title: "Graduate Program", href: "/academics/graduate" },
       { title: "Apply", href: "https://rackham.umich.edu/admissions/applying/", external: true },
       { title: "Application Requirements", href: "/academics/graduate/admissions#application-requirements", anchor: true },
       { title: "Deadlines", href: "/academics/graduate/admissions#deadlines", anchor: true },

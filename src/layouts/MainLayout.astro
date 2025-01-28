@@ -16,7 +16,7 @@ const {
 	image = "/social/og-default.jpg"  // default fallback image
 } = Astro.props;
 
-const siteUrl = "https://umrob.netlify.app";
+const siteUrl = "https://robotics.umich.edu";
 
 ---
 
@@ -26,7 +26,6 @@ const siteUrl = "https://umrob.netlify.app";
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
-		<meta name="robots" content="noindex, nofollow">
 		<link rel="icon" type="image/svg+xml" href="/favicon.ico" />
 		<slot name="head"/>
 		<SEO
