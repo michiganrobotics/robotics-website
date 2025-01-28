@@ -12,6 +12,7 @@ import StaffList from '../../../components/StudentServicesStaff.astro';
 import { Image } from 'astro:assets';
 import janne from '../images/janne.jpeg';
 import trushant from '../images/trushant.jpg';
+import rob311 from '../images/rob311.jpg';
 
 <TwoColumn>
 <div slot="left">
@@ -27,7 +28,11 @@ You can contact us via email at robotics-sso@umich.edu. Our team is committed to
 
 <div slot="right">
 <figure>
-![Two students watch their ballbot balance on top of a basketball, one holding a leash in case it falls.](../images/rob311.jpg)
+<Image 
+    src={rob311} 
+    alt="Two students watch their ballbot balance on top of a basketball, one holding a leash in case it falls." 
+    class="w-full h-auto"
+/>
 <figcaption>The end of term Ball-bot Competition in Robotics 311 in the atrium of the Ford Robotics Building.</figcaption>
 </figure>
 
