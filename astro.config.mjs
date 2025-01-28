@@ -12,7 +12,7 @@ export default defineConfig({
   output: 'static',
 
   // Simplified site config
-  site: isNetlify ? 'https://robotics.umich.edu' : 'http://localhost:4321',
+  site: 'https://robotics.umich.edu',
 
   // Remove GitHub Pages base path
   base: '/',
