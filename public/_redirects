@@ -210,6 +210,8 @@
 /about/media /about/contact 301
 /about/mair /about/facilities/m-air 301
 /research/datasets /research/projects-and-datasets 301
+/academics/courses/course-offerings/rob101-fall-2020/ /academics/courses/course-offerings/rob-101-fall-2020 301
+/academic-program/online-courses/ /academics/courses/online-courses/ 301
 
 # ======================
 # Fallback Redirects
