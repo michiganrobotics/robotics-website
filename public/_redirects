@@ -182,7 +182,15 @@
 # ======================
 
 # News Redirects
-/20:year(\\d{2})/:slug /news/20:year/:slug 301   # Only matches years starting with 20
+/2016/* /news/2016/:splat 301
+/2017/* /news/2017/:splat 301
+/2018/* /news/2018/:splat 301
+/2019/* /news/2019/:splat 301
+/2020/* /news/2020/:splat 301
+/2021/* /news/2021/:splat 301
+/2022/* /news/2022/:splat 301
+/2023/* /news/2023/:splat 301
+/2024/* /news/2024/:splat 301
 /news/* /news 301
 
 # Academic Redirects
@@ -217,6 +225,7 @@
 /about/media /about/contact 301
 /about/mair /about/facilities/m-air 301
 /research/datasets /research/projects-and-datasets 301
+/about/ford-motor-company-robotics-building/ /about/facilities/ford-robotics-building 301
 /academics/courses/course-offerings/rob101-fall-2020/ /academics/courses/course-offerings/rob-101-fall-2020 301
 /academic-program/online-courses/ /academics/courses/online-courses/ 301
 /academic-program/degree-requirements/ /academics/graduate/degree-requirements 301
