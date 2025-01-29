@@ -33,7 +33,7 @@
 /profile/dimitra-panagou /people/faculty/dimitra-panagou 301
 /profile/lionel-robert /people/faculty/lionel-robert 301
 /profile/elliott-rouse /people/faculty/elliott-rouse 301
-/profile/katherine-skinner /people/faculty/katherine-skinner 301
+/profile/katherine-skinner /people/faculty/katie-skinner 301
 /profile/leia-stirling /people/faculty/leia-stirling 301
 /profile/yulun-tian /people/faculty/yulun-tian 301
 /profile/dawn-tilbury /people/faculty/dawn-tilbury 301
@@ -199,6 +199,17 @@
 /academics/current-students/* /academics/student-services/:splat 301
 /academics/undergraduate/undergraduate-sure /academics/undergraduate/sure 301
 /academics/courses/complete-course-listing /academics/courses/complete-course-list 301
+
+# Focus Areas
+/research/focus-areas/robot-teams-swarms/ /research/focus-areas/teams-swarms 301
+/research/focus-areas/autonomous-connected-vehicles/ /research/focus-areas/autonomous-vehicles 301
+/research/focus-areas/rehabilitation-robotics/ /research/focus-areas/rehabilitation 301
+/research/focus-areas/deep-learning-for-robotics/ /research/focus-areas/deep-learning 301
+/research/focus-areas/manufacturing-robotics/ /research/focus-areas/manufacturing 301
+/research/focus-areas/legged-robots-exoskeletons/ /research/focus-areas/legged-robots 301
+/research/focus-areas/robot-perception-manipulation/ /research/focus-areas/perception-manipulation 301
+/research/focus-areas/simultaneous-localization-mapping-slam/ /research/focus-areas/slam 301
+
 
 # ======================
 # External Links
