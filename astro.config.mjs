@@ -32,7 +32,10 @@ export default defineConfig({
         const courseId = courseMatch ? courseMatch[1] : '';
         
         function visitLinks(tree) {
-          if (tree.type === 'link' && !tree.url.startsWith('/') && !tree.url.startsWith('http')) {
+          if (tree.type === 'link' && 
+              !tree.url.startsWith('/') && 
+              !tree.url.startsWith('http') && 
+              !tree.url.startsWith('mailto:')) {
             tree.url = `${import.meta.env.BASE_URL}/academics/courses/online-courses/${courseId}/${tree.url}`;
           }
           
