@@ -34,63 +34,63 @@ Some class sessions will not have any formally scheduled instruction or problems
 ### Classes 0-3: Data representation
 
 - Goals: 1) Inspect abstract data (e.g. pictures, text, plans) at the byte and bit level, and understand how changing low-level numbers affects high-level meaning. 2) Use the command line with git and the class submission system to get feedback.
-- [**Class 0**: Setting up the ROB 502 command line system](class0)
-- [**Class 1**: Using Linux and bash](class1)
-- [**Class 2**: Using git to commit and submit code; expressing logic](class2)
-- [**Class 3**: Arrays, ASCII, bytes, and GDB](class3)
-- [**Homework 1**: Polygonal collision detection, cryptogram](homework1)
+- [**Class 0**: Setting up the ROB 502 command line system](/academics/courses/online-courses/rob502-f20/class0)
+- [**Class 1**: Using Linux and bash](/academics/courses/online-courses/rob502-f20/class1)
+- [**Class 2**: Using git to commit and submit code; expressing logic](/academics/courses/online-courses/rob502-f20/class2)
+- [**Class 3**: Arrays, ASCII, bytes, and GDB](/academics/courses/online-courses/rob502-f20/class3)
+- [**Homework 1**: Polygonal collision detection, cryptogram](/academics/courses/online-courses/rob502-f20/homework1)
 - There are variety of C concepts that will not be explicitly covered in class! We are providing a [tutorial document](c_review_notes.pdf) to help explain the necessary syntax and basic ideas so we can delve right into the good stuff!
 - For an even gentler introduction to C, I highly recommend Harvard's CS50 lectures. Although the whole lectures can be long, they have good tables of contents on each lecture on YouTube, and work well at 2X playing speed. [This clip](https://www.youtube.com/watch?v=wEdvGqxafq8&t=3078s) focuses on compiling C, on using make, and on common compiler errors. [This one](https://www.youtube.com/watch?v=u-kH-5JJSgU&t=287s) is on the compilation process. If you want to follow along with their examples, you will need to use their [sandbox](https://sandbox.cs50.io/).
 
 ### Classes 4-7: Memory concepts and debugging
 
 - Goals: 1) Determine when dynamic memory is appropriate and how to prevent and detect memory leaks. 2) Determine when pointers are necessary and reason about when they are valid. 3) Use feedback from GDB, Valgrind, and AddressSanitizer to fix memory and other bugs.
-- [**Class 4**: Addresses, pointers](class4)
-- [**Class 5**: Malloc/free, debugging errors, and dynamic arrays](class5)
-- [**Class 6**: Linked lists](class6)
+- [**Class 4**: Addresses, pointers](/academics/courses/online-courses/rob502-f20/class4)
+- [**Class 5**: Malloc/free, debugging errors, and dynamic arrays](/academics/courses/online-courses/rob502-f20/class5)
+- [**Class 6**: Linked lists](/academics/courses/online-courses/rob502-f20/class6)
 - **Class 7**: As needed
-- [**Homework 2**: Rasterizing bitmaps, Braitenberg vehicles](homework2)
+- [**Homework 2**: Rasterizing bitmaps, Braitenberg vehicles](/academics/courses/online-courses/rob502-f20/homework2)
 - [This clip](https://youtu.be/u-kH-5JJSgU?t=1700) talks about how data is stored in memory. [This one](https://www.youtube.com/watch?v=cC9I3XxkZXw&t=2871s) talks about pointers. [This one](https://youtu.be/cC9I3XxkZXw?t=3602) talks about malloc and free. [This one](https://www.youtube.com/watch?v=cC9I3XxkZXw&feature=youtu.be&t=5126) talks about memory addresses and hexadecimal. [This one](https://youtu.be/cC9I3XxkZXw?t=7213) is on stack overflows.
 
 ### Classes 8-10: Recursion and Search
 
 - Goals: 1) Reason about and write recursive algorithms. 2) Use search algorithms with forward simulation to choose robot actions.
-- [**Class 8**: Bisection search, midpoint method, recursion vs iteration](class8)
-- [**Class 9**: Tree search](class9)
+- [**Class 8**: Bisection search, midpoint method, recursion vs iteration](/academics/courses/online-courses/rob502-f20/class8)
+- [**Class 9**: Tree search](/academics/courses/online-courses/rob502-f20/class9)
 - **Class 10**: As needed
 - [This clip](https://www.youtube.com/watch?v=Mv9NEXX1VHc) gives an overview of recursion and how the computer's stack is used to hold multiple versions of the same function in memory.
-- [**Homework 3**: Equation parsing, robot chase](homework3)
+- [**Homework 3**: Equation parsing, robot chase](/academics/courses/online-courses/rob502-f20/homework3)
 
 ### Classes 11-13: Object abstractions
 
 - Goals: 1) Analyze algorithmic complexity and determine when it matters. 2) Choose data structures based on algorithm needs. 3) Separate and hide implementation from specification.
-- [**Class 11**: Complexity/Big-O Notation](class11)
-- [**Class 12**: Hash tables](class12)
+- [**Class 11**: Complexity/Big-O Notation](/academics/courses/online-courses/rob502-f20/class11)
+- [**Class 12**: Hash tables](/academics/courses/online-courses/rob502-f20/class12)
 - **Class 13**: As needed
-- [**Homework 4**: Bigrams](homework4)
+- [**Homework 4**: Bigrams](/academics/courses/online-courses/rob502-f20/homework4)
 
 ### Classes 14-17: Threading
 
 - Goals: 1) Understand when threading is necessary and how to avoid using it unnecessarily. 2) Determine when variables may be subject to race conditions and how to prevent them. 3) Use threading for terminal input control.
-- [**Class 14**: Basic threading](class14)
-- [**Class 15**: Race conditions, deadlock, mutexes](class15)
-- [**Class 16**: Terminal settings, I/O threading, manual robot control](class16)
+- [**Class 14**: Basic threading](/academics/courses/online-courses/rob502-f20/class14)
+- [**Class 15**: Race conditions, deadlock, mutexes](/academics/courses/online-courses/rob502-f20/class15)
+- [**Class 16**: Terminal settings, I/O threading, manual robot control](/academics/courses/online-courses/rob502-f20/class16)
 - **Class 17**: As needed
-- [**Homework 5**: Live-tuning potential fields](homework5)
+- [**Homework 5**: Live-tuning potential fields](/academics/courses/online-courses/rob502-f20/homework5)
 
 ### Classes 18-20: Message passing and networking
 
 - Goals: 1) Divide robotic systems into independent parts. 2) Coordinate program communication across network nodes. 3) Use logging and playback features to debug specific modules.
-- [**Class 18**: LCM/ROS basics, hybrid architectures](class18)
-- [**Class 19**: Networking](class19)
+- [**Class 18**: LCM/ROS basics, hybrid architectures](/academics/courses/online-courses/rob502-f20/class18)
+- [**Class 19**: Networking](/academics/courses/online-courses/rob502-f20/class19)
 - **Class 20**: As needed
-- [**Homework 6**: Split project into communicating processes](homework6)
+- [**Homework 6**: Split project into communicating processes](/academics/courses/online-courses/rob502-f20/homework6)
 
 ### Classes 21-23: Special topics
 
 - **Class 21**: Coding interviews
 - **Class 22**: Code reviews
-- [**Class 23**: Introduction to Python](class23)
+- [**Class 23**: Introduction to Python](/academics/courses/online-courses/rob502-f20/class23)
 
 ## Grading
 

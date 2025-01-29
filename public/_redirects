@@ -194,7 +194,6 @@
 /news/* /news 301
 
 # Academic Redirects
-/academic-program/* /academics/:splat 301
 /academics/current-students /academics/student-services 301
 /academics/current-students/* /academics/student-services/:splat 301
 /academics/undergraduate/undergraduate-sure /academics/undergraduate/sure 301
@@ -204,6 +203,7 @@
 /academic-program/course-offerings/rob101-fall-2022/ /academics/courses/course-offerings/rob-101-fall-2022 301
 /academic-program/course-offerings/rob-102-intro-to-ai-programming/ /academics/courses/course-offerings/rob-102-intro-to-ai-programming/ 301
 /academic-program/course-offerings/rob-204-winter-2022/ academics/courses/course-offerings/rob-204-winter-2022/ 301
+/academic-program/* /academics/:splat 301
 
 # Focus Areas
 /research/focus-areas/robot-teams-swarms/ /research/focus-areas/teams-swarms 301
