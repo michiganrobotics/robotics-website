@@ -202,6 +202,13 @@
 /gear https://www.aatwebstore.com/UMBOT/shop/home 301
 /exos https://sites.google.com/umich.edu/icra-2025-exoskeleton-workshop/home 301
 /grad-guide https://docs.google.com/document/d/e/2PACX-1vTCjWRdEl4wM_n4oIU875yAzzG_4tBdmqnJcj4gNntgyG3Q5LY0qw_J_ei5nqmMEi1ljJpfvLbGCzdJ/pub 301
+/ms-degree-worksheet https://drive.google.com/file/d/1ZPS6inTrSrrHqF8r5d8z-4_efOGLwfmW/view?usp=share_link 301
+/cqe-requirements https://drive.google.com/file/d/1SV2G1ygSNBHxvXOnGQ8ZIqUcQNC1foA8/view?usp=share_link 301
+/dissertation-committee-form https://drive.google.com/file/d/1KgsbgXpfWuZ5pyhpP-H346BHayd0iz94/view?usp=share_link 301
+/thesis-proposal-form https://drive.google.com/file/d/1qAIWNF4-1K6wtZn6MQ_0Pbf8gs8yw-jT/view?usp=share_link 301
+/sugs-intent https://drive.google.com/file/d/1L8-nwtPG4gO8offmWiK67prymYZwFs9-/view?usp=share_link 301
+/change-of-advisor https://drive.google.com/file/d/1sc5kq10wHp6bcs_TrZEg8OSdHlcllJXN/view?usp=share_link 301
+
 
 # ======================
 # Facility & Resource Redirects
@@ -212,6 +219,8 @@
 /research/datasets /research/projects-and-datasets 301
 /academics/courses/course-offerings/rob101-fall-2020/ /academics/courses/course-offerings/rob-101-fall-2020 301
 /academic-program/online-courses/ /academics/courses/online-courses/ 301
+/academic-program/degree-requirements/ /academics/graduate/degree-requirements 301
+/academic-program/course-offerings/ /academics/courses/course-offerings/ 301
 
 # ======================
 # Fallback Redirects
