@@ -199,6 +199,11 @@
 /academics/current-students/* /academics/student-services/:splat 301
 /academics/undergraduate/undergraduate-sure /academics/undergraduate/sure 301
 /academics/courses/complete-course-listing /academics/courses/complete-course-list 301
+/academic-program/course-offerings/rob101-fall-2020/ /academics/courses/course-offerings/rob-101-fall-2020 301
+/academic-program/course-offerings/rob101-fall-2021/ /academics/courses/course-offerings/rob-101-fall-2021 301
+/academic-program/course-offerings/rob101-fall-2022/ /academics/courses/course-offerings/rob-101-fall-2022 301
+/academic-program/course-offerings/rob-102-intro-to-ai-programming/ /academics/courses/course-offerings/rob-102-intro-to-ai-programming/ 301
+/academic-program/course-offerings/rob-204-winter-2022/ academics/courses/course-offerings/rob-204-winter-2022/ 301
 
 # Focus Areas
 /research/focus-areas/robot-teams-swarms/ /research/focus-areas/teams-swarms 301
@@ -209,6 +214,8 @@
 /research/focus-areas/legged-robots-exoskeletons/ /research/focus-areas/legged-robots 301
 /research/focus-areas/robot-perception-manipulation/ /research/focus-areas/perception-manipulation 301
 /research/focus-areas/simultaneous-localization-mapping-slam/ /research/focus-areas/slam 301
+
+
 
 
 # ======================
