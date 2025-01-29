@@ -203,7 +203,8 @@
 /academic-program/course-offerings/rob101-fall-2022/ /academics/courses/course-offerings/rob-101-fall-2022 301
 /academics/courses/course-offerings/rob101-fall-2022/ /academics/courses/course-offerings/rob-101-fall-2022 301
 /academic-program/course-offerings/rob-102-intro-to-ai-programming/ /academics/courses/course-offerings/rob-102-intro-to-ai-programming/ 301
-/academic-program/course-offerings/rob-204-winter-2022/ academics/courses/course-offerings/rob-204-winter-2022/ 301
+/academic-program/course-offerings/rob-204-winter-2022/ /academics/courses/course-offerings/rob-204-winter-2022/ 301
+/academics/graduate/admissions/graduate-application/what-are-specific-faculty-looking-for-in-phd-applications/ /news/2024/what-are-specific-faculty-looking-for-in-phd-applications 301
 /academic-program/* /academics/:splat 301
 
 # Focus Areas
