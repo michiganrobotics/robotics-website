@@ -272,7 +272,7 @@ export const subNavConfig: Record<string, SubNavItem[]> = {
       { title: "Drop a class", href: "/academics/student-services/registering-for-classes#drop-a-class", anchor: true },
       { title: "Waitlists", href: "/academics/student-services/registering-for-classes#waitlist", anchor: true },
       { title: "Independent Study", href: "/academics/student-services/registering-for-classes#enroll-in-an-independent-study-rob-590690990995", anchor: true },
-      { title: "Auditing Classes", href: "/academics/student-services/registering-for-classes#visitaudit-a-course", anchor: true }
+      { title: "Visit or Audit Classes", href: "/academics/student-services/registering-for-classes#visitaudit-a-course", anchor: true }
     ],
     'academics/courses': [
       { title: "Academics", href: "/academics" },

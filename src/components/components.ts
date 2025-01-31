@@ -16,7 +16,7 @@ import TextWithImage from '../components/TextWithImage.astro';
 import NewsCard from '../components/NewsCard.astro';
 import Pill from '../components/Pill.astro';
 import SpeakerProfile from '../components/SpeakerProfile.astro';
-
+import Callout from '../components/Callout.astro';
 export const components = {
   Button,
   MaizeButton,
@@ -35,7 +35,8 @@ export const components = {
   TextWithImage,
   NewsCard,
   Pill,
-  SpeakerProfile
+  SpeakerProfile,
+  Callout
 };
 
 
