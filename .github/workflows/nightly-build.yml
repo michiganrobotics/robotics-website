@@ -1,0 +1,13 @@
+name: Nightly Netlify Build
+on:
+  schedule:
+    - cron: '0 5 * * *'
+  workflow_dispatch:    # Add manual trigger option
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Netlify Build
+        run: |
+          curl -X POST -d '{}' ${{ secrets.NETLIFY_BUILD_HOOK }}
