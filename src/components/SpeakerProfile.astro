@@ -27,11 +27,11 @@ const { image, imageAlt, title, subtitle, name, role, website, isExpanded = fals
         <Image 
           src={image} 
           alt={imageAlt}
-          class="rounded-full w-full h-full object-cover"
+          class="rounded-full w-full h-full object-cover not-prose"
         />
       </div>
       <div>
-        <p class="text-gray-600 dark:text-gray-400 text-sm">{subtitle}</p>
+        <p class="text-gray-600 dark:text-gray-200 text-sm">{subtitle}</p>
         <h3 class="text-xl font-bold dark:text-white mt-0">{title}</h3>
         <p class="text-gray-700 dark:text-gray-300">{name} - <span class="italic">{role}</span></p>
       </div>

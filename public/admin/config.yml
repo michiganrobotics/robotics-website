@@ -25,10 +25,9 @@ collections:
         widget: "object"
         required: false
         fields:
-          - { label: "Image", name: "src", widget: "image" }
-          - { label: "Alt Text", name: "alt", widget: "string" }
+          - { label: "Image", name: "src", widget: "image", required: false }
+          - { label: "Alt Text", name: "alt", widget: "string", required: false }
       - { label: "Order", name: "order", widget: "number", required: false }
-      - { label: "Featured", name: "featured", widget: "boolean", default: true }
       - { label: "Body", name: "body", widget: "markdown" }
 
   - name: "academics-graduate-root"
@@ -49,10 +48,9 @@ collections:
         widget: "object"
         required: false
         fields:
-          - { label: "Image", name: "src", widget: "image" }
-          - { label: "Alt Text", name: "alt", widget: "string" }
+          - { label: "Image", name: "src", widget: "image", required: false }
+          - { label: "Alt Text", name: "alt", widget: "string", required: false }
       - { label: "Order", name: "order", widget: "number", required: false }
-      - { label: "Featured", name: "featured", widget: "boolean", default: true }
       - { label: "Body", name: "body", widget: "markdown" }
 
   - name: "academics-graduate-admissions"
@@ -73,10 +71,9 @@ collections:
         widget: "object"
         required: false
         fields:
-          - { label: "Image", name: "src", widget: "image" }
-          - { label: "Alt Text", name: "alt", widget: "string" }
+          - { label: "Image", name: "src", widget: "image", required: false  }
+          - { label: "Alt Text", name: "alt", widget: "string", required: false }
       - { label: "Order", name: "order", widget: "number", required: false }
-      - { label: "Featured", name: "featured", widget: "boolean", default: true }
       - { label: "Body", name: "body", widget: "markdown" }
 
   - name: "academics-graduate-application"
@@ -96,10 +93,9 @@ collections:
         widget: "object"
         required: false
         fields:
-          - { label: "Image", name: "src", widget: "image" }
-          - { label: "Alt Text", name: "alt", widget: "string" }
+          - { label: "Image", name: "src", widget: "image", required: false }
+          - { label: "Alt Text", name: "alt", widget: "string", required: false }
       - { label: "Order", name: "order", widget: "number", required: false }
-      - { label: "Featured", name: "featured", widget: "boolean", default: true }
       - { label: "Body", name: "body", widget: "markdown" }
 
   - name: "academics-graduate-requirements"
@@ -119,10 +115,9 @@ collections:
         widget: "object"
         required: false
         fields:
-          - { label: "Image", name: "src", widget: "image" }
-          - { label: "Alt Text", name: "alt", widget: "string" }
+          - { label: "Image", name: "src", widget: "image", required: false }
+          - { label: "Alt Text", name: "alt", widget: "string", required: false }
       - { label: "Order", name: "order", widget: "number", required: false }
-      - { label: "Featured", name: "featured", widget: "boolean", default: true }
       - { label: "Body", name: "body", widget: "markdown" }
 
   - name: "academics-undergraduate"
@@ -142,10 +137,9 @@ collections:
         widget: "object"
         required: false
         fields:
-          - { label: "Image", name: "src", widget: "image" }
-          - { label: "Alt Text", name: "alt", widget: "string" }
+          - { label: "Image", name: "src", widget: "image", required: false }
+          - { label: "Alt Text", name: "alt", widget: "string", required: false }
       - { label: "Order", name: "order", widget: "number", required: false }
-      - { label: "Featured", name: "featured", widget: "boolean", default: true }
       - { label: "Body", name: "body", widget: "markdown" }
 
   - name: "news"
