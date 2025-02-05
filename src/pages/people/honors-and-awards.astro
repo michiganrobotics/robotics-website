@@ -16,30 +16,38 @@ const staff = await getStaffData();
 
 const awards = await getAwards();
 
-// Match award recipients with profiles
+// Update the matching logic to handle multiple recipients
 const matchedAwards = awards.map(award => {
-  const matchedFaculty = faculty.find(profile => profile.fullName === award.awardRecipient);
-  const matchedStaff = staff.find(profile => profile.fullName === award.awardRecipient);
-  
-  if (matchedFaculty) {
-    return {
-      ...award,
-      profileUrl: `faculty/${matchedFaculty.slug}`,
-      profileType: 'faculty'
-    };
-  } else if (matchedStaff) {
-    return {
-      ...award,
-      profileUrl: `staff/${matchedStaff.slug}`,
-      profileType: 'staff'
-    };
-  } else {
-    return {
-      ...award,
-      profileUrl: null,
-      profileType: null
-    };
-  }
+  const recipients = award.awardRecipient.split('\n');
+  const matchedRecipients = recipients.map(recipient => {
+    const matchedFaculty = faculty.find(profile => profile.fullName === recipient.trim());
+    const matchedStaff = staff.find(profile => profile.fullName === recipient.trim());
+    
+    if (matchedFaculty) {
+      return {
+        name: recipient.trim(),
+        profileUrl: `faculty/${matchedFaculty.slug}`,
+        profileType: 'faculty'
+      };
+    } else if (matchedStaff) {
+      return {
+        name: recipient.trim(),
+        profileUrl: `staff/${matchedStaff.slug}`,
+        profileType: 'staff'
+      };
+    } else {
+      return {
+        name: recipient.trim(),
+        profileUrl: null,
+        profileType: null
+      };
+    }
+  });
+
+  return {
+    ...award,
+    recipients: matchedRecipients
+  };
 });
 
 ---
@@ -85,13 +93,19 @@ const matchedAwards = awards.map(award => {
                 {matchedAwards.map((award) => (
                   <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                     <td scope="row" class="px-6 py-4">
-                      {award.profileUrl ? (
-                        <Link href={`/people/${award.profileUrl}`} class="hover:underline">
-                          {award.awardRecipient}
-                        </Link>
-                      ) : (
-                        award.awardRecipient
-                      )}
+                      {award.recipients.map((recipient, index) => (
+                        <>
+                          {recipient.profileUrl ? (
+                            <Link href={`/people/${recipient.profileUrl}`} class="hover:underline">
+                              {recipient.name}
+                            </Link>
+                          ) : (
+                            recipient.name
+                          )}
+                          {/* Add line break between names except for the last one */}
+                          {index < award.recipients.length - 1 && <br />}
+                        </>
+                      ))}
                     </td>
                     <td class="px-6 py-4" role="cell">
                       {award.awardYear}

@@ -267,7 +267,11 @@ export const getAwards = cached(async (): Promise<Awards[]> => {
   
   return rows.map(row => ({
     UMID: row.get('UMID'),
-    awardRecipient: row.get('awardRecipient'),
+    // Keep recipients as a single string, but clean up any extra whitespace
+    awardRecipient: row.get('awardRecipient').split('\n')
+      .map(r => r.trim())
+      .filter(r => r) // Remove empty lines
+      .join('\n'),
     awardYear: row.get('awardYear'),
     award: row.get('award'),
     awardOrganization: row.get('awardOrganization'),
