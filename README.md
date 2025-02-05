@@ -1,5 +1,9 @@
 # Website Documentation
 
+Site has a github action to automatically build at 3am EST, incorporating any new changes to the various spreadsheets, events, or College news.
+
+Site can also be updated manually by pushing to the main branch, which triggers a build on Netlify.
+
 ## Site Structure
 
 ### Pages

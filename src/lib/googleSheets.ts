@@ -444,8 +444,9 @@ async function cacheGoogleDriveImage(url: string, fileName: string): Promise<str
 async function getGoogleDriveDirectImageUrl(url: string, studentName: string): Promise<string | null> {
   if (!url) return null;
   
+  // Match both /view?usp=sharing and /view?usp=share_link formats
   if (url.includes('drive.google.com/file/d/')) {
-    const fileId = url.match(/\/d\/(.*?)\//)?.[1];
+    const fileId = url.match(/\/d\/([^/]+)/)?.[1];
     
     if (fileId) {
       const thumbnailUrl = `https://drive.google.com/thumbnail?id=${fileId}&sz=w400`;
