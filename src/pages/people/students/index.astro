@@ -8,8 +8,8 @@ import PageTitle from "../../../components/PageTitle.astro";
 import featuredImage from "../../../images/featured-images/people-students.jpg";
 import ogFeatureImage from "../../../images/featured-images/og/people-students.jpg";
 
-// Import all images from the cached-profiles directory
-const cachedImages = import.meta.glob('/src/images/cached-profiles/*.jpg');
+// Update the image import to include the default export
+const cachedImages = import.meta.glob('/src/images/cached-profiles/*.jpg', { eager: true, import: 'default' });
 const defaultProfileImage = await import('../../../images/profile-images/robot-profile.jpg');
 
 const students = await getStudentData();
@@ -57,7 +57,7 @@ students.sort((a, b) => {
               <div class="flex items-center gap-4 mb-3">
                 {student.profileImage ? (
                   <Image
-                    src={cachedImages[student.profileImage]()}
+                    src={cachedImages[student.profileImage] || defaultProfileImage.default}
                     alt={`${student.preferredFullName}'s profile photo`}
                     width={256}
                     height={256}
