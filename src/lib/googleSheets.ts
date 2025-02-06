@@ -374,25 +374,42 @@ export const getAffiliateFacultyData = cached(async (): Promise<AffiliateFaculty
 async function cacheGoogleDriveImage(url: string, fileName: string): Promise<string | null> {
   if (!url) return null;
 
-  // Use .netlify/cache directory which Netlify persists between builds
   const cacheDir = path.join(process.cwd(), '.netlify/cache/cached-profiles');
   const publicDir = path.join(process.cwd(), 'src/images/cached-profiles');
   const cachePath = path.join(cacheDir, `${fileName}.jpg`);
   const publicPath = path.join(publicDir, `${fileName}.jpg`);
   
   try {
-    // Create both directories if they don't exist
+    // Debug: Check cache directory structure
+    console.log('Cache paths:');
+    console.log(`- Working directory: ${process.cwd()}`);
+    console.log(`- Cache directory: ${cacheDir}`);
+    console.log(`- Cache file: ${cachePath}`);
+
+    try {
+      await fs.access(cacheDir);
+      const files = await fs.readdir(cacheDir);
+      console.log(`Cache directory exists with ${files.length} files:`);
+      for (const file of files) {
+        const stats = await fs.stat(path.join(cacheDir, file));
+        console.log(`- ${file} (${stats.size} bytes)`);
+      }
+    } catch (e) {
+      console.log('Cache directory does not exist or is not accessible');
+      console.log('Error:', e instanceof Error ? e.message : String(e));
+    }
+
     await fs.mkdir(cacheDir, { recursive: true });
     await fs.mkdir(publicDir, { recursive: true });
 
     // Check if image exists in cache
     try {
       await fs.access(cachePath);
-      console.log(`Found cached image for ${fileName}`);
-      // Copy from cache to public directory
+      console.log(`Cache hit: ${fileName}`);
       await fs.copyFile(cachePath, publicPath);
       return `/src/images/cached-profiles/${fileName}.jpg`;
     } catch {
+      console.log(`Cache miss: ${fileName} - downloading from ${url}`);
       // Image not in cache, download it
       console.log(`Downloading and caching image for ${fileName} from ${url}`);
       
@@ -441,6 +458,7 @@ async function cacheGoogleDriveImage(url: string, fileName: string): Promise<str
     }
   } catch (error) {
     console.error(`Failed to process image for ${fileName}:`, error);
+    console.error('Full error:', error);
     return null;
   }
 }
