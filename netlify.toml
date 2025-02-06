@@ -7,6 +7,9 @@ publish = "dist"
 
 [[plugins]]
   package = "./netlify/plugins/cache-og-images"
+
+[[plugins]]
+package = "./netlify/plugins/cache-profile-images"
   
 # Cache assets
 [[headers]]
