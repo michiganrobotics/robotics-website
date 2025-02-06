@@ -380,39 +380,16 @@ async function cacheGoogleDriveImage(url: string, fileName: string): Promise<str
   const publicPath = path.join(publicDir, `${fileName}.jpg`);
   
   try {
-    // Debug: Check cache directory structure
-    console.log('Cache paths:');
-    console.log(`- Working directory: ${process.cwd()}`);
-    console.log(`- Cache directory: ${cacheDir}`);
-    console.log(`- Cache file: ${cachePath}`);
-
-    try {
-      await fs.access(cacheDir);
-      const files = await fs.readdir(cacheDir);
-      console.log(`Cache directory exists with ${files.length} files:`);
-      for (const file of files) {
-        const stats = await fs.stat(path.join(cacheDir, file));
-        console.log(`- ${file} (${stats.size} bytes)`);
-      }
-    } catch (e) {
-      console.log('Cache directory does not exist or is not accessible');
-      console.log('Error:', e instanceof Error ? e.message : String(e));
-    }
-
     await fs.mkdir(cacheDir, { recursive: true });
     await fs.mkdir(publicDir, { recursive: true });
 
     // Check if image exists in cache
     try {
       await fs.access(cachePath);
-      console.log(`Cache hit: ${fileName}`);
       await fs.copyFile(cachePath, publicPath);
       return `/src/images/cached-profiles/${fileName}.jpg`;
     } catch {
-      console.log(`Cache miss: ${fileName} - downloading from ${url}`);
       // Image not in cache, download it
-      console.log(`Downloading and caching image for ${fileName} from ${url}`);
-      
       await new Promise((resolve, reject) => {
         const request = https.get(url, {
           headers: {
@@ -432,7 +409,6 @@ async function cacheGoogleDriveImage(url: string, fileName: string): Promise<str
                 redirectResponse.pipe(cacheStream);
                 cacheStream.on('finish', async () => {
                   cacheStream.close();
-                  // Copy to public directory after successful download
                   await fs.copyFile(cachePath, publicPath);
                   resolve(true);
                 });
@@ -445,7 +421,6 @@ async function cacheGoogleDriveImage(url: string, fileName: string): Promise<str
           response.pipe(cacheStream);
           cacheStream.on('finish', async () => {
             cacheStream.close();
-            // Copy to public directory after successful download
             await fs.copyFile(cachePath, publicPath);
             resolve(true);
           });
@@ -457,8 +432,6 @@ async function cacheGoogleDriveImage(url: string, fileName: string): Promise<str
       return `/src/images/cached-profiles/${fileName}.jpg`;
     }
   } catch (error) {
-    console.error(`Failed to process image for ${fileName}:`, error);
-    console.error('Full error:', error);
     return null;
   }
 }
