@@ -59,16 +59,19 @@ const matchedAwards = awards.map(award => {
       <div class="prose dark:prose-invert mt-8 mb-4 max-w-6xl w-11/12 mx-auto">
         <h2 class="text-xl font-roboto text-umichblue dark:text-white leading-relaxed font-normal">Recognition for leading innovative initiatives, robust programs, and discovering new paths</h2>
         <p>Michigan Robotics faculty and staff have been recognized for their achievements in a variety of ways, including awards, grants, and fellowships. We are proud of our community members, who earn everything from a NSF Career Award to being elected to the National Academy of Engineering member.</p>
-     
-          <div class="relative overflow-x-auto shadow-md sm:rounded-lg p-4 not-prose">
-            <div class="mb-4">
-              <label for="searchInput" class="sr-only">Search awards</label>
-              <input type="text" id="searchInput" placeholder="Search awards..." 
-                class="p-2 border rounded-lg w-full dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-                aria-label="Search awards"
-              />
-            </div>
-            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-200">
+        <div class="mb-4">
+          <label for="searchInput" class="sr-only">Search awards</label>
+          <input 
+            type="text" 
+            id="searchInput" 
+            placeholder="Search awards..." 
+            class="w-full p-2 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-800 text-sm text-gray-900 dark:text-white"
+            aria-label="Search awards"
+          />
+        </div>
+          <div class="relative overflow-x-auto shadow-md not-prose">
+  
+            <table class="w-full text-sm text-left text-gray-800 border-arboretumBlue dark:border-maize border rounded dark:text-gray-200">
               <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-200">
                 <tr>
                   <th scope="col" class="px-6 py-3 cursor-pointer" data-sort="name">
