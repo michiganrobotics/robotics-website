@@ -374,20 +374,28 @@ export const getAffiliateFacultyData = cached(async (): Promise<AffiliateFaculty
 async function cacheGoogleDriveImage(url: string, fileName: string): Promise<string | null> {
   if (!url) return null;
 
-  const cacheDir = path.join(process.cwd(), 'src/images/cached-profiles');
-  const imagePath = path.join(cacheDir, `${fileName}.jpg`);
+  // Use .netlify/cache directory which Netlify persists between builds
+  const cacheDir = path.join(process.cwd(), '.netlify/cache/cached-profiles');
+  const publicDir = path.join(process.cwd(), 'src/images/cached-profiles');
+  const cachePath = path.join(cacheDir, `${fileName}.jpg`);
+  const publicPath = path.join(publicDir, `${fileName}.jpg`);
   
   try {
-    // Check if image already exists in cache
-    await fs.access(imagePath);
-    return `/src/images/cached-profiles/${fileName}.jpg`;
-  } catch {
-    // Image doesn't exist, download it
+    // Create both directories if they don't exist
+    await fs.mkdir(cacheDir, { recursive: true });
+    await fs.mkdir(publicDir, { recursive: true });
+
+    // Check if image exists in cache
     try {
-      // Ensure cache directory exists
-      await fs.mkdir(cacheDir, { recursive: true });
+      await fs.access(cachePath);
+      console.log(`Found cached image for ${fileName}`);
+      // Copy from cache to public directory
+      await fs.copyFile(cachePath, publicPath);
+      return `/src/images/cached-profiles/${fileName}.jpg`;
+    } catch {
+      // Image not in cache, download it
+      console.log(`Downloading and caching image for ${fileName} from ${url}`);
       
-      // Download image with redirect handling
       await new Promise((resolve, reject) => {
         const request = https.get(url, {
           headers: {
@@ -395,24 +403,20 @@ async function cacheGoogleDriveImage(url: string, fileName: string): Promise<str
           },
           followAllRedirects: true,
         }, (response) => {
-          // Handle redirects manually if needed
           if (response.statusCode === 302 || response.statusCode === 301) {
             const redirectUrl = response.headers.location;
             if (redirectUrl) {
-              // Make a new request to the redirect URL
               https.get(redirectUrl, {
                 headers: {
                   'User-Agent': 'Mozilla/5.0',
                 },
               }, (redirectResponse) => {
-                if (redirectResponse.statusCode !== 200) {
-                  reject(new Error(`Failed to download image after redirect: ${redirectResponse.statusCode}`));
-                  return;
-                }
-                const fileStream = fsSync.createWriteStream(imagePath);
-                redirectResponse.pipe(fileStream);
-                fileStream.on('finish', () => {
-                  fileStream.close();
+                const cacheStream = fsSync.createWriteStream(cachePath);
+                redirectResponse.pipe(cacheStream);
+                cacheStream.on('finish', async () => {
+                  cacheStream.close();
+                  // Copy to public directory after successful download
+                  await fs.copyFile(cachePath, publicPath);
                   resolve(true);
                 });
               }).on('error', reject);
@@ -420,15 +424,12 @@ async function cacheGoogleDriveImage(url: string, fileName: string): Promise<str
             }
           }
 
-          if (response.statusCode !== 200) {
-            reject(new Error(`Failed to download image: ${response.statusCode}`));
-            return;
-          }
-
-          const fileStream = fsSync.createWriteStream(imagePath);
-          response.pipe(fileStream);
-          fileStream.on('finish', () => {
-            fileStream.close();
+          const cacheStream = fsSync.createWriteStream(cachePath);
+          response.pipe(cacheStream);
+          cacheStream.on('finish', async () => {
+            cacheStream.close();
+            // Copy to public directory after successful download
+            await fs.copyFile(cachePath, publicPath);
             resolve(true);
           });
         }).on('error', reject);
@@ -437,10 +438,10 @@ async function cacheGoogleDriveImage(url: string, fileName: string): Promise<str
       });
 
       return `/src/images/cached-profiles/${fileName}.jpg`;
-    } catch (error) {
-      console.error(`Failed to cache image for ${fileName}:`, error);
-      return null;
     }
+  } catch (error) {
+    console.error(`Failed to process image for ${fileName}:`, error);
+    return null;
   }
 }
 
