@@ -5,6 +5,11 @@ import PageTitle from "../../../components/PageTitle.astro";
 import SpeakerProfile from '../../../components/SpeakerProfile.astro';
 import { getSpeakerSeriesData } from '../../../lib/googleSheets';
 import { YouTube } from '@astro-community/astro-embed-youtube';
+import { Image } from 'astro:assets';
+
+// Update the image import to include the default export
+const cachedImages = import.meta.glob('/src/images/cached-profiles/*.jpg', { eager: true, import: 'default' });
+const defaultProfileImage = await import('../../../images/profile-images/robot-profile.jpg');
 
 const title = "Undergraduate Robotics Pathways and Careers Speaker Series";
 const subtitle = "Answering the question of 'What can I do with a robotics degree?'";
@@ -38,7 +43,7 @@ const pastSpeakers = sortedSpeakers.filter(speaker => new Date(speaker.date) < c
 
     {upcomingSpeakers.map(speaker => (
       <SpeakerProfile
-        image={speaker.imageUrl}
+        image={cachedImages[speaker.imageUrl] || defaultProfileImage.default}
         imageAlt={speaker.name}
         title={speaker.title}
         subtitle={new Date(speaker.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
@@ -74,7 +79,7 @@ const pastSpeakers = sortedSpeakers.filter(speaker => new Date(speaker.date) < c
 
     {pastSpeakers.map(speaker => (
       <SpeakerProfile
-        image={speaker.imageUrl}
+        image={cachedImages[speaker.imageUrl] || defaultProfileImage.default}
         imageAlt={speaker.name}
         title={speaker.title}
         subtitle={new Date(speaker.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}

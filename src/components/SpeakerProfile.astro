@@ -3,7 +3,7 @@ import { Image } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
 
 interface Props {
-  image: string;
+  image: ImageMetadata;
   imageAlt: string;
   title?: string;
   subtitle: string; // date
@@ -24,11 +24,12 @@ const { image, imageAlt, title = '', subtitle, name, role, website, isExpanded =
   >
     <div class="flex items-center gap-4">
       <div class="w-16 h-16 shrink-0">
-        <img 
+        <Image 
           src={image} 
           alt={imageAlt}
+          width={256}
+          height={256}
           class="rounded-full w-full h-full object-cover not-prose"
-          loading="lazy"
         />
       </div>
       <div>
@@ -52,11 +53,12 @@ const { image, imageAlt, title = '', subtitle, name, role, website, isExpanded =
     <div class="p-6 bg-white dark:bg-gray-900">
       <div class="flex flex-col md:flex-row gap-8">
         <div class="md:w-1/4">
-          <img 
+          <Image 
             src={image} 
             alt={imageAlt}
+            width={400}
+            height={400}
             class="rounded-lg w-full"
-            loading="lazy"
           />
           {website && (
             <a 
