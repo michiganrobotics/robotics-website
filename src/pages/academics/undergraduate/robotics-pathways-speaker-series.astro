@@ -1,0 +1,109 @@
+---
+import Layout from '../../../layouts/MainLayout.astro';
+import Breadcrumbs from "../../../components/Breadcrumbs.astro";
+import PageTitle from "../../../components/PageTitle.astro";
+import SpeakerProfile from '../../../components/SpeakerProfile.astro';
+import { getSpeakerSeriesData } from '../../../lib/googleSheets';
+import { YouTube } from '@astro-community/astro-embed-youtube';
+
+const title = "Undergraduate Robotics Pathways and Careers Speaker Series";
+const subtitle = "Answering the question of 'What can I do with a robotics degree?'";
+const description = "Invites professionals working in robotics to come talk with current undergraduates about their career path.";
+
+const speakerData = await getSpeakerSeriesData();
+const currentDate = new Date();
+
+// Sort speakers by date
+const sortedSpeakers = speakerData.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+
+// Split into upcoming and past events
+const upcomingSpeakers = sortedSpeakers.filter(speaker => new Date(speaker.date) >= currentDate);
+const pastSpeakers = sortedSpeakers.filter(speaker => new Date(speaker.date) < currentDate).reverse();
+---
+
+<Layout title={`${title} | Michigan Robotics`}>
+  <Breadcrumbs />
+  <PageTitle title={title} />
+  
+  <article class="prose dark:prose-invert max-w-6xl w-11/12 mx-auto mt-4 mb-4 prose-headings:font-roboto prose-h2:text-3xl prose-h3:text-2xl prose-h4:text-xl prose-h5:text-lg prose-h6:text-base prose-headings:font-bold">
+    <h2 class="text-xl font-roboto text-umichblue dark:text-white leading-relaxed font-normal not-prose mt-8 mb-4">{subtitle}</h2>
+
+    <p>The Robotics Pathways and Careers Speaker Series (RPCSS) invites professionals working in robotics to come talk with current undergraduates about their career path, how a background in robotics has impacted their professional growth, and what they hope to see in students looking to enter the profession.</p>
+
+    <p>The RPCSS is held every other Tuesday evening from 4:30-6:00pm on the campus of the University of Michigan in 2300 FMCRB.</p>
+
+    <p>The 90-minute format of the event will consist of a 30-minute presentation from the invited speaker and up to 40 minutes of moderated Q&A and discussion. Students will be able to participate in person or remotely. Each seminar will be available <a href="https://umich.zoom.us/j/92286702864">via Zoom</a>.</p>
+
+    <h2>Upcoming speakers</h2>
+
+    {upcomingSpeakers.map(speaker => (
+      <SpeakerProfile
+        image={speaker.imageUrl}
+        imageAlt={speaker.name}
+        title={speaker.title}
+        subtitle={new Date(speaker.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+        name={speaker.name}
+        role={`${speaker.role}${speaker.organization ? `, ${speaker.organization}` : ''}`}
+        website={speaker.website}
+        isExpanded={true}
+      >
+        {speaker.abstract && (
+          <>
+            <h3>Abstract</h3>
+            <p>{speaker.abstract}</p>
+          </>
+        )}
+
+        {speaker.bio && (
+          <>
+            <h3>Bio</h3>
+            <p>{speaker.bio}</p>
+          </>
+        )}
+
+        {speaker.recordingUrl && (
+          <>
+            <h3>Recording</h3>
+            <YouTube id={speaker.recordingUrl} />
+          </>
+        )}
+      </SpeakerProfile>
+    ))}
+
+    <h2>Past speakers</h2>
+
+    {pastSpeakers.map(speaker => (
+      <SpeakerProfile
+        image={speaker.imageUrl}
+        imageAlt={speaker.name}
+        title={speaker.title}
+        subtitle={new Date(speaker.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+        name={speaker.name}
+        role={`${speaker.role}${speaker.organization ? `, ${speaker.organization}` : ''}`}
+        website={speaker.website}
+        isExpanded={false}
+      >
+        {speaker.abstract && (
+          <>
+            <h3>Abstract</h3>
+            <p>{speaker.abstract}</p>
+          </>
+        )}
+
+        {speaker.bio && (
+          <>
+            <h3>Bio</h3>
+            <p>{speaker.bio}</p>
+          </>
+        )}
+
+        {speaker.recordingUrl && (
+          <>
+            <h3>Recording</h3>
+            <YouTube id={speaker.recordingUrl} />
+          </>
+        )}
+      </SpeakerProfile>
+    ))}
+  </article>
+</Layout>

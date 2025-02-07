@@ -155,6 +155,19 @@ interface Student {
   profileImage?: string;
 }
 
+interface SpeakerSeries {
+  date: string;
+  name: string;
+  title?: string;
+  role: string;
+  organization: string;
+  abstract: string;
+  bio: string;
+  website?: string;
+  imageUrl: string;
+  recordingUrl?: string;
+}
+
 function createSlug(name: string): string {
   return name
     .toLowerCase()
@@ -494,4 +507,33 @@ export const getStudentData = cached(async (): Promise<Student[]> => {
     student.lastName && 
     student.degree
   );
+});
+
+export const getSpeakerSeriesData = cached(async (): Promise<SpeakerSeries[]> => {
+  await doc.loadInfo();
+  const sheet = doc.sheetsByTitle['RPCSS'];
+  const rows = await sheet.getRows();
+  
+  // Process all images in parallel
+  const speakers = await Promise.all(rows.map(async row => {
+    const imageUrl = await getGoogleDriveDirectImageUrl(
+      row.get('imageUrl'),
+      row.get('name')
+    );
+
+    return {
+      date: row.get('date'),
+      name: row.get('name'),
+      title: row.get('title') || 'RPCSS Speaker',
+      role: row.get('role'),
+      organization: row.get('organization'),
+      abstract: row.get('abstract'),
+      bio: row.get('bio'),
+      website: row.get('website'),
+      imageUrl: imageUrl || '/src/images/profile-images/robot-profile.jpg',
+      recordingUrl: row.get('recordingUrl'),
+    };
+  }));
+
+  return speakers;
 });
