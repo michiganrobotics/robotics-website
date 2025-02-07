@@ -13,17 +13,20 @@ interface GetStaticPathsParams {
 
 export async function getStaticPaths({ paginate }: GetStaticPathsParams) {
   const allNews = await getCollection('news');
+  const collegeNews = await getCollection('collegeNews');
   
   // Get unique categories from all news posts
-  const categories = [...new Set(
-    allNews.flatMap(post => post.data.categories)
-  )];
+  const categories = [...new Set([
+    ...allNews.flatMap(post => post.data.categories),
+    ...collegeNews.flatMap(post => post.data.categories || [])
+  ])];
   
   // Create paths for each category
   return categories.map(category => {
-    const categoryPosts = allNews.filter(post => 
-      post.data.categories.includes(category)
-    ).sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
+    const categoryPosts = [
+      ...allNews.filter(post => post.data.categories.includes(category)),
+      ...collegeNews.filter(post => post.data.categories?.includes(category))
+    ].sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
 
     return paginate(categoryPosts, {
       params: { category },
@@ -35,6 +38,19 @@ export async function getStaticPaths({ paginate }: GetStaticPathsParams) {
 
 const { page, category } = Astro.props;
 const { data: posts, currentPage, lastPage, url } = page;
+
+// Helper function to determine if a post is college news
+function isCollegeNews(post: any) {
+  return post.collection === 'collegeNews';
+}
+
+// Helper function to get the post link
+function getPostLink(post: any) {
+  if (isCollegeNews(post)) {
+    return post.data.link;
+  }
+  return `/news/${new Date(post.data.date).getFullYear()}/${post.id.split('/')[1]}`;
+}
 
 // Create a friendly category name
 const focusAreas = await getCollection('focusAreas');
@@ -62,8 +78,10 @@ function formatDate(dateString: string): string {
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
       {posts.map((post: any) => (
         <Link 
-          href={`/news/${new Date(post.data.date).getFullYear()}/${post.id.split('/')[1]}`}
+          href={getPostLink(post)}
           class="group bg-white dark:bg-gray-800 shadow-md rounded-sm overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-[1.02] flex flex-col"
+          target={isCollegeNews(post) ? '_blank' : undefined}
+          rel={isCollegeNews(post) ? 'noopener noreferrer' : undefined}
         >
           {post.data.image?.src && (
             <Image 
@@ -78,13 +96,20 @@ function formatDate(dateString: string): string {
             <div>
               <h2 class="text-lg leading-tight font-roboto font-bold text-umichblue dark:text-gray-100 mb-2 border-b-2 border-transparent group-hover:border-maize transition-all duration-300">
                 {post.data.title}
+                {isCollegeNews(post) && <Icon name="mdi:open-in-new" class="inline w-4 h-4 ml-1" />}
               </h2>
               <p class="text-sm italic font-sans text-gray-600 dark:text-gray-400">
                 {formatDate(post.data.date)}
               </p>
-              {post.data.excerpt && (
+              {isCollegeNews(post) ? (
+                post.data.description && (
+                  <p class="text-gray-600 dark:text-gray-200 mt-2 text-sm">
+                    {post.data.description}
+                  </p>
+                )
+              ) : (
                 <p class="text-gray-600 dark:text-gray-200 mt-2 text-sm">
-                  {post.data.excerpt}
+                  {post.data.excerpt || post.data.seoDescription || ''}
                 </p>
               )}
             </div>

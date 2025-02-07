@@ -5,6 +5,7 @@ import { getCollection } from 'astro:content';
 import { Image, getImage } from 'astro:assets';
 import Link from '../components/Link.astro';
 import { getProfileImagePath } from '../lib/googleSheets';
+import { Icon } from 'astro-icon/components';
 
 const { faculty } = Astro.props;
 
@@ -39,8 +40,38 @@ const allNamedPosts = await getCollection('news', ({ data }) => {
   return data.tags?.includes(faculty.fullName);
 });
 
-// Sort posts by date
-const relatedPosts = allNamedPosts
+// Fetch college news posts with tag of faculty member's full name
+const collegeNewsPosts = await getCollection('collegeNews', ({ data }) => {
+  return data.tags?.includes(faculty.fullName);
+});
+
+// Format college news posts to match structure
+const formattedCollegeNews = collegeNewsPosts.map(item => ({
+  id: `college/${item.id}`,
+  collection: 'collegeNews' as const,
+  data: {
+    title: item.data.title,
+    date: item.data.date,
+    image: item.data.image,
+    link: item.data.link
+  }
+}));
+
+// Helper function to determine if a post is college news
+function isCollegeNews(post: any) {
+  return post.collection === 'collegeNews';
+}
+
+// Helper function to get post link
+function getPostLink(post: any) {
+  if (isCollegeNews(post)) {
+    return post.data.link;
+  }
+  return `/news/${new Date(post.data.date).getFullYear()}/${post.id.split('/')[1]}`;
+}
+
+// Combine and sort all posts by date
+const relatedPosts = [...allNamedPosts, ...formattedCollegeNews]
   .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
 ---
 
@@ -147,8 +178,12 @@ const relatedPosts = allNamedPosts
 
               return (
               <div class="group bg-white dark:bg-gray-900 rounded-sm overflow-hidden shadow-lg">
-                <Link href={`/news/${new Date(post.data.date).getFullYear()}/${post.id.split('/')[1]}`} 
-                  class="group">
+                <Link 
+                  href={getPostLink(post)}
+                  class="group"
+                  target={isCollegeNews(post) ? '_blank' : undefined}
+                  rel={isCollegeNews(post) ? 'noopener noreferrer' : undefined}
+                >
                   <div class="relative aspect-video overflow-hidden rounded-sm shadow-lg not-prose">
                     {postImage ? (
                       <Image 
@@ -163,6 +198,7 @@ const relatedPosts = allNamedPosts
                   <div class="p-4">
                     <h3 class="text-lg font-medium decoration-maize decoration-2 group-hover:underline">
                       {post.data.title}
+                      {isCollegeNews(post) && <Icon name="mdi:open-in-new" class="inline w-4 h-4 ml-1" />}
                     </h3>
                   </div>
                 </Link>

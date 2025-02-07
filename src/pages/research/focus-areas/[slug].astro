@@ -6,6 +6,7 @@ import ContentImage from '../../../components/ContentImage.astro';
 import Breadcrumbs from "../../../components/Breadcrumbs.astro";
 import Link from '../../../components/Link.astro';
 import { components } from '../../../components/components';
+import { Icon } from 'astro-icon/components';
 
 export async function getStaticPaths() {
   const focusAreaEntries = await getCollection('focusAreas');
@@ -21,8 +22,43 @@ const { Content } = await render(entry);
 // Get related news posts based on matching category
 const allAreaPosts = await getCollection('news', ({ data }) => {
   if (!data.categories || !data.categories.length) return false;
-  return data.categories.includes(entry.id);
+  return data.categories.some(cat => cat === entry.id);
 });
+
+// Get related college news posts
+const collegeNewsPosts = await getCollection('collegeNews', ({ data }) => {
+  if (!data.categories || !data.categories.length) return false;
+  return data.categories.some(cat => cat === entry.id);
+});
+
+// Format college news posts to match structure
+const formattedCollegeNews = collegeNewsPosts.map(item => ({
+  id: `college/${item.id}`,
+  collection: 'collegeNews' as const,
+  data: {
+    title: item.data.title,
+    date: item.data.date,
+    image: item.data.image,
+    link: item.data.link
+  }
+}));
+
+// Combine and sort all related posts by date
+const allRelatedPosts = [...allAreaPosts, ...formattedCollegeNews]
+  .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
+
+// Helper function to determine if a post is college news
+function isCollegeNews(post: any) {
+  return post.collection === 'collegeNews';
+}
+
+// Helper function to get post link
+function getPostLink(post: any) {
+  if (isCollegeNews(post)) {
+    return post.data.link;
+  }
+  return `/news/${new Date(post.data.date).getFullYear()}/${post.id.split('/')[1]}`;
+}
 
 // Get focus areas collection to ensure consistent image handling
 const focusAreas = await getCollection('focusAreas');
@@ -68,11 +104,11 @@ const relatedPosts = allAreaPosts
         <Content components={components} />
 
         {/* Related News Section */}
-        {relatedPosts.length > 0 && (
+        {allRelatedPosts.length > 0 && (
           <div class="mt-12">
             <h2 class="text-2xl font-bold mb-4 font-roboto-condensed dark:text-white">Related news</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {relatedPosts.slice(0, 6).map(async (post) => {
+              {allRelatedPosts.slice(0, 6).map(async (post) => {
                 const postImage = post.data.image?.src ? await getImage({
                   src: post.data.image.src,
                   width: 450,
@@ -81,23 +117,28 @@ const relatedPosts = allAreaPosts
 
                 return (
                   <div class="group bg-white dark:bg-gray-900 rounded-sm overflow-hidden shadow-lg">
-                    <Link href={`/news/${new Date(post.data.date).getFullYear()}/${post.id.split('/')[1]}`} 
-                      class="group no-underline">
+                    <Link 
+                      href={getPostLink(post)}
+                      class="group no-underline"
+                      target={isCollegeNews(post) ? '_blank' : undefined}
+                      rel={isCollegeNews(post) ? 'noopener noreferrer' : undefined}
+                    >
                       <div class="relative aspect-video overflow-hidden rounded-sm shadow-lg not-prose">
-                      {postImage ? (
-                        <Image 
-                          src={postImage.src}
-                          alt={post.data.image?.alt || post.data.title}
-                          width={450}
-                          height={300}
-                          class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                        />
-                      ) : null}
-                    </div>
-                    <div class="p-4">
-                      <h3 class="not-prose text-lg font-medium group-hover:decoration-maize group-hover:decoration-2 group-hover:underline">
-                        {post.data.title}
-                      </h3>
+                        {postImage ? (
+                          <Image 
+                            src={postImage.src}
+                            alt={post.data.image?.alt || post.data.title}
+                            width={450}
+                            height={300}
+                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                          />
+                        ) : null}
+                      </div>
+                      <div class="p-4">
+                        <h3 class="not-prose text-lg font-medium group-hover:decoration-maize group-hover:decoration-2 group-hover:underline">
+                          {post.data.title}
+                          {isCollegeNews(post) && <Icon name="mdi:open-in-new" class="inline w-4 h-4 ml-1" />}
+                        </h3>
                       </div>
                     </Link>
                   </div>
@@ -105,7 +146,7 @@ const relatedPosts = allAreaPosts
               })}
             </div>
             
-            {relatedPosts.length > 6 && (
+            {allRelatedPosts.length > 6 && (
               <div class="mt-8 text-right not-prose">
                 <a 
                   href={`/news/${entry.id}`}

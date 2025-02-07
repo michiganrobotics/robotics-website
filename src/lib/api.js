@@ -1,4 +1,3 @@
-
 function truncateDescription(description, maxLength = 250) {
   if (description.length <= maxLength) return description;
   return description.slice(0, maxLength).trim() + '...';
@@ -50,42 +49,65 @@ export async function eventsQuery() {
 import { XMLParser } from 'fast-xml-parser';
 
 export async function collegeNewsQuery() {
-  const response = await fetch('https://news.engin.umich.edu/category/research/robotics/feed');
-  const xmlData = await response.text();
-  const parser = new XMLParser({
-    ignoreAttributes: false,
-    attributeNamePrefix: ""
-  });
-  const parsedData = parser.parse(xmlData);
-
-  const newsItems = parsedData.rss.channel.item.slice(0, 4);
-
-  const truncatedData = newsItems.map(newsItem => {
-    // Find all images in content
-    const content = newsItem["content:encoded"] || '';
-    const imgMatches = [...content.matchAll(/<img[^>]+src="([^">]+)"[^>]*alt="([^">]+)"/g)];
+  try {
+    console.log('Fetching college news feed...');
+    const response = await fetch('https://news.engin.umich.edu/category/research/robotics/feed');
     
-    // Find first image that's not a profile photo
-    const mainImage = imgMatches.find(match => {
-      const alt = match[2].toLowerCase();
-      return !alt.includes('portrait') && !alt.includes('headshot') && !alt.includes('profile');
+    if (!response.ok) {
+      console.error('Feed response not OK:', response.status, response.statusText);
+      return [];
+    }
+
+    const xmlData = await response.text();
+    console.log('Received XML data, length:', xmlData.length);
+    
+    const parser = new XMLParser({
+      ignoreAttributes: false,
+      attributeNamePrefix: ""
     });
-    
-    const imageUrl = mainImage ? mainImage[1] : null;
+    const parsedData = parser.parse(xmlData);
+    console.log('Parsed RSS data:', parsedData?.rss?.channel?.title);
 
-    // Clean up description by removing HTML and "The post appeared first on" text
-    const cleanDescription = newsItem.description
-      .replace(/<[^>]+>/g, '') // Remove HTML tags
-      .replace(/The post .* appeared first on .*\./, '') // Remove footer text
-      .trim();
+    if (!parsedData?.rss?.channel?.item) {
+      console.error('No items found in feed');
+      return [];
+    }
 
-    return {
-      COLLEGE_TITLE: newsItem.title,
-      COLLEGE_LINK: newsItem.link,
-      COLLEGE_PUB_DATE: newsItem.pubDate,
-      COLLEGE_DESCRIPTION: truncateDescription(cleanDescription || ''),
-      COLLEGE_IMAGE: imageUrl
-    };
-  });
-  return truncatedData;
+    const newsItems = parsedData.rss.channel.item.slice(0, 4);
+    console.log(`Processing ${newsItems.length} news items`);
+
+    const truncatedData = newsItems.map(newsItem => {
+      // Find all images in content
+      const content = newsItem["content:encoded"] || '';
+      const imgMatches = [...content.matchAll(/<img[^>]+src="([^">]+)"[^>]*alt="([^">]+)"/g)];
+      
+      // Find first image that's not a profile photo
+      const mainImage = imgMatches.find(match => {
+        const alt = match[2].toLowerCase();
+        return !alt.includes('portrait') && !alt.includes('headshot') && !alt.includes('profile');
+      });
+      
+      const imageUrl = mainImage ? mainImage[1] : null;
+
+      // Clean up description by removing HTML and "The post appeared first on" text
+      const cleanDescription = newsItem.description
+        .replace(/<[^>]+>/g, '') // Remove HTML tags
+        .replace(/The post .* appeared first on .*\./, '') // Remove footer text
+        .trim();
+
+      return {
+        COLLEGE_TITLE: newsItem.title,
+        COLLEGE_LINK: newsItem.link,
+        COLLEGE_PUB_DATE: newsItem.pubDate,
+        COLLEGE_DESCRIPTION: truncateDescription(cleanDescription || ''),
+        COLLEGE_IMAGE: imageUrl
+      };
+    });
+
+    console.log(`Processed ${truncatedData.length} items`);
+    return truncatedData;
+  } catch (error) {
+    console.error('Error in collegeNewsQuery:', error);
+    return [];
+  }
 }

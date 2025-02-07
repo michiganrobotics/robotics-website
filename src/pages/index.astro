@@ -11,6 +11,7 @@ import researchImage from '../images/homepage/homepage-research.jpg';
 import peopleImage from '../images/homepage/homepage-people.jpg';
 import ContentImage from '../components/ContentImage.astro';
 import Link from '../components/Link.astro';
+import { Icon } from 'astro-icon/components';
 
 // Add these type definitions at the top of the file
 interface Event {
@@ -35,12 +36,50 @@ declare global {
   }
 }
 
-// Get all news posts and sort by date - this is all you need
-const allPosts = await getCollection('news');
-const recentPosts = allPosts
-  .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime())
-  .slice(0, 3);  // Get just the 3 most recent posts
+// Helper functions for news items
+function isCollegeNews(post: any) {
+  return post.collection === 'collegeNews';
+}
 
+function getPostLink(post: any) {
+  if (isCollegeNews(post)) {
+    return post.data.link;
+  }
+  return `/news/${new Date(post.data.date).getFullYear()}/${post.id.split('/')[1]}`;
+}
+
+function getExcerptText(post: any): string {
+  if (isCollegeNews(post)) {
+    return post.data.description || '';
+  }
+  return post.data.excerpt || post.data.seoDescription || '';
+}
+
+// Get all news posts and sort by date
+const allPosts = await getCollection('news');
+const collegeNewsItems = await getCollection('collegeNews', ({ data }) => data.featured !== false);
+
+// Convert college news items to match news post format
+const formattedCollegeNews = collegeNewsItems.map(item => ({
+  id: `college/${item.id}`,
+  collection: 'collegeNews' as const,
+  data: {
+    title: item.data.title,
+    date: item.data.date,
+    description: item.data.description,
+    link: item.data.link,
+    categories: item.data.categories || [],
+    image: item.data.image,
+    featured: item.data.featured
+  }
+}));
+
+// Combine and sort all news items
+const allNewsItems = [...allPosts, ...formattedCollegeNews].sort(
+  (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+);
+
+const recentPosts = allNewsItems.slice(0, 3);
 const eventsData = await eventsQuery();
 const recentEvents = eventsData.slice(0, 3);
 
@@ -66,16 +105,22 @@ Astro.response.headers.set('Cache-Control', 'public, max-age=86400, must-revalid
 					<h2 id="latest-news" class="absolute -top-6 z-10 bg-arboretumBlue text-white px-6 py-2 rounded-sm text-3xl font-bold">Latest news</h2>
 				</div>
 				<div class="flex flex-wrap gap-4 justify-center mb-8 md:flex-nowrap pt-10 px-2">
-					{recentPosts.map(async (post) => {
+					{recentPosts.map(async (post, index) => {
 						const postImage = post.data.image?.src ? await getImage({
 							src: post.data.image.src,
-							width: 450,
-							height: 192,
+							width: index === 0 ? 760 : 368,
+							height: index === 0 ? 384 : 192,
 						}) : null;
 
+						const excerpt = getExcerptText(post);
+
 						return (
-							<Link href={`/news/${new Date(post.data.date).getFullYear()}/${post.id.split('/')[1].replace(/\.mdx?$/, '')}`} 
-								class="group bg-white dark:bg-gray-800 shadow-md rounded-sm overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-[1.02] md:flex-1 max-w-md">
+							<Link 
+								href={getPostLink(post)}
+								class="group bg-white dark:bg-gray-800 shadow-md rounded-sm overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-[1.02] md:flex-1 max-w-md"
+								target={isCollegeNews(post) ? '_blank' : undefined}
+								rel={isCollegeNews(post) ? 'noopener noreferrer' : undefined}
+							>
 								{postImage ? (
 									<Image 
 										src={postImage.src}
@@ -83,19 +128,22 @@ Astro.response.headers.set('Cache-Control', 'public, max-age=86400, must-revalid
 										width={450}
 										height={192}
 										class="w-full h-48 object-cover"
-										loading="lazy"
+										loading={index < 2 ? 'eager' : 'lazy'}
 									/>
 								) : null}
 								<div class="relative">
 									<div class="p-4">
 										<div class="bg-arboretumBlue text-white p-2 pl-4 -ml-4">
-											<h3 class="text-xl font-roboto border-b-2 border-transparent group-hover:border-maize transition-all duration-300">{post.data.title}</h3>
+											<h3 class="text-xl font-roboto border-b-2 border-transparent group-hover:border-maize transition-all duration-300">
+												{post.data.title}
+												{isCollegeNews(post) && <Icon name="mdi:open-in-new" class="inline w-4 h-4 ml-1" />}
+											</h3>
 										</div>
 										<div class="mt-4 text-gray-600 dark:text-gray-200">
 											<p class="text-sm italic font-sans text-arboretumBlue dark:text-gray-400">
-												{new Date(post.data.date).toLocaleDateString('en-US', { year: 'numeric', month: 'numeric', day: 'numeric' })}
+												{new Date(post.data.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
 											</p>
-											<p class="line-clamp-3" set:html={post.data.excerpt || (post.body && post.body.split('<!--more-->')[0]) || (post.body && post.body.split('\n\n')[0])} />
+											<p class="line-clamp-3 text-sm" set:html={excerpt} />
 										</div>
 									</div>
 								</div>

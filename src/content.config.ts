@@ -77,9 +77,41 @@ const academics = defineCollection({
   }),
 });
 
+const collegeNews = defineCollection({
+  loader: glob({ pattern: "*.json", base: "./src/content/college-news" }),
+  schema: z.object({
+    title: z.string(),
+    date: z.string(),
+    description: z.string().optional(),
+    link: z.string().url(),
+    image: z.object({
+      src: z.string(),
+      alt: z.string(),
+    }).optional(),
+    categories: z.array(z.enum([
+      'artificial-intelligence',
+      'autonomous-vehicles',
+      'deep-learning',
+      'human-robot-interaction',
+      'legged-robots',
+      'manufacturing',
+      'motion-planning',
+      'perception-manipulation',
+      'rehabilitation',
+      'safe-autonomy',
+      'slam',
+      'teams-swarms',
+      'robotics-community',
+    ])).optional(),
+    tags: z.array(z.string()).optional(),
+    featured: z.boolean().default(true),
+  }),
+});
+
 export const collections = {
   focusAreas,
   news,
   courses,
   academics,
+  collegeNews,
 };

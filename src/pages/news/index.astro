@@ -1,12 +1,12 @@
 ---
-import { getCollection, render } from 'astro:content';
+import { getCollection, type CollectionEntry } from 'astro:content';
 import MainLayout from "../../layouts/MainLayout.astro";
 import { Icon } from 'astro-icon/components';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import PageTitle from '../../components/PageTitle.astro';
 import { Image, getImage } from 'astro:assets';
 import featureImage from '../../images/featured-images/news.jpg';
-import { collegeNewsQuery, eventsQuery } from '../../lib/api';
+import { eventsQuery } from '../../lib/api';
 import ContentImage from '../../components/ContentImage.astro';
 import Link from '../../components/Link.astro';
 import { LinkPreview } from 'astro-embed';
@@ -14,13 +14,132 @@ import substackImage from '../../images/substackNewsSubscribe.jpg';
 import ogFeatureImage from '../../images/featured-images/og/news.jpg';
 import NewsSearch from '../../components/NewsSearch.astro';
 
-
 const eventsData = await eventsQuery();
 
+type NewsPost = CollectionEntry<'news'>;
+type CollegeNewsPost = CollectionEntry<'collegeNews'>;
 
+type BaseNewsData = {
+  title: string;
+  date: string;
+  description?: string;
+  categories: string[];
+  image?: {
+    src: any; // Using any for now since it's an Astro asset
+    alt: string;
+  };
+  featured?: boolean;
+};
+
+type RegularNewsData = BaseNewsData & {
+  type: 'news';
+};
+
+type CollegeNewsData = BaseNewsData & {
+  type: 'collegeNews';
+  link: string;
+};
+
+type CombinedNewsItem = {
+  id: string;
+  collection: 'news' | 'collegeNews';
+  data: RegularNewsData | CollegeNewsData;
+  render: () => Promise<{ content: string }>;
+  body?: string;
+};
+
+interface Event {
+  id: string;
+  permalink: string;
+  event_title: string;
+  event_subtitle: string;
+  styled_images: {
+    event_feature_large: string;
+  };
+  image_description: string;
+  datetime_start: string;
+  description: string;
+}
+
+// Get all news posts and college news, then combine and sort by date
+const allPosts = await getCollection('news');
+const collegeNewsItems = await getCollection('collegeNews', ({ data }) => data.featured !== false);
+
+// Helper functions for type checking
+function isCollegeNews(post: CombinedNewsItem): post is CombinedNewsItem & { data: CollegeNewsData } {
+  return post.data.type === 'collegeNews';
+}
+
+function getExcerptText(post: CombinedNewsItem): string {
+  return post.data.description || '';
+}
+
+function getPostLink(post: CombinedNewsItem): string {
+  if (isCollegeNews(post)) {
+    return post.data.link;
+  }
+  return `/news/${new Date(post.data.date).getFullYear()}/${post.id.split('/')[1]}`;
+}
+
+// Convert college news items to match news post format
+const formattedCollegeNews = collegeNewsItems.map(item => {
+  const data: CollegeNewsData = {
+    type: 'collegeNews',
+    title: item.data.title,
+    date: item.data.date,
+    description: item.data.description,
+    link: item.data.link,
+    categories: item.data.categories || [],
+    image: item.data.image,
+    featured: item.data.featured
+  };
+  
+  return {
+    id: `college/${item.id}`,
+    collection: 'collegeNews' as const,
+    data,
+    render: async () => ({ content: item.data.description || '' })
+  };
+});
+
+// Convert regular news posts
+const formattedNews = allPosts.map(item => {
+  const description = item.data.excerpt || item.data.seoDescription || '';
+  const data: RegularNewsData = {
+    type: 'news',
+    title: item.data.title,
+    date: item.data.date,
+    description,
+    categories: item.data.categories,
+    image: item.data.image,
+    featured: item.data.featured
+  };
+  
+  return {
+    ...item,
+    data
+  };
+});
+
+// Combine and sort all news items
+const allNewsItems = [...formattedNews, ...formattedCollegeNews].sort(
+  (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+) as CombinedNewsItem[];
+
+// Split into recent and older posts
+const recentPosts = allNewsItems.slice(0, 5);
+const remainingPosts = allNewsItems.slice(5);
+
+// Select posts for each section directly from allNewsItems instead of using category grouping
+const selectedOlderPosts = allNewsItems.slice(5, 20);  // Get posts 6-20 for the older sections
+
+const focusAreas = await getCollection('focusAreas');
+const categoryTitles = Object.fromEntries(
+  focusAreas.map(area => [area.id, area.data.title.toLowerCase()])
+);
 
 // Helper function to get excerpt
-async function getExcerpt(post) {
+async function getExcerpt(post: CombinedNewsItem) {
   try {
     // If there's a manual excerpt, use it
     if (post.data.excerpt) {
@@ -58,41 +177,6 @@ async function getExcerpt(post) {
   }
 }
 
-// Get all news posts and sort by date
-const allPosts = await getCollection('news');
-const posts = allPosts.sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
-
-// Split into recent and older posts
-const recentPosts = posts.slice(0, 5);
-const remainingPosts = posts.slice(5);
-
-
-// Group remaining posts by category
-const postsByCategory = remainingPosts.reduce((acc, post) => {
-  const category = post.data.categories?.[0] || 'Uncategorized';
-  if (!acc[category]) acc[category] = [];
-  acc[category].push(post);
-  return acc;
-}, {});
-
-// Select up to 8 posts for the older posts section
-let selectedOlderPosts = [];
-Object.entries(postsByCategory).forEach(([category, posts]) => {
-  const postsToAdd = posts.slice(0, 4);
-  selectedOlderPosts.push(...postsToAdd);
-});
-
-// Sort by date and take only the 8 most recent
-selectedOlderPosts.sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
-selectedOlderPosts = selectedOlderPosts.slice(0, 7);
-
-const focusAreas = await getCollection('focusAreas');
-const categoryTitles = Object.fromEntries(
-  focusAreas.map(area => [area.id, area.data.title.toLowerCase()])
-);
-
-const collegeNewsItems = await collegeNewsQuery();
-
 ---
 <MainLayout title="News and Events | Michigan Robotics" image={ogFeatureImage.src} description="Latest robotics news and upcoming events from the University of Michigan">
   <Breadcrumbs />
@@ -102,33 +186,42 @@ const collegeNewsItems = await collegeNewsQuery();
 <div class="max-w-6xl w-11/12 mx-auto mt-4">
   <section id="recent-posts" class="mb-12">
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {recentPosts.map(async (post, index) => {
-          // Get the optimized image if it exists
+        {recentPosts.map(async (post: CombinedNewsItem, index: number) => {
           const postImage = post.data.image?.src ? await getImage({
             src: post.data.image.src,
             width: index === 0 ? 760 : 368,
             height: index === 0 ? 384 : 192,
           }) : null;
 
+          const postLink = getPostLink(post);
+          const excerpt = getExcerptText(post);
+
           return (
-            <Link href={`/news/${new Date(post.data.date).getFullYear()}/${post.id.split('/')[1]}`} 
-               class={`group block bg-white dark:bg-gray-800 shadow-md rounded-sm overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-[1.02] ${index === 0 ? 'md:col-span-2' : ''}`}>
-                {postImage ? (
-                  <Image 
-                    src={postImage.src}
-                    alt={post.data.image?.alt || post.data.title}
-                    width={index === 0 ? 760 : 368}
-                    height={index === 0 ? 384 : 192}
-                    class={`w-full ${index === 0 ? 'h-96' : 'h-48'} object-cover`}
-                    loading={`${index < 2 ? 'eager' : 'lazy'}`}
-                  />
-                ) : null}
+            <Link 
+              href={postLink}
+              class={`group block bg-white dark:bg-gray-800 shadow-md rounded-sm overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-[1.02] ${index === 0 ? 'md:col-span-2' : ''}`}
+              target={isCollegeNews(post) ? '_blank' : undefined}
+              rel={isCollegeNews(post) ? 'noopener noreferrer' : undefined}
+            >
+              {postImage ? (
+                <Image 
+                  src={postImage.src}
+                  alt={post.data.image?.alt || post.data.title}
+                  width={index === 0 ? 760 : 368}
+                  height={index === 0 ? 384 : 192}
+                  class={`w-full ${index === 0 ? 'h-96' : 'h-48'} object-cover`}
+                  loading={`${index < 2 ? 'eager' : 'lazy'}`}
+                />
+              ) : null}
               <div class="p-4">
-                <h2 class="text-xl leading-tight font-roboto font-bold mb-2 text-umichblue dark:text-gray-100 border-b-2 border-transparent group-hover:border-maize transition-all duration-300">{post.data.title}</h2>
+                <h2 class="text-xl leading-tight font-roboto font-bold mb-2 text-umichblue dark:text-gray-100 border-b-2 border-transparent group-hover:border-maize transition-all duration-300">
+                  {post.data.title}
+                  {isCollegeNews(post) && <Icon name="mdi:open-in-new" class="inline w-4 h-4 ml-1" />}
+                </h2>
                 <p class="text-sm italic font-sans text-gray-600 dark:text-gray-400 mb-4">
                   {new Date(post.data.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
                 </p>
-                <p class="text-gray-600 dark:text-gray-200 mb-4" set:html={getExcerpt(post)} />
+                <p class="text-gray-600 dark:text-gray-200 mb-4" set:html={excerpt} />
               </div>
             </Link>
           );
@@ -138,7 +231,7 @@ const collegeNewsItems = await collegeNewsQuery();
     {eventsData.length > 0 && (
     <section id="events" class="mb-12">
       <div class="grid grid-cols-1 sm:flex sm:flex-row sm:gap-6">
-        {eventsData.slice(0,4).map((event, index) => (
+        {eventsData.slice(0,4).map((event: Event, index: number) => (
           <a href={event.permalink} class={`group bg-white dark:bg-gray-800 shadow-md rounded-sm overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-[1.02] flex flex-col mb-6 last:mb-0 sm:mb-0 sm:flex-1 ${index !== 0 ? 'sm:ml-6' : ''}`}>
             <div class="relative">
               <span class="absolute top-2 left-0 text-xs font-medium px-4 py-1 bg-matthaeiViolet text-white shadow-md">
@@ -183,46 +276,61 @@ const collegeNewsItems = await collegeNewsQuery();
     </section>
     )}
     <section id="older-posts" class="mb-12">
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        {selectedOlderPosts.slice(0, 4).map(async (post) => {
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {selectedOlderPosts.slice(0, 4).map(async (post: CombinedNewsItem) => {
           const postImage = post.data.image?.src ? await getImage({
             src: post.data.image.src,
             width: 540,
             height: 360,
           }) : null;
 
+          const postLink = getPostLink(post);
+          const excerpt = getExcerptText(post);
+
           return (
-            <Link href={`/news/${new Date(post.data.date).getFullYear()}/${post.id.split('/')[1]}`} 
-               class="group bg-white dark:bg-gray-800 shadow-md rounded-sm overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-[1.02] flex flex-col">
-                <div class="relative">
-                  <span class="hidden sm:block absolute top-2 left-0 text-xs font-medium px-4 py-1 bg-arboretumBlue text-white shadow-md z-10">
+            <Link 
+              href={postLink}
+              class="group bg-white dark:bg-gray-800 shadow-md rounded-sm overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-[1.02] flex flex-col"
+              target={isCollegeNews(post) ? '_blank' : undefined}
+              rel={isCollegeNews(post) ? 'noopener noreferrer' : undefined}
+            >
+              <div class="relative">
+                <span class="hidden sm:block absolute top-2 left-0 text-xs font-medium px-4 py-1 bg-arboretumBlue text-white shadow-md z-10">
+                  {categoryTitles[post.data.categories?.[0]] || 'robotics community'}
+                </span>
+                {postImage ? (
+                  <Image 
+                    src={postImage.src}
+                    alt={post.data.image?.alt || post.data.title}
+                    width={540}
+                    height={360}
+                    class="w-full h-48 object-cover"
+                  />
+                ) : null}
+              </div>
+              <div class="p-4 flex-grow flex flex-col justify-between">
+                <div>
+                  <span class="sm:hidden inline-block text-xs font-medium mr-2 px-4 py-1 bg-arboretumBlue text-white mb-2">
                     {categoryTitles[post.data.categories?.[0]] || 'robotics community'}
                   </span>
-                  {postImage ? (
-                    <Image 
-                      src={postImage.src}
-                      alt={post.data.image?.alt || post.data.title}
-                      width={540}
-                      height={360}
-                      class="w-full h-48 object-cover"
-                    />
-                  ) : null}
+                  <h2 class="text-lg leading-tight font-roboto font-bold text-umichblue dark:text-gray-100 mb-2 border-b-2 border-transparent group-hover:border-maize transition-all duration-300">
+                    {post.data.title}
+                    {isCollegeNews(post) && <Icon name="mdi:open-in-new" class="inline w-4 h-4 ml-1" />}
+                  </h2>
+                  <p class="text-sm italic font-sans text-gray-600 dark:text-gray-400">
+                    {new Date(post.data.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+                  </p>
+                  <p class="text-gray-600 dark:text-gray-200 mt-2" set:html={excerpt} />
                 </div>
-                <div class="p-4 flex-grow flex flex-col justify-between">
-                  <div>
-                    <span class="sm:hidden inline-block text-xs font-medium mr-2 px-4 py-1 bg-arboretumBlue text-white mb-2">
-                      {categoryTitles[post.data.categories?.[0]] || 'robotics community'}
-                    </span>
-                    <h2 class="text-lg leading-tight font-roboto font-bold text-umichblue dark:text-gray-100 mb-2 border-b-2 border-transparent group-hover:border-maize transition-all duration-300">{post.data.title}</h2>
-                    <p class="text-sm italic font-sans text-gray-600 dark:text-gray-400">
-                      {new Date(post.data.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
-                    </p>
-                  </div>
-                </div>
+              </div>
             </Link>
           );
         })}
-        
+      </div>
+    </section>
+
+    <section id="newsletter-and-news" class="mb-12">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         <a href="https://umrobotics.substack.com" class="group bg-white dark:bg-gray-800 shadow-md rounded-sm overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-[1.02] flex flex-col">
           <div class="relative">
             <span class="hidden sm:block absolute top-2 left-0 text-xs font-medium px-4 py-1 bg-arboretumBlue text-white shadow-md z-10">
@@ -252,81 +360,107 @@ const collegeNewsItems = await collegeNewsQuery();
           </div>
         </a>
 
-        {selectedOlderPosts.slice(4).map(async (post) => {
+        {selectedOlderPosts.slice(4, 7).map(async (post: CombinedNewsItem) => {
           const postImage = post.data.image?.src ? await getImage({
             src: post.data.image.src,
             width: 540,
             height: 360,
           }) : null;
 
+          const postLink = getPostLink(post);
+
           return (
-            <Link href={`/news/${new Date(post.data.date).getFullYear()}/${post.id.split('/')[1]}`} 
-               class="group bg-white dark:bg-gray-800 shadow-md rounded-sm overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-[1.02] flex flex-col">
-                <div class="relative">
-                  <span class="hidden sm:block absolute top-2 left-0 text-xs font-medium px-4 py-1 bg-arboretumBlue text-white shadow-md z-10">
+            <Link 
+              href={postLink}
+              class="group bg-white dark:bg-gray-800 shadow-md rounded-sm overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-[1.02] flex flex-col"
+              target={isCollegeNews(post) ? '_blank' : undefined}
+              rel={isCollegeNews(post) ? 'noopener noreferrer' : undefined}
+            >
+              <div class="relative">
+                <span class="hidden sm:block absolute top-2 left-0 text-xs font-medium px-4 py-1 bg-arboretumBlue text-white shadow-md z-10">
+                  {categoryTitles[post.data.categories?.[0]] || 'robotics community'}
+                </span>
+                {postImage ? (
+                  <Image 
+                    src={postImage.src}
+                    alt={post.data.image?.alt || post.data.title}
+                    width={540}
+                    height={360}
+                    class="w-full h-48 object-cover"
+                  />
+                ) : null}
+              </div>
+              <div class="p-4 flex-grow flex flex-col justify-between">
+                <div>
+                  <span class="sm:hidden inline-block text-xs font-medium mr-2 px-4 py-1 bg-arboretumBlue text-white mb-2">
                     {categoryTitles[post.data.categories?.[0]] || 'robotics community'}
                   </span>
-                  {postImage ? (
-                    <Image 
-                      src={postImage.src}
-                      alt={post.data.image?.alt || post.data.title}
-                      width={540}
-                      height={360}
-                      class="w-full h-48 object-cover"
-                    />
-                  ) : null}
+                  <h2 class="text-lg leading-tight font-roboto font-bold text-umichblue dark:text-gray-100 mb-2 border-b-2 border-transparent group-hover:border-maize transition-all duration-300">
+                    {post.data.title}
+                    {isCollegeNews(post) && <Icon name="mdi:open-in-new" class="inline w-4 h-4 ml-1" />}
+                  </h2>
+                  <p class="text-sm italic font-sans text-gray-600 dark:text-gray-400">
+                    {new Date(post.data.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+                  </p>
                 </div>
-                <div class="p-4 flex-grow flex flex-col justify-between">
-                  <div>
-                    <span class="sm:hidden inline-block text-xs font-medium mr-2 px-4 py-1 bg-arboretumBlue text-white mb-2">
-                      {categoryTitles[post.data.categories?.[0]] || 'robotics community'}
-                    </span>
-                    <h2 class="text-lg leading-tight font-roboto font-bold text-umichblue dark:text-gray-100 mb-2 border-b-2 border-transparent group-hover:border-maize transition-all duration-300">{post.data.title}</h2>
-                    <p class="text-sm italic font-sans text-gray-600 dark:text-gray-400">
-                      {new Date(post.data.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
-                    </p>
-                  </div>
-                </div>
+              </div>
             </Link>
           );
         })}
-        
-        {collegeNewsItems && collegeNewsItems.length > 0 && collegeNewsItems.map((newsItem) => (
-          <a href={newsItem.COLLEGE_LINK} class="group bg-white dark:bg-gray-800 shadow-md rounded-sm overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-[1.02] flex flex-col">
-            {newsItem.COLLEGE_IMAGE && (
-              <div class="relative">
-                <span class="absolute top-2 left-0 text-xs font-medium px-4 py-1 bg-arboretumBlue text-white shadow-md z-10">
-                  college news
-                </span>
-                <Image 
-                  src={newsItem.COLLEGE_IMAGE}
-                  alt={newsItem.COLLEGE_TITLE}
-                  width={540}
-                  height={360}
-                  class="w-full h-48 object-cover"
-                  loading="lazy"
-                />
-              </div>
-            )}
-            <div class="p-4 flex-grow flex flex-col justify-between">
-              <div>
-                {!newsItem.COLLEGE_IMAGE && (
-                  <span class="inline-block text-xs font-medium mr-2 px-2.5 py-0.5 rounded-sm border-arboretumBlue border-2 bg-white text-arboretumBlue mb-2">
-                    college news
-                  </span>
-                )}
-                <h2 class="text-lg leading-tight font-roboto font-bold text-umichblue dark:text-gray-100 mb-2 border-b-2 border-transparent group-hover:border-maize transition-all duration-300">
-                  <span set:html={newsItem.COLLEGE_TITLE} />
-                  <Icon name="mdi:open-in-new" class="inline w-4 h-4 ml-1" />
-                </h2>
+      </div>
+    </section>
 
-                <p class="text-sm italic font-sans text-gray-600 dark:text-gray-400">
-                  {new Date(newsItem.COLLEGE_PUB_DATE).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
-                </p>
+    <section id="more-news" class="mb-12">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {selectedOlderPosts.slice(7, 11).map(async (post: CombinedNewsItem) => {
+          const postImage = post.data.image?.src ? await getImage({
+            src: post.data.image.src,
+            width: 540,
+            height: 360,
+          }) : null;
+
+          const postLink = getPostLink(post);
+          const excerpt = getExcerptText(post);
+
+          return (
+            <Link 
+              href={postLink}
+              class="group bg-white dark:bg-gray-800 shadow-md rounded-sm overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-[1.02] flex flex-col"
+              target={isCollegeNews(post) ? '_blank' : undefined}
+              rel={isCollegeNews(post) ? 'noopener noreferrer' : undefined}
+            >
+              <div class="relative">
+                <span class="hidden sm:block absolute top-2 left-0 text-xs font-medium px-4 py-1 bg-arboretumBlue text-white shadow-md z-10">
+                  {categoryTitles[post.data.categories?.[0]] || 'robotics community'}
+                </span>
+                {postImage ? (
+                  <Image 
+                    src={postImage.src}
+                    alt={post.data.image?.alt || post.data.title}
+                    width={540}
+                    height={360}
+                    class="w-full h-48 object-cover"
+                  />
+                ) : null}
               </div>
-            </div>
-          </a>
-        ))}
+              <div class="p-4 flex-grow flex flex-col justify-between">
+                <div>
+                  <span class="sm:hidden inline-block text-xs font-medium mr-2 px-4 py-1 bg-arboretumBlue text-white mb-2">
+                    {categoryTitles[post.data.categories?.[0]] || 'robotics community'}
+                  </span>
+                  <h2 class="text-lg leading-tight font-roboto font-bold text-umichblue dark:text-gray-100 mb-2 border-b-2 border-transparent group-hover:border-maize transition-all duration-300">
+                    {post.data.title}
+                    {isCollegeNews(post) && <Icon name="mdi:open-in-new" class="inline w-4 h-4 ml-1" />}
+                  </h2>
+                  <p class="text-sm italic font-sans text-gray-600 dark:text-gray-400">
+                    {new Date(post.data.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+                  </p>
+                 
+                </div>
+              </div>
+            </Link>
+          );
+        })}
       </div>
     </section>
   </div>
