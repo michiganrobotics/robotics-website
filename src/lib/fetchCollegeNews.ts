@@ -4,7 +4,6 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const DEBUG = true;
 
 interface CollegeNewsItem {
   COLLEGE_TITLE: string;
@@ -28,12 +27,6 @@ interface NewsData {
   featured: boolean;
 }
 
-function debug(...args: any[]) {
-  if (DEBUG) {
-    console.log('[DEBUG]', ...args);
-  }
-}
-
 function decodeHtmlEntities(text: string): string {
   const entities: Record<string, string> = {
     '&#038;': '&',
@@ -48,19 +41,15 @@ function decodeHtmlEntities(text: string): string {
 
 export async function fetchAndSaveCollegeNews() {
   try {
-    debug('Starting college news fetch');
     // Fetch college news items
     const newsItems = await collegeNewsQuery();
-    debug('Fetched news items:', JSON.stringify(newsItems, null, 2));
     
     // Create content directory if it doesn't exist
     const contentDir = path.join(__dirname, '../../src/content/college-news');
-    debug('Content directory:', contentDir);
     await fs.mkdir(contentDir, { recursive: true });
 
     // Process each news item
     for (const item of newsItems as CollegeNewsItem[]) {
-      debug('Processing item:', item.COLLEGE_TITLE);
       // Create a slug from the title
       const decodedTitle = decodeHtmlEntities(item.COLLEGE_TITLE);
       const slug = decodedTitle
@@ -88,9 +77,8 @@ export async function fetchAndSaveCollegeNews() {
       try {
         const fileContent = await fs.readFile(filePath, 'utf-8');
         existingData = JSON.parse(fileContent) as NewsData;
-        debug('Found existing file:', filePath);
       } catch (error) {
-        debug('No existing file found, creating new one');
+        // Silently continue if file doesn't exist
       }
 
       // Merge existing data with new data, preserving categories and tags
@@ -101,12 +89,8 @@ export async function fetchAndSaveCollegeNews() {
         featured: existingData?.featured ?? true
       };
 
-      debug('Writing file:', filePath);
       await fs.writeFile(filePath, JSON.stringify(mergedData, null, 2));
-      debug('File written successfully');
     }
-
-    debug('All files processed successfully');
   } catch (error) {
     console.error('Error fetching college news:', error);
     process.exit(1);

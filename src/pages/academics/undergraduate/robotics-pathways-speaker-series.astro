@@ -33,11 +33,23 @@ const pastSpeakers = sortedSpeakers.filter(speaker => new Date(speaker.date) < c
   <article class="prose dark:prose-invert max-w-6xl w-11/12 mx-auto mt-4 mb-4 prose-headings:font-roboto prose-h2:text-3xl prose-h3:text-2xl prose-h4:text-xl prose-h5:text-lg prose-h6:text-base prose-headings:font-bold">
     <h2 class="text-xl font-roboto text-umichblue dark:text-white leading-relaxed font-normal not-prose mt-8 mb-4">{subtitle}</h2>
 
+
+
     <p>The Robotics Pathways and Careers Speaker Series (RPCSS) invites professionals working in robotics to come talk with current undergraduates about their career path, how a background in robotics has impacted their professional growth, and what they hope to see in students looking to enter the profession.</p>
 
     <p>The RPCSS is held every other Tuesday evening from 4:30-6:00pm on the campus of the University of Michigan in 2300 FMCRB.</p>
 
     <p>The 90-minute format of the event will consist of a 30-minute presentation from the invited speaker and up to 40 minutes of moderated Q&A and discussion. Students will be able to participate in person or remotely. Each seminar will be available <a href="https://umich.zoom.us/j/92286702864">via Zoom</a>.</p>
+
+    <!-- Add search input -->
+    <div class="mb-8">
+      <input 
+        type="text" 
+        id="speakerSearch"
+        placeholder="Search speakers, titles, abstracts..."
+        class="w-full p-2 border border-gray-300 rounded dark:bg-gray-800 dark:border-gray-600"
+      >
+    </div>
 
     <h2>Upcoming speakers</h2>
 
@@ -112,3 +124,21 @@ const pastSpeakers = sortedSpeakers.filter(speaker => new Date(speaker.date) < c
     ))}
   </article>
 </Layout>
+
+<script>
+  const searchInput = document.getElementById('speakerSearch') as HTMLInputElement;
+  const speakerProfiles = document.querySelectorAll('.speaker-profile');
+
+  searchInput.addEventListener('input', (e) => {
+    const searchTerm = (e.target as HTMLInputElement).value.toLowerCase();
+
+    speakerProfiles.forEach((profile) => {
+      const searchableContent = profile.textContent?.toLowerCase() || '';
+      if (searchableContent.includes(searchTerm)) {
+        (profile as HTMLElement).style.display = 'block';
+      } else {
+        (profile as HTMLElement).style.display = 'none';
+      }
+    });
+  });
+</script>

@@ -383,7 +383,10 @@ export const getAffiliateFacultyData = cached(async (): Promise<AffiliateFaculty
   }));
 });
 
-// Add this function to download and cache images
+// Add this helper function to check if we're in a Netlify environment
+const isNetlifyBuild = () => process.env.NETLIFY === 'true';
+
+// Modify the cacheGoogleDriveImage function
 async function cacheGoogleDriveImage(url: string, fileName: string): Promise<string | null> {
   if (!url) return null;
 
@@ -396,7 +399,51 @@ async function cacheGoogleDriveImage(url: string, fileName: string): Promise<str
     await fs.mkdir(cacheDir, { recursive: true });
     await fs.mkdir(publicDir, { recursive: true });
 
-    // Check if image exists in cache
+    // In Netlify environment, always try to download the image
+    if (isNetlifyBuild()) {
+      await new Promise((resolve, reject) => {
+        const request = https.get(url, {
+          headers: {
+            'User-Agent': 'Mozilla/5.0',
+          },
+          followAllRedirects: true,
+        }, (response) => {
+          if (response.statusCode === 302 || response.statusCode === 301) {
+            const redirectUrl = response.headers.location;
+            if (redirectUrl) {
+              https.get(redirectUrl, {
+                headers: {
+                  'User-Agent': 'Mozilla/5.0',
+                },
+              }, (redirectResponse) => {
+                const writeStream = fsSync.createWriteStream(publicPath);
+                redirectResponse.pipe(writeStream);
+                writeStream.on('finish', () => {
+                  writeStream.close();
+                  resolve(true);
+                });
+              }).on('error', reject);
+              return;
+            }
+          }
+
+          const writeStream = fsSync.createWriteStream(publicPath);
+          response.pipe(writeStream);
+          writeStream.on('finish', () => {
+            writeStream.close();
+            resolve(true);
+          });
+        }).on('error', reject);
+
+        request.end();
+      });
+
+      // Copy to cache directory for future builds
+      await fs.copyFile(publicPath, cachePath);
+      return `/src/images/cached-profiles/${fileName}.jpg`;
+    }
+
+    // Local development flow remains the same
     try {
       await fs.access(cachePath);
       await fs.copyFile(cachePath, publicPath);
@@ -445,6 +492,7 @@ async function cacheGoogleDriveImage(url: string, fileName: string): Promise<str
       return `/src/images/cached-profiles/${fileName}.jpg`;
     }
   } catch (error) {
+    console.error('Error caching image:', error);
     return null;
   }
 }

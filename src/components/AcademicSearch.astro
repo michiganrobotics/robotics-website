@@ -1,0 +1,182 @@
+---
+import { getCollection } from 'astro:content';
+import Link from './Link.astro';
+
+// Get current page path from Astro
+const currentPath = Astro.url.pathname;
+
+// Get all academic content
+const academicContent = await getCollection('academics');
+
+function cleanMDXContent(content: string): string {
+  return content
+    // Remove MDX component tags
+    .replace(/<[^>]+>/g, '')
+    // Remove markdown links
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+    // Remove markdown headers
+    .replace(/#{1,6}\s/g, '')
+    // Remove markdown emphasis
+    .replace(/[*_]{1,2}([^*_]+)[*_]{1,2}/g, '$1')
+    // Remove code blocks
+    .replace(/```[\s\S]*?```/g, '')
+    // Remove inline code
+    .replace(/`([^`]+)`/g, '$1')
+    // Remove import statements
+    .replace(/^import.*from.*$/gm, '')
+    // Collapse multiple newlines
+    .replace(/\n\s*\n/g, '\n')
+    // Collapse multiple spaces
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+const searchableContent = academicContent.map(entry => {
+  // Get the full path without the /index.mdx at the end
+  const fullPath = entry.id.replace(/\/index\.mdx$/, '');
+  
+  // Create breadcrumbs from the path
+  const pathParts = fullPath.split('/');
+  const breadcrumbs = pathParts.map(part => 
+    part === 'index' ? 'Academics' : 
+    part.split('-').map(word => 
+      word.charAt(0).toUpperCase() + word.slice(1)
+    ).join(' ')
+  );
+  
+  return {
+    title: entry.data.title || '',
+    description: entry.data.description || '',
+    slug: entry.slug,
+    // Clean the content before storing
+    content: cleanMDXContent(entry.body) || '',
+    path: fullPath === 'index' ? '/academics' : `/academics/${fullPath}`,
+    breadcrumbs
+  };
+});
+---
+
+<div class="not-prose mb-6">
+  <input
+    type="text"
+    id="academic-search"
+    placeholder="Search academic pages..."
+    class="w-full p-2 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-800 text-sm text-gray-900 dark:text-white"
+    aria-label="Search academic pages"
+  />
+  <div id="search-results" class="mt-4 space-y-4 hidden">
+    <!-- Results will be populated here -->
+  </div>
+</div>
+
+<script define:vars={{ searchableContent, currentPath }}>
+  const searchInput = document.getElementById('academic-search');
+  const resultsDiv = document.getElementById('search-results');
+
+  function getContextSnippet(content, searchTerm, maxLength = 200) {
+    const lowerContent = content.toLowerCase();
+    const index = lowerContent.indexOf(searchTerm.toLowerCase());
+    
+    if (index === -1) return '';
+    
+    // Get surrounding context
+    const start = Math.max(0, index - maxLength / 2);
+    const end = Math.min(content.length, index + searchTerm.length + maxLength / 2);
+    let snippet = content.slice(start, end);
+    
+    // Add ellipsis if we're not at the start/end
+    if (start > 0) snippet = '...' + snippet;
+    if (end < content.length) snippet = snippet + '...';
+    
+    // Highlight the search term with maize color in dark mode
+    const highlightedSnippet = snippet.replace(
+      new RegExp(searchTerm, 'gi'),
+      match => `<mark class="bg-yellow-200 text-gray-900 dark:bg-maize dark:text-gray-900">${match}</mark>`
+    );
+    
+    return highlightedSnippet;
+  }
+
+  let debounceTimeout;
+
+  searchInput?.addEventListener('input', (e) => {
+    clearTimeout(debounceTimeout);
+    
+    debounceTimeout = setTimeout(() => {
+      const searchTerm = e.target.value.toLowerCase();
+      
+      if (searchTerm.length < 2) {
+        resultsDiv?.classList.add('hidden');
+        return;
+      }
+
+      const results = searchableContent.filter(item => 
+        item.title.toLowerCase().includes(searchTerm) ||
+        (item.description || '').toLowerCase().includes(searchTerm) ||
+        (item.content || '').toLowerCase().includes(searchTerm)
+      );
+
+      if (results.length > 0) {
+        resultsDiv?.classList.remove('hidden');
+        resultsDiv.innerHTML = results
+          .map(result => {
+            const snippet = getContextSnippet(result.content, searchTerm) || 
+                          getContextSnippet(result.description || '', searchTerm) ||
+                          getContextSnippet(result.title, searchTerm);
+            
+            const isCurrentPage = currentPath === result.path || 
+                                currentPath.replace(/\/$/, '') === result.path;
+            
+            if (isCurrentPage) {
+              return `
+                <div class="bg-gray-50 dark:bg-gray-800/50 p-6 rounded-sm border border-gray-200 dark:border-gray-700">
+                  <div class="text-sm text-gray-500 dark:text-gray-400 mb-1">
+                    ${result.breadcrumbs.join(' > ')}
+                  </div>
+                  <div class="flex items-center gap-2 mb-2">
+                    <h3 class="text-xl font-bold text-gray-700 dark:text-gray-300">${result.title}</h3>
+                    <span class="text-xs bg-matthaeiViolet dark:bg-matthaeiViolet text-white px-2 py-1 rounded">Current page</span>
+                  </div>
+                  ${result.description ? 
+                    `<p class="text-sm text-gray-600 dark:text-gray-400 mb-2">${result.description}</p>` 
+                    : ''}
+                  ${snippet ? 
+                    `<div class="text-sm text-gray-700 dark:text-gray-200 mt-2 bg-gray-100/50 dark:bg-gray-800/50 p-3 rounded border border-gray-200 dark:border-gray-700">
+                      ${snippet}
+                    </div>` 
+                    : ''}
+                </div>
+              `;
+            }
+            
+            return `
+              <a href="${result.path}" class="block group">
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-sm shadow-md transition-all duration-200 ease-in-out group-hover:shadow-lg group-hover:scale-[1.01]">
+                  <div class="text-sm text-gray-500 dark:text-gray-400 mb-1">
+                    ${result.breadcrumbs.join(' > ')}
+                  </div>
+                  <h3 class="text-xl font-bold text-primary group-hover:underline mb-2">${result.title}</h3>
+                  ${result.description ? 
+                    `<p class="text-sm text-gray-600 dark:text-gray-300 mb-2">${result.description}</p>` 
+                    : ''}
+                  ${snippet ? 
+                    `<div class="text-sm text-gray-700 dark:text-gray-200 mt-2 bg-gray-100/50 dark:bg-gray-800/50 p-3 rounded border border-gray-200 dark:border-gray-700">
+                      ${snippet}
+                    </div>` 
+                    : ''}
+                </div>
+              </a>
+            `;
+          })
+          .join('');
+      } else {
+        resultsDiv?.classList.remove('hidden');
+        resultsDiv.innerHTML = `
+          <div class="bg-white dark:bg-gray-800 p-6 rounded-sm shadow-md">
+            <p class="text-gray-600 dark:text-gray-300">No results found for "${searchTerm}"</p>
+          </div>
+        `;
+      }
+    }, 300);
+  });
+</script> 
