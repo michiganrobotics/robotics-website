@@ -5,8 +5,19 @@ import Link from './Link.astro';
 // Get current page path from Astro
 const currentPath = Astro.url.pathname;
 
-// Get all academic content
+// Get all academic content and filter out specific pages
 const academicContent = await getCollection('academics');
+
+// Debug: Log all entry IDs to see the correct paths
+console.log('Entry IDs:', academicContent.map(entry => entry.id));
+
+const filteredContent = academicContent.filter(entry => {
+  // Pages to exclude from search
+  const excludedPages = [
+    'graduate/new-graduate-students'  // Removed /index.mdx
+  ];
+  return !excludedPages.includes(entry.id.replace(/\/index\.mdx$/, ''));
+});
 
 function cleanMDXContent(content: string): string {
   return content
@@ -31,7 +42,7 @@ function cleanMDXContent(content: string): string {
     .trim();
 }
 
-const searchableContent = academicContent.map(entry => {
+const searchableContent = filteredContent.map(entry => {
   // Get the full path without the /index.mdx at the end
   const fullPath = entry.id.replace(/\/index\.mdx$/, '');
   
