@@ -8,11 +8,6 @@ const currentPath = Astro.url.pathname;
 // Get all academic content
 const academicContent = await getCollection('academics');
 
-// Filter out the new-graduate-students page
-const filteredContent = academicContent.filter(entry => 
-  entry.id !== 'graduate/new-graduate-students.mdx'
-);
-
 function cleanMDXContent(content: string): string {
   return content
     // Remove MDX component tags
@@ -36,7 +31,7 @@ function cleanMDXContent(content: string): string {
     .trim();
 }
 
-const searchableContent = filteredContent.map(entry => {
+const searchableContent = academicContent.map(entry => {
   // Get the full path without the /index.mdx at the end
   const fullPath = entry.id.replace(/\/index\.mdx$/, '');
   
@@ -65,7 +60,7 @@ const searchableContent = filteredContent.map(entry => {
   <input
     type="text"
     id="academic-search"
-    placeholder="Search academic pages for things like course override, ROB 590, or auditing..."
+    placeholder="Search academic needs such as ROB 590, override, or auditing..."
     class="w-full p-2 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-800 text-sm text-gray-900 dark:text-white"
     aria-label="Search academic pages"
   />
