@@ -8,6 +8,11 @@ const currentPath = Astro.url.pathname;
 // Get all academic content
 const academicContent = await getCollection('academics');
 
+// Filter out the new-graduate-students page
+const filteredContent = academicContent.filter(entry => 
+  entry.id !== 'graduate/new-graduate-students.mdx'
+);
+
 function cleanMDXContent(content: string): string {
   return content
     // Remove MDX component tags
@@ -31,7 +36,7 @@ function cleanMDXContent(content: string): string {
     .trim();
 }
 
-const searchableContent = academicContent.map(entry => {
+const searchableContent = filteredContent.map(entry => {
   // Get the full path without the /index.mdx at the end
   const fullPath = entry.id.replace(/\/index\.mdx$/, '');
   
