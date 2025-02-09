@@ -1,0 +1,99 @@
+media:
+  input: public
+  output: /
+
+content:
+  - name: academics
+    label: Academics
+    type: collection
+    path: src/content/academics
+    view:
+      fields: [title, subtitle, order]
+    fields:
+      - { name: title, label: Title, type: string, required: true }
+      - { name: subtitle, label: Subtitle, type: string }
+      - { name: description, label: Description, type: text }
+      - name: image
+        label: Image
+        type: object
+        fields:
+          - { name: src, label: Image, type: image }
+          - { name: alt, label: Alt Text, type: string }
+      - { name: order, label: Order, type: number }
+      - { name: featured, label: Featured, type: boolean, default: true }
+      - { name: body, label: Content, type: rich-text }
+
+  - name: news
+    label: News
+    type: collection
+    path: src/content/news
+    view:
+      fields: [title, date, categories, featured]
+    fields:
+      - { name: title, label: Title, type: string, required: true }
+      - { name: date, label: Date, type: date }
+      - { name: seoDescription, label: SEO Description, type: string }
+      - { name: excerpt, label: Excerpt, type: text }
+      - name: image
+        label: Image
+        type: object
+        fields:
+          - { name: src, label: Image, type: image, default: "/social/og-default.jpg" }
+          - { name: alt, label: Alt Text, type: string, default: "University of Michigan Robotics" }
+      - name: categories
+        label: Categories
+        type: select
+        list: true
+        options:
+          values:
+            - { label: "Artificial Intelligence", value: "artificial-intelligence" }
+            - { label: "Autonomous Vehicles", value: "autonomous-vehicles" }
+            - { label: "Deep Learning", value: "deep-learning" }
+            - { label: "Human-Robot Interaction", value: "human-robot-interaction" }
+            - { label: "Legged Robots", value: "legged-robots" }
+            - { label: "Manufacturing", value: "manufacturing" }
+            - { label: "Motion Planning", value: "motion-planning" }
+            - { label: "Perception & Manipulation", value: "perception-manipulation" }
+            - { label: "Rehabilitation", value: "rehabilitation" }
+            - { label: "Safe Autonomy", value: "safe-autonomy" }
+            - { label: "SLAM", value: "slam" }
+            - { label: "Teams & Swarms", value: "teams-swarms" }
+            - { label: "Robotics Community", value: "robotics-community" }
+      - { name: tags, label: Tags, type: string, list: true }
+      - { name: author, label: Author, type: string }
+      - { name: featured, label: Featured, type: boolean }
+      - { name: body, label: Content, type: rich-text }
+
+  - name: courses
+    label: Courses
+    type: collection
+    path: src/content/courses
+    view:
+      fields: [title, date, description]
+    fields:
+      - { name: title, label: Title, type: string, required: true }
+      - { name: date, label: Date, type: date }
+      - { name: description, label: Description, type: text }
+      - { name: image, label: Image, type: image }
+      - { name: imageAlt, label: Image Alt Text, type: string }
+      - { name: body, label: Content, type: rich-text }
+
+  - name: focusAreas
+    label: Focus Areas
+    type: collection
+    path: src/content/focus-areas
+    view:
+      fields: [title, description]
+    fields:
+      - { name: title, label: Title, type: string, required: true }
+      - { name: description, label: Description, type: text }
+      - { name: icon, label: Icon, type: string }
+      - name: image
+        label: Image
+        type: object
+        fields:
+          - { name: src, label: Image, type: image }
+          - { name: alt, label: Alt Text, type: string }
+      - { name: videos, label: Videos, type: string, list: true }
+      - { name: slug, label: Slug, type: string }
+      - { name: body, label: Content, type: rich-text }
