@@ -7,6 +7,7 @@ content:
     label: Academics
     type: collection
     path: src/content/academics
+    filename: '{title}.mdx'
     view:
       fields: [title, subtitle, order]
     fields:
@@ -62,38 +63,4 @@ content:
       - { name: tags, label: Tags, type: string, list: true }
       - { name: author, label: Author, type: string }
       - { name: featured, label: Featured, type: boolean }
-      - { name: body, label: Content, type: rich-text }
-
-  - name: courses
-    label: Courses
-    type: collection
-    path: src/content/courses
-    view:
-      fields: [title, date, description]
-    fields:
-      - { name: title, label: Title, type: string, required: true }
-      - { name: date, label: Date, type: date }
-      - { name: description, label: Description, type: text }
-      - { name: image, label: Image, type: image }
-      - { name: imageAlt, label: Image Alt Text, type: string }
-      - { name: body, label: Content, type: rich-text }
-
-  - name: focusAreas
-    label: Focus Areas
-    type: collection
-    path: src/content/focus-areas
-    view:
-      fields: [title, description]
-    fields:
-      - { name: title, label: Title, type: string, required: true }
-      - { name: description, label: Description, type: text }
-      - { name: icon, label: Icon, type: string }
-      - name: image
-        label: Image
-        type: object
-        fields:
-          - { name: src, label: Image, type: image }
-          - { name: alt, label: Alt Text, type: string }
-      - { name: videos, label: Videos, type: string, list: true }
-      - { name: slug, label: Slug, type: string }
       - { name: body, label: Content, type: rich-text }

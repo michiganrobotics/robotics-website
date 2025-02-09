@@ -6,13 +6,14 @@ module.exports = {
     // Create directories if they don't exist
     await utils.run.command(`mkdir -p ${cacheDir} ${publicDir}`);
     
+    // Restore cached images first
     if (await utils.cache.has(cacheDir)) {
       console.log('Found cached profile images');
       await utils.cache.restore(cacheDir);
       
       try {
         console.log('Copying cached images to src directory');
-        await utils.run.command(`[ -n "$(ls -A ${cacheDir})" ] && cp ${cacheDir}/*.jpg ${publicDir}/`);
+        await utils.run.command(`if [ -d "${cacheDir}" ] && [ "$(ls -A ${cacheDir})" ]; then cp ${cacheDir}/*.jpg ${publicDir}/; fi`);
       } catch (error) {
         console.log('No cached images to copy');
       }
@@ -30,7 +31,7 @@ module.exports = {
       
       try {
         console.log('Copying new images to cache');
-        await utils.run.command(`[ -n "$(ls -A ${publicDir})" ] && cp ${publicDir}/*.jpg ${cacheDir}/`);
+        await utils.run.command(`if [ -d "${publicDir}" ] && [ "$(ls -A ${publicDir})" ]; then cp ${publicDir}/*.jpg ${cacheDir}/; fi`);
       } catch (error) {
         console.log('No new images to cache');
       }
