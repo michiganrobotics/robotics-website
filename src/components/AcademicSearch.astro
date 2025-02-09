@@ -14,6 +14,8 @@ console.log('Entry IDs:', academicContent.map(entry => entry.id));
 const filteredContent = academicContent.filter(entry => {
   // Pages to exclude from search
   const excludedPages = [
+    'index',
+    'graduate',
     'graduate/new-graduate-students'  // Removed /index.mdx
   ];
   return !excludedPages.includes(entry.id.replace(/\/index\.mdx$/, ''));
