@@ -132,7 +132,7 @@ function getHrClass(level: string) {
               aria-expanded="false"
               aria-controls={`content-${point.title.toLowerCase().replace(/\s+/g, '-')}`}
             >
-              <div class={`engagement-point-content rounded-lg shadow-sm p-4 border border-gray-100 dark:border-gray-700 dark:bg-gray-800 ${level === 'Initial' ? 'bg-maize bg-opacity-5' : ''} ${level === 'Mid-Level' ? 'bg-taubmanTeal bg-opacity-10' : ''} ${level === 'Advanced' ? 'bg-arboretumBlue bg-opacity-10' : ''}`}>
+              <div class={`engagement-point-content rounded-lg shadow-sm p-4 border border-gray-100 dark:border-gray-700 dark:bg-gray-800 ${level === 'Initial' ? 'bg-maize/5' : ''} ${level === 'Mid-Level' ? 'bg-taubmanTeal/10' : ''} ${level === 'Advanced' ? 'bg-arboretumBlue/10' : ''}`}>
                 <div class="flex items-start gap-3">
                   <div class={`w-3 h-3 mt-1.5 rounded-full transition-colors duration-300 ${level === 'Initial' ? 'bg-maize dark:bg-maize' : ''} ${level === 'Mid-Level' ? 'bg-taubmanTeal' : ''} ${level === 'Advanced' ? 'bg-arboretumBlue' : ''}`}></div>
                   <div class="w-full">

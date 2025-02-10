@@ -19,7 +19,7 @@ const projectsDatasets = await getProjectsDatasets();
           <div class="relative overflow-x-auto shadow-md sm:rounded-lg p-4 mt-4 mb-4 max-w-6xl w-11/12 mx-auto">
             <div class="mb-4">
               <input type="text" id="searchInput" placeholder="Search projects and datasets..." 
-                class="p-2 border rounded-lg w-full dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                class="p-2 border border-gray-300 rounded-lg w-full bg-white dark:bg-gray-700 dark:border-gray-600 dark:text-white"
               />
             </div>
             <table class="w-full text-sm text-left text-gray-500 dark:text-gray-200">
@@ -40,7 +40,7 @@ const projectsDatasets = await getProjectsDatasets();
               </thead>
               <tbody>
                 {projectsDatasets.map((projectDataset) => (
-                  <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                  <tr class="bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                     <th scope="row" class="px-6 py-4">
                       <a href={projectDataset.projectLink} 
                          class="text-umichblue underline hover:text-umichblue/80 dark:text-blue-400 dark:hover:text-blue-400/80"

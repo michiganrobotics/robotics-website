@@ -133,6 +133,8 @@ const menuItems = addBaseToMenuItems(mainNav);
 </header>
 
 <style>
+@reference "../styles/global.css";
+
 /* Desktop Hover Mechanics */
 @media (min-width: 768px) {
     .group {
@@ -171,17 +173,28 @@ const menuItems = addBaseToMenuItems(mainNav);
 
     /* Triangle indicators */
     .triangle {
-      @apply w-0 h-0 absolute -top-[1px] left-1/2 z-[100] -translate-x-1/2;
+      position: absolute;
+      top: -1px;
+      left: 50%;
+      z-index: 100;
+      transform: translateX(-50%);
+      width: 0;
+      height: 0;
       border-left: 12px solid transparent;
       border-right: 12px solid transparent;
-      border-top: 12px solid #ffcb05;
+      border-top: 12px solid var(--color-maize);
     }
     
     .triangle-right {
-      @apply w-0 h-0 absolute top-[10px] -left-1 z-[100];
+      position: absolute;
+      top: 10px;
+      left: -1px;
+      z-index: 100;
+      width: 0;
+      height: 0;
       border-top: 8px solid transparent;
       border-bottom: 8px solid transparent;
-      border-left: 8px solid #ffcb05;
+      border-left: 8px solid var(--color-maize);
     }
 }
 
@@ -189,42 +202,60 @@ const menuItems = addBaseToMenuItems(mainNav);
   @media (max-width: 767px) {
     /* Menu item with dropdown */
     .mobile-menu-item {
-      @apply flex items-center justify-between border-b border-gray-200 dark:border-gray-600;
+      display: flex;
+      items-align: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border-gray-200);
+    }
+    :root[class~="dark"] .mobile-menu-item {
+      border-color: var(--border-gray-600);
     }
 
     button.px-4.py-3 {
-      @apply bg-gray-200 dark:bg-gray-600 rounded-sm hover:bg-gray-300 dark:hover:bg-gray-500;
-      margin-left: 8px;
+      background-color: var(--bg-gray-200);
+      border-radius: var(--radius-sm);
+      margin-left: var(--spacing-2);
     }
+    button.px-4.py-3:hover {
+      background-color: var(--bg-gray-300);
+    }
+    :root[class~="dark"] button.px-4.py-3 {
+      background-color: var(--bg-gray-600);
+    }
+    :root[class~="dark"] button.px-4.py-3:hover {
+      background-color: var(--bg-gray-500);
+    }
+
     /* Subtle background for child menus */
     .mobile-submenu {
-      @apply bg-gray-50 dark:bg-gray-800;
+      background-color: var(--bg-gray-50);
     }
- /* Mobile menu styles */
-     .arrow {
-        display: inline-block;
-        transition: transform 0.3s ease;
+    :root[class~="dark"] .mobile-submenu {
+      background-color: var(--bg-gray-800);
+    }
+
+    /* Mobile menu styles */
+    .arrow {
+      display: inline-block;
+      transition: transform 0.3s ease;
     }
 
     /* Only target direct summary children of details */
     details > summary > .arrow {
-        transition: transform 0.3s ease;
+      transition: transform 0.3s ease;
     }
 
     /* Only affect the immediate arrow of an open details element */
     details[open] > summary > .arrow {
-        transform: rotate(180deg);
+      transform: rotate(180deg);
     }
 
     /* Remove default arrow from details */
     details > summary {
-        list-style: none;
+      list-style: none;
     }
     details > summary::-webkit-details-marker {
-        display: none;
+      display: none;
     }
-
-}
-
-
+  }
 </style>

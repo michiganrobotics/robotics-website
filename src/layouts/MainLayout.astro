@@ -1,4 +1,5 @@
 ---
+import '../styles/global.css';
 import SiteNav from "../components/SiteNav.astro"; 
 import SiteFooter from "../components/SiteFooter.astro";
 import { SEO } from 'astro-seo';
@@ -131,6 +132,7 @@ const siteUrl = "https://robotics.umich.edu";
 </html>
   
   <style is:global>
+	@reference "../styles/global.css";
 	html.is-loading {
 	visibility: hidden;
 	opacity: 0;

@@ -16,7 +16,7 @@ interface Props {
 const { image, imageAlt, title = '', subtitle, name, role, website, isExpanded = false } = Astro.props;
 ---
 
-<div class="speaker-profile my-6 border dark:border-gray-700 rounded-lg overflow-hidden">
+<div class="speaker-profile my-6 border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
   <button 
     class="w-full text-left p-4 bg-gray-50 dark:bg-gray-800 hover:bg-blue-50 dark:hover:bg-gray-600 transition-colors cursor-pointer flex items-center justify-between"
     aria-expanded={isExpanded}

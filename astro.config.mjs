@@ -2,9 +2,10 @@ import { defineConfig } from 'astro/config';
 import node from "@astrojs/node";
 import mdx from '@astrojs/mdx';
 import embeds from 'astro-embed/integration';
-import tailwind from "@astrojs/tailwind";
 import sitemap from "@astrojs/sitemap";
 import icon from "astro-icon";
+
+import tailwindcss from '@tailwindcss/vite';
 
 const isNetlify = process.env.NETLIFY_BUILD === 'true';
 
@@ -19,7 +20,6 @@ export default defineConfig({
 
   integrations: [
     icon(),
-    tailwind(), 
     sitemap(), 
     embeds(), 
     mdx()
@@ -53,6 +53,7 @@ export default defineConfig({
     define: {
       'import.meta.env.BASE_URL': '"/"',
     },
+
     build: {
       rollupOptions: {
         output: {
@@ -73,7 +74,9 @@ export default defineConfig({
           drop_console: true
         }
       }
-    }
+    },
+
+    plugins: [tailwindcss()]
   },
 
   image: {
