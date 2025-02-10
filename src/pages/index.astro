@@ -108,8 +108,8 @@ Astro.response.headers.set('Cache-Control', 'public, max-age=86400, must-revalid
 					{recentPosts.map(async (post, index) => {
 						const postImage = post.data.image?.src ? await getImage({
 							src: post.data.image.src,
-							width: index === 0 ? 760 : 368,
-							height: index === 0 ? 384 : 192,
+							width: 450,
+							height: 192,
 						}) : null;
 
 						const excerpt = getExcerptText(post);
@@ -128,7 +128,7 @@ Astro.response.headers.set('Cache-Control', 'public, max-age=86400, must-revalid
 										width={450}
 										height={192}
 										class="w-full h-48 object-cover"
-										loading={index < 2 ? 'eager' : 'lazy'}
+										loading="eager"
 									/>
 								) : null}
 								<div class="relative">
