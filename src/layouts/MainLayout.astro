@@ -109,8 +109,25 @@ const siteUrl = "https://robotics.umich.edu";
 		  document.documentElement.classList.remove('is-loading');
 		});
 	  </script>
-		<script data-goatcounter="https://robotics-umich-edu.goatcounter.com/count"
-        async src="//gc.zgo.at/count.js"></script>
+		<script 
+			data-goatcounter="https://robotics-umich-edu.goatcounter.com/count"
+			async 
+			src="//gc.zgo.at/count.js"
+			fetchpriority="low"
+			crossorigin="anonymous"
+		></script>
+		<script is:inline>
+			// Add version to cache bust when needed
+			const CACHE_VERSION = '1';
+			
+			// Preload the counter script
+			const counterScript = document.createElement('link');
+			counterScript.rel = 'preload';
+			counterScript.as = 'script';
+			counterScript.href = '//gc.zgo.at/count.js';
+			counterScript.crossOrigin = 'anonymous';
+			document.head.appendChild(counterScript);
+		</script>
 </html>
   
   <style is:global>
