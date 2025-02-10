@@ -20,6 +20,8 @@ content:
         fields:
           - { name: src, label: Image, type: image }
           - { name: alt, label: Alt Text, type: string }
+        options:
+          path: src/content/academics/images
       - { name: order, label: Order, type: number }
       - { name: featured, label: Featured, type: boolean, default: true }
       - { name: body, label: Content, type: rich-text }
