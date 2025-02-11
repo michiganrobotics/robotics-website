@@ -5,9 +5,9 @@ import axios from 'axios';
   };
 
   async function fetchTwitterPosts() {
-    // Check if cache exists and is less than 24 hours old
+    // Increase cache duration to 1 hour to avoid rate limits
     const now = Date.now();
-    if (twitterCache.data && twitterCache.timestamp && (now - twitterCache.timestamp < 24 * 60 * 60 * 1000)) {
+    if (twitterCache.data && twitterCache.timestamp && (now - twitterCache.timestamp < 60 * 60 * 1000)) {
       return twitterCache.data;
     }
 
@@ -53,8 +53,12 @@ import axios from 'axios';
 
       return tweets;
     } catch (error) {
+      if (error.response?.status === 429) {
+        console.error('Twitter rate limit exceeded. Using cached data if available.');
+        return twitterCache.data || [];
+      }
       console.error('Error fetching Twitter posts:', error.response?.data || error);
-      return [];
+      return twitterCache.data || [];
     }
   }
   
@@ -69,23 +73,28 @@ import axios from 'axios';
   };
 
   async function fetchInstagramPosts() {
-    // Check if cache exists and is less than 24 hours old
     const now = Date.now();
     if (instagramCache.data && instagramCache.timestamp && (now - instagramCache.timestamp < 24 * 60 * 60 * 1000)) {
       return instagramCache.data;
     }
 
     const accessToken = import.meta.env.INSTAGRAM_ACCESS_TOKEN;
-    const baseUrl = 'https://graph.instagram.com/v18.0'; // Updated to latest version
-  
+    if (!accessToken || accessToken.trim() === '') {
+      console.error('Instagram access token is not configured');
+      return [];
+    }
+
     try {
-      // First, get the user ID
+      // Simplified token validation
+      const baseUrl = 'https://graph.instagram.com/v18.0';
       const userResponse = await axios.get(`${baseUrl}/me`, {
         params: {
           access_token: accessToken,
           fields: 'id,username'
         }
       });
+
+      // If we get here, token is valid
       const userId = userResponse.data.id;
   
       // Then, fetch the media
@@ -117,8 +126,14 @@ import axios from 'axios';
 
       return posts;
     } catch (error) {
-      console.error('Error fetching Instagram posts:', error.response?.data || error.message);
-      return [];
+      const errorMessage = error.response?.data?.error || error.message;
+      console.error('Error fetching Instagram posts:', errorMessage);
+      
+      if (error.response?.data?.error?.code === 190) {
+        console.error('Instagram token is invalid or has expired. Please update the INSTAGRAM_ACCESS_TOKEN environment variable with a valid token.');
+      }
+      
+      return instagramCache.data || [];
     }
   }
   
