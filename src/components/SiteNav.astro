@@ -17,20 +17,20 @@ const menuItems = addBaseToMenuItems(mainNav);
 
   <!-- Mobile Menu (details/summary) -->
   <details class="md:hidden">
-    <summary class="text-2xl sm:text-3xl text-umichblue mr-2 dark:text-maize list-none">&#9776;</summary>
+    <summary class="mt-2 text-2xl sm:text-3xl text-umichblue mr-2 dark:text-maize list-none">&#9776;</summary>
        <nav class="absolute inset-x-0 top-24 border-b-8 border-maize border-double bg-gray-100 z-40 dark:bg-gray-700 pb-8">
-        <ul class="flex m-0 p-0 px-2 list-none flex-col items-center w-full">
+        <ul class="flex mx-auto list-none flex-col items-center w-11/12">
             {menuItems.map((menuItem) => (
                 <li class="w-full dark:text-white">
                     <div class="flex items-center">
                         <a href={menuItem.uri || '/'} 
-                           class="flex-grow px-4 py-3 hover:underline hover:decoration-maize hover:decoration-2"
+                           class="grow pl-2 pr-4 py-3 hover:underline hover:decoration-maize hover:decoration-2"
                            aria-label={menuItem.label}>
                             {menuItem.label}
                         </a>
                         {menuItem.childItems.nodes.length > 0 && (
                             <div>
-                             <button class="px-4 py-3 text-umichblue dark:text-maize bg-gray-200 dark:bg-gray-600 rounded-sm hover:bg-gray-300 dark:hover:bg-gray-500 ml-2"
+                             <button class="px-2 py-2 text-umichblue dark:text-maize  hover:bg-gray-300 dark:hover:bg-gray-500 rounded-md border border-gray-500 dark:border-gray-500 mr-1"
         onclick="const details = this.closest('li').querySelector('details'); details.open = !details.open; this.querySelector('.arrow').classList.toggle('rotate-180')">
     <span class="arrow transform transition-transform duration-200">▼</span>
 </button>
@@ -45,13 +45,13 @@ const menuItems = addBaseToMenuItems(mainNav);
                                     <li>
                                         <div class="flex items-center">
                                             <a href={childItem.uri || '/'} 
-                                               class="flex-grow px-4 py-3 hover:underline hover:decoration-maize hover:decoration-2"
+                                               class="grow pl-0 pr-4 py-3 hover:underline hover:decoration-maize hover:decoration-2"
                                                aria-label={childItem.label}>
                                                 {childItem.label}
                                             </a>
                                             {childItem.childItems.nodes.length > 0 && (
                                                 <div>
-                                                   <button class="px-4 py-3 text-umichblue dark:text-maize bg-gray-200 dark:bg-gray-600 rounded-sm hover:bg-gray-300 dark:hover:bg-gray-500 ml-2"
+                                                   <button class="px-2 py-2 text-umichblue dark:text-maize  hover:bg-gray-300 dark:hover:bg-gray-500 rounded-md border border-gray-500 dark:border-gray-500 mr-1"
         onclick="const details = this.closest('li').querySelector('details'); details.open = !details.open; this.querySelector('.arrow').classList.toggle('rotate-180')">
     <span class="arrow transform transition-transform rotate-180 duration-200">▲</span>
 </button>
@@ -61,7 +61,7 @@ const menuItems = addBaseToMenuItems(mainNav);
                                         {childItem.childItems.nodes.length > 0 && (
                                             <details>
                                                 <summary class="hidden">Toggle Submenu</summary>
-                                                <ul class="pl-6 bg-gray-50 dark:bg-gray-800">
+                                                <ul class="pl-0 bg-gray-50 dark:bg-gray-800">
                                                     {childItem.childItems.nodes.map((grandChildItem) => (
                                                         <li>
                                                             <a href={grandChildItem.uri || '/'} 
@@ -188,13 +188,13 @@ const menuItems = addBaseToMenuItems(mainNav);
     .triangle-right {
       position: absolute;
       top: 10px;
-      left: -1px;
+      left: -6px;
       z-index: 100;
       width: 0;
       height: 0;
-      border-top: 8px solid transparent;
-      border-bottom: 8px solid transparent;
-      border-left: 8px solid var(--color-maize);
+      border-top: 9px solid transparent;
+      border-bottom: 9px solid transparent;
+      border-left: 9px solid var(--color-maize);
     }
 }
 

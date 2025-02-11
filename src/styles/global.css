@@ -77,3 +77,14 @@
   --font-fallback-condensed: Arial Narrow, Arial, sans-serif;
   --font-fallback-roboto: 'Helvetica Neue', Arial, sans-serif;
 }
+
+/* sitenav */
+nav ul li.ml-5 > div > ul > li,
+.group-hover\:block ul li {
+  margin-bottom: 0;
+}
+
+nav ul li.ml-5 > div > ul > li > ul {
+  margin-top: 0;
+  margin-left: 4px;
+}
