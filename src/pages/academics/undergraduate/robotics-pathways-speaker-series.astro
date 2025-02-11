@@ -22,8 +22,20 @@ const currentDate = new Date();
 const sortedSpeakers = speakerData.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
 
 // Split into upcoming and past events
-const upcomingSpeakers = sortedSpeakers.filter(speaker => new Date(speaker.date) >= currentDate);
-const pastSpeakers = sortedSpeakers.filter(speaker => new Date(speaker.date) < currentDate).reverse();
+// Set today to end of day to include all of today's events as upcoming
+const today = new Date();
+today.setHours(23, 59, 59, 999);
+
+const upcomingSpeakers = sortedSpeakers.filter(speaker => {
+  const speakerDate = new Date(speaker.date);
+  speakerDate.setHours(23, 59, 59, 999);
+  return speakerDate >= today;
+});
+const pastSpeakers = sortedSpeakers.filter(speaker => {
+  const speakerDate = new Date(speaker.date);
+  speakerDate.setHours(23, 59, 59, 999);
+  return speakerDate < today;
+}).reverse();
 ---
 
 <Layout title={`${title} | Michigan Robotics`}>
@@ -51,41 +63,45 @@ const pastSpeakers = sortedSpeakers.filter(speaker => new Date(speaker.date) < c
       >
     </div>
 
-    <h2>Upcoming speakers</h2>
+    {upcomingSpeakers.length > 0 && (
+      <>
+        <h2>Upcoming speakers</h2>
 
-    {upcomingSpeakers.map(speaker => (
-      <SpeakerProfile
-        image={cachedImages[speaker.imageUrl] || defaultProfileImage.default}
-        imageAlt={speaker.name}
-        title={speaker.title}
-        subtitle={new Date(speaker.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
-        name={speaker.name}
-        role={`${speaker.role}${speaker.organization ? `, ${speaker.organization}` : ''}`}
-        website={speaker.website}
-        isExpanded={true}
-      >
-        {speaker.abstract && (
-          <>
-            <h3>Abstract</h3>
-            <p>{speaker.abstract}</p>
-          </>
-        )}
+        {upcomingSpeakers.map(speaker => (
+          <SpeakerProfile
+            image={cachedImages[speaker.imageUrl] || defaultProfileImage.default}
+            imageAlt={speaker.name}
+            title={speaker.title}
+            subtitle={new Date(speaker.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+            name={speaker.name}
+            role={`${speaker.role}${speaker.organization ? `, ${speaker.organization}` : ''}`}
+            website={speaker.website}
+            isExpanded={true}
+          >
+            {speaker.abstract && (
+              <>
+                <h3>Abstract</h3>
+                <p>{speaker.abstract}</p>
+              </>
+            )}
 
-        {speaker.bio && (
-          <>
-            <h3>Bio</h3>
-            <p>{speaker.bio}</p>
-          </>
-        )}
+            {speaker.bio && (
+              <>
+                <h3>Bio</h3>
+                <p>{speaker.bio}</p>
+              </>
+            )}
 
-        {speaker.recordingUrl && (
-          <>
-            <h3>Recording</h3>
-            <YouTube id={speaker.recordingUrl} />
-          </>
-        )}
-      </SpeakerProfile>
-    ))}
+            {speaker.recordingUrl && (
+              <>
+                <h3>Recording</h3>
+                <YouTube id={speaker.recordingUrl} />
+              </>
+            )}
+          </SpeakerProfile>
+        ))}
+      </>
+    )}
 
     <h2>Past speakers</h2>
 
