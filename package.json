@@ -10,22 +10,22 @@
     "fetch-college-news": "tsx src/lib/fetchCollegeNews.ts"
   },
   "dependencies": {
-    "@astrojs/mdx": "^4.0.3",
-    "@astrojs/node": "^9.0.0",
+    "@astrojs/mdx": "^4.0.8",
+    "@astrojs/node": "^9.0.2",
     "@astrojs/sitemap": "^3.2.1",
-    "@fontsource/open-sans": "^5.0.5",
-    "@fontsource/roboto-condensed": "^5.0.5",
-    "@iconify-json/mdi": "^1.2.2",
+    "@fontsource/open-sans": "^5.1.1",
+    "@fontsource/roboto-condensed": "^5.1.1",
+    "@iconify-json/mdi": "^1.2.3",
     "@netlify/edge-functions": "^2.11.1",
     "@tailwindcss/vite": "^4.0.6",
-    "astro": "^5.2.0",
+    "astro": "^5.2.5",
     "astro-embed": "^0.9.0",
     "astro-icon": "^1.1.5",
     "astro-seo": "^0.8.4",
     "axios": "^1.7.9",
-    "dotenv": "^16.4.5",
+    "dotenv": "^16.4.7",
     "fast-xml-parser": "^4.5.1",
-    "google-auth-library": "^9.15.0",
+    "google-auth-library": "^9.15.1",
     "google-spreadsheet": "^4.1.4",
     "image-size": "^1.2.0",
     "jose": "^5.9.6",
@@ -35,9 +35,9 @@
     "tailwindcss": "^4.0.6"
   },
   "devDependencies": {
-    "@tailwindcss/typography": "^0.5.10",
-    "@types/node": "^22.10.7",
-    "terser": "^5.37.0",
+    "@tailwindcss/typography": "^0.5.16",
+    "@types/node": "^22.13.1",
+    "terser": "^5.38.2",
     "tsx": "^4.19.2"
   }
 }
