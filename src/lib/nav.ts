@@ -476,7 +476,6 @@ export const subNavConfig: Record<string, SubNavItem[]> = {
       { title: "Tours", href: "/about/facilities/ford-robotics-building#tours", anchor: true }
     ],
     'about/faculty-jobs': [
-      { title: "Apply", href: "https://deptapps.engin.umich.edu/facultycandidate/apply?dept=210308&searchID=46", external: true },
       { title: "About", href: "/about" },
       { title: "Values", href: "/about/values" },
       { title: "Facilities", href: "/about/facilities" },
