@@ -2,24 +2,16 @@
 import { Icon } from 'astro-icon/components';
 import Link from '../components/Link.astro';
 
-// Use the same getLink logic for media paths
-const getLink = (path: string) => {
-  if (import.meta.env.DEV) {
-    return `http://localhost:4321${path}`;
-  }
-  const baseURL = import.meta.env.BASE_URL;
-  return baseURL.endsWith('/') ? baseURL + path.slice(1) : baseURL + path;
-};
 
-const videoMp4Path = getLink('/robotics-promo-2025.mp4');
-const videoWebmPath = getLink('/robotics-promo-2025.webm');
-const posterPath = getLink('/blue-tile.png');
+const videoMp4Path = '/robotics-promo-2025.mp4';
+const videoWebmPath = '/robotics-promo-2025.webm';
+const posterPath = '/blue-tile.png';
 
 ---
 
-<section class="my-4 md:mb-28">
-  <div class="relative justify-center min-h-[350px]">
-    <div class="relative flex flex-wrap items-center justify-center min-h-[350px] overflow-hidden mb-14 md:mb-12">
+<section class="my-4 md:mb-28 preload-visible">
+  <div class="relative justify-center min-h-[350px] preload-visible">
+    <div class="relative flex flex-wrap items-center justify-center min-h-[350px] overflow-hidden mb-14 md:mb-12 preload-visible">
       <div class="relative z-10 p-5 text-white text-center preload-visible">
         <h1 class="text-4xl font-roboto-condensed font-bold m-0">Work together. Create smart machines. Serve society.</h1>
       </div>

@@ -131,9 +131,10 @@ const siteUrl = "https://robotics.umich.edu";
 	html.is-loading *:not(.preload-visible) {
 		visibility: hidden;
 	}
-	html.is-loading .preload-visible {
-		visibility: visible;
-		opacity: 1;
+	html.is-loading .preload-visible,
+	html.is-loading * .preload-visible{
+		visibility: visible !important;
+		opacity: 1 !important;
 	}
 	html {
 		visibility: visible;
