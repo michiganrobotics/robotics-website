@@ -1,5 +1,5 @@
 ---
-const { href, text } = Astro.props;
+const { href, text, external = false } = Astro.props;
 ---
 
 <div class="my-4">
@@ -15,22 +15,40 @@ const { href, text } = Astro.props;
     focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-umichblue dark:focus:ring-arboretumBlue
     no-underline button-component
     whitespace-normal break-words"
+    {...external ? { target: "_blank", rel: "noopener noreferrer" } : {}}
   >
     <span class="flex-1 text-center">{text}</span>
-    <svg 
-      class="flex-shrink-0 ml-2 -mr-1 w-4 h-4" 
-      fill="none" 
-      stroke="currentColor" 
-      viewBox="0 0 24 24" 
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path 
-        stroke-linecap="round" 
-        stroke-linejoin="round" 
-        stroke-width="2" 
-        d="M9 5l7 7-7 7"
-      ></path>
-    </svg>
+    {external ? (
+      <svg 
+        class="flex-shrink-0 ml-2 -mr-1 w-4 h-4" 
+        fill="none" 
+        stroke="currentColor" 
+        viewBox="0 0 24 24" 
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path 
+          stroke-linecap="round" 
+          stroke-linejoin="round" 
+          stroke-width="2" 
+          d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+        ></path>
+      </svg>
+    ) : (
+      <svg 
+        class="flex-shrink-0 ml-2 -mr-1 w-4 h-4" 
+        fill="none" 
+        stroke="currentColor" 
+        viewBox="0 0 24 24" 
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path 
+          stroke-linecap="round" 
+          stroke-linejoin="round" 
+          stroke-width="2" 
+          d="M9 5l7 7-7 7"
+        ></path>
+      </svg>
+    )}
   </a>
 </div>
 
