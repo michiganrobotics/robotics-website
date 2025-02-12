@@ -16,11 +16,16 @@ const videoWebmPath = getLink('/robotics-promo-2025.webm');
 const posterPath = getLink('/blue-tile.png');
 
 ---
-
+<link
+  rel="preload"
+  as="image"
+  fetchpriority="high"
+  href={posterPath}
+/>
 <section class="my-4 md:mb-28">
   <div class="relative justify-center min-h-[350px]">
     <div class="relative flex flex-wrap items-center justify-center min-h-[350px] overflow-hidden mb-14 md:mb-12">
-      <div class="relative z-10 p-5 text-white text-center">
+      <div class="relative z-10 p-5 text-white text-center preload-visible">
         <h1 class="text-4xl font-roboto-condensed font-bold m-0">Work together. Create smart machines. Serve society.</h1>
       </div>
 

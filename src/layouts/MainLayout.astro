@@ -120,14 +120,17 @@ const siteUrl = "https://robotics.umich.edu";
   
   <style is:global>
 	@reference "../styles/global.css";
-	html.is-loading {
-	visibility: hidden;
-	opacity: 0;
+	html.is-loading *:not(.preload-visible) {
+		visibility: hidden;
+	}
+	html.is-loading .preload-visible {
+		visibility: visible;
+		opacity: 1;
 	}
 	html {
-	visibility: visible;
-	opacity: 1;
-	transition: opacity;
+		visibility: visible;
+		opacity: 1;
+		transition: opacity;
 	}
 
 	html {
