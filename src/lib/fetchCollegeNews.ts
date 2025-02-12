@@ -82,11 +82,24 @@ export async function fetchAndSaveCollegeNews() {
       }
 
       // Merge existing data with new data, preserving categories and tags
-      const mergedData = {
-        ...newData,
-        categories: existingData?.categories || [],
-        tags: existingData?.tags || [],
-        featured: existingData?.featured ?? true
+      const mergedData: NewsData = {
+        // Always use new data for these fields as they come from the source
+        title: newData.title,
+        date: newData.date,
+        description: existingData.description || newData.description,
+        
+        // Preserve existing link if it exists, otherwise use new link
+        link: existingData.link || newData.link,
+        
+        // Preserve existing image if it exists, otherwise use new image
+        image: existingData.image || newData.image,
+        
+        // Preserve existing metadata or initialize with defaults
+        categories: existingData.categories || [],
+        tags: existingData.tags || [],
+        
+        // Preserve existing featured flag or default to true
+        featured: existingData.featured ?? true
       };
 
       await fs.writeFile(filePath, JSON.stringify(mergedData, null, 2));
