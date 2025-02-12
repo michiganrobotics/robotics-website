@@ -11,8 +11,8 @@ const posterPath = '/blue-tile.png';
 
 <section class="my-4 md:mb-28 preload-visible">
   <div class="relative justify-center min-h-[350px] preload-visible">
-    <div class="relative flex flex-wrap items-center justify-center min-h-[350px] overflow-hidden mb-14 md:mb-12 preload-visible">
-      <div class="relative z-10 p-5 text-white text-center preload-visible">
+    <div class="flex flex-wrap items-center justify-center min-h-[350px] overflow-hidden mb-14 md:mb-12 preload-visible">
+      <div class="z-10 p-5 text-white text-center preload-visible">
         <h1 class="text-4xl font-roboto-condensed font-bold m-0">Work together. Create smart machines. Serve society.</h1>
       </div>
 
@@ -20,12 +20,13 @@ const posterPath = '/blue-tile.png';
         <video 
           id="hero-video"
           class="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-300"
+          height="350"
+          width="1280"
           playsinline
           muted
-          preload="metadata"
+          preload="auto"
           poster={posterPath}
           aria-label="Background video showing Michigan Robotics research and education"
-          loading="lazy"
         >
           <source src={videoWebmPath} type="video/webm" media="(max-width: 768px)">
           <source src={videoMp4Path} type="video/mp4">
