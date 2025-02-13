@@ -20,13 +20,17 @@ export async function getStaticPaths() {
 
 export const GET: APIRoute = async function get({ params, props }) {
   try {
-    // Check cache first in production
+    // Update cache and output paths to be relative to project root
     if (import.meta.env.PROD) {
       const fileName = `${params.year}-${params.slug}.png`;
       const cachePath = `.netlify/cache/og-images/${fileName}`;
+      const publicPath = `dist/_generated-og/${fileName}`;
       
       try {
         const cachedImage = await fs.readFile(cachePath);
+        // Also write to public path
+        await fs.mkdir('dist/_generated-og', { recursive: true });
+        await fs.writeFile(publicPath, cachedImage);
         console.log('Serving cached OG image for:', fileName);
         return new Response(cachedImage, {
           headers: {
@@ -47,8 +51,12 @@ export const GET: APIRoute = async function get({ params, props }) {
         if (typeof props.data.image === 'object' && props.data.image !== null) {
           const imageObj = props.data.image as { src?: { src: string } };
           if (imageObj.src?.src) {
+            // Check if it's an optimized Astro image (starts with _astro)
+            if (imageObj.src.src.startsWith('/_astro/')) {
+              bgImage = `dist${imageObj.src.src}`; // Look in dist folder for optimized images
+            }
             // Check if it's the default OG image
-            if (imageObj.src.src.includes('og-default')) {
+            else if (imageObj.src.src.includes('og-default')) {
               bgImage = 'social/og-default.jpg';
             }
             // Handle asset paths that start with /assets/
@@ -73,7 +81,10 @@ export const GET: APIRoute = async function get({ params, props }) {
       // Load and process the background image
       let backgroundData;
       try {
-        if (isDefaultImage) {
+        if (bgImage.startsWith('dist/_astro/')) {
+          // For optimized Astro images
+          backgroundData = await fs.readFile(`./${bgImage}`);
+        } else if (isDefaultImage) {
           backgroundData = await fs.readFile(`./public/social/og-default.jpg`);
         } else if (isAssetImage) {
           try {
@@ -222,7 +233,7 @@ export const GET: APIRoute = async function get({ params, props }) {
         .png()
         .toBuffer();
 
-      // Add static file generation during build
+      // When saving in production
       if (import.meta.env.PROD) {
         const outputDir = 'dist/_generated-og';
         const cacheDir = '.netlify/cache/og-images';
@@ -234,17 +245,9 @@ export const GET: APIRoute = async function get({ params, props }) {
         const outputPath = `${outputDir}/${fileName}`;
         const cachePath = `${cacheDir}/${fileName}`;
 
-        // Check if cached version exists
-        try {
-          const cachedImage = await fs.readFile(cachePath);
-          await fs.writeFile(outputPath, cachedImage);
-          console.log('Using cached OG image for:', fileName);
-        } catch {
-          // Generate new image if not in cache
-          await fs.writeFile(outputPath, png);
-          await fs.writeFile(cachePath, png);
-          console.log('Generated new OG image for:', fileName);
-        }
+        await fs.writeFile(outputPath, png);
+        await fs.writeFile(cachePath, png);
+        console.log('Generated new OG image for:', fileName);
       }
 
       return new Response(png, {
