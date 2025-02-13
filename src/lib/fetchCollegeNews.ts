@@ -11,6 +11,7 @@ interface CollegeNewsItem {
   COLLEGE_DESCRIPTION: string;
   COLLEGE_LINK: string;
   COLLEGE_IMAGE?: string;
+  COLLEGE_IMAGE_ALT?: string;
 }
 
 interface NewsData {
@@ -66,7 +67,7 @@ export async function fetchAndSaveCollegeNews() {
         ...(item.COLLEGE_IMAGE && {
           image: {
             src: item.COLLEGE_IMAGE,
-            alt: decodedTitle
+            alt: item.COLLEGE_IMAGE_ALT || decodedTitle
           }
         })
       };
@@ -83,16 +84,21 @@ export async function fetchAndSaveCollegeNews() {
 
       // Merge existing data with new data, preserving categories and tags
       const mergedData: NewsData = {
-        // Always use new data for these fields as they come from the source
+        // Always use new data for title and date as they come from the source
         title: newData.title,
         date: newData.date,
+        
+        // Preserve existing description if it exists, otherwise use new description
         description: existingData.description || newData.description,
         
         // Preserve existing link if it exists, otherwise use new link
         link: existingData.link || newData.link,
         
-        // Preserve existing image if it exists, otherwise use new image
-        image: existingData.image || newData.image,
+        // Preserve existing image and alt text if they exist, otherwise use new ones
+        image: existingData.image || {
+          src: newData.image?.src,
+          alt: newData.image?.alt || newData.title
+        },
         
         // Preserve existing metadata or initialize with defaults
         categories: existingData.categories || [],

@@ -79,7 +79,7 @@ export async function collegeNewsQuery() {
     const truncatedData = newsItems.map(newsItem => {
       // Find all images in content
       const content = newsItem["content:encoded"] || '';
-      const imgMatches = [...content.matchAll(/<img[^>]+src="([^">]+)"[^>]*alt="([^">]+)"/g)];
+      const imgMatches = [...content.matchAll(/<img[^>]+src="([^">]+)"[^>]*alt="([^">]*)"[^>]*/g)];
       
       // Find first image that's not a profile photo
       const mainImage = imgMatches.find(match => {
@@ -88,6 +88,7 @@ export async function collegeNewsQuery() {
       });
       
       const imageUrl = mainImage ? mainImage[1] : null;
+      const imageAlt = mainImage ? mainImage[2] : '';
 
       // Clean up description by removing HTML and "The post appeared first on" text
       const cleanDescription = newsItem.description
@@ -100,7 +101,8 @@ export async function collegeNewsQuery() {
         COLLEGE_LINK: newsItem.link,
         COLLEGE_PUB_DATE: newsItem.pubDate,
         COLLEGE_DESCRIPTION: truncateDescription(cleanDescription || ''),
-        COLLEGE_IMAGE: imageUrl
+        COLLEGE_IMAGE: imageUrl,
+        COLLEGE_IMAGE_ALT: imageAlt
       };
     });
 

@@ -1,5 +1,4 @@
 import { defineConfig } from 'astro/config';
-import node from "@astrojs/node";
 import mdx from '@astrojs/mdx';
 import embeds from 'astro-embed/integration';
 import sitemap from "@astrojs/sitemap";
@@ -62,18 +61,9 @@ export default defineConfig({
               return 'vendor';
             }
           },
-          assetFileNames: 'assets/[name]-[hash][extname]',
-          chunkFileNames: 'assets/[name]-[hash].js',
-          entryFileNames: 'assets/[name]-[hash].js',
         }
       },
       target: 'esnext',
-      minify: 'terser',
-      terserOptions: {
-        compress: {
-          drop_console: true
-        }
-      }
     },
 
     plugins: [tailwindcss()]
@@ -81,39 +71,27 @@ export default defineConfig({
 
   image: {
     domains: [
-      'events.umich.edu',
       'robotics.umich.edu',
       'www.umich.edu',
       'news.engin.umich.edu',
-      'i.ytimg.com',
-      'img.youtube.com',
-      'cdninstagram.com',
-      'scontent.cdninstagram.com',
-      'pbs.twimg.com'
     ],
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: '**.umich.edu'
+        hostname: '**.umich.edu',
       },
       {
         protocol: 'https',
-        hostname: '**.engineering'
+        hostname: '**.ytimg.com',
       },
-      { protocol: 'https', hostname: '**.ytimg.com' },
-      { protocol: 'https', hostname: '**.youtube.com' },
-      { protocol: 'https', hostname: '**.cdninstagram.com' },
-      { protocol: 'https', hostname: '**.twimg.com' },
-      {  protocol: "https",
-        hostname: "events.umich.edu",
-        pathname: "/media/*"
-      }
+      {
+        protocol: 'https',
+        hostname: '**.cdninstagram.com',
+      },
+      {
+        protocol: 'https',
+        hostname: '**.twimg.com',
+      },
     ],
-    service: {
-      entrypoint: 'astro/assets/services/sharp'
-    },
-    format: ['webp', 'avif', 'png', 'jpg'],
-    fallbackFormat: 'png',
-    defaultQuality: 80
   },
 });
