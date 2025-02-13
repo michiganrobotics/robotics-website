@@ -134,14 +134,11 @@ Astro.response.headers.set('Cache-Control', 'public, max-age=86400, must-revalid
 								<div class="relative">
 									<div class="p-4">
 										<div class="bg-arboretumBlue text-white p-2 pl-4 -ml-4">
-											<h3 class="text-xl font-roboto border-b-2 border-transparent group-hover:border-maize transition-all duration-300">
+											<h3 class="text-xl font-roboto border-b-2 border-transparent group-hover:border-maize transition-all duration-300 grid grid-cols-[1fr_auto] items-center gap-1">
 												{isCollegeNews(post) ? (
 													<>
-														{post.data.title.replace(/\s+([^\s]+)$/, ' ')}
-														<span class="whitespace-nowrap inline">
-															{post.data.title.match(/\s+([^\s]+)$/)?.[1]}
-															<Icon name="mdi:open-in-new" class="inline-block w-4 h-4 ml-1 align-[-0.125em]" />
-														</span>
+														<span>{post.data.title}</span>
+														<Icon name="mdi:open-in-new" class="w-4 h-4" />
 													</>
 												) : post.data.title}
 											</h3>
