@@ -2,7 +2,7 @@
 title: "College robots, tweaked with Scratch, inspire younger students"
 date: "2024-09-23"
 seoDescription: "MBots can be simplified to introduce younger students without any programming knowledge to robotics."
-excerpt: "Brody Riopelle (CE 2024) recently proved that MBots, a University of Michigan educational robotics platform designed for teaching robotics to undergraduate and graduate students, could be simplified to introduce younger students without any programming knowledge to robotics."
+excerpt: "Brody Riopelle recently proved that MBots, an educational robotics platform designed for teaching robotics to college students, could be simplified to introduce younger students without any programming knowledge to robotics."
 image: 
   src: "images/c4s-3.jpg"
   alt: "A student works on a laptop with Scratch programming as an MBot robot sets off into a maze made of plastic barriers."
