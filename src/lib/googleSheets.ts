@@ -383,8 +383,10 @@ export const getAffiliateFacultyData = cached(async (): Promise<AffiliateFaculty
   }));
 });
 
-// Add this helper function to check if we're in a Netlify environment
-const isNetlifyBuild = () => process.env.NETLIFY === 'true';
+// Update this helper function to check for both NETLIFY and NETLIFY_BUILD_BASE
+const isNetlifyBuild = () => {
+  return process.env.NETLIFY === 'true' || process.env.NETLIFY_BUILD_BASE != null;
+};
 
 // Modify the cacheGoogleDriveImage function
 async function cacheGoogleDriveImage(url: string, fileName: string): Promise<string | null> {

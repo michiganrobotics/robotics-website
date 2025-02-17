@@ -12,7 +12,7 @@ module.exports = {
       
       try {
         console.log('Copying cached images to src directory');
-        await utils.run.command(`cp ${cacheDir}/*.jpg ${publicDir}/ 2>/dev/null || true`);
+        await utils.run.command(`cp "${cacheDir}"/*.jpg "${publicDir}/"`);
       } catch (error) {
         console.log('No cached images to copy');
       }
@@ -26,11 +26,11 @@ module.exports = {
     const publicDir = 'src/images/cached-profiles';
     
     try {
-      await utils.run.command(`mkdir -p ${cacheDir}`);
+      await utils.run.command(`mkdir -p "${cacheDir}"`);
       
       try {
         console.log('Copying new images to cache');
-        await utils.run.command(`cp ${publicDir}/*.jpg ${cacheDir}/ 2>/dev/null || true`);
+        await utils.run.command(`cp "${publicDir}"/*.jpg "${cacheDir}/"`);
       } catch (error) {
         console.log('No new images to cache');
       }
