@@ -396,107 +396,74 @@ async function cacheGoogleDriveImage(url: string, fileName: string): Promise<str
   const publicDir = path.join(process.cwd(), 'src/images/cached-profiles');
   const cachePath = path.join(cacheDir, `${fileName}.jpg`);
   const publicPath = path.join(publicDir, `${fileName}.jpg`);
-  
+
   try {
     await fs.mkdir(cacheDir, { recursive: true });
     await fs.mkdir(publicDir, { recursive: true });
 
-    // In Netlify environment, always try to download the image
+    // Always download image during Netlify build
     if (isNetlifyBuild()) {
-      await new Promise((resolve, reject) => {
-        const request = https.get(url, {
-          headers: {
-            'User-Agent': 'Mozilla/5.0',
-          },
-          followAllRedirects: true,
-        }, (response) => {
-          if (response.statusCode === 302 || response.statusCode === 301) {
-            const redirectUrl = response.headers.location;
-            if (redirectUrl) {
-              https.get(redirectUrl, {
-                headers: {
-                  'User-Agent': 'Mozilla/5.0',
-                },
-              }, (redirectResponse) => {
-                const writeStream = fsSync.createWriteStream(publicPath);
-                redirectResponse.pipe(writeStream);
-                writeStream.on('finish', () => {
-                  writeStream.close();
-                  resolve(true);
-                });
-              }).on('error', reject);
-              return;
-            }
-          }
-
-          const writeStream = fsSync.createWriteStream(publicPath);
-          response.pipe(writeStream);
-          writeStream.on('finish', () => {
-            writeStream.close();
-            resolve(true);
-          });
-        }).on('error', reject);
-
-        request.end();
-      });
-
-      // Copy to cache directory for future builds
-      await fs.copyFile(publicPath, cachePath);
+      console.log(`Downloading image from URL: ${url}`);
+      await downloadImage(url, publicPath);
+      await fs.copyFile(publicPath, cachePath); // Cache it for future builds
       return `/src/images/cached-profiles/${fileName}.jpg`;
     }
 
-    // Local development flow remains the same
+    // Local development flow
     try {
       await fs.access(cachePath);
       await fs.copyFile(cachePath, publicPath);
       return `/src/images/cached-profiles/${fileName}.jpg`;
     } catch {
-      // Image not in cache, download it
-      await new Promise((resolve, reject) => {
-        const request = https.get(url, {
-          headers: {
-            'User-Agent': 'Mozilla/5.0',
-          },
-          followAllRedirects: true,
-        }, (response) => {
-          if (response.statusCode === 302 || response.statusCode === 301) {
-            const redirectUrl = response.headers.location;
-            if (redirectUrl) {
-              https.get(redirectUrl, {
-                headers: {
-                  'User-Agent': 'Mozilla/5.0',
-                },
-              }, (redirectResponse) => {
-                const cacheStream = fsSync.createWriteStream(cachePath);
-                redirectResponse.pipe(cacheStream);
-                cacheStream.on('finish', async () => {
-                  cacheStream.close();
-                  await fs.copyFile(cachePath, publicPath);
-                  resolve(true);
-                });
-              }).on('error', reject);
-              return;
-            }
-          }
-
-          const cacheStream = fsSync.createWriteStream(cachePath);
-          response.pipe(cacheStream);
-          cacheStream.on('finish', async () => {
-            cacheStream.close();
-            await fs.copyFile(cachePath, publicPath);
-            resolve(true);
-          });
-        }).on('error', reject);
-
-        request.end();
-      });
-
+      console.log(`Downloading image locally: ${url}`);
+      await downloadImage(url, publicPath);
+      await fs.copyFile(publicPath, cachePath);
       return `/src/images/cached-profiles/${fileName}.jpg`;
     }
   } catch (error) {
     console.error('Error caching image:', error);
     return null;
   }
+}
+
+async function downloadImage(url: string, destination: string): Promise<void> {
+  return new Promise((resolve, reject) => {
+    const file = fsSync.createWriteStream(destination);
+    
+    const request = https.get(url, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0', // Help prevent 403 errors
+      },
+      followAllRedirects: true,
+    }, (response) => {
+      // Handle redirects (common with Google Drive)
+      if (response.statusCode === 302 || response.statusCode === 301) {
+        const redirectUrl = response.headers.location;
+        if (redirectUrl) {
+          https.get(redirectUrl, {
+            headers: {
+              'User-Agent': 'Mozilla/5.0',
+            },
+          }, (redirectResponse) => {
+            redirectResponse.pipe(file);
+            file.on('finish', () => {
+              file.close();
+              resolve();
+            });
+          }).on('error', reject);
+          return;
+        }
+      }
+
+      response.pipe(file);
+      file.on('finish', () => {
+        file.close();
+        resolve();
+      });
+    }).on('error', reject);
+
+    request.end();
+  });
 }
 
 // Modify the getGoogleDriveDirectImageUrl function
