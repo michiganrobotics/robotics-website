@@ -209,7 +209,7 @@ async function getExcerpt(post: CombinedNewsItem) {
                   alt={post.data.image?.alt || post.data.title}
                   width={index === 0 ? 760 : 368}
                   height={index === 0 ? 384 : 192}
-                  class={`w-full ${index === 0 ? 'h-96' : 'h-48'} object-cover`}
+                  class={`w-full ${index === 0 ? 'md:h-96 h-48' : 'h-48'} object-cover`}
                   loading={`${index < 2 ? 'eager' : 'lazy'}`}
                 />
               ) : null}

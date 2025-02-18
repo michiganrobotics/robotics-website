@@ -401,23 +401,17 @@ async function cacheGoogleDriveImage(url: string, fileName: string): Promise<str
     await fs.mkdir(cacheDir, { recursive: true });
     await fs.mkdir(publicDir, { recursive: true });
 
-    // Always download image during Netlify build
-    if (isNetlifyBuild()) {
-      console.log(`Downloading image from URL: ${url}`);
-      await downloadImage(url, publicPath);
-      await fs.copyFile(publicPath, cachePath); // Cache it for future builds
-      return `/src/images/cached-profiles/${fileName}.jpg`;
-    }
-
-    // Local development flow
+    // Check if image exists in cache first
     try {
       await fs.access(cachePath);
+      // If we're here, the file exists in cache
       await fs.copyFile(cachePath, publicPath);
       return `/src/images/cached-profiles/${fileName}.jpg`;
     } catch {
-      console.log(`Downloading image locally: ${url}`);
+      // File doesn't exist in cache, download it
+      console.log(`Downloading image from URL: ${url}`);
       await downloadImage(url, publicPath);
-      await fs.copyFile(publicPath, cachePath);
+      await fs.copyFile(publicPath, cachePath); // Cache it for future builds
       return `/src/images/cached-profiles/${fileName}.jpg`;
     }
   } catch (error) {
