@@ -1,0 +1,162 @@
+---
+import Layout from '../../layouts/MainLayout.astro';
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import PageTitle from "../../components/PageTitle.astro";
+import SeminarSpeakerProfile from '../../components/SeminarSpeakerProfile.astro';
+import { getSeminarsData } from '../../lib/googleSheets';
+import { YouTube } from '@astro-community/astro-embed-youtube';
+import { Image } from 'astro:assets';
+
+import featureImage from "../../images/featured-images/events-seminars.jpg";
+
+// Update the image import to include the default export
+const cachedImages = import.meta.glob('/src/images/cached-profiles/*.jpg', { eager: true, import: 'default' });
+const defaultProfileImage = await import('../../images/profile-images/robot-profile.jpg');
+
+const title = "Robotics Seminar Series";
+const subtitle = "Invited speakers present on a range of robotics topics";
+const description = "Visitors present their work to the Michigan Robotics community.";
+
+const seminarData = await getSeminarsData();
+const currentDate = new Date();
+
+// Sort speakers by date
+const sortedSeminars = seminarData.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+
+// Split into upcoming and past events
+// Add T12:00:00 to standardize time handling
+const today = new Date();
+today.setHours(23, 59, 59, 999);
+
+const upcomingSeminars = sortedSeminars.filter(seminar => {
+  const seminarDate = new Date(seminar.date + 'T12:00:00');
+  seminarDate.setHours(23, 59, 59, 999);
+  return seminarDate >= today;
+});
+const pastSeminars = sortedSeminars.filter(seminar => {
+  const seminarDate = new Date(seminar.date + 'T12:00:00');
+  seminarDate.setHours(23, 59, 59, 999);
+  return seminarDate < today;
+}).reverse();
+---
+
+<Layout title={`${title} | Michigan Robotics`}>
+  <Breadcrumbs />
+  <PageTitle title={title} image={featureImage} imageAlt="A presentation in the atrium of the Ford Robotics Building" imagePosition="0% 45%" />
+  
+  <article class="prose dark:prose-invert max-w-6xl w-11/12 mx-auto mt-4 mb-4 prose-headings:font-roboto prose-h2:text-3xl prose-h3:text-2xl prose-h4:text-xl prose-h5:text-lg prose-h6:text-base prose-headings:font-bold">
+    <h2 class="text-xl font-roboto text-umichblue dark:text-white leading-relaxed font-normal not-prose mt-8 mb-4">{subtitle}</h2>
+
+
+
+    <p>The Robotics Seminar Series invites robotics experts to present their work to the Michigan Robotics community.</p>
+
+    <p>The presentations are held every other Thursday from 3:30-4:30pm on the campus of the University of Michigan in 2300 FMCRB and on Zoom when available.</p>
+
+    <!-- Add search input -->
+    <div class="mb-8">
+      <input 
+        type="text" 
+        id="speakerSearch"
+        placeholder="Search speakers, titles, abstracts..."
+        class="w-full p-2 border border-gray-300 rounded bg-white dark:bg-gray-800 dark:border-gray-600"
+      >
+    </div>
+
+    {upcomingSeminars.length > 0 && (
+      <>
+        <h2>Upcoming speakers</h2>
+
+        {upcomingSeminars.map(seminar => (
+          <SeminarSpeakerProfile
+            image={cachedImages[seminar.imageUrl] || defaultProfileImage.default}
+            imageAlt={seminar.name}
+            title={seminar.title}
+            subtitle={new Date(seminar.date + 'T12:00:00').toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+            name={seminar.name}
+            role={`${seminar.role}${seminar.organization ? `, ${seminar.organization}` : ''}`}
+            website={seminar.website}
+            location={seminar.location}
+            zoomUrl={seminar.zoomUrl}
+            isExpanded={false}
+          >
+            {seminar.abstract && (
+              <>
+                <h3>Abstract</h3>
+                <p>{seminar.abstract}</p>
+              </>
+            )}
+
+            {seminar.bio && (
+              <>
+                <h3>Bio</h3>
+                <p>{seminar.bio}</p>
+              </>
+            )}
+
+            {seminar.recordingUrl && (
+              <>
+                <h3>Recording</h3>
+                <YouTube id={seminar.recordingUrl} />
+              </>
+            )}
+          </SeminarSpeakerProfile>
+        ))}
+      </>
+    )}
+
+    <h2>Past speakers</h2>
+
+    {pastSeminars.map(seminar => (
+      <SeminarSpeakerProfile
+        image={cachedImages[seminar.imageUrl] || defaultProfileImage.default}
+        imageAlt={seminar.name}
+        title={seminar.title}
+        subtitle={new Date(seminar.date + 'T12:00:00').toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+        name={seminar.name}
+        role={`${seminar.role}${seminar.organization ? `, ${seminar.organization}` : ''}`}
+        website={seminar.website}
+        isExpanded={false}
+      >
+        {seminar.abstract && (
+          <>
+            <h3>Abstract</h3>
+            <p>{seminar.abstract}</p>
+          </>
+        )}
+
+        {seminar.bio && (
+          <>
+            <h3>Bio</h3>
+            <p>{seminar.bio}</p>
+          </>
+        )}
+
+        {seminar.recordingUrl && (
+          <>
+            <h3>Recording</h3>
+            <YouTube id={seminar.recordingUrl} />
+          </>
+        )}
+      </SeminarSpeakerProfile>
+    ))}
+  </article>
+</Layout>
+
+<script>
+  const searchInput = document.getElementById('speakerSearch') as HTMLInputElement;
+  const seminarProfiles = document.querySelectorAll('.seminar-profile');
+
+  searchInput.addEventListener('input', (e) => {
+    const searchTerm = (e.target as HTMLInputElement).value.toLowerCase();
+
+    seminarProfiles.forEach((profile) => {
+      const searchableContent = profile.textContent?.toLowerCase() || '';
+      if (searchableContent.includes(searchTerm)) {
+        (profile as HTMLElement).style.display = 'block';
+      } else {
+        (profile as HTMLElement).style.display = 'none';
+      }
+    });
+  });
+</script>

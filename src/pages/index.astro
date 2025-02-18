@@ -27,14 +27,6 @@ interface Event {
   description: string;
 }
 
-// Add type definition for Netlify Identity
-declare global {
-  interface Window {
-    netlifyIdentity: {
-      on: (event: string, callback: (user?: any) => void) => void;
-    };
-  }
-}
 
 // Helper functions for news items
 function isCollegeNews(post: any) {
@@ -102,7 +94,7 @@ Astro.response.headers.set('Cache-Control', 'public, max-age=86400, must-revalid
 
 			<div class="relative mb-16 border-t border-arboretumBlue before:absolute before:left-0 before:top-0 before:w-px before:h-1/3 before:bg-gradient-to-b before:from-arboretumBlue before:to-transparent after:absolute after:right-0 after:top-0 after:w-px after:h-1/3 after:bg-gradient-to-b after:from-arboretumBlue after:to-transparent">
 				<div class="flex justify-center mb-2 sm:mb-0">
-					<h2 id="latest-news" class="absolute -top-6 z-10 bg-arboretumBlue text-white px-6 py-2 rounded-sm text-3xl font-bold">Latest news</h2>
+					<h2 id="latest-news" class="absolute -top-6 z-10 bg-arboretumBlue text-white px-6 py-2 rounded-sm text-3xl font-bold"><a href="/news">Latest news</a></h2>
 				</div>
 				<div class="flex flex-wrap gap-4 justify-center mb-8 md:flex-nowrap pt-10 px-2">
 					{recentPosts.map(async (post, index) => {
@@ -206,7 +198,7 @@ Astro.response.headers.set('Cache-Control', 'public, max-age=86400, must-revalid
 		
 			{recentEvents.length > 0 && (
 				<div class="relative mb-16 border-t border-matthaeiViolet before:absolute before:left-0 before:top-0 before:w-px before:h-1/3 before:bg-gradient-to-b before:from-matthaeiViolet before:to-transparent after:absolute after:right-0 after:top-0 after:w-px after:h-1/3 after:bg-gradient-to-b after:from-matthaeiViolet after:to-transparent">
-				  <h2 class="absolute -top-6 left-1/2 transform -translate-x-1/2 z-10 bg-matthaeiViolet text-white px-6 py-2 rounded-sm text-3xl font-bold">Events</h2>		
+				  <h2 class="absolute -top-6 left-1/2 transform -translate-x-1/2 z-10 bg-matthaeiViolet text-white px-6 py-2 rounded-sm text-3xl font-bold"><a href="/events">Events</a></h2>		
 				  <div class="flex flex-wrap gap-4 justify-center mb-4 md:flex-nowrap pt-10 px-2">	
 					{recentEvents.map((event: Event) => (
 					  <div key={event.id} class="group max-w-md bg-white border border-gray-200 rounded-sm shadow dark:bg-gray-800 dark:border-gray-700">

@@ -44,12 +44,6 @@ export const mainNav: MenuItem[] = [
                   childItems: { nodes: [] }
                 },
                 {
-                  label: "Pathways Speaker Series",
-                  uri: "/academics/undergraduate/robotics-pathways-speaker-series",
-                  id: "academics-undergraduate-pathways",
-                  childItems: { nodes: [] }
-                },
-                {
                   label: "SUGS",
                   uri: "/academics/undergraduate/sugs",
                   id: "academics-undergraduate-sugs",
@@ -179,10 +173,29 @@ export const mainNav: MenuItem[] = [
       }
     },
     {
-      label: "News & Events",
+      label: "News",
       uri: "/news",
       id: "news",
       childItems: { nodes: [] }
+    },
+    {
+      label: "Events",
+      uri: "/events",
+      id: "events",
+      childItems: { nodes: [
+        {
+          label: "Pathways & Careers Series",
+          uri: "/events/robotics-pathways-speaker-series",
+          id: "events-robotics-pathways-speaker-series",
+          childItems: { nodes: [] }
+        },
+        {
+          label: "Robotics Seminar Series",
+          uri: "/events/robotics-seminar-series",
+          id: "events-robotics-seminar-series",
+          childItems: { nodes: [] }
+        }
+      ] }
     },
     {
       label: "About",
@@ -349,11 +362,6 @@ export const subNavConfig: Record<string, SubNavItem[]> = {
       { title: "Sample Schedules", href: "/academics/undergraduate/scheduling#sample--editable-schedules", anchor: true },
       { title: "Scheduling Advice", href: "/academics/undergraduate/scheduling#scheduling-advice", anchor: true }
     ],
-    'academics/undergraduate/robotics-pathways-speaker-series': [
-      { title: "Undergraduate Program", href: "/academics/undergraduate" },
-      { title: "Program Requirements", href: "/academics/undergraduate/program-requirements" },
-      { title: "Advising & Scheduling", href: "/academics/undergraduate/scheduling" }
-    ],
     'academics/undergraduate/sugs': [
       { title: "Undergraduate Program", href: "/academics/undergraduate" },
       { title: "SUGS Deadlines", href: "/academics/undergraduate/sugs#application-deadlines", anchor: true },
@@ -486,6 +494,21 @@ export const subNavConfig: Record<string, SubNavItem[]> = {
       { title: "Values", href: "/about/values" },
       { title: "Facilities", href: "/about/facilities" },
       { title: "Contact", href: "/about/contact"}
+    ],
+    'events$': [
+      { title: "Pathways & Careers Series", href: "/events/robotics-pathways-speaker-series" },
+      { title: "Robotics Seminar Series", href: "/events/robotics-seminar-series" },
+      { title: "Robotics events on Happening @ Michigan", href: "https://events.umich.edu/group/3998", external: true }
+    ],
+    'events/robotics-pathways-speaker-series': [
+      { title: "Events", href: "/events" },
+      { title: "Robotics Seminar Series", href: "/events/robotics-seminar-series" },
+      { title: "Robotics events on Happening @ Michigan", href: "https://events.umich.edu/group/3998", external: true }
+    ],
+    'events/robotics-seminar-series': [
+      { title: "Events", href: "/events" },
+      { title: "Pathways & Careers Series", href: "/events/robotics-pathways-speaker-series" },
+      { title: "Robotics events on Happening @ Michigan", href: "https://events.umich.edu/group/3998", external: true }
     ],
     'news$': [
       { title: "News", href: "/news" } // placeholder for news search bar }

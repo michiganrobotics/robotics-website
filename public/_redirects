@@ -208,6 +208,7 @@
 /academics/graduate/admissions/graduate-application/what-are-specific-faculty-looking-for-in-phd-applications/ /news/2024/what-are-specific-faculty-looking-for-in-phd-applications 301
 /academic-program/courses/rob599-f19/ /academics/courses/online-courses/rob502-f20 301
 /academics/courses/online-courses/rob599-f19/ /academics/courses/online-courses/rob502-f20 301
+/academics/undergraduate/robotics-pathways-speaker-series /events/robotics-pathways-speaker-series 301
 /academic-program/* /academics/:splat 301
 
 # Focus Areas

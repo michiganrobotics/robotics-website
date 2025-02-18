@@ -15,7 +15,8 @@ import TwoColumn from '../components/TwoColumn.astro';
 import TextWithImage from '../components/TextWithImage.astro';
 import NewsCard from '../components/NewsCard.astro';
 import Pill from '../components/Pill.astro';
-import SpeakerProfile from '../components/SpeakerProfile.astro';
+import SeminarSpeakerProfile from '../components/SeminarSpeakerProfile.astro';
+import RPCSSSpeakerProfile from '../components/RPCSSSpeakerProfile.astro';
 import Callout from '../components/Callout.astro';
 
 export const components = {
@@ -36,7 +37,8 @@ export const components = {
   TextWithImage,
   NewsCard,
   Pill,
-  SpeakerProfile,
+  SeminarSpeakerProfile,
+  RPCSSSpeakerProfile,
   Callout
 };
 

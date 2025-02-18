@@ -168,6 +168,21 @@ interface SpeakerSeries {
   recordingUrl?: string;
 }
 
+interface Seminars {
+  date: string;
+  name: string;
+  title?: string;
+  role?: string;
+  organization?: string;
+  abstract: string;
+  bio: string;
+  website?: string;
+  imageUrl?: string;
+  location?: string;
+  zoomUrl?: string;
+  recordingUrl?: string;
+}
+
 function createSlug(name: string): string {
   return name
     .toLowerCase()
@@ -547,4 +562,35 @@ export const getSpeakerSeriesData = cached(async (): Promise<SpeakerSeries[]> =>
   }));
 
   return speakers;
+});
+
+export const getSeminarsData = cached(async (): Promise<Seminars[]> => {
+  await doc.loadInfo();
+  const sheet = doc.sheetsByTitle['Seminars'];
+  const rows = await sheet.getRows();
+  
+  // Process all images in parallel
+  const seminars = await Promise.all(rows.map(async row => {
+    const imageUrl = await getGoogleDriveDirectImageUrl(
+      row.get('imageUrl'),
+      row.get('name')
+    );
+
+    return {
+      date: row.get('date'),
+      name: row.get('name'),
+      title: row.get('title') || 'Robotics Seminar Speaker',
+      role: row.get('role') || 'Speaker',
+      organization: row.get('organization'),
+      abstract: row.get('abstract') || 'Information to come.',
+      bio: row.get('bio') || 'Information to come.',
+      website: row.get('website'),
+      imageUrl: imageUrl || '/src/images/profile-images/robot-profile.jpg',
+      location: row.get('location'),
+      zoomUrl: row.get('zoomUrl'),
+      recordingUrl: row.get('recordingUrl'),
+    };
+  }));
+
+  return seminars;
 });
