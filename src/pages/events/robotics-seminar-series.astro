@@ -15,7 +15,7 @@ const defaultProfileImage = await import('../../images/profile-images/robot-prof
 
 const title = "Robotics Seminar Series";
 const subtitle = "Invited speakers present on a range of robotics topics";
-const description = "Visitors present their work to the Michigan Robotics community.";
+const description = "Robotics experts present their work to the Michigan Robotics community.";
 
 const seminarData = await getSeminarsData();
 const currentDate = new Date();
@@ -40,7 +40,7 @@ const pastSeminars = sortedSeminars.filter(seminar => {
 }).reverse();
 ---
 
-<Layout title={`${title} | Michigan Robotics`}>
+<Layout title={`${title} | Michigan Robotics`} description={description}>
   <Breadcrumbs />
   <PageTitle title={title} image={featureImage} imageAlt="A presentation in the atrium of the Ford Robotics Building" imagePosition="0% 45%" />
   
