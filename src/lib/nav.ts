@@ -498,17 +498,17 @@ export const subNavConfig: Record<string, SubNavItem[]> = {
     'events$': [
       { title: "Pathways & Careers Series", href: "/events/robotics-pathways-speaker-series" },
       { title: "Robotics Seminar Series", href: "/events/robotics-seminar-series" },
-      { title: "Robotics events on Happening @ Michigan", href: "https://events.umich.edu/group/3998", external: true }
+      { title: "Events on Happening @ Michigan", href: "https://events.umich.edu/group/3998", external: true }
     ],
     'events/robotics-pathways-speaker-series': [
       { title: "Events", href: "/events" },
       { title: "Robotics Seminar Series", href: "/events/robotics-seminar-series" },
-      { title: "Robotics events on Happening @ Michigan", href: "https://events.umich.edu/group/3998", external: true }
+      { title: "Events on Happening @ Michigan", href: "https://events.umich.edu/group/3998", external: true }
     ],
     'events/robotics-seminar-series': [
       { title: "Events", href: "/events" },
       { title: "Pathways & Careers Series", href: "/events/robotics-pathways-speaker-series" },
-      { title: "Robotics events on Happening @ Michigan", href: "https://events.umich.edu/group/3998", external: true }
+      { title: "Events on Happening @ Michigan", href: "https://events.umich.edu/group/3998", external: true }
     ],
     'news$': [
       { title: "News", href: "/news" } // placeholder for news search bar }
