@@ -15,7 +15,6 @@ const defaultProfileImage = await import('../../images/profile-images/robot-prof
 
 const title = "Robotics Seminar Series";
 const subtitle = "Invited speakers present on a range of robotics topics";
-const description = "Robotics experts present their work to the Michigan Robotics community.";
 
 const seminarData = await getSeminarsData();
 const currentDate = new Date();
@@ -40,7 +39,7 @@ const pastSeminars = sortedSeminars.filter(seminar => {
 }).reverse();
 ---
 
-<Layout title={`${title} | Michigan Robotics`} description={description}>
+<Layout title={`${title} | Michigan Robotics`} description="Robotics experts present their work to the Michigan Robotics community.">
   <Breadcrumbs />
   <PageTitle title={title} image={featureImage} imageAlt="A presentation in the atrium of the Ford Robotics Building" imagePosition="0% 45%" />
   
@@ -51,7 +50,7 @@ const pastSeminars = sortedSeminars.filter(seminar => {
 
     <p>The Robotics Seminar Series invites robotics experts to present their work to the Michigan Robotics community.</p>
 
-    <p>The presentations are held every other Thursday from 3:30-4:30pm on the campus of the University of Michigan in 2300 FMCRB and on Zoom when available.</p>
+    <p>The presentations are held every other Thursday from 3:30-4:30pm on the campus of the University of Michigan in 2300 FMCRB and on Zoom when available. Recordings will be posted when available.</p>
 
     <!-- Add search input -->
     <div class="mb-8">

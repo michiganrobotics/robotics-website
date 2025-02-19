@@ -101,6 +101,11 @@ const socialIcons = {
         
               <p class="text-gray-700 dark:text-gray-300 text-sm mb-4 line-clamp-4">
                 {post.content}
+                {post.description && (
+                  <span class="block text-gray-700 dark:text-gray-300 text-sm">
+                    {post.description}
+                  </span>
+                )}
               </p>
         
               <div class="absolute bottom-4 left-4 right-4">

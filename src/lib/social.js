@@ -161,6 +161,7 @@ import axios from 'axios';
       const posts = response.data.items.map(item => ({
         id: item.id.videoId,
         content: item.snippet.title,
+        description: item.snippet.description,
         thumbnailUrl: item.snippet.thumbnails.high.url,
         date: item.snippet.publishedAt,
         platform: 'YouTube',
