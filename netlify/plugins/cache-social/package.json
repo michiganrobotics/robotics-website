@@ -1,0 +1,12 @@
+{
+  "name": "netlify-plugin-cache-social",
+  "version": "1.0.0",
+  "description": "Netlify plugin to cache social media data between builds",
+  "main": "index.js",
+  "keywords": [
+    "netlify",
+    "netlify-plugin"
+  ],
+  "author": "",
+  "license": "MIT"
+} 
