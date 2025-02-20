@@ -10,6 +10,9 @@ publish = "dist"
 
 [[plugins]]
 package = "./netlify/plugins/cache-profile-images"
+
+[[plugins]]
+package = "/netlify/plugins/cache-social"
   
 # Cache assets
 [[headers]]
