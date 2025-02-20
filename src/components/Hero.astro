@@ -25,6 +25,9 @@ const posterPath = '/blue-tile.png';
           playsinline
           muted
           preload="auto"
+          loading="lazy"
+          fetchpriority="high"
+          data-threshold="0.1"
           poster={posterPath}
           aria-label="Background video showing Michigan Robotics research and education"
         >
@@ -98,28 +101,18 @@ const posterPath = '/blue-tile.png';
     }
 
     // Toggle play/pause
-    control.addEventListener('click', () => {
-      if (video.paused) {
-        video.play();
-        pauseIcon?.classList.remove('hidden');
-        playIcon?.classList.add('hidden');
-      } else {
-        video.pause();
-        pauseIcon?.classList.add('hidden');
-        playIcon?.classList.remove('hidden');
-      }
-    });
-
-    // Update button state on video events
-    video.addEventListener('pause', () => {
-      pauseIcon?.classList.add('hidden');
-      playIcon?.classList.remove('hidden');
-    });
-
-    video.addEventListener('play', () => {
-      pauseIcon?.classList.remove('hidden');
-      playIcon?.classList.add('hidden');
-    });
+const togglePlayback = () => {
+  if (video.paused) {
+    video.play();
+    playIcon.classList.add("hidden");
+    pauseIcon.classList.remove("hidden");
+  } else {
+    video.pause();
+    playIcon.classList.remove("hidden");
+    pauseIcon.classList.add("hidden");
+  }
+    };
+    control.addEventListener("click", togglePlayback);
 
     // Check video support and try to load
     if (checkVideoSupport()) {
