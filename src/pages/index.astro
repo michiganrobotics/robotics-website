@@ -76,13 +76,33 @@ const eventsData = await eventsQuery();
 const recentEvents = eventsData.slice(0, 3);
 
 Astro.response.headers.set('Cache-Control', 'public, max-age=86400, must-revalidate');
-
+const videoMp4Path = '/robotics-promo-2025-2.mp4';
+const videoWebmPath = '/robotics-promo-2025-2.webm';
 
 ---
 
 <MainLayout title='Michigan Robotics | University of Michigan'>
+	<Fragment slot="head">
+		<!-- Preload WebM for smaller screens -->
+		<link 
+		  rel="preload" 
+		  as="video" 
+		  href={videoWebmPath}
+		  media="(max-width: 768px)" 
+		  fetchpriority="high"
+		>
+	
+		<!-- Preload MP4 for larger screens -->
+		<link 
+		  rel="preload" 
+		  as="video" 
+		  href={videoMp4Path}
+		  media="(min-width: 769px)" 
+		  fetchpriority="high"
+		>
+	  </Fragment>
 	<main class="preload-visible">
-		<Hero></Hero>
+		<Hero videoMp4Path={videoMp4Path} videoWebmPath={videoWebmPath}></Hero>
 		<div class="mx-2 m-auto mb-4 md:mx-12">
 			<div class="block md:hidden font-roboto-condensed relative mb-16 m-auto 
                         bg-umichblue dark:bg-arboretumBlue

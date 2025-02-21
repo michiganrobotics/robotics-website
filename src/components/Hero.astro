@@ -2,9 +2,11 @@
 import { Icon } from 'astro-icon/components';
 import Link from '../components/Link.astro';
 
-
-const videoMp4Path = '/robotics-promo-2025-2.mp4';
-const videoWebmPath = '/robotics-promo-2025-2.webm';
+interface Props {
+  videoMp4Path: string;
+  videoWebmPath: string;
+}
+const { videoMp4Path, videoWebmPath } = Astro.props;
 const posterPath = '/blue-tile.png';
 
 ---
@@ -25,9 +27,6 @@ const posterPath = '/blue-tile.png';
           playsinline
           muted
           preload="auto"
-          loading="lazy"
-          fetchpriority="high"
-          data-threshold="0.1"
           poster={posterPath}
           aria-label="Background video showing Michigan Robotics research and education"
         >
