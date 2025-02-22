@@ -61,7 +61,7 @@ const { image, imageAlt, title = '', subtitle, name, role, website, isExpanded =
     <div class="p-6 bg-white dark:bg-gray-900">
       <div class="flex flex-col md:flex-row gap-8">
         <div class="md:w-1/4">
-          {image.src !== '/src/images/profile-images/robot-profile.jpg' && (
+          {image && !image.src.includes('robot-profile.jpg') && (
             <Image 
               src={image} 
               alt={imageAlt}
