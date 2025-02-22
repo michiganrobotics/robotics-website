@@ -161,10 +161,10 @@ interface SpeakerSeries {
   title?: string;
   role: string;
   organization: string;
-  abstract: string;
-  bio: string;
+  abstract?: string;
+  bio?: string;
   website?: string;
-  imageUrl: string;
+  imageUrl?: string;
   recordingUrl?: string;
 }
 
@@ -553,8 +553,8 @@ export const getSpeakerSeriesData = cached(async (): Promise<SpeakerSeries[]> =>
       title: row.get('title') || 'RPCSS Speaker',
       role: row.get('role'),
       organization: row.get('organization'),
-      abstract: row.get('abstract'),
-      bio: row.get('bio'),
+      abstract: row.get('abstract') || 'Information to come.',
+      bio: row.get('bio') || 'Information to come.',
       website: row.get('website'),
       imageUrl: imageUrl || '/src/images/profile-images/robot-profile.jpg',
       recordingUrl: row.get('recordingUrl'),
