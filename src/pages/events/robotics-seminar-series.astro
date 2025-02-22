@@ -79,6 +79,7 @@ const pastSeminars = sortedSeminars.filter(seminar => {
             zoomUrl={seminar.zoomUrl}
             isExpanded={false}
           >
+
             {seminar.abstract && (
               <>
                 <h3>Abstract</h3>
@@ -93,12 +94,6 @@ const pastSeminars = sortedSeminars.filter(seminar => {
               </>
             )}
 
-            {seminar.recordingUrl && (
-              <>
-                <h3>Recording</h3>
-                <YouTube id={seminar.recordingUrl} />
-              </>
-            )}
           </SeminarSpeakerProfile>
         ))}
       </>
@@ -117,6 +112,13 @@ const pastSeminars = sortedSeminars.filter(seminar => {
         website={seminar.website}
         isExpanded={false}
       >
+
+        {seminar.recordingUrl && (
+          <>
+            <h3>Recording</h3>
+            <YouTube id={seminar.recordingUrl} />
+          </>
+        )}
         {seminar.abstract && (
           <>
             <h3>Abstract</h3>
@@ -131,12 +133,6 @@ const pastSeminars = sortedSeminars.filter(seminar => {
           </>
         )}
 
-        {seminar.recordingUrl && (
-          <>
-            <h3>Recording</h3>
-            <YouTube id={seminar.recordingUrl} />
-          </>
-        )}
       </SeminarSpeakerProfile>
     ))}
   </article>

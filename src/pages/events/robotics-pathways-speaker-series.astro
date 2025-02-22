@@ -91,13 +91,6 @@ const pastSpeakers = sortedSpeakers.filter(speaker => {
                 <p>{speaker.bio}</p>
               </>
             )}
-
-            {speaker.recordingUrl && (
-              <>
-                <h3>Recording</h3>
-                <YouTube id={speaker.recordingUrl} />
-              </>
-            )}
           </SpeakerProfile>
         ))}
       </>
@@ -116,6 +109,13 @@ const pastSpeakers = sortedSpeakers.filter(speaker => {
         website={speaker.website}
         isExpanded={false}
       >
+
+        {speaker.recordingUrl && (
+          <>
+            <h3>Recording</h3>
+            <YouTube id={speaker.recordingUrl} />
+          </>
+        )}
         {speaker.abstract && (
           <>
             <h3>Abstract</h3>
@@ -130,12 +130,6 @@ const pastSpeakers = sortedSpeakers.filter(speaker => {
           </>
         )}
 
-        {speaker.recordingUrl && (
-          <>
-            <h3>Recording</h3>
-            <YouTube id={speaker.recordingUrl} />
-          </>
-        )}
       </SpeakerProfile>
     ))}
   </article>

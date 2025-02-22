@@ -203,6 +203,13 @@ async function fetchYoutubePosts() {
   const cache = readCache(YOUTUBE_CACHE_FILE);
   const now = Date.now();
 
+  // Helper function to decode HTML entities
+  const decodeHtmlEntities = (text) => {
+    const textarea = document.createElement('textarea');
+    textarea.innerHTML = text;
+    return textarea.value;
+  };
+
   try {
     const apiKey = import.meta.env.YOUTUBE_API_KEY;
     const channelId = 'UC-WH2n-SkB166pUq5o5ULUg';
@@ -240,8 +247,8 @@ async function fetchYoutubePosts() {
 
     const posts = response.data.items.map(item => ({
       id: item.id.videoId,
-      content: item.snippet.title,
-      description: item.snippet.description,
+      content: decodeHtmlEntities(item.snippet.title),
+      description: decodeHtmlEntities(item.snippet.description),
       thumbnailUrl: item.snippet.thumbnails.high.url,
       date: item.snippet.publishedAt,
       platform: 'YouTube',
