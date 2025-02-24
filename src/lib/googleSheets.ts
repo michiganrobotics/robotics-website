@@ -159,8 +159,8 @@ interface SpeakerSeries {
   date: string;
   name: string;
   title?: string;
-  role: string;
-  organization: string;
+  role?: string;
+  organization?: string;
   abstract?: string;
   bio?: string;
   website?: string;
@@ -174,8 +174,8 @@ interface Seminars {
   title?: string;
   role?: string;
   organization?: string;
-  abstract: string;
-  bio: string;
+  abstract?: string;
+  bio?: string;
   website?: string;
   imageUrl?: string;
   location?: string;
@@ -553,8 +553,8 @@ export const getSpeakerSeriesData = cached(async (): Promise<SpeakerSeries[]> =>
       title: row.get('title') || 'RPCSS Speaker',
       role: row.get('role'),
       organization: row.get('organization'),
-      abstract: row.get('abstract') || 'Information to come.',
-      bio: row.get('bio') || 'Information to come.',
+      abstract: row.get('abstract'),
+      bio: row.get('bio'),
       website: row.get('website'),
       imageUrl: imageUrl || '/src/images/profile-images/robot-profile.jpg',
       recordingUrl: row.get('recordingUrl'),
