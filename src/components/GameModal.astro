@@ -3,12 +3,16 @@ import { Icon } from "astro-icon/components";
 ---
 
 <div id="gameModal" class="hidden font-mono text-umichblue dark:text-white">
-  <pre id="gameCanvas" class="bg-white dark:bg-gray-800 p-4 text-xs md:text-base leading-none whitespace-pre"></pre>
+  <div class="sr-only" id="gameInstructions">
+    ASCII Phone Game. Connect incoming calls to outgoing lines. Use WASD keys to move the robot operator. Press Escape to quit.
+  </div>
+  <div class="sr-only" id="gameStatus" aria-live="polite"></div>
+  <pre id="gameCanvas" class="bg-white dark:bg-gray-800 p-4 text-xs md:text-base leading-none whitespace-pre" tabindex="0" aria-labelledby="gameInstructions" role="application"></pre>
   <div class="md:hidden mt-4 flex justify-center gap-2">
-    <button class="touch-left bg-gray-200 dark:bg-gray-700 p-2 rounded">←</button>
-    <button class="touch-up bg-gray-200 dark:bg-gray-700 p-2 rounded">↑</button>
-    <button class="touch-down bg-gray-200 dark:bg-gray-700 p-2 rounded">↓</button>
-    <button class="touch-right bg-gray-200 dark:bg-gray-700 p-2 rounded">→</button>
+    <button class="touch-left bg-gray-200 dark:bg-gray-700 p-2 rounded" aria-label="Move left">←</button>
+    <button class="touch-up bg-gray-200 dark:bg-gray-700 p-2 rounded" aria-label="Move up">↑</button>
+    <button class="touch-down bg-gray-200 dark:bg-gray-700 p-2 rounded" aria-label="Move down">↓</button>
+    <button class="touch-right bg-gray-200 dark:bg-gray-700 p-2 rounded" aria-label="Move right">→</button>
   </div>
 </div>
 
@@ -50,7 +54,8 @@ class ASCIIPhoneGame {
     this.showIntro = true;
     this.introStep = 0;
     this.introTimer = 0;
-    this.init();
+    this.statusElement = document.getElementById('gameStatus');
+    
     this.escListener = (e) => {
       if (e.key === 'Escape') {
         this.closeGame();
@@ -60,6 +65,13 @@ class ASCIIPhoneGame {
     
     // Add touch controls
     this.setupTouchControls();
+    
+    // Make game keyboard-focusable
+    this.canvas.addEventListener('focus', () => {
+      this.announceStatus("Game focused. Use WASD keys to move.");
+    });
+    
+    this.init();
   }
 
   init() {
@@ -94,6 +106,7 @@ class ASCIIPhoneGame {
     // Auto pickup/connect when near
     if (this.robot.x !== oldX || this.robot.y !== oldY) {
       this.handleAction();
+      this.announcePosition();
     }
   }
 
@@ -106,6 +119,7 @@ class ASCIIPhoneGame {
       if (ringingLine) {
         this.robot.holding = ringingLine;
         ringingLine.ringing = false;
+        this.announceStatus("Picked up incoming call. Connect it to an outgoing line.");
       }
     } else {
       // Try to connect to an active right-side line
@@ -116,6 +130,12 @@ class ASCIIPhoneGame {
         this.robot.holding.connected = true;
         targetLine.connected = true;
         this.robot.holding = null;
+        this.announceStatus("Call connected successfully!");
+        
+        // Announce progress
+        const connectedCount = this.phoneLines.left.filter(l => l.connected).length;
+        const totalLines = this.phoneLines.left.length;
+        this.announceStatus(`${connectedCount} of ${totalLines} lines connected.`);
       }
     }
   }
@@ -136,6 +156,7 @@ class ASCIIPhoneGame {
         availableLeft.hasRung = true;
         availableRight.active = true;
         availableRight.hasRung = true;
+        this.announceStatus("New call incoming!");
       }
     }, 3000);
   }
@@ -305,8 +326,14 @@ class ASCIIPhoneGame {
   }
 
   checkWinCondition() {
-    return this.phoneLines.left.every(line => line.connected) &&
+    const won = this.phoneLines.left.every(line => line.connected) &&
            this.phoneLines.right.every(line => line.connected);
+    
+    if (won && !this.gameWon) {
+      this.announceStatus("Congratulations! You've connected all the lines. You are the Communications Manager!");
+    }
+    
+    return won;
   }
 
   initializeConfetti() {
@@ -352,6 +379,7 @@ class ASCIIPhoneGame {
     setTimeout(() => {
       modal.classList.add('hidden');
       document.removeEventListener('keydown', this.escListener);
+      this.announceStatus("Game closed.");
     }, 500);
   }
 
@@ -392,6 +420,46 @@ class ASCIIPhoneGame {
     // Render grid
     this.canvas.textContent = this.grid.map(row => row.join('')).join('\n');
   }
+
+  // New method to announce robot position and nearby objects
+  announcePosition() {
+    let message = `Robot at position ${this.robot.x}, ${this.robot.y}.`;
+    
+    // Check for nearby phones
+    const nearbyLeftPhones = this.phoneLines.left.filter(line => this.isNear(this.robot, line));
+    const nearbyRightPhones = this.phoneLines.right.filter(line => this.isNear(this.robot, line));
+    
+    if (nearbyLeftPhones.length > 0) {
+      const ringing = nearbyLeftPhones.some(p => p.ringing);
+      if (ringing) {
+        message += " Near a ringing incoming phone.";
+      } else {
+        message += " Near an incoming phone.";
+      }
+    }
+    
+    if (nearbyRightPhones.length > 0) {
+      const active = nearbyRightPhones.some(p => p.active);
+      if (active) {
+        message += " Near an active outgoing phone.";
+      } else {
+        message += " Near an outgoing phone.";
+      }
+    }
+    
+    if (this.robot.holding) {
+      message += " Carrying a phone line.";
+    }
+    
+    this.announceStatus(message);
+  }
+
+  // New method to update screen reader status
+  announceStatus(message) {
+    if (this.statusElement) {
+      this.statusElement.textContent = message;
+    }
+  }
 }
 
 // Initialize game when clicking Communications Manager
@@ -405,7 +473,8 @@ document.getElementById('commsManagerTitle').addEventListener('click', (e) => {
     requestAnimationFrame(() => {
       modal.style.maxHeight = '500px'; // Increased to accommodate touch controls
     });
-    new ASCIIPhoneGame();
+    const game = new ASCIIPhoneGame();
+    game.announceStatus("ASCII Phone Game started. Connect incoming calls to outgoing lines.");
   } else {
     modal.style.maxHeight = '0';
     setTimeout(() => {
