@@ -36,7 +36,7 @@ const posterPath = '/blue-tile.png';
 
         <button 
           id="video-control"
-          class="absolute z-30 bottom-4 right-4 rounded-full bg-black/50 hover:bg-black/70 p-3 transition-colors focus:outline-none focus:ring-2 focus:ring-white hidden"
+          class="absolute z-20 bottom-4 right-4 rounded-full bg-black/50 hover:bg-black/70 p-3 transition-colors focus:outline-none focus:ring-2 focus:ring-white hidden"
           aria-label="Toggle video playback"
         >
           <span class="sr-only">Toggle video playback</span>
@@ -62,8 +62,8 @@ const posterPath = '/blue-tile.png';
   const loadingIndicator = document.getElementById('loading-indicator') as HTMLDivElement;
   
   if (video && control && loadingIndicator) {
-    const pauseIcon = control.querySelector('.pause-icon');
-    const playIcon = control.querySelector('.play-icon');
+    const pauseIcon = control.querySelector('.pause-icon') as HTMLElement | null;
+    const playIcon = control.querySelector('.play-icon') as HTMLElement | null;
     let isVideoSupported = true;
 
     // Check if video playback is supported
@@ -100,16 +100,16 @@ const posterPath = '/blue-tile.png';
     }
 
     // Toggle play/pause
-const togglePlayback = () => {
-  if (video.paused) {
-    video.play();
-    playIcon.classList.add("hidden");
-    pauseIcon.classList.remove("hidden");
-  } else {
-    video.pause();
-    playIcon.classList.remove("hidden");
-    pauseIcon.classList.add("hidden");
-  }
+    const togglePlayback = () => {
+      if (video.paused) {
+        video.play();
+        if (playIcon) playIcon.classList.add("hidden");
+        if (pauseIcon) pauseIcon.classList.remove("hidden");
+      } else {
+        video.pause();
+        if (playIcon) playIcon.classList.remove("hidden");
+        if (pauseIcon) pauseIcon.classList.add("hidden");
+      }
     };
     control.addEventListener("click", togglePlayback);
 

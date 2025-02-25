@@ -33,9 +33,9 @@ const isActive = (itemPath: string) => {
   </div>
 
   <!-- Mobile Menu (details/summary) -->
-  <details class="md:hidden">
+  <details class="md:hidden z-50">
     <summary class="mt-2 text-2xl sm:text-3xl text-umichblue mr-2 dark:text-maize list-none cursor-pointer" aria-label="Toggle navigation menu">&#9776;</summary>
-       <nav class="absolute left-0 right-0 w-full top-[72px] border-b-8 border-maize border-double bg-gray-100 z-40 dark:bg-gray-700 pb-8" aria-label="Mobile navigation">
+       <nav class="absolute left-0 right-0 w-full top-[72px] border-b-8 border-maize border-double bg-gray-100 z-50 dark:bg-gray-700 pb-8" aria-label="Mobile navigation">
         <ul class="flex w-full list-none flex-col items-stretch px-4">
             {menuItems.map((menuItem: MenuItem) => {
               const isMenuItemActive = isActive(menuItem.uri);
@@ -43,7 +43,7 @@ const isActive = (itemPath: string) => {
                 <li class="w-full dark:text-white">
                     <div class="flex items-center justify-between">
                         <a href={menuItem.uri || '/'} 
-                           class={`pl-4 pr-4 py-3 hover:underline hover:decoration-maize hover:decoration-2 ${isMenuItemActive ? 'text-umichblue dark:text-maize' : ''}`}
+                           class={`pl-2 pr-4 py-3 hover:underline hover:decoration-maize hover:decoration-2 ${isMenuItemActive ? 'text-umichblue dark:text-maize' : ''}`}
                            aria-label={menuItem.label}
                            aria-current={isMenuItemActive ? 'page' : undefined}>
                             {menuItem.label}
@@ -69,7 +69,7 @@ const isActive = (itemPath: string) => {
                                     <li>
                                         <div class="flex items-center justify-between">
                                             <a href={childItem.uri || '/'} 
-                                               class={`pl-8 pr-4 py-3 hover:underline hover:decoration-maize hover:decoration-2 ${isChildItemActive ? 'text-umichblue dark:text-maize' : ''}`}
+                                               class={`pl-4 pr-4 py-3 hover:underline hover:decoration-maize hover:decoration-2 ${isChildItemActive ? 'text-umichblue dark:text-maize' : ''}`}
                                                aria-label={childItem.label}
                                                aria-current={isChildItemActive ? 'page' : undefined}>
                                                 {childItem.label}
@@ -94,7 +94,7 @@ const isActive = (itemPath: string) => {
                                                       return (
                                                         <li>
                                                             <a href={grandChildItem.uri || '/'} 
-                                                               class={`block pl-12 pr-4 py-3 hover:underline hover:decoration-maize hover:decoration-2 ${isGrandChildItemActive ? 'text-umichblue dark:text-maize' : ''}`}
+                                                               class={`block pl-8 pr-4 py-3 hover:underline hover:decoration-maize hover:decoration-2 ${isGrandChildItemActive ? 'text-umichblue dark:text-maize' : ''}`}
                                                                aria-label={grandChildItem.label}
                                                                aria-current={isGrandChildItemActive ? 'page' : undefined}>
                                                                 {grandChildItem.label}
@@ -299,6 +299,10 @@ nav ul li {
   /* Mobile Menu Styling */
   @media (max-width: 767px) {
     /* Ensure mobile menu spans full width */
+    details[open] {
+      z-index: 9999; /* Extremely high z-index to ensure it's on top */
+    }
+    
     details[open] nav {
       width: 100vw;
       left: 0;
