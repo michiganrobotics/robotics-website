@@ -79,7 +79,13 @@ import PageTitle from "../../components/PageTitle.astro";
           </a>
           <span class="mt-2 text-sm text-gray-500 dark:text-gray-400">
             Communications Manager
-            <Icon name="mdi:desktop-classic" class="w-4 h-4 inline-block ml-1 cursor-pointer hover:text-arboretumBlue dark:hover:text-maize transition-colors" id="commsManagerTitle" />
+            <button 
+              aria-label="Play Communications Manager game" 
+              class="inline-block focus:outline-none focus:ring-2 focus:ring-arboretumBlue dark:focus:ring-maize"
+              id="commsManagerTitle">
+              <Icon name="mdi:desktop-classic" class="w-4 h-4 inline-block ml-1 cursor-pointer hover:text-arboretumBlue dark:hover:text-maize transition-colors" />
+              <span class="sr-only">Click to play a simple ASCII game where you connect phone lines</span>
+            </button>
           </span>
           <GameModal />
         </div>

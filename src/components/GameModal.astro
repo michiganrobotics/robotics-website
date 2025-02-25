@@ -472,6 +472,8 @@ document.getElementById('commsManagerTitle').addEventListener('click', (e) => {
     modal.style.transition = 'max-height 0.5s ease-in-out';
     requestAnimationFrame(() => {
       modal.style.maxHeight = '500px'; // Increased to accommodate touch controls
+      // Focus the game canvas after opening
+      document.getElementById('gameCanvas').focus();
     });
     const game = new ASCIIPhoneGame();
     game.announceStatus("ASCII Phone Game started. Connect incoming calls to outgoing lines.");
