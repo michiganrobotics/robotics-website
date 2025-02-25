@@ -1,12 +1,29 @@
 ---
 import { Icon } from "astro-icon/components";
 import { mainNav, addBaseToMenuItems } from '../lib/nav';
+// Define the MenuItem interface locally since it's not exported from nav.ts
+interface MenuItem {
+  label: string;
+  uri: string;
+  id?: string;
+  childItems: {
+    nodes: MenuItem[];
+  };
+}
 
 const base = import.meta.env.PROD ? import.meta.env.BASE_URL : '/';
 const menuItems = addBaseToMenuItems(mainNav);
+
+// Active page detection
+const currentPath = Astro.url.pathname;
+const isActive = (itemPath: string) => {
+  if (itemPath === base && currentPath === base) return true;
+  if (itemPath !== base && currentPath.startsWith(itemPath)) return true;
+  return false;
+};
 ---
 
-<header class="mt-6 max-w-6xl w-11/12 mx-auto border-b pb-4 border-umichblue dark:border-white h-16 flex justify-between items-center min-w-[200px]">
+<header class="mt-6 max-w-6xl w-11/12 mx-auto border-b pb-4 border-umichblue dark:border-white h-16 flex justify-between items-center min-w-[200px] relative z-30">
 
   <!-- Left Logo -->
   <div class="ml-2 self-end md:ml-0">
@@ -17,116 +34,152 @@ const menuItems = addBaseToMenuItems(mainNav);
 
   <!-- Mobile Menu (details/summary) -->
   <details class="md:hidden">
-    <summary class="mt-2 text-2xl sm:text-3xl text-umichblue mr-2 dark:text-maize list-none">&#9776;</summary>
-       <nav class="absolute inset-x-0 top-24 border-b-8 border-maize border-double bg-gray-100 z-40 dark:bg-gray-700 pb-8">
-        <ul class="flex mx-auto list-none flex-col items-center w-11/12">
-            {menuItems.map((menuItem) => (
+    <summary class="mt-2 text-2xl sm:text-3xl text-umichblue mr-2 dark:text-maize list-none cursor-pointer" aria-label="Toggle navigation menu">&#9776;</summary>
+       <nav class="absolute left-0 right-0 w-full top-[72px] border-b-8 border-maize border-double bg-gray-100 z-40 dark:bg-gray-700 pb-8" aria-label="Mobile navigation">
+        <ul class="flex w-full list-none flex-col items-stretch px-4">
+            {menuItems.map((menuItem: MenuItem) => {
+              const isMenuItemActive = isActive(menuItem.uri);
+              return (
                 <li class="w-full dark:text-white">
-                    <div class="flex items-center">
+                    <div class="flex items-center justify-between">
                         <a href={menuItem.uri || '/'} 
-                           class="grow pl-2 pr-4 py-3 hover:underline hover:decoration-maize hover:decoration-2"
-                           aria-label={menuItem.label}>
+                           class={`pl-4 pr-4 py-3 hover:underline hover:decoration-maize hover:decoration-2 ${isMenuItemActive ? 'text-umichblue dark:text-maize' : ''}`}
+                           aria-label={menuItem.label}
+                           aria-current={isMenuItemActive ? 'page' : undefined}>
                             {menuItem.label}
                         </a>
                         {menuItem.childItems.nodes.length > 0 && (
                             <div>
-                             <button class="px-2 py-2 text-umichblue dark:text-maize  hover:bg-gray-300 dark:hover:bg-gray-500 rounded-md border border-gray-500 dark:border-gray-500 mr-1"
-        onclick="const details = this.closest('li').querySelector('details'); details.open = !details.open; this.querySelector('.arrow').classList.toggle('rotate-180')">
-    <span class="arrow transform transition-transform duration-200">▼</span>
-</button>
+                             <button class="px-2 py-2 text-umichblue dark:text-maize hover:bg-gray-300 dark:hover:bg-gray-500 rounded-md border border-gray-500 dark:border-gray-500 mr-1"
+                                    onclick="const details = this.closest('li').querySelector('details'); details.open = !details.open; this.querySelector('.arrow').classList.toggle('rotate-180')"
+                                    aria-label={`Expand ${menuItem.label} submenu`}
+                                    aria-expanded="false">
+                                <span class="arrow transform transition-transform duration-200">▼</span>
+                             </button>
                             </div>
                         )}
                     </div>
                     {menuItem.childItems.nodes.length > 0 && (
                         <details class="w-full">
                             <summary class="hidden">Toggle Menu</summary>
-                            <ul class="pl-6 bg-gray-50 dark:bg-gray-800">
-                                {menuItem.childItems.nodes.map((childItem) => (
+                            <ul class="pl-0 pr-0 w-full bg-gray-50 dark:bg-gray-800">
+                                {menuItem.childItems.nodes.map((childItem: MenuItem) => {
+                                  const isChildItemActive = isActive(childItem.uri);
+                                  return (
                                     <li>
-                                        <div class="flex items-center">
+                                        <div class="flex items-center justify-between">
                                             <a href={childItem.uri || '/'} 
-                                               class="grow pl-0 pr-4 py-3 hover:underline hover:decoration-maize hover:decoration-2"
-                                               aria-label={childItem.label}>
+                                               class={`pl-8 pr-4 py-3 hover:underline hover:decoration-maize hover:decoration-2 ${isChildItemActive ? 'text-umichblue dark:text-maize' : ''}`}
+                                               aria-label={childItem.label}
+                                               aria-current={isChildItemActive ? 'page' : undefined}>
                                                 {childItem.label}
                                             </a>
                                             {childItem.childItems.nodes.length > 0 && (
                                                 <div>
-                                                   <button class="px-2 py-2 text-umichblue dark:text-maize  hover:bg-gray-300 dark:hover:bg-gray-500 rounded-md border border-gray-500 dark:border-gray-500 mr-1"
-        onclick="const details = this.closest('li').querySelector('details'); details.open = !details.open; this.querySelector('.arrow').classList.toggle('rotate-180')">
-    <span class="arrow transform transition-transform rotate-180 duration-200">▲</span>
-</button>
+                                                   <button class="px-2 py-2 text-umichblue dark:text-maize hover:bg-gray-300 dark:hover:bg-gray-500 rounded-md border border-gray-500 dark:border-gray-500 mr-1"
+                                                           onclick="const details = this.closest('li').querySelector('details'); details.open = !details.open; this.querySelector('.arrow').classList.toggle('rotate-180')"
+                                                           aria-label={`Expand ${childItem.label} submenu`}
+                                                           aria-expanded="false">
+                                                      <span class="arrow transform transition-transform duration-200">▼</span>
+                                                   </button>
                                                 </div>
                                             )}
                                         </div>
                                         {childItem.childItems.nodes.length > 0 && (
                                             <details>
                                                 <summary class="hidden">Toggle Submenu</summary>
-                                                <ul class="pl-0 bg-gray-50 dark:bg-gray-800">
-                                                    {childItem.childItems.nodes.map((grandChildItem) => (
+                                                <ul class="pl-0 pr-0 w-full bg-gray-50 dark:bg-gray-800">
+                                                    {childItem.childItems.nodes.map((grandChildItem: MenuItem) => {
+                                                      const isGrandChildItemActive = isActive(grandChildItem.uri);
+                                                      return (
                                                         <li>
                                                             <a href={grandChildItem.uri || '/'} 
-                                                               class="block px-4 py-3 hover:underline hover:decoration-maize hover:decoration-2"
-                                                               aria-label={grandChildItem.label}>
+                                                               class={`block pl-12 pr-4 py-3 hover:underline hover:decoration-maize hover:decoration-2 ${isGrandChildItemActive ? 'text-umichblue dark:text-maize' : ''}`}
+                                                               aria-label={grandChildItem.label}
+                                                               aria-current={isGrandChildItemActive ? 'page' : undefined}>
                                                                 {grandChildItem.label}
                                                             </a>
                                                         </li>
-                                                    ))}
+                                                      );
+                                                    })}
                                                 </ul>
                                             </details>
                                         )}
                                     </li>
-                                ))}
+                                  );
+                                })}
                             </ul>
                         </details>
                     )}
                 </li>
-            ))}
+              );
+            })}
         </ul>
     </nav>
 </details>
 
   <!-- Desktop Nav -->
-  <nav class="hidden md:flex self-end items-center justify-end z-[11]">
+  <nav class="hidden md:flex self-end items-center justify-end z-[11]" aria-label="Main navigation">
     <ul class="flex m-0 p-0 list-none">
-        {menuItems.map((menuItem) => (
-            <li class="ml-5 relative group">
+        {menuItems.map((menuItem: MenuItem, index: number) => {
+          const isMenuItemActive = isActive(menuItem.uri);
+          const isLastItem = index === menuItems.length - 1;
+          
+          return (
+            <li class={`ml-5 relative group ${isLastItem ? 'last-item' : ''}`}>
                 <a href={menuItem.uri || '/'} 
-                   class="block group-hover:underline underline-offset-4 group-hover:decoration-maize group-hover:decoration-2"
-                   aria-label={menuItem.label}>
+                   class={`block group-hover:underline underline-offset-4 group-hover:decoration-maize group-hover:decoration-2 ${isMenuItemActive ? 'text-umichblue dark:text-maize' : ''}`}
+                   aria-label={menuItem.label}
+                   aria-current={isMenuItemActive ? 'page' : undefined}
+                   aria-expanded={menuItem.childItems.nodes.length > 0 ? "false" : undefined}
+                   aria-haspopup={menuItem.childItems.nodes.length > 0 ? "true" : undefined}>
                     {menuItem.label}
                 </a>
                 {menuItem.childItems.nodes.length > 0 && (
-                    <div class="hidden group-hover:block absolute left-0 mt-2 min-w-[180px]">
-                        <ul class="bg-gray-100 dark:bg-gray-500 border border-maize rounded-sm">
-                            <li class="triangle"></li>
-                            {menuItem.childItems.nodes.map((childItem) => (
+                    <div class={`hidden group-hover:block absolute mt-2 min-w-[180px] ${isLastItem ? 'right-0' : 'left-0'}`} role="menu">
+                        <ul class="bg-gray-100 dark:bg-gray-500 border border-maize rounded-sm shadow-lg">
+                            <li class={`triangle ${isLastItem ? 'triangle-right-aligned' : ''}`} aria-hidden="true"></li>
+                            {menuItem.childItems.nodes.map((childItem: MenuItem) => {
+                              const isChildItemActive = isActive(childItem.uri);
+                              return (
                                 <li class="relative group/child">
                                     <a href={childItem.uri || '/'} 
-                                       class="block px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-600 group-hover/child:underline underline-offset-4 group-hover/child:decoration-maize group-hover/child:decoration-2"
-                                       aria-label={childItem.label}>
+                                       class={`block px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-600 group-hover/child:underline underline-offset-4 group-hover/child:decoration-maize group-hover/child:decoration-2 ${isChildItemActive ? 'text-umichblue dark:text-maize' : ''}`}
+                                       aria-label={childItem.label}
+                                       aria-current={isChildItemActive ? 'page' : undefined}
+                                       aria-expanded={childItem.childItems.nodes.length > 0 ? "false" : undefined}
+                                       aria-haspopup={childItem.childItems.nodes.length > 0 ? "true" : undefined}
+                                       role="menuitem">
                                         {childItem.label}
                                     </a>
                                     {childItem.childItems.nodes.length > 0 && (
-                                        <ul class="hidden group-hover/child:block absolute left-full top-0 ml-1 min-w-[200px] bg-gray-100 dark:bg-gray-500 border border-maize rounded-sm">
-                                            <li class="triangle-right"></li>
-                                            {childItem.childItems.nodes.map((grandChildItem) => (
+                                        <ul class={`hidden group-hover/child:block absolute top-0 ml-1 min-w-[200px] bg-gray-100 dark:bg-gray-500 border border-maize rounded-sm shadow-lg ${isLastItem ? 'right-full' : 'left-full'}`} role="menu">
+                                            <li class={`${isLastItem ? 'triangle-left' : 'triangle-right'}`} aria-hidden="true"></li>
+                                            {childItem.childItems.nodes.map((grandChildItem: MenuItem) => {
+                                              const isGrandChildItemActive = isActive(grandChildItem.uri);
+                                              return (
                                                 <li>
                                                     <a href={grandChildItem.uri || '/'} 
-                                                       class="block px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-600 hover:underline underline-offset-4 hover:decoration-maize hover:decoration-2"
-                                                       aria-label={grandChildItem.label}>
+                                                       class={`block px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-600 hover:underline underline-offset-4 hover:decoration-maize hover:decoration-2 ${isGrandChildItemActive ? 'text-umichblue dark:text-maize' : ''}`}
+                                                       aria-label={grandChildItem.label}
+                                                       aria-current={isGrandChildItemActive ? 'page' : undefined}
+                                                       role="menuitem">
                                                         {grandChildItem.label}
                                                     </a>
                                                 </li>
-                                            ))}
+                                              );
+                                            })}
                                         </ul>
                                     )}
                                 </li>
-                            ))}
+                              );
+                            })}
                         </ul>
                     </div>
                 )}
             </li>
-        ))}
+          );
+        })}
     </ul>
 </nav>
 
@@ -134,6 +187,15 @@ const menuItems = addBaseToMenuItems(mainNav);
 
 <style>
 @reference "../styles/global.css";
+
+/* Prevent horizontal overflow */
+header {
+  overflow-x: visible;
+}
+
+body {
+  overflow-x: hidden;
+}
 
 nav ul li {
   margin-bottom: 0;
@@ -159,8 +221,17 @@ nav ul li {
     .group > div {
       pointer-events: auto;
       margin-top: 2px;
+    }
+    
+    /* Center-align dropdown for normal menu items */
+    .group:not(.last-item) > div {
       left: 50%;
       transform: translateX(-50%);
+    }
+    
+    /* Right-align dropdown for last menu item */
+    .last-item > div {
+      right: 0;
     }
     
     .group > div > ul {
@@ -187,6 +258,12 @@ nav ul li {
       border-top: 12px solid var(--color-maize);
     }
     
+    /* Right-aligned triangle for last items */
+    .triangle-right-aligned {
+      left: auto;
+      right: 0px;
+    }
+    
     .triangle-right {
       position: absolute;
       top: 10px;
@@ -198,14 +275,43 @@ nav ul li {
       border-bottom: 9px solid transparent;
       border-left: 9px solid var(--color-maize);
     }
+    
+    /* Left-pointing triangle for right-aligned submenus */
+    .triangle-left {
+      position: absolute;
+      top: 10px;
+      right: -6px;
+      z-index: 100;
+      width: 0;
+      height: 0;
+      border-top: 9px solid transparent;
+      border-bottom: 9px solid transparent;
+      border-right: 9px solid var(--color-maize);
+    }
+    
+    /* Improve focus styles for keyboard navigation */
+    a:focus-visible {
+      outline: 2px solid var(--color-maize);
+      outline-offset: 2px;
+    }
 }
 
   /* Mobile Menu Styling */
   @media (max-width: 767px) {
+    /* Ensure mobile menu spans full width */
+    details[open] nav {
+      width: 100vw;
+      left: 0;
+      right: 0;
+      margin-left: calc(-50vw + 50%);
+      margin-right: calc(-50vw + 50%);
+      box-sizing: border-box;
+    }
+    
     /* Menu item with dropdown */
     .mobile-menu-item {
       display: flex;
-      items-align: center;
+      align-items: center; /* Fix for items-align which is not valid */
       justify-content: space-between;
       border-bottom: 1px solid var(--border-gray-200);
     }
@@ -255,9 +361,48 @@ nav ul li {
     /* Remove default arrow from details */
     details > summary {
       list-style: none;
+      cursor: pointer;
     }
     details > summary::-webkit-details-marker {
       display: none;
     }
+    
+    /* Improve focus styles for keyboard navigation */
+    a:focus-visible, button:focus-visible, summary:focus-visible {
+      outline: 2px solid var(--color-maize);
+      outline-offset: 2px;
+    }
   }
 </style>
+
+<script>
+  // Update aria-expanded attribute when dropdown toggles
+  document.addEventListener('DOMContentLoaded', () => {
+    const dropdownButtons = document.querySelectorAll('button[aria-expanded]');
+    dropdownButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const isExpanded = button.getAttribute('aria-expanded') === 'true';
+        button.setAttribute('aria-expanded', isExpanded ? 'false' : 'true');
+      });
+    });
+    
+    // Handle keyboard navigation for desktop menu
+    const menuItems = document.querySelectorAll('.group > a[aria-haspopup="true"]');
+    menuItems.forEach(item => {
+      item.addEventListener('keydown', (e) => {
+        // Type assertion for KeyboardEvent
+        const keyEvent = e as KeyboardEvent;
+        if (keyEvent.key === 'Enter' || keyEvent.key === ' ' || keyEvent.key === 'ArrowDown') {
+          e.preventDefault();
+          const dropdown = item.nextElementSibling;
+          if (dropdown) {
+            dropdown.classList.add('block');
+            dropdown.classList.remove('hidden');
+            const firstLink = dropdown.querySelector('a');
+            if (firstLink) firstLink.focus();
+          }
+        }
+      });
+    });
+  });
+</script>
