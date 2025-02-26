@@ -44,6 +44,9 @@
   /* Z-Index */
   --z-100: 100;
 
+  /* Focus Styles */
+  --focus-ring-color-light: var(--color-umichblue);
+  --focus-ring-color-dark: #ffffff;
 }
 
 @layer base {
@@ -55,6 +58,20 @@
   }
   h1, h2, h3, .font-roboto {
     font-display: swap;
+  }
+  
+  /* Global focus styles for keyboard navigation */
+  :focus-visible {
+    outline: 2px solid var(--focus-ring-color-light);
+    outline-offset: 2px;
+  }
+  
+  /* Dark mode focus styles */
+  @media (prefers-color-scheme: dark) {
+    :focus-visible {
+      outline: 2px solid var(--focus-ring-color-dark);
+      outline-offset: 2px;
+    }
   }
 }
 

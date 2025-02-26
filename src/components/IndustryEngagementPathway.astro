@@ -131,6 +131,7 @@ function getHrClass(level: string) {
               tabindex="0"
               aria-expanded="false"
               aria-controls={`content-${point.title.toLowerCase().replace(/\s+/g, '-')}`}
+              aria-haspopup="true"
             >
               <div class={`engagement-point-content rounded-lg shadow-sm p-4 border border-gray-100 dark:border-gray-700 dark:bg-gray-800 ${level === 'Initial' ? 'bg-maize/5' : ''} ${level === 'Mid-Level' ? 'bg-taubmanTeal/10' : ''} ${level === 'Advanced' ? 'bg-arboretumBlue/10' : ''}`}>
                 <div class="flex items-start gap-3">
@@ -189,7 +190,8 @@ function getHrClass(level: string) {
     cursor: pointer;
   }
   .engagement-point:hover .engagement-point-content,
-  .engagement-point.expanded .engagement-point-content {
+  .engagement-point.expanded .engagement-point-content,
+  .engagement-point:focus-within .engagement-point-content {
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   }
   .engagement-point-media {
@@ -199,7 +201,8 @@ function getHrClass(level: string) {
     transition: max-height 0.3s ease, opacity 0.3s ease;
   }
   .engagement-point:hover .engagement-point-media,
-  .engagement-point.expanded .engagement-point-media {
+  .engagement-point.expanded .engagement-point-media,
+  .engagement-point:focus-within .engagement-point-media {
     max-height: 400px;
     opacity: 1;
   }
@@ -234,8 +237,10 @@ function getHrClass(level: string) {
   /* Keep focus outline for keyboard navigation on desktop */
   @media (hover: hover) {
     .engagement-point:focus-within {
-      outline: 2px solid #007bff;
+      outline: 2px solid var(--focus-ring-color-light);
       outline-offset: 2px;
+      position: relative;
+      z-index: 10; /* Ensure focused item appears above others */
     }
   }
 
@@ -252,6 +257,16 @@ function getHrClass(level: string) {
     .hr-advanced {
       background: linear-gradient(to right, #2F65A7, transparent);
     }
+    
+    /* Dark mode focus style */
+    @media (hover: hover) {
+      .engagement-point:focus-within {
+        outline: 2px solid var(--focus-ring-color-dark);
+        outline-offset: 2px;
+        position: relative;
+        z-index: 10; /* Ensure focused item appears above others */
+      }
+    }
   }
 </style>
 
@@ -260,12 +275,12 @@ function getHrClass(level: string) {
     let isExpanded = false;
     const isMobile = window.matchMedia('(hover: none)').matches;
 
-    // Handle click/tap events
-    point.addEventListener('click', function(this: HTMLElement, e: Event) {
-      if (!isMobile) return;
-      
-      e.preventDefault();
-      e.stopPropagation();
+    // Function to toggle expansion state
+    const toggleExpansion = function(this: HTMLElement, e?: Event) {
+      if (e) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
       
       const mediaContent = this.querySelector('.engagement-point-media') as HTMLElement;
       
@@ -294,6 +309,19 @@ function getHrClass(level: string) {
           }
         }
       });
+    };
+
+    // Handle click/tap events
+    point.addEventListener('click', function(this: HTMLElement, e: Event) {
+      if (!isMobile) return;
+      toggleExpansion.call(this, e);
+    });
+
+    // Add keyboard support for Enter key
+    point.addEventListener('keydown', function(this: HTMLElement, e: KeyboardEvent) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        toggleExpansion.call(this, e);
+      }
     });
 
     // Desktop hover behavior

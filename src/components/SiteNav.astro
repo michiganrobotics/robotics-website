@@ -291,10 +291,18 @@ nav ul li {
     
     /* Improve focus styles for keyboard navigation */
     a:focus-visible {
-      outline: 2px solid var(--color-maize);
+      outline: 2px solid var(--focus-ring-color-light);
       outline-offset: 2px;
     }
 }
+
+  /* Dark mode focus styles */
+  @media (prefers-color-scheme: dark) {
+    a:focus-visible {
+      outline: 2px solid var(--focus-ring-color-dark);
+      outline-offset: 2px;
+    }
+  }
 
   /* Mobile Menu Styling */
   @media (max-width: 767px) {
@@ -373,7 +381,15 @@ nav ul li {
     
     /* Improve focus styles for keyboard navigation */
     a:focus-visible, button:focus-visible, summary:focus-visible {
-      outline: 2px solid var(--color-maize);
+      outline: 2px solid var(--focus-ring-color-light);
+      outline-offset: 2px;
+    }
+  }
+  
+  /* Dark mode focus styles for mobile */
+  @media (prefers-color-scheme: dark) and (max-width: 767px) {
+    a:focus-visible, button:focus-visible, summary:focus-visible {
+      outline: 2px solid var(--focus-ring-color-dark);
       outline-offset: 2px;
     }
   }

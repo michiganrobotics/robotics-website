@@ -104,12 +104,35 @@ const { image, imageAlt, title = '', subtitle, name, role, website, location, zo
       const expandIcon = profile.querySelector('[data-expand-icon]') as HTMLElement;
       
       if (button && content && expandIcon) {
-        button.addEventListener('click', () => {
+        // Function to toggle expansion state
+        const toggleExpansion = () => {
           const isExpanded = button.getAttribute('aria-expanded') === 'true';
-          button.setAttribute('aria-expanded', (!isExpanded).toString());
+          const newExpandedState = !isExpanded;
+          
+          button.setAttribute('aria-expanded', newExpandedState.toString());
           content.classList.toggle('hidden');
-          expandIcon.style.transform = isExpanded ? '' : 'rotate(180deg)';
+          
+          // Properly toggle the rotation based on expanded state
+          expandIcon.style.transform = newExpandedState ? 'rotate(180deg)' : '';
+        };
+        
+        // Handle click events
+        button.addEventListener('click', toggleExpansion);
+        
+        // Add keyboard support for Enter key
+        button.addEventListener('keydown', (e) => {
+          const keyEvent = e as KeyboardEvent;
+          if (keyEvent.key === 'Enter' || keyEvent.key === ' ') {
+            e.preventDefault();
+            toggleExpansion();
+          }
         });
+        
+        // Set initial state based on aria-expanded attribute
+        const initialExpanded = button.getAttribute('aria-expanded') === 'true';
+        if (initialExpanded) {
+          expandIcon.style.transform = 'rotate(180deg)';
+        }
       }
     });
   }

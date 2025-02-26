@@ -194,16 +194,18 @@ const videoWebmPath = '/robotics-promo-2025-2.webm';
 							href: "/people"
 						}
 					].map(item => (
-						<figure class="group min-w-[50%] md:min-w-[auto] flex-auto relative max-w-md overflow-hidden rounded-sm shadow-md hover:shadow-lg transition-all duration-300">
+						<figure class="group min-w-[50%] md:min-w-[auto] flex-auto relative max-w-md rounded-sm shadow-md hover:shadow-lg transition-all duration-300">
 							<Link href={item.href} class="block">
-								<Image 
-									src={item.image}
-									alt={item.alt}
-									width={450}
-									height={192}
-									class="w-full h-auto md:h-auto object-cover aspect-[2/1] md:aspect-auto transition-all duration-500 group-hover:scale-105"
-									loading="lazy"
-								/>
+								<div class="overflow-hidden">
+									<Image 
+										src={item.image}
+										alt={item.alt}
+										width={450}
+										height={192}
+										class="w-full h-auto md:h-auto object-cover aspect-[2/1] md:aspect-auto transition-all duration-500 group-hover:scale-105"
+										loading="lazy"
+									/>
+								</div>
 								<div class="absolute inset-x-0 bottom-0 bg-rackhamGreen/90 p-4">
 									<h3 class="text-lg font-bold leading-tight text-white">
 										{item.title}
