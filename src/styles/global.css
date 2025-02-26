@@ -105,3 +105,13 @@ nav ul li.ml-5 > div > ul > li > ul {
   margin-top: 0;
   margin-left: 4px;
 }
+
+/* Add this to your global CSS or to the <style is:global> section in MainLayout.astro */
+footer ul li {
+  margin-bottom: 1rem !important; /* This will override the prose styling */
+}
+
+/* For the last item in each list */
+footer ul li:last-child {
+  margin-bottom: 0 !important;
+}
