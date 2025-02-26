@@ -19,9 +19,9 @@ interface Props {
 const { image, imageAlt, title = '', subtitle, name, role, website, location, zoomUrl, isExpanded = false } = Astro.props;
 ---
 
-<div class="seminar-profile my-6 border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
+<div class="seminar-profile my-6 border border-gray-200 dark:border-gray-700 rounded-lg overflow-visible">
   <button 
-    class="w-full text-left p-4 bg-gray-50 dark:bg-gray-800 hover:bg-blue-50 dark:hover:bg-gray-600 transition-colors cursor-pointer flex flex-wrap items-center"
+    class="w-full text-left p-4 bg-gray-50 dark:bg-gray-800 hover:bg-blue-50 dark:hover:bg-gray-600 transition-colors cursor-pointer flex flex-wrap items-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-arboretumBlue dark:focus-visible:ring-maize focus-visible:ring-offset-2 dark:focus-visible:ring-offset-gray-900 relative z-10"
     aria-expanded={isExpanded}
     data-seminar-button
   >
