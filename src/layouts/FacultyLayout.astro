@@ -11,27 +11,24 @@ const { faculty } = Astro.props;
 
 
 // Get all profile images with absolute paths
-const images = import.meta.glob('/src/images/profile-images/*.{png,jpg,jpeg,gif,webp}');
+const images = import.meta.glob<any>('/src/images/profile-images/*.{png,jpg,jpeg,gif,webp}');
 const robotProfile = await import('../images/profile-images/robot-profile.jpg');
 
 // Get profile image
-let profileImage = robotProfile; // Default to robot profile
+let profileImage: any = robotProfile; // Default to robot profile
 let imagePath;
 
 try {
   imagePath = getProfileImagePath(faculty);
   const imageLoader = images[imagePath];
   if (imageLoader) {
-    const loadedImage = await imageLoader();
-    if (loadedImage && loadedImage.default) {
-      profileImage = loadedImage;
-    }
+    profileImage = await imageLoader();
   }
 } catch (error) {
   console.error('Error in image processing:', {
     faculty: faculty.fullName,
     imagePath,
-    error: error.message
+    error: error instanceof Error ? error.message : String(error)
   });
 }
 
@@ -78,7 +75,6 @@ const relatedPosts = [...allNamedPosts, ...formattedCollegeNews]
 <Layout 
   title={faculty?.preferredName && faculty?.lastName ? `${faculty.preferredName} ${faculty.lastName} | Robotics Faculty Profile` : 'Faculty Profile' } 
   image={profileImage?.default?.src || robotProfile.default.src} 
-  imageAlt={faculty.fullName} 
   description={`Learn more about Michigan Robotics faculty member ${faculty.fullName}.`}
 >
   <Breadcrumbs />
@@ -177,14 +173,14 @@ const relatedPosts = [...allNamedPosts, ...formattedCollegeNews]
               }) : null;
 
               return (
-              <div class="group bg-white dark:bg-gray-900 rounded-sm overflow-hidden shadow-lg">
+              <div class="group bg-white dark:bg-gray-900 rounded-sm shadow-lg">
                 <Link 
                   href={getPostLink(post)}
-                  class="group"
+                  class="group block overflow-hidden rounded-sm"
                   target={isCollegeNews(post) ? '_blank' : undefined}
                   rel={isCollegeNews(post) ? 'noopener noreferrer' : undefined}
                 >
-                  <div class="relative aspect-video overflow-hidden rounded-sm shadow-lg not-prose">
+                  <div class="relative aspect-video overflow-hidden shadow-lg not-prose">
                     {postImage ? (
                       <Image 
                         src={postImage.src}
