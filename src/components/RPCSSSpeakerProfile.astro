@@ -46,7 +46,7 @@ const { image, imageAlt, title = '', subtitle, name, role, website, isExpanded =
     )}
     <div class="shrink-0 ml-auto">
       <svg 
-        class="expand-icon w-6 h-6 transform transition-transform duration-200 text-arboretumBlue dark:text-maize" 
+        class="chevron-icon w-6 h-6 text-arboretumBlue dark:text-maize"
         fill="none" 
         stroke="currentColor" 
         viewBox="0 0 24 24"
@@ -97,19 +97,41 @@ const { image, imageAlt, title = '', subtitle, name, role, website, isExpanded =
     profiles.forEach(profile => {
       const button = profile.querySelector('[data-speaker-button]');
       const content = profile.querySelector('[data-content]');
-      const expandIcon = profile.querySelector('[data-expand-icon]') as HTMLElement;
+      const expandIcon = profile.querySelector('[data-expand-icon]');
       
       if (button && content && expandIcon) {
+        // Cast profile to HTMLElement to access dataset
+        const profileEl = profile as HTMLElement;
+        
+        // Track state with a custom data attribute
+        profileEl.dataset.state = button.getAttribute('aria-expanded') === 'true' ? 'expanded' : 'collapsed';
+        
+        // Set initial state based on data-state
+        if (profileEl.dataset.state === 'expanded') {
+          expandIcon.classList.add('rotated');
+        } else {
+          expandIcon.classList.remove('rotated');
+        }
+        
         // Function to toggle expansion state
         const toggleExpansion = () => {
-          const isExpanded = button.getAttribute('aria-expanded') === 'true';
-          const newExpandedState = !isExpanded;
+          // Get current state from our data attribute
+          const currentState = profileEl.dataset.state;
           
-          button.setAttribute('aria-expanded', newExpandedState.toString());
-          content.classList.toggle('hidden');
-          
-          // Properly toggle the rotation based on expanded state
-          expandIcon.style.transform = newExpandedState ? 'rotate(180deg)' : '';
+          // Toggle the state
+          if (currentState === 'collapsed') {
+            // Opening
+            profileEl.dataset.state = 'expanded';
+            button.setAttribute('aria-expanded', 'true');
+            content.classList.remove('hidden');
+            expandIcon.classList.add('rotated');
+          } else {
+            // Closing
+            profileEl.dataset.state = 'collapsed';
+            button.setAttribute('aria-expanded', 'false');
+            content.classList.add('hidden');
+            expandIcon.classList.remove('rotated');
+          }
         };
         
         // Handle click events
@@ -123,12 +145,6 @@ const { image, imageAlt, title = '', subtitle, name, role, website, isExpanded =
             toggleExpansion();
           }
         });
-        
-        // Set initial state based on aria-expanded attribute
-        const initialExpanded = button.getAttribute('aria-expanded') === 'true';
-        if (initialExpanded) {
-          expandIcon.style.transform = 'rotate(180deg)';
-        }
       }
     });
   }
@@ -141,7 +157,16 @@ const { image, imageAlt, title = '', subtitle, name, role, website, isExpanded =
 </script>
 
 <style>
-  .expand-icon {
-    transition: transform 0.2s ease-in-out;
+  .chevron-icon {
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .rotated {
+    transform: rotate(180deg) !important;
+  }
+  
+  /* Reset to ensure no rotation by default */
+  [data-expand-icon]:not(.rotated) {
+    transform: rotate(0deg) !important;
   }
 </style> 
