@@ -50,14 +50,48 @@
 }
 
 @layer base {
+  /* Loading state styles */
+  html.is-loading *:not(.preload-visible) {
+    visibility: hidden;
+  }
+  html.is-loading .preload-visible,
+  html.is-loading * .preload-visible {
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
   html {
+    visibility: visible;
+    opacity: 1;
+    transition: opacity;
     font-display: swap;
   }
+  
   header {
     min-height: 4rem;
   }
+  
   h1, h2, h3, .font-roboto {
     font-display: swap;
+  }
+  
+  /* Pre-define spaces for text elements that use custom fonts */
+  h1, h2, h3, .text-4xl {
+    text-wrap: balance;
+    min-height: 1.2em;
+  }
+  
+  /* Figure and image styling */
+  figure {
+    @apply my-4;
+  }
+  figure.aspect-video {
+    @apply mb-4;
+  }
+  figure img {
+    @apply w-full rounded-sm shadow-md;
+  }
+  .prose img {
+    @apply mb-0;
   }
   
   /* Global focus styles for keyboard navigation */
