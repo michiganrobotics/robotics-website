@@ -369,17 +369,17 @@ const sectionIcons = {
       </h2>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
         <a href="https://deptapps.engin.umich.edu/order/index/newform?dept=210308" 
-           class="flex items-center text-gray-900 dark:text-white hover:text-arboretumBlue dark:hover:text-taubmanTeal">
+           class="flex items-center text-gray-900 dark:text-white">
           <Icon name="mdi:cart" class="w-4 h-4 mr-2 text-arboretumBlue dark:text-taubmanTeal" />
           OPS Purchase Request Form
         </a>
         <a href="https://deptapps.engin.umich.edu/scheduling/?dept=210308" 
-           class="flex items-center text-gray-900 dark:text-white hover:text-arboretumBlue dark:hover:text-taubmanTeal">
+           class="flex items-center text-gray-900 dark:text-white">
           <Icon name="mdi:calendar" class="w-4 h-4 mr-2 text-arboretumBlue dark:text-taubmanTeal" />
           Room Reservations
         </a>
         <a href="mailto:IT-Help-Robotics@umich.edu" 
-           class="flex items-center text-gray-900 dark:text-white hover:text-arboretumBlue dark:hover:text-taubmanTeal">
+           class="flex items-center text-gray-900 dark:text-white">
           <Icon name="mdi:help" class="w-4 h-4 mr-2 text-arboretumBlue dark:text-taubmanTeal" />
           IT Help
         </a>
@@ -399,7 +399,7 @@ const sectionIcons = {
               <li class="resource-item" data-search-terms={link.searchTerms || ''}>
                 {link.url ? (
                   <a href={link.url} 
-                     class="text-gray-900 dark:text-white hover:text-arboretumBlue dark:hover:text-taubmanTeal flex items-start" 
+                     class="text-gray-900 dark:text-white flex items-start" 
                      target="_blank">
                     <Icon name="mdi:arrow-right" class="w-4 h-4 mr-1 text-arboretumBlue dark:text-taubmanTeal mt-1" />
                     {link.text}
@@ -414,7 +414,7 @@ const sectionIcons = {
                       {link.description.includes('@') ? (
                         <>
                           Email: <a href={`mailto:${link.description.split(': ')[1]}`} 
-                            class="text-gray-900 dark:text-white hover:text-arboretumBlue dark:hover:text-taubmanTeal">
+                            class="text-gray-900 dark:text-white hover:text-arboretumBlue ">
                             {link.description.split(': ')[1]}
                           </a>
                         </>
