@@ -22,7 +22,7 @@ const projectsDatasets = await getProjectsDatasets();
                 class="p-2 border border-gray-300 rounded-lg w-full bg-white dark:bg-gray-700 dark:border-gray-600 dark:text-white"
               />
             </div>
-            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-200">
+            <table class="w-full text-sm text-left text-gray-800 dark:text-gray-200">
               <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-200">
                 <tr>
                   <th scope="col" class="px-6 py-3 cursor-pointer" data-sort="name">
@@ -43,7 +43,6 @@ const projectsDatasets = await getProjectsDatasets();
                   <tr class="bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                     <th scope="row" class="px-6 py-4">
                       <a href={projectDataset.projectLink} 
-                         class="text-umichblue underline hover:text-umichblue/80 dark:text-blue-400 dark:hover:text-blue-400/80"
                          aria-label={`View project/dataset: ${projectDataset.projectName}`}>
                         {projectDataset.projectName}
                       </a>

@@ -88,12 +88,12 @@ const focusAreas = await getCollection('focusAreas');
 <div class="mt-4 mb-4 max-w-6xl w-11/12 mx-auto">
     <div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-8">
       <section>
-        <h2 class="text-3xl font-roboto-condensed font-bold mb-4 text-umichblue dark:text-white">Our mission</h2>
+        <h2 class="text-3xl font-roboto-condensed font-bold mb-4 text-umichblue dark:text-neutral-50">Our mission</h2>
         <p class="text-xl font-semibold text-arboretumBlue dark:text-maize mb-4">Work together. Create smart machines. Serve society.</p>
         <p class="mb-4">Michigan Robotics creates and leads innovative initiatives and robust programs that elevate outcomes for both robotics and roboticists in research, academics, and society. 
         </p>
         <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md mb-6">
-          <h3 class="text-xl font-bold mb-2 text-umichblue dark:text-white">Key Facts</h3>
+          <h3 class="text-xl font-bold mb-2 text-umichblue dark:text-neutral-50">Key Facts</h3>
           <ul class="list-disc pl-5">
             <li>Originated as the Robotics Institute in 2014</li>
             <li>Ford Robotics Building completed in 2021</li>
@@ -113,10 +113,10 @@ const focusAreas = await getCollection('focusAreas');
     </div>
 
     <section class="mt-12">
-      <h2 class="text-3xl font-roboto-condensed font-bold mb-6 text-umichblue dark:text-white">Academics</h2>
+      <h2 class="text-3xl font-roboto-condensed font-bold mb-6 text-umichblue dark:text-neutral-50">Academics</h2>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
-          <h3 class="text-xl font-bold mb-2 text-umichblue dark:text-white">
+          <h3 class="text-xl font-bold mb-2 text-umichblue dark:text-neutral-50">
             <a href="/academics/undergraduate" class="flex items-center hover:underline">
               Undergraduate
               <Icon name="mdi:chevron-right" class="h-5 w-5 ml-1" />
@@ -126,7 +126,7 @@ const focusAreas = await getCollection('focusAreas');
           <p>16 alumni</p>
         </div>
         <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
-          <h3 class="text-xl font-bold mb-2 text-umichblue dark:text-white">
+          <h3 class="text-xl font-bold mb-2 text-umichblue dark:text-neutral-50">
             <a href="/academics/graduate" class="flex items-center hover:underline">
               Graduate
               <Icon name="mdi:chevron-right" class="h-5 w-5 ml-1" />
@@ -137,7 +137,7 @@ const focusAreas = await getCollection('focusAreas');
           <p>Program started in 2014</p>
         </div>
         <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
-          <h3 class="text-xl font-bold mb-2 text-umichblue dark:text-white">
+          <h3 class="text-xl font-bold mb-2 text-umichblue dark:text-neutral-50">
             <a href="/academics/courses" class="flex items-center hover:underline">
               Robotics courses
               <Icon name="mdi:chevron-right" class="h-5 w-5 ml-1" />
@@ -150,7 +150,7 @@ const focusAreas = await getCollection('focusAreas');
       </div>
     </section>
     <section class="mt-12">
-      <h2 class="text-3xl font-roboto-condensed font-bold mb-6 text-umichblue dark:text-white">
+      <h2 class="text-3xl font-roboto-condensed font-bold mb-6 text-umichblue dark:text-neutral-50">
         <a href="/research/focus-areas" class="flex items-center hover:underline">
           Research focus areas
           <Icon name="mdi:chevron-right" class="h-5 w-5 ml-1" />
@@ -159,7 +159,7 @@ const focusAreas = await getCollection('focusAreas');
       <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
         {focusAreas.map((area) => (
           <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-shadow hover:scale-105">
-            <a href={`/research/focus-areas/${area.id}`} class="block p-2">
+            <a href={`/research/focus-areas/${area.id}`} class="block p-2 underline-hover-only">
               <Image
                 src={area.data.image?.src}
                 alt={`${area.data.title} research`}
@@ -175,27 +175,27 @@ const focusAreas = await getCollection('focusAreas');
     </section>
 
     <section class="mt-12">
-      <h2 class="text-3xl font-roboto-condensed font-bold mb-6 text-umichblue dark:text-white">Impact and innovation</h2>
+      <h2 class="text-3xl font-roboto-condensed font-bold mb-6 text-umichblue dark:text-neutral-50">Impact and innovation</h2>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div>
-            <h3 class="text-xl font-bold mb-4 text-umichblue dark:text-white">Open-source projects</h3>
+            <h3 class="text-xl font-bold mb-4 text-umichblue dark:text-neutral-50">Open-source projects</h3>
             <p class="mb-4">Michigan researchers regularly publish and share their work with the community, including:</p>
             <ul class="list-disc pl-5 pb-4">
-              <li><a href="https://mbot.robotics.umich.edu/" class="text-arboretumBlue dark:text-maize hover:underline">MBot</a>: an educational robot platform, more than 300 of are used by our undergrad and grad students</li>
-              <li><a href="https://opensourceleg.org/" class="text-arboretumBlue dark:text-maize hover:underline">Open-Source Leg</a>: a bionic prosthetic leg</li>
-              <li><a href="https://robotics.umich.edu/research/projects-and-datasets/" class="text-arboretumBlue dark:text-maize hover:underline">Data sets</a>: from underwater sonar scans to pedestrian paths for autonomous vehicles</li>
+              <li><a href="https://mbot.robotics.umich.edu/">MBot</a>: an educational robot platform, more than 300 of are used by our undergrad and grad students</li>
+              <li><a href="https://opensourceleg.org/">Open-Source Leg</a>: a bionic prosthetic leg</li>
+              <li><a href="https://robotics.umich.edu/research/projects-and-datasets/">Data sets</a>: from underwater sonar scans to pedestrian paths for autonomous vehicles</li>
             </ul>
               <Button href="/research/projects-and-datasets/" text="Open-Source Projects" />
           </div>
         <div>
-          <h3 class="text-xl font-bold mb-4 text-umichblue dark:text-white">Engagement</h3>
+          <h3 class="text-xl font-bold mb-4 text-umichblue dark:text-neutral-50">Engagement</h3>
           <p class="mb-4">We partner with industry, academic, and community organizations through research collaborations, recruiting, and student projects.</p>
-            <Button href="/partnerships/" text="Academic & community partners" />
-          <p class="mb-4">Our <a href="/partnerships/industry" class="text-arboretumBlue dark:text-maize hover:underline">corporate engagement pathways</a> range from sponsoring student teams to establishing research centers.</p>
-          <Button href="/partnerships/industry" text="Industry engagement" />
+            <Button href="/partnerships/" text="Academic & community partners"/>
+          <p class="mb-4">Our <a href="/partnerships/industry" >corporate engagement pathways</a> range from sponsoring student teams to establishing research centers.</p>
+          <Button href="/partnerships/industry" text="Industry engagement"/>
           </div>
         <div>
-          <h3 class="text-xl font-bold mb-4 text-umichblue dark:text-white">Faculty-Led Spin-offs</h3>
+          <h3 class="text-xl font-bold mb-4 text-umichblue dark:text-neutral-50">Faculty-Led Spin-offs</h3>
           <ul class="list-disc pl-5 pb-4">
             <li>May Mobility: Driverless transit in communities</li>
             <li>Voxel51: Computer vision data and modeling</li>
@@ -210,7 +210,7 @@ const focusAreas = await getCollection('focusAreas');
     </section>
 
     <section class="mt-12">
-      <h2 class="text-3xl font-roboto-condensed font-bold mb-6 text-umichblue dark:text-white">Leadership</h2>
+      <h2 class="text-3xl font-roboto-condensed font-bold mb-6 text-umichblue dark:text-neutral-50">Leadership</h2>
       <div class="bg-white dark:bg-gray-800 rounded-sm shadow-md overflow-hidden">
 
         <!-- Photo rows -->
@@ -241,7 +241,7 @@ const focusAreas = await getCollection('focusAreas');
     </section>
 
   <section class="mt-12 mb-12">
-    <h2 class="text-3xl font-roboto-condensed font-bold mb-6 text-umichblue dark:text-white">Contact Us</h2>
+    <h2 class="text-3xl font-roboto-condensed font-bold mb-6 text-umichblue dark:text-neutral-50">Contact Us</h2>
     <div class="bg-white dark:bg-gray-800 rounded-sm shadow-md p-6">
       <p class="text-gray-600 dark:text-gray-300 mb-4">Have questions about Michigan Robotics? We'd love to hear from you.</p>
       <Button href="/about/contact" text="Get in touch" />

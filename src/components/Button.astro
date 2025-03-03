@@ -17,7 +17,7 @@ const { href, text, external = false } = Astro.props;
     whitespace-normal break-words"
     {...external ? { target: "_blank", rel: "noopener noreferrer" } : {}}
   >
-    <span class="flex-1 text-center">{text}</span>
+    <span class="no-underline flex-1 text-center">{text}</span>
     {external ? (
       <svg 
         class="flex-shrink-0 ml-2 -mr-1 w-4 h-4" 

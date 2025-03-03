@@ -67,7 +67,7 @@ if (imageLoader) {
 <Layout title={staff?.preferredName && staff?.lastName ? `${staff.preferredName} ${staff.lastName} | Robotics Staff Profile` : 'Staff Profile'} image={profileImage.default.src} description={`Learn more about Michigan Robotics staff member ${staff.fullName}.`}>
   <Breadcrumbs />
   {staff ? (
-    <main class="mt-4 max-w-4xl mx-auto py-8 px-4 font-roboto text-PumaBlack dark:text-white bg-white dark:bg-umichblue">
+    <main class="mt-4 max-w-4xl mx-auto py-8 px-4 font-roboto text-umichblue dark:text-neutral-50 bg-white dark:bg-umichblue">
       <div class="grid md:grid-cols-3 gap-8">
         <!-- Profile Photo -->
         <div class="md:col-span-1">
@@ -120,7 +120,7 @@ if (imageLoader) {
       {/* Related News Section */}
       {relatedPosts.length > 0 && (
         <div class="mt-12">
-          <h2 class="text-2xl font-bold mb-4 font-roboto-condensed dark:text-white">Related news</h2>
+          <h2 class="text-2xl font-bold mb-4 font-roboto-condensed dark:text-neutral-50">Related news</h2>
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {relatedPosts.map(async (post) => {
               const postImage = post.data.image?.src ? await getImage({

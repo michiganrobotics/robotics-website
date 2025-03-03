@@ -37,7 +37,7 @@ const profileImages = await Promise.all(
           {facultyMembers.map((faculty, index) => (
             <a
               href={`${Astro.url.pathname}/${faculty.slug}`}
-              class="block rounded-sm shadow-md hover:shadow-lg transition-all duration-200 ease-in-out hover:scale-[1.02] p-4 bg-white dark:bg-gray-800"
+              class="group no-underline block rounded-sm shadow-md hover:shadow-lg transition-all duration-200 ease-in-out hover:scale-[1.02] p-4 bg-white dark:bg-gray-800"
             >
               <Image
                 src={profileImages[index]}
@@ -52,7 +52,7 @@ const profileImages = await Promise.all(
                   (index < 12 && '2xl:hidden') ? 'eager' : 'lazy'}
                 class="w-full h-48 object-cover rounded-sm mb-3"
               />
-              <h2 class="text-lg font-bold mb-1 text-gray-900 dark:text-white">{faculty.preferredName} {faculty.lastName}</h2>
+              <h2 class="text-lg font-bold mb-1 text-umichblue dark:text-neutral-50 group-hover:underline group-hover:decoration-maize group-hover:decoration-2">{faculty.preferredName} {faculty.lastName}</h2>
               <p class="text-sm text-arboretumBlue dark:text-taubmanTeal">{faculty.title}</p>
               <p class="text-xs text-gray-600 dark:text-gray-300">{faculty.affiliation}</p>
             </a>

@@ -27,7 +27,7 @@ const isActive = (itemPath: string) => {
 
   <!-- Left Logo -->
   <div class="ml-2 self-end md:ml-0">
-    <a href={base} class="block" aria-label="Home - Michigan Robotics Logo">
+    <a href={base} class="block no-underline" aria-label="Home - Michigan Robotics Logo">
       <Icon name="roboticsLogo" class="w-32 sm:w-48 h-auto" />
     </a>
   </div>
@@ -43,7 +43,7 @@ const isActive = (itemPath: string) => {
                 <li class="w-full dark:text-white">
                     <div class="flex items-center justify-between">
                         <a href={menuItem.uri || '/'} 
-                           class={`pl-2 pr-4 py-3 hover:underline hover:decoration-maize hover:decoration-2 ${isMenuItemActive ? 'text-umichblue dark:text-maize' : ''}`}
+                           class={`pl-2 pr-4 py-3 ${isMenuItemActive ? 'text-umichblue dark:text-maize' : ''}`}
                            aria-label={menuItem.label}
                            aria-current={isMenuItemActive ? 'page' : undefined}>
                             {menuItem.label}
@@ -69,7 +69,7 @@ const isActive = (itemPath: string) => {
                                     <li>
                                         <div class="flex items-center justify-between">
                                             <a href={childItem.uri || '/'} 
-                                               class={`pl-4 pr-4 py-3 hover:underline hover:decoration-maize hover:decoration-2 ${isChildItemActive ? 'text-umichblue dark:text-maize' : ''}`}
+                                               class={`pl-4 pr-4 py-3 ${isChildItemActive ? 'text-umichblue dark:text-maize' : ''}`}
                                                aria-label={childItem.label}
                                                aria-current={isChildItemActive ? 'page' : undefined}>
                                                 {childItem.label}
@@ -94,9 +94,10 @@ const isActive = (itemPath: string) => {
                                                       return (
                                                         <li>
                                                             <a href={grandChildItem.uri || '/'} 
-                                                               class={`block pl-8 pr-4 py-3 hover:underline hover:decoration-maize hover:decoration-2 ${isGrandChildItemActive ? 'text-umichblue dark:text-maize' : ''}`}
+                                                               class={`block px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-600 ${isGrandChildItemActive ? 'text-umichblue dark:text-maize' : ''}`}
                                                                aria-label={grandChildItem.label}
-                                                               aria-current={isGrandChildItemActive ? 'page' : undefined}>
+                                                               aria-current={isGrandChildItemActive ? 'page' : undefined}
+                                                               role="menuitem">
                                                                 {grandChildItem.label}
                                                             </a>
                                                         </li>
@@ -128,7 +129,7 @@ const isActive = (itemPath: string) => {
           return (
             <li class={`ml-5 relative group ${isLastItem ? 'last-item' : ''}`}>
                 <a href={menuItem.uri || '/'} 
-                   class={`block group-hover:underline underline-offset-4 group-hover:decoration-maize group-hover:decoration-2 ${isMenuItemActive ? 'text-umichblue dark:text-maize' : ''}`}
+                   class={`block ${isMenuItemActive ? 'text-umichblue dark:text-maize' : ''}`}
                    aria-label={menuItem.label}
                    aria-current={isMenuItemActive ? 'page' : undefined}
                    aria-expanded={menuItem.childItems.nodes.length > 0 ? "false" : undefined}
@@ -144,7 +145,7 @@ const isActive = (itemPath: string) => {
                               return (
                                 <li class="relative group/child">
                                     <a href={childItem.uri || '/'} 
-                                       class={`block px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-600 group-hover/child:underline underline-offset-4 group-hover/child:decoration-maize group-hover/child:decoration-2 ${isChildItemActive ? 'text-umichblue dark:text-maize' : ''}`}
+                                       class={`block px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-600 ${isChildItemActive ? 'text-umichblue dark:text-maize' : ''}`}
                                        aria-label={childItem.label}
                                        aria-current={isChildItemActive ? 'page' : undefined}
                                        aria-expanded={childItem.childItems.nodes.length > 0 ? "false" : undefined}
@@ -160,7 +161,7 @@ const isActive = (itemPath: string) => {
                                               return (
                                                 <li>
                                                     <a href={grandChildItem.uri || '/'} 
-                                                       class={`block px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-600 hover:underline underline-offset-4 hover:decoration-maize hover:decoration-2 ${isGrandChildItemActive ? 'text-umichblue dark:text-maize' : ''}`}
+                                                       class={`block px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-600 ${isGrandChildItemActive ? 'text-umichblue dark:text-maize' : ''}`}
                                                        aria-label={grandChildItem.label}
                                                        aria-current={isGrandChildItemActive ? 'page' : undefined}
                                                        role="menuitem">
@@ -195,6 +196,11 @@ header {
 
 body {
   overflow-x: hidden;
+}
+
+/* Navigation link styles */
+nav a {
+  text-decoration: none !important; /* Explicitly remove any default underline */
 }
 
 nav ul li {

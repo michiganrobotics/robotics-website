@@ -5,7 +5,7 @@ const { href, text, external = false } = Astro.props;
 <div class="my-4">
   <a 
     href={href} 
-    class="inline-flex items-center justify-center text-base sm:text-lg w-full sm:w-auto 
+    class="button-component inline-flex items-center justify-center text-base sm:text-lg w-full sm:w-auto 
     bg-maize text-black  
     px-4 sm:px-6 py-2.5 sm:py-3 rounded-md 
     hover:bg-maize/90  
@@ -17,7 +17,7 @@ const { href, text, external = false } = Astro.props;
     whitespace-normal break-words"
     {...external ? { target: "_blank", rel: "noopener noreferrer" } : {}}
   >
-  <span class="flex-1 text-center">{text}</span>
+  <span class="no-underline flex-1 text-center">{text}</span>
   {external ? (
     <svg 
       class="flex-shrink-0 ml-2 -mr-1 w-4 h-4" 

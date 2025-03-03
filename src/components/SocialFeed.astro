@@ -84,7 +84,7 @@ const socialIcons = {
               </div>
             ) : (
               <div class="h-44 bg-gradient-to-r from-blue-400 to-blue-600 flex items-center justify-center">
-                <Icon name={socialIcons[post.platform]} class="w-16 h-16 text-white" />
+                <Icon name={socialIcons[post.platform]} class="w-16 h-16 text-neutral-100" />
               </div>
             )}
         
@@ -113,7 +113,7 @@ const socialIcons = {
                   href={post.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="w-full block text-center bg-maize hover:bg-[#ffd633] dark:bg-maize dark:hover:bg-[#ffd633] text-umichblue dark:text-umichblue py-2 px-4 rounded transition duration-300 ease-in-out"
+                  class="no-underline w-full block text-center bg-maize hover:bg-[#ffd633] dark:bg-maize dark:hover:bg-[#ffd633] text-umichblue dark:text-umichblue py-2 px-4 rounded transition duration-300 ease-in-out"
                 >
                   {post.platform === 'Instagram' ? 'View on ' : post.platform === 'YouTube' ? 'Watch on ' : 'Read on '} {post.platform}
                 </a>

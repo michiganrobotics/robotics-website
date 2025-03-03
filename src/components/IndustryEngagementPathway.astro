@@ -138,7 +138,7 @@ function getHrClass(level: string) {
                   <div class={`w-3 h-3 mt-1.5 rounded-full transition-colors duration-300 ${level === 'Initial' ? 'bg-maize dark:bg-maize' : ''} ${level === 'Mid-Level' ? 'bg-taubmanTeal' : ''} ${level === 'Advanced' ? 'bg-arboretumBlue' : ''}`}></div>
                   <div class="w-full">
                     <h4 id={`engagement-title-${point.title.toLowerCase().replace(/\s+/g, '-')}`} class="font-bold text-gray-900 dark:text-white not-prose ">{point.title}</h4>
-                    <p class="text-sm text-gray-600 dark:text-gray-300 not-prose">{point.description}</p>
+                    <p class="text-sm text-gray-700 dark:text-gray-200 not-prose">{point.description}</p>
                   </div>
                 </div>
                 {point.media && (
@@ -159,13 +159,13 @@ function getHrClass(level: string) {
                           format="webp"
                           quality={80}
                         />
-                        <p class="text-sm text-gray-500 dark:text-gray-400 mt-2" set:html={point.media.description}></p>
+                        <p class="text-sm text-gray-700 dark:text-gray-200 mt-2" set:html={point.media.description}></p>
                       </div>
                     )}
                     {point.media.type === "video" && (
                       <>
                         <YouTube id={point.media.src} class="w-full aspect-video" />
-                        <p class="text-sm text-gray-500 dark:text-gray-400 mt-2" set:html={point.media.description}></p>
+                        <p class="text-sm text-gray-700 dark:text-gray-200 mt-2" set:html={point.media.description}></p>
                       </>
                     )}
                   </div>

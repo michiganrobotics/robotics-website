@@ -5,6 +5,8 @@ module.exports = {
 			typography: ({ theme }) => ({
 				DEFAULT: {
 					css: {
+						'--tw-prose-headings': theme('colors.umichblue'),
+						'--tw-prose-bullets': theme('colors.arboretumBlue'),
 						'blockquote p:first-of-type::before': false,
 						'blockquote p:last-of-type::after': false,
 						'figure figcaption': {
@@ -22,15 +24,37 @@ module.exports = {
 							marginTop: '1rem',
 							marginBottom: '.5rem',
 						},
+						'a:not(.no-underline)': {
+							textDecoration: 'underline',
+							textDecorationThickness: '1px',
+							textUnderlineOffset: '2px',
+						},
+						'a:not(.no-underline):hover': {
+							textDecorationColor: theme('colors.maize'),
+							textDecorationThickness: '2px',
+						},
+						'.no-underline': {
+							textDecoration: 'none !important',
+						},
 					},
 				},
 				invert: {
 					css: {
+						'--tw-prose-headings': theme('colors.neutral.50'),
 						'--tw-prose-counters': theme('colors.maize'),
 						'--tw-prose-bullets': theme('colors.maize'),
 						'--tw-prose-body': theme('colors.gray[200]'),
 						'figure figcaption': {
 							color: theme('colors.gray.200'),
+						},
+						'a': {
+							textDecoration: 'underline',
+							textDecorationThickness: '1px',
+							textUnderlineOffset: '2px',
+						},
+						'a:hover': {
+							textDecorationColor: theme('colors.maize'),
+							textDecorationThickness: '2px',
 						},
 					}
 				}

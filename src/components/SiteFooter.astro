@@ -28,7 +28,7 @@ const randomIllustration = illustrations[Math.floor(Math.random() * illustration
     }
 </style>
 <hr class="border-gray-200 dark:border-gray-200">
-<footer class="bg-white dark:bg-gray-900">
+<footer class="bg-white dark:bg-umichblue">
     <div class="mx-auto w-full max-w-screen-xl p-6 lg:py-8">
         <div class="md:flex md:justify-between">
           <div class="mb-6 md:mb-0">
@@ -43,40 +43,40 @@ const randomIllustration = illustrations[Math.floor(Math.random() * illustration
                     alt={randomIllustration.alt} 
                     width={randomIllustration.width} 
                     height={50} 
-                    class="h-auto" 
+                    class="h-auto dark:drop-shadow-[0_0_1px_white]" 
                 />
             </div>
             <div>
-                  <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Partnerships</h2>
-                  <ul class="text-gray-500 dark:text-gray-300 font-medium">
+                  <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-neutral-50">Partnerships</h2>
+                  <ul class="text-gray-600 dark:text-gray-200 font-medium">
                       <li class="mb-4">
-                          <Link href={`/partnerships/industry`} class="hover:underline" aria-label="Industry Engagement">Industry</Link>
+                          <Link href={`/partnerships/industry`} class="underline-hover-only" aria-label="Industry Engagement">Industry</Link>
                       </li>
                       <li>
-                          <Link href={`/partnerships`} class="hover:underline" aria-label="Community Partnerships">Community</Link>
+                          <Link href={`/partnerships`} class="underline-hover-only" aria-label="Community Partnerships">Community</Link>
                       </li>
                   </ul>
               </div>
               <div>
-                  <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Connect</h2>
-                  <ul class="text-gray-500 dark:text-gray-300 font-medium">
+                  <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-neutral-50">Connect</h2>
+                  <ul class="text-gray-600 dark:text-gray-200 font-medium">
                       <li class="mb-4">
-                          <Link href={`/news`} class="hover:underline" aria-label="News">News</Link> &
-                          <Link href={`/events`} class="hover:underline" aria-label="Events">Events</Link>
+                          <Link href={`/news`} class="underline-hover-only" aria-label="News">News</Link> &
+                          <Link href={`/events`} class="underline-hover-only" aria-label="Events">Events</Link>
                       </li>
                       <li>
-                        <Link href={`/about/contact`} class="hover:underline" aria-label="Contact Michigan Robotics">Contact Us</Link>
+                        <Link href={`/about/contact`} class="underline-hover-only" aria-label="Contact Michigan Robotics">Contact Us</Link>
                     </li>
                   </ul>
               </div>
               <div>
-                  <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Resources</h2>
-                  <ul class="text-gray-500 dark:text-gray-300 font-medium">
+                  <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-neutral-50">Resources</h2>
+                  <ul class="text-gray-600 dark:text-gray-200 font-medium">
                       <li class="mb-4">
-                          <Link href={`/academics/student-services`} class="hover:underline" aria-label="Student Services">Student Services</Link>
+                          <Link href={`/academics/student-services`} class="underline-hover-only" aria-label="Student Services">Student Services</Link>
                       </li>
                       <li>
-                          <Link href={`/intranet`} class="hover:underline" aria-label="Department Intranet">Intranet</Link>
+                          <Link href={`/intranet`} class="underline-hover-only" aria-label="Department Intranet">Intranet</Link>
                       </li>
                   </ul>
               </div>
@@ -84,24 +84,24 @@ const randomIllustration = illustrations[Math.floor(Math.random() * illustration
       </div>
       <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
       <div class="flex flex-col-reverse sm:flex-row sm:items-center sm:justify-between">
-          <span class="text-sm text-gray-500 text-center sm:text-left dark:text-gray-400 mt-4 sm:mt-0">© {currentYear} Regents of the University of Michigan
+          <span class="text-sm text-gray-500 text-center sm:text-left dark:text-gray-200 mt-4 sm:mt-0">© {currentYear} Regents of the University of Michigan
           </span>
           <div class="flex justify-center sm:justify-end">
               <div class="flex flex-row space-x-2 text-white">
                   <a href="https://www.instagram.com/umrobotics/" target="_blank" rel="noopener noreferrer" aria-label="Michigan Robotics on Instagram">
-                      <Icon name="mdi:instagram" class="text-[2.5rem] text-gray-500 hover:text-gray-900 dark:hover:text-white" />
+                      <Icon name="mdi:instagram" class="text-[2.5rem] text-gray-500 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white" />
                   </a>
                   <a href="https://www.linkedin.com/company/university-of-michigan-robotics/" target="_blank" rel="noopener noreferrer" aria-label="Michigan Robotics on LinkedIn">
-                      <Icon name="mdi:linkedin" class="text-[2.5rem] text-gray-500 hover:text-gray-900 dark:hover:text-white" />
+                      <Icon name="mdi:linkedin" class="text-[2.5rem] text-gray-500 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white" />
                   </a>
                   <a href="https://github.com/michiganrobotics/" target="_blank" rel="noopener noreferrer" aria-label="Michigan Robotics on GitHub">
-                      <Icon name="mdi:github" class="text-[2.5rem] text-gray-500 hover:text-gray-900 dark:hover:text-white" />
+                      <Icon name="mdi:github" class="text-[2.5rem] text-gray-500 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white" />
                   </a>
                   <a href="https://www.youtube.com/channel/UC-WH2n-SkB166pUq5o5ULUg" target="_blank" rel="noopener noreferrer" aria-label="Michigan Robotics on YouTube">
-                      <Icon name="mdi:youtube" class="text-[2.5rem] text-gray-500 hover:text-gray-900 dark:hover:text-white" />
+                      <Icon name="mdi:youtube" class="text-[2.5rem] text-gray-500 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white" />
                   </a>
                   <a href="https://www.twitter.com/umrobotics" target="_blank" rel="noopener noreferrer" aria-label="Michigan Robotics on X/Twitter">
-                      <Icon name="twitter-x-logo" class="text-[2.5rem] text-gray-500 hover:text-gray-900 dark:hover:text-white" />
+                      <Icon name="twitter-x-logo" class="text-[2.5rem] text-gray-500 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white" />
                   </a>
               </div>
           </div>

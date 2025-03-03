@@ -29,7 +29,7 @@ const linkPath = href || `/news/${new Date(date).getFullYear()}/${slug}`;
 ---
 
 <a href={linkPath} 
-   class={`group block bg-gray-100 dark:bg-matthaeiViolet shadow-md rounded-sm not-prose overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-[1.02] ${isLarge ? 'md:col-span-2' : ''}`}>
+   class={`no-underline group block bg-gray-100 dark:bg-matthaeiViolet shadow-md rounded-sm not-prose overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-[1.02] ${isLarge ? 'md:col-span-2' : ''}`}>
   {image?.src && (
     <div class="aspect-video overflow-hidden">
       <Image 

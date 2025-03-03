@@ -107,6 +107,20 @@
       outline-offset: 2px;
     }
   }
+
+  /* Global link styles */
+  a:not(.no-underline):not(nav a) {
+    text-decoration-line: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 2px;
+  }
+  
+  a:not(.no-underline):not(nav a):hover {
+    text-decoration-line: underline;
+    text-decoration-color: var(--color-maize);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 2px;
+  }
 }
 
 @layer utilities {
@@ -120,6 +134,25 @@
 
   .font-open-sans {
     font-family: var(--font-open-sans), var(--font-fallback-sans);
+  }
+
+  .underline-hover-only {
+    text-decoration-line: none !important;
+  }
+  
+  .underline-hover-only:hover {
+    text-decoration-line: underline !important;
+    text-decoration-thickness: 2px !important;
+    text-underline-offset: 2px !important;
+    text-decoration-color: var(--color-maize) !important;
+  }
+  
+  /* Ensure consistent nav link hover styles */
+  nav a:hover {
+    text-decoration-line: underline !important;
+    text-decoration-thickness: 2px !important;
+    text-underline-offset: 2px !important;
+    text-decoration-color: var(--color-maize) !important;
   }
 }
 

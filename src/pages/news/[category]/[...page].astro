@@ -79,7 +79,7 @@ function formatDate(dateString: string): string {
       {posts.map((post: any) => (
         <Link 
           href={getPostLink(post)}
-          class="group bg-white dark:bg-gray-800 shadow-md rounded-sm overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-[1.02] flex flex-col"
+          class="no-underline group bg-white dark:bg-gray-800 shadow-md rounded-sm overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-[1.02] flex flex-col"
           target={isCollegeNews(post) ? '_blank' : undefined}
           rel={isCollegeNews(post) ? 'noopener noreferrer' : undefined}
         >

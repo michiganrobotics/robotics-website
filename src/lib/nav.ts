@@ -493,7 +493,7 @@ export const subNavConfig: Record<string, SubNavItem[]> = {
       { title: "About", href: "/about" },
       { title: "Values", href: "/about/values" },
       { title: "Facilities", href: "/about/facilities" },
-      { title: "Contact", href: "/about/contact"}
+      { title: "Faculty Jobs", href: "/about/faculty-jobs"}
     ],
     'events$': [
       { title: "Pathways & Careers Series", href: "/events/robotics-pathways-speaker-series" },

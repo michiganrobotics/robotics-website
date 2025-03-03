@@ -163,12 +163,12 @@ const searchableContent = filteredContent.map(entry => {
             }
             
             return `
-              <a href="${result.path}" class="block group">
+              <a href="${result.path}" class="block group no-underline">
                 <div class="bg-white dark:bg-gray-800 p-6 rounded-sm shadow-md transition-all duration-200 ease-in-out group-hover:shadow-lg group-hover:scale-[1.01]">
                   <div class="text-sm text-gray-500 dark:text-gray-400 mb-1">
                     ${result.breadcrumbs.join(' > ')}
                   </div>
-                  <h3 class="text-xl font-bold text-primary group-hover:underline mb-2">${result.title}</h3>
+                  <h3 class="text-xl font-bold text-primary group-hover:underline group-hover:decoration-maize group-hover:decoration-2 mb-2">${result.title}</h3>
                   ${result.description ? 
                     `<p class="text-sm text-gray-600 dark:text-gray-300 mb-2">${result.description}</p>` 
                     : ''}

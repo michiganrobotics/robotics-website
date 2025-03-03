@@ -34,14 +34,14 @@ const recentEvents = eventsData.slice(0, 3);
 
       <div class="mt-8 grid md:grid-cols-2 gap-8">
         <div class="group relative not-prose overflow-hidden rounded-lg bg-white dark:bg-gray-800 shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 dark:border-gray-700 focus-within:ring-2 focus-within:ring-umichblue dark:focus-within:ring-maize focus-within:ring-offset-2 focus-within:ring-offset-white dark:focus-within:ring-offset-gray-800">
-          <a href="/events/robotics-pathways-speaker-series" class="block p-8 focus:outline-none">
-            <h2 class="mb-4 text-2xl font-bold text-gray-900 dark:text-white group-hover:text-umichblue dark:group-hover:text-maize transition-colors">
+          <a href="/events/robotics-pathways-speaker-series" class="no-underline block p-8 focus:outline-none">
+            <h2 class="mb-4 text-2xl font-bold text-umichblue dark:text-neutral-50 group-hover:text-umichblue dark:group-hover:text-maize transition-colors">
               Robotics Pathways and Careers Speaker Series
             </h2>
             <p class="font-normal text-gray-600 dark:text-gray-300 leading-relaxed">
               Join us for talks from distinguished roboticists sharing their career journeys and insights into the field. This series aims to highlight the many paths to robotics and what students can do with a robotics degree.
             </p>
-            <div class="mt-6 inline-flex items-center text-umichblue dark:text-maize font-medium group-hover:translate-x-2 transition-transform">
+            <div class="mt-6 inline-flex items-center text-arboretumBlue dark:text-maize font-medium group-hover:translate-x-2 transition-transform">
               View upcoming and past talks
               <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
@@ -51,14 +51,14 @@ const recentEvents = eventsData.slice(0, 3);
         </div>
 
         <div class="group relative not-prose overflow-hidden rounded-lg bg-white dark:bg-gray-800 shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 dark:border-gray-700 focus-within:ring-2 focus-within:ring-umichblue dark:focus-within:ring-maize focus-within:ring-offset-2 focus-within:ring-offset-white dark:focus-within:ring-offset-gray-800">
-          <a href="/events/robotics-seminar-series" class="block p-8 focus:outline-none">
-            <h2 class="mb-4 text-2xl font-bold text-gray-900 dark:text-white group-hover:text-umichblue dark:group-hover:text-maize transition-colors">
+          <a href="/events/robotics-seminar-series" class="no-underline block p-8 focus:outline-none">
+            <h2 class="mb-4 text-2xl font-bold text-umichblue dark:text-neutral-50 group-hover:text-umichblue dark:group-hover:text-maize transition-colors">
               Robotics Seminar Series
             </h2>
             <p class="font-normal text-gray-600 dark:text-gray-300 leading-relaxed">
               Explore cutting-edge robotics research through our regular seminar series featuring leading researchers and experts from academia and industry presenting their latest work and findings.
             </p>
-            <div class="mt-6 inline-flex items-center text-umichblue dark:text-maize font-medium group-hover:translate-x-2 transition-transform">
+            <div class="mt-6 inline-flex items-center text-arboretumBlue dark:text-maize font-medium group-hover:translate-x-2 transition-transform">
               View upcoming and past seminars
               <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
@@ -69,11 +69,11 @@ const recentEvents = eventsData.slice(0, 3);
       </div>
       {recentEvents.length > 0 && (
 
-          <h2 class="mt-8 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Upcoming events</h2>		
+          <h2 class="mt-8 text-2xl font-bold tracking-tight text-umichblue dark:text-neutral-50">Upcoming events</h2>		
           <div class="flex flex-wrap gap-4 justify-start mb-4 md:flex-nowrap not-prose">	
             {recentEvents.map((event: Event) => (
               <div key={event.id} class="group max-w-md bg-white border border-gray-200 rounded-sm shadow dark:bg-gray-800 dark:border-gray-700">
-                <a class='post-link' href={event.permalink} aria-label={event.event_title}>
+                <a class='post-link no-underline' href={event.permalink} aria-label={event.event_title}>
                   <section>
                     <Image
                       class="rounded-t-sm mt-0"
@@ -84,7 +84,7 @@ const recentEvents = eventsData.slice(0, 3);
                       loading='lazy'
                     />
                     <div class="p-5 pl-0">
-                      <div class="mb-3 text-sm italic bg-matthaeiViolet text-white inline-block pl-5 pr-2 py-1">
+                      <div class="mb-3 text-sm italic bg-matthaeiViolet text-neutral-50 inline-block pl-5 pr-2 py-1">
                         <time datetime={event.datetime_start}>
                           {new Date(event.datetime_start.replace(
                             /(\d{4})(\d{2})(\d{2})T(\d{2})(\d{2})(\d{2})/,
@@ -99,11 +99,11 @@ const recentEvents = eventsData.slice(0, 3);
                           })}
                         </time>
                       </div> 
-                      <h3 class="pl-5 mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                      <h3 class="pl-5 mb-2 text-2xl font-bold tracking-tight text-umichblue dark:text-neutral-50">
                         {event.event_title}
                         <span class="block w-0 h-0.5 bg-maize transition-all duration-300 group-hover:w-full" />
                       </h3>
-                      <h4 class="pl-5 mb-2 text-xl tracking-tight text-gray-900 dark:text-white">{event.event_subtitle}</h4>  
+                      <h4 class="pl-5 mb-2 text-xl tracking-tight text-umichblue dark:text-neutral-50">{event.event_subtitle}</h4>  
                       <div class="pl-5 mb-3 font-normal text-gray-700 dark:text-gray-100 whitespace-pre-wrap" set:html={event.description} />
                     </div>
                   </section>

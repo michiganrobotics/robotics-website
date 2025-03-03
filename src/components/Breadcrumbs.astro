@@ -32,14 +32,14 @@ const breadcrumbs = generateBreadcrumbs();
     <nav aria-label="Breadcrumb">
       <ol class="flex flex-wrap items-center gap-2 justify-end">
         <li>
-          <a href="/" class="hover:text-umichblue dark:hover:text-taubmanTeal">Home</a>
+          <a href="/" class="hover:text-arboretumBlue dark:hover:text-taubmanTeal underline-hover-only">Home</a>
         </li>
         {breadcrumbs.map((breadcrumb, index) => (
           <li class="flex items-center gap-2">
             <span class="text-gray-700 dark:text-gray-300">&gt;</span>
             <a 
               href={breadcrumb.href}
-              class={`hover:text-umichblue dark:hover:text-taubmanTeal ${index === breadcrumbs.length - 1 ? 'text-gray-600 dark:text-gray-300' : ''}`}
+              class={`hover:text-arboretumBlue dark:hover:text-taubmanTeal underline-hover-only ${index === breadcrumbs.length - 1 ? 'text-gray-600 dark:text-gray-300' : ''}`}
             >
               {breadcrumb.text}
             </a>

@@ -128,7 +128,7 @@ teams.sort(() => Math.random() - 0.5);
 
       <div class="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 not-prose">
         {teams.map(team => (
-          <a href={team.link} class="group bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300">
+          <a href={team.link} class="no-underline group bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300">
             <div class="aspect-video bg-gray-100 dark:bg-gray-700 relative overflow-hidden">
               {team.image ? (
                 <Image src={team.image} alt={team.name} class="w-full h-full object-cover group-hover:scale-105 transition-all duration-300" />

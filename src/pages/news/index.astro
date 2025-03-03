@@ -199,7 +199,7 @@ async function getExcerpt(post: CombinedNewsItem) {
           return (
             <Link 
               href={postLink}
-              class={`group block bg-white dark:bg-gray-800 shadow-md rounded-sm overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-[1.02] ${index === 0 ? 'md:col-span-2' : ''}`}
+              class={`no-underline group block bg-white dark:bg-gray-800 shadow-md rounded-sm overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-[1.02] ${index === 0 ? 'md:col-span-2' : ''}`}
               target={isCollegeNews(post) ? '_blank' : undefined}
               rel={isCollegeNews(post) ? 'noopener noreferrer' : undefined}
             >
@@ -236,7 +236,7 @@ async function getExcerpt(post: CombinedNewsItem) {
     <section id="events" class="mb-12">
       <div class="grid grid-cols-1 sm:flex sm:flex-row sm:gap-6">
         {eventsData.slice(0,4).map((event: Event, index: number) => (
-          <a href={event.permalink} class={`group bg-white dark:bg-gray-800 shadow-md rounded-sm overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-[1.02] flex flex-col mb-6 last:mb-0 sm:mb-0 sm:flex-1 ${index !== 0 ? 'sm:ml-6' : ''}`}>
+          <a href={event.permalink} class={`no-underline group bg-white dark:bg-gray-800 shadow-md rounded-sm overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-[1.02] flex flex-col mb-6 last:mb-0 sm:mb-0 sm:flex-1 ${index !== 0 ? 'sm:ml-6' : ''}`}>
             <div class="relative">
               <span class="absolute top-2 left-0 text-xs font-medium px-4 py-1 bg-matthaeiViolet text-white shadow-md">
                 upcoming event
@@ -294,7 +294,7 @@ async function getExcerpt(post: CombinedNewsItem) {
           return (
             <Link 
               href={postLink}
-              class="group bg-white dark:bg-gray-800 shadow-md rounded-sm overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-[1.02] flex flex-col"
+              class="no-underline group bg-white dark:bg-gray-800 shadow-md rounded-sm overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-[1.02] flex flex-col"
               target={isCollegeNews(post) ? '_blank' : undefined}
               rel={isCollegeNews(post) ? 'noopener noreferrer' : undefined}
             >
@@ -339,7 +339,7 @@ async function getExcerpt(post: CombinedNewsItem) {
 
     <section id="newsletter-and-news" class="mb-12">
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        <a href="https://umrobotics.substack.com" class="group bg-white dark:bg-gray-800 shadow-md rounded-sm overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-[1.02] flex flex-col">
+        <a href="https://umrobotics.substack.com" class="no-underline group bg-white dark:bg-gray-800 shadow-md rounded-sm overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-[1.02] flex flex-col">
           <div class="relative">
             <span class="hidden sm:block absolute top-2 left-0 text-xs font-medium px-4 py-1 bg-arboretumBlue text-white shadow-md z-10">
               substack newsletter
@@ -380,7 +380,7 @@ async function getExcerpt(post: CombinedNewsItem) {
           return (
             <Link 
               href={postLink}
-              class="group bg-white dark:bg-gray-800 shadow-md rounded-sm overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-[1.02] flex flex-col"
+              class="no-underline group bg-white dark:bg-gray-800 shadow-md rounded-sm overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-[1.02] flex flex-col"
               target={isCollegeNews(post) ? '_blank' : undefined}
               rel={isCollegeNews(post) ? 'noopener noreferrer' : undefined}
             >
@@ -437,7 +437,7 @@ async function getExcerpt(post: CombinedNewsItem) {
           return (
             <Link 
               href={postLink}
-              class="group bg-white dark:bg-gray-800 shadow-md rounded-sm overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-[1.02] flex flex-col"
+              class="no-underline group bg-white dark:bg-gray-800 shadow-md rounded-sm overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-[1.02] flex flex-col"
               target={isCollegeNews(post) ? '_blank' : undefined}
               rel={isCollegeNews(post) ? 'noopener noreferrer' : undefined}
             >
