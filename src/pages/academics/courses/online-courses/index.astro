@@ -58,7 +58,11 @@ const courses = [
   <Breadcrumbs />
   <PageTitle title="Online Courses" image={featureImage} imageAlt="Robotics Building during sunrise with brilliant colors and a water tower in the distance" imagePosition="0% 35%" />
   <article class="prose dark:prose-invert mt-4 mb-4 max-w-6xl w-11/12 mx-auto">
-    <h2 class="text-xl font-roboto text-gray-800 dark:text-gray-200 leading-relaxed not-prose mt-4 mb-8 italic tracking-wide relative subtitle-double-underline">Sharing our knowledge and curriculum</h2>
+    <div class="mb-8 mt-8 relative">
+      <h2 class="text-xl font-roboto text-gray-800 dark:text-gray-200 leading-relaxed not-prose italic tracking-wide">
+        Sharing our knowledge and curriculum</h2>
+      <div class="subtitle-double-line"></div>
+    </div>
       <p>Michigan Robotics publishes many courses online, which can be freely accessed through sites like GitHub and YouTube. These courses typically include all lecture videos, notes, textbooks, homework, projects, and exams.</p>
      <div class="mt-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 not-prose">
       {courses.map(course => (

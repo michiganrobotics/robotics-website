@@ -151,25 +151,30 @@
     margin-top: 0 !important;
   }
   
-  /* Subtitle with double underline that fades */
-  .subtitle-double-underline {
+  /* Subtitle with double underline that fades - separated into component parts */
+  .subtitle-double-line {
     position: relative;
-    display: inline-block;
+    width: 100%;
+    max-width: 500px;
+    height: 4px;  /* Reduced overall height */
   }
   
-  .subtitle-double-underline::before,
-  .subtitle-double-underline::after {
+  .subtitle-double-line::before,
+  .subtitle-double-line::after {
     content: "";
     position: absolute;
     left: 0;
-    bottom: -2px;
     width: 100%;
     height: 1px;
     background: linear-gradient(to right, var(--color-maize) 0%, var(--color-maize) 25%, transparent 80%);
   }
   
-  .subtitle-double-underline::after {
-    bottom: -5px;
+  .subtitle-double-line::before {
+    top: 0;
+  }
+  
+  .subtitle-double-line::after {
+    bottom: 0;
   }
 
   .font-roboto {
