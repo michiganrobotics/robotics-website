@@ -4,27 +4,27 @@ import Pill from './Pill.astro';
 
 interface Props {
   title: string;
-  titlePill?: 'ms' | 'phd';  // Add optional pill type for the title
+  titlePill?: 'ms' | 'phd';  // Optional pill type for the title
   id?: string;
   headingLevel?: string;
 }
 
 const { title, titlePill, id, headingLevel = "h2" } = Astro.props;
 const HeadingTag = headingLevel;
+const uniqueId = id || title.toLowerCase().replace(/\s+/g, '-');
 ---
 
 <div 
-  class="accordion border border-gray-200 dark:border-gray-700 rounded-lg mb-4 overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-maize focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-arboretumBlue"
+  class="accordion border-matthaeiViolet dark:border-arboretumBlue border-2 rounded-lg mb-4 overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-maize focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-arboretumBlue"
   tabindex="0"
   role="region"
-  aria-labelledby={`accordion-header-${id || title.toLowerCase().replace(/\s+/g, '-')}`}
+  aria-expanded="false"
+  aria-labelledby={`accordion-header-${uniqueId}`}
 >
   <button
-    id={`accordion-header-${id || title.toLowerCase().replace(/\s+/g, '-')}`}
-    class="flex justify-between items-center w-full p-5 text-left bg-gray-50 dark:bg-arboretumBlue/40 text-gray-800 dark:text-white hover:bg-gray-100 dark:hover:bg-arboretumBlue/60 transition-all duration-200"
-    onclick="this.setAttribute('aria-expanded', this.getAttribute('aria-expanded') === 'true' ? 'false' : 'true'); const svg = this.querySelector('svg'); if(svg) svg.classList.toggle('rotate-180'); const content = this.nextElementSibling; if(content) { content.classList.toggle('hidden'); const heading = content.querySelector('h2,h3,h4,h5,h6'); if(this.getAttribute('aria-expanded') === 'true' && window.location.hash && heading && window.location.hash === '#' + heading.id) { setTimeout(() => heading.scrollIntoView({ behavior: 'smooth' }), 100); } }"
-    aria-expanded="false"
-    role="button"
+    id={`accordion-header-${uniqueId}`}
+    class="accordion-trigger flex justify-between items-center w-full p-5 text-left bg-matthaeiViolet/5 dark:bg-arboretumBlue/30 text-gray-800 dark:text-white hover:bg-matthaeiViolet/10 dark:hover:bg-arboretumBlue transition-all duration-200 cursor-pointer"
+    aria-controls={`accordion-content-${uniqueId}`}
     tabindex="-1"
   >
     <span class="font-medium text-lg font-roboto">
@@ -46,8 +46,11 @@ const HeadingTag = headingLevel;
       ></path>
     </svg>
   </button>
-  <div class="hidden">
-    <div class="p-6 bg-white dark:bg-arboretumBlue prose dark:prose-invert max-w-none dark:prose-ul:text-white dark:prose-ol:text-white dark:marker:text-white">
+  <div 
+    id={`accordion-content-${uniqueId}`}
+    class="accordion-content hidden"
+  >
+    <div class="p-6 bg-neutral-50 dark:bg-arboretumBlue/30 prose dark:prose-invert max-w-none dark:prose-ul:text-white dark:prose-ol:text-white dark:marker:text-maize">
       <slot />
     </div>
   </div>
@@ -59,14 +62,9 @@ const HeadingTag = headingLevel;
     @apply bg-umichblue text-white dark:bg-maize dark:text-white hover:bg-umichblue/90 dark:hover:bg-maize/90 transition-colors;
   }
 
-  /* Smooth animation for content */
-  .accordion button[aria-expanded="true"] + div {
-    @apply block;
-  }
-
   /* Add a subtle border between items when expanded */
-  .accordion button[aria-expanded="true"] {
-    @apply border-b border-gray-200 dark:border-gray-700;
+  .accordion[aria-expanded="true"] button {
+    @apply border-b border-gray-200 dark:border-gray-700 bg-matthaeiViolet/20 dark:bg-arboretumBlue;
   }
 
   /* Add a default bottom border that's transparent */
@@ -74,14 +72,9 @@ const HeadingTag = headingLevel;
     @apply border-b border-transparent outline-none;
   }
 
-  /* Override prose styles for focus states */
-  .accordion:focus-visible {
-    @apply outline-none ring-2 ring-maize ring-offset-2 ring-offset-white dark:ring-offset-arboretumBlue;
-  }
-
-  /* Ensure button never shows focus outline */
-  .accordion button:focus {
-    @apply outline-none;
+  /* Rotate the arrow icon when expanded */
+  .accordion[aria-expanded="true"] svg {
+    @apply rotate-180;
   }
 
   /* Safari-only scroll margin */
@@ -97,89 +90,120 @@ const HeadingTag = headingLevel;
 </style>
 
 <script>
-  // Handle initial load with hash
-  document.addEventListener('DOMContentLoaded', () => {
-    if (window.location.hash) {
-      const targetHeading = document.querySelector(window.location.hash);
-      if (targetHeading) {
-        const accordionContent = targetHeading.closest('.accordion div.hidden');
-        if (accordionContent) {
-          const accordionContainer = accordionContent.closest('.accordion');
-          const accordionButton = accordionContent.previousElementSibling as HTMLElement;
-          // Open the accordion
-          if (accordionButton) {
-            accordionButton.setAttribute('aria-expanded', 'true');
-            const svg = accordionButton.querySelector('svg');
-            if (svg) {
-              svg.classList.toggle('rotate-180');
-            }
-            accordionContent.classList.remove('hidden');
-            // Scroll after a brief delay to allow content to expand
-            setTimeout(() => {
-              if (targetHeading) {
-                targetHeading.scrollIntoView({ behavior: 'smooth' });
-              }
-              // Focus the accordion container
-              if (accordionContainer) {
-                (accordionContainer as HTMLElement).focus();
-              }
-            }, 100);
-          }
-        }
+  // Initialize all accordions
+  function initAccordions() {
+    const accordions = document.querySelectorAll('.accordion');
+    
+    accordions.forEach(accordion => {
+      const trigger = accordion.querySelector('.accordion-trigger');
+      const contentId = trigger.getAttribute('aria-controls');
+      const content = document.getElementById(contentId);
+      
+      // Initial state check - ensure DOM and aria state are in sync
+      if (content && !content.classList.contains('hidden')) {
+        accordion.setAttribute('aria-expanded', 'true');
       }
-    }
-  });
+      
+      trigger.addEventListener('click', (e) => {
+        // Prevent default button behavior that might cause page jumps
+        e.preventDefault();
+        
+        // Store current scroll position
+        const scrollPosition = window.scrollY;
+        
+        // Toggle aria-expanded on the accordion container
+        const isExpanded = accordion.getAttribute('aria-expanded') === 'true';
+        const newExpandedState = (!isExpanded).toString();
+        accordion.setAttribute('aria-expanded', newExpandedState);
+        
+        // Toggle content visibility
+        if (content) {
+          content.classList.toggle('hidden');
+        }
+        
+        // Restore scroll position to prevent jumps
+        window.scrollTo({
+          top: scrollPosition
+        });
+      });
+    });
+  }
 
-  // Handle clicks on anchor links
-  document.addEventListener('click', (e: Event) => {
-    const target = e.target as HTMLElement;
-    const link = target.closest('a');
-    if (link && link.hash && link.origin + link.pathname === window.location.origin + window.location.pathname) {
-      const targetHeading = document.querySelector(link.hash);
-      if (targetHeading) {
-        const accordionContent = targetHeading.closest('.accordion div.hidden');
+  // Handle direct links to anchors inside accordions
+  function handleHashTargets() {
+    if (window.location.hash) {
+      const targetElement = document.querySelector(window.location.hash);
+      if (targetElement) {
+        // Find parent accordion if the target is inside one
+        const accordionContent = targetElement.closest('.accordion-content');
         if (accordionContent) {
-          e.preventDefault();
-          const accordionContainer = accordionContent.closest('.accordion');
-          const accordionButton = accordionContent.previousElementSibling as HTMLElement;
-          // Open the accordion
-          if (accordionButton) {
-            accordionButton.setAttribute('aria-expanded', 'true');
-            const svg = accordionButton.querySelector('svg');
-            if (svg) {
-              svg.classList.toggle('rotate-180');
-            }
+          // Find and expand the accordion
+          const accordion = accordionContent.closest('.accordion');
+          if (accordion) {
+            accordion.setAttribute('aria-expanded', 'true');
             accordionContent.classList.remove('hidden');
-            // Scroll after a brief delay to allow content to expand
+            
+            // Scroll to the target after a brief delay
             setTimeout(() => {
-              if (targetHeading) {
-                targetHeading.scrollIntoView({ behavior: 'smooth' });
-              }
-              // Focus the accordion container
-              if (accordionContainer) {
-                (accordionContainer as HTMLElement).focus();
-              }
+              targetElement.scrollIntoView({ behavior: 'smooth' });
             }, 100);
           }
         }
       }
     }
-  });
+  }
+
+  // Handle clicks on anchor links that point to elements inside accordions
+  function handleAnchorClicks() {
+    document.addEventListener('click', (e) => {
+      const target = e.target;
+      const link = target.closest('a');
+      if (link && link.hash && link.origin + link.pathname === window.location.origin + window.location.pathname) {
+        const targetElement = document.querySelector(link.hash);
+        if (targetElement) {
+          // Find parent accordion if the target is inside one
+          const accordionContent = targetElement.closest('.accordion-content');
+          if (accordionContent) {
+            e.preventDefault();
+            
+            // Find and expand the accordion
+            const accordion = accordionContent.closest('.accordion');
+            if (accordion) {
+              accordion.setAttribute('aria-expanded', 'true');
+              accordionContent.classList.remove('hidden');
+              
+              // Scroll to the target after a brief delay
+              setTimeout(() => {
+                targetElement.scrollIntoView({ behavior: 'smooth' });
+              }, 100);
+            }
+          }
+        }
+      }
+    });
+  }
 
   // Add keyboard support for accordion containers
-  document.addEventListener('DOMContentLoaded', () => {
+  function setupKeyboardSupport() {
     const accordions = document.querySelectorAll('.accordion');
     accordions.forEach(accordion => {
-      accordion.addEventListener('keydown', (e: Event) => {
-        const keyEvent = e as KeyboardEvent;
-        if (keyEvent.key === 'Enter' || keyEvent.key === ' ') {
+      accordion.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();
-          const button = accordion.querySelector('button');
+          const button = accordion.querySelector('.accordion-trigger');
           if (button) {
             button.click();
           }
         }
       });
     });
+  }
+
+  // Run when the DOM is ready
+  document.addEventListener('DOMContentLoaded', () => {
+    initAccordions();
+    handleHashTargets();
+    handleAnchorClicks();
+    setupKeyboardSupport();
   });
 </script>
