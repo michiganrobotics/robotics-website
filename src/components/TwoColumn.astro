@@ -4,7 +4,8 @@ interface Props {
   rightWidth?: string;
 }
 
-const { leftWidth = "50%", rightWidth = "50%" } = Astro.props;
+// Default to fr units for better grid behavior
+const { leftWidth = "1fr", rightWidth = "1fr" } = Astro.props;
 ---
 
 <div class="two-column">
@@ -20,10 +21,12 @@ const { leftWidth = "50%", rightWidth = "50%" } = Astro.props;
   .two-column {
     display: grid;
     grid-template-columns: var(--left-width) var(--right-width);
-    gap: 2rem;
+    gap: 1.5rem; /* Slightly reduced gap */
     margin: 1rem 0;
-    max-width: 72rem;
+    max-width: 100%; /* Use parent's width constraints */
     width: 100%;
+    box-sizing: border-box; /* Include padding and border in the element's width */
+    overflow: hidden; /* Hide any overflow */
   }
   
   @media (max-width: 768px) {
@@ -36,6 +39,9 @@ const { leftWidth = "50%", rightWidth = "50%" } = Astro.props;
   .left-column, .right-column {
     width: 100%;
     min-width: 0;
+    max-width: 100%; /* Ensure content doesn't overflow */
+    overflow-wrap: break-word; /* Handle long words */
+    word-wrap: break-word; /* Legacy support */
   }
 </style>
 
@@ -43,8 +49,8 @@ const { leftWidth = "50%", rightWidth = "50%" } = Astro.props;
   // Set custom properties for column widths
   const twoColumns = document.querySelectorAll('.two-column');
   twoColumns.forEach(col => {
-    const leftWidth = col.getAttribute('left-width') || '50%';
-    const rightWidth = col.getAttribute('right-width') || '50%';
+    const leftWidth = col.getAttribute('left-width') || '1fr';
+    const rightWidth = col.getAttribute('right-width') || '1fr';
     (col as HTMLElement).style.setProperty('--left-width', leftWidth);
     (col as HTMLElement).style.setProperty('--right-width', rightWidth);
   });

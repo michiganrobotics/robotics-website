@@ -36,6 +36,9 @@ module.exports = {
 						'.no-underline': {
 							textDecoration: 'none !important',
 						},
+						'.textwithimage > .prose > p:first-of-type': {
+							marginTop: '0',
+						},
 					},
 				},
 				invert: {

@@ -348,7 +348,7 @@ export const subNavConfig: Record<string, SubNavItem[]> = {
       { title: "Advising & scheduling", href: "/academics/undergraduate/scheduling" },
       { title: "Program Requirements", href: "/academics/undergraduate/program-requirements" },
       { title: "Current Course Offerings", href: "/academics/courses/course-offerings" },
-      { title: "Pathways Speaker Series", href: "/academics/undergraduate/robotics-pathways-speaker-series" },
+      { title: "Pathways Speaker Series", href: "/events/robotics-pathways-speaker-series" },
     ],
     'academics/undergraduate/program-requirements': [
       { title: "Undergraduate Program", href: "/academics/undergraduate" },

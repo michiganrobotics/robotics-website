@@ -84,6 +84,7 @@
   figure {
     @apply my-4;
   }
+  /* This rule is moved to utilities layer */
   figure.aspect-video {
     @apply mb-4;
   }
@@ -124,6 +125,53 @@
 }
 
 @layer utilities {
+  /* Remove top margin from first paragraph and images in TextWithImage component */
+  .textwithimage .prose > div > p:first-child {
+    margin-top: 0 !important;
+  }
+  
+  .textwithimage .md\:w-1\/3 figure {
+    margin-top: 0 !important;
+  }
+  
+  .textwithimage .md\:w-1\/3 figure img {
+    margin-top: 0 !important;
+  }
+  
+  /* Ensure prose styles don't override our rules */
+  .textwithimage :where(img):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+    margin-top: 0 !important;
+  }
+  
+  /* Remove top margin from first paragraph in TwoColumn component */
+  .two-column .left-column > div > p:first-child,
+  .two-column .right-column > div > p:first-child,
+  .two-column .left-column > div > figure:first-child,
+  .two-column .right-column > div > figure:first-child {
+    margin-top: 0 !important;
+  }
+  
+  /* Subtitle with double underline that fades */
+  .subtitle-double-underline {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .subtitle-double-underline::before,
+  .subtitle-double-underline::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(to right, var(--color-maize) 0%, var(--color-maize) 25%, transparent 80%);
+  }
+  
+  .subtitle-double-underline::after {
+    bottom: -5px;
+  }
+
   .font-roboto {
     font-family: var(--font-roboto), var(--font-fallback-roboto);
   }
