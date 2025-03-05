@@ -91,8 +91,15 @@
   figure img {
     @apply w-full rounded-sm shadow-md;
   }
+  /* Override Tailwind Typography's image margins */
   .prose img {
-    @apply mb-0;
+    @apply !mb-0;
+  }
+  
+  /* Target the specific class that's overriding our styles */
+  .prose-lg :where(img):not(:where([class~=not-prose],[class~=not-prose] *)), 
+  .prose-lg :where(picture):not(:where([class~=not-prose],[class~=not-prose] *)) {
+    @apply !mb-0;
   }
   
   /* Global focus styles for keyboard navigation */
