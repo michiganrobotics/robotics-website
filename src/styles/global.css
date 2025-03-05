@@ -150,6 +150,41 @@
   .two-column .right-column > div > figure:first-child {
     margin-top: 0 !important;
   }
+
+  /* Section with gradient borders - utility class */
+  .section-with-gradient-border {
+    @apply relative border-t before:absolute before:left-0 before:top-0 before:w-px before:h-1/3 before:bg-gradient-to-b before:to-transparent after:absolute after:right-0 after:top-0 after:w-px after:h-1/3 after:bg-gradient-to-b after:to-transparent;
+  }
+  
+  /* Card hover animation */
+  .card-hover {
+    @apply hover:shadow-lg transition-all duration-300 hover:scale-[1.02];
+  }
+  
+  /* Image hover animation */
+  .image-hover {
+    @apply transition-all duration-500 group-hover:scale-105;
+  }
+  
+  /* Section title styling */
+  .section-title {
+    @apply absolute -top-6 z-10 px-6 py-2 rounded-sm text-3xl font-bold text-neutral-50;
+  }
+  
+  /* Maize underline animation */
+  .maize-underline {
+    @apply block w-0 h-0.5 bg-maize transition-all duration-300 group-hover:w-full;
+  }
+  
+  /* Card base styling */
+  .card-base {
+    @apply rounded-sm overflow-hidden shadow-md bg-white dark:bg-gray-800;
+  }
+  
+  /* Flex layout for card containers */
+  .cards-container {
+    @apply flex flex-wrap gap-4 justify-center mb-8 md:flex-nowrap pt-10 px-2;
+  }
   
   /* Subtitle with double underline that fades - separated into component parts */
   .subtitle-double-line {
