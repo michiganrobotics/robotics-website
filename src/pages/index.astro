@@ -83,25 +83,14 @@ const videoWebmPath = '/robotics-promo-2025-2.webm';
 
 <MainLayout title='Michigan Robotics | University of Michigan'>
 	<Fragment slot="head">
-		<!-- Preload WebM for smaller screens -->
-		<link 
-		  rel="preload" 
-		  as="fetch" 
-		  type="video/webm"
-		  href={videoWebmPath}
-		  media="(max-width: 768px)" 
-		  fetchpriority="high"
-		>
-	
-		<!-- Preload MP4 for larger screens -->
-		<link 
-		  rel="preload" 
-		  as="fetch" 
-		  type="video/mp4"
-		  href={videoMp4Path}
-		  media="(min-width: 769px)" 
-		  fetchpriority="high"
-		>
+		<link
+		rel="preload"
+		as="image"
+		fetchpriority="high"
+		href="/blue-tile.png"
+		type="image/png"
+		/>
+
 	  </Fragment>
 	<main class="preload-visible">
 		<Hero videoMp4Path={videoMp4Path} videoWebmPath={videoWebmPath}></Hero>

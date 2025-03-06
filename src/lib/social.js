@@ -50,28 +50,6 @@ async function fetchTwitterPosts() {
     const userId = '894988418295443456';
     const url = `https://api.twitter.com/2/users/${userId}/tweets`;
     
-    // If we have a cache, first check if there are new tweets
-    if (cache?.lastPostId) {
-      const response = await axios.get(url, {
-        headers: { 
-          'Authorization': `Bearer ${bearerToken}`,
-          'Content-Type': 'application/json'
-        },
-        params: {
-          'since_id': cache.lastPostId,  // Only get tweets newer than our last cached tweet
-          'tweet.fields': 'created_at,text',
-          'max_results': 5,
-          'exclude': 'retweets,replies'
-        }
-      });
-
-      // If no new tweets and cache is less than 7 days old, return cached data
-      if (!response.data.data?.length && (now - cache.timestamp < CACHE_DURATION)) {
-        return cache.data;
-      }
-    }
-
-    // If we get here, either cache is old or we have new tweets
     const response = await axios.get(url, {
       headers: { 
         'Authorization': `Bearer ${bearerToken}`,
@@ -79,19 +57,19 @@ async function fetchTwitterPosts() {
       },
       params: {
         'tweet.fields': 'created_at,text',
-        'max_results': 5,  // Get more tweets so we can filter
-        'exclude': 'retweets,replies'  // Updated exclusion parameters
+        'max_results': 5,
+        'exclude': 'retweets,replies'
       }
     });
 
     if (!response.data.data) {
       console.error('No tweets found in response:', response.data);
-      return [];
+      return cache?.data || [];
     }
 
     const tweets = response.data.data
       .filter(tweet => !tweet.in_reply_to_user_id)
-      .slice(0, 1)  // Take only the first tweet after filtering
+      .slice(0, 1)
       .map(tweet => ({
         id: tweet.id,
         content: tweet.text,
@@ -136,22 +114,6 @@ async function fetchInstagramPosts() {
       return [];
     }
 
-    // If we have a cache with a last post ID, check for new posts
-    if (cache?.lastPostId) {
-      const mediaResponse = await axios.get(`https://graph.instagram.com/v18.0/${cache.lastPostId}`, {
-        params: {
-          access_token: accessToken,
-          fields: 'id'
-        }
-      });
-
-      // If the last post still exists and cache is < 7 days old, use cache
-      if (mediaResponse.data.id && (now - cache.timestamp < CACHE_DURATION)) {
-        return cache.data;
-      }
-    }
-
-    // Simplified token validation
     const baseUrl = 'https://graph.instagram.com/v18.0';
     const userResponse = await axios.get(`${baseUrl}/me`, {
       params: {
@@ -160,10 +122,8 @@ async function fetchInstagramPosts() {
       }
     });
 
-    // If we get here, token is valid
     const userId = userResponse.data.id;
   
-    // Then, fetch the media
     const mediaResponse = await axios.get(`${baseUrl}/${userId}/media`, {
       params: {
         access_token: accessToken,

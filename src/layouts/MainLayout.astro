@@ -29,15 +29,7 @@ const siteUrl = "https://robotics.umich.edu";
 		<meta name="generator" content={Astro.generator} />
 		<link rel="icon" type="image/svg+xml" href="/favicon.ico" />
 		<link rel="sitemap" href="/sitemap-index.xml" />
-		{Astro.url.pathname === "/" && (
-			<link
-				rel="preload"
-				as="image"
-				fetchpriority="high"
-				href="/blue-tile.png"
-				type="image/png"
-			/>
-		)}
+
 		<slot name="head"/>
 		<SEO
 			title={title}
