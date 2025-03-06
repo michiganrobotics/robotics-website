@@ -56,7 +56,7 @@ async function fetchTwitterPosts() {
         'Content-Type': 'application/json'
       },
       params: {
-        'tweet.fields': 'created_at,text',
+        'tweet.fields': 'created_at,text,conversation_id',
         'max_results': 5,
         'exclude': 'retweets,replies'
       }
@@ -68,7 +68,7 @@ async function fetchTwitterPosts() {
     }
 
     const tweets = response.data.data
-      .filter(tweet => !tweet.in_reply_to_user_id)
+      .filter(tweet => !tweet.in_reply_to_user_id && tweet.conversation_id === tweet.id)
       .slice(0, 1)
       .map(tweet => ({
         id: tweet.id,
