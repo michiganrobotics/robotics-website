@@ -5,11 +5,11 @@ import { Image } from 'astro:assets';
 import substackSubscribe from '/src/images/substackSubscribe.jpg';
 ---
 
-<section class="mx-2 m-auto mb-4 bg-uMMATan md:mx-12 md:max-w-5xl md:mx-auto rounded-sm text-umichblue dark:bg-gray-800 dark:text-gray-50">
+<section class="mx-2 m-auto mb-4 bg-uMMATan md:mx-12 md:max-w-5xl md:mx-auto rounded-sm text-umichblue dark:bg-[var(--bg-surface-dark)] dark:text-neutral-200 border-angelHallAsh border">
     <div class="mx-auto flex flex-col lg:flex-row items-center justify-center gap-4 lg:gap-12 p-4 space-y-8 lg:space-y-0 md:p-8">
         <div class="flex flex-col mt-4 lg:mt-0 space-y-4 text-center lg:text-left lg:w-1/3">
             <h1 class="text-5xl font-bold font-roboto-condensed leading">Stay up to date</h1>
-            <p class="text-lg text-PumaBlack dark:text-gray-300">Sign up for our quarterly newsletter, and follow us on social media</p>
+            <p class="text-lg text-PumaBlack dark:text-gray-300"><a href="https://umrobotics.substack.com">Sign up</a> for our quarterly newsletter, and follow us on social media</p>
         </div>
         <div class="aspect-video w-full lg:w-1/3 max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl mx-auto shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300">
             <a href="https://umrobotics.substack.com" 
@@ -21,7 +21,7 @@ import substackSubscribe from '/src/images/substackSubscribe.jpg';
             </a>
         </div>
         
-        <div class="flex flex-row justify-center items-center pb-4 md:pb-0 space-x-1 md:space-x-2 lg:w-1/4 text-neutral-100">
+        <div class="flex flex-row justify-center items-center pb-4 md:pb-0 space-x-1 md:space-x-2 lg:w-1/4">
             <a href="https://www.instagram.com/umrobotics/" target="_blank" rel="noopener noreferrer" aria-label="Michigan Robotics on Instagram">
                 <Icon name="mdi:instagram" class="text-[2.5rem] hover:text-maize" />
             </a>

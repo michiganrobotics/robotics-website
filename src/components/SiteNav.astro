@@ -35,12 +35,12 @@ const isActive = (itemPath: string) => {
   <!-- Mobile Menu (details/summary) -->
   <details class="md:hidden z-50">
     <summary class="mt-2 text-2xl sm:text-3xl text-umichblue mr-2 dark:text-maize list-none cursor-pointer" aria-label="Toggle navigation menu">&#9776;</summary>
-       <nav class="absolute left-0 right-0 w-full top-[72px] border-b-8 border-maize border-double bg-gray-100 z-50 dark:bg-gray-700 pb-8" aria-label="Mobile navigation">
+       <nav class="absolute left-0 right-0 w-full top-[72px] border-b-8 border-maize border-double page-bg z-50 pb-8" aria-label="Mobile navigation">
         <ul class="flex w-full list-none flex-col items-stretch px-4">
             {menuItems.map((menuItem: MenuItem) => {
               const isMenuItemActive = isActive(menuItem.uri);
               return (
-                <li class="w-full dark:text-white">
+                <li class="w-full">
                     <div class="flex items-center justify-between">
                         <a href={menuItem.uri || '/'} 
                            class={`pl-2 pr-4 py-3 ${isMenuItemActive ? 'text-umichblue dark:text-maize' : ''}`}
@@ -62,7 +62,7 @@ const isActive = (itemPath: string) => {
                     {menuItem.childItems.nodes.length > 0 && (
                         <details class="w-full">
                             <summary class="hidden">Toggle Menu</summary>
-                            <ul class="pl-0 pr-0 w-full bg-gray-50 dark:bg-gray-800">
+                            <ul class="pl-0 pr-0 w-full surface">
                                 {menuItem.childItems.nodes.map((childItem: MenuItem) => {
                                   const isChildItemActive = isActive(childItem.uri);
                                   return (
@@ -88,7 +88,7 @@ const isActive = (itemPath: string) => {
                                         {childItem.childItems.nodes.length > 0 && (
                                             <details>
                                                 <summary class="hidden">Toggle Submenu</summary>
-                                                <ul class="pl-0 pr-0 w-full bg-gray-50 dark:bg-gray-800">
+                                                <ul class="pl-0 pr-0 w-full elevated">
                                                     {childItem.childItems.nodes.map((grandChildItem: MenuItem) => {
                                                       const isGrandChildItemActive = isActive(grandChildItem.uri);
                                                       return (
@@ -138,14 +138,14 @@ const isActive = (itemPath: string) => {
                 </a>
                 {menuItem.childItems.nodes.length > 0 && (
                     <div class={`hidden group-hover:block absolute mt-2 min-w-[180px] ${isLastItem ? 'right-0' : 'left-0'}`} role="menu">
-                        <ul class="bg-gray-100 dark:bg-gray-500 border border-maize rounded-sm shadow-lg">
+                        <ul class="surface border border-maize rounded-sm shadow-lg">
                             <li class={`triangle ${isLastItem ? 'triangle-right-aligned' : ''}`} aria-hidden="true"></li>
                             {menuItem.childItems.nodes.map((childItem: MenuItem) => {
                               const isChildItemActive = isActive(childItem.uri);
                               return (
                                 <li class="relative group/child">
                                     <a href={childItem.uri || '/'} 
-                                       class={`block px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-600 ${isChildItemActive ? 'text-umichblue dark:text-maize' : ''}`}
+                                       class={`block px-4 py-2 hover:bg-[var(--bg-surface-hover)] dark:hover:bg-[var(--bg-surface-hover-dark)] ${isChildItemActive ? 'text-umichblue dark:text-maize' : ''}`}
                                        aria-label={childItem.label}
                                        aria-current={isChildItemActive ? 'page' : undefined}
                                        aria-expanded={childItem.childItems.nodes.length > 0 ? "false" : undefined}
@@ -154,14 +154,14 @@ const isActive = (itemPath: string) => {
                                         {childItem.label}
                                     </a>
                                     {childItem.childItems.nodes.length > 0 && (
-                                        <ul class={`hidden group-hover/child:block absolute top-0 ml-1 min-w-[200px] bg-gray-100 dark:bg-gray-500 border border-maize rounded-sm shadow-lg ${isLastItem ? 'right-full' : 'left-full'}`} role="menu">
+                                        <ul class={`hidden group-hover/child:block absolute top-0 ml-1 min-w-[200px] surface border border-maize rounded-sm shadow-lg ${isLastItem ? 'right-full' : 'left-full'}`} role="menu">
                                             <li class={`${isLastItem ? 'triangle-left' : 'triangle-right'}`} aria-hidden="true"></li>
                                             {childItem.childItems.nodes.map((grandChildItem: MenuItem) => {
                                               const isGrandChildItemActive = isActive(grandChildItem.uri);
                                               return (
                                                 <li>
                                                     <a href={grandChildItem.uri || '/'} 
-                                                       class={`block px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-600 ${isGrandChildItemActive ? 'text-umichblue dark:text-maize' : ''}`}
+                                                       class={`block px-4 py-2 hover:bg-[var(--bg-surface-hover)] dark:hover:bg-[var(--bg-surface-hover-dark)] ${isGrandChildItemActive ? 'text-umichblue dark:text-maize' : ''}`}
                                                        aria-label={grandChildItem.label}
                                                        aria-current={isGrandChildItemActive ? 'page' : undefined}
                                                        role="menuitem">
@@ -333,9 +333,6 @@ nav ul li {
       justify-content: space-between;
       border-bottom: 1px solid var(--border-gray-200);
     }
-    :root[class~="dark"] .mobile-menu-item {
-      border-color: var(--border-gray-600);
-    }
 
     button.px-4.py-3 {
       background-color: var(--bg-gray-200);
@@ -350,14 +347,6 @@ nav ul li {
     }
     :root[class~="dark"] button.px-4.py-3:hover {
       background-color: var(--bg-gray-500);
-    }
-
-    /* Subtle background for child menus */
-    .mobile-submenu {
-      background-color: var(--bg-gray-50);
-    }
-    :root[class~="dark"] .mobile-submenu {
-      background-color: var(--bg-gray-800);
     }
 
     /* Mobile menu styles */

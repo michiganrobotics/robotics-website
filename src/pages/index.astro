@@ -118,9 +118,10 @@ const videoWebmPath = '/robotics-promo-2025-2.webm';
 						const excerpt = getExcerptText(post);
 
 						return (
+							
 							<Link 
 								href={getPostLink(post)}
-								class="no-underline group card-base card-hover md:flex-1 max-w-md"
+								class="no-underline group card-base surface md:flex-1 max-w-md border border-arboretumBlue"
 								target={isCollegeNews(post) ? '_blank' : undefined}
 								rel={isCollegeNews(post) ? 'noopener noreferrer' : undefined}
 							>
@@ -136,7 +137,7 @@ const videoWebmPath = '/robotics-promo-2025-2.webm';
 								) : null}
 								<div class="relative group">
 									<div class="p-4">
-										<div class="bg-arboretumBlue text-neutral-50 p-2 pl-4 -ml-4">
+										<div class="bg-arboretumBlue text-neutral-50 dark:text-neutral-200 p-2 pl-4 -ml-4">
 											<h3 class="text-xl font-roboto grid grid-cols-[1fr_auto] items-center gap-1">
 												{isCollegeNews(post) ? (
 													<>
@@ -147,8 +148,8 @@ const videoWebmPath = '/robotics-promo-2025-2.webm';
 											</h3>
 											<span class="maize-underline" />
 										</div>
-										<div class="mt-4 text-gray-600 dark:text-gray-200">
-											<p class="text-sm italic font-sans text-arboretumBlue dark:text-gray-400">
+										<div class="mt-4 text-gray-600 dark:text-neutral-200">
+											<p class="text-sm italic font-sans text-arboretumBlue dark:text-neutral-300">
 												{new Date(post.data.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
 											</p>
 											<p class="line-clamp-3 text-sm" set:html={excerpt} />
@@ -186,7 +187,7 @@ const videoWebmPath = '/robotics-promo-2025-2.webm';
 							href: "/people"
 						}
 					].map(item => (
-						<figure class="group min-w-[50%] md:min-w-[auto] flex-auto relative max-w-md rounded-sm shadow-md hover:shadow-lg transition-all duration-300">
+						<figure class="group min-w-[50%] md:min-w-[auto] flex-auto relative max-w-md rounded-sm shadow-md hover:shadow-lg transition-all duration-300 border-rackhamGreen border">
 							<Link href={item.href} class="block">
 								<div class="overflow-hidden">
 									<Image 
@@ -199,7 +200,7 @@ const videoWebmPath = '/robotics-promo-2025-2.webm';
 									/>
 								</div>
 								<div class="absolute inset-x-0 bottom-0 bg-rackhamGreen/90 p-4">
-									<h3 class="text-lg font-bold leading-tight text-neutral-50">
+									<h3 class="text-lg font-bold leading-tight text-neutral-50 dark:text-neutral-200">
 										{item.title}
 										<span class="block w-0 h-0.5 bg-maize transition-all duration-300 group-hover:w-full" />
 									</h3>
@@ -215,22 +216,26 @@ const videoWebmPath = '/robotics-promo-2025-2.webm';
 				  <h2 class="absolute -top-6 left-1/2 transform -translate-x-1/2 z-10 bg-matthaeiViolet text-neutral-50 px-6 py-2 rounded-sm text-3xl font-bold"><a href="/events" class="underline-hover-only">Events</a></h2>		
 				  <div class="flex flex-wrap gap-4 justify-center mb-4 md:flex-nowrap pt-10 px-2">	
 					{recentEvents.map((event: Event) => (
-					  <div key={event.id} class="group max-w-md bg-white border border-gray-200 rounded-sm shadow dark:bg-gray-800 dark:border-gray-700">
-						<a class='post-link block no-underline' href={event.permalink} aria-label={event.event_title}>
-						  <section>
-							<Image
-							  class="rounded-t-sm"
-							  src={event.styled_images.event_feature_large} 
-							  alt={event.image_description}
-							  height={300}
-							  width={446}
-							  loading='lazy'
-							/>
-							<div class="p-5 pl-0">
-							  <div class="mb-3 text-sm italic bg-matthaeiViolet text-neutral-50 inline-block pl-5 pr-2 py-1">
-								<time datetime={event.datetime_start}>
-								  {new Date(event.datetime_start.replace(
-									/(\d{4})(\d{2})(\d{2})T(\d{2})(\d{2})(\d{2})/,
+					  <a 
+						key={event.id} 
+						class='post-link no-underline group card-base surface border border-matthaeiViolet max-w-md'
+						href={event.permalink} 
+						aria-label={event.event_title}
+					  >
+						<section>
+						  <Image
+							class="rounded-t-sm"
+							src={event.styled_images.event_feature_large} 
+							alt={event.image_description}
+							height={300}
+							width={446}
+							loading='lazy'
+						  />
+						  <div class="p-5 pl-0">
+							<div class="mb-3 text-sm italic bg-matthaeiViolet text-neutral-200 inline-block pl-5 pr-2 py-1">
+							  <time datetime={event.datetime_start}>
+								{new Date(event.datetime_start.replace(
+								  /(\d{4})(\d{2})(\d{2})T(\d{2})(\d{2})(\d{2})/,
 									"$1-$2-$3T$4:$5:$6"
 								  )).toLocaleString('en-US', {
 									month: 'long',
@@ -240,18 +245,17 @@ const videoWebmPath = '/robotics-promo-2025-2.webm';
 									minute: '2-digit',
 									hour12: true
 								  })}
-								</time>
-							  </div> 
-							  <h3 class="pl-5 mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-neutral-50">
-                                {event.event_title}
-                                <span class="block w-0 h-0.5 bg-maize transition-all duration-300 group-hover:w-full" />
-                              </h3>
-							  <h4 class="pl-5 mb-2 text-xl tracking-tight text-gray-900 dark:text-neutral-100">{event.event_subtitle}</h4>  
-							  <div class="pl-5 mb-3 font-normal text-gray-700 dark:text-gray-100 whitespace-pre-wrap" set:html={event.description} />
-							</div>
-						  </section>
-						</a>
-					  </div>
+							  </time>
+							</div> 
+							<h3 class="pl-5 mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-neutral-200">
+							  {event.event_title}
+							  <span class="block w-0 h-0.5 bg-maize transition-all duration-300 group-hover:w-full" />
+							</h3>
+							<h4 class="pl-5 mb-2 text-xl tracking-tight text-gray-900 dark:text-neutral-300">{event.event_subtitle}</h4>  
+							<div class="pl-5 mb-3 font-normal text-gray-700 dark:text-neutral-200 whitespace-pre-wrap" set:html={event.description} />
+						  </div>
+						</section>
+					  </a>
 					))}
 				  </div>
 				</div>

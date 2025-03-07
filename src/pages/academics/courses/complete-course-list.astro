@@ -24,11 +24,11 @@ const courseList = await getCourseList();
           <div class="relative overflow-x-auto">
               <div class="mb-4">
                 <input type="text" id="searchInput" placeholder="Search courses..." 
-                  class="p-2 border rounded-sm w-full bg-white border-gray-200 dark:bg-gray-700 dark:border-gray-300 dark:text-white dark:placeholder:text-gray-200"
+                  class="p-2 border dark:border-neutral-50 rounded-sm w-full dark:text-neutral-100 dark:placeholder:text-gray-200"
                 />
               </div>
-              <table class="w-full text-sm text-left text-gray-500 dark:text-gray-200">
-                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-200">
+              <table class="w-full text-sm text-left surface">
+                <thead class="text-xs uppercase elevated">
                   <tr>
                     <th scope="col" class="px-4 py-3 cursor-pointer" data-sort="id">
                       Course ID
@@ -66,7 +66,7 @@ const courseList = await getCourseList();
                 </thead>
                 <tbody>
                   {courseList.map((course) => (
-                    <tr class="bg-white text-gray-800 dark:text-gray-200 border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                    <tr class="surface border-b hover:bg-gray-50 dark:hover:bg-gray-600">
                       <th scope="row" class="px-6 py-4 font-medium">
                         {course.courseSubject} {course.courseNumber}
                       </th>

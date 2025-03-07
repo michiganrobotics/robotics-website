@@ -21,6 +21,7 @@
   --color-angellHallAsh: #989C97;
   --color-lawQuadStone: #655A52;
   --color-pumaBlack: #131516;
+  --color-umichblue-dark: #001a36;
 
   /* Border Colors */
   --border-maize: var(--color-maize);
@@ -47,6 +48,18 @@
   /* Focus Styles */
   --focus-ring-color-light: var(--color-umichblue);
   --focus-ring-color-dark: #ffffff;
+
+  /* Surface Colors - Light Mode */
+  --bg-page-light: #f3f4f6;
+  --bg-surface-light: #f8f9fa;
+  --bg-surface-hover: #e5e7eb;
+  --bg-elevated-light: #ffffff;
+  
+  /* Surface Colors - Dark Mode */
+  --bg-page-dark: #00142c;
+  --bg-surface-dark: var(--color-umichblue);
+  --bg-surface-hover-dark: #1a3a5f;
+  --bg-elevated-dark: var(--color-arboretumBlue);
 }
 
 @layer base {
@@ -132,6 +145,13 @@
 }
 
 @layer utilities {
+  /* Remove the separate page-light and page-dark classes */
+  
+  /* Define a single page-bg class that uses CSS variables */
+  .page-bg {
+    @apply bg-[var(--bg-page-light)] text-gray-800 dark:bg-[var(--bg-page-dark)] dark:text-neutral-100;
+  }
+
   /* Remove top margin from first paragraph and images in TextWithImage component */
   .textwithimage .prose > div > p:first-child {
     margin-top: 0 !important;
@@ -163,7 +183,48 @@
     @apply relative border-t before:absolute before:left-0 before:top-0 before:w-px before:h-1/3 before:bg-gradient-to-b before:to-transparent after:absolute after:right-0 after:top-0 after:w-px after:h-1/3 after:bg-gradient-to-b after:to-transparent;
   }
   
-  /* Card hover animation */
+  /* Card Base Styles */
+  .card-base {
+    @apply rounded-sm overflow-hidden shadow-md transition-all duration-300;
+  }
+
+  .card-padded {
+    @apply shadow-md rounded-md p-6
+  }
+
+  /* Surfaces */
+  .surface {
+    @apply bg-[var(--bg-surface-light)] dark:bg-[var(--bg-surface-dark)] text-gray-700 dark:text-neutral-100;
+  }
+
+  .elevated {
+    @apply bg-[var(--bg-elevated-light)] dark:bg-[var(--bg-elevated-dark)];
+  }
+
+  /* Surface Variants */
+  .surface-secondary {
+    @apply bg-arboretumBlue dark:bg-arboretumBlue/80
+           text-neutral-100 prose-a:text-neutral-100
+           shadow-md
+           border border-arboretumBlue/20 dark:border-arboretumBlue/40;
+  }
+
+  .surface-alternative {
+    @apply bg-rackhamGreen dark:bg-rackhamGreen/80
+           text-neutral-100
+           shadow-md
+           border border-rackhamGreen/20 dark:border-rackhamGreen/40;
+  }
+
+  .surface-accent {
+    @apply bg-[var(--bg-surface-light)] dark:bg-matthaeiViolet/80
+           text-gray-900 dark:text-neutral-100
+           shadow-md
+           border-2 border-matthaeiViolet/80 dark:border-matthaeiViolet/40;
+  }
+}
+
+  /* Card Hover Effects */
   .card-hover {
     @apply hover:shadow-lg transition-all duration-300 hover:scale-[1.02];
   }
@@ -181,11 +242,6 @@
   /* Maize underline animation */
   .maize-underline {
     @apply block w-0 h-0.5 bg-maize transition-all duration-300 group-hover:w-full;
-  }
-  
-  /* Card base styling */
-  .card-base {
-    @apply rounded-sm overflow-hidden shadow-md bg-white dark:bg-gray-800;
   }
   
   /* Flex layout for card containers */
@@ -249,7 +305,8 @@
     text-underline-offset: 2px !important;
     text-decoration-color: var(--color-maize) !important;
   }
-}
+
+
 
 :root {
   --font-fallback-sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Oxygen, Ubuntu, Cantarell, sans-serif;
