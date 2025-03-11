@@ -21,7 +21,7 @@ interface Event {
 }
 
 const eventsData = await eventsQuery();
-const recentEvents = eventsData.slice(0, 3);
+const recentEvents = eventsData.slice(0, 6);
 ---
 
 <Layout title="Events | Michigan Robotics" image={OgImage.src} description="Michigan Robotics hosts regular events including speaker and seminar series from robotics experts.">
@@ -71,10 +71,10 @@ const recentEvents = eventsData.slice(0, 3);
       {recentEvents.length > 0 && (
         <div>
           <h2 class="mt-8 text-2xl font-bold tracking-tight text-umichblue dark:text-neutral-50">Upcoming events</h2>		
-          <div class="flex flex-wrap gap-4 justify-start mb-4 md:flex-nowrap not-prose">	
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-4 not-prose">	
             {recentEvents.map((event: Event) => (
-              <div class="max-w-md">
-                <a href={event.permalink} class="no-underline group surface card-base card-hover flex flex-col" aria-label={event.event_title}>
+              <div>
+                <a href={event.permalink} class="no-underline group surface card-base card-hover flex flex-col h-full" aria-label={event.event_title}>
                   <div class="relative overflow-hidden">
                     <Image
                       src={event.styled_images.event_feature_large} 
