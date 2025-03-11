@@ -214,17 +214,17 @@ const videoWebmPath = '/robotics-promo-2025-2.webm';
 			{recentEvents.length > 0 && (
 				<div class="relative mb-16 section-with-gradient-border border-matthaeiViolet before:from-matthaeiViolet after:from-matthaeiViolet">
 				  <h2 class="absolute -top-6 left-1/2 transform -translate-x-1/2 z-10 bg-matthaeiViolet text-neutral-50 px-6 py-2 rounded-sm text-3xl font-bold"><a href="/events" class="underline-hover-only">Events</a></h2>		
-				  <div class="flex flex-wrap gap-4 justify-center mb-4 md:flex-nowrap pt-10 px-2">	
+				  <div class="cards-container">	
 					{recentEvents.map((event: Event) => (
 					  <a 
 						key={event.id} 
-						class='post-link no-underline group card-base surface border border-matthaeiViolet max-w-md'
+						class='post-link no-underline group card-base surface border border-matthaeiViolet w-80'
 						href={event.permalink} 
 						aria-label={event.event_title}
 					  >
 						<section>
 						  <Image
-							class="rounded-t-sm"
+							class="rounded-t-sm aspect-video object-cover w-full"
 							src={event.styled_images.event_feature_large} 
 							alt={event.image_description}
 							height={300}
@@ -252,7 +252,7 @@ const videoWebmPath = '/robotics-promo-2025-2.webm';
 							  <span class="block w-0 h-0.5 bg-maize transition-all duration-300 group-hover:w-full" />
 							</h3>
 							<h4 class="pl-5 mb-2 text-xl tracking-tight text-gray-900 dark:text-neutral-300">{event.event_subtitle}</h4>  
-							<div class="pl-5 mb-3 font-normal text-gray-700 dark:text-neutral-200 whitespace-pre-wrap" set:html={event.description} />
+							<div class="pl-5 mb-3 font-normal text-gray-700 dark:text-neutral-200 whitespace-pre-wrap line-clamp-4" set:html={event.description} />
 						  </div>
 						</section>
 					  </a>

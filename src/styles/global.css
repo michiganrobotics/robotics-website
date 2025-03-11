@@ -191,6 +191,10 @@
     @apply shadow-md rounded-md p-6
   }
 
+  .surface-border {
+    @apply dark:border dark:border-arboretumBlue/50
+  }
+
   /* Surfaces */
   .surface {
     @apply bg-[var(--bg-surface-light)] dark:bg-[var(--bg-surface-dark)] text-gray-700 dark:text-neutral-100;
