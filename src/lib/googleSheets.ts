@@ -201,7 +201,7 @@ function createSlug(name: string): string {
 export const getProfileImagePath = (person: { UMID?: string, firstName?: string, lastName?: string }): string => {
   if (!person) {
     console.error('No person object provided to getProfileImagePath');
-    return '/src/images/profile-images/robot-profile.jpg';
+    return Math.random() < 0.5 ? '/src/images/profile-images/robot-profile.jpg' : '/src/images/profile-images/robot-profile2.jpg';
   }
 
   const baseImagePath = '/src/images/profile-images/';
@@ -220,7 +220,7 @@ export const getProfileImagePath = (person: { UMID?: string, firstName?: string,
   }
   
   console.warn('Using fallback image for:', person);
-  return `${baseImagePath}robot-profile.jpg`;
+  return Math.random() < 0.5 ? `${baseImagePath}robot-profile.jpg` : `${baseImagePath}robot-profile2.jpg`;
 };
 
 export const getFacultyData = cached(async () => {

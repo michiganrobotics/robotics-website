@@ -62,7 +62,7 @@ const isActive = (itemPath: string) => {
                     {menuItem.childItems.nodes.length > 0 && (
                         <details class="w-full">
                             <summary class="hidden">Toggle Menu</summary>
-                            <ul class="pl-0 pr-0 w-full surface">
+                            <ul class="pl-0 pr-0 w-full surface rounded-b-md mb-2">
                                 {menuItem.childItems.nodes.map((childItem: MenuItem) => {
                                   const isChildItemActive = isActive(childItem.uri);
                                   return (
@@ -88,7 +88,7 @@ const isActive = (itemPath: string) => {
                                         {childItem.childItems.nodes.length > 0 && (
                                             <details>
                                                 <summary class="hidden">Toggle Submenu</summary>
-                                                <ul class="pl-0 pr-0 w-full elevated">
+                                                <ul class="pl-0 pr-0 w-full elevated rounded-b-md mb-2">
                                                     {childItem.childItems.nodes.map((grandChildItem: MenuItem) => {
                                                       const isGrandChildItemActive = isActive(grandChildItem.uri);
                                                       return (
@@ -199,9 +199,6 @@ body {
 }
 
 /* Navigation link styles */
-nav a {
-  text-decoration: none !important; /* Explicitly remove any default underline */
-}
 
 nav ul li {
   margin-bottom: 0;

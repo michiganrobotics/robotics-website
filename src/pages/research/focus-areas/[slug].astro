@@ -116,21 +116,21 @@ const relatedPosts = allAreaPosts
                 }) : null;
 
                 return (
-                  <div class="group bg-white dark:bg-gray-900 rounded-sm overflow-hidden shadow-lg">
+                  <div class="surface card-base">
                     <Link 
                       href={getPostLink(post)}
                       class="group no-underline not-prose"
                       target={isCollegeNews(post) ? '_blank' : undefined}
                       rel={isCollegeNews(post) ? 'noopener noreferrer' : undefined}
                     >
-                      <div class="relative aspect-video overflow-hidden rounded-sm shadow-lg not-prose">
+                      <div class="relative aspect-video overflow-hidden rounded-sm not-prose">
                         {postImage ? (
                           <Image 
                             src={postImage.src}
                             alt={post.data.image?.alt || post.data.title}
                             width={450}
                             height={300}
-                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                            class="w-full h-full object-cover image-hover"
                           />
                         ) : null}
                       </div>

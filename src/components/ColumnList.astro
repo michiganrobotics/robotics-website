@@ -4,73 +4,71 @@ interface Props {
 }
 
 const { columns = 2 } = Astro.props;
-
-// Map number of columns to Tailwind classes
-const columnClasses = {
-  2: 'lg:grid-cols-2',
-  3: 'lg:grid-cols-3',
-  4: 'lg:grid-cols-4'
-};
-
-const columnClass = columnClasses[columns as keyof typeof columnClasses] || 'lg:grid-cols-2';
 ---
 
-<div class={`columnlist grid grid-cols-1 ${columnClass} gap-4 items-start`}>
-  <ul class="list-disc list-inside">
-    <slot />
-  </ul>
+<div class="columnlist" data-columns={columns}>
+  <slot />
 </div>
 
 <style>
   @reference "../styles/global.css";
-  /* Allow the ul to span multiple columns */
-  ul {
-    @apply col-span-full;
+  
+  .columnlist {
     column-count: 1;
+    column-gap: 1rem;
   }
 
   @media (min-width: 1024px) {
-    ul {
-      column-count: var(--columns);
-      column-gap: 1rem;
+    .columnlist {
+      column-count: var(--columns, 2);
     }
   }
 
+  /* Remove top margin from direct ul children */
+  :global(.columnlist > ul) {
+    @apply mt-0;
+  }
+
+  /* Remove top margin from first li in ul */
+  :global(.columnlist > ul > li:first-child) {
+    @apply mt-0;
+  }
+
   /* Keep items together and add spacing */
-  :global(ul li) {
-    @apply break-inside-avoid-column mb-2;
+  :global(.columnlist > li) {
+    @apply break-inside-avoid-column mb-2 list-disc list-inside;
   }
 
   /* Keep each section together */
-  :global(ul > div) {
+  :global(.columnlist > div) {
     @apply break-inside-avoid-column;
     display: inline-block;
     width: 100%;
   }
 
   /* Style nested lists */
-  :global(ul > li > ul) {
+  :global(.columnlist > li > ul) {
     @apply ml-4 mt-1;
     column-count: 1 !important;
   }
 
-  :global(ul > li > ul > li) {
+  :global(.columnlist > li > ul > li) {
     @apply mb-1;
   }
 
   /* Override prose margins */
-  :global(.prose ul li h2),
-  :global(.prose ul li h3),
-  :global(.prose ul li h4) {
+  :global(.prose .columnlist li h2),
+  :global(.prose .columnlist li h3),
+  :global(.prose .columnlist li h4) {
     margin-top: 0;
   }
 </style>
 
 <script>
   // Set the column count
-  const lists = document.querySelectorAll('div > ul');
+  const lists = document.querySelectorAll('.columnlist');
   lists.forEach(list => {
-    const columns = list.parentElement?.className.match(/lg:grid-cols-(\d+)/)?.[1] || '2';
+    const columns = list.getAttribute('data-columns') || '2';
     (list as HTMLElement).style.setProperty('--columns', columns);
   });
 </script> 

@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import Link from './Link.astro';
+import { Icon } from 'astro-icon/components';
 
 // Get current page path from Astro
 const currentPath = Astro.url.pathname;
@@ -60,9 +61,8 @@ const searchableContent = filteredContent.map(entry => {
   return {
     title: entry.data.title || '',
     description: entry.data.description || '',
-    slug: entry.slug,
     // Clean the content before storing
-    content: cleanMDXContent(entry.body) || '',
+    content: cleanMDXContent(entry.body || ''),
     path: fullPath === 'index' ? '/academics' : `/academics/${fullPath}`,
     breadcrumbs
   };
@@ -74,7 +74,7 @@ const searchableContent = filteredContent.map(entry => {
     type="text"
     id="academic-search"
     placeholder="Search academic needs such as ROB 590, override, or auditing..."
-    class="w-full p-2 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-800 text-sm text-gray-900 dark:text-white"
+    class="search-bar"
     aria-label="Search academic pages"
   />
   <div id="search-results" class="mt-4 space-y-4 hidden">
@@ -112,84 +112,131 @@ const searchableContent = filteredContent.map(entry => {
 
   let debounceTimeout;
 
+  // Function to show search results
+  function showResults() {
+    resultsDiv?.classList.remove('hidden');
+  }
+
+  // Function to hide search results
+  function hideResults() {
+    resultsDiv?.classList.add('hidden');
+  }
+
+  // Function to handle search
+  function handleSearch(searchTerm) {
+    if (searchTerm.length < 2) {
+      hideResults();
+      return;
+    }
+
+    const results = searchableContent.filter(item => 
+      item.title.toLowerCase().includes(searchTerm) ||
+      (item.description || '').toLowerCase().includes(searchTerm) ||
+      (item.content || '').toLowerCase().includes(searchTerm)
+    );
+
+    if (results.length > 0) {
+      showResults();
+      resultsDiv.innerHTML = results
+        .map(result => {
+          const snippet = getContextSnippet(result.content, searchTerm) || 
+                        getContextSnippet(result.description || '', searchTerm) ||
+                        getContextSnippet(result.title, searchTerm);
+          
+          const isCurrentPage = currentPath === result.path || 
+                              currentPath.replace(/\/$/, '') === result.path;
+          
+          if (isCurrentPage) {
+            return `
+              <div class="surface card-base card-padded">
+                <div class="text-sm text-neutral-600 dark:text-neutral-200 mb-1">
+                  ${result.breadcrumbs.join(' > ')}
+                </div>
+                <div class="flex items-center gap-2 mb-2">
+                  <h3 class="text-xl font-bold text-neutral-700 dark:text-neutral-300">${result.title}</h3>
+                  <span class="text-xs bg-matthaeiViolet dark:bg-matthaeiViolet text-neutral-100 px-2 py-1 rounded">Current page</span>
+                </div>
+                ${snippet ? 
+                  `<div class="text-sm elevated card-base card-padded rounded border border-gray-200 dark:border-gray-700">
+                    <span class="italic">On this page:</span><br>${snippet}
+                  </div>` 
+                  : ''}
+              </div>
+            `;
+          }
+          
+          return `
+            <a href="${result.path}" class="block group no-underline">
+              <div class="surface card-base card-padded transition-all duration-100 ease-in-out group-hover:shadow-lg group-hover:scale-[1.01]">
+                <div class="text-sm text-neutral-600 dark:text-neutral-300 mb-1">
+                  ${result.breadcrumbs.join(' > ')}
+                </div>
+                <h3 class="text-xl font-bold text-primary group-hover:underline group-hover:decoration-maize group-hover:decoration-2 mb-2">${result.title}</h3>
+                ${snippet ? 
+                  `<div class="text-sm elevated card-base card-padded rounded border border-gray-200 dark:border-gray-700">
+                    <span class="italic">On the page:</span><br>${snippet}
+                  </div>` 
+                  : ''}
+              </div>
+            </a>
+          `;
+        })
+        .join('');
+    } else {
+      showResults();
+      resultsDiv.innerHTML = `
+        <div class="surface card-base card-padded text-center">
+          <div class="flex flex-col items-center gap-3">
+            <p class="text-lg font-medium text-neutral-700 dark:text-neutral-200 mb-2">
+              No results found for "${searchTerm}"
+            </p>
+            <div class="text-neutral-900 dark:text-neutral-200">
+              <p class="mb-2">Try searching with different terms or check our program guides:</p>
+              <div class="flex justify-center gap-4 mt-3">
+                <a href="/undergrad-guide" class="inline-flex items-center gap-1">
+                  Undergraduate Program Guide
+                   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                </a>
+                <a href="/grad-guide" class="inline-flex items-center gap-1">
+                  Graduate Program Guide
+                   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+  }
+
+  // Input event handler with debounce
   searchInput?.addEventListener('input', (e) => {
     clearTimeout(debounceTimeout);
-    
-    debounceTimeout = setTimeout(() => {
-      const searchTerm = e.target.value.toLowerCase();
-      
-      if (searchTerm.length < 2) {
-        resultsDiv?.classList.add('hidden');
-        return;
-      }
+    const searchTerm = e.target.value.toLowerCase();
+    debounceTimeout = setTimeout(() => handleSearch(searchTerm), 300);
+  });
 
-      const results = searchableContent.filter(item => 
-        item.title.toLowerCase().includes(searchTerm) ||
-        (item.description || '').toLowerCase().includes(searchTerm) ||
-        (item.content || '').toLowerCase().includes(searchTerm)
-      );
+  // Focus event handler
+  searchInput?.addEventListener('focus', () => {
+    if (searchInput.value.length >= 2) {
+      showResults();
+    }
+  });
 
-      if (results.length > 0) {
-        resultsDiv?.classList.remove('hidden');
-        resultsDiv.innerHTML = results
-          .map(result => {
-            const snippet = getContextSnippet(result.content, searchTerm) || 
-                          getContextSnippet(result.description || '', searchTerm) ||
-                          getContextSnippet(result.title, searchTerm);
-            
-            const isCurrentPage = currentPath === result.path || 
-                                currentPath.replace(/\/$/, '') === result.path;
-            
-            if (isCurrentPage) {
-              return `
-                <div class="bg-gray-50 dark:bg-gray-800/50 p-6 rounded-sm border border-gray-200 dark:border-gray-700">
-                  <div class="text-sm text-gray-500 dark:text-gray-400 mb-1">
-                    ${result.breadcrumbs.join(' > ')}
-                  </div>
-                  <div class="flex items-center gap-2 mb-2">
-                    <h3 class="text-xl font-bold text-gray-700 dark:text-gray-300">${result.title}</h3>
-                    <span class="text-xs bg-matthaeiViolet dark:bg-matthaeiViolet text-white px-2 py-1 rounded">Current page</span>
-                  </div>
-                  ${result.description ? 
-                    `<p class="text-sm text-gray-600 dark:text-gray-400 mb-2">${result.description}</p>` 
-                    : ''}
-                  ${snippet ? 
-                    `<div class="text-sm text-gray-700 dark:text-gray-200 mt-2 bg-gray-100/50 dark:bg-gray-800/50 p-3 rounded border border-gray-200 dark:border-gray-700">
-                      ${snippet}
-                    </div>` 
-                    : ''}
-                </div>
-              `;
-            }
-            
-            return `
-              <a href="${result.path}" class="block group no-underline">
-                <div class="bg-white dark:bg-gray-800 p-6 rounded-sm shadow-md transition-all duration-200 ease-in-out group-hover:shadow-lg group-hover:scale-[1.01]">
-                  <div class="text-sm text-gray-500 dark:text-gray-400 mb-1">
-                    ${result.breadcrumbs.join(' > ')}
-                  </div>
-                  <h3 class="text-xl font-bold text-primary group-hover:underline group-hover:decoration-maize group-hover:decoration-2 mb-2">${result.title}</h3>
-                  ${result.description ? 
-                    `<p class="text-sm text-gray-600 dark:text-gray-300 mb-2">${result.description}</p>` 
-                    : ''}
-                  ${snippet ? 
-                    `<div class="text-sm text-gray-700 dark:text-gray-200 mt-2 bg-gray-100/50 dark:bg-gray-800/50 p-3 rounded border border-gray-200 dark:border-gray-700">
-                      ${snippet}
-                    </div>` 
-                    : ''}
-                </div>
-              </a>
-            `;
-          })
-          .join('');
-      } else {
-        resultsDiv?.classList.remove('hidden');
-        resultsDiv.innerHTML = `
-          <div class="bg-white dark:bg-gray-800 p-6 rounded-sm shadow-md">
-            <p class="text-gray-600 dark:text-gray-300">No results found for "${searchTerm}"</p>
-          </div>
-        `;
-      }
-    }, 300);
+  // Click outside handler
+  document.addEventListener('click', (e) => {
+    if (e.target instanceof HTMLElement && 
+        !e.target.closest('#academic-search') && 
+        !e.target.closest('#search-results')) {
+      hideResults();
+    }
+  });
+
+  // Escape key handler
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      hideResults();
+      searchInput?.blur();
+    }
   });
 </script> 

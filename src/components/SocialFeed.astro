@@ -40,7 +40,7 @@ const socialIcons = {
     </div>
       <div class="cards-container">
         {posts.map((post) => (
-          <div class="w-80 h-[24rem] rounded-sm overflow-hidden shadow-xl bg-white dark:bg-[var(--bg-surface-dark)] relative card-hover border border-maize">
+          <div class="w-80 h-[24rem] rounded-sm overflow-hidden shadow-xl bg-white dark:bg-[var(--bg-surface-dark)] relative border border-maize">
             {(post.platform === 'Instagram' ||  
               (post.platform === 'X' && post.mediaType === 'IMAGE' && post.mediaUrl) || 
               (post.platform !== 'Instagram' && post.thumbnailUrl)) ? (

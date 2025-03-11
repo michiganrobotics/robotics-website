@@ -2,12 +2,12 @@
 import { Icon } from "astro-icon/components";
 ---
 
-<div id="gameModal" class="hidden font-mono text-umichblue dark:text-white">
+<div id="gameModal" class="hidden font-mono">
   <div class="sr-only" id="gameInstructions">
     ASCII Phone Game. Connect incoming calls to outgoing lines. Use WASD keys to move the robot operator. Press Escape to quit.
   </div>
   <div class="sr-only" id="gameStatus" aria-live="polite"></div>
-  <pre id="gameCanvas" class="bg-white dark:bg-gray-800 p-4 text-xs md:text-base leading-none whitespace-pre" tabindex="0" aria-labelledby="gameInstructions" role="application"></pre>
+  <pre id="gameCanvas" class="surface p-4 text-xs md:text-base leading-none whitespace-pre" tabindex="0" aria-labelledby="gameInstructions" role="application"></pre>
   <div class="md:hidden mt-4 flex justify-center gap-2">
     <button class="touch-left bg-gray-200 dark:bg-gray-700 p-2 rounded" aria-label="Move left">←</button>
     <button class="touch-up bg-gray-200 dark:bg-gray-700 p-2 rounded" aria-label="Move up">↑</button>

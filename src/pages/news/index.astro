@@ -199,21 +199,23 @@ async function getExcerpt(post: CombinedNewsItem) {
           return (
             <Link 
               href={postLink}
-              class={`no-underline group block bg-white dark:bg-gray-800 shadow-md rounded-sm overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-[1.02] ${index === 0 ? 'md:col-span-2' : ''}`}
+              class={`no-underline group surface card-base card-hover flex flex-col ${index === 0 ? 'md:col-span-2' : ''}`}
               target={isCollegeNews(post) ? '_blank' : undefined}
               rel={isCollegeNews(post) ? 'noopener noreferrer' : undefined}
             >
-              {postImage ? (
-                <Image 
-                  src={postImage.src}
-                  alt={post.data.image?.alt || post.data.title}
-                  width={index === 0 ? 760 : 368}
-                  height={index === 0 ? 384 : 192}
-                  class={`w-full ${index === 0 ? 'md:h-96 h-48' : 'h-48'} object-cover`}
-                  loading={`${index < 2 ? 'eager' : 'lazy'}`}
-                />
-              ) : null}
-              <div class="p-4">
+              {postImage && (
+                <div class="relative overflow-hidden">
+                  <Image 
+                    src={postImage.src}
+                    alt={post.data.image?.alt || post.data.title}
+                    width={index === 0 ? 760 : 368}
+                    height={index === 0 ? 384 : 192}
+                    class={`w-full ${index === 0 ? 'md:h-96 h-48' : 'h-48'} object-cover`}
+                    loading={`${index < 2 ? 'eager' : 'lazy'}`}
+                  />
+                </div>
+              )}
+              <div class="p-4 flex-grow">
                 <h2 class="text-xl leading-tight font-roboto font-bold text-umichblue dark:text-gray-100 mb-2 border-b-2 border-transparent group-hover:border-maize transition-all duration-300 grid grid-cols-[1fr_auto] items-center gap-1">
                     {isCollegeNews(post) ? (
                         <>
@@ -222,10 +224,10 @@ async function getExcerpt(post: CombinedNewsItem) {
                         </>
                     ) : post.data.title}
                 </h2>
-                <p class="text-sm italic font-sans text-gray-600 dark:text-gray-400 mb-4">
+                <p class="text-sm italic font-sans text-neutral-700 dark:text-neutral-300 mb-4">
                   {new Date(post.data.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
                 </p>
-                <p class="text-gray-600 dark:text-gray-200 mb-4" set:html={excerpt} />
+                <p class="text-neutral-700 dark:text-gray-200" set:html={excerpt} />
               </div>
             </Link>
           );
@@ -234,24 +236,24 @@ async function getExcerpt(post: CombinedNewsItem) {
     </section>
     {eventsData.length > 0 && (
     <section id="events" class="mb-12">
-      <div class="grid grid-cols-1 sm:flex sm:flex-row sm:gap-6">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 sm:gap-6">
         {eventsData.slice(0,4).map((event: Event, index: number) => (
-          <a href={event.permalink} class={`no-underline group bg-white dark:bg-gray-800 shadow-md rounded-sm overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-[1.02] flex flex-col mb-6 last:mb-0 sm:mb-0 sm:flex-1 ${index !== 0 ? 'sm:ml-6' : ''}`}>
+          <a href={event.permalink} class="no-underline group surface card-base card-hover flex flex-col mb-6 last:mb-0 sm:mb-0 sm:flex-1">
             <div class="relative">
-              <span class="absolute top-2 left-0 text-xs font-medium px-4 py-1 bg-matthaeiViolet text-white shadow-md">
+              <span class="absolute top-2 left-0 text-xs font-medium px-4 py-1 bg-matthaeiViolet text-neutral-100 shadow-md">
                 upcoming event
               </span>
+              <Image 
+                src={event.styled_images.event_feature_large}
+                alt={event.image_description || "Event image"}
+                width={Math.floor(1152 / Math.min(eventsData.slice(0,4).length, 3))}
+                height={368}
+                class="w-full h-48 object-cover"
+              />
             </div>
-            <Image 
-              src={event.styled_images.event_feature_large}
-              alt={event.image_description || "Event image"}
-              width={Math.floor(1152 / Math.min(eventsData.slice(0,4).length, 3))}
-              height={368}
-              class="w-full h-48 object-cover"
-            />
             <div class="p-4 flex-grow flex flex-col justify-between">
               <div>
-                <p class="text-sm italic font-sans text-gray-600 dark:text-gray-400 mb-2">
+                <p class="text-sm italic font-sans text-neutral-700 dark:text-neutral-300 mb-2">
                   <time datetime={event.datetime_start}>
 								  {new Date(event.datetime_start.replace(
 									/(\d{4})(\d{2})(\d{2})T(\d{2})(\d{2})(\d{2})/,
@@ -270,7 +272,7 @@ async function getExcerpt(post: CombinedNewsItem) {
                   <Icon name="mdi:open-in-new" class="inline w-4 h-4 ml-1" />
                 </h2>
                 {event.event_subtitle && (
-                  <h3 class="text-base font-roboto text-gray-600 dark:text-gray-300 mb-2">{event.event_subtitle}</h3>
+                  <h3 class="text-base font-roboto text-neutral-700 dark:text-gray-300 mb-2">{event.event_subtitle}</h3>
                 )}
               </div>
             </div>
@@ -294,15 +296,12 @@ async function getExcerpt(post: CombinedNewsItem) {
           return (
             <Link 
               href={postLink}
-              class="no-underline group bg-white dark:bg-gray-800 shadow-md rounded-sm overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-[1.02] flex flex-col"
+              class="no-underline group surface card-base card-hover flex flex-col"
               target={isCollegeNews(post) ? '_blank' : undefined}
               rel={isCollegeNews(post) ? 'noopener noreferrer' : undefined}
             >
-              <div class="relative">
-                <span class="hidden sm:block absolute top-2 left-0 text-xs font-medium px-4 py-1 bg-arboretumBlue text-white shadow-md z-10">
-                  {categoryTitles[post.data.categories?.[0]] || 'robotics community'}
-                </span>
-                {postImage ? (
+              <div class="relative overflow-hidden">
+                {postImage && (
                   <Image 
                     src={postImage.src}
                     alt={post.data.image?.alt || post.data.title}
@@ -310,11 +309,14 @@ async function getExcerpt(post: CombinedNewsItem) {
                     height={360}
                     class="w-full h-48 object-cover"
                   />
-                ) : null}
+                )}
+                <span class="hidden sm:block absolute top-2 left-0 text-xs font-medium px-4 py-1 bg-arboretumBlue text-neutral-100 shadow-md z-10">
+                  {categoryTitles[post.data.categories?.[0]] || 'robotics community'}
+                </span>
               </div>
               <div class="p-4 flex-grow flex flex-col justify-between">
                 <div>
-                  <span class="sm:hidden inline-block text-xs font-medium mr-2 px-4 py-1 bg-arboretumBlue text-white mb-2">
+                  <span class="sm:hidden inline-block text-xs font-medium mr-2 px-4 py-1 bg-arboretumBlue text-neutral-100 mb-2">
                     {categoryTitles[post.data.categories?.[0]] || 'robotics community'}
                   </span>
                   <h2 class="text-lg leading-tight font-roboto font-bold text-umichblue dark:text-gray-100 mb-2 border-b-2 border-transparent group-hover:border-maize transition-all duration-300 grid grid-cols-[1fr_auto] items-center gap-1">
@@ -325,10 +327,10 @@ async function getExcerpt(post: CombinedNewsItem) {
                         </>
                     ) : post.data.title}
                   </h2>
-                  <p class="text-sm italic font-sans text-gray-600 dark:text-gray-400">
+                  <p class="text-sm italic font-sans text-neutral-700 dark:text-neutral-300">
                     {new Date(post.data.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
                   </p>
-                  <p class="text-gray-600 dark:text-gray-200 mt-2" set:html={excerpt} />
+                  <p class="text-neutral-700 dark:text-gray-200 mt-2" set:html={excerpt} />
                 </div>
               </div>
             </Link>
@@ -339,9 +341,9 @@ async function getExcerpt(post: CombinedNewsItem) {
 
     <section id="newsletter-and-news" class="mb-12">
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        <a href="https://umrobotics.substack.com" class="no-underline group bg-white dark:bg-gray-800 shadow-md rounded-sm overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-[1.02] flex flex-col">
-          <div class="relative">
-            <span class="hidden sm:block absolute top-2 left-0 text-xs font-medium px-4 py-1 bg-arboretumBlue text-white shadow-md z-10">
+        <a href="https://umrobotics.substack.com" class="no-underline group surface card-base card-hover flex flex-col">
+          <div class="relative overflow-hidden">
+            <span class="hidden sm:block absolute top-2 left-0 text-xs font-medium px-4 py-1 bg-arboretumBlue text-neutral-100 shadow-md z-10">
               substack newsletter
             </span>
             <Image
@@ -354,14 +356,14 @@ async function getExcerpt(post: CombinedNewsItem) {
           </div>
           <div class="p-4 flex-grow flex flex-col justify-between">
             <div>
-              <span class="sm:hidden inline-block text-xs font-medium mr-2 px-4 py-1 bg-arboretumBlue text-white mb-2">
+              <span class="sm:hidden inline-block text-xs font-medium mr-2 px-4 py-1 bg-arboretumBlue text-neutral-100 mb-2">
                 substack newsletter
               </span>
               <h2 class="text-lg leading-tight font-roboto font-bold text-umichblue dark:text-gray-100 mb-2 border-b-2 border-transparent group-hover:border-maize transition-all duration-300">
                 <span class="sm:hidden">Subscribe to the </span>Michigan Robotics Newsletter
                 <Icon name="mdi:open-in-new" class="inline w-4 h-4 ml-1" />
               </h2>
-              <p class="text-sm italic font-sans text-gray-600 dark:text-gray-400">
+              <p class="text-sm italic font-sans text-neutral-700 dark:text-neutral-300">
                 umrobotics.substack.com
               </p>
             </div>
@@ -380,15 +382,12 @@ async function getExcerpt(post: CombinedNewsItem) {
           return (
             <Link 
               href={postLink}
-              class="no-underline group bg-white dark:bg-gray-800 shadow-md rounded-sm overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-[1.02] flex flex-col"
+              class="no-underline group surface card-base card-hover flex flex-col"
               target={isCollegeNews(post) ? '_blank' : undefined}
               rel={isCollegeNews(post) ? 'noopener noreferrer' : undefined}
             >
-              <div class="relative">
-                <span class="hidden sm:block absolute top-2 left-0 text-xs font-medium px-4 py-1 bg-arboretumBlue text-white shadow-md z-10">
-                  {categoryTitles[post.data.categories?.[0]] || 'robotics community'}
-                </span>
-                {postImage ? (
+              <div class="relative overflow-hidden">
+                {postImage && (
                   <Image 
                     src={postImage.src}
                     alt={post.data.image?.alt || post.data.title}
@@ -396,11 +395,14 @@ async function getExcerpt(post: CombinedNewsItem) {
                     height={360}
                     class="w-full h-48 object-cover"
                   />
-                ) : null}
+                )}
+                <span class="hidden sm:block absolute top-2 left-0 text-xs font-medium px-4 py-1 bg-arboretumBlue text-neutral-100 shadow-md z-10">
+                  {categoryTitles[post.data.categories?.[0]] || 'robotics community'}
+                </span>
               </div>
               <div class="p-4 flex-grow flex flex-col justify-between">
                 <div>
-                  <span class="sm:hidden inline-block text-xs font-medium mr-2 px-4 py-1 bg-arboretumBlue text-white mb-2">
+                  <span class="sm:hidden inline-block text-xs font-medium mr-2 px-4 py-1 bg-arboretumBlue text-neutral-100 mb-2">
                     {categoryTitles[post.data.categories?.[0]] || 'robotics community'}
                   </span>
                   <h2 class="text-lg leading-tight font-roboto font-bold text-umichblue dark:text-gray-100 mb-2 border-b-2 border-transparent group-hover:border-maize transition-all duration-300 grid grid-cols-[1fr_auto] items-center gap-1">
@@ -411,7 +413,7 @@ async function getExcerpt(post: CombinedNewsItem) {
                         </>
                     ) : post.data.title}
                   </h2>
-                  <p class="text-sm italic font-sans text-gray-600 dark:text-gray-400">
+                  <p class="text-sm italic font-sans text-neutral-700 dark:text-neutral-300">
                     {new Date(post.data.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
                   </p>
                 </div>
@@ -437,15 +439,12 @@ async function getExcerpt(post: CombinedNewsItem) {
           return (
             <Link 
               href={postLink}
-              class="no-underline group bg-white dark:bg-gray-800 shadow-md rounded-sm overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-[1.02] flex flex-col"
+              class="no-underline group surface card-base card-hover flex flex-col"
               target={isCollegeNews(post) ? '_blank' : undefined}
               rel={isCollegeNews(post) ? 'noopener noreferrer' : undefined}
             >
-              <div class="relative">
-                <span class="hidden sm:block absolute top-2 left-0 text-xs font-medium px-4 py-1 bg-arboretumBlue text-white shadow-md z-10">
-                  {categoryTitles[post.data.categories?.[0]] || 'robotics community'}
-                </span>
-                {postImage ? (
+              <div class="relative overflow-hidden">
+                {postImage && (
                   <Image 
                     src={postImage.src}
                     alt={post.data.image?.alt || post.data.title}
@@ -453,11 +452,14 @@ async function getExcerpt(post: CombinedNewsItem) {
                     height={360}
                     class="w-full h-48 object-cover"
                   />
-                ) : null}
+                )}
+                <span class="hidden sm:block absolute top-2 left-0 text-xs font-medium px-4 py-1 bg-arboretumBlue text-neutral-100 shadow-md z-10">
+                  {categoryTitles[post.data.categories?.[0]] || 'robotics community'}
+                </span>
               </div>
               <div class="p-4 flex-grow flex flex-col justify-between">
                 <div>
-                  <span class="sm:hidden inline-block text-xs font-medium mr-2 px-4 py-1 bg-arboretumBlue text-white mb-2">
+                  <span class="sm:hidden inline-block text-xs font-medium mr-2 px-4 py-1 bg-arboretumBlue text-neutral-100 mb-2">
                     {categoryTitles[post.data.categories?.[0]] || 'robotics community'}
                   </span>
                   <h2 class="text-lg leading-tight font-roboto font-bold text-umichblue dark:text-gray-100 mb-2 border-b-2 border-transparent group-hover:border-maize transition-all duration-300 grid grid-cols-[1fr_auto] items-center gap-1">
@@ -468,10 +470,9 @@ async function getExcerpt(post: CombinedNewsItem) {
                         </>
                     ) : post.data.title}
                   </h2>
-                  <p class="text-sm italic font-sans text-gray-600 dark:text-gray-400">
+                  <p class="text-sm italic font-sans text-neutral-700 dark:text-neutral-300">
                     {new Date(post.data.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
                   </p>
-                 
                 </div>
               </div>
             </Link>

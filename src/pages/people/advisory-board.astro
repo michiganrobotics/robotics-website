@@ -45,7 +45,7 @@ const profileImages = await Promise.all(
       <div class="relative mb-16">
        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-6 pt-10 px-2">
           {advisoryBoard.map((member, index) => (
-            <div class="block rounded-sm shadow-md hover:shadow-lg transition-shadow p-4 bg-white dark:bg-gray-800">
+            <div class="surface card-base p-0 border border-arboretumBlue/20 dark:border-arboretumBlue/30 flex flex-col">
               <Image
                 src={profileImages[index]}
                 alt={`Portrait of ${member.fullName}`}
@@ -57,13 +57,21 @@ const profileImages = await Promise.all(
                   (index < 8 && 'lg:hidden') || 
                   (index < 10 && 'xl:hidden') || 
                   (index < 12 && '2xl:hidden') ? 'eager' : 'lazy'}
-                class="w-full object-cover aspect-square rounded-sm mb-3"
+                class="w-full object-cover aspect-square"
               />
-              <h2 class="text-lg font-bold mb-1 text-gray-900 dark:text-white">{member.firstName} {member.lastName}</h2>
-              <p class="text-sm text-arboretumBlue dark:text-taubmanTeal">{member.title1}</p>
-              <p class="text-sm text-gray-600 dark:text-gray-300">{member.organization1}</p>
-              <p class="text-sm mt-2 text-arboretumBlue dark:text-taubmanTeal">{member.title2}</p>
-              <p class="text-sm text-gray-600 dark:text-gray-300">{member.organization2}</p>
+              <div class="p-4 flex-grow border-t border-arboretumBlue/20 dark:border-arboretumBlue/30">
+                <h2 class="text-lg font-bold mb-2 text-umichblue dark:text-neutral-50">{member.firstName} {member.lastName}</h2>
+                <div class="space-y-1">
+                  <p class="text-sm italic text-arboretumBlue dark:text-neutral-200">{member.title1}</p>
+                  <p class="text-sm text-gray-600 dark:text-gray-300">{member.organization1}</p>
+                  {member.title2 && (
+                    <>
+                      <p class="text-sm italic text-arboretumBlue dark:text-neutral-200">{member.title2}</p>
+                      <p class="text-sm text-gray-600 dark:text-gray-300">{member.organization2}</p>
+                    </>
+                  )}
+                </div>
+              </div>
             </div>
           ))}
         </div>

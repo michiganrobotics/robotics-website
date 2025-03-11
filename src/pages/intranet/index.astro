@@ -1,4 +1,5 @@
 ---
+import type { HTMLAttributes } from 'astro/types';
 import MainLayout from '../../layouts/MainLayout.astro';
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import PageTitle from "../../components/PageTitle.astro";
@@ -7,7 +8,31 @@ import { Icon } from "astro-icon/components";
 import featuredImage from "../../images/featured-images/intranet.jpg";
 import ogFeatureImage from "../../images/featured-images/og/intranet.jpg";
 
-const sections = {
+interface Link {
+  text: string;
+  url?: string;
+  description?: string;
+  searchTerms: string;
+}
+
+interface Section {
+  title: string;
+  links: Link[];
+}
+
+type SectionKey = 'building' | 'it' | 'purchasing' | 'academics' | 'outreach' | 'makerspace' | 'communications' | 'mair' | 'faculty' | 'department';
+
+type Sections = {
+  [K in SectionKey]: Section;
+}
+
+interface MainLayoutProps {
+  title: string;
+  image?: string;
+  description: string;
+}
+
+const sections: Sections = {
   department: {
     title: "Department",
     links: [
@@ -326,8 +351,7 @@ const sections = {
   }
 };
 
-// Icons for each section
-const sectionIcons = {
+const sectionIcons: Record<SectionKey, string> = {
   building: "mdi:office-building",
   it: "mdi:desktop-classic",
   purchasing: "mdi:cart",
@@ -341,9 +365,17 @@ const sectionIcons = {
 };
 ---
 
-<MainLayout title="Department Intranet | Michigan Robotics" image={ogFeatureImage.src} imageAlt="The glass facade of the Robotics Building glowing in the sunrise" description="A list of resources for Michigan Robotics faculty, staff, and students.">
+<MainLayout 
+  title="Department Intranet | Michigan Robotics" 
+  image={ogFeatureImage.src} 
+  description="A list of resources for Michigan Robotics faculty, staff, and students."
+>
   <Breadcrumbs />
-  <PageTitle title="Department Intranet" image={featuredImage} imageAlt="Robotics Building window facade in the sunrise" />
+  <PageTitle 
+    title="Department Intranet"
+    image={featuredImage}
+    imageAlt="Robotics Building window facade in the sunrise"
+  />
   <WelcomeMessage />
 
   <div class="max-w-6xl w-11/12 mx-auto my-4">
@@ -354,32 +386,30 @@ const sectionIcons = {
           type="text" 
           id="search" 
           placeholder="Search resources..." 
-          class="w-full h-10 px-4 py-2 rounded border border-gray-200 dark:border-gray-700 
-                 bg-white dark:bg-gray-800 text-gray-900 dark:text-white
-                 focus:outline-none focus:ring-2 focus:ring-umichblue dark:focus:ring-taubmanTeal"
+          class="search-bar"
         >
       </div>
     </div>
 
     <!-- Quick Links -->
-    <div class="mb-8 bg-white dark:bg-gray-800 rounded shadow-md p-6" id="quick-links">
-      <h2 class="text-2xl font-roboto-condensed font-bold text-umichblue dark:text-white mb-4 flex items-center">
+    <div class="mb-8 card-base card-padded surface" id="quick-links">
+      <h2 class="text-2xl font-roboto-condensed font-bold mb-4 flex items-center">
         <Icon name="mdi:star" class="w-6 h-6 text-umichblue dark:text-maize mr-2" />
         Frequently Used
       </h2>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
         <a href="https://deptapps.engin.umich.edu/order/index/newform?dept=210308" 
-           class="flex items-center text-gray-900 dark:text-white">
+           class="flex items-center">
           <Icon name="mdi:cart" class="w-4 h-4 mr-2 text-arboretumBlue dark:text-taubmanTeal" />
           OPS Purchase Request Form
         </a>
         <a href="https://deptapps.engin.umich.edu/scheduling/?dept=210308" 
-           class="flex items-center text-gray-900 dark:text-white">
+           class="flex items-center">
           <Icon name="mdi:calendar" class="w-4 h-4 mr-2 text-arboretumBlue dark:text-taubmanTeal" />
           Room Reservations
         </a>
         <a href="mailto:IT-Help-Robotics@umich.edu" 
-           class="flex items-center text-gray-900 dark:text-white">
+           class="flex items-center">
           <Icon name="mdi:help" class="w-4 h-4 mr-2 text-arboretumBlue dark:text-taubmanTeal" />
           IT Help
         </a>
@@ -387,10 +417,10 @@ const sectionIcons = {
     </div>
 
     <!-- Main Resource Grid -->
-    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-      {Object.entries(sections).map(([key, section]) => (
-        <div class="bg-white dark:bg-gray-800 rounded shadow-md p-6">
-          <h2 class="text-2xl font-roboto-condensed font-bold text-umichblue dark:text-white mb-4 flex items-center">
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="resource-grid">
+      {(Object.entries(sections) as [SectionKey, Section][]).map(([key, section]) => (
+        <div class="card-base card-padded surface resource-section">
+          <h2 class="text-2xl font-roboto-condensed font-bold mb-4 flex items-center">
             <Icon name={sectionIcons[key]} class="w-6 h-6 text-umichblue dark:text-maize mr-2" />
             {section.title}
           </h2>
@@ -399,9 +429,9 @@ const sectionIcons = {
               <li class="resource-item" data-search-terms={link.searchTerms || ''}>
                 {link.url ? (
                   <a href={link.url} 
-                     class="text-gray-900 dark:text-white flex items-start" 
+                     class="flex items-start" 
                      target="_blank">
-                    <Icon name="mdi:arrow-right" class="w-4 h-4 mr-1 text-arboretumBlue dark:text-taubmanTeal mt-1" />
+                    <Icon name="mdi:arrow-right" class="w-4 h-4 mr-1 text-arboretumBlue dark:text-taubmanTeal mt-1 flex-shrink-0" />
                     {link.text}
                   </a>
                 ) : (
@@ -410,11 +440,10 @@ const sectionIcons = {
                       <Icon name="mdi:information" class="w-4 h-4 mr-1 text-arboretumBlue dark:text-taubmanTeal mt-1" />
                       {link.text}
                     </div>
-                    <div class="text-sm text-gray-600 dark:text-gray-400 ml-5">
-                      {link.description.includes('@') ? (
+                    <div class="text-sm text-neutral-700 dark:text-neutral-300 ml-5">
+                      {link.description && link.description.includes('@') ? (
                         <>
-                          Email: <a href={`mailto:${link.description.split(': ')[1]}`} 
-                            class="text-gray-900 dark:text-white">
+                          Email: <a href={`mailto:${link.description.split(': ')[1]}`}>
                             {link.description.split(': ')[1]}
                           </a>
                         </>
@@ -438,6 +467,7 @@ const sectionIcons = {
   const searchInput = document.getElementById('search');
   const resourceItems = document.querySelectorAll('.resource-item');
   const quickLinksSection = document.getElementById('quick-links');
+  const resourceSections = document.querySelectorAll('.resource-section');
 
   searchInput?.addEventListener('input', (e) => {
     const searchTerm = (e.target as HTMLInputElement).value.toLowerCase();
@@ -447,19 +477,34 @@ const sectionIcons = {
       quickLinksSection.style.display = searchTerm ? 'none' : '';
     }
     
+    // First, process all items to set their visibility
     resourceItems.forEach(item => {
       const text = item.textContent?.toLowerCase() || '';
       const searchTerms = item.getAttribute('data-search-terms')?.toLowerCase() || '';
       const matches = text.includes(searchTerm) || searchTerms.includes(searchTerm);
       (item as HTMLElement).style.display = matches ? '' : 'none';
-      
-      // Show/hide section cards if they have no visible items
-      const parentCard = item.closest('.bg-white');
-      if (parentCard) {
-        const visibleItems = Array.from(parentCard.querySelectorAll('.resource-item'))
-          .some(item => (item as HTMLElement).style.display !== 'none');
-        (parentCard as HTMLElement).style.display = visibleItems ? '' : 'none';
-      }
     });
+
+    // Then, check each section and hide if it has no visible items
+    resourceSections.forEach(section => {
+      const hasVisibleItems = Array.from(section.querySelectorAll('.resource-item'))
+        .some(item => (item as HTMLElement).style.display !== 'none');
+      (section as HTMLElement).style.display = hasVisibleItems ? '' : 'none';
+    });
+
+    // Adjust grid layout if there are few results
+    const resourceGrid = document.getElementById('resource-grid');
+    if (resourceGrid) {
+      const visibleSections = Array.from(resourceSections)
+        .filter(section => (section as HTMLElement).style.display !== 'none').length;
+      
+      if (visibleSections <= 2) {
+        resourceGrid.classList.remove('lg:grid-cols-3');
+        resourceGrid.classList.add('lg:grid-cols-2');
+      } else {
+        resourceGrid.classList.remove('lg:grid-cols-2');
+        resourceGrid.classList.add('lg:grid-cols-3');
+      }
+    }
   });
 </script> 

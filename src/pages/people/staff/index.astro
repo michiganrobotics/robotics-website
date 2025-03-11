@@ -10,6 +10,7 @@ const staffMembers = await getStaffData();
 // Get all profile images
 const images = import.meta.glob('/src/images/profile-images/*.{png,jpg,jpeg,gif,webp}');
 const robotProfile = await import('../../../images/profile-images/robot-profile.jpg');
+const robotProfile2 = await import('../../../images/profile-images/robot-profile2.jpg');
 
 // Process image paths
 const profileImages = await Promise.all(
@@ -22,7 +23,8 @@ const profileImages = await Promise.all(
       return image.default;
     }
     
-    return robotProfile.default;
+    // Randomly choose between robot profiles
+    return Math.random() < 0.5 ? robotProfile.default : robotProfile2.default;
   })
 );
 ---
@@ -37,7 +39,7 @@ const profileImages = await Promise.all(
           {staffMembers.map((staff, index) => (
             <a
               href={`${Astro.url.pathname}/${staff.slug}`}
-              class="group no-underline block rounded-sm shadow-md hover:shadow-lg transition-all duration-200 ease-in-out hover:scale-[1.02] p-4 bg-white dark:bg-gray-800"
+              class="group no-underline surface card-base card-hover p-0 border border-arboretumBlue/20 dark:border-arboretumBlue/30 flex flex-col"
             >
               <Image
                 src={profileImages[index]}
@@ -50,11 +52,14 @@ const profileImages = await Promise.all(
                   (index < 8 && 'lg:hidden') || 
                   (index < 10 && 'xl:hidden') || 
                   (index < 12 && '2xl:hidden') ? 'eager' : 'lazy'}
-                class="w-full h-48 object-cover rounded-sm mb-3"
+                class="w-full h-48 object-cover"
               />
-              <h2 class="text-lg font-bold mb-1 text-umichblue dark:text-neutral-50 group-hover:underline group-hover:decoration-maize group-hover:decoration-2">{staff.preferredName} {staff.lastName}</h2>
-              <p class="text-sm text-arboretumBlue dark:text-taubmanTeal">{staff.title}</p>
-              <p class="text-xs text-gray-600 dark:text-gray-300">{staff.affiliation}</p>
+              <div class="p-4 flex-grow border-t border-arboretumBlue/20 dark:border-arboretumBlue/30">
+                <h2 class="text-lg font-bold mb-2 text-umichblue dark:text-neutral-50 group-hover:underline group-hover:decoration-maize group-hover:decoration-2">{staff.preferredName} {staff.lastName}</h2>
+                <div class="space-y-1">
+                  <p class="text-sm text-arboretumBlue dark:text-neutral-200">{staff.title}</p>
+                </div>
+              </div>
             </a>
           ))}
         </div>

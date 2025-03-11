@@ -17,9 +17,9 @@ interface Props {
 const { image, imageAlt, title = '', subtitle, name, role, website, isExpanded = false } = Astro.props;
 ---
 
-<div class="speaker-profile my-6 border border-gray-200 dark:border-gray-700 rounded-lg overflow-visible">
+<div class="speaker-profile my-6 border border-gray-200 dark:border-gray-700 rounded-md overflow-visible">
   <button 
-    class="w-full text-left p-4 bg-gray-50 dark:bg-gray-800 hover:bg-blue-50 dark:hover:bg-gray-600 transition-colors cursor-pointer flex flex-wrap items-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-arboretumBlue dark:focus-visible:ring-maize focus-visible:ring-offset-2 dark:focus-visible:ring-offset-gray-900 relative z-10"
+    class="group w-full text-left card-base card-padded surface hover:bg-[var(--bg-elevated-light)] dark:hover:bg-[var(--bg-elevated-dark)] transition-colors cursor-pointer flex flex-wrap items-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-arboretumBlue dark:focus-visible:ring-maize focus-visible:ring-offset-2 dark:focus-visible:ring-offset-gray-900 relative z-10"
     aria-expanded={isExpanded}
     data-speaker-button
   >
@@ -34,14 +34,14 @@ const { image, imageAlt, title = '', subtitle, name, role, website, isExpanded =
         />
       </div>
       <div class="min-w-0">
-        <p class="text-gray-600 dark:text-gray-200 text-sm">{subtitle}</p>
-        <h3 class="text-xl font-bold dark:text-white mt-0 mb-0 break-words">{name}</h3>
+        <p class="text-neutral-600 dark:text-neutral-200 text-sm">{subtitle}</p>
+        <h3 class="text-xl font-bold dark:text-neutral-100 mt-0 mb-0 break-words">{name}</h3>
         <p class="italic mt-0 break-words">{role}</p>
       </div>
     </div>
     {title && (
       <div class="w-full sm:w-2/5 mt-0 sm:ml-8">
-        <p class="text-xl font-bold text-gray-800 dark:text-gray-100 break-words">{title}</p>
+        <p class="text-xl font-bold text-neutral-800 dark:text-neutral-100 break-words group-hover:underline decoration-maize decoration-2">{title}</p>
       </div>
     )}
     <div class="shrink-0 ml-auto">
@@ -58,7 +58,7 @@ const { image, imageAlt, title = '', subtitle, name, role, website, isExpanded =
   </button>
 
   <div class={`content ${isExpanded ? '' : 'hidden'}`} data-content>
-    <div class="p-6 bg-white dark:bg-gray-900">
+    <div class="p-6 undersurface rounded-lg">
       <div class="flex flex-col md:flex-row gap-8">
         <div class="md:w-1/4">
           {image && !image.src.toLowerCase().includes('robot-profile') && (

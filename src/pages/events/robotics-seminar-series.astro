@@ -61,7 +61,7 @@ const pastSeminars = sortedSeminars.filter(seminar => {
         type="text" 
         id="speakerSearch"
         placeholder="Search speakers, titles, abstracts..."
-        class="w-full p-2 border border-gray-300 rounded bg-white dark:bg-gray-800 dark:border-gray-600"
+        class="w-full search-bar"
       >
     </div>
 
@@ -142,19 +142,29 @@ const pastSeminars = sortedSeminars.filter(seminar => {
 </Layout>
 
 <script>
-  const searchInput = document.getElementById('speakerSearch') as HTMLInputElement;
-  const seminarProfiles = document.querySelectorAll('.seminar-profile');
+  function setupSearch() {
+    const searchInput = document.getElementById('speakerSearch') as HTMLInputElement;
+    const speakerProfiles = document.querySelectorAll('.speaker-profile');
 
-  searchInput.addEventListener('input', (e) => {
-    const searchTerm = (e.target as HTMLInputElement).value.toLowerCase();
+    if (searchInput) {
+      searchInput.addEventListener('input', (e) => {
+        const searchTerm = (e.target as HTMLInputElement).value.toLowerCase();
 
-    seminarProfiles.forEach((profile) => {
-      const searchableContent = profile.textContent?.toLowerCase() || '';
-      if (searchableContent.includes(searchTerm)) {
-        (profile as HTMLElement).style.display = 'block';
-      } else {
-        (profile as HTMLElement).style.display = 'none';
-      }
-    });
-  });
+        speakerProfiles.forEach((profile) => {
+          const searchableContent = profile.textContent?.toLowerCase() || '';
+          if (searchableContent.includes(searchTerm)) {
+            (profile as HTMLElement).style.display = 'block';
+          } else {
+            (profile as HTMLElement).style.display = 'none';
+          }
+        });
+      });
+    }
+  }
+
+  // Run on initial load
+  setupSearch();
+
+  // Run on client-side navigation
+  document.addEventListener('astro:page-load', setupSearch);
 </script>

@@ -66,23 +66,23 @@ const courses = [
       <p>Michigan Robotics publishes many courses online, which can be freely accessed through sites like GitHub and YouTube. These courses typically include all lecture videos, notes, textbooks, homework, projects, and exams.</p>
      <div class="mt-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 not-prose">
       {courses.map(course => (
-        <div class="course-card group">
-          <a href={course.link} class="block no-underline">
+        <div class="card-base surface border border-arboretumBlue p-4">
+          <a href={course.link} class="block no-underline group">
             <div class="relative mb-4 overflow-hidden rounded-lg">
               <Image 
                 src={course.image} 
                 alt={course.title}
                 width={300}
                 height={200}
-                class="w-full h-56 object-cover transform transition-all duration-500 group-hover:scale-95"
+                class="w-full h-56 object-cover image-hover"
               />
               <div class="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
             </div>
             <div class="px-2">
-              <h2 class="text-xl font-bold text-gray-900 dark:text-white group-hover:text-umichblue dark:group-hover:text-maize transition-colors duration-300">
+              <h2 class="text-xl font-bold group-hover:text-umichblue dark:group-hover:text-maize transition-colors duration-300">
                 {course.title}
               </h2>
-              <div class="mt-2 flex items-center text-sm text-gray-600 dark:text-gray-400 group-hover:text-umichblue dark:group-hover:text-maize transition-colors duration-300">
+              <div class="mt-2 flex items-center text-sm group-hover:text-umichblue dark:group-hover:text-maize transition-colors duration-300">
                 <span>View Course</span>
                 <svg class="ml-2 w-3 h-3 transition-transform duration-300 group-hover:translate-x-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
@@ -91,7 +91,7 @@ const courses = [
             </div>
           </a>
           {course.additionalLink && (
-            <p class="mt-2 px-2 text-gray-600 dark:text-gray-300">
+            <p class="mt-2 px-2">
               (<a href={course.additionalLink.url} class="text-umichblue dark:text-maize hover:underline">
                 {course.additionalLink.text}
               </a> also available)
@@ -102,10 +102,3 @@ const courses = [
     </div>
   </article>
 </Layout>
-
-<style>
-  @reference "../../../../styles/global.css";
-  .course-card {
-    @apply bg-white dark:bg-gray-800 rounded-lg shadow-lg p-4 transition-all duration-300 hover:shadow-xl;
-  }
-</style>

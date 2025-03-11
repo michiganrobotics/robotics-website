@@ -92,7 +92,7 @@ const focusAreas = await getCollection('focusAreas');
         <p class="text-xl font-semibold text-arboretumBlue dark:text-maize mb-4">Work together. Create smart machines. Serve society.</p>
         <p class="mb-4">Michigan Robotics creates and leads innovative initiatives and robust programs that elevate outcomes for both robotics and roboticists in research, academics, and society. 
         </p>
-        <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md mb-6">
+        <div class="surface card-padded mb-6">
           <h3 class="text-xl font-bold mb-2 text-umichblue dark:text-neutral-50">Key Facts</h3>
           <ul class="pl-5 list-disc marker:text-arboretumBlue dark:marker:text-maize">
             <li>Originated as the Robotics Institute in 2014</li>
@@ -115,7 +115,7 @@ const focusAreas = await getCollection('focusAreas');
     <section class="mt-12">
       <h2 class="text-3xl font-roboto-condensed font-bold mb-6 text-umichblue dark:text-neutral-50">Academics</h2>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+        <div class="surface card-padded">
           <h3 class="text-xl font-bold mb-2 text-umichblue dark:text-neutral-50">
             <a href="/academics/undergraduate" class="flex items-center">
               Undergraduate
@@ -125,23 +125,21 @@ const focusAreas = await getCollection('focusAreas');
           <p>167 current robotics majors</p>
           <p>16 alumni</p>
         </div>
-        <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+        <div class="surface card-padded">
           <h3 class="text-xl font-bold mb-2 text-umichblue dark:text-neutral-50">
             <a href="/academics/graduate" class="flex items-center">
               Graduate
               <Icon name="mdi:chevron-right" class="h-5 w-5 ml-1" />
             </a>
-            </a>
           </h3>
           <p>371 current Master's and PhD students</p>
           <p>Program started in 2014</p>
         </div>
-        <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+        <div class="surface card-padded">
           <h3 class="text-xl font-bold mb-2 text-umichblue dark:text-neutral-50">
             <a href="/academics/courses" class="flex items-center">
               Robotics courses
               <Icon name="mdi:chevron-right" class="h-5 w-5 ml-1" />
-            </a>
             </a>
           </h3>
           <p>12 new undergraduate robotics courses</p>
@@ -158,12 +156,12 @@ const focusAreas = await getCollection('focusAreas');
       </h2>
       <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
         {focusAreas.map((area) => (
-          <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-shadow hover:scale-105">
+          <div class="surface card-base card-hover">
             <a href={`/research/focus-areas/${area.id}`} class="block p-2 underline-hover-only">
               <Image
                 src={area.data.image?.src}
                 alt={`${area.data.title} research`}
-                class="w-full h-24 object-cover rounded-t-lg mb-2"
+                class="w-full h-24 object-cover rounded-md mb-2"
                 width={200}
                 height={150}
               />
@@ -211,8 +209,7 @@ const focusAreas = await getCollection('focusAreas');
 
     <section class="mt-12">
       <h2 class="text-3xl font-roboto-condensed font-bold mb-6 text-umichblue dark:text-neutral-50">Leadership</h2>
-      <div class="bg-white dark:bg-gray-800 rounded-sm shadow-md overflow-hidden">
-
+      <div class="surface card-base overflow-hidden">
         <!-- Photo rows -->
         <div class="flex flex-wrap justify-center mb-2">
           {excom.map((member) => (
@@ -235,15 +232,16 @@ const focusAreas = await getCollection('focusAreas');
         </div>
 
       <!-- Description text -->
-      <p class="text-center text-gray-600 dark:text-gray-300 mx-auto p-2 pb-6">
+      <p class="text-center mx-auto p-2 pb-6">
       {committeeText}
       </p>
+      </div>
     </section>
 
   <section class="mt-12 mb-12">
     <h2 class="text-3xl font-roboto-condensed font-bold mb-6 text-umichblue dark:text-neutral-50">Contact Us</h2>
-    <div class="bg-white dark:bg-gray-800 rounded-sm shadow-md p-6">
-      <p class="text-gray-600 dark:text-gray-300 mb-4">Have questions about Michigan Robotics? We'd love to hear from you.</p>
+    <div class="surface card-padded">
+      <p class="mb-4">Have questions about Michigan Robotics? We'd love to hear from you.</p>
       <Button href="/about/contact" text="Get in touch" />
     </div>
   </section>

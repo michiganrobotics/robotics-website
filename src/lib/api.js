@@ -31,7 +31,11 @@ export async function eventsQuery() {
     const data = await response.json();
     const truncatedData = data.map(event => ({
       ...event,
-      description: truncateDescription(event.description)
+      description: truncateDescription(event.description),
+      styled_images: {
+        ...event.styled_images,
+        event_feature_large: event.styled_images?.event_feature_large || "/social/default-event.jpg"
+      }
     }));
 
     // Update cache

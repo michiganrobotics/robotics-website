@@ -16,70 +16,81 @@ const projectsDatasets = await getProjectsDatasets();
 <Breadcrumbs />
 <PageTitle title="Open-source Projects and Datasets" image={featureImage} imageAlt="Motors, gears, and 3d printed parts"/>
       
-          <div class="relative overflow-x-auto shadow-md sm:rounded-lg p-4 mt-4 mb-4 max-w-6xl w-11/12 mx-auto">
+          <div class="relative mt-4 mb-4 max-w-6xl w-11/12 mx-auto">
             <div class="mb-4">
               <input type="text" id="searchInput" placeholder="Search projects and datasets..." 
-                class="p-2 border border-gray-300 rounded-lg w-full bg-white dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                class="search-bar"
               />
             </div>
-            <table class="w-full text-sm text-left text-gray-800 dark:text-gray-200">
-              <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-200">
-                <tr>
-                  <th scope="col" class="px-6 py-3 cursor-pointer" data-sort="name">
-                    Project/Dataset Name
-                    <span class="ml-1">&#x2195</span>
-                  </th>
-                  <th scope="col" class="px-6 py-3">
-                    Description
-                  </th>
-                  <th scope="col" class="px-6 py-3 cursor-pointer" data-sort="owner">
-                    Owner
-                    <span class="ml-1">&#x2195</span>
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {projectsDatasets.map((projectDataset) => (
-                  <tr class="bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                    <th scope="row" class="px-6 py-4">
-                      <a href={projectDataset.projectLink} 
-                         aria-label={`View project/dataset: ${projectDataset.projectName}`}>
-                        {projectDataset.projectName}
-                      </a>
+            <div class="overflow-x-auto shadow-md">
+              <table class="w-full text-sm text-left">
+                <thead class="text-xs uppercase page-bg">
+                  <tr>
+                    <th scope="col" class="px-4 py-3 cursor-pointer border-r" data-sort="name">
+                      Project/Dataset Name
+                      <span class="ml-1">↕</span>
                     </th>
-                    <td class="px-6 py-4" role="cell">
-                      {projectDataset.projectDescription}
-                    </td>
-                    <td class="px-6 py-4" role="cell">
-                      {projectDataset.projectOwner}
-                    </td>
+                    <th scope="col" class="px-4 py-3 border-r">
+                      Description
+                    </th>
+                    <th scope="col" class="px-4 py-3 cursor-pointer" data-sort="owner">
+                      Owner
+                      <span class="ml-1">↕</span>
+                    </th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+                </thead>
+                <tbody>
+                  {projectsDatasets.map((projectDataset) => (
+                    <tr class="bg-[var(--bg-undersurface-light)] dark:bg-[var(--bg-undersurface-dark)] border-b border-gray-200 dark:border-gray-700 hover:bg-[var(--bg-surface-hover)] dark:hover:bg-[var(--bg-surface-hover-dark)]">
+                      <th scope="row" class="px-6 py-4 font-medium border-r">
+                        <a href={projectDataset.projectLink} 
+                           class="underline hover:text-umichblue dark:hover:text-gray-300"
+                           aria-label={`View project/dataset: ${projectDataset.projectName}`}>
+                          {projectDataset.projectName}
+                        </a>
+                      </th>
+                      <td class="px-6 py-4 border-r" role="cell">
+                        {projectDataset.projectDescription}
+                      </td>
+                      <td class="px-6 py-4" role="cell">
+                        {projectDataset.projectOwner}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
 
           <script>
             // Search functionality
             const searchInput = document.getElementById('searchInput');
             const tableRows = document.querySelectorAll('tbody tr');
             
-            searchInput.addEventListener('keyup', function(e) {
-              const searchTerm = e.target.value.toLowerCase();
-              
-              tableRows.forEach(row => {
-                const text = row.textContent.toLowerCase();
-                row.style.display = text.includes(searchTerm) ? '' : 'none';
+            if (searchInput) {
+              searchInput.addEventListener('keyup', function(e) {
+                if (e.target) {
+                  const searchTerm = (e.target as HTMLInputElement).value.toLowerCase();
+                  
+                  tableRows.forEach(row => {
+                    const text = row.textContent?.toLowerCase() || '';
+                    if (row instanceof HTMLElement) {
+                      row.style.display = text.includes(searchTerm) ? '' : 'none';
+                    }
+                  });
+                }
               });
-            });
+            }
 
             // Sorting functionality
-            const getCellValue = (tr, idx) => tr.children[idx].innerText || tr.children[idx].textContent;
+            const getCellValue = (tr: HTMLElement, idx: number) => {
+              const cell = tr.children[idx];
+              return cell ? cell.textContent || '' : '';
+            };
             
-            const comparer = (idx, asc) => (a, b) => {
+            const comparer = (idx: number, asc: boolean) => (a: HTMLElement, b: HTMLElement) => {
               const v1 = getCellValue(a, idx);
               const v2 = getCellValue(b, idx);
-              return v1 !== '' && v2 !== '' && !isNaN(v1) && !isNaN(v2) 
+              return v1 !== '' && v2 !== '' && !isNaN(Number(v1)) && !isNaN(Number(v2))
                 ? (asc ? 1 : -1) * (Number(v1) - Number(v2))
                 : (asc ? 1 : -1) * v1.toString().localeCompare(v2);
             };
@@ -88,19 +99,28 @@ const projectsDatasets = await getProjectsDatasets();
               let asc = true;
               th.addEventListener('click', () => {
                 const table = th.closest('table');
-                const tbody = table.querySelector('tbody');
-                const columnIndex = Array.from(th.parentNode.children).indexOf(th);
+                const tbody = table?.querySelector('tbody');
+                if (!tbody) return;
+                
+                const columnIndex = Array.from(th.parentElement?.children || []).indexOf(th);
                 
                 // Update sort indicators
-                th.parentNode.querySelectorAll('th').forEach(header => {
-                  if (header.querySelector('span')) {
-                    header.querySelector('span').textContent = '↕';
-                  }
-                });
-                th.querySelector('span').textContent = asc ? '↑' : '↓';
+                if (th.parentElement) {
+                  th.parentElement.querySelectorAll('th').forEach(header => {
+                    const span = header.querySelector('span');
+                    if (span) {
+                      span.textContent = '↕';
+                    }
+                  });
+                }
                 
-                Array.from(tbody.querySelectorAll('tr'))
-                  .sort(comparer(columnIndex, asc))
+                const span = th.querySelector('span');
+                if (span) {
+                  span.textContent = asc ? '↑' : '↓';
+                }
+                
+                const rows = Array.from(tbody.querySelectorAll('tr'));
+                rows.sort(comparer(columnIndex, asc))
                   .forEach(tr => tbody.appendChild(tr));
                 
                 asc = !asc;

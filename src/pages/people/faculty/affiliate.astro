@@ -23,36 +23,38 @@ facultyMembers.sort((a, b) => a.lastName.localeCompare(b.lastName));
           id="facultySearch" 
           placeholder="Search by name, department, or research interests..." 
           aria-label="Search for faculty members"
-          class="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-arboretumBlue dark:focus:ring-taubmanTeal focus:border-transparent"
+          class="search-bar"
         >
       </div>
 
       <div id="facultyGrid" class="not-prose grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {facultyMembers.map((faculty) => (
-          <div class="faculty-card bg-white dark:bg-gray-800 p-6 rounded-sm shadow-md transition-all duration-200 ease-in-out hover:shadow-lg hover:scale-[1.01]">
-            <div class="flex flex-col">
-              <h2 class="text-xl font-bold text-umichblue dark:text-neutral-50">
+          <div class="faculty-card surface card-base p-4 border border-arboretumBlue/20 dark:border-arboretumBlue/30">
+            <div class="flex flex-col h-full">
+              <h2 class="text-lg font-bold mb-2 text-umichblue dark:text-neutral-50">
                 {faculty.preferredName} {faculty.lastName}
               </h2>
 
-              <p class="text-arboretumBlue dark:text-taubmanTeal text-sm mt-1 faculty-department">
-                {faculty.department1}{faculty.department2 && ` and ${faculty.department2}`}
-              </p>
-              <p class="text-gray-600 dark:text-gray-300 text-sm mt-2 italic faculty-affiliation">
-                {faculty.affiliation}
-              </p>
+              <div class="space-y-1">
+                <p class="text-sm text-arboretumBlue dark:text-neutral-200">
+                  {faculty.department1}{faculty.department2 && ` and ${faculty.department2}`}
+                </p>
+                <p class="text-sm text-neutral-600 dark:text-neutral-300 italic">
+                  {faculty.affiliation}
+                </p>
+              </div>
               
               {/* Expandable Research Interests */}
-              <details class="mt-4">
-                <summary class="text-sm font-medium cursor-pointer hover:text-arboretumBlue dark:hover:text-taubmanTeal">
+              <details class="mt-4 [&>summary::marker]:text-maize dark:[&>summary::marker]:text-maize">
+                <summary class="text-sm font-medium cursor-pointer hover:text-maize">
                   Research Interests
                 </summary>
-                <p class="faculty-search-data mt-2 text-sm text-gray-600 dark:text-gray-300 pl-4">
+                <p class="faculty-search-data mt-2 text-sm text-neutral-700 dark:text-neutral-200 pl-4">
                   {faculty.researchInterests}
                 </p>
               </details>
 
-              <div class="flex gap-3 mt-4 flex-wrap items-center">
+              <div class="flex gap-3 mt-auto pt-4 flex-wrap items-center">
                 {faculty.googleScholar && (
                   <a 
                     href={faculty.googleScholar}
@@ -92,11 +94,12 @@ facultyMembers.sort((a, b) => a.lastName.localeCompare(b.lastName));
     const searchTerm = (e.target as HTMLInputElement).value.toLowerCase();
 
     facultyCards.forEach((card) => {
-      const name = card.querySelector('h2')?.textContent?.toLowerCase() || '';
-      const department = card.querySelector('.faculty-department')?.textContent?.toLowerCase() || '';
-      const affiliation = card.querySelector('.faculty-affiliation')?.textContent?.toLowerCase() || '';
-      const searchData = card.querySelector('.faculty-search-data')?.textContent?.toLowerCase() || '';
-      const details = card.querySelector('details');
+      const htmlCard = card as HTMLElement;
+      const name = htmlCard.querySelector('h2')?.textContent?.toLowerCase() || '';
+      const department = htmlCard.querySelector('.faculty-department')?.textContent?.toLowerCase() || '';
+      const affiliation = htmlCard.querySelector('.faculty-affiliation')?.textContent?.toLowerCase() || '';
+      const searchData = htmlCard.querySelector('.faculty-search-data')?.textContent?.toLowerCase() || '';
+      const details = htmlCard.querySelector('details');
 
       const matches = 
         name.includes(searchTerm) || 
@@ -109,7 +112,7 @@ facultyMembers.sort((a, b) => a.lastName.localeCompare(b.lastName));
         details.open = searchTerm.length > 0;
       }
 
-      card.style.display = matches ? '' : 'none';
+      htmlCard.style.display = matches ? '' : 'none';
     });
   });
 </script>

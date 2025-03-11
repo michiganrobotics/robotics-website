@@ -47,19 +47,21 @@
 
   /* Focus Styles */
   --focus-ring-color-light: var(--color-umichblue);
-  --focus-ring-color-dark: #ffffff;
+  --focus-ring-color-dark: #eeeeee;
 
   /* Surface Colors - Light Mode */
   --bg-page-light: #f3f4f6;
   --bg-surface-light: #f8f9fa;
   --bg-surface-hover: #e5e7eb;
   --bg-elevated-light: #ffffff;
+  --bg-undersurface-light: #ebeef2;
   
   /* Surface Colors - Dark Mode */
   --bg-page-dark: #00142c;
   --bg-surface-dark: var(--color-umichblue);
   --bg-surface-hover-dark: #1a3a5f;
   --bg-elevated-dark: var(--color-arboretumBlue);
+  --bg-undersurface-dark: #000e22;
 }
 
 @layer base {
@@ -106,10 +108,9 @@
   }
   /* Override Tailwind Typography's image margins */
   .prose img {
-    @apply !mb-0;
+    @apply !mb-2;
   }
   
-  /* Target the specific class that's overriding our styles */
   .prose-lg :where(img):not(:where([class~=not-prose],[class~=not-prose] *)), 
   .prose-lg :where(picture):not(:where([class~=not-prose],[class~=not-prose] *)) {
     @apply !mb-0;
@@ -144,9 +145,7 @@
   }
 }
 
-@layer utilities {
-  /* Remove the separate page-light and page-dark classes */
-  
+@layer utilities {  
   /* Define a single page-bg class that uses CSS variables */
   .page-bg {
     @apply bg-[var(--bg-page-light)] text-gray-800 dark:bg-[var(--bg-page-dark)] dark:text-neutral-100;
@@ -201,6 +200,10 @@
     @apply bg-[var(--bg-elevated-light)] dark:bg-[var(--bg-elevated-dark)];
   }
 
+  .undersurface {
+    @apply bg-[var(--bg-undersurface-light)] dark:bg-[var(--bg-undersurface-dark)];
+  }
+
   /* Surface Variants */
   .surface-secondary {
     @apply bg-arboretumBlue dark:bg-arboretumBlue/80
@@ -234,6 +237,11 @@
     @apply transition-all duration-500 group-hover:scale-105;
   }
   
+  /* Search bars */
+  .search-bar {
+    @apply w-full p-2 border bg-[var(--bg-page-light)] dark:bg-[var(--bg-page-dark)] border-neutral-400 dark:border-arboretumBlue rounded-md w-full placeholder:text-neutral-500 dark:text-neutral-100 dark:placeholder:text-neutral-400
+  }
+
   /* Section title styling */
   .section-title {
     @apply absolute -top-6 z-10 px-6 py-2 rounded-sm text-3xl font-bold text-neutral-50;
@@ -299,7 +307,7 @@
   }
   
   /* Ensure consistent nav link hover styles */
-  nav a:hover {
+  nav a:not(.no-underline):hover {
     text-decoration-line: underline !important;
     text-decoration-thickness: 2px !important;
     text-underline-offset: 2px !important;

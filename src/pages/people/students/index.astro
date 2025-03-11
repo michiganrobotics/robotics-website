@@ -31,16 +31,16 @@ students.sort((a, b) => {
           type="text" 
           id="studentSearch" 
           placeholder="Search by name, research interests, or lab..." 
-          class="w-full p-2 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-800 text-sm text-gray-900 dark:text-gray-50"
+          class="search-bar"
           aria-label="Search for students by name, research interests, or lab"
         >
         <div class="flex gap-4">
-          <select id="degreeFilter" class="w-full sm:w-auto p-2 pl-2 pr-6 sm:pr-8 sm:pl-4 border text-sm border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-800 text-gray-900 dark:text-white">
+          <select id="degreeFilter" class="w-full sm:w-auto p-2 pl-2 pr-6 sm:pr-8 sm:pl-4 border border-neutral-400 dark:border-arboretumBlue bg-[var(--bg-undersurface-light)] dark:bg-[var(--bg-page-dark)] text-neutral-700 dark:text-neutral-100 rounded-md">
             <option value="">Academic program</option>
             <option value="PhD">PhD</option>
             <option value="MS">Master's</option>
           </select>
-          <select id="statusFilter" class="w-full sm:w-auto p-2 px-2 sm:px-4 text-sm border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-800 text-gray-900 dark:text-white">
+          <select id="statusFilter" class="w-full sm:w-auto p-2 px-2 sm:px-4 border border-neutral-400 dark:border-arboretumBlue bg-[var(--bg-undersurface-light)] dark:bg-[var(--bg-page-dark)] text-neutral-700 dark:text-neutral-100 rounded-md">
             <option value="">Work availability</option>
             <option value="seeking internship">Seeking internship</option>
             <option value="seeking employment">Seeking employment</option>
@@ -50,7 +50,7 @@ students.sort((a, b) => {
 
       <div id="studentGrid" class="not-prose grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {students.map((student) => (
-          <div class="student-card bg-white dark:bg-gray-800 p-6 rounded-sm shadow-md transition-all duration-200 ease-in-out hover:shadow-lg hover:scale-[1.01]" 
+          <div class="student-card surface card-base p-4 border border-arboretumBlue/20 dark:border-arboretumBlue/30" 
                data-degree={student.degree}
                data-status={student.jobSeekingStatus}>
             <div class="flex flex-col">
@@ -73,10 +73,10 @@ students.sort((a, b) => {
                   />
                 )}
                 <div>
-                  <h2 class="text-xl font-bold text-gray-900 dark:text-white">
+                  <h2 class="text-lg font-bold text-umichblue dark:text-neutral-50">
                     {student.preferredFullName}
                   </h2>
-                  <p class="text-arboretumBlue dark:text-taubmanTeal text-sm">
+                  <p class="text-sm text-arboretumBlue dark:text-neutral-200">
                     {student.degree} Student
                   </p>
                 </div>
@@ -84,45 +84,46 @@ students.sort((a, b) => {
 
               <div class="flex flex-wrap gap-2 mt-1">
                 {student.jobSeekingStatus && student.jobSeekingStatus !== 'not currently seeking' && (
-                  <span class="inline-flex px-2 py-1 text-xs rounded-full bg-arboretumBlue dark:bg-taubmanTeal text-white">
+                  <span class="inline-flex px-2 py-1 text-xs rounded-full bg-arboretumBlue dark:bg-arboretumBlue/80 text-neutral-100">
                     {student.jobSeekingStatus === 'seeking internship' ? 'Seeking internship' : 'Seeking employment'}
                   </span>
                 )}
                 {student.outreachAmbassador && (
                   <a href="/news/2024/robotics-outreach-ambassadors-of-2024/"
-                     class="no-underline inline-flex items-center gap-1 px-2 py-1 text-xs rounded-full bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-100 hover:bg-yellow-200 dark:hover:bg-yellow-800 transition-colors whitespace-normal">
+                     class="no-underline inline-flex items-center gap-1 px-2 py-1 text-xs rounded-full bg-maize text-umichblue hover:bg-maize/80 transition-colors whitespace-normal">
                     <Icon name="mdi:star" class="w-4 h-4 flex-shrink-0" />
                     <span class="inline-block">Outreach Ambassador</span>
                   </a>
                 )}
               </div>
 
-              {student.researchGroup && (
-                <p class="text-gray-600 dark:text-gray-300 text-sm mt-1">
-                  <span class="text-xs uppercase tracking-wider text-gray-500 dark:text-gray-400">Research Group</span><br>
-                  {student.researchGroup}
-                </p>
-              )}
+              <div class="space-y-3 mt-4">
+                {student.researchGroup && (
+                  <div>
+                    <span class="text-xs uppercase tracking-wider text-neutral-600 dark:text-neutral-300">Research Group</span>
+                    <p class="text-sm text-neutral-600 dark:text-neutral-300">{student.researchGroup}</p>
+                  </div>
+                )}
 
-              {student.advisors && (
-                <p class="text-gray-600 dark:text-gray-300 text-sm mt-1">
-                  <span class="text-xs uppercase tracking-wider text-gray-500 dark:text-gray-400">Advisor{student.advisors.includes(',') ? 's' : ''}</span>
-                  <br>
-                  {student.advisors}
-                </p>
-              )}
+                {student.advisors && (
+                  <div>
+                    <span class="text-xs uppercase tracking-wider text-neutral-600 dark:text-neutral-300">Advisor{student.advisors.includes(',') ? 's' : ''}</span>
+                    <p class="text-sm text-neutral-600 dark:text-neutral-300">{student.advisors}</p>
+                  </div>
+                )}
 
-              {student.researchInterests && (
-                <p class="text-gray-600 dark:text-gray-300 text-sm mt-4">
-                  <span class="text-xs uppercase tracking-wider text-gray-500 dark:text-gray-400">Research Interests</span><br>
-                  {student.researchInterests}
-                </p>
-              )}
+                {student.researchInterests && (
+                  <div>
+                    <span class="text-xs uppercase tracking-wider text-neutral-600 dark:text-neutral-300">Research Interests</span>
+                    <p class="text-sm text-neutral-600 dark:text-neutral-300">{student.researchInterests}</p>
+                  </div>
+                )}
+              </div>
 
               <div class="flex gap-3 mt-4 flex-wrap items-center">
                 {student.email && (
                   <a href={`mailto:${student.email}`}
-                     class="text-gray-600 dark:text-gray-300 hover:text-arboretumBlue dark:hover:text-taubmanTeal"
+                     class="text-neutral-600 dark:text-neutral-300 hover:text-arboretumBlue dark:hover:text-taubmanTeal"
                      title="Email">
                     <Icon name="mdi:email" class="w-5 h-5" />
                   </a>
@@ -131,7 +132,7 @@ students.sort((a, b) => {
                   <a href={student.website}
                      target="_blank"
                      rel="noopener noreferrer"
-                     class="text-gray-600 dark:text-gray-300 hover:text-arboretumBlue dark:hover:text-taubmanTeal"
+                     class="text-neutral-600 dark:text-neutral-300 hover:text-arboretumBlue dark:hover:text-taubmanTeal"
                      title="Website">
                     <Icon name="mdi:web" class="w-5 h-5" />
                   </a>
@@ -140,7 +141,7 @@ students.sort((a, b) => {
                   <a href={student.googleScholar}
                      target="_blank"
                      rel="noopener noreferrer"
-                     class="text-gray-600 dark:text-gray-300 hover:text-arboretumBlue dark:hover:text-taubmanTeal"
+                     class="text-neutral-600 dark:text-neutral-300 hover:text-arboretumBlue dark:hover:text-taubmanTeal"
                      title="Google Scholar">
                     <Icon name="mdi:school" class="w-5 h-5" />
                   </a>
@@ -149,7 +150,7 @@ students.sort((a, b) => {
                   <a href={student.github}
                      target="_blank"
                      rel="noopener noreferrer"
-                     class="text-gray-600 dark:text-gray-300 hover:text-arboretumBlue dark:hover:text-taubmanTeal"
+                     class="text-neutral-600 dark:text-neutral-300 hover:text-arboretumBlue dark:hover:text-taubmanTeal"
                      title="GitHub">
                     <Icon name="mdi:github" class="w-5 h-5" />
                   </a>
@@ -158,19 +159,18 @@ students.sort((a, b) => {
                   <a href={student.linkedin}
                      target="_blank"
                      rel="noopener noreferrer"
-                     class="text-gray-600 dark:text-gray-300 hover:text-arboretumBlue dark:hover:text-taubmanTeal"
+                     class="text-neutral-600 dark:text-neutral-300 hover:text-arboretumBlue dark:hover:text-taubmanTeal"
                      title="LinkedIn">
                     <Icon name="mdi:linkedin" class="w-5 h-5" />
                   </a>
                 )}
               </div>
-
             </div>
           </div>
         ))}
       </div>
 
-      <p class="text-sm text-gray-600 dark:text-gray-300 mt-8 italic">
+      <p class="text-sm text-neutral-600 dark:text-neutral-300 mt-8 italic">
         Note: This directory is opt-in and does not represent all students currently enrolled. Current graduate students: <a href="https://docs.google.com/spreadsheets/d/1f7zkbOIKgNURCmXfjXHyyUz4r6cBaM8609zCRGRGhY0/edit?usp=sharing" target="_blank" rel="noopener noreferrer">update or add your profile to this directory</a>.
       </p>
     </div>

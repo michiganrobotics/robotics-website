@@ -3,6 +3,7 @@ import Layout from '../../layouts/MainLayout.astro';
 import { Image } from 'astro:assets';
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import PageTitle from "../../components/PageTitle.astro";
+import { Icon } from 'astro-icon/components';
 import featureImage from '../../images/featured-images/people-student-teams.jpg';
 import ogFeatureImage from '../../images/featured-images/og/people-student-teams.jpg';
 import famnmImage from '../../images/student-teams/famnm.jpg';
@@ -128,10 +129,10 @@ teams.sort(() => Math.random() - 0.5);
 
       <div class="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 not-prose">
         {teams.map(team => (
-          <a href={team.link} class="no-underline group bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300">
+          <a href={team.link} class="no-underline group card-base card-hover surface relative">
             <div class="aspect-video bg-gray-100 dark:bg-gray-700 relative overflow-hidden">
               {team.image ? (
-                <Image src={team.image} alt={team.name} class="w-full h-full object-cover group-hover:scale-105 transition-all duration-300" />
+                <Image src={team.image} alt={team.name} class="w-full h-full object-cover image-hover" />
               ) : (
                 <div class="absolute inset-0 flex items-center justify-center text-4xl font-bold text-gray-300 dark:text-gray-600">
                   {team.shortName || team.name.charAt(0)}
@@ -139,15 +140,18 @@ teams.sort(() => Math.random() - 0.5);
               )}
             </div>
             <div class="p-6">
-              <h2 class="text-xl font-bold text-gray-900 dark:text-white group-hover:text-arboretumBlue dark:group-hover:text-maize transition-colors">
-                {team.name}
-                {team.shortName && 
-                  <span class="text-sm font-normal text-gray-500 dark:text-gray-400 ml-2">
-                    ({team.shortName})
-                  </span>
-                }
-              </h2>
-              <p class="mt-2 text-gray-600 dark:text-gray-300 line-clamp-3">
+              <div class="flex items-center justify-between">
+                <h2 class="text-xl font-bold group-hover:text-arboretumBlue dark:group-hover:text-maize transition-colors">
+                  {team.name}
+                  {team.shortName && 
+                    <span class="text-sm font-normal text-neutral-600 dark:text-neutral-400 ml-2">
+                      ({team.shortName})
+                    </span>
+                  }
+                </h2>
+                <Icon name="mdi:open-in-new" class="w-4 h-4 text-neutral-700 dark:text-neutral-300 group-hover:text-arboretumBlue dark:group-hover:text-maize transition-colors ml-2 flex-shrink-0" />
+              </div>
+              <p class="text-sm mt-2 text-neutral-800 dark:text-neutral-200 line-clamp-4">
                 {team.description}
               </p>
             </div>

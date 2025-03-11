@@ -23,16 +23,16 @@ const uniqueId = id || title.toLowerCase().replace(/\s+/g, '-');
 >
   <button
     id={`accordion-header-${uniqueId}`}
-    class="accordion-trigger flex justify-between items-center w-full p-5 text-left bg-matthaeiViolet/5 dark:bg-arboretumBlue/30 text-gray-800 dark:text-neutral-100 hover:bg-matthaeiViolet/10 dark:hover:bg-arboretumBlue transition-all duration-200 cursor-pointer"
+    class="accordion-trigger flex justify-between items-center w-full p-5 text-left bg-matthaeiViolet/5 dark:bg-arboretumBlue/30 text-gray-800 dark:text-neutral-100 hover:bg-matthaeiViolet/10 dark:hover:bg-arboretumBlue transition-all duration-200 cursor-pointer gap-4"
     aria-controls={`accordion-content-${uniqueId}`}
     tabindex="-1"
   >
-    <span class="font-medium text-lg font-roboto">
+    <span class="font-medium text-lg font-roboto flex-1">
       {title}
       {titlePill && <Pill type={titlePill} />}
     </span>
     <svg 
-      class="w-5 h-5 transform transition-transform duration-200" 
+      class="w-5 h-5 transform transition-transform duration-200 flex-shrink-0" 
       fill="none" 
       stroke="currentColor" 
       viewBox="0 0 24 24" 

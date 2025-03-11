@@ -79,7 +79,7 @@ function formatDate(dateString: string): string {
       {posts.map((post: any) => (
         <Link 
           href={getPostLink(post)}
-          class="no-underline group bg-white dark:bg-gray-800 shadow-md rounded-sm overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-[1.02] flex flex-col"
+          class="no-underline group surface card-base card-hover flex flex-col"
           target={isCollegeNews(post) ? '_blank' : undefined}
           rel={isCollegeNews(post) ? 'noopener noreferrer' : undefined}
         >
@@ -123,21 +123,21 @@ function formatDate(dateString: string): string {
         {currentPage > 1 && (
           <Link
             href={url.prev}
-            class="px-4 py-2 bg-white dark:bg-gray-800 shadow-md rounded-sm hover:shadow-lg transition-all duration-300"
+            class="px-4 py-2 surface shadow-md rounded-sm hover:shadow-lg transition-all duration-300"
           >
             <Icon name="mdi:chevron-left" class="inline w-5 h-5 mr-1" />
             Previous
           </Link>
         )}
         
-        <span class="text-gray-600 dark:text-gray-400">
+        <span class="text-neutral-800 dark:text-neutral-100">
           Page {currentPage} of {lastPage}
         </span>
         
         {currentPage < lastPage && (
           <Link
             href={url.next}
-            class="px-4 py-2 bg-white dark:bg-gray-800 shadow-md rounded-sm hover:shadow-lg transition-all duration-300"
+            class="px-4 py-2 surface shadow-md rounded-sm hover:shadow-lg transition-all duration-300"
           >
             Next
             <Icon name="mdi:chevron-right" class="inline w-5 h-5 ml-1" />

@@ -15,15 +15,15 @@ function formatDate(dateString) {
 
 
   <!-- Title -->
-  <h1 class="text-4xl font-roboto-condensed font-bold text-umichblue dark:text-white mb-4 md:mt-4 leading-tight">
+  <h1 class="text-4xl font-roboto-condensed font-bold text-umichblue dark:text-neutral-100 mb-4 md:mt-4 leading-tight">
     {node.title}
   </h1>
 
   <!-- Date and Author -->
   {(node.date || node.author) && (
-    <p class="italic font-sans text-gray-600 dark:text-gray-400 mb-6 text-sm flex items-center">
+    <p class="italic font-sans text-neutral-600 dark:text-neutral-400 mb-6 text-sm flex items-center">
       <span class="flex-grow border-t border-maize mr-4"></span>
-      <span class="flex items-center gap-1 dark:text-gray-100">
+      <span class="flex items-center gap-1 dark:text-neutral-100">
         {node.date && (
           <time datetime={node.date}>
             {formatDate(node.date)}
@@ -32,7 +32,7 @@ function formatDate(dateString) {
         {node.author && (
           <>
             {" by "}
-            <span class="font-medium text-gray-900 dark:text-gray-100">
+            <span class="font-medium text-neutral-900 dark:text-neutral-100">
               {node.author}
             </span>
           </>
@@ -62,7 +62,7 @@ function formatDate(dateString) {
           node.categories.nodes.map(category => (
             <a 
               href={category.uri} 
-              class="inline-block text-xs font-medium mr-2 px-2.5 py-0.5 rounded bg-arboretumBlue text-white hover:bg-umichblue transition-colors"
+              class="inline-block text-xs font-medium mr-2 px-2.5 py-1 rounded bg-arboretumBlue text-neutral-200 hover:bg-arboretumBlue/50 transition-colors"
             >
               {category.prettyName}
             </a>

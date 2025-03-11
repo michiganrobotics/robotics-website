@@ -21,81 +21,83 @@ const courseList = await getCourseList();
           <p class="mb-4">
             Search to find courses that meet specific undergraduate or graduate degree requirements, such as courses in <strong>sensing</strong>, <strong>reasoning</strong>, and <strong>acting</strong>.
           </p>
-          <div class="relative overflow-x-auto">
+          <div class="relative">
               <div class="mb-4">
                 <input type="text" id="searchInput" placeholder="Search courses..." 
-                  class="p-2 border dark:border-neutral-50 rounded-sm w-full dark:text-neutral-100 dark:placeholder:text-gray-200"
+                  class="search-bar"
                 />
               </div>
-              <table class="w-full text-sm text-left surface">
-                <thead class="text-xs uppercase elevated">
-                  <tr>
-                    <th scope="col" class="px-4 py-3 cursor-pointer" data-sort="id">
-                      Course ID
-                      <span class="ml-1">↕</span>
-                    </th>
-                    <th scope="col" class="px-4 py-3 cursor-pointer" data-sort="title">
-                      Title
-                      <span class="ml-1">↕</span>
-                    </th>
-                    <th scope="col" class="px-4 py-3 cursor-pointer" data-sort="credits">
-                      Credits
-                      <span class="ml-1">↕</span>
-                    </th>
-                    <th scope="col" class="px-4 py-3 cursor-pointer" data-sort="department">
-                      Department
-                      <span class="ml-1">↕</span>
-                    </th>
-                    <th scope="col" class="px-4 py-3 cursor-pointer" data-sort="requirements">
-                      Requirements
-                      <span class="ml-1">↕</span>
-                    </th>
-                    <th scope="col" class="px-4 py-3 cursor-pointer" data-sort="semesters">
-                      Semesters Offered
-                      <span class="ml-1">↕</span>
-                    </th>
-                    <th scope="col" class="px-4 py-3 cursor-pointer" data-sort="crosslist">
-                      Cross-listings
-                      <span class="ml-1">↕</span>
-                    </th>
-                    <th scope="col" class="px-4 py-3 cursor-pointer" data-sort="notes">
-                      Notes
-                      <span class="ml-1">↕</span>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {courseList.map((course) => (
-                    <tr class="surface border-b hover:bg-gray-50 dark:hover:bg-gray-600">
-                      <th scope="row" class="px-6 py-4 font-medium">
-                        {course.courseSubject} {course.courseNumber}
+              <div class="overflow-x-auto shadow-md">
+                <table class="w-full text-sm text-left">
+                  <thead class="text-xs uppercase page-bg">
+                    <tr>
+                      <th scope="col" class="px-4 py-3 cursor-pointer border-r" data-sort="id">
+                        Course ID
+                        <span class="ml-1">↕</span>
                       </th>
-                      <td class="px-6 py-4">
-                        {course.courseLink ? <a href={course.courseLink} target="_blank" rel="noopener noreferrer" class="underline hover:text-umichblue dark:hover:text-gray-300">{course.courseTitle}</a> : course.courseTitle}
-                      </td>
-                      <td class="px-6 py-4">
-                        {course.credits}
-                      </td>
-                      <td class="px-6 py-4">
-                        {course.homeDepartment}
-                      </td>
-                      <td class="px-6 py-4">
-                        <div>UG: {course.undergradRequirement}</div>
-                        <div>Grad: {course.gradRequirement}</div>
-                      </td>
-                      <td class="px-6 py-4">
-                        {course.semestersOffered}
-                      </td>
-                      <td class="px-6 py-4">
-                        {course.crossListing}
-                      </td>
-                      <td class="px-6 py-4">
-                        {course.courseNote}
-                      </td>
+                      <th scope="col" class="px-4 py-3 cursor-pointer border-r" data-sort="title">
+                        Title
+                        <span class="ml-1">↕</span>
+                      </th>
+                      <th scope="col" class="px-4 py-3 cursor-pointer border-r" data-sort="credits">
+                        Credits
+                        <span class="ml-1">↕</span>
+                      </th>
+                      <th scope="col" class="px-4 py-3 cursor-pointer border-r" data-sort="department">
+                        Department
+                        <span class="ml-1">↕</span>
+                      </th>
+                      <th scope="col" class="px-4 py-3 cursor-pointer border-r" data-sort="requirements">
+                        Requirements
+                        <span class="ml-1">↕</span>
+                      </th>
+                      <th scope="col" class="px-4 py-3 cursor-pointer border-r" data-sort="semesters">
+                        Semesters Offered
+                        <span class="ml-1">↕</span>
+                      </th>
+                      <th scope="col" class="px-4 py-3 cursor-pointer border-r" data-sort="crosslist">
+                        Cross-listings
+                        <span class="ml-1">↕</span>
+                      </th>
+                      <th scope="col" class="px-4 py-3 cursor-pointer" data-sort="notes">
+                        Notes
+                        <span class="ml-1">↕</span>
+                      </th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {courseList.map((course) => (
+                      <tr class="bg-[var(--bg-undersurface-light)] dark:bg-[var(--bg-undersurface-dark)] border-b hover:bg-[var(--bg-surface-hover)] dark:hover:bg-[var(--bg-surface-hover-dark)]">
+                        <th scope="row" class="px-6 py-4 font-medium border-r">
+                          {course.courseSubject} {course.courseNumber}
+                        </th>
+                        <td class="px-6 py-4 border-r">
+                          {course.courseLink ? <a href={course.courseLink} target="_blank" rel="noopener noreferrer" class="underline hover:text-umichblue dark:hover:text-gray-300">{course.courseTitle}</a> : course.courseTitle}
+                        </td>
+                        <td class="px-6 py-4 border-r">
+                          {course.credits}
+                        </td>
+                        <td class="px-6 py-4 border-r">
+                          {course.homeDepartment}
+                        </td>
+                        <td class="px-6 py-4 border-r">
+                          <div>UG: {course.undergradRequirement}</div>
+                          <div>Grad: {course.gradRequirement}</div>
+                        </td>
+                        <td class="px-6 py-4 border-r">
+                          {course.semestersOffered}
+                        </td>
+                        <td class="px-6 py-4 border-r">
+                          {course.crossListing}
+                        </td>
+                        <td class="px-6 py-4">
+                          {course.courseNote}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
 
