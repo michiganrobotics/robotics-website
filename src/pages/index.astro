@@ -218,7 +218,7 @@ const videoWebmPath = '/robotics-promo-2025-2.webm';
 					{recentEvents.map((event: Event) => (
 					  <a 
 						key={event.id} 
-						class='post-link no-underline group card-base surface border border-matthaeiViolet w-80'
+						class='post-link no-underline group card-base surface border border-matthaeiViolet w-96'
 						href={event.permalink} 
 						aria-label={event.event_title}
 					  >
@@ -247,13 +247,11 @@ const videoWebmPath = '/robotics-promo-2025-2.webm';
 								  })}
 							  </time>
 							</div> 
-							<h3 class="pl-5 mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-neutral-200">
+							<h3 class="pl-5 mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-neutral-200">
 							  {event.event_title}
 							  <span class="block w-0 h-0.5 bg-maize transition-all duration-300 group-hover:w-full" />
 							</h3>
-							<h4 class="pl-5 mb-2 text-xl tracking-tight text-gray-900 dark:text-neutral-300">{event.event_subtitle}</h4>  
-							<div class="pl-5 mb-3 font-normal text-gray-700 dark:text-neutral-200 whitespace-pre-wrap line-clamp-4" set:html={event.description} />
-						  </div>
+							<h4 class="pl-5 mb-2 text-lg tracking-tight text-gray-900 dark:text-neutral-300">{event.event_subtitle}</h4>  
 						</section>
 					  </a>
 					))}

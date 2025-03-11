@@ -135,7 +135,7 @@ const relatedPosts = [...allNamedPosts, ...formattedCollegeNews]
             {faculty.googleScholar && (
               <p class="flex flex-col">
                 <span class="font-bold text-xs uppercase tracking-wider text-gray-600 dark:text-gray-300">Google Scholar</span>
-                <a href={faculty.googleScholar} target="_blank" rel="noopener noreferrer" class="hover:underline text-lg text-rackhamGreen dark:text-maize">
+                <a href={faculty.googleScholar} target="_blank" rel="noopener noreferrer" class="hover:underline text-lg dark:text-maize">
                   View Profile
                 </a>
               </p>
@@ -143,7 +143,7 @@ const relatedPosts = [...allNamedPosts, ...formattedCollegeNews]
             {faculty.labWebsite && (
               <p class="flex flex-col">
                 <span class="font-bold text-xs uppercase tracking-wider text-gray-600 dark:text-gray-300">Lab Website</span>
-                <a href={faculty.labWebsite} target="_blank" rel="noopener noreferrer" class="hover:underline text-lg text-rackhamGreen dark:text-maize">
+                <a href={faculty.labWebsite} target="_blank" rel="noopener noreferrer" class="hover:underline text-lg dark:text-maize">
                   Visit Lab Website
                 </a>
               </p>
@@ -151,7 +151,7 @@ const relatedPosts = [...allNamedPosts, ...formattedCollegeNews]
             {faculty.website && (
               <p class="flex flex-col">
                 <span class="font-bold text-xs uppercase tracking-wider text-gray-600 dark:text-gray-300">Personal Website</span>
-                <a href={faculty.website} target="_blank" rel="noopener noreferrer" class="hover:underline text-lg text-rackhamGreen dark:text-maize">
+                <a href={faculty.website} target="_blank" rel="noopener noreferrer" class="hover:underline text-lg dark:text-maize">
                   Visit Personal Website
                 </a>
               </p>
@@ -176,7 +176,7 @@ const relatedPosts = [...allNamedPosts, ...formattedCollegeNews]
               <div class="group bg-white dark:bg-gray-900 rounded-sm shadow-lg">
                 <Link 
                   href={getPostLink(post)}
-                  class="group block overflow-hidden rounded-sm"
+                  class="group block overflow-hidden rounded-sm no-underline"
                   target={isCollegeNews(post) ? '_blank' : undefined}
                   rel={isCollegeNews(post) ? 'noopener noreferrer' : undefined}
                 >
