@@ -12,6 +12,7 @@ import peopleImage from '../images/homepage/homepage-people.jpg';
 import ContentImage from '../components/ContentImage.astro';
 import Link from '../components/Link.astro';
 import { Icon } from 'astro-icon/components';
+import defaultEventImage from '../images/default-event.jpg';
 
 // Add these type definitions at the top of the file
 interface Event {
@@ -96,10 +97,10 @@ const videoWebmPath = '/robotics-promo-2025-2.webm';
 		<Hero videoMp4Path={videoMp4Path} videoWebmPath={videoWebmPath}></Hero>
 		<div class="mx-2 m-auto mb-4 md:mx-12">
 			<div class="block md:hidden font-roboto-condensed relative mb-16 m-auto 
-                        bg-umichblue dark:bg-arboretumBlue
-                        overflow-visible rounded-sm p-6
+                        bg-umichblue dark:bg-[var(--bg-surface-dark)]
+                        rounded-sm p-6
                         shadow-lg text-neutral-50 text-xl -mt-8
-                        border border-white/20 backdrop-blur-sm">
+                        border border-arboretumBlue">
 				The <strong>Robotics Department</strong> at the <strong>University of Michigan</strong> is creating the next generation of robotics and roboticists as force-multipliers for the benefit of society. 
 			</div>
 
@@ -148,7 +149,7 @@ const videoWebmPath = '/robotics-promo-2025-2.webm';
 											</h3>
 											<span class="maize-underline" />
 										</div>
-										<div class="mt-4 text-gray-600 dark:text-neutral-200">
+										<div class="mt-4 text-neutral-600 dark:text-neutral-200">
 											<p class="text-sm italic font-sans text-arboretumBlue dark:text-neutral-300">
 												{new Date(post.data.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
 											</p>
@@ -224,7 +225,7 @@ const videoWebmPath = '/robotics-promo-2025-2.webm';
 						<section>
 						  <Image
 							class="rounded-t-sm aspect-video object-cover w-full"
-							src={event.styled_images.event_feature_large} 
+							src={event.styled_images.event_feature_large === "/social/default-event.jpg" ? defaultEventImage : event.styled_images.event_feature_large} 
 							alt={event.image_description}
 							height={300}
 							width={446}
@@ -248,19 +249,19 @@ const videoWebmPath = '/robotics-promo-2025-2.webm';
 								  })}
 							  </time>
 							</div> 
-							<h3 class="pl-5 mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-neutral-200">
+							<h3 class="pl-5 mb-2 text-xl font-bold tracking-tight dark:text-neutral-200">
 							  {event.event_title}
 							  <span class="block w-0 h-0.5 bg-maize transition-all duration-300 group-hover:w-full" />
 							</h3>
-							<h4 class="pl-5 mb-2 text-lg tracking-tight text-gray-900 dark:text-neutral-300">{event.event_subtitle}</h4>  
+							<h4 class="pl-5 mb-2 text-lg tracking-tight dark:text-neutral-300">{event.event_subtitle}</h4>  
 						</section>
 					  </a>
 					))}
 				  </div>
 				</div>
-			  )}
-			      <SocialFeed />
-				  <EmailSignup />
+			)}
+			<SocialFeed />
+			<EmailSignup />
 		</div>
 	</main>
 </MainLayout>

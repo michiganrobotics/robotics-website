@@ -243,7 +243,7 @@
   
   /* Search bars */
   .search-bar {
-    @apply w-full p-2 border bg-[var(--bg-page-light)] dark:bg-[var(--bg-page-dark)] border-neutral-400 dark:border-arboretumBlue rounded-md w-full placeholder:text-neutral-500 dark:text-neutral-100 dark:placeholder:text-neutral-400
+    @apply w-full p-2 border bg-[var(--bg-page-light)] dark:bg-[var(--bg-page-dark)] border-neutral-400 dark:border-arboretumBlue rounded-md placeholder:text-neutral-500 dark:text-neutral-100 dark:placeholder:text-neutral-400
   }
 
   /* Section title styling */
@@ -317,8 +317,6 @@
     text-underline-offset: 2px !important;
     text-decoration-color: var(--color-maize) !important;
   }
-
-
 
 :root {
   --font-fallback-sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Oxygen, Ubuntu, Cantarell, sans-serif;
