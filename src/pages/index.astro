@@ -94,12 +94,13 @@ const videoWebmPath = '/robotics-promo-2025-2.webm';
 
 	  </Fragment>
 	<main class="preload-visible">
-		<Hero videoMp4Path={videoMp4Path} videoWebmPath={videoWebmPath}></Hero>
-		<div class="mx-2 m-auto mb-4 md:mx-12">
-			<div class="block md:hidden font-roboto-condensed mb-16 bg-umichblue dark:bg-[var(--bg-surface-dark)] rounded-sm p-6 shadow-lg text-neutral-50 text-xl -mt-8 border border-arboretumBlue" id="mission-statement">
+		<div class="relative">
+			<Hero videoMp4Path={videoMp4Path} videoWebmPath={videoWebmPath}></Hero>
+			<div class="block md:hidden font-roboto-condensed bg-umichblue dark:bg-[var(--bg-surface-dark)] rounded-sm p-6 shadow-lg text-neutral-50 text-xl mx-2 md:mx-12 border border-arboretumBlue relative -mt-8 mb-16">
 				<p>The <span class="font-bold">Robotics Department</span> at the <span class="font-bold">University of Michigan</span> is creating the next generation of robotics and roboticists as force-multipliers for the benefit of society.</p>
 			</div>
-
+		</div>
+		<div class="mx-2 m-auto mb-4 md:mx-12">
 			<div class="relative mb-16 section-with-gradient-border border-arboretumBlue before:from-arboretumBlue after:from-arboretumBlue">
 				<div class="flex justify-center mb-2 sm:mb-0">
 					<h2 id="latest-news" class="absolute -top-6 z-10 bg-arboretumBlue text-neutral-50 px-6 py-2 rounded-sm text-3xl font-bold"><a href="/news" class="underline-hover-only">Latest news</a></h2>
