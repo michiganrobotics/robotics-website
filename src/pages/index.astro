@@ -217,7 +217,6 @@ const videoWebmPath = '/robotics-promo-2025-2.webm';
 				  <div class="cards-container">	
 					{recentEvents.map((event: Event) => (
 					  <a 
-						key={event.id} 
 						class='post-link no-underline group card-base surface border border-matthaeiViolet w-96'
 						href={event.permalink} 
 						aria-label={event.event_title}
@@ -230,6 +229,8 @@ const videoWebmPath = '/robotics-promo-2025-2.webm';
 							height={300}
 							width={446}
 							loading='lazy'
+							format="webp"
+							quality={80}
 						  />
 						  <div class="p-5 pl-0">
 							<div class="mb-3 text-sm italic bg-matthaeiViolet text-neutral-200 inline-block pl-5 pr-2 py-1">

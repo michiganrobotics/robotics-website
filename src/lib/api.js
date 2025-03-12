@@ -1,4 +1,4 @@
-function truncateDescription(description, maxLength = 250) {
+function truncateDescription(description, maxLength = 200) {
   if (description.length <= maxLength) return description;
   return description.slice(0, maxLength).trim() + '...';
 }
