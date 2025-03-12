@@ -11,10 +11,10 @@ const posterPath = '/blue-tile.png';
 
 ---
 
-<section class="my-4 md:mb-28 preload-visible">
-  <div class="relative min-h-[350px] preload-visible">
-    <div class="flex flex-wrap items-center justify-center min-h-[350px] mb-14 md:mb-12 preload-visible">
-        <h1 class="text-center z-10 text-4xl font-roboto-condensed font-bold">Work together. Create smart machines. Serve society.</h1>
+<section class="my-4 md:mb-28">
+  <div class="relative min-h-[350px]">
+    <div class="flex flex-wrap items-center justify-center min-h-[350px] mb-14 md:mb-12">
+        <h1 class="text-center z-10 text-4xl font-roboto-condensed font-bold px-4">Work together. Create smart machines. Serve society.</h1>
 
       <div class="absolute inset-0 w-full h-full bg-umichblue">
         <video 
@@ -24,9 +24,10 @@ const posterPath = '/blue-tile.png';
           width="1280"
           playsinline
           muted
-          preload="auto"
+          preload="none"
           poster={posterPath}
           aria-label="Background video showing Michigan Robotics research and education"
+          fetchpriority="low"
         >
           <source src={videoWebmPath} type="video/webm" media="(max-width: 768px)">
           <source src={videoMp4Path} type="video/mp4">
@@ -55,67 +56,73 @@ const posterPath = '/blue-tile.png';
 </section>
 
 <script>
-  const video = document.getElementById('hero-video') as HTMLVideoElement;
-  const control = document.getElementById('video-control') as HTMLButtonElement;
-  const loadingIndicator = document.getElementById('loading-indicator') as HTMLDivElement;
-  
-  if (video && control && loadingIndicator) {
-    const pauseIcon = control.querySelector('.pause-icon') as HTMLElement | null;
-    const playIcon = control.querySelector('.play-icon') as HTMLElement | null;
-    let isVideoSupported = true;
+  // Defer video initialization until after page load
+  window.addEventListener('load', () => {
+    const video = document.getElementById('hero-video');
+    const control = document.getElementById('video-control');
+    const loadingIndicator = document.getElementById('loading-indicator');
+    
+    if (video instanceof HTMLVideoElement && control && loadingIndicator) {
+      const pauseIcon = control.querySelector('.pause-icon');
+      const playIcon = control.querySelector('.play-icon');
+      let isVideoSupported = true;
 
-    // Check if video playback is supported
-    function checkVideoSupport() {
-      const canPlay = video.canPlayType('video/mp4') || video.canPlayType('video/webm');
-      if (canPlay === '') {
-        isVideoSupported = false;
-        loadingIndicator.remove();
-        return false;
-      }
-      return true;
-    }
-
-    // Add loading event listeners
-    video.addEventListener('loadeddata', () => {
-      if (isVideoSupported) {
-        video.classList.remove('opacity-0');
-        loadingIndicator.remove();
-        control.classList.remove('hidden');
-        tryPlayVideo();
-      }
-    });
-
-    // Attempt to play video
-    async function tryPlayVideo() {
-      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        try {
-          await video.play();
-        } catch (error) {
-          // Silently fail if video can't play
+      // Check if video playback is supported
+      function checkVideoSupport() {
+        const canPlay = video.canPlayType('video/mp4') || video.canPlayType('video/webm');
+        if (canPlay === '') {
+          isVideoSupported = false;
           loadingIndicator.remove();
+          return false;
+        }
+        return true;
+      }
+
+      // Add loading event listeners
+      video.addEventListener('loadeddata', () => {
+        if (isVideoSupported) {
+          video.classList.remove('opacity-0');
+          loadingIndicator.remove();
+          control.classList.remove('hidden');
+          tryPlayVideo();
+        }
+      });
+
+      // Attempt to play video
+      async function tryPlayVideo() {
+        if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          try {
+            await video.play();
+          } catch (error) {
+            // Silently fail if video can't play
+            loadingIndicator.remove();
+          }
         }
       }
-    }
 
-    // Toggle play/pause
-    const togglePlayback = () => {
-      if (video.paused) {
-        video.play();
-        if (playIcon) playIcon.classList.add("hidden");
-        if (pauseIcon) pauseIcon.classList.remove("hidden");
-      } else {
-        video.pause();
-        if (playIcon) playIcon.classList.remove("hidden");
-        if (pauseIcon) pauseIcon.classList.add("hidden");
+      // Toggle play/pause
+      const togglePlayback = () => {
+        if (video.paused) {
+          video.play();
+          if (playIcon) playIcon.classList.add("hidden");
+          if (pauseIcon) pauseIcon.classList.remove("hidden");
+        } else {
+          video.pause();
+          if (playIcon) playIcon.classList.remove("hidden");
+          if (pauseIcon) pauseIcon.classList.add("hidden");
+        }
+      };
+      control.addEventListener("click", togglePlayback);
+
+      // Check video support and try to load
+      if (checkVideoSupport()) {
+        // Defer video loading
+        requestIdleCallback(() => {
+          video.load();
+        });
       }
-    };
-    control.addEventListener("click", togglePlayback);
-
-    // Check video support and try to load
-    if (checkVideoSupport()) {
-      video.load();
     }
-  }
+  });
 </script>
 
 <style>
