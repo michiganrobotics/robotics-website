@@ -11,10 +11,10 @@ const posterPath = '/blue-tile.png';
 
 ---
 
-<section class="my-4 md:mb-28">
+<section class="my-4 md:mb-28 relative">
   <div class="relative min-h-[350px]">
-    <div class="flex flex-wrap items-center justify-center min-h-[350px] mb-14 md:mb-12">
-        <h1 class="text-center z-10 text-4xl text-white font-roboto-condensed font-bold">Work together. Create smart machines. Serve society.</h1>
+    <div class="flex flex-wrap items-center justify-center min-h-[350px] mb-6 md:mb-12">
+        <h1 class="text-center z-10 text-4xl text-white font-roboto-condensed font-bold p-2">Work together. Create smart machines. Serve society.</h1>
 
       <div class="absolute inset-0 w-full h-full bg-umichblue">
         <video 
@@ -47,10 +47,12 @@ const posterPath = '/blue-tile.png';
         </div>
       </div>
     </div>
+  </div>
 
-    <div class="hidden md:block font-roboto-condensed text-xl absolute z-50 -bottom-10 m-auto bg-lawQuadStone inset-x-4 lg:inset-x-1/4 rounded-sm p-6 drop-shadow-lg text-neutral-50 text-justify border border-white/20 max-w-4xl">
-      The <strong>Robotics Department</strong> at the <strong>University of Michigan</strong> is creating the next generation of robotics and roboticists as force-multipliers for the benefit of society. 
-    </div>
+  <div class="font-roboto-condensed text-xl z-50 text-neutral-50 p-6
+    relative mx-2 mb-16 bg-umichblue dark:bg-[var(--bg-surface-dark)] rounded-sm shadow-lg border border-arboretumBlue
+    md:absolute md:-bottom-10 md:inset-x-4 md:lg:inset-x-1/4 md:mx-auto md:mb-0 md:max-w-4xl md:bg-lawQuadStone md:dark:bg-lawQuadStone md:text-justify md:border-white/20">
+    The <span class="font-bold">Robotics Department</span> at the <span class="font-bold">University of Michigan</span> is creating the next generation of robotics and roboticists as force-multipliers for the benefit of society.
   </div>
 </section>
 
