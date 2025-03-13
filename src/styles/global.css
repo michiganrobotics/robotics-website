@@ -179,7 +179,7 @@
 
   /* Section with gradient borders - utility class */
   .section-with-gradient-border {
-    @apply relative border-t before:absolute before:left-0 before:top-0 before:w-px before:h-1/3 before:bg-gradient-to-b before:to-transparent after:absolute after:right-0 after:top-0 after:w-px after:h-1/3 after:bg-gradient-to-b after:to-transparent;
+    @apply relative border-t before:absolute before:left-0 before:top-0 before:w-px before:h-1/3 before:bg-gradient-to-b before:to-transparent after:absolute after:right-0 after:top-0 after:w-px after:h-1/3 after:bg-gradient-to-b after:to-transparent max-w-[1920px] xl:mx-auto;
   }
   
   /* Card Base Styles */

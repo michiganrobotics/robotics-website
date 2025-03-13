@@ -96,11 +96,11 @@ const videoWebmPath = '/robotics-promo-2025-2.webm';
 	<main class="preload-visible">
 		<Hero videoMp4Path={videoMp4Path} videoWebmPath={videoWebmPath}></Hero>
 		<div class="mx-2 m-auto mb-4 md:mx-12">
-			<div class="block md:hidden font-roboto-condensed mb-16 bg-umichblue dark:bg-[var(--bg-surface-dark)] rounded-sm p-6 shadow-lg text-neutral-50 text-xl -mt-8 border border-arboretumBlue">
+			<div class="block md:hidden font-roboto-condensed mb-16 bg-umichblue dark:bg-[var(--bg-surface-dark)] rounded-md p-6 shadow-lg text-neutral-50 text-xl -mt-8 border border-arboretumBlue">
 				<p>The <span class="font-bold">Robotics Department</span> at the <span class="font-bold">University of Michigan</span> is creating the next generation of robotics and roboticists as force-multipliers for the benefit of society.</p>
 			</div>
 
-			<div class="relative mb-16 section-with-gradient-border border-arboretumBlue before:from-arboretumBlue after:from-arboretumBlue">
+			<div class="relative mb-22 section-with-gradient-border border-arboretumBlue before:from-arboretumBlue after:from-arboretumBlue">
 				<div class="flex justify-center mb-2 sm:mb-0">
 					<h2 id="latest-news" class="absolute -top-6 z-10 bg-arboretumBlue text-neutral-50 px-6 py-2 rounded-sm text-3xl font-bold"><a href="/news" class="underline-hover-only">Latest news</a></h2>
 				</div>
@@ -159,7 +159,7 @@ const videoWebmPath = '/robotics-promo-2025-2.webm';
 				</div>
 			</div>
 
-			<div class="relative mb-16 section-with-gradient-border border-rackhamGreen before:from-rackhamGreen after:from-rackhamGreen">
+			<div class="relative mb-18 section-with-gradient-border border-rackhamGreen before:from-rackhamGreen after:from-rackhamGreen">
 				<div class="flex justify-center mb-12 sm:mb-0">
 					<h2 class="absolute -top-6 z-10 bg-rackhamGreen text-neutral-50 px-6 py-2 rounded-sm text-3xl font-bold"><a href="/about" class="underline-hover-only">Get to know Michigan Robotics</a></h2>
 				</div>
@@ -184,7 +184,7 @@ const videoWebmPath = '/robotics-promo-2025-2.webm';
 							href: "/people"
 						}
 					].map(item => (
-						<figure class="group min-w-[50%] md:min-w-[auto] flex-auto relative max-w-md rounded-sm shadow-md hover:shadow-lg transition-all duration-300 border-rackhamGreen border">
+						<figure class="group min-w-[50%] md:min-w-[auto] flex-auto relative max-w-md rounded-sm shadow-md hover:shadow-lg transition-all duration-300 border-rackhamGreen border mt-0">
 							<Link href={item.href} class="block">
 								<div class="overflow-hidden">
 									<Image 
@@ -209,7 +209,7 @@ const videoWebmPath = '/robotics-promo-2025-2.webm';
 			</div>
 		
 			{recentEvents.length > 0 && (
-				<div class="relative mb-16 section-with-gradient-border border-matthaeiViolet before:from-matthaeiViolet after:from-matthaeiViolet">
+				<div class="relative mb-24 section-with-gradient-border border-matthaeiViolet before:from-matthaeiViolet after:from-matthaeiViolet">
 				  <h2 class="absolute -top-6 left-1/2 transform -translate-x-1/2 z-10 bg-matthaeiViolet text-neutral-50 px-6 py-2 rounded-sm text-3xl font-bold"><a href="/events" class="underline-hover-only">Events</a></h2>		
 				  <div class="cards-container">	
 					{recentEvents.map((event: Event) => (
