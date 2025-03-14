@@ -177,8 +177,15 @@ async function getExcerpt(post: CombinedNewsItem) {
   }
 }
 
+const pageTitle = "Michigan Robotics News";
+const pageDescription = "Latest robotics news and upcoming events from the University of Michigan";
+
 ---
-<MainLayout title="News | Michigan Robotics" image={ogFeatureImage.src} description="Latest robotics news and upcoming events from the University of Michigan">
+<MainLayout 
+  title={`${pageTitle} | Michigan Robotics`}
+  description={pageDescription}
+  image={ogFeatureImage.src}
+>
   <Breadcrumbs />
   <PageTitle title="Michigan Robotics News" image={featureImage} imageAlt="Researchers work on a state-of-the-art bipedal robot in the Walking Robotics Lab." imagePosition="0% 40%"/>
   
