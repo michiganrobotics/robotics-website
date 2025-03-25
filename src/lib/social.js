@@ -135,7 +135,7 @@ async function fetchInstagramPosts() {
     const posts = mediaResponse.data.data.map(post => ({
       id: post.id,
       content: post.caption,
-      mediaUrl: post.media_url,
+      mediaUrl: post.media_type === 'VIDEO' ? post.thumbnail_url : post.media_url,
       thumbnailUrl: post.thumbnail_url,
       mediaType: post.media_type,
       date: post.timestamp,

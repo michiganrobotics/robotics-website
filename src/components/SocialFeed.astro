@@ -45,7 +45,9 @@ const socialIcons = {
               (post.platform === 'X' && post.mediaType === 'IMAGE' && post.mediaUrl) || 
               (post.platform !== 'Instagram' && post.thumbnailUrl)) ? (
               <div class="h-44 relative">
-                {post.platform === 'Instagram' && post.mediaType === 'IMAGE' && post.mediaUrl && (
+                {post.platform === 'Instagram' && 
+                 (post.mediaType === 'IMAGE' || post.mediaType === 'CAROUSEL_ALBUM') && 
+                 post.mediaUrl && (
                   <Image 
                     src={post.mediaUrl} 
                     alt="Instagram post"
