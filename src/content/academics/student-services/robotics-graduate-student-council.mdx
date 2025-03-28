@@ -46,7 +46,7 @@ Tell us here! [RGSC suggestion box](https://forms.gle/icfLyvcV1Xg3ZmMd8 "RGSC su
 
 The RGSC strives to:
 
-1. Foster an environment in which all students have a voice in their education and community. Ensure that voice is heard by coordinating with the students, the  College of Engineering and Robotics leadership so that the goals of all three parties can be attained.
+1. Foster an environment in which all students have a voice in their education and community. Ensure that voice is heard by coordinating with the students, the  College of Engineering and Robotics leadership so that the goals of all three parties can be attained.
 
 3. Create a community for all the graduate students in Robotics by organizing events that promote social interaction and a feeling of camaraderie among the students.
 
@@ -61,7 +61,7 @@ The RGSC strives to:
 <PhotoGallery
   variant="profile"
   images={rgscOfficers.map(officer => ({
-    src: officer.profileImage,
+    src: officer.profileImage.replace('/src/', '/'),
     alt: officer.name,
     caption: `${officer.name}\n${officer.title}`
   }))}

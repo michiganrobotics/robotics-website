@@ -58,7 +58,7 @@ Looking for RUSC and undergraduate robotics events? Check out the [Google calend
 <PhotoGallery
   variant="profile"
   images={ruscOfficers.map(officer => ({
-    src: officer.profileImage,
+    src: officer.profileImage.replace('/src/', '/'),
     alt: officer.name,
     caption: `${officer.name}\n${officer.title}`
   }))}
