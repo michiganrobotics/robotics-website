@@ -183,6 +183,13 @@ interface Seminars {
   recordingUrl?: string;
 }
 
+interface StudentCouncilMember {
+  name: string;
+  title: string;
+  org: string;
+  profileImage: string | null;
+}
+
 function createSlug(name: string): string {
   return name
     .toLowerCase()
@@ -593,4 +600,27 @@ export const getSeminarsData = cached(async (): Promise<Seminars[]> => {
   }));
 
   return seminars;
+});
+
+export const getStudentCouncilData = cached(async (): Promise<StudentCouncilMember[]> => {
+  await doc.loadInfo();
+  const sheet = doc.sheetsByTitle['RGSC/RUSC'];
+  const rows = await sheet.getRows();
+  
+  // Process all images in parallel
+  const members = await Promise.all(rows.map(async row => {
+    const imageUrl = await getGoogleDriveDirectImageUrl(
+      row.get('profileImage'),
+      row.get('name')
+    );
+
+    return {
+      name: row.get('name'),
+      title: row.get('title'),
+      org: row.get('org'),
+      profileImage: imageUrl || '/src/images/profile-images/robot-profile.jpg',
+    };
+  }));
+
+  return members;
 });

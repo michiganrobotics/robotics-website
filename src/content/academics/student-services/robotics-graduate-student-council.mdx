@@ -2,6 +2,7 @@
 title: "Robotics Graduate Student Council"
 date: "2019-11-27"
 ---
+import { getStudentCouncilData } from '../../../lib/googleSheets';
 import rodriguez from '../images/rgsc/rodriguez.jpg';
 import apodaca from '../images/rgsc/apodaca.jpg';
 import shehab from '../images/rgsc/shehab.jpg';
@@ -25,6 +26,7 @@ import sundar from '../images/rgsc/sundar.jpg';
 import carlson from '../images/rgsc/carlson.jpg';
 import stratton from '../../../../src/images/profile-images/robot-profile2.jpg';
 
+export const rgscOfficers = (await getStudentCouncilData()).filter(member => member.org === 'RGSC');
 
 The Robotics Graduate Student Council (RGSC) is a student organization committed to promoting the growth of Robotics at the University of Michigan and to supporting the social, academic, and professional development of these students.
 
@@ -56,22 +58,13 @@ The RGSC strives to:
 
 ## Current Officers
 
-<PhotoGallery variant="profile"
-images={[
-  {src: kanetis, alt: "Jake Kanetis", caption: "Jake Kanetis\nPresident"},
-  {src: pan, alt: "Grace Pan", caption: "Grace Pan\nSecretary"},
-  {src: janne, alt: "Nick Janne", caption: "Nick Janne\nTreasurer"},
-  {src: pieper, alt: "Riley Pieper", caption: "Riley Pieper\nTreasurer"},
-  {src: apodaca, alt: "Brandon Apodaca", caption: "Brandon Apodaca\nSocial Chair"},
-  {src: nail, alt: "Mark Nail", caption: "Mark Nail\nSocial Chair"},
-  {src: kashyap, alt: "Atharva Kashyap", caption: "Atharva Kashyap\nPhD GSAC Representative"},
-  {src: sundar, alt: "Sacchin Sundar", caption: "Sacchin Sundar\nMS GSAC Representative\nOutreach Chair"},
-  {src: williams, alt: "Connor Williams", caption: "Connor Williams\nOutreach Chair"},
-  {src: carlson, alt: "Jessi Carlson", caption: "Jessi Carlson\nColloquium Chair/CQE"},
-  {src: stratton, alt: "Andrew Stratton", caption: "Andrew Stratton\nColloquium Chair/CQE"},
-  {src: marques, alt: "Luis Marques", caption: "Luis Marques\nAdvocacy Chair"},
-  {src: sheppard, alt: "Anja Sheppard", caption: "Anja Sheppard\nProfessional Development and Networking Chair"},
-]}
+<PhotoGallery
+  variant="profile"
+  images={rgscOfficers.map(officer => ({
+    src: officer.profileImage,
+    alt: officer.name,
+    caption: `${officer.name}\n${officer.title}`
+  }))}
 />
 
 ## RGSC links

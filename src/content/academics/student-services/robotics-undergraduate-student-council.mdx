@@ -19,6 +19,9 @@ import ishratPic from '../images/rusc/Ishrat-Khan.jpg';
 import lillyPic from '../images/rusc/Lilly-Richards.png';
 import justinPic from '../images/rusc/Justin-Boverhof.png';
 import maxPic from '../images/rusc/Max-West.jpg';
+import { getStudentCouncilData } from '../../../lib/googleSheets';
+
+export const ruscOfficers = (await getStudentCouncilData()).filter(member => member.org === 'RUSC');
 
 <Image src={ruscLogo} alt="RUSC Logo" />
 
@@ -54,16 +57,11 @@ Looking for RUSC and undergraduate robotics events? Check out the [Google calend
 
 <PhotoGallery
   variant="profile"
-  images={[
-    { src: sammiePic, alt: "Sammie Staudinger", caption: "Sammie Staudinger\nPresident" },
-    { src: tatePic, alt: "Tate Collier", caption: "Tate Collier\nSecretary" },
-    { src: halinaPic, alt: "Halina Costello", caption: "Halina Costello\nTreasurer" },
-    { src: gurnoorPic, alt: "Gurnoor Kaur", caption: "Gurnoor Kaur\nOutreach Chair" },
-    { src: ishratPic, alt: "Ishrat Khan", caption: "Ishrat Khan\nDEI Chair" },
-    { src: lillyPic, alt: "Lilly Richards", caption: "Lilly Richards\nAcademic Chair" },
-    { src: justinPic, alt: "Justin Boverhof", caption: "Justin Boverhof\nProfessional Development Chair" },
-    { src: maxPic, alt: "Max West", caption: "Max West\nSocial Chair" },
-  ]}
+  images={ruscOfficers.map(officer => ({
+    src: officer.profileImage,
+    alt: officer.name,
+    caption: `${officer.name}\n${officer.title}`
+  }))}
 />
 
 
