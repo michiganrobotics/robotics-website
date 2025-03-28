@@ -26,6 +26,9 @@ import sundar from '../images/rgsc/sundar.jpg';
 import carlson from '../images/rgsc/carlson.jpg';
 import stratton from '../../../../src/images/profile-images/robot-profile2.jpg';
 
+export const cachedImages = import.meta.glob('/src/images/cached-profiles/*.jpg', { eager: true, import: 'default' });
+export const defaultProfileImage = await import('../../../images/profile-images/robot-profile.jpg');
+
 export const rgscOfficers = (await getStudentCouncilData()).filter(member => member.org === 'RGSC');
 
 The Robotics Graduate Student Council (RGSC) is a student organization committed to promoting the growth of Robotics at the University of Michigan and to supporting the social, academic, and professional development of these students.
@@ -61,7 +64,7 @@ The RGSC strives to:
 <PhotoGallery
   variant="profile"
   images={rgscOfficers.map(officer => ({
-    src: officer.profileImage.replace('/src/', '/'),
+    src: cachedImages[officer.profileImage] || defaultProfileImage.default,
     alt: officer.name,
     caption: `${officer.name}\n${officer.title}`
   }))}

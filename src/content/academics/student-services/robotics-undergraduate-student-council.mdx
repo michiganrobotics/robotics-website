@@ -5,6 +5,7 @@ image:
     src: "../images/rusc/rusc-outreach.jpg"
     alt: "RUSC Logo"
 ---
+import { getStudentCouncilData } from '../../../lib/googleSheets';
 import ruscSocial from '../images/rusc/rusc-social.jpg';
 import ruscOutreach from '../images/rusc/rusc-outreach.jpg';
 import ruscEvent from '../images/rusc/rusc-event.jpg';
@@ -19,7 +20,9 @@ import ishratPic from '../images/rusc/Ishrat-Khan.jpg';
 import lillyPic from '../images/rusc/Lilly-Richards.png';
 import justinPic from '../images/rusc/Justin-Boverhof.png';
 import maxPic from '../images/rusc/Max-West.jpg';
-import { getStudentCouncilData } from '../../../lib/googleSheets';
+
+export const cachedImages = import.meta.glob('/src/images/cached-profiles/*.jpg', { eager: true, import: 'default' });
+export const defaultProfileImage = await import('../../../images/profile-images/robot-profile.jpg');
 
 export const ruscOfficers = (await getStudentCouncilData()).filter(member => member.org === 'RUSC');
 
@@ -58,7 +61,7 @@ Looking for RUSC and undergraduate robotics events? Check out the [Google calend
 <PhotoGallery
   variant="profile"
   images={ruscOfficers.map(officer => ({
-    src: officer.profileImage.replace('/src/', '/'),
+    src: cachedImages[officer.profileImage] || defaultProfileImage.default,
     alt: officer.name,
     caption: `${officer.name}\n${officer.title}`
   }))}
