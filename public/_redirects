@@ -209,7 +209,9 @@
 /academic-program/courses/rob599-f19/ /academics/courses/online-courses/rob502-f20 301
 /academics/courses/online-courses/rob599-f19/ /academics/courses/online-courses/rob502-f20 301
 /academics/undergraduate/robotics-pathways-speaker-series /events/robotics-pathways-speaker-series 301
-/academics/admissions-info/funding-for-graduate-students/ /academics/graduate/admissions/funding-for-graduate-students/ 301
+/academics/admissions-info/funding-for-graduate-students/ /academics/graduate/admissions/funding-for-graduate-students 301
+/academic-program/degree-requirements /academics/graduate/ /academics/graduate/degree-requirements 301
+/academic-program/course-offerings/ /academics/courses 301
 /academic-program/* /academics/:splat 301
 
 # Focus Areas
