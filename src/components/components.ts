@@ -18,6 +18,7 @@ import Pill from '../components/Pill.astro';
 import SeminarSpeakerProfile from '../components/SeminarSpeakerProfile.astro';
 import RPCSSSpeakerProfile from '../components/RPCSSSpeakerProfile.astro';
 import Callout from '../components/Callout.astro';
+import YouTubeGallery from '../components/YouTubeGallery.astro';
 
 export const components = {
   Button,
@@ -39,7 +40,8 @@ export const components = {
   Pill,
   SeminarSpeakerProfile,
   RPCSSSpeakerProfile,
-  Callout
+  Callout,
+  YouTubeGallery
 };
 
 
