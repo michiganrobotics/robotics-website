@@ -243,7 +243,7 @@ const pageDescription = "Latest robotics news and upcoming events from the Unive
     </section>
     {eventsData.length > 0 && (
     <section id="events" class="mb-12">
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 sm:gap-6">
+      <div class={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-${Math.min(eventsData.length, 4)} sm:gap-6`}>
         {eventsData.slice(0,4).map((event: Event, index: number) => (
           <a href={event.permalink} class="no-underline group surface card-base card-hover flex flex-col mb-6 last:mb-0 sm:mb-0 sm:flex-1">
             <div class="relative">
