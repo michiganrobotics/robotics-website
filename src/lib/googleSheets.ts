@@ -446,6 +446,32 @@ async function downloadImage(url: string, destination: string): Promise<void> {
   return new Promise((resolve, reject) => {
     const file = fsSync.createWriteStream(destination);
     
+    const handleResponse = (response: https.IncomingMessage) => {
+      // Check content type to ensure we're getting an image
+      const contentType = response.headers['content-type'];
+      if (!contentType || !contentType.startsWith('image/')) {
+        file.close();
+        fsSync.unlinkSync(destination); // Clean up the invalid file
+        reject(new Error(`Invalid content type: ${contentType}`));
+        return;
+      }
+
+      // Check content length to ensure we're not getting a tiny error page
+      const contentLength = parseInt(response.headers['content-length'] || '0', 10);
+      if (contentLength < 1000) { // Most images should be larger than 1KB
+        file.close();
+        fsSync.unlinkSync(destination); // Clean up the invalid file
+        reject(new Error(`Suspiciously small file size: ${contentLength} bytes`));
+        return;
+      }
+
+      response.pipe(file);
+      file.on('finish', () => {
+        file.close();
+        resolve();
+      });
+    };
+
     const request = https.get(url, {
       headers: {
         'User-Agent': 'Mozilla/5.0', // Help prevent 403 errors
@@ -460,40 +486,35 @@ async function downloadImage(url: string, destination: string): Promise<void> {
             headers: {
               'User-Agent': 'Mozilla/5.0',
             },
-          }, (redirectResponse) => {
-            redirectResponse.pipe(file);
-            file.on('finish', () => {
-              file.close();
-              resolve();
-            });
-          }).on('error', reject);
+          }, handleResponse).on('error', reject);
           return;
         }
       }
 
-      response.pipe(file);
-      file.on('finish', () => {
-        file.close();
-        resolve();
-      });
+      handleResponse(response);
     }).on('error', reject);
 
     request.end();
   });
 }
 
-// Modify the getGoogleDriveDirectImageUrl function
+// Keep the original image size (w400)
 async function getGoogleDriveDirectImageUrl(url: string, studentName: string): Promise<string | null> {
   if (!url) return null;
   
-  // Match both /view?usp=sharing and /view?usp=share_link formats
   if (url.includes('drive.google.com/file/d/')) {
     const fileId = url.match(/\/d\/([^/]+)/)?.[1];
     
     if (fileId) {
       const thumbnailUrl = `https://drive.google.com/thumbnail?id=${fileId}&sz=w400`;
       const safeFileName = studentName.toLowerCase().replace(/[^a-z0-9]/g, '-');
-      return await cacheGoogleDriveImage(thumbnailUrl, safeFileName);
+      
+      try {
+        return await cacheGoogleDriveImage(thumbnailUrl, safeFileName);
+      } catch (error) {
+        console.error(`Failed to download image for ${studentName}:`, error);
+        return null;
+      }
     }
   }
   
