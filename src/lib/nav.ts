@@ -342,7 +342,6 @@ export const subNavConfig: Record<string, SubNavItem[]> = {
     'academics/graduate/graduate-advising': [
       { title: "Graduate Program", href: "/academics/graduate" },
       { title: "Degree Requirements", href: "/academics/graduate/degree-requirements" },
-      { title: "Peer Advisors", href: "/academics/graduate/graduate-advising#graduate-peer-advising", anchor: true },
     ],
     'academics/undergraduate': [
       { title: "Advising & scheduling", href: "/academics/undergraduate/scheduling" },
