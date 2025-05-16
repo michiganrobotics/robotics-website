@@ -5,6 +5,7 @@ interface Props {
   playlistId: string;
   title?: string;
   description?: string;
+  showDate?: boolean;
 }
 
 interface YouTubeVideo {
@@ -17,7 +18,7 @@ interface YouTubeVideo {
   };
 }
 
-const { playlistId, title, description } = Astro.props;
+const { playlistId, title, description, showDate = true } = Astro.props;
 
 // Fetch playlist data
 const YOUTUBE_API_KEY = import.meta.env.YOUTUBE_API_KEY;
@@ -32,7 +33,7 @@ const videos: YouTubeVideo[] = data.items || [];
   {title && <h2 class="text-2xl font-bold mb-4">{title}</h2>}
   {description && <p class="mb-6">{description}</p>}
   
-  <div class="relative">
+  <div class="relative" role="region" aria-label="YouTube video gallery">
     <div class="flex overflow-x-auto pb-4 gap-4 snap-x snap-mandatory scrollbar-hide">
       {videos.map((video) => (
         <div class="flex-none w-[300px] snap-center">
@@ -40,11 +41,13 @@ const videos: YouTubeVideo[] = data.items || [];
             <div class="aspect-video">
               <YouTube id={video.snippet.resourceId.videoId} />
             </div>
-            <div class="p-4">
-              <h3 class="text-lg font-semibold mb-2 line-clamp-2">{video.snippet.title}</h3>
-              <p class="text-sm text-gray-600 dark:text-gray-400">
-                {new Date(video.snippet.publishedAt).toLocaleDateString()}
-              </p>
+            <div class="px-3 mt-0 pb-2">
+              <h3 class="text-lg font-semibold line-clamp-2">{video.snippet.title}</h3>
+              {showDate && (
+                <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                  {new Date(video.snippet.publishedAt).toLocaleDateString()}
+                </p>
+              )}
             </div>
           </div>
         </div>
@@ -52,15 +55,23 @@ const videos: YouTubeVideo[] = data.items || [];
     </div>
     
     <!-- Scroll indicators -->
-    <div class="absolute left-0 top-1/2 -translate-y-1/2 w-12 h-12 flex items-center justify-center">
-      <button class="scroll-left-btn opacity-0 hover:opacity-100 transition-opacity duration-300">
+    <div class="absolute left-0 top-1/2 -translate-y-1/2 w-12 h-12 flex items-center justify-center scroll-left-container hidden">
+      <button 
+        class="scroll-left-btn bg-white/80 dark:bg-gray-800/80 rounded-full p-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        aria-label="Scroll left"
+        tabindex="0"
+      >
         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
         </svg>
       </button>
     </div>
-    <div class="absolute right-0 top-1/2 -translate-y-1/2 w-12 h-12 flex items-center justify-center">
-      <button class="scroll-right-btn opacity-0 hover:opacity-100 transition-opacity duration-300">
+    <div class="absolute right-0 top-1/2 -translate-y-1/2 w-12 h-12 flex items-center justify-center scroll-right-container">
+      <button 
+        class="scroll-right-btn bg-white/80 dark:bg-gray-800/80 rounded-full p-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        aria-label="Scroll right"
+        tabindex="0"
+      >
         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
         </svg>
@@ -70,26 +81,116 @@ const videos: YouTubeVideo[] = data.items || [];
 </div>
 
 <script>
-  const container = document.querySelector('.flex.overflow-x-auto');
-  const scrollLeftBtn = document.querySelector('.scroll-left-btn');
-  const scrollRightBtn = document.querySelector('.scroll-right-btn');
-  
-  if (container && scrollLeftBtn && scrollRightBtn) {
-    scrollLeftBtn.addEventListener('click', () => {
-      container.scrollBy({ left: -300, behavior: 'smooth' });
-    });
+  document.addEventListener('DOMContentLoaded', () => {
+    const container = document.querySelector('.flex.overflow-x-auto');
+    const scrollLeftBtn = document.querySelector('.scroll-left-btn');
+    const scrollRightBtn = document.querySelector('.scroll-right-btn');
+    const scrollLeftContainer = document.querySelector('.scroll-left-container');
+    const scrollRightContainer = document.querySelector('.scroll-right-container');
     
-    scrollRightBtn.addEventListener('click', () => {
-      container.scrollBy({ left: 300, behavior: 'smooth' });
-    });
-    
-    // Show/hide scroll buttons based on scroll position
-    container.addEventListener('scroll', () => {
-      scrollLeftBtn.style.opacity = container.scrollLeft > 0 ? '1' : '0';
-      scrollRightBtn.style.opacity = 
-        container.scrollLeft < container.scrollWidth - container.clientWidth ? '1' : '0';
-    });
-  }
+    if (container && scrollLeftBtn && scrollRightBtn && scrollLeftContainer && scrollRightContainer) {
+      // Check if there's overflow content to scroll
+      const checkScrollability = () => {
+        const hasOverflow = container.scrollWidth > container.clientWidth;
+        
+        // Hide containers if no overflow
+        if (!hasOverflow) {
+          scrollLeftContainer.classList.add('hidden');
+          scrollRightContainer.classList.add('hidden');
+        } else {
+          // Show right button at start (if we can scroll)
+          scrollRightContainer.classList.remove('hidden');
+          
+          // Update button states based on scroll position
+          updateButtonStates();
+        }
+      };
+      
+      const updateButtonStates = () => {
+        const atStart = container.scrollLeft <= 0;
+        const atEnd = Math.ceil(container.scrollLeft + container.clientWidth) >= container.scrollWidth;
+        
+        // Completely hide left button at start
+        if (atStart) {
+          scrollLeftContainer.classList.add('hidden');
+        } else {
+          scrollLeftContainer.classList.remove('hidden');
+        }
+        
+        // Completely hide right button at end
+        if (atEnd) {
+          scrollRightContainer.classList.add('hidden');
+        } else {
+          scrollRightContainer.classList.remove('hidden');
+        }
+      };
+      
+      scrollLeftBtn.addEventListener('click', () => {
+        container.scrollBy({ left: -300, behavior: 'smooth' });
+      });
+      
+      scrollRightBtn.addEventListener('click', () => {
+        container.scrollBy({ left: 300, behavior: 'smooth' });
+      });
+      
+      // Get all YouTube embeds
+      const youtubeEmbeds = Array.from(container.querySelectorAll('.aspect-video iframe'));
+      
+      // Set tabindex on YouTube iframes
+      youtubeEmbeds.forEach(embed => {
+        (embed as HTMLElement).setAttribute('tabindex', '0');
+      });
+      
+      // Add keyboard navigation
+      // Add keyboard navigation on the gallery container
+      const galleryRegion = container.closest('[role="region"]');
+      if (galleryRegion) {
+        galleryRegion.addEventListener('keydown', (e) => {
+          const event = e as KeyboardEvent;
+          
+          // Skip video by video with Tab key handling is done by the browser
+          
+          // Page left/right with arrow keys when focus is on the gallery container
+          if (document.activeElement === galleryRegion) {
+            if (event.key === 'ArrowLeft') {
+              event.preventDefault();
+              container.scrollBy({ left: -300, behavior: 'smooth' });
+            } else if (event.key === 'ArrowRight') {
+              event.preventDefault();
+              container.scrollBy({ left: 300, behavior: 'smooth' });
+            }
+          }
+          
+          // Support Home/End keys
+          if (event.key === 'Home') {
+            event.preventDefault();
+            container.scrollTo({ left: 0, behavior: 'smooth' });
+          } else if (event.key === 'End') {
+            event.preventDefault();
+            container.scrollTo({ left: container.scrollWidth, behavior: 'smooth' });
+          }
+          
+          // Support Page Up/Down
+          if (event.key === 'PageUp') {
+            event.preventDefault();
+            container.scrollBy({ left: -container.clientWidth, behavior: 'smooth' });
+          } else if (event.key === 'PageDown') {
+            event.preventDefault();
+            container.scrollBy({ left: container.clientWidth, behavior: 'smooth' });
+          }
+        });
+      }
+      
+      // Show/hide scroll buttons based on scroll position
+      container.addEventListener('scroll', updateButtonStates);
+      
+      // Initial check
+      checkScrollability();
+      
+      // Recheck on window resize
+      window.addEventListener('resize', checkScrollability);
+    }
+  });
 </script>
 
 <style>
