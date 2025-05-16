@@ -34,7 +34,7 @@ const videos: YouTubeVideo[] = data.items || [];
   {description && <p class="mb-6">{description}</p>}
   
   <div class="relative" role="region" aria-label="YouTube video gallery">
-    <div class="flex overflow-x-auto pb-4 gap-4 snap-x snap-mandatory scrollbar-hide">
+    <div class="flex overflow-x-auto pb-4 gap-4 scrollbar-hide cursor-grab active:cursor-grabbing" id="gallery-container">
       {videos.map((video) => (
         <div class="flex-none w-[300px] snap-center">
           <div class="surface rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
@@ -82,13 +82,51 @@ const videos: YouTubeVideo[] = data.items || [];
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
-    const container = document.querySelector('.flex.overflow-x-auto');
+    const container = document.querySelector('#gallery-container');
     const scrollLeftBtn = document.querySelector('.scroll-left-btn');
     const scrollRightBtn = document.querySelector('.scroll-right-btn');
     const scrollLeftContainer = document.querySelector('.scroll-left-container');
     const scrollRightContainer = document.querySelector('.scroll-right-container');
     
     if (container && scrollLeftBtn && scrollRightBtn && scrollLeftContainer && scrollRightContainer) {
+      // Mouse drag scrolling
+      let isMouseDown = false;
+      let startX: number;
+      let scrollLeft: number;
+
+      container.addEventListener('mousedown', (e) => {
+        isMouseDown = true;
+        container.classList.add('cursor-grabbing');
+        container.classList.remove('cursor-grab');
+        startX = e.pageX - container.offsetLeft;
+        scrollLeft = container.scrollLeft;
+      });
+
+      container.addEventListener('mouseleave', () => {
+        isMouseDown = false;
+        container.classList.remove('cursor-grabbing');
+        container.classList.add('cursor-grab');
+      });
+
+      container.addEventListener('mouseup', () => {
+        isMouseDown = false;
+        container.classList.remove('cursor-grabbing');
+        container.classList.add('cursor-grab');
+      });
+
+      container.addEventListener('mousemove', (e) => {
+        if (!isMouseDown) return;
+        e.preventDefault();
+        const x = e.pageX - container.offsetLeft;
+        const walk = (x - startX) * 1.5; // Scroll speed multiplier
+        container.scrollLeft = scrollLeft - walk;
+      });
+
+      // Prevent text selection while dragging
+      container.addEventListener('selectstart', (e) => {
+        if (isMouseDown) e.preventDefault();
+      });
+
       // Check if there's overflow content to scroll
       const checkScrollability = () => {
         const hasOverflow = container.scrollWidth > container.clientWidth;
