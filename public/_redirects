@@ -214,6 +214,7 @@
 /academic-program/admissions-info /academics/graduate/admissions 301
 /academic-program/course-offerings /academics/courses 301
 /academic-program/* /academics/:splat 301
+/academics/undergraduate/sugs /academics/graduate/sugs 301
 
 # Focus Areas
 /research/focus-areas/robot-teams-swarms/ /research/focus-areas/teams-swarms 301

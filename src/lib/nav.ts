@@ -44,12 +44,6 @@ export const mainNav: MenuItem[] = [
                   childItems: { nodes: [] }
                 },
                 {
-                  label: "SUGS",
-                  uri: "/academics/undergraduate/sugs",
-                  id: "academics-undergraduate-sugs",
-                  childItems: { nodes: [] }
-                },
-                {
                   label: "SURE",
                   uri: "/academics/undergraduate/sure",
                   id: "academics-undergraduate-sure",
@@ -80,6 +74,12 @@ export const mainNav: MenuItem[] = [
                   label: "Advising",
                   uri: "/academics/graduate/graduate-advising",
                   id: "academics-graduate-advising",
+                  childItems: { nodes: [] }
+                },
+                {
+                  label: "SUGS",
+                  uri: "/academics/graduate/sugs",
+                  id: "academics-graduate-sugs",
                   childItems: { nodes: [] }
                 }
               ]
@@ -325,7 +325,8 @@ export const subNavConfig: Record<string, SubNavItem[]> = {
       { title: "Application Requirements", href: "/academics/graduate/admissions#application-requirements", anchor: true },
       { title: "Deadlines", href: "/academics/graduate/admissions#deadlines", anchor: true },
       { title: "Common Questions", href: "/academics/graduate/admissions#common-questions", anchor: true },
-      { title: "Contact", href: "/academics/graduate/admissions#contact", anchor: true }
+      { title: "Contact", href: "/academics/graduate/admissions#contact", anchor: true },
+      { title: "SUGS", href: "/academics/graduate/sugs" }
     ],
     // Use this pattern to match any path that starts with academics/graduate/admissions/
     '^academics/graduate/admissions/': [
@@ -361,11 +362,11 @@ export const subNavConfig: Record<string, SubNavItem[]> = {
       { title: "Sample Schedules", href: "/academics/undergraduate/scheduling#sample--editable-schedules", anchor: true },
       { title: "Scheduling Advice", href: "/academics/undergraduate/scheduling#scheduling-advice", anchor: true }
     ],
-    'academics/undergraduate/sugs': [
+    'academics/graduate/sugs': [
       { title: "Undergraduate Program", href: "/academics/undergraduate" },
+      { title: "Graduate Program", href: "/academics/graduate" },
+      { title: "Graduate Admissions", href: "/academics/graduate/admissions" },
       { title: "SUGS Deadlines", href: "/academics/undergraduate/sugs#application-deadlines", anchor: true },
-      { title: "Advising & Scheduling", href: "/academics/undergraduate/scheduling" },
-      { title: "Program Requirements", href: "/academics/undergraduate/program-requirements" }
     ],
     'academics/undergraduate/sure': [
       { title: "Undergraduate Program", href: "/academics/undergraduate" },
