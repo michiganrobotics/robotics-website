@@ -217,7 +217,7 @@ export const mainNav: MenuItem[] = [
           },
           {
             label: "Partnerships",
-            uri: "/partnerships",
+            uri: "/about/partnerships",
             id: "about-partnerships",
             childItems: { nodes: [] }
           },

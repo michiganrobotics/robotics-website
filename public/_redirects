@@ -198,18 +198,18 @@
 /academics/current-students/* /academics/student-services/:splat 301
 /academics/undergraduate/undergraduate-sure /academics/undergraduate/sure 301
 /academics/courses/complete-course-listing /academics/courses/complete-course-list 301
-/academic-program/course-offerings/rob101-fall-2020/ /academics/courses/course-offerings/rob-101-fall-2020 301
-/academic-program/course-offerings/rob101-fall-2021/ /academics/courses/course-offerings/rob-101-fall-2021 301
-/academic-program/course-offerings/rob101-fall-2022/ /academics/courses/course-offerings/rob-101-fall-2022 301
-/academics/courses/course-offerings/rob101-fall-2022/ /academics/courses/course-offerings/rob-101-fall-2022 301
-/academic-program/course-offerings/rob-102-intro-to-ai-programming/ /academics/courses/course-offerings/rob-102-intro-to-ai-programming/ 301
-/academic-program/course-offerings/rob-204-winter-2022/ /academics/courses/course-offerings/rob-204-winter-2022/ 301
-/academics/courses/rob-204-winter-2022/ /academics/courses/course-offerings/rob-204-winter-2022/ 301
-/academics/graduate/admissions/graduate-application/what-are-specific-faculty-looking-for-in-phd-applications/ /news/2024/what-are-specific-faculty-looking-for-in-phd-applications 301
-/academic-program/courses/rob599-f19/ /academics/courses/online-courses/rob502-f20 301
-/academics/courses/online-courses/rob599-f19/ /academics/courses/online-courses/rob502-f20 301
+/academic-program/course-offerings/rob101-fall-2020 /academics/courses/course-offerings/rob-101-fall-2020 301
+/academic-program/course-offerings/rob101-fall-2021 /academics/courses/course-offerings/rob-101-fall-2021 301
+/academic-program/course-offerings/rob101-fall-2022 /academics/courses/course-offerings/rob-101-fall-2022 301
+/academics/courses/course-offerings/rob101-fall-2022 /academics/courses/course-offerings/rob-101-fall-2022 301
+/academic-program/course-offerings/rob-102-intro-to-ai-programming /academics/courses/course-offerings/rob-102-intro-to-ai-programming 301
+/academic-program/course-offerings/rob-204-winter-2022 /academics/courses/course-offerings/rob-204-winter-2022 301
+/academics/courses/rob-204-winter-2022 /academics/courses/course-offerings/rob-204-winter-2022 301
+/academics/graduate/admissions/graduate-application/what-are-specific-faculty-looking-for-in-phd-applications /news/2024/what-are-specific-faculty-looking-for-in-phd-applications 301
+/academic-program/courses/rob599-f19 /academics/courses/online-courses/rob502-f20 301
+/academics/courses/online-courses/rob599-f19 /academics/courses/online-courses/rob502-f20 301
 /academics/undergraduate/robotics-pathways-speaker-series /events/robotics-pathways-speaker-series 301
-/academics/admissions-info/funding-for-graduate-students/ /academics/graduate/admissions/funding-for-graduate-students 301
+/academics/admissions-info/funding-for-graduate-students /academics/graduate/admissions/funding-for-graduate-students 301
 /academic-program/degree-requirements /academics/graduate/degree-requirements 301
 /academic-program/admissions-info /academics/graduate/admissions 301
 /academic-program/course-offerings /academics/courses 301
@@ -217,24 +217,21 @@
 /academics/undergraduate/sugs /academics/graduate/sugs 301
 
 # Focus Areas
-/research/focus-areas/robot-teams-swarms/ /research/focus-areas/teams-swarms 301
-/research/focus-areas/autonomous-connected-vehicles/ /research/focus-areas/autonomous-vehicles 301
-/research/focus-areas/rehabilitation-robotics/ /research/focus-areas/rehabilitation 301
-/research/focus-areas/deep-learning-for-robotics/ /research/focus-areas/deep-learning 301
-/research/focus-areas/manufacturing-robotics/ /research/focus-areas/manufacturing 301
-/research/focus-areas/legged-robots-exoskeletons/ /research/focus-areas/legged-robots 301
-/research/focus-areas/robot-perception-manipulation/ /research/focus-areas/perception-manipulation 301
-/research/focus-areas/simultaneous-localization-mapping-slam/ /research/focus-areas/slam 301
-
-
-
+/research/focus-areas/robot-teams-swarms /research/focus-areas/teams-swarms 301
+/research/focus-areas/autonomous-connected-vehicles /research/focus-areas/autonomous-vehicles 301
+/research/focus-areas/rehabilitation-robotics /research/focus-areas/rehabilitation 301
+/research/focus-areas/deep-learning-for-robotics /research/focus-areas/deep-learning 301
+/research/focus-areas/manufacturing-robotics /research/focus-areas/manufacturing 301
+/research/focus-areas/legged-robots-exoskeletons /research/focus-areas/legged-robots 301
+/research/focus-areas/robot-perception-manipulation /research/focus-areas/perception-manipulation 301
+/research/focus-areas/simultaneous-localization-mapping-slam /research/focus-areas/slam 301
 
 # ======================
 # External Links
 # ======================
 
 /undergrad-guide https://docs.google.com/document/d/1S2JqdV4nay4NPOCW_27Jc6UZhChaKCZ9miSFnOtk69k/edit 301
-/irosforum https://sites.google.com/umich.edu/roboticseducationforum/ 301
+/irosforum https://sites.google.com/umich.edu/roboticseducationforum 301
 /dtcenter https://sites.google.com/umich.edu/digitaltwincenter 301
 /gear https://www.aatwebstore.com/UMBOT/shop/home 301
 /exos https://sites.google.com/umich.edu/icra-2025-exoskeleton-workshop/home 301
@@ -246,20 +243,21 @@
 /sugs-intent https://drive.google.com/file/d/1L8-nwtPG4gO8offmWiK67prymYZwFs9-/view?usp=share_link 301
 /change-of-advisor https://drive.google.com/file/d/1sc5kq10wHp6bcs_TrZEg8OSdHlcllJXN/view?usp=share_link 301
 
-
 # ======================
 # Facility & Resource Redirects
 # ======================
 
 /about/media /about/contact 301
 /about/mair /about/facilities/m-air 301
-/about/jobs/ /about/faculty-jobs 301
+/about/jobs /about/faculty-jobs 301
 /research/datasets /research/projects-and-datasets 301
-/about/ford-motor-company-robotics-building/ /about/facilities/ford-robotics-building 301
-/academics/courses/course-offerings/rob101-fall-2020/ /academics/courses/course-offerings/rob-101-fall-2020 301
-/academic-program/online-courses/ /academics/courses/online-courses/ 301
-/academic-program/degree-requirements/ /academics/graduate/degree-requirements 301
-/academic-program/course-offerings/ /academics/courses/course-offerings/ 301
+/about/ford-motor-company-robotics-building /about/facilities/ford-robotics-building 301
+/academics/courses/course-offerings/rob101-fall-2020 /academics/courses/course-offerings/rob-101-fall-2020 301
+/academic-program/online-courses /academics/courses/online-courses 301
+/academic-program/degree-requirements /academics/graduate/degree-requirements 301
+/academic-program/course-offerings /academics/courses/course-offerings 301
+/partnerships /about/partnerships 301
+/partnerships/industry /about/partnerships/industry 301
 
 # ======================
 # Fallback Redirects
