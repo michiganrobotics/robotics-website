@@ -1,13 +1,13 @@
 ---
-import Layout from '../../layouts/MainLayout.astro';
+import Layout from '../../../layouts/MainLayout.astro';
 import { Image } from 'astro:assets';
-import Breadcrumbs from "../../components/Breadcrumbs.astro";
-import PageTitle from "../../components/PageTitle.astro";
-import featureImage from '../../images/featured-images/partnerships.jpg';
+import Breadcrumbs from "../../../components/Breadcrumbs.astro";
+import PageTitle from "../../../components/PageTitle.astro";
+import featureImage from '../../../images/featured-images/partnerships.jpg';
 import { YouTube } from 'astro-embed';
-import NewsCard from '../../components/NewsCard.astro';
+import NewsCard from '../../../components/NewsCard.astro';
 import { getEntry } from 'astro:content';
-import ogFeatureImage from '../../images/featured-images/og/partnerships.jpg';
+import ogFeatureImage from '../../../images/featured-images/og/partnerships.jpg';
 const featuredPost = await getEntry('news', '2024/robotics-outreach-ambassadors-of-2024');
 ---
 
