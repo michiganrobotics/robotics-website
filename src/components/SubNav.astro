@@ -75,18 +75,16 @@ const anchorItems = configuredItems.filter(item => item.anchor);
 
 {anchorItems.length > 0 && (
   <div class={`w-full flex justify-end text-xs sm:text-sm ${navItems.length === 0 ? 'mt-6' : 'mt-2'}`}>
-    <div class="flex flex-nowrap items-start">
-      <span class="whitespace-nowrap mr-4 sm:mr-2 font-semibold text-umichblue dark:text-neutral-100">Jump to:</span>
-      <div class="flex flex-wrap gap-2">
-        {anchorItems.map((item, idx) => (
-          <a 
-            href={item.href}
-            class="underline text-umichblue dark:text-neutral-100"
-          >
-            {item.title}{idx < anchorItems.length - 1 ? ',' : ''}
-          </a>
-        ))}
-      </div>
+    <div class="text-right">
+      <span class="font-semibold text-umichblue dark:text-neutral-100 mr-2">Jump to:</span>
+      {anchorItems.map((item, idx) => (
+        <a 
+          href={item.href}
+          class="underline text-umichblue dark:text-neutral-100"
+        >
+          {item.title}{idx < anchorItems.length - 1 ? ', ' : ''}
+        </a>
+      ))}
     </div>
   </div>
 )}
