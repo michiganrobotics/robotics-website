@@ -78,12 +78,15 @@ const anchorItems = configuredItems.filter(item => item.anchor);
     <div class="text-right">
       <span class="font-semibold text-umichblue dark:text-neutral-100 mr-2">Jump to:</span>
       {anchorItems.map((item, idx) => (
-        <a 
-          href={item.href}
-          class="underline text-umichblue dark:text-neutral-100"
-        >
-          {item.title}{idx < anchorItems.length - 1 ? ', ' : ''}
-        </a>
+        <>
+          <a 
+            href={item.href}
+            class="underline text-umichblue dark:text-neutral-100"
+          >
+            {item.title}
+          </a>
+          {idx < anchorItems.length - 1 ? ', ' : ''}
+        </>
       ))}
     </div>
   </div>
