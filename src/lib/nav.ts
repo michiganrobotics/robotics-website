@@ -216,6 +216,12 @@ export const mainNav: MenuItem[] = [
             childItems: { nodes: [] }
           },
           {
+            label: "Partnerships",
+            uri: "/partnerships",
+            id: "about-partnerships",
+            childItems: { nodes: [] }
+          },
+          {
             label: "Faculty Jobs",
             uri: "/about/faculty-jobs",
             id: "about-faculty-jobs",
@@ -259,11 +265,9 @@ export const subNavConfig: Record<string, SubNavItem[]> = {
       { title: "Open-Source Projects & Datasets", href: "/research/projects-and-datasets" }
     ],
     'research/focus-areas': [
-      { title: "Research", href: "/research/" },
       { title: "Open-Source Projects & Datasets", href: "/research/projects-and-datasets" }
     ],
     'research/projects-and-datasets': [
-      { title: "Research", href: "/research/" },
       { title: "Focus Areas", href: "/research/focus-areas" }
     ],
     'academics$': [
@@ -273,14 +277,12 @@ export const subNavConfig: Record<string, SubNavItem[]> = {
       { title: "Student Services", href: "/academics/student-services" }
     ],
     'academics/student-services': [
-      { title: "Academics", href: "/academics" },
       { title: "Academic Advising", href: "/academics/student-services#academic-advising-for-current-michigan-robotics-students", anchor: true },
       { title: "Student Resources", href: "/academics/student-services#student-resources", anchor: true },
       { title: "Staff", href: "/academics/student-services#student-services-staff", anchor: true },
       { title: "Communicate to our students", href: "/academics/student-services#communicate-to-our-students", anchor: true }
     ],
     'academics/student-services/registering-for-classes': [
-      { title: "Student Services", href: "/academics/student-services" },
       { title: "Add a class", href: "/academics/student-services/registering-for-classes#add-a-class", anchor: true },
       { title: "Drop a class", href: "/academics/student-services/registering-for-classes#drop-a-class", anchor: true },
       { title: "Waitlists", href: "/academics/student-services/registering-for-classes#waitlist", anchor: true },
@@ -288,7 +290,6 @@ export const subNavConfig: Record<string, SubNavItem[]> = {
       { title: "Visit or Audit Classes", href: "/academics/student-services/registering-for-classes#visitaudit-a-course", anchor: true }
     ],
     'academics/courses': [
-      { title: "Academics", href: "/academics" },
       { title: "Current Term Courses", href: "/academics/courses/course-offerings" },
       { title: "Complete Course List", href: "/academics/courses/complete-course-list" },
       { title: "Free Online Courses", href: "/academics/courses/online-courses" },
@@ -296,21 +297,15 @@ export const subNavConfig: Record<string, SubNavItem[]> = {
       { title: "Course Override Requests", href: "/academics/courses#course-override-requests", anchor: true }
     ],
     'academics/courses/course-offerings': [
-      { title: "Academics", href: "/academics" },
-      { title: "Courses", href: "/academics/courses" },
       { title: "Complete Course List", href: "/academics/courses/complete-course-list" },
       { title: "Free Online Courses", href: "/academics/courses/online-courses" },
-      { title: "Course Guide", href: "https://docs.google.com/spreadsheets/d/1qXqC4uJqZYVOadw0eIn9LAWEu_8lLwX65nOFFohlj4Y/edit?usp=sharing", external: true },
+      { title: "Course Guide", href: "https://docs.google.com/spreadsheets/d/1qXqC4uJqZYVOadw0eIn9LAWEu_8lLwX65nOFFohlj4Y/edit?usp=sharing", external: true }
     ],
     'academics/courses/complete-course-list': [
-      { title: "Academics", href: "/academics" },
-      { title: "Courses", href: "/academics/courses" },
       { title: "Current Term Courses", href: "/academics/courses/course-offerings" },
-      { title: "Course Guide", href: "https://docs.google.com/spreadsheets/d/1qXqC4uJqZYVOadw0eIn9LAWEu_8lLwX65nOFFohlj4Y/edit?usp=sharing", external: true },
+      { title: "Course Guide", href: "https://docs.google.com/spreadsheets/d/1qXqC4uJqZYVOadw0eIn9LAWEu_8lLwX65nOFFohlj4Y/edit?usp=sharing", external: true }
     ],
     'academics/courses/online-courses': [
-      { title: "Academics", href: "/academics" },
-      { title: "Courses", href: "/academics/courses" },
       { title: "Current Term Courses", href: "/academics/courses/course-offerings" },
       { title: "Complete Course List", href: "/academics/courses/complete-course-list" },
     ],
@@ -320,56 +315,50 @@ export const subNavConfig: Record<string, SubNavItem[]> = {
       { title: "Advising", href: "/academics/graduate/graduate-advising" }
     ],
     'academics/graduate/admissions': [
-      { title: "Graduate Program", href: "/academics/graduate" },
       { title: "Apply", href: "https://rackham.umich.edu/admissions/applying/", external: true },
       { title: "Application Requirements", href: "/academics/graduate/admissions#application-requirements", anchor: true },
-      { title: "Deadlines", href: "/academics/graduate/admissions#deadlines", anchor: true },
+      { title: "Deadlines", href: "/academics/graduate/admissions#application-deadlines", anchor: true },
       { title: "Common Questions", href: "/academics/graduate/admissions#common-questions", anchor: true },
       { title: "Contact", href: "/academics/graduate/admissions#contact", anchor: true },
+      { title: "Degree Requirements", href: "/academics/graduate/degree-requirements" },
+      { title: "Graduate Advising", href: "/academics/graduate/graduate-advising" },
       { title: "SUGS", href: "/academics/graduate/sugs" }
     ],
-    // Use this pattern to match any path that starts with academics/graduate/admissions/
-    '^academics/graduate/admissions/': [
-      { title: "Graduate Program", href: "/academics/graduate" },
-      { title: "Admissions", href: "/academics/graduate/admissions" },
-    ],
     'academics/graduate/degree-requirements': [
-      { title: "Graduate Program", href: "/academics/graduate" },
       { title: "Credit Requirements", href: "/academics/graduate/degree-requirements#credit-requirements", anchor: true },
-      { title: "1st Year Students", href: "/academics/graduate/degree-requirements#1st-year-students", anchor: true },
+      { title: "1st Year Students", href: "/academics/graduate/degree-requirements#1st-year-students-", anchor: true },
       { title: "Grade Requirements", href: "/academics/graduate/degree-requirements#grade-requirements", anchor: true },
-      { title: "Graduate Advising", href: "/academics/graduate/graduate-advising" }
+      { title: "Graduate Advising", href: "/academics/graduate/graduate-advising" },
+      { title: "Admissions", href: "/academics/graduate/admissions" }
     ],
     'academics/graduate/graduate-advising': [
-      { title: "Graduate Program", href: "/academics/graduate" },
       { title: "Degree Requirements", href: "/academics/graduate/degree-requirements" },
+      { title: "Admissions", href: "/academics/graduate/admissions" }
     ],
     'academics/undergraduate': [
       { title: "Advising & scheduling", href: "/academics/undergraduate/scheduling" },
       { title: "Program Requirements", href: "/academics/undergraduate/program-requirements" },
       { title: "Current Course Offerings", href: "/academics/courses/course-offerings" },
-      { title: "Pathways Speaker Series", href: "/events/robotics-pathways-speaker-series" },
+      { title: "Pathways Speaker Series", href: "/events/robotics-pathways-speaker-series" }
     ],
     'academics/undergraduate/program-requirements': [
-      { title: "Undergraduate Program", href: "/academics/undergraduate" },
       { title: "Robotics and College Requirements", href: "/academics/undergraduate/program-requirements#robotics-and-college-requirements", anchor: true },
       { title: "Advising & Scheduling", href: "/academics/undergraduate/scheduling" },
       { title: "Program Guide", href: "http://robotics.umich.edu/undergrad-guide", external: true }
     ],
     'academics/undergraduate/scheduling': [
-      { title: "Undergraduate Program", href: "/academics/undergraduate" },
       { title: "Program Requirements", href: "/academics/undergraduate/program-requirements" },
       { title: "Sample Schedules", href: "/academics/undergraduate/scheduling#sample--editable-schedules", anchor: true },
-      { title: "Scheduling Advice", href: "/academics/undergraduate/scheduling#scheduling-advice", anchor: true }
+      { title: "Scheduling Advice", href: "/academics/undergraduate/scheduling#scheduling-advice", anchor: true },
+      { title: "Program Guide", href: "http://robotics.umich.edu/undergrad-guide", external: true }
     ],
     'academics/graduate/sugs': [
-      { title: "Undergraduate Program", href: "/academics/undergraduate" },
-      { title: "Graduate Program", href: "/academics/graduate" },
       { title: "Graduate Admissions", href: "/academics/graduate/admissions" },
-      { title: "SUGS Deadlines", href: "/academics/undergraduate/sugs#application-deadlines", anchor: true },
+      { title: "Degree Requirements", href: "/academics/graduate/degree-requirements" },
+      { title: "Graduate Advising", href: "/academics/graduate/graduate-advising" },
+      { title: "SUGS Deadlines", href: "/academics/graduate/sugs#application-deadlines", anchor: true }
     ],
     'academics/undergraduate/sure': [
-      { title: "Undergraduate Program", href: "/academics/undergraduate" },
       { title: "SURE Projects", href: "/academics/undergraduate/sure#robotics-sure-projects", anchor: true },
       { title: "Advising & Scheduling", href: "/academics/undergraduate/scheduling" },
       { title: "Program Requirements", href: "/academics/undergraduate/program-requirements" }
@@ -466,7 +455,6 @@ export const subNavConfig: Record<string, SubNavItem[]> = {
       { title: "Contact", href: "/about/contact"}
     ],
     'about/values': [
-      { title: "About", href: "/about" },
       { title: "Facilities", href: "/about/facilities" },
       { title: "Faculty Jobs", href: "/about/faculty-jobs" },
       { title: "Contact", href: "/about/contact"}
@@ -479,18 +467,24 @@ export const subNavConfig: Record<string, SubNavItem[]> = {
       { title: "Other U-M Facilities", href: "https://www.engin.umich.edu/research/labs-facilities/", external: true }
     ],
     'about/facilities/ford-robotics-building': [
-      { title: "Facilities", href: "/about/facilities" },
-      { title: "M-Air", href: "/about/facilities/m-air" },
+      { title: "M-Air", href: "/about/facilities/m-air" },      
+      { title: "Makerspace", href: "https://teamprojects.engin.umich.edu/makerspace-about/", external: true },
+      { title: "Mcity", href: "https://mcity.umich.edu", external: true },
+      { title: "Other U-M Facilities", href: "https://www.engin.umich.edu/research/labs-facilities/", external: true },
       { title: "Tours", href: "/about/facilities/ford-robotics-building#tours", anchor: true }
     ],
+    'about/facilities/m-air': [
+      { title: "Ford Robotics Building", href: "/about/facilities/ford-robotics-building" },
+      { title: "Makerspace", href: "https://teamprojects.engin.umich.edu/makerspace-about/", external: true },
+      { title: "Mcity", href: "https://mcity.umich.edu", external: true },
+      { title: "Other U-M Facilities", href: "https://www.engin.umich.edu/research/labs-facilities/", external: true }
+    ],
     'about/faculty-jobs': [
-      { title: "About", href: "/about" },
       { title: "Values", href: "/about/values" },
       { title: "Facilities", href: "/about/facilities" },
       { title: "Contact", href: "/about/contact"}
     ],
     'about/contact': [
-      { title: "About", href: "/about" },
       { title: "Values", href: "/about/values" },
       { title: "Facilities", href: "/about/facilities" },
       { title: "Faculty Jobs", href: "/about/faculty-jobs"}
@@ -501,17 +495,12 @@ export const subNavConfig: Record<string, SubNavItem[]> = {
       { title: "Events on Happening @ Michigan", href: "https://events.umich.edu/group/3998", external: true }
     ],
     'events/robotics-pathways-speaker-series': [
-      { title: "Events", href: "/events" },
       { title: "Robotics Seminar Series", href: "/events/robotics-seminar-series" },
       { title: "Events on Happening @ Michigan", href: "https://events.umich.edu/group/3998", external: true }
     ],
     'events/robotics-seminar-series': [
-      { title: "Events", href: "/events" },
       { title: "Pathways & Careers Series", href: "/events/robotics-pathways-speaker-series" },
       { title: "Events on Happening @ Michigan", href: "https://events.umich.edu/group/3998", external: true }
-    ],
-    'news$': [
-      { title: "News", href: "/news" } // placeholder for news search bar }
     ]
   };
   

@@ -41,8 +41,8 @@ const videos: YouTubeVideo[] = data.items || [];
             <div class="aspect-video">
               <YouTube id={video.snippet.resourceId.videoId} />
             </div>
-            <div class="px-3 mt-0 pb-2">
-              <h3 class="text-lg font-semibold line-clamp-2">{video.snippet.title}</h3>
+            <div class="px-3 mt-4 pb-2">
+              <h3 class="not-prose text-md font-semibold line-clamp-2">{video.snippet.title}</h3>
               {showDate && (
                 <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">
                   {new Date(video.snippet.publishedAt).toLocaleDateString()}
@@ -94,13 +94,13 @@ const videos: YouTubeVideo[] = data.items || [];
       let startX: number;
       let scrollLeft: number;
 
-      container.addEventListener('mousedown', (e) => {
+      container.addEventListener('mousedown', ((e: MouseEvent) => {
         isMouseDown = true;
         container.classList.add('cursor-grabbing');
         container.classList.remove('cursor-grab');
-        startX = e.pageX - container.offsetLeft;
-        scrollLeft = container.scrollLeft;
-      });
+        startX = e.pageX - (container as HTMLElement).offsetLeft;
+        scrollLeft = (container as HTMLElement).scrollLeft;
+      }) as EventListener);
 
       container.addEventListener('mouseleave', () => {
         isMouseDown = false;
@@ -114,13 +114,13 @@ const videos: YouTubeVideo[] = data.items || [];
         container.classList.add('cursor-grab');
       });
 
-      container.addEventListener('mousemove', (e) => {
+      container.addEventListener('mousemove', ((e: MouseEvent) => {
         if (!isMouseDown) return;
         e.preventDefault();
-        const x = e.pageX - container.offsetLeft;
+        const x = e.pageX - (container as HTMLElement).offsetLeft;
         const walk = (x - startX) * 1.5; // Scroll speed multiplier
-        container.scrollLeft = scrollLeft - walk;
-      });
+        (container as HTMLElement).scrollLeft = scrollLeft - walk;
+      }) as EventListener);
 
       // Prevent text selection while dragging
       container.addEventListener('selectstart', (e) => {

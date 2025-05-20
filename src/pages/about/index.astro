@@ -39,19 +39,6 @@ const excom = await Promise.all([
   {
     name: "Dawn Tilbury",
     role: "Department Chair",
-    isExOfficio: true
-  },
-  {
-    name: "Robert Gregg",
-    isExOfficio: false
-  },
-  {
-    name: "Jessy Grizzle",
-    isExOfficio: false
-  },
-  {
-    name: "Brent Gillespie",
-    role: "Associate Director of Graduate Studies",
     isExOfficio: false
   },
   {
@@ -59,10 +46,28 @@ const excom = await Promise.all([
     isExOfficio: false
   },
   {
+    name: "Jessy Grizzle",
+    isExOfficio: false
+  },
+  {
+    name: "Dimitra Panagou",
+    isExOfficio: false
+  },
+  {
+    name: "Elliott Rouse",
+    isExOfficio: false
+  },
+  {
     name: "Leia Stirling",
     role: "Associate Director of Undergraduate Studies",
     isExOfficio: true
   },
+  {
+    name: "Ram Vasudevan",
+    role: "Associate Director of Graduate Studies",
+    isExOfficio: true
+  },
+
 ].map(async member => ({
   ...member,
   photoURL: await getProfileImage(facultyPhotoLookup[member.name])
@@ -116,7 +121,7 @@ const focusAreas = await getCollection('focusAreas');
       <h2 class="text-3xl font-roboto-condensed font-bold mb-6 text-umichblue dark:text-neutral-50">Academics</h2>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div class="surface card-padded surface-border">
-          <a href="/academics/undergraduate" class="group">
+          <a href="/academics/undergraduate" class="group block">
             <div class="flex items-center">
               <h3 class="text-xl font-bold mb-2 text-umichblue dark:text-neutral-50">Undergraduate</h3>
               <Icon name="mdi:chevron-right" class="h-5 w-5 ml-1" />
@@ -126,7 +131,7 @@ const focusAreas = await getCollection('focusAreas');
           <p>16 alumni</p>
         </div>
         <div class="surface card-padded surface-border">
-          <a href="/academics/graduate" class="group">
+          <a href="/academics/graduate" class="group block">
             <div class="flex items-center">
               <h3 class="text-xl font-bold mb-2 text-umichblue dark:text-neutral-50">Graduate</h3>
               <Icon name="mdi:chevron-right" class="h-5 w-5 ml-1" />
@@ -136,7 +141,7 @@ const focusAreas = await getCollection('focusAreas');
           <p>Program started in 2014</p>
         </div>
         <div class="surface card-padded surface-border">
-          <a href="/academics/courses" class="group">
+          <a href="/academics/courses" class="group block">
             <div class="flex items-center">
               <h3 class="text-xl font-bold mb-2 text-umichblue dark:text-neutral-50">Robotics courses</h3>
               <Icon name="mdi:chevron-right" class="h-5 w-5 ml-1" />
@@ -156,8 +161,11 @@ const focusAreas = await getCollection('focusAreas');
       </h2>
       <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
         {focusAreas.map((area) => (
-          <div class="surface card-base card-hover surface-border">
-            <a href={`/research/focus-areas/${area.id}`} class="block p-2 underline-hover-only">
+          <a 
+            href={`/research/focus-areas/${area.id}`} 
+            class="surface card-base card-hover surface-border focus:outline focus:outline-2 focus:outline-offset-4 [&:focus-visible]:!transition-none [&:focus-visible]:!duration-0 [&:focus-visible]:!ease-none underline-hover-only"
+          >
+            <div class="p-2">
               <Image
                 src={area.data.image?.src}
                 alt={`${area.data.title} research`}
@@ -165,9 +173,9 @@ const focusAreas = await getCollection('focusAreas');
                 width={200}
                 height={150}
               />
-              <span class="text-sm font-medium">{area.data.title}</span>
-            </a>
-          </div>
+              <span class="text-sm font-medium underline-hover-only">{area.data.title}</span>
+            </div>
+          </a>
         ))}
       </div>
     </section>
@@ -211,20 +219,18 @@ const focusAreas = await getCollection('focusAreas');
       <h2 class="text-3xl font-roboto-condensed font-bold mb-6 text-umichblue dark:text-neutral-50">Leadership</h2>
       <div class="surface card-base overflow-hidden">
         <!-- Photo rows -->
-        <div class="flex flex-wrap justify-center mb-2">
+        <div class="flex flex-wrap justify-center md:grid md:grid-cols-7 mb-2">
           {excom.map((member) => (
-            <div class={`w-24 text-center md:w-48`}>
+            <div class="w-1/4 md:w-auto text-center">
               <Image 
                 src={member.photoURL}
                 alt={member.name}
                 width={300}
                 height={200}
-                class={`w-full h-24 md:h-48 object-cover ${
-                  member.name === "Brent Gillespie" 
-                    ? "object-[100%_0%] md:object-right"
-                    : member.name === "Leia Stirling"
-                      ? "object-[68%_0%] md:object-right" 
-                      : "object-center"
+                class={`w-full h-24 md:h-32 object-cover ${
+                  member.name === "Leia Stirling"
+                    ? "object-[68%_0%] md:object-right" 
+                    : "object-center"
                 }`}
               />
             </div>

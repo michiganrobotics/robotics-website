@@ -145,13 +145,16 @@ const isActive = (itemPath: string) => {
                               return (
                                 <li class="relative group/child">
                                     <a href={childItem.uri || '/'} 
-                                       class={`block px-4 py-2 hover:bg-[var(--bg-surface-hover)] dark:hover:bg-[var(--bg-surface-hover-dark)] ${isChildItemActive ? 'text-umichblue dark:text-maize' : ''}`}
+                                       class={`block px-4 py-2 hover:bg-[var(--bg-surface-hover)] dark:hover:bg-[var(--bg-surface-hover-dark)] ${isChildItemActive ? 'text-umichblue dark:text-maize' : ''} ${childItem.childItems.nodes.length > 0 ? 'pr-8' : ''}`}
                                        aria-label={childItem.label}
                                        aria-current={isChildItemActive ? 'page' : undefined}
                                        aria-expanded={childItem.childItems.nodes.length > 0 ? "false" : undefined}
                                        aria-haspopup={childItem.childItems.nodes.length > 0 ? "true" : undefined}
                                        role="menuitem">
                                         {childItem.label}
+                                        {childItem.childItems.nodes.length > 0 && (
+                                          <span class="absolute right-2 top-1/2 -translate-y-1/2 text-sm">›</span>
+                                        )}
                                     </a>
                                     {childItem.childItems.nodes.length > 0 && (
                                         <ul class={`hidden group-hover/child:block absolute top-0 ml-1 min-w-[200px] surface border border-maize rounded-sm shadow-lg ${isLastItem ? 'right-full' : 'left-full'}`} role="menu">

@@ -3,7 +3,7 @@ interface Props {
   title: string;
   image?: ImageMetadata;
   imageAlt?: string;
-  imagePosition?: string; // Optional object-position value
+  imagePosition?: string;
 }
 
 import { Image } from 'astro:assets';
@@ -11,44 +11,61 @@ import SubNav from './SubNav.astro';
 const { 
   title, 
   image, 
-  imageAlt,
-  imagePosition = "object-center" // Default value matching original
+  imageAlt = "", // Provide default empty string for alt
+  imagePosition = "object-center"
 } = Astro.props;
+
+const titleHeight = "h-48 sm:h-64"; // Consistent height for both versions
 ---
 
-<div class="mt-4 sm:mb-2 max-w-6xl w-11/12 mx-auto">
-    {image && (
-    <div class="relative rounded-sm overflow-hidden shadow-lg min-h-24">
-     <div class="relative">
-        <div class="absolute inset-0">
-          <Image 
-            src={image}
-            alt={imageAlt}
-            class="w-full h-32 object-cover"
-            style={`object-position: ${imagePosition};`}
-            width={1200}
-            height={630}
-            loading="eager"
-          />
-        </div>
-      </div>
-      <div class="relative">
-        <div class="bg-umichblue/70 dark:bg-arboretumBlue/70 backdrop-blur-[2px] p-6 inline-block min-h-24">
-          <h1 class="text-4xl font-roboto text-neutral-50 font-bold">
-            <span class="relative underline decoration-maize decoration-4 underline-offset-4">{title}</span>
-          </h1>
+<div class="relative">
+  {image ? (
+    <div class="w-full h-48 sm:h-64">
+      <Image 
+        src={image}
+        alt={imageAlt}
+        class="w-full h-48 sm:h-64 object-cover"
+        style={`object-position: ${imagePosition};`}
+        width={1920}
+        height={640}
+        loading="eager"
+      />
+      <div class="absolute left-1/2 bottom-5 sm:bottom-8 max-w-6xl w-11/12 -translate-x-1/2">
+        <div class="flex flex-row items-center w-full gap-4">
+          <div class="relative flex min-w-0">
+            <div class="bg-umichblue/70 dark:bg-arboretumBlue/70 backdrop-blur-[2px] p-4 sm:p-6 inline-block relative">
+              {/* Decorative maize frame - top and left only */}
+              <div class="absolute -left-2 -top-2 w-16 h-16 border-t-4 border-l-4 border-[#ffcb05] transform -skew-x-45"></div>
+              <div class="absolute -left-2 -top-2 w-16 h-16 border-t-4 border-l-4 border-[#ffcb05]/50 transform -skew-x-45 translate-x-1 translate-y-1"></div>
+              <h1 class="text-3xl md:text-4xl font-roboto text-neutral-50 font-bold relative z-10">
+                <span class="relative underline decoration-maize decoration-4 underline-offset-4">{title}</span>
+              </h1>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-        )}
-  {!image && (
-      <div class="w-full bg-umichblue dark:bg-arboretumBlue shadow-lg min-h-24">
-        <div class="p-6">
-          <h1 class="text-4xl font-roboto text-neutral-50 font-bold">
-            <span class="relative underline decoration-maize decoration-4 underline-offset-4">{title}</span>
-          </h1>
+  ) : (
+    <div class="w-full h-48 sm:h-64 bg-umichblue dark:bg-arboretumBlue relative">
+      <div class="absolute left-1/2 bottom-5 sm:bottom-8 max-w-6xl w-11/12 -translate-x-1/2">
+        <div class="flex flex-row items-center w-full gap-4">
+          <div class="relative flex min-w-0">
+            <div class="bg-transparent p-4 sm:p-6 inline-block relative">
+              {/* Decorative maize frame - top and left only */}
+              <div class="absolute -left-2 -top-2 w-16 h-16 border-t-4 border-l-4 border-[#ffcb05] transform -skew-x-45"></div>
+              <div class="absolute -left-2 -top-2 w-16 h-16 border-t-4 border-l-4 border-[#ffcb05]/50 transform -skew-x-45 translate-x-1 translate-y-1"></div>
+              <h1 class="text-3xl md:text-4xl font-roboto text-neutral-50 font-bold relative z-10">
+                <span class="relative underline decoration-maize decoration-4 underline-offset-4">{title}</span>
+              </h1>
+            </div>
+          </div>
         </div>
       </div>
-    )}
+    </div>
+  )}
+</div>
+<div class="max-w-6xl w-11/12 mx-auto -mt-4 -mb-4">
+  <div class="flex min-w-0 flex flex-wrap justify-end items-center min-h-[2.5rem]">
     <SubNav />
+  </div>
 </div> 

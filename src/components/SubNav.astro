@@ -1,7 +1,7 @@
 ---
 import { subNavConfig } from '../lib/nav';
 import { Icon } from 'astro-icon/components';
-import NewsSearch from './NewsSearch.astro';
+// NewsSearch import and usage removed
 
 const BASE = process.env.GITHUB_ACTIONS === 'true' ? '/rob-astro-23' : '';
 const pathname = new URL(Astro.request.url).pathname;
@@ -42,38 +42,50 @@ const configuredItems = Object.entries(subNavConfig)
   [];
 
 const isNewsPage = trimmedPath === 'news';
+
+// Separate anchor and non-anchor items
+const navItems = configuredItems.filter(item => !item.anchor);
+const anchorItems = configuredItems.filter(item => item.anchor);
 ---
 
-{configuredItems.length > 0 && (
-  <nav class="flex flex-wrap gap-1.5 sm:gap-2 mt-0 relative z-10 
-              surface dark:!bg-transparent
-              shadow-md rounded-b-lg
-              p-4
-              border-x border-b border-gray-200 dark:border-arboretumBlue
-              transition-opacity duration-200
-              min-h-[3.5rem] sm:min-h-[4rem] md:min-h-[4.5rem]">
-    {isNewsPage ? (
-      <NewsSearch />
-    ) : (
-      configuredItems.map((item) => (
-        <a 
-          href={item.href}
-          class={`px-2 py-1 sm:px-3 sm:py-1.5 md:px-4 md:py-2 rounded-sm 
-                  text-xs sm:text-sm md:text-sm 
-                  bg-arboretumBlue/5 dark:bg-umichblue/40
-                  hover:bg-arboretumBlue/10 dark:hover:bg-[var(--bg-surface-hover-dark)]
-                  text-umichblue dark:text-neutral-100
-                  transition-opacity duration-200
-                  border border-umichblue/30 dark:border-arboretumBlue/70
-                  hover:border-umichblue/50 dark:hover:border-arboretumBlue/90
-                  backdrop-blur-sm
-                  ${pathname === item.href ? 'bg-arboretumBlue/20 dark:bg-[var(--bg-surface-hover-dark)] border-umichblue/50 dark:border-arboretumBlue/60' : ''}`}
-        >
-          {item.title}
-          {item.external && <Icon name="mdi:open-in-new" class="inline w-4 h-4 ml-1" />}
-          {item.anchor && <Icon name="mdi:arrow-down-right" class="inline w-4 h-4 ml-1" />}
-        </a>
-      ))
-    )}
+{navItems.length > 0 && (
+  <nav class="flex flex-wrap justify-end gap-1.5 sm:gap-2 mt-0 relative z-10 
+              transition-opacity duration-200">
+    {navItems.map((item, idx) => (
+      <a 
+        href={item.href}
+        class={`px-2 py-1 sm:px-3 sm:py-1.5 md:px-4 md:py-2 rounded-sm 
+                text-xs sm:text-sm md:text-sm 
+                bg-white/90 dark:bg-umichblue/80
+                hover:bg-white/80 dark:hover:bg-[var(--bg-surface-hover-dark)]
+                text-umichblue dark:text-neutral-100
+                transition-opacity duration-200
+                border border-umichblue/30 dark:border-arboretumBlue/70
+                hover:border-umichblue/50 dark:hover:border-arboretumBlue/90
+                backdrop-blur-sm
+                ${pathname === item.href ? 'bg-arboretumBlue/20 dark:bg-[var(--bg-surface-hover-dark)] border-umichblue/50 dark:border-arboretumBlue/60' : ''}`}
+      >
+        {item.title}
+        {item.external && <Icon name="mdi:open-in-new" class="inline w-4 h-4 ml-1" />}
+      </a>
+    ))}
   </nav>
+)}
+
+{anchorItems.length > 0 && (
+  <div class={`w-full flex justify-end text-xs sm:text-sm ${navItems.length === 0 ? 'mt-6' : 'mt-2'}`}>
+    <div class="flex flex-nowrap items-start">
+      <span class="whitespace-nowrap mr-4 sm:mr-2 font-semibold text-umichblue dark:text-neutral-100">Jump to:</span>
+      <div class="flex flex-wrap gap-2">
+        {anchorItems.map((item, idx) => (
+          <a 
+            href={item.href}
+            class="underline text-umichblue dark:text-neutral-100"
+          >
+            {item.title}{idx < anchorItems.length - 1 ? ',' : ''}
+          </a>
+        ))}
+      </div>
+    </div>
+  </div>
 )}
