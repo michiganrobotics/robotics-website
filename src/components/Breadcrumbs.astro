@@ -1,9 +1,14 @@
 ---
+interface Breadcrumb {
+  text: string;
+  href: string;
+}
+
 const { pathname } = Astro.url;
 const paths = pathname.split('/').filter(Boolean);
 
-function generateBreadcrumbs() {
-  const breadcrumbs = [];
+function generateBreadcrumbs(): Breadcrumb[] {
+  const breadcrumbs: Breadcrumb[] = [];
   let path = '';
   paths.forEach((item) => {
     path += `/${item}`;
@@ -24,19 +29,25 @@ function generateBreadcrumbs() {
   return breadcrumbs;
 }
 
-
 const breadcrumbs = generateBreadcrumbs();
+const isDeepPath = breadcrumbs.length >= 3;
 ---
 <div class="max-w-6xl w-11/12 mx-auto py-4">
   <div class="flex justify-end text-[13px] text-gray-700 dark:text-gray-300">
     <nav aria-label="Breadcrumb">
       <ol class="flex flex-wrap items-center gap-2 justify-end">
-        <li>
+        <li class={isDeepPath ? "hidden md:block" : ""}>
           <a href="/" class="hover:text-arboretumBlue dark:hover:text-taubmanTeal underline-hover-only">Home</a>
         </li>
         {breadcrumbs.map((breadcrumb, index) => (
           <li class="flex items-center gap-2">
-            <span class="text-gray-700 dark:text-gray-300">&gt;</span>
+            {index > 0 ? (
+              <span class="text-gray-700 dark:text-gray-300">&gt;</span>
+            ) : !isDeepPath ? (
+              <span class="text-gray-700 dark:text-gray-300">&gt;</span>
+            ) : (
+              <span class="hidden md:inline text-gray-700 dark:text-gray-300">&gt;</span>
+            )}
             <a 
               href={breadcrumb.href}
               class={`hover:text-arboretumBlue dark:hover:text-taubmanTeal underline-hover-only ${index === breadcrumbs.length - 1 ? 'text-gray-600 dark:text-gray-300' : ''}`}
