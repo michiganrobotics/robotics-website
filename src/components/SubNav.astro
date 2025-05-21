@@ -54,7 +54,7 @@ const anchorItems = configuredItems.filter(item => item.anchor);
     {navItems.map((item, idx) => (
       <a 
         href={item.href}
-        class={`px-2 py-1 sm:px-3 sm:py-1.5 md:px-4 md:py-2 rounded-sm 
+        class={`pl-2 pr-1 py-1 sm:px-2 sm:py-1.5 md:px-2 md:py-2 rounded-sm 
                 text-xs sm:text-sm md:text-sm 
                 bg-white/90 dark:bg-umichblue/80
                 hover:bg-white/80 dark:hover:bg-[var(--bg-surface-hover-dark)]
@@ -66,8 +66,8 @@ const anchorItems = configuredItems.filter(item => item.anchor);
                 ${pathname === item.href ? 'bg-arboretumBlue/20 dark:bg-[var(--bg-surface-hover-dark)] border-umichblue/50 dark:border-arboretumBlue/60' : ''}`}
       >
         {item.title}
-        {!item.external && !item.anchor && <span class="ml-1">›</span>}
-        {item.external && <Icon name="mdi:open-in-new" class="inline w-4 h-4 ml-1" />}
+        {!item.external && !item.anchor && <Icon name="mdi:chevron-right" class="inline w-3 h-3 ml-1" />}
+        {item.external && <Icon name="mdi:open-in-new" class="inline w-3 h-3 ml-1" />}
       </a>
     ))}
   </nav>
