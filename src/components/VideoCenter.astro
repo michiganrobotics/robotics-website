@@ -26,9 +26,7 @@ const { url, caption, class: className } = Astro.props;
       />
     </div>
     {caption && (
-      <figcaption class="mt-4 text-[0.875em] leading-[1.4285714] text-gray-600 dark:text-gray-200 italic">
-        {caption}
-      </figcaption>
+      <figcaption class="mt-4 text-[0.875em] leading-[1.4285714] text-gray-600 dark:text-gray-200 italic" set:html={caption} />
     )}
   </figure>
 </div>
