@@ -198,6 +198,7 @@
 /academics/current-students/* /academics/student-services/:splat 301
 /academics/undergraduate/undergraduate-sure /academics/undergraduate/sure 301
 /academics/courses/complete-course-listing /academics/courses/complete-course-list 301
+academics/course-offerings/rob101 /academics/courses/course-offerings/rob-101-fall-2020 301
 /academic-program/course-offerings/rob101-fall-2020 /academics/courses/course-offerings/rob-101-fall-2020 301
 /academic-program/course-offerings/rob101-fall-2021 /academics/courses/course-offerings/rob-101-fall-2021 301
 /academic-program/course-offerings/rob101-fall-2022 /academics/courses/course-offerings/rob-101-fall-2022 301
