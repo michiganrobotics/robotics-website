@@ -41,10 +41,6 @@ const posterPath = '/blue-tile.png';
           <Icon name="mdi:pause" class="w-6 h-6 text-white pause-icon" />
           <Icon name="mdi:play" class="w-6 h-6 text-white play-icon hidden" />
         </button>
-
-        <div id="loading-indicator" class="absolute inset-0 flex items-center justify-center bg-black/50">
-          <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-white"></div>
-        </div>
       </div>
     </div>
   </div>
@@ -59,9 +55,8 @@ const posterPath = '/blue-tile.png';
 <script>
   const video = document.getElementById('hero-video') as HTMLVideoElement;
   const control = document.getElementById('video-control') as HTMLButtonElement;
-  const loadingIndicator = document.getElementById('loading-indicator') as HTMLDivElement;
   
-  if (video && control && loadingIndicator) {
+  if (video && control) {
     const pauseIcon = control.querySelector('.pause-icon') as HTMLElement | null;
     const playIcon = control.querySelector('.play-icon') as HTMLElement | null;
     let isVideoSupported = true;
@@ -72,7 +67,6 @@ const posterPath = '/blue-tile.png';
       const canPlay = video.canPlayType('video/mp4') || video.canPlayType('video/webm');
       if (canPlay === '') {
         isVideoSupported = false;
-        loadingIndicator.remove();
         return false;
       }
       return true;
@@ -103,7 +97,6 @@ const posterPath = '/blue-tile.png';
     video.addEventListener('loadeddata', () => {
       if (isVideoSupported) {
         video.classList.remove('opacity-0');
-        loadingIndicator.remove();
         control.classList.remove('hidden');
         tryPlayVideo();
       }
@@ -116,7 +109,6 @@ const posterPath = '/blue-tile.png';
           await video.play();
         } catch (error) {
           // Silently fail if video can't play
-          loadingIndicator.remove();
         }
       }
     }
