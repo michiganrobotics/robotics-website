@@ -24,17 +24,17 @@ const posterPath = '/blue-tile.png';
           width="1280"
           playsinline
           muted
-          preload="auto"
+          preload="none"
           poster={posterPath}
           aria-label="Background video showing Michigan Robotics research and education"
+          data-webm-path={videoWebmPath}
+          data-mp4-path={videoMp4Path}
         >
-          <source src={videoWebmPath} type="video/webm" media="(max-width: 768px)">
-          <source src={videoMp4Path} type="video/mp4">
         </video>
 
         <button 
           id="video-control"
-          class="absolute z-20 bottom-4 right-4 rounded-full bg-black/50 hover:bg-black/70 p-3 transition-colors focus:outline-none focus:ring-2 focus:ring-white hidden"
+          class="absolute z-20 bottom-4 md:bottom-20 lg:bottom-4 right-4 rounded-full bg-black/50 hover:bg-black/70 p-3 transition-colors focus:outline-none focus:ring-2 focus:ring-white hidden"
           aria-label="Toggle video playback"
         >
           <span class="sr-only">Toggle video playback</span>
@@ -65,6 +65,7 @@ const posterPath = '/blue-tile.png';
     const pauseIcon = control.querySelector('.pause-icon') as HTMLElement | null;
     const playIcon = control.querySelector('.play-icon') as HTMLElement | null;
     let isVideoSupported = true;
+    let isVideoLoaded = false;
 
     // Check if video playback is supported
     function checkVideoSupport() {
@@ -75,6 +76,27 @@ const posterPath = '/blue-tile.png';
         return false;
       }
       return true;
+    }
+
+    // Load video sources lazily
+    function loadVideoSources() {
+      if (isVideoLoaded) return;
+      
+      // Add the source elements
+      const webmSource = document.createElement('source');
+      webmSource.src = video.dataset.webm || '';
+      webmSource.type = 'video/webm';
+      webmSource.media = '(max-width: 768px)';
+      
+      const mp4Source = document.createElement('source');
+      mp4Source.src = video.dataset.mp4 || '';
+      mp4Source.type = 'video/mp4';
+      
+      video.appendChild(webmSource);
+      video.appendChild(mp4Source);
+      
+      video.load();
+      isVideoLoaded = true;
     }
 
     // Add loading event listeners
@@ -113,9 +135,45 @@ const posterPath = '/blue-tile.png';
     };
     control.addEventListener("click", togglePlayback);
 
-    // Check video support and try to load
+    // Check video support
     if (checkVideoSupport()) {
-      video.load();
+      // Store video paths in data attributes for lazy loading
+      const webmPath = video.dataset.webmPath;
+      const mp4Path = video.dataset.mp4Path;
+      
+      if (webmPath) video.dataset.webm = webmPath;
+      if (mp4Path) video.dataset.mp4 = mp4Path;
+
+      // Lazy load video after LCP - use multiple strategies
+      
+      // Strategy 1: Delay after initial page load
+      setTimeout(() => {
+        loadVideoSources();
+      }, 1000);
+
+      // Strategy 2: Intersection Observer for when hero comes into view
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            loadVideoSources();
+            observer.disconnect();
+          }
+        });
+      }, { threshold: 0.1 });
+      
+      observer.observe(video);
+
+      // Strategy 3: Load on user interaction
+      const loadOnInteraction = () => {
+        loadVideoSources();
+        document.removeEventListener('scroll', loadOnInteraction);
+        document.removeEventListener('touchstart', loadOnInteraction);
+        document.removeEventListener('click', loadOnInteraction);
+      };
+      
+      document.addEventListener('scroll', loadOnInteraction, { passive: true });
+      document.addEventListener('touchstart', loadOnInteraction, { passive: true });
+      document.addEventListener('click', loadOnInteraction);
     }
   }
 </script>
