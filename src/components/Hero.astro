@@ -136,36 +136,8 @@ const posterPath = '/blue-tile.png';
       if (webmPath) video.dataset.webm = webmPath;
       if (mp4Path) video.dataset.mp4 = mp4Path;
 
-      // Lazy load video after LCP - use multiple strategies
-      
-      // Strategy 1: Delay after initial page load
-      setTimeout(() => {
-        loadVideoSources();
-      }, 1000);
-
-      // Strategy 2: Intersection Observer for when hero comes into view
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            loadVideoSources();
-            observer.disconnect();
-          }
-        });
-      }, { threshold: 0.1 });
-      
-      observer.observe(video);
-
-      // Strategy 3: Load on user interaction
-      const loadOnInteraction = () => {
-        loadVideoSources();
-        document.removeEventListener('scroll', loadOnInteraction);
-        document.removeEventListener('touchstart', loadOnInteraction);
-        document.removeEventListener('click', loadOnInteraction);
-      };
-      
-      document.addEventListener('scroll', loadOnInteraction, { passive: true });
-      document.addEventListener('touchstart', loadOnInteraction, { passive: true });
-      document.addEventListener('click', loadOnInteraction);
+      // Load video immediately on page load
+      loadVideoSources();
     }
   }
 </script>
