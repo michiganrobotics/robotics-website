@@ -233,12 +233,12 @@
 
   /* Card Hover Effects */
   .card-hover {
-    @apply hover:shadow-lg transition-all duration-300 hover:scale-[1.02];
+    @apply hover:shadow-lg transition-shadow transition-transform duration-300 hover:scale-[1.02];
   }
   
   /* Image hover animation */
   .image-hover {
-    @apply transition-all duration-500 group-hover:scale-105;
+    @apply transition-transform duration-500 group-hover:scale-105;
   }
   
   /* Search bars */
