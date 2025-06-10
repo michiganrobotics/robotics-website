@@ -113,6 +113,9 @@ const { image, imageAlt, title = '', subtitle, name, role, website, isExpanded =
           expandIcon.classList.remove('rotated');
         }
         
+        // Enable transitions after initial state is set
+        expandIcon.classList.add('transition-enabled');
+        
         // Function to toggle expansion state
         const toggleExpansion = () => {
           // Get current state from our data attribute
@@ -158,6 +161,10 @@ const { image, imageAlt, title = '', subtitle, name, role, website, isExpanded =
 
 <style>
   .chevron-icon {
+    transition: none;
+  }
+  
+  .chevron-icon.transition-enabled {
     transition: transform 0.3s ease-in-out;
   }
   

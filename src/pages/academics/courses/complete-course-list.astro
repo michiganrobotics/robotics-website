@@ -68,29 +68,29 @@ const courseList = await getCourseList();
                   <tbody>
                     {courseList.map((course) => (
                       <tr class="bg-[var(--bg-undersurface-light)] dark:bg-[var(--bg-undersurface-dark)] border-b hover:bg-[var(--bg-surface-hover)] dark:hover:bg-[var(--bg-surface-hover-dark)]">
-                        <th scope="row" class="px-6 py-4 font-medium border-r">
+                        <th scope="row" class="px-6 py-4 font-medium border-r align-middle">
                           {course.courseSubject} {course.courseNumber}
                         </th>
-                        <td class="px-6 py-4 border-r">
+                        <td class="px-6 py-4 border-r align-middle">
                           {course.courseLink ? <a href={course.courseLink} target="_blank" rel="noopener noreferrer" class="underline hover:text-umichblue dark:hover:text-gray-300">{course.courseTitle}</a> : course.courseTitle}
                         </td>
-                        <td class="px-6 py-4 border-r">
+                        <td class="px-6 py-4 border-r align-middle">
                           {course.credits}
                         </td>
-                        <td class="px-6 py-4 border-r">
+                        <td class="px-6 py-4 border-r align-middle">
                           {course.homeDepartment}
                         </td>
-                        <td class="px-6 py-4 border-r">
+                        <td class="px-6 py-4 border-r align-middle">
                           <div>UG: {course.undergradRequirement}</div>
                           <div>Grad: {course.gradRequirement}</div>
                         </td>
-                        <td class="px-6 py-4 border-r">
+                        <td class="px-6 py-4 border-r align-middle">
                           {course.semestersOffered}
                         </td>
-                        <td class="px-6 py-4 border-r">
+                        <td class="px-6 py-4 border-r align-middle">
                           {course.crossListing}
                         </td>
-                        <td class="px-6 py-4">
+                        <td class="px-6 py-4 align-middle">
                           {course.courseNote}
                         </td>
                       </tr>
