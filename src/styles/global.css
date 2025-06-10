@@ -184,7 +184,7 @@
   
   /* Card Base Styles */
   .card-base {
-    @apply rounded-sm overflow-hidden shadow-md transition-all duration-300;
+    @apply rounded-sm overflow-hidden shadow-md transition-shadow duration-300;
   }
 
   .card-padded {
