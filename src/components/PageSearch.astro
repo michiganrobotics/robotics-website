@@ -1,0 +1,259 @@
+---
+interface Props {
+  placeholder?: string;
+}
+
+const { placeholder = "Search this page..." } = Astro.props;
+---
+
+<div class="page-search-container">
+  <div class="relative">
+    <input 
+      type="text" 
+      id="page-search"
+      placeholder={placeholder}
+      class="search-bar pr-10 text-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-umichblue focus:border-transparent"
+    />
+    <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+      <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+      </svg>
+    </div>
+  </div>
+  <div id="search-results" class="hidden mt-2 text-xs text-gray-200 dark:text-neutral-300"></div>
+  <div id="floating-results" class="hidden fixed top-4 right-4 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg p-4 text-sm shadow-xl z-50 min-w-64">
+    <div class="flex items-start justify-between gap-3 mb-2">
+      <div class="flex-1">
+        <div class="font-semibold text-gray-900 dark:text-white mb-1">
+          Searching <span id="search-term" class="bg-maize text-umichblue px-1.5 py-0.5 rounded font-mono text-xs"></span>
+        </div>
+        <div id="match-info" class="text-gray-600 dark:text-gray-300 text-xs"></div>
+      </div>
+      <button id="close-floating" class="text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300 text-lg leading-none">&times;</button>
+    </div>
+    <div class="border-t border-gray-200 dark:border-gray-600 pt-2">
+      <!-- Desktop keyboard instructions -->
+      <div class="hidden md:block text-xs text-gray-500 dark:text-gray-400">
+        <kbd class="bg-gray-100 dark:bg-gray-700 px-1.5 py-0.5 rounded text-xs">Enter</kbd> next result • <kbd class="bg-gray-100 dark:bg-gray-700 px-1.5 py-0.5 rounded text-xs">Esc</kbd> close
+      </div>
+      <!-- Mobile tap buttons -->
+      <div class="md:hidden flex gap-2">
+        <button id="next-match-btn" class="flex-1 bg-umichblue text-white px-3 py-1.5 rounded text-xs font-medium hover:bg-umichblue/90 transition-colors">
+          Next Result
+        </button>
+        <button id="close-search-btn" class="bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300 px-3 py-1.5 rounded text-xs font-medium hover:bg-gray-300 dark:hover:bg-gray-500 transition-colors">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style is:global>
+  @reference "../styles/global.css";
+  .search-highlight {
+    @apply bg-maize text-umichblue font-semibold px-1 py-0.5 rounded-sm shadow-sm;
+  }
+  
+  .search-current {
+    @apply bg-umichblue text-maize font-bold px-1 py-0.5 rounded-sm shadow-md;
+    animation: search-pulse 1s ease-in-out;
+  }
+  
+  @keyframes search-pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+  }
+</style>
+
+<script>
+  let currentMatches = [];
+  let currentIndex = 0;
+  let currentSearchTerm = '';
+  let originalContent = '';
+
+  function initPageSearch() {
+    const searchInput = document.getElementById('page-search');
+    const searchResults = document.getElementById('search-results');
+    const floatingResults = document.getElementById('floating-results');
+    const closeFloating = document.getElementById('close-floating');
+    const nextMatchBtn = document.getElementById('next-match-btn');
+    const closeSearchBtn = document.getElementById('close-search-btn');
+    
+    if (!searchInput || !searchResults || !floatingResults) return;
+    
+    let searchTimeout;
+    
+    searchInput.addEventListener('input', (e) => {
+      clearTimeout(searchTimeout);
+      searchTimeout = setTimeout(() => {
+        performSearch(e.target.value.trim());
+      }, 300);
+    });
+    
+    // Handle Enter key for cycling through results
+    searchInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        if (currentMatches.length > 0) {
+          currentIndex = (currentIndex + 1) % currentMatches.length;
+          scrollToCurrentMatch();
+        }
+      }
+      if (e.key === 'Escape') {
+        clearSearch();
+        searchInput.blur();
+      }
+    });
+    
+    // Close floating results (desktop X button)
+    closeFloating.addEventListener('click', () => {
+      floatingResults.classList.add('hidden');
+    });
+    
+    // Mobile next match button
+    if (nextMatchBtn) {
+      nextMatchBtn.addEventListener('click', () => {
+        if (currentMatches.length > 0) {
+          currentIndex = (currentIndex + 1) % currentMatches.length;
+          scrollToCurrentMatch();
+        }
+      });
+    }
+    
+    // Mobile close search button
+    if (closeSearchBtn) {
+      closeSearchBtn.addEventListener('click', () => {
+        clearSearch();
+      });
+    }
+  }
+  
+  function performSearch(query) {
+    const searchResults = document.getElementById('search-results');
+    
+    if (!query || query.length < 2) {
+      clearSearch();
+      return;
+    }
+    
+    // Store current search term
+    currentSearchTerm = query;
+    
+    // Clear previous highlights
+    clearHighlights();
+    
+    // Find and highlight matches using a simpler approach
+    currentMatches = [];
+    const regex = new RegExp(`(${escapeRegex(query)})`, 'gi');
+    
+    // Get all text content and replace with highlighted version
+    const allElements = document.querySelectorAll('*:not(script):not(style):not(#page-search):not(#search-results):not(#floating-results)');
+    
+    allElements.forEach(element => {
+      // Only process elements that have direct text content (not just child elements)
+      Array.from(element.childNodes).forEach(node => {
+        if (node.nodeType === Node.TEXT_NODE && node.textContent.trim()) {
+          const text = node.textContent;
+          if (regex.test(text)) {
+            const span = document.createElement('span');
+            span.innerHTML = text.replace(regex, '<span class="search-highlight">$1</span>');
+            element.replaceChild(span, node);
+            
+            // Collect the highlights
+            const highlights = span.querySelectorAll('.search-highlight');
+            highlights.forEach(highlight => currentMatches.push(highlight));
+          }
+        }
+      });
+    });
+    
+    // Update results display
+    if (currentMatches.length > 0) {
+      searchResults.textContent = `${currentMatches.length} match${currentMatches.length !== 1 ? 'es' : ''} found`;
+      searchResults.classList.remove('hidden');
+      currentIndex = 0;
+      scrollToCurrentMatch();
+    } else {
+      searchResults.textContent = 'No matches found';
+      searchResults.classList.remove('hidden');
+    }
+  }
+  
+  function scrollToCurrentMatch() {
+    if (currentMatches.length === 0) return;
+    
+    // Remove current highlighting
+    currentMatches.forEach(match => {
+      match.classList.remove('search-current');
+      match.classList.add('search-highlight');
+    });
+    
+    // Highlight current match
+    const currentMatch = currentMatches[currentIndex];
+    currentMatch.classList.remove('search-highlight');
+    currentMatch.classList.add('search-current');
+    
+    // Scroll to current match with proper offset
+    const isLargeScreen = window.matchMedia('(min-width: 1024px)').matches;
+    const tocHeight = isLargeScreen ? (document.getElementById('toc-container')?.offsetHeight || 0) : 0;
+    const offset = tocHeight + 120; // Extra padding for better visibility
+    
+    const rect = currentMatch.getBoundingClientRect();
+    const targetPosition = window.scrollY + rect.top - offset;
+    
+    window.scrollTo({
+      top: Math.max(0, targetPosition),
+      behavior: 'smooth'
+    });
+    
+    // Show floating indicator
+    const floatingResults = document.getElementById('floating-results');
+    const searchTermSpan = document.getElementById('search-term');
+    const matchInfo = document.getElementById('match-info');
+    
+    if (floatingResults && searchTermSpan && matchInfo) {
+      searchTermSpan.textContent = currentSearchTerm;
+      matchInfo.textContent = `Match ${currentIndex + 1} of ${currentMatches.length}`;
+      floatingResults.classList.remove('hidden');
+    }
+  }
+  
+  function clearSearch() {
+    clearHighlights();
+    currentMatches = [];
+    currentIndex = 0;
+    currentSearchTerm = '';
+    
+    const searchResults = document.getElementById('search-results');
+    const searchInput = document.getElementById('page-search');
+    const floatingResults = document.getElementById('floating-results');
+    
+    if (searchResults) {
+      searchResults.classList.add('hidden');
+    }
+    if (searchInput) {
+      searchInput.value = '';
+    }
+    if (floatingResults) {
+      floatingResults.classList.add('hidden');
+    }
+  }
+  
+  function clearHighlights() {
+    const highlights = document.querySelectorAll('.search-highlight, .search-current');
+    highlights.forEach(highlight => {
+      const parent = highlight.parentNode;
+      parent.replaceChild(document.createTextNode(highlight.textContent), highlight);
+      parent.normalize();
+    });
+  }
+  
+  function escapeRegex(string) {
+    return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+  
+  // Initialize on DOM ready
+  document.addEventListener('DOMContentLoaded', initPageSearch);
+</script>

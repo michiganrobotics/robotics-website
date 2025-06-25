@@ -1,0 +1,166 @@
+---
+interface Props {
+  sections: { id: string; title: string }[];
+}
+
+const { sections } = Astro.props;
+---
+
+<div class="mb-8 lg:sticky lg:top-0 lg:z-10 not-prose" id="toc-container">
+  <div class="surface-secondary dark:!bg-arboretumBlue/95 !border-0 !border-t-2 !border-maize rounded-b-lg p-2 pb-4 transition-all duration-300" id="toc-content">
+    <h3 class="font-semibold mb-1 ml-4">Topics</h3>
+    <div class="ml-4 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-1 text-sm">
+      {sections.map(section => (
+        <a 
+          href={`#${section.id}`} 
+          class="toc-link transition-all duration-200 py-1 px-2 rounded" 
+          data-section={section.id}
+        >
+          {section.title}
+        </a>
+      ))}
+    </div>
+  </div>
+</div>
+
+<style>
+  @reference "../styles/global.css";
+  .toc-link.active {
+    @apply text-maize underline font-medium;
+  }
+  
+  .toc-link.active:hover {
+    @apply text-maize;
+  }
+  
+  
+</style>
+
+<script>
+  function updateActiveSection() {
+    const tocLinks = document.querySelectorAll('.toc-link');
+    const sections = Array.from(tocLinks).map(link => link.getAttribute('data-section')).filter(Boolean);
+    
+    let currentSection = '';
+    
+    // Find which section is currently in view
+    for (let i = sections.length - 1; i >= 0; i--) {
+      const element = document.getElementById(sections[i]);
+      if (element) {
+        const rect = element.getBoundingClientRect();
+        if (rect.top <= 150) { // Account for sticky header offset
+          currentSection = sections[i];
+          break;
+        }
+      }
+    }
+    
+    // Update active states
+    tocLinks.forEach(link => {
+      const section = link.getAttribute('data-section');
+      if (section === currentSection) {
+        link.classList.add('active');
+      } else {
+        link.classList.remove('active');
+      }
+    });
+  }
+  
+  function updateTocStickyState() {
+    const tocContainer = document.getElementById('toc-container');
+    const tocContent = document.getElementById('toc-content');
+    
+    if (tocContainer && tocContent) {
+      const containerRect = tocContainer.getBoundingClientRect();
+      const isSticky = containerRect.top <= 0;
+      
+      if (isSticky) {
+        tocContent.classList.add('shadow-lg');
+      } else {
+        tocContent.classList.remove('shadow-lg');
+      }
+    }
+  }
+  
+  // Throttle scroll events for better performance
+  let ticking = false;
+  function requestTick() {
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        updateActiveSection();
+        updateTocStickyState();
+      });
+      ticking = true;
+      setTimeout(() => { ticking = false; }, 10);
+    }
+  }
+  
+  // Update on scroll
+  window.addEventListener('scroll', requestTick);
+  
+  // Add scroll margin CSS to headings dynamically only on lg screens
+  function updateScrollMarginForScreenSize() {
+    const isLargeScreen = window.matchMedia('(min-width: 1024px)').matches;
+    
+    // Remove existing style if it exists
+    const existingStyle = document.getElementById('toc-scroll-margin');
+    if (existingStyle) {
+      existingStyle.remove();
+    }
+    
+    // Add scroll margin only on large screens where ToC is sticky
+    if (isLargeScreen) {
+      const style = document.createElement('style');
+      style.id = 'toc-scroll-margin';
+      style.textContent = `
+        h1, h2, h3, h4, h5, h6 {
+          scroll-margin-top: 120px !important;
+        }
+      `;
+      document.head.appendChild(style);
+    }
+  }
+
+  // Update on load
+  document.addEventListener('DOMContentLoaded', () => {
+    updateActiveSection();
+    updateTocStickyState();
+    updateScrollMarginForScreenSize();
+  });
+  
+  // Update when hash changes (for direct navigation)
+  window.addEventListener('hashchange', updateActiveSection);
+  
+  // Update scroll margin when screen size changes
+  window.addEventListener('resize', updateScrollMarginForScreenSize);
+  
+  // Handle ToC link clicks with proper offset
+  document.addEventListener('click', (e) => {
+    const link = e.target.closest('.toc-link');
+    if (link && link.getAttribute('href').startsWith('#')) {
+      e.preventDefault();
+      const targetId = link.getAttribute('href').substring(1);
+      const targetElement = document.getElementById(targetId);
+      
+      if (targetElement) {
+        const isLargeScreen = window.matchMedia('(min-width: 1024px)').matches;
+        let targetPosition = targetElement.offsetTop;
+        
+        // Only apply offset on large screens where ToC is sticky
+        if (isLargeScreen) {
+          const tocHeight = document.getElementById('toc-container')?.offsetHeight || 100;
+          const offset = tocHeight + 20; // Add some extra padding
+          targetPosition = targetElement.offsetTop - offset;
+        }
+        
+        window.scrollTo({
+          top: targetPosition,
+          behavior: 'smooth'
+        });
+        
+        // Update URL hash
+        history.pushState(null, null, `#${targetId}`);
+      }
+    }
+  });
+</script>
