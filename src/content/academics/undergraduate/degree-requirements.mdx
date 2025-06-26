@@ -10,6 +10,7 @@ import Callout from '../../../components/Callout.astro';
 import Accordion from '../../../components/Accordion.astro';
 import TableOfContents from '../../../components/TableOfContents.astro';
 import PageSearch from '../../../components/PageSearch.astro';
+import TwoColumn from '../../../components/TwoColumn.astro';
 
 <div class="not-prose">
   <div class="surface-secondary rounded-t-lg p-6">
@@ -36,11 +37,9 @@ import PageSearch from '../../../components/PageSearch.astro';
   { id: 'transfer-to-robotics-and-transfer-credit', title: 'Transfer & Credit' }
 ]} />
 
- If while reading through these requirements you have any questions, please contact our <a href="/academics/student-services">Robotics Student Services team</a>.
 
 
-
-<div class="surface rounded-lg p-6 mb-6">
+<div>
 
 ## Robotics Declaration Requirements
 
@@ -61,10 +60,12 @@ To declare for the BSE major in Robotics, a student must be a College of Enginee
 
 
 
-<div class="surface rounded-lg p-6 mb-6">
+
+
 ## **Grade Policy**
 Courses used towards the Robotics BSE degree requirements need a minimum grade of a C to fulfill the requirements. Courses required by the College of Engineering for Intellectual Breadth and General Electives can fulfill the requirements with a D- or higher. Any course not fulfilling this grade requirement should be repeated or substituted with another degree requirement qualifying course.
-
+<div class="masonry-container lg:columns-2 lg:gap-6">
+  <div class="surface rounded-lg p-6 mb-6 break-inside-avoid">
 | Degree Requirement Groups | Grade Minimum |
 | :---- | :---- |
 | CoE Common Requirements | C |
@@ -72,17 +73,19 @@ Courses used towards the Robotics BSE degree requirements need a minimum grade o
 | Program Core | C |
 | Technical Electives | C |
 | General Electives | D-; Pass/Fail eligible |
-
+</div>
+  <div class="surface rounded-lg p-6 mb-6 break-inside-avoid">
 **Pass/Fail Elective Grading**   
 Taking courses that you wish to count towards your degree as pass/fail is only allowed for fulfilling Intellectual Breadth and General Elective requirements. You may take a maximum of 2 courses pass/fail per full term (1 during Spring or Summer half-terms) and a maximum of 14 credits total. This Pass/Fail option can be a good way to maintain a good academic standing  while exploring different types of courses within the University. Please refer to the [CoE Bulletin](https://bulletin.engin.umich.edu/rules/standing/#:~:text=Pass/Fail%20Information) for additional information and restrictions on pass/fail requirements.
-
+</div>
+  <div class="surface rounded-lg p-6 mb-6 break-inside-avoid">
 **Grade Exception Petition Policy:**   
 Students may [petition](https://deptapps.engin.umich.edu/petition/student/form?dept=210308) to have a lower grade of a C- accepted for one course for the  Robotics degree requirements. This includes courses counting towards the CoE Core Common Requirements, Teamwork in Robotics, Robotics Core, Discipline Breadth and Depth, Major Design, and Technical Electives. Students submitting a petition are encouraged to discuss how using the grade “token” can impact their degree plan with their academic advisor. The Associate Chair of Undergraduate Studies will review the petition with the feedback from the academic advisor and provide a decision to approve or deny the request. Only one petition will be approved to accept a C- for the degree requirements per undergraduate student for the overall degree program. If a petition is not approved, a student may submit another petition in a future term for a different course.
 
 For courses managed by ROB that require a minimum grade of C, students who meet the degree requirement with a C- under the Grade Minimum Exception policy are allowed to enroll in the course. These students can request an override from the SSO. For courses not managed by ROB that require a minimum grade of C, students with the C- will need to gain approval from the department who manages the course to enroll without meeting their grade minimum. Students should reach out to the department's advising office to be guided through their process of requesting this permission.
 
 To support timely schedule changes, the petition for a C- course exception should be submitted at least 2 weeks prior to the Add/Drop deadline in the semester following the term in which the C- is earned.
-
+</div>
 </div>
 
 ## College of Engineering Common Requirements
@@ -145,7 +148,7 @@ Residency requirements: At least 50 credits must be earned through the Universit
 | Discipline Depth | AEROSP 201, AEROSP 205, AEROSP 288, EECS 216, EECS 281, EECS 351,  EECS 370, EECS 373, IOE 333, IOE 434, MATSCIE 220, NAVARCH 270- *choose 1* | 3-4 |
 | Technical Electives |  | 18 total cr minimum |
 | 2 Upper Level Electives | Any two 300+ level ROB course; except ROB 490 | 6 crs min |
-| Flex Technical Electives | See Flex Tech  | 10-12 crs |
+| Flex Technical Electives | [See Flex Tech](/academics/undergraduate/degree-requirements#flexible-technical-electives)  | 10-12 crs |
 | TCHNCLCM 350 |  | 3 |
 | ROB 450 or EECS 467 |  | 4 |
 
@@ -153,28 +156,29 @@ Residency requirements: At least 50 credits must be earned through the Universit
 
 
 
-<div class="surface rounded-lg p-6 mb-6">
-### Teamwork in Robotics
-
-ROB 204  
-Take ROB 204 as soon as you can. This is the "gateway" course to all Intermediate and Upper Level Robotics Courses.  ROB 204 can be taken concurrently with ROB 300-level courses by permission of the 300-level course instructor. 
-
-</div>
-
-
-
-<div class="surface rounded-lg p-6 mb-6">
-### Robotics Core
-
-Robotics majors have five 300-level core courses to choose from. At minimum, three courses are required, but students have the option of taking additional courses.
-
-* ROB 310, ROB 311, ROB 320, ROB 330, ROB 340
-
-
-
-</div>   
+<div class="masonry-container lg:columns-2 lg:gap-6">
+  <div class="surface rounded-lg p-6 mb-6">
+    <h3>Teamwork in Robotics</h3>
+    <p class="font-medium mb-2">ROB 204</p>
+    <p>Take ROB 204 as soon as you can. This is the "gateway" course to all Intermediate and Upper Level Robotics Courses. ROB 204 can be taken concurrently with ROB 300-level courses by permission of the 300-level course instructor.</p>
+  </div>
+  
+  <div class="surface rounded-lg p-6 mb-6">
+    <h3>Robotics Core</h3>
+    <p class="mb-3">Robotics majors have five 300-level core courses to choose from. At minimum, three courses are required, but students have the option of taking additional courses.</p>
+    <ul class="space-y-1">
+      <li>ROB 310</li>
+      <li>ROB 311</li>
+      <li>ROB 320</li>
+      <li>ROB 330</li>
+      <li>ROB 340</li>
+    </ul>
+  </div>
   
 
+
+
+<div class="surface rounded-lg p-6 mb-6 break-inside-avoid">
 
 ### Discipline Breadth & Depth
 
@@ -191,6 +195,10 @@ To satisfy the **Discipline Depth** requirement, students must take one addition
 
 * AEROSP 201, AEROSP 205, AEROSP 288, EECS 216, EECS 281, EECS 351,  EECS 370, EECS 373, IOE 333, IOE 434, MATSCIE 220, NAVARCH 270
 
+</div>
+
+<div class="surface rounded-lg p-6 mb-6 break-inside-avoid">
+
 ### Major Design
 
 TCHNCLCM 350  
@@ -198,15 +206,19 @@ TCHNCLCM 350
 
 ROB 450 or EECS 467
 
+</div>
+
+<div class="surface rounded-lg p-6 mb-6 break-inside-avoid">
+
 ### Robotics Technical Electives
 
 One of the benefits of a Robotics degree is the ability to choose from a wide array of upper-level electives, allowing students to customize their degree plan to align with personal interests and skills. The flexibility of the upper level electives gives students the opportunity to explore diverse topics and develop interests and skills that will prepare students for active contributions within the field of robotics. Classes from a wide array of different fields can be highly beneficial in training a well-rounded roboticist given the highly interdisciplinary nature of robotics. Courses taken to fulfill this requirement must be graded and passed with a C or higher; these courses cannot be taken as Pass/Fail.
 
-**Upper Level Electives**
+#### Upper Level Electives
 
 Any 300-level or above [Robotics course](https://bulletin.engin.umich.edu/courses/robotics-courses/) may be used as an upper level technical elective for the Robotics Undergraduate Program.   Students must take two graded courses, a minimum of 6 total credits, to count towards their upper level technical electives. 
 
-**Flexible Technical Electives**
+#### Flexible Technical Electives
 
 Any 400-level course or above within the College of Engineering or any course counting for Mathematics or Physics 400-level credit or above at the University of Michigan may be used as a flexible technical elective for the Robotics Undergraduate Program. Further, any course listed for Disciplinary Depth can be used to count for flexible technical elective.   In addition, the following 200-level and 300-level courses listed below are approved as Flex Tech electives for Robotics. The Robotics Department may also approve additional courses to satisfy this requirement, which would be considered upon request by petition. If you have questions about using another course to satisfy these requirements, please contact your advisor.
 
@@ -230,6 +242,10 @@ Any 400-level course or above within the College of Engineering or any course co
 
 </Accordion>
 
+</div>
+
+<div class="surface rounded-lg p-6 mb-6 break-inside-avoid">
+
 ### Independent Study
 
 **ROB 490**  
@@ -237,7 +253,9 @@ Only 4 hours of directed/independent study or research courses (total across all
 
 **Multidisciplinary Design Program (MDP):** Every year the Robotics Department reviews all MDP projects and approves some of the projects to count towards your Flexible Technical Electives and this list will appear on the [MDP website](https://mdp.engin.umich.edu/). In order to use MDP credits towards the Flexible Technical Elective requirements, students must first enroll in 4 credits of ENGR 455 during the second semester of the project and then [submit a petition](https://deptapps.engin.umich.edu/petition/student/form?dept=210308) to make the request.
 
-	
+</div>
+
+</div>
 
 ## Robotics Sample Schedules
 
@@ -296,3 +314,6 @@ Beginning Winter 2026, students from institutions outside of the University of M
 
 * [2022 \- 2023 Program Guide](https://docs.google.com/document/d/1mLc6mq7kVDOuwgFreSjZbNgK11HxvJP9ZBdoVLOMagU/edit)  
 * [2023 \- 2024 Program Guide](https://docs.google.com/document/d/1jz026DZbXLocniGeJhpKFVNCqdh_cighDgWMU-ioWI0/edit#)
+
+## Questions
+ If while reading through these requirements you have any questions, please contact our <a href="/academics/student-services">Robotics Student Services team</a>.

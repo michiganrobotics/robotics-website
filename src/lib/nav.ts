@@ -32,15 +32,15 @@ export const mainNav: MenuItem[] = [
             childItems: {
               nodes: [
                 {
-                  label: "Program Requirements",
-                  uri: "/academics/undergraduate/program-requirements",
+                  label: "Degree Requirements",
+                  uri: "/academics/undergraduate/degree-requirements",
                   id: "academics-undergraduate-requirements",
                   childItems: { nodes: [] }
                 },
                 {
-                  label: "Advising & Scheduling", 
-                  uri: "/academics/undergraduate/scheduling",
-                  id: "academics-undergraduate-scheduling",
+                  label: "Advising", 
+                  uri: "/academics/undergraduate/advising",
+                  id: "academics-undergraduate-advising",
                   childItems: { nodes: [] }
                 },
                 {
@@ -336,20 +336,21 @@ export const subNavConfig: Record<string, SubNavItem[]> = {
       { title: "Admissions", href: "/academics/graduate/admissions" }
     ],
     'academics/undergraduate': [
-      { title: "Advising & scheduling", href: "/academics/undergraduate/scheduling" },
-      { title: "Program Requirements", href: "/academics/undergraduate/program-requirements" },
+      { title: "Advising", href: "/academics/undergraduate/advising" },
+      { title: "Degree Requirements", href: "/academics/undergraduate/degree-requirements" },
       { title: "Current Course Offerings", href: "/academics/courses/course-offerings" },
       { title: "Pathways Speaker Series", href: "/events/robotics-pathways-speaker-series" }
     ],
-    'academics/undergraduate/program-requirements': [
-      { title: "Robotics and College Requirements", href: "/academics/undergraduate/program-requirements#robotics-and-college-requirements", anchor: true },
-      { title: "Advising & Scheduling", href: "/academics/undergraduate/scheduling" },
+    'academics/undergraduate/degree-requirements': [
+      { title: "Advising", href: "/academics/undergraduate/advising" },
       { title: "Program Guide", href: "http://robotics.umich.edu/undergrad-guide", external: true }
     ],
-    'academics/undergraduate/scheduling': [
-      { title: "Program Requirements", href: "/academics/undergraduate/program-requirements" },
-      { title: "Sample Schedules", href: "/academics/undergraduate/scheduling#sample--editable-schedules", anchor: true },
-      { title: "Scheduling Advice", href: "/academics/undergraduate/scheduling#scheduling-advice", anchor: true },
+    'academics/undergraduate/advising': [
+      { title: "Degree Requirements", href: "/academics/undergraduate/degree-requirements" },
+      { title: "Tips & Advice", href: "/academics/undergraduate/advising#general-advising-tips-for-robotics-majors", anchor: true },
+      { title: "Sample Schedules", href: "/academics/undergraduate/advising#sample--editable-schedules", anchor: true },
+      { title: "Petitions", href: "/academics/undergraduate/advising#departmental-petitions", anchor: true },
+      { title: "Get Involved", href: "/academics/undergraduate/advising#join-our-community", anchor: true },
       { title: "Program Guide", href: "http://robotics.umich.edu/undergrad-guide", external: true }
     ],
     'academics/graduate/sugs': [
@@ -360,8 +361,8 @@ export const subNavConfig: Record<string, SubNavItem[]> = {
     ],
     'academics/undergraduate/sure': [
       { title: "SURE Projects", href: "/academics/undergraduate/sure#robotics-sure-projects", anchor: true },
-      { title: "Advising & Scheduling", href: "/academics/undergraduate/scheduling" },
-      { title: "Program Requirements", href: "/academics/undergraduate/program-requirements" }
+      { title: "Advising", href: "/academics/undergraduate/advising" },
+      { title: "Degree Requirements", href: "/academics/undergraduate/degree-requirements" }
     ],
     'people$': [
       { title: "Faculty", href: "/people/faculty" },

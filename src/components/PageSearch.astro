@@ -8,40 +8,46 @@ const { placeholder = "Search this page..." } = Astro.props;
 
 <div class="page-search-container">
   <div class="relative">
+    <label for="page-search" class="sr-only">Search this page</label>
     <input 
       type="text" 
       id="page-search"
       placeholder={placeholder}
-      class="search-bar pr-10 text-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-umichblue focus:border-transparent"
+      class="search-bar pr-10 text-gray-800 dark:text-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-maize focus:border-transparent"
+      role="searchbox"
+      aria-describedby="search-instructions search-results"
+      aria-expanded="false"
+      aria-autocomplete="none"
     />
-    <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+    <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none" aria-hidden="true">
       <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
       </svg>
     </div>
   </div>
-  <div id="search-results" class="hidden mt-2 text-xs text-gray-200 dark:text-neutral-300"></div>
-  <div id="floating-results" class="hidden fixed top-4 right-4 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg p-4 text-sm shadow-xl z-50 min-w-64">
+  <div id="search-instructions" class="sr-only">Type to search this page. Use Enter to cycle through results, Escape to clear search.</div>
+  <div id="search-results" class="hidden mt-2 text-xs text-gray-200 dark:text-neutral-300" role="status" aria-live="polite"></div>
+  <div id="floating-results" class="hidden fixed top-4 right-4 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg p-4 text-sm shadow-xl z-50 min-w-64" role="dialog" aria-label="Search results">
     <div class="flex items-start justify-between gap-3 mb-2">
       <div class="flex-1">
-        <div class="font-semibold text-gray-900 dark:text-white mb-1">
-          Searching <span id="search-term" class="bg-maize text-umichblue px-1.5 py-0.5 rounded font-mono text-xs"></span>
+        <div class="font-semibold text-gray-900 dark:text-gray-100 mb-1">
+          Searching <span id="search-term" class="bg-maize text-umichblue px-1.5 py-0.5 rounded font-mono text-xs" aria-label="search term"></span>
         </div>
-        <div id="match-info" class="text-gray-600 dark:text-gray-300 text-xs"></div>
+        <div id="match-info" class="text-gray-600 dark:text-gray-300 text-xs" role="status" aria-live="polite"></div>
       </div>
-      <button id="close-floating" class="text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300 text-lg leading-none">&times;</button>
+      <button id="close-floating" class="text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300 text-lg leading-none" aria-label="Close search results">&times;</button>
     </div>
     <div class="border-t border-gray-200 dark:border-gray-600 pt-2">
       <!-- Desktop keyboard instructions -->
-      <div class="hidden md:block text-xs text-gray-500 dark:text-gray-400">
+      <div class="hidden md:block text-xs text-gray-600 dark:text-gray-200" aria-label="Keyboard shortcuts">
         <kbd class="bg-gray-100 dark:bg-gray-700 px-1.5 py-0.5 rounded text-xs">Enter</kbd> next result • <kbd class="bg-gray-100 dark:bg-gray-700 px-1.5 py-0.5 rounded text-xs">Esc</kbd> close
       </div>
       <!-- Mobile tap buttons -->
-      <div class="md:hidden flex gap-2">
-        <button id="next-match-btn" class="flex-1 bg-umichblue text-white px-3 py-1.5 rounded text-xs font-medium hover:bg-umichblue/90 transition-colors">
+      <div class="md:hidden flex gap-2" role="group" aria-label="Search navigation">
+        <button id="next-match-btn" class="flex-1 bg-umichblue dark:bg-none dark:border-arboretumBlue dark:border-2 text-white px-3 py-1.5 rounded text-xs font-medium hover:bg-umichblue/90 dark:hover:bg-arboretumBlue/50 transition-colors" aria-label="Go to next search result">
           Next Result
         </button>
-        <button id="close-search-btn" class="bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300 px-3 py-1.5 rounded text-xs font-medium hover:bg-gray-300 dark:hover:bg-gray-500 transition-colors">
+        <button id="close-search-btn" class="bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-200 px-3 py-1.5 rounded text-xs font-medium hover:bg-gray-300 dark:hover:bg-gray-500 transition-colors" aria-label="Close search">
           Close
         </button>
       </div>
@@ -134,7 +140,19 @@ const { placeholder = "Search this page..." } = Astro.props;
     const searchResults = document.getElementById('search-results');
     
     if (!query || query.length < 2) {
-      clearSearch();
+      // Only clear highlights and results, don't clear the input
+      clearHighlights();
+      currentMatches = [];
+      currentIndex = 0;
+      currentSearchTerm = '';
+      
+      const floatingResults = document.getElementById('floating-results');
+      if (searchResults) {
+        searchResults.classList.add('hidden');
+      }
+      if (floatingResults) {
+        floatingResults.classList.add('hidden');
+      }
       return;
     }
     
@@ -170,14 +188,17 @@ const { placeholder = "Search this page..." } = Astro.props;
     });
     
     // Update results display
+    const searchInput = document.getElementById('page-search');
     if (currentMatches.length > 0) {
       searchResults.textContent = `${currentMatches.length} match${currentMatches.length !== 1 ? 'es' : ''} found`;
       searchResults.classList.remove('hidden');
+      if (searchInput) searchInput.setAttribute('aria-expanded', 'true');
       currentIndex = 0;
       scrollToCurrentMatch();
     } else {
       searchResults.textContent = 'No matches found';
       searchResults.classList.remove('hidden');
+      if (searchInput) searchInput.setAttribute('aria-expanded', 'true');
     }
   }
   
@@ -235,6 +256,7 @@ const { placeholder = "Search this page..." } = Astro.props;
     }
     if (searchInput) {
       searchInput.value = '';
+      searchInput.setAttribute('aria-expanded', 'false');
     }
     if (floatingResults) {
       floatingResults.classList.add('hidden');

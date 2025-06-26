@@ -6,22 +6,26 @@ interface Props {
 const { sections } = Astro.props;
 ---
 
-<div class="mb-8 lg:sticky lg:top-0 lg:z-10 not-prose" id="toc-container">
+<nav class="mb-8 lg:sticky lg:top-0 lg:z-10 not-prose" id="toc-container" aria-label="Table of contents">
   <div class="surface-secondary dark:!bg-arboretumBlue/95 !border-0 !border-t-2 !border-maize rounded-b-lg p-2 pb-4 transition-all duration-300" id="toc-content">
-    <h3 class="font-semibold mb-1 ml-4">Topics</h3>
-    <div class="ml-4 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-1 text-sm">
+    <h3 class="font-semibold mb-1 ml-4" id="toc-heading">Topics</h3>
+    <ul class="ml-4 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-1 text-sm list-none" role="list" aria-labelledby="toc-heading">
       {sections.map(section => (
-        <a 
-          href={`#${section.id}`} 
-          class="toc-link transition-all duration-200 py-1 px-2 rounded" 
-          data-section={section.id}
-        >
-          {section.title}
-        </a>
+        <li>
+          <a 
+            href={`#${section.id}`} 
+            class="toc-link transition-all duration-200 py-1 px-2 rounded block" 
+            data-section={section.id}
+            aria-describedby="toc-instructions"
+          >
+            {section.title}
+          </a>
+        </li>
       ))}
-    </div>
+    </ul>
+    <div id="toc-instructions" class="sr-only">Navigate to page sections. Current section is highlighted.</div>
   </div>
-</div>
+</nav>
 
 <style>
   @reference "../styles/global.css";
@@ -43,14 +47,22 @@ const { sections } = Astro.props;
     
     let currentSection = '';
     
-    // Find which section is currently in view
-    for (let i = sections.length - 1; i >= 0; i--) {
-      const element = document.getElementById(sections[i]);
-      if (element) {
-        const rect = element.getBoundingClientRect();
-        if (rect.top <= 150) { // Account for sticky header offset
-          currentSection = sections[i];
-          break;
+    // Check if we're near the bottom of the page
+    const isNearBottom = (window.innerHeight + window.scrollY) >= document.body.offsetHeight - 80;
+    
+    if (isNearBottom && sections.length > 0) {
+      // If near bottom, highlight the last section
+      currentSection = sections[sections.length - 1];
+    } else {
+      // Find which section is currently in view
+      for (let i = sections.length - 1; i >= 0; i--) {
+        const element = document.getElementById(sections[i]);
+        if (element) {
+          const rect = element.getBoundingClientRect();
+          if (rect.top <= 150) { // Account for sticky header offset
+            currentSection = sections[i];
+            break;
+          }
         }
       }
     }
@@ -60,8 +72,10 @@ const { sections } = Astro.props;
       const section = link.getAttribute('data-section');
       if (section === currentSection) {
         link.classList.add('active');
+        link.setAttribute('aria-current', 'location');
       } else {
         link.classList.remove('active');
+        link.removeAttribute('aria-current');
       }
     });
   }
