@@ -1,0 +1,163 @@
+---
+// ResourceFilter.astro - Simple filtering for robodex resources
+---
+
+<style>
+.resource-card {
+  transition: all 0.3s ease;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.resource-card.hidden {
+  opacity: 0;
+  transform: translateY(-10px);
+  pointer-events: none;
+}
+
+.filter-btn {
+  transition: all 0.2s ease;
+}
+
+.filter-btn:hover {
+  transform: translateY(-1px);
+}
+
+button.filter-btn.active {
+  background-color: #FFCB05 !important;
+  color: #00274C !important;
+  border-color: #FFCB05 !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 12px rgba(255, 203, 5, 0.3) !important;
+  font-weight: 600 !important;
+  backdrop-filter: none !important;
+}
+
+button.filter-btn.active:hover {
+  background-color: #FFCB05 !important;
+  color: #00274C !important;
+}
+
+.resource-count {
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.description-text {
+  color: rgb(107 114 128);
+  font-style: italic;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  margin-top: 0.5rem;
+  padding-left: 1rem;
+  border-left: 3px solid rgba(255, 203, 5, 0.3);
+  transition: all 0.2s ease;
+}
+
+.dark .description-text {
+  color: rgb(156 163 175);
+}
+
+.resource-card:hover .description-text {
+  border-left-color: rgba(255, 203, 5, 0.8);
+  padding-left: 1.25rem;
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const filterButtons = document.querySelectorAll('.filter-btn');
+  const resourceCards = document.querySelectorAll('.resource-card');
+  let activeFilter = 'all';
+  
+  // Set initial state
+  updateActiveButtons();
+  updateCount();
+  
+  filterButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      const filter = this.getAttribute('data-filter');
+      console.log('Button clicked:', filter, 'Current active filter:', activeFilter);
+      
+      // Set the new active filter
+      activeFilter = filter;
+      
+      console.log('New active filter:', activeFilter);
+      
+      // Update active buttons
+      updateActiveButtons();
+      
+      // Filter cards
+      filterCards();
+      
+      // Update count
+      updateCount();
+    });
+  });
+  
+  function updateActiveButtons() {
+    filterButtons.forEach(btn => {
+      const filter = btn.getAttribute('data-filter');
+      if (filter === activeFilter) {
+        btn.classList.add('active');
+        // Force the styling with direct style application
+        btn.style.backgroundColor = '#FFCB05';
+        btn.style.color = '#00274C';
+        btn.style.borderColor = '#FFCB05';
+        btn.style.fontWeight = '600';
+        btn.style.transform = 'translateY(-1px)';
+        btn.style.boxShadow = '0 4px 12px rgba(255, 203, 5, 0.3)';
+      } else {
+        btn.classList.remove('active');
+        // Reset to original styling
+        btn.style.backgroundColor = '';
+        btn.style.color = '';
+        btn.style.borderColor = '';
+        btn.style.fontWeight = '';
+        btn.style.transform = '';
+        btn.style.boxShadow = '';
+      }
+    });
+  }
+  
+  function filterCards() {
+    resourceCards.forEach(card => {
+      const categories = card.getAttribute('data-categories') || '';
+      const categoryList = categories.split(' ');
+      
+      const shouldShow = activeFilter === 'all' || categoryList.includes(activeFilter);
+      
+      if (shouldShow) {
+        card.classList.remove('hidden');
+        card.style.display = 'block';
+      } else {
+        card.classList.add('hidden');
+        setTimeout(() => {
+          if (card.classList.contains('hidden')) {
+            card.style.display = 'none';
+          }
+        }, 300);
+      }
+    });
+  }
+  
+  function updateCount() {
+    const visibleCards = document.querySelectorAll('.resource-card:not(.hidden)');
+    let countElement = document.querySelector('.resource-count');
+    
+    if (!countElement) {
+      countElement = document.createElement('div');
+      countElement.className = 'resource-count text-sm text-gray-500 dark:text-gray-400 text-center mt-6';
+      document.querySelector('.masonry-container').parentNode.appendChild(countElement);
+    }
+    
+    const count = visibleCards.length;
+    const totalCount = resourceCards.length;
+    countElement.innerHTML = `Showing ${count} of ${totalCount} resources<br><small class="text-xs">Active filter: ${activeFilter}</small>`;
+  }
+});
+</script>

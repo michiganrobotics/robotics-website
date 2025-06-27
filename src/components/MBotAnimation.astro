@@ -1,0 +1,122 @@
+---
+// MBotAnimation.astro - Animated MBots around stats card
+---
+
+<style>
+@keyframes orbit-around-with-fadein {
+  0% {
+    transform: translateX(-170px) translateY(0px);
+    opacity: 0;
+    z-index: 20;
+  }
+  33% {
+    transform: translateX(170px) translateY(0px);
+    opacity: 1;
+    z-index: 20;
+  }
+  46% {
+    transform: translateX(220px) translateY(12px);
+    opacity: 0.7;
+    z-index: 5;
+  }
+  66% {
+    transform: translateX(0px) translateY(24px);
+    opacity: 0.6;
+    z-index: 5;
+  }
+  86% {
+    transform: translateX(-220px) translateY(12px);
+    opacity: 0.7;
+    z-index: 5;
+  }
+  100% {
+    transform: translateX(-170px) translateY(0px);
+    opacity: 1;
+    z-index: 20;
+  }
+}
+
+@keyframes orbit-around {
+  0% {
+    transform: translateX(-170px) translateY(0px);
+    opacity: 1;
+    z-index: 20;
+  }
+  33% {
+    transform: translateX(170px) translateY(0px);
+    opacity: 1;
+    z-index: 20;
+  }
+  46% {
+    transform: translateX(220px) translateY(12px);
+    opacity: 0.7;
+    z-index: 5;
+  }
+  66% {
+    transform: translateX(0px) translateY(24px);
+    opacity: 0.6;
+    z-index: 5;
+  }
+  86% {
+    transform: translateX(-220px) translateY(12px);
+    opacity: 0.7;
+    z-index: 5;
+  }
+  100% {
+    transform: translateX(-170px) translateY(0px);
+    opacity: 1;
+    z-index: 20;
+  }
+}
+
+.mbot {
+  animation: orbit-around-with-fadein 12s linear 1, orbit-around 12s linear infinite 12s;
+}
+
+.mbot:hover {
+  animation-play-state: paused;
+  cursor: pointer;
+}
+
+.mbot img:hover {
+  transform: scale(1.1);
+  transition: transform 0.2s ease;
+}
+
+/* Accessibility: Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .mbot {
+    animation: fade-in 1s ease-in forwards;
+    transform: translateX(-170px) translateY(0px);
+    z-index: 20;
+  }
+}
+</style>
+
+<div class="relative mb-6">
+  <button 
+    class="mbot absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 border-0 bg-transparent p-0" 
+    onclick="window.open('https://mbot.robotics.umich.edu', '_blank')"
+    aria-label="Visit MBot website - Learn more about the MBot robots used in our courses"
+    title="Click to learn more about MBot robots"
+  >
+    <img src="/illustrations/mbot.png" alt="MBot robot orbiting around statistics" class="w-full h-full object-contain" />
+  </button>
+  
+  <div class="surface-secondary p-6 rounded-lg w-full max-w-xs relative z-10">
+    <div class="grid grid-cols-1 gap-6 text-center">
+      <div>
+        <div class="text-3xl font-bold mb-2 text-maize">200+</div>
+        <div class="text-sm">undergraduate students</div>
+      </div>
+      <div>
+        <div class="text-3xl font-bold text-maize mb-2">300+</div>
+        <div class="text-sm">MBots supporting our courses</div>
+      </div>
+      <div>
+        <div class="text-3xl font-bold text-maize mb-2">18</div>
+        <div class="text-sm">credits of technical electives to customize your robotics degree</div>
+      </div>
+    </div>
+  </div>
+</div>

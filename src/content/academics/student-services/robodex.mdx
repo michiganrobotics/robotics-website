@@ -1,0 +1,167 @@
+---
+title: Student Robodex
+subtitle: An index of Robotics student resources
+image:
+  src: "/src/content/academics/images/student-services.jpg"
+  alt: Students study in the Robotics Building atrium
+order: 2
+
+---
+import ResourceFilter from '../../../components/ResourceFilter.astro';
+
+<div class="filter-section bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-lg p-6 mb-6 border border-gray-200 dark:border-gray-700">
+  
+  <div class="mb-6">
+    <h3 class="text-lg font-semibold mb-3 text-umichblue dark:text-maize">What program are you in?</h3>
+    <div class="flex flex-wrap gap-3">
+      <button class="filter-btn bg-white/80 dark:bg-gray-800/80 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-full text-sm font-medium shadow-md backdrop-blur-sm border border-gray-200 dark:border-gray-600 transition-all duration-200 hover:bg-maize hover:text-umichblue" data-filter="undergraduate">Undergraduate</button>
+      <button class="filter-btn bg-white/80 dark:bg-gray-800/80 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-full text-sm font-medium shadow-md backdrop-blur-sm border border-gray-200 dark:border-gray-600 transition-all duration-200 hover:bg-maize hover:text-umichblue" data-filter="graduate">Graduate</button>
+      <button class="filter-btn bg-white/80 dark:bg-gray-800/80 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-full text-sm font-medium shadow-md backdrop-blur-sm border border-gray-200 dark:border-gray-600 transition-all duration-200 hover:bg-maize hover:text-umichblue" data-filter="masters">Master's</button>
+      <button class="filter-btn bg-white/80 dark:bg-gray-800/80 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-full text-sm font-medium shadow-md backdrop-blur-sm border border-gray-200 dark:border-gray-600 transition-all duration-200 hover:bg-maize hover:text-umichblue" data-filter="phd">PhD</button>
+    </div>
+  </div>
+
+  <div class="mb-4">
+    <h3 class="text-lg font-semibold mb-3 text-umichblue dark:text-maize">What do you need help with?</h3>
+    <div class="flex flex-wrap gap-3 mb-4">
+      <button class="filter-btn bg-white/80 dark:bg-gray-800/80 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-full text-sm font-medium shadow-md backdrop-blur-sm border border-gray-200 dark:border-gray-600 transition-all duration-200 hover:bg-maize hover:text-umichblue" data-filter="all">All Resources</button>
+      <button class="filter-btn bg-white/80 dark:bg-gray-800/80 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-full text-sm font-medium shadow-md backdrop-blur-sm border border-gray-200 dark:border-gray-600 transition-all duration-200 hover:bg-maize hover:text-umichblue" data-filter="academic">Academic Support</button>
+      <button class="filter-btn bg-white/80 dark:bg-gray-800/80 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-full text-sm font-medium shadow-md backdrop-blur-sm border border-gray-200 dark:border-gray-600 transition-all duration-200 hover:bg-maize hover:text-umichblue" data-filter="career">Career & Jobs</button>
+      <button class="filter-btn bg-white/80 dark:bg-gray-800/80 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-full text-sm font-medium shadow-md backdrop-blur-sm border border-gray-200 dark:border-gray-600 transition-all duration-200 hover:bg-maize hover:text-umichblue" data-filter="community">Community & Life</button>
+      <button class="filter-btn bg-white/80 dark:bg-gray-800/80 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-full text-sm font-medium shadow-md backdrop-blur-sm border border-gray-200 dark:border-gray-600 transition-all duration-200 hover:bg-maize hover:text-umichblue" data-filter="support">Support & Wellness</button>
+      <button class="filter-btn bg-white/80 dark:bg-gray-800/80 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-full text-sm font-medium shadow-md backdrop-blur-sm border border-gray-200 dark:border-gray-600 transition-all duration-200 hover:bg-maize hover:text-umichblue" data-filter="research">Research & Projects</button>
+      <button class="filter-btn bg-white/80 dark:bg-gray-800/80 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-full text-sm font-medium shadow-md backdrop-blur-sm border border-gray-200 dark:border-gray-600 transition-all duration-200 hover:bg-maize hover:text-umichblue" data-filter="international">International Students</button>
+    </div>
+  </div>
+  
+</div>
+
+<div class="masonry-container lg:columns-2 lg:gap-6">
+
+<div class="resource-card surface rounded-lg p-6 mb-6 break-inside-avoid" data-categories="all community career undergraduate graduate masters phd international">
+### Email Lists & Communication
+- <a href="https://documentation.its.umich.edu/node/352#JoinResign" title="joining">How to join/leave email lists</a>
+  <div class="description-text">Step-by-step instructions for managing your email subscriptions and staying connected with the robotics community</div>
+- <a href="https://mcommunity.umich.edu/group/Robotics%20Events" title="Robotics Events">Robotics Events List</a>
+  <div class="description-text">Get notified about workshops, guest speakers, networking events, and special department activities</div>
+- <a href="https://mcommunity.umich.edu/group/Robotics%20Jobs" title="Robotics Jobs">Robotics Jobs List</a>
+  <div class="description-text">Receive curated internship opportunities, full-time positions, and research openings in robotics</div>
+</div>
+
+<div class="resource-card surface rounded-lg p-6 mb-6 break-inside-avoid" data-categories="all academic undergraduate graduate masters phd">
+### Course Planning & Registration
+- [Current Term Courses](https://robotics.umich.edu/academics/courses/course-offerings)
+  <div class="description-text">Browse all robotics courses offered this semester, including prerequisites and enrollment information</div>
+- [Course Registration Guide](https://robotics.umich.edu/academics/student-services/registering-for-classes/)
+  <div class="description-text">Comprehensive step-by-step instructions for adding, dropping, and waitlisting classes</div>
+- [Course Approval Request](https://forms.gle/tX4umSrkaegPcMxc9)
+  <div class="description-text">Request special permission for courses with enrollment restrictions or unique circumstances</div>
+</div>
+
+<div class="resource-card surface rounded-lg p-6 mb-6 break-inside-avoid" data-categories="all academic undergraduate graduate masters phd">
+### Program Guides & Requirements
+- [Undergraduate Program Guide](http://robotics.umich.edu/undergrad-guide)
+  <div class="description-text">Your essential roadmap to the Robotics BSE degree, including all requirements, electives, and planning strategies</div>
+- [Graduate Program Manual](https://docs.google.com/document/d/e/2PACX-1vTCjWRdEl4wM_n4oIU875yAzzG_4tBdmqnJcj4gNntgyG3Q5LY0qw_J_ei5nqmMEi1ljJpfvLbGCzdJ/pub)
+  <div class="description-text">Comprehensive guide covering all Master's and PhD requirements, policies, and milestone timelines</div>
+- [MS Degree Worksheet](http://robotics.umich.edu/ms-degree-worksheet/)
+  <div class="description-text">Interactive tool to track your Master's degree progress and ensure you're meeting all requirements</div>
+- [Sequential Undergraduate/Graduate Studies (SUGS)](https://robotics.umich.edu/academics/graduate/sugs/)
+  <div class="description-text">Fast-track your education with this accelerated 5-year combined Bachelor's and Master's program</div>
+</div>
+
+<div class="resource-card surface rounded-lg p-6 mb-6 break-inside-avoid" data-categories="all academic undergraduate graduate masters phd">
+### Academic Advising & Support
+- [Graduate Advising](https://robotics.umich.edu/academics/graduate/graduate-advising/)
+  <div class="description-text">Academic support for MS and PhD students including course planning and milestone guidance</div>
+- [Scheduling and Advising Information](https://robotics.umich.edu/academics/undergraduate/scheduling/)
+  <div class="description-text">Undergraduate academic advising resources and appointment scheduling</div>
+- [Undergrad Q&A Piazza](http://piazza.com/umich/winter2022/roboticsugqa)
+  <div class="description-text">Student discussion forum for questions and peer-to-peer support</div>
+</div>
+
+<div class="resource-card surface rounded-lg p-6 mb-6 break-inside-avoid" data-categories="all support graduate masters phd">
+### Funding & Financial Support
+- [Funding for Graduate Students](https://robotics.umich.edu/academics/graduate/admissions/funding-for-graduate-students/)
+  <div class="description-text">Information on assistantships, fellowships, and grants to support your graduate education</div>
+</div>
+
+<div class="resource-card surface rounded-lg p-6 mb-6 break-inside-avoid" data-categories="all research academic graduate masters phd">
+### Research & Independent Study
+- [ROB 590/690 Proposal Form](https://docs.google.com/forms/d/e/1FAIpQLSea5YctmfxwoRBWPfQxC6n1Pw8-SU2IHf8MXTZQ09rNmhu_CA/viewform?usp=sf_link)
+  <div class="description-text">Submit proposals for independent study courses and research projects with faculty mentors</div>
+</div>
+
+<div class="resource-card surface rounded-lg p-6 mb-6 break-inside-avoid" data-categories="all academic graduate masters phd">
+### Degree Transitions & Advanced Options
+- [MS to PhD Admission Process](https://robotics.umich.edu/academics/student-services/ms-to-phd-admission-process-and-instructions/) - process for continuing from Master's to doctoral study
+- [Dual Degree Instructions](https://robotics.umich.edu/academics/graduate/admissions/add-a-degreedual-degree-instructions/) - how to add a second degree program
+- [Transfer of Credit](https://docs.google.com/document/d/e/2PACX-1vTCjWRdEl4wM_n4oIU875yAzzG_4tBdmqnJcj4gNntgyG3Q5LY0qw_J_ei5nqmMEi1ljJpfvLbGCzdJ/pub#h.3whwml4) - apply previous coursework toward your degree
+</div>
+
+<div class="resource-card surface rounded-lg p-6 mb-6 break-inside-avoid" data-categories="all graduate phd">
+### PhD Resources
+- [Dissertation Committee & Thesis Proposal](https://robotics.umich.edu/academics/student-services/dissertation-committee-formation-and-proposal/)
+- [Completing Rackham's Doctoral Degree Requirements](https://rackham.umich.edu/navigating-your-degree/completing-doctoral-degree-requirements/#before)
+- [Rackham Doctoral Degree Deadlines](http://www.rackham.umich.edu/current-students/policies/doctoral/phd-students/doctoral-degree-deadlines)
+- [Rackham Dissertation Handbook](https://www.rackham.umich.edu/downloads/oard-dissertation-handbook.pdf) 
+- [Changing PhD Advisors](https://drive.google.com/file/d/1DikoqwrhSeiqFP0AtCHjrlOMc2eSeomT/view?usp=sharing)
+</div>
+
+<div class="resource-card surface rounded-lg p-6 mb-6 break-inside-avoid" data-categories="all undergraduate graduate masters phd international">
+### International Student Resources
+- [International Center](https://internationalcenter.umich.edu/)
+- [CPT/OPT Instructions](https://robotics.umich.edu/academics/student-services/cptopt-instructions/)
+- [Reduced Course Load](https://robotics.umich.edu/academics/student-services/reduced-course-load/)
+- [I-20 Extensions](https://robotics.umich.edu/academics/student-services/i-20-extensions/)
+</div>
+
+<div class="resource-card surface rounded-lg p-6 mb-6 break-inside-avoid" data-categories="all career community undergraduate graduate masters phd">
+### Student Employment & Work
+- [Information on working for the department as a student](/academics/student-services/student-appointments/) - TA, RA, and staff positions within robotics
+</div>
+
+<div class="resource-card surface rounded-lg p-6 mb-6 break-inside-avoid" data-categories="all community undergraduate graduate masters phd">
+### Outreach & Community Impact
+- [Outreach Opportunities](https://docs.google.com/spreadsheets/d/19nhZK_DM6uF_YKqY0mlQarLoiZuDJGgBw6g0dWkxZkg/edit?usp=sharing) - volunteer for school visits, demos, and community events
+- [Outreach Ambassador Hours Reporting Form](https://docs.google.com/forms/d/e/1FAIpQLScCeyhrKtlSWBLor1DH4_sU_4uYzYV7KAovBGjg21VLFpDQZQ/viewform) - log your volunteer hours
+</div>
+
+<div class="resource-card surface rounded-lg p-6 mb-6 break-inside-avoid" data-categories="all support undergraduate graduate masters phd international">
+### Safety, Wellness & Support
+- [Find help through the C.A.R.E. Center](https://care.engin.umich.edu/student-support-services/) - confidential academic, personal, and financial support
+- [Reporting concerns or misconduct](/academics/student-services/reporting-concerns-and-misconduct/) - safe and confidential reporting options
+</div>
+
+<div class="resource-card surface rounded-lg p-6 mb-6 break-inside-avoid" data-categories="all academic support undergraduate graduate masters phd">
+### University-Wide Resources
+- [Academic Calendar & Add-Drop Deadlines](https://ro.umich.edu/calendars) - important semester dates and registration deadlines
+- [Engineering Course Guide](https://bulletin.engin.umich.edu/courses/) - complete catalog of College of Engineering courses
+- [Robotics Research Guide](https://guides.lib.umich.edu/robotics) - library resources for robotics research
+- [Rackham New Student Guide](http://www.rackham.umich.edu/current-students/life-at-michigan/guide) - essential information for new graduate students
+- [Rackham Graduate School Academic Policies](http://www.rackham.umich.edu/current-students/policies) - official graduate school policies
+- [Teaching Support (CRLT)](https://crlt.umich.edu/programs-services/graduate-students-post-docs) - teaching development for graduate students and postdocs
+</div>
+
+<div class="resource-card surface rounded-lg p-6 mb-6 break-inside-avoid" data-categories="all community undergraduate graduate masters phd">
+### Share Your Success & Get Materials
+- [Robotics Communications resources](https://drive.google.com/drive/folders/16Y-QifDAcqtZNPigTK2OjXLLWW0DJFM5?usp=share_link) - official slides, templates, and logos for presentations
+- [Submit your story/achievement](https://docs.google.com/forms/d/e/1FAIpQLSems8fcRc8jlR-B_PlLu85P8rqzjwC-b59lyJmXVZu9xF6UOg/viewform) - share your accomplishments with the department
+</div>
+
+<div class="resource-card surface rounded-lg p-6 mb-6 break-inside-avoid" data-categories="all career undergraduate graduate masters phd">
+### Career Development & Job Search
+- [Engineering Career Resource Center](http://career.engin.umich.edu/) - resume help, job fairs, and career coaching
+- [Robotics Pathways & Careers Speaker Series](https://robotics.umich.edu/events/robotics-pathways-speaker-series/) - learn from industry professionals about career paths
+</div>  
+
+<div class="resource-card surface rounded-lg p-6 mb-6 break-inside-avoid" data-categories="all community undergraduate graduate masters phd">
+### Student Organizations & Community
+- [Robotics Undergraduate Student Council (RUSC)](https://robotics.umich.edu/academics/student-services/robotics-undergraduate-student-council/) - undergraduate student government and community
+- [Robotics Graduate Student Council (RGSC)](https://robotics.umich.edu/academics/student-services/robotics-graduate-student-council/) - graduate student government and community
+- [Join the Undergrad Info Email List](https://mcommunity.umich.edu/group/Robotics%20Undergraduate%20Info) - stay connected with undergraduate announcements
+</div>
+
+</div>
+
+<ResourceFilter />

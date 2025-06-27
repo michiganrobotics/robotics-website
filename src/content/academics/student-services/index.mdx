@@ -12,144 +12,45 @@ import StaffList from '../../../components/StudentServicesStaff.astro';
 import { Image } from 'astro:assets';
 import janne from '../images/janne.jpeg';
 import trushant from '../images/trushant.jpg';
-import rob311 from '../images/rob311.jpg';
+import studentServices from "../images/student-services-landing.jpg";
 
 import AcademicSearch from '../../../components/AcademicSearch.astro';
 
 
-<TwoColumn>
-<div slot="left">
-
 Our dedicated team is here to support Robotics students through every step of their academic path with needs like registration and enrollment help, academic advising, referrals, filling out forms, letter requests, and more. 
+
+<figure>
+<Image 
+    src={studentServices} 
+    alt="The Student Services staff poses in front of a large Block M" 
+    class="float-right md:m-4 w-full md:w-1/2 h-auto dark:brightness-90"
+/>
+</figure>
 
 If you have a question and aren't sure where to begin looking for an answer, come see us – we're happy to help! Our offices are located on the third floor of the Ford Robotics Building (FRB). 
 
-<p class="not-prose mb-2">Or you might find an answer by **searching across our academic pages**:</p>
-<div class="mt-0 mb-6">
-  <AcademicSearch />
-</div>
-
-## Email inquiries
-
-You can contact us via email at robotics-sso@umich.edu. Our team is committed to providing timely responses to all your questions and during peak advising times during the school year. Email is the quickest way to receive a response, and is best for things like letter requests, waitlist inquiries, and other items not requiring an appointment.
-</div>
 
 
 
-<div slot="right">
-<figure>
-<Image 
-    src={rob311} 
-    alt="Two students watch their ballbot balance on top of a basketball, one holding a leash in case it falls." 
-    class="w-full h-auto dark:brightness-90"
-/>
-<figcaption>The end of term Ball-bot Competition in Robotics 311 in the atrium of the Ford Robotics Building.</figcaption>
-</figure>
-
-</div>
-</TwoColumn>
-<Callout type="info">
-<h2 class="my-2 text-3xl not-prose font-bold font-roboto">Prospective students</h2>
-
-This page is only meant to serve current students. For information on the applying to the Robotics program and what it offers, please see the following links:
-- [Undergraduate Program](https://robotics.umich.edu/academics/undergraduate/)
-- [Graduate Program Admissions](https://robotics.umich.edu/academics/graduate/admissions/)
-- Questions: [robotics-sso@umich.edu](mailto:robotics-sso@umich.edu)
-
-</Callout>
-
-## Academic advising for current Michigan Robotics students
-
-<TwoColumn>
-<div slot="left">
-
-### Undergraduate advising
-
-To schedule an appointment with our undergraduate academic advisors, please visit our online scheduling portal. Our staff advisors are available to meet remotely and in-person throughout the calendar year.
-
-Before scheduling an appointment, you might find an easy answer in [Undergraduate Student Advising Frequently Asked Questions](https://docs.google.com/document/d/1C2yH4iB3OYoQRcv61bLOFCD7Wj-TIxx2t5rTvDrlXe8/edit?usp=sharing).
-
-<MaizeButton href="https://myadvising.lsa.umich.edu/appointments/offices/ROB" text="Schedule undergraduate advising" />
-
-<Accordion title="Who can I meet with for undergraduate advising?" id="undergraduate-who" headingLevel="h4">
-
-#### Staff Advisors
-Kyle and Terran are available to handle questions regarding course planning, course enrollment, degree audits, declaring Robotics, exploring ways to get involved, and connecting to various University resources.
-
-#### Faculty Advisors
-Faculty advisors are also available during the school year to handle questions that are more technical and career-oriented regarding in the field of Robotics, answering questions about industry, graduate school, and technical, course content.
-
-#### Drop-In Advising
-Virtual drop-In advising is available for undergraduate students during the Fall and Winter terms who have quick questions. For meetings that need more than 10-15 minutes, students may be asked to reschedule for a longer appointment at a later time which can be scheduled using the link above.
-
-<em>See <a href="https://robotics.umich.edu/academics/undergraduate/scheduling/">drop-in advising schedule and more on undergraduate advising</a>.</em>
-</Accordion>
-</div>
-
-<div slot="right">
-
-### Graduate advising
-
-To schedule an appointment with our Graduate Coordinator as a current U-M student, please use the link below:
-
-<MaizeButton href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ1E0VJtfmo_M311KoH6lvwpse0KXT3S3rOWmXgEJANBqSEb2CNN98VRfcx35gS_awA9t8u1evZ_" text="Schedule graduate advising" />
-
-Our Graduate Coordinator is available to meet remotely and in-person throughout the calendar year.
-
-<Accordion title="Who can I meet with for graduate advising?" id="graduate-who" headingLevel="h4">
-
-#### Graduate Coordinator
-For current U-M students, Denise is available to handle questions regarding degree requirements, navigating policies and challenging situations, forms and letter requests, fellowships, and connecting to various University resources.
-
-<em>See <a href="/academics/graduate/graduate-advising#graduate-program-coordinator">more on Graduate Coordinator advising</a>.</em>
-{/* 
-#### Peer Advisors
-Peer Advisors are current Robotics students who are able to help answer questions regarding course selection, and providing personal insight into student and campus life as a graduate student in the College of Engineering.
-
-<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-
-<div class="flex flex-col">
-
-<Image src={trushant} alt="Trushant Adeshara" width={200} height={200} class="rounded-lg shadow-lg"  />
-
-###### Trushant Adeshara
-
-Trushant is available on Tuesdays and Thursdays from 3pm to 5pm through Zoom or in the 3rd Floor Collaboration Space.
-
-<MaizeButton href="https://calendly.com/trushant-adeshara/peer-advisor-office-hours" text="Schedule with Trushant" />
-</div>
-
-<div class="flex flex-col">
-
-<Image src={janne} alt="Nick Jänne" width={200} height={200} class="rounded-lg shadow-lg"  />
-
-###### Nick Jänne
-
-Nick is available on Wednesdays 3:00-5:00PM and Thursdays 1:00-3:00PM in the 2rd Floor Collaboration Space.
-
-<MaizeButton href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ0x-CCDIXJdCsPxRIEMnWe2SSrJ1ZNN0Yyb9dZtq_1LrYxbjw2AJmIxW3KsDBIG5susBhtEOtAT" text="Schedule with Nick" />
-</div>
 
 
+## Contact us
 
-</div>
-<em>See <a href="/academics/graduate/graduate-advising#graduate-peer-advising">more on peer advisors</a>.</em> */}
+### Email
+You can contact us via email at robotics-sso@umich.edu. Our team is committed to providing timely responses to all your questions and during peak advising times during the school year. Email may be the quickest way to receive a response, and is best for things like letter requests, waitlist inquiries, and other items that don't require an appointment.
 
-#### Associate Graduate Chair
-Professor Brent Gillespie is available to meet with students to discuss challenging situations, assistance with independent study, research, career guidance, and welcomes feedback on the student experience in the Robotics graduate programs.
+### Phone
+You can call us at **734-763-2369** and leave a message. Please include your full name, whether you are an undergraduate or graduate student, and your question. A SSO staff member will reach out to help you as soon as possible. 
 
+### Appointments
 
-<em>See <a href="https://robotics.umich.edu/academics/graduate/graduate-advising/">more on all graduate advising</a>.</em>
-</Accordion>
-</div>
-</TwoColumn>
+Current University of Michigan students can schedule an advising appointment with an [Undergraduate Academic Advisor](https://robotics.umich.edu/academics/undergraduate/advising/) or our [Graduate Coordinator](https://robotics.umich.edu/academics/graduate/graduate-advising#graduate-program-coordinator).
 
-## Student Services staff
+## Meet our Student Services staff
 
 <StaffList />
 
-## Communicate to our students
-<Accordion title="How to send announcements to current students" id="how-to-send-announcements-to-current-students" headingLevel="h3">
+## How to send announcements to our students
 
 The Robotics department uses an announcement system that allows you to send your communication directly to our students.  If you would like to have your announcement sent to our students, please email the appropriate group(s) below directly with your announcement.
 
@@ -165,11 +66,12 @@ After emailing these groups the SSO staff will receive a request to approve your
 <li>Your message was deemed inappropriate for distribution to our students.</li>
 <li>Your message was not formatted to be sent directly to students.  Please resubmit in a format addressed to the students you wish to send it to as if you were sending directly to them.</li>
 </ul>
-</Accordion>
 
-<Accordion title="Sharing a job posting" id="sharing-a-job-posting" headingLevel="h3">
+Tip: When sending, please write the email as if you are speaking directly to the students. Students will be able to reply directly to the email that you send your message from.
+
+### Job opportunities for Robotics students
   Job postings should be sent to the <a href="https://career.engin.umich.edu/">Engineering Career Resource Center (ECRC)</a>. The Engineering Career Resource Center (ECRC) hosts an online system that allows you to post employment opportunities that will be easily accessible to all of our students. Visit the <a href="https://career.engin.umich.edu/employers/engagement/#jobs">ECRC Hire a Michigan Engineer</a> page to post your job.
-</Accordion>
+
 
 ## Student Resources
 
