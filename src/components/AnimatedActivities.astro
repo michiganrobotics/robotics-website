@@ -1,0 +1,103 @@
+---
+// AnimatedActivities.astro - Activities section with animated line and card lighting
+---
+
+<style>
+.activities-wrapper {
+  position: relative;
+}
+
+.activity-line {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 3px;
+  height: 0;
+  background: linear-gradient(to bottom, #FFCB05, #FFCB05);
+  transform: translateX(-50%);
+  animation-fill-mode: forwards;
+  animation-play-state: paused;
+  z-index: 1;
+}
+
+.activity-card {
+  border: 2px solid transparent;
+  transition: border 0.5s ease;
+  position: relative;
+  z-index: 2;
+}
+
+
+@media (max-width: 1024px) {
+  .activity-line { display: none; }
+}
+</style>
+
+<div class="activities-wrapper">
+  <div class="activity-line"></div>
+  <div class="masonry-container lg:columns-2 lg:gap-6 mb-6">
+    <slot />
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const wrapper = document.querySelector('.activities-wrapper');
+  const line = document.querySelector('.activity-line');
+  
+  if (!wrapper || !line) {
+    return;
+  }
+  
+  const cards = wrapper.querySelectorAll('.activity-card');
+  
+  function updateLineAndCards() {
+    const rect = wrapper.getBoundingClientRect();
+    const windowHeight = window.innerHeight;
+    const totalHeight = rect.height;
+    
+    // Calculate scroll progress through the wrapper (0 to 1)
+    let progress = 0;
+    
+    // Start animation when section enters viewport, complete when it exits
+    if (rect.bottom > 0 && rect.top < windowHeight) {
+      // How far the top of the section has moved up from bottom of viewport
+      const scrolled = windowHeight - rect.top;
+      // Total distance to scroll through (section height + viewport height)
+      const totalScrollDistance = totalHeight + windowHeight;
+      
+      progress = Math.max(0, Math.min(1, scrolled / totalScrollDistance));
+    }
+    
+    // Update line height based on scroll progress
+    line.style.height = `${progress * 100}%`;
+    
+    // Light up cards based on their vertical position relative to line
+    const currentLineHeight = progress * totalHeight;
+    
+    cards.forEach((card, index) => {
+      const cardRect = card.getBoundingClientRect();
+      const wrapperRect = wrapper.getBoundingClientRect();
+      
+      // Calculate card's position relative to wrapper top
+      const cardTopRelative = cardRect.top - wrapperRect.top;
+      const cardTriggerPoint = cardTopRelative + (cardRect.height * 0.2); // 20% into the card
+      
+      // Light up card when line reaches 20% into the card
+      if (currentLineHeight >= cardTriggerPoint) {
+        card.style.setProperty('border', '2px solid #FFCB05', 'important');
+        card.style.setProperty('transition', 'border 0.3s ease', 'important');
+      } else {
+        card.style.setProperty('border', '2px solid transparent', 'important');
+      }
+    });
+  }
+  
+  // Listen for scroll events
+  window.addEventListener('scroll', updateLineAndCards);
+  window.addEventListener('resize', updateLineAndCards);
+  
+  // Initial call
+  updateLineAndCards();
+});
+</script>

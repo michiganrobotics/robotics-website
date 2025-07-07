@@ -1,0 +1,41 @@
+---
+// ScrollFadeList.astro - List with scroll-triggered fade-in animation using Tailwind
+---
+
+<ul class="not-prose grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-1 mt-4 mb-4 text-sm list-disc pl-6 scroll-fade-list">
+  <slot />
+</ul>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const list = document.querySelector('.scroll-fade-list');
+  if (!list) return;
+  
+  const observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        const items = list.querySelectorAll('li');
+        
+        // Detect number of columns based on screen size
+        const screenWidth = window.innerWidth;
+        let columns = 1; // mobile default
+        if (screenWidth >= 1024) columns = 3; // lg breakpoint
+        else if (screenWidth >= 768) columns = 2; // md breakpoint
+        
+        // Animate each column with staggered delay
+        items.forEach((item, index) => {
+          const columnIndex = index % columns;
+          setTimeout(() => {
+            item.classList.remove('opacity-0', 'translate-y-2');
+            item.classList.add('opacity-100', 'translate-y-0');
+          }, columnIndex * 200); // 200ms delay between columns
+        });
+        
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.3 });
+  
+  observer.observe(list);
+});
+</script>

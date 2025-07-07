@@ -11,6 +11,8 @@ import octobot from '../images/octobot.jpg';
 import mbotOmni from '../images/mbot-omni.jpg';
 import marsRover from '../images/mars-rover.jpg';
 import MBotAnimation from '../../../components/MBotAnimation.astro';
+import AnimatedActivities from '../../../components/AnimatedActivities.astro';
+import ScrollFadeList from '../../../components/ScrollFadeList.astro';
 
 
 
@@ -27,7 +29,7 @@ import MBotAnimation from '../../../components/MBotAnimation.astro';
 
 <PhotoGallery
 images={[
-   { src: mbotOmni, alt: "A small classroom robot with three wheels is has its LEDs lit up as it waits for a command.", caption: "An MBot-Omni waits for instructions in ROB 102: Intro to Programming and AI." },
+   { src: mbotOmni, alt: "A small classroom robot with three wheels is has its LEDs lit up as it waits for a command.", caption: "An MBot Omni waits for instructions in ROB 102: Intro to Programming and AI." },
     { src: octobot, alt: "A professor and undergraduate student work on a bio-inspired robot resembling an octopus sitting on a ball outside of the Robotics Building", caption: "A student demonstrates to their professor how a tripedal robot moves outside the lab." },
      { src: marsRover, alt: "A four-wheeled rover sits atop a red hill with operator standing at a laptop in the background next to the Robotics Building", caption: "The Michigan Mars Rover team tests its mars rover on the Mars Yard outside of the Ford Robotics Building." },
    
@@ -36,23 +38,52 @@ images={[
 
 ## What robotics students do
 
-<div class="masonry-container lg:columns-2 lg:gap-6 mb-4">
+<AnimatedActivities>
 
-<div class="surface rounded-lg p-6 mb-6 break-inside-avoid">
+<div class="activity-card surface rounded-lg p-6 mb-6 break-inside-avoid">
 
 ### Learn new concepts
-While the robots may operate anywhere from underwater to outer space, the concepts underlying them remain the same. Students gain knowledge of these core technical areas:
+While the robots may operate anywhere from underwater to outer space, the concepts underlying them remain the same. Students gain knowledge of these core technical areas in coursework:
 
-* **Sensing** of the environment, external agents such as other robots or humans, and internal body information to infer and perceive the state of the world
-* **Reasoning** with estimated models of the world to make decisions to accomplish tasks, satisfy goals, and learn from experience and interaction
-* **Acting** upon its body and environment to produce motion or other outputs that enable the robot to achieve desired effects on the physical world and interact with people
-* **Understanding** human and social dynamics, both quantitatively and qualitatively, for robots to effectively work with people and evaluate their impact on society
+* **Sensing** of the environment, other robots or humans, and internal information to perceive the state of the world
+* **Reasoning** with models of the world to make decisions to accomplish tasks, satisfy goals, and learn from experience
+* **Acting** upon itself or environment to produce outputs that enable the robot to achieve desired effects on the physical world and interact with people
+* **Understanding** human and social dynamics for robots to effectively work with people and evaluate their impact on society
 
 <Button href="/academics/courses/complete-course-list/" text="View complete course list" class="mt-4" />
 
 </div>
+<div class="activity-card surface rounded-lg p-6 mb-6 break-inside-avoid">
 
-<div class="surface rounded-lg p-6 mb-6 break-inside-avoid">
+### Grow and inspire community
+Both within the U-M robotics community and greater society, students practice one of our [core values](/about/values): enthusiastic outreach. Robotics students can join others on the [Robotics Undergraduate Student Council](/academics/student-services/robotics-undergraduate-student-council) to plan outreach and community events and improve the entire program as liasons to department leadership.
+
+And robotics is one of the most exciting fields to see in action. We get regular requests from the community for tours, demonstrations, and other volunteering opportunities in which our students take part.
+
+</div>
+<div class="activity-card surface rounded-lg p-6 mb-6 break-inside-avoid">
+### Participate in research
+
+Get hands-on experience working alongside faculty and graduate students on robotics research. Undergraduate research opportunities help you develop technical skills, explore potential career paths, and contribute to advancing the field.
+
+<div class="mt-4">
+
+* **[SURE Program](https://sure.engin.umich.edu)**: Summer Undergraduate Research in Engineering
+  <div class="-mt-4 text-sm italic">Paid summer research experiences working directly with faculty on active research projects</div>
+
+* **[UROP](https://lsa.umich.edu/urop/)**: Undergraduate Research Opportunity Program 
+  <div class="-mt-4 text-sm italic">Academic year research positions with stipends available across campus</div>
+
+* **[MDP Research](https://mdp.engin.umich.edu/faculty-research-mdp-projects/)**: Multidisciplinary Design Program
+  <div class="-mt-4 text-sm italic"> Team-based research opportunities combining multiple engineering disciplines</div>
+
+</div>
+
+</div>
+
+
+
+<div class="activity-card surface rounded-lg p-6 mb-6 break-inside-avoid">
 
 ### Build and compete
 Beyond courses, students often dedicate a large portion of time to a student project team. Like FIRST Robotics, these teams typically have an international organizer that presents competition guidelines each year. Students work throughout the year on designing and building, then participate in international competitions.
@@ -61,16 +92,7 @@ Beyond courses, students often dedicate a large portion of time to a student pro
 
 </div>
 
-<div class="surface rounded-lg p-6 mb-6 break-inside-avoid">
-
-### Grow and inspire community
-Both within the U-M robotics community and greater society, students practice one of our [core values](/about/values): enthusiastic outreach. Robotics students can join others on the [Robotics Undergraduate Student Council](/academics/student-services/robotics-undergraduate-student-council) to plan outreach and community events and improve the entire program.
-
-And robotics is one of the most exciting fields to see in action. We get regular requests from the community for tours, demonstrations, and other volunteering opportunities in which our students take part.
-
-</div>
-
-</div>
+</AnimatedActivities>
 
 <YouTubeGallery playlistId="PLdPQZLMHRjDJrYCrBQlxmT7iT4HQyKp5M" showDate={false} />
 
@@ -80,8 +102,8 @@ And robotics is one of the most exciting fields to see in action. We get regular
 
 <div class="surface-secondary rounded-lg p-6 mb-6 break-inside-avoid">
 
-### Broad technical skills
-Students develop expertise across multiple domains that power modern robotics:
+<h3>Broad <span class="text-maize">technical skills</span></h3>
+Students develop expertise across multiple domains, becoming full-stack roboticists:
 
 <div class="grid grid-cols-1 gap-4 mt-4">
   <div class="bg-gray-100 dark:border-maize border dark:bg-transparent rounded-lg p-4 border-l-4 border-maize">
@@ -110,47 +132,47 @@ Students develop expertise across multiple domains that power modern robotics:
 <div class="surface-secondary rounded-lg p-6 mb-6 break-inside-avoid">
 
 
-### Versatile career preparation
-A robotics degree opens doors across multiple industries. Graduates work at a variety of organizations, including:
+<h3><span class="text-maize">Versatile career</span> preparation</h3>
+A robotics degree is full-spectrum across multiple applications and industries. Graduates work at a variety of organizations, including:
 
-<ul class="not-prose grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-1 mt-4 mb-4 text-sm list-disc pl-6">
-  <li>AbbVie</li>
-  <li>Amazon</li>
-  <li>Amazon Robotics</li>
-  <li>Bosch</li>
-  <li>Carnegie Mellon</li>
-  <li>Caterpillar</li>
-  <li>Draper</li>
-  <li>FANUC</li>
-  <li>Ford Motor Company</li>
-  <li>General Atomics</li>
-  <li>General Motors</li>
-  <li>Gentex Corporation</li>
-  <li>Google</li>
-  <li>Hyundai America</li>
-  <li>Intel</li>
-  <li>Medtronic</li>
-  <li>NASA JPL</li>
-  <li>Northrop Grumman</li>
-  <li>Nuro</li>
-  <li>Our Next Energy</li>
-  <li>Pratt Miller</li>
-  <li>Remora</li>
-  <li>Renesas Electronics</li>
-  <li>Seoul National Hospital</li>
-  <li>SpaceX</li>
-  <li>Stellantis</li>
-  <li>Stryker</li>
-  <li>Symbotic</li>
-  <li>Tesla</li>
-  <li>University of Michigan</li>
-  <li>VRSI</li>
-  <li>Walmart</li>
-  <li>Wazuh</li>
-  <li>wheel.me</li>
-  <li>Williams International</li>
-</ul>
-
+<ScrollFadeList>
+  <li class="opacity-0 translate-y-2 transition-all duration-500">AbbVie</li>
+  <li class="opacity-0 translate-y-2 transition-all duration-500">Amazon</li>
+  <li class="opacity-0 translate-y-2 transition-all duration-500">Amazon Robotics</li>
+  <li class="opacity-0 translate-y-2 transition-all duration-500">Bosch</li>
+  <li class="opacity-0 translate-y-2 transition-all duration-500">Carnegie Mellon</li>
+  <li class="opacity-0 translate-y-2 transition-all duration-500">Caterpillar</li>
+  <li class="opacity-0 translate-y-2 transition-all duration-500">Draper</li>
+  <li class="opacity-0 translate-y-2 transition-all duration-500">FANUC</li>
+  <li class="opacity-0 translate-y-2 transition-all duration-500">Ford Motor Company</li>
+  <li class="opacity-0 translate-y-2 transition-all duration-500">General Atomics</li>
+  <li class="opacity-0 translate-y-2 transition-all duration-500">General Motors</li>
+  <li class="opacity-0 translate-y-2 transition-all duration-500">Gentex Corporation</li>
+  <li class="opacity-0 translate-y-2 transition-all duration-500">Google</li>
+  <li class="opacity-0 translate-y-2 transition-all duration-500">Hyundai America</li>
+  <li class="opacity-0 translate-y-2 transition-all duration-500">Intel</li>
+  <li class="opacity-0 translate-y-2 transition-all duration-500">Medtronic</li>
+  <li class="opacity-0 translate-y-2 transition-all duration-500">NASA JPL</li>
+  <li class="opacity-0 translate-y-2 transition-all duration-500">Northrop Grumman</li>
+  <li class="opacity-0 translate-y-2 transition-all duration-500">Nuro</li>
+  <li class="opacity-0 translate-y-2 transition-all duration-500">Our Next Energy</li>
+  <li class="opacity-0 translate-y-2 transition-all duration-500">Pratt Miller</li>
+  <li class="opacity-0 translate-y-2 transition-all duration-500">Remora</li>
+  <li class="opacity-0 translate-y-2 transition-all duration-500">Renesas Electronics</li>
+  <li class="opacity-0 translate-y-2 transition-all duration-500">Seoul National Hospital</li>
+  <li class="opacity-0 translate-y-2 transition-all duration-500">SpaceX</li>
+  <li class="opacity-0 translate-y-2 transition-all duration-500">Stellantis</li>
+  <li class="opacity-0 translate-y-2 transition-all duration-500">Stryker</li>
+  <li class="opacity-0 translate-y-2 transition-all duration-500">Symbotic</li>
+  <li class="opacity-0 translate-y-2 transition-all duration-500">Tesla</li>
+  <li class="opacity-0 translate-y-2 transition-all duration-500">University of Michigan</li>
+  <li class="opacity-0 translate-y-2 transition-all duration-500">VRSI</li>
+  <li class="opacity-0 translate-y-2 transition-all duration-500">Walmart</li>
+  <li class="opacity-0 translate-y-2 transition-all duration-500">Wazuh</li>
+  <li class="opacity-0 translate-y-2 transition-all duration-500">wheel.me</li>
+  <li class="opacity-0 translate-y-2 transition-all duration-500">Williams International</li>
+</ScrollFadeList>
+<div class="text-xs italic">Data from the <a href="https://career.engin.umich.edu/students/michigan-engineering-student-salary-information/">Engineering Career Resource Center</a>.</div>
 <div class="border-maize border rounded p-3 mt-4 text-sm">
   <strong class="text-maize">Accelerated advanced degree:</strong> <br/>Qualified students can pursue an accelerated master's degree through the <a href="/academics/graduate/sugs/" class="text-umichblue dark:text-maize hover:underline">Sequential Undergraduate / Graduate Studies</a> (SUGS) program, earning both BSE and MS degrees in five years.
 </div>
@@ -158,6 +180,7 @@ A robotics degree opens doors across multiple industries. Graduates work at a va
 </div>
 
 </div>
+
 
 ## Becoming a Michigan Robotics undergraduate student
 

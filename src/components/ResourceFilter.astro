@@ -72,37 +72,59 @@ button.filter-btn.active:hover {
 document.addEventListener('DOMContentLoaded', function() {
   const filterButtons = document.querySelectorAll('.filter-btn');
   const resourceCards = document.querySelectorAll('.resource-card');
-  let activeFilter = 'all';
+  const searchInput = document.getElementById('search-input');
+  
+  // Define filter groups
+  const programFilters = ['undergraduate', 'masters', 'phd'];
+  const helpFilters = ['all', 'academic', 'career', 'community', 'support', 'research', 'international'];
+  
+  let activeFilters = {
+    program: null,
+    help: 'all'
+  };
+  let searchTerm = '';
   
   // Set initial state
   updateActiveButtons();
-  updateCount();
+  updateDisplay();
+  
+  // Search functionality
+  if (searchInput) {
+    searchInput.addEventListener('input', function(e) {
+      searchTerm = e.target.value.toLowerCase();
+      updateDisplay();
+    });
+  }
   
   filterButtons.forEach(button => {
     button.addEventListener('click', function() {
       const filter = this.getAttribute('data-filter');
-      console.log('Button clicked:', filter, 'Current active filter:', activeFilter);
+      console.log('Button clicked:', filter);
       
-      // Set the new active filter
-      activeFilter = filter;
+      // Determine which filter group this belongs to
+      if (programFilters.includes(filter)) {
+        // Toggle program filter (allow deselecting)
+        activeFilters.program = activeFilters.program === filter ? null : filter;
+      } else if (helpFilters.includes(filter)) {
+        activeFilters.help = filter;
+      }
       
-      console.log('New active filter:', activeFilter);
+      console.log('Active filters:', activeFilters);
       
       // Update active buttons
       updateActiveButtons();
       
-      // Filter cards
-      filterCards();
-      
-      // Update count
-      updateCount();
+      // Update display
+      updateDisplay();
     });
   });
   
   function updateActiveButtons() {
     filterButtons.forEach(btn => {
       const filter = btn.getAttribute('data-filter');
-      if (filter === activeFilter) {
+      const isActive = filter === activeFilters.program || filter === activeFilters.help;
+      
+      if (isActive) {
         btn.classList.add('active');
         // Force the styling with direct style application
         btn.style.backgroundColor = '#FFCB05';
@@ -124,29 +146,73 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
   
-  function filterCards() {
+  function updateDisplay() {
+    let visibleCount = 0;
+    
     resourceCards.forEach(card => {
       const categories = card.getAttribute('data-categories') || '';
       const categoryList = categories.split(' ');
       
-      const shouldShow = activeFilter === 'all' || categoryList.includes(activeFilter);
+      // Check program filter match
+      const programMatch = !activeFilters.program || categoryList.includes(activeFilters.program);
       
-      if (shouldShow) {
+      // Check help filter match  
+      const helpMatch = activeFilters.help === 'all' || categoryList.includes(activeFilters.help);
+      
+      // Apply category filters to entire card
+      if (!programMatch || !helpMatch) {
+        card.classList.add('hidden');
+        card.style.display = 'none';
+        return;
+      }
+      
+      // For search, check individual items within the card
+      if (searchTerm) {
+        const searchItems = card.querySelectorAll('li');
+        let hasVisibleItems = false;
+        
+        searchItems.forEach(item => {
+          const link = item.querySelector('a[data-search-terms]');
+          if (link) {
+            const itemText = item.textContent?.toLowerCase() || '';
+            const searchTerms = link.getAttribute('data-search-terms')?.toLowerCase() || '';
+            const itemMatches = itemText.includes(searchTerm) || searchTerms.includes(searchTerm);
+            
+            if (itemMatches) {
+              item.style.display = '';
+              hasVisibleItems = true;
+            } else {
+              item.style.display = 'none';
+            }
+          }
+        });
+        
+        // Show/hide the entire card based on whether it has visible items
+        if (hasVisibleItems) {
+          card.classList.remove('hidden');
+          card.style.display = 'block';
+          visibleCount++;
+        } else {
+          card.classList.add('hidden');
+          card.style.display = 'none';
+        }
+      } else {
+        // No search term - show all items and the card
+        const allItems = card.querySelectorAll('li');
+        allItems.forEach(item => {
+          item.style.display = '';
+        });
+        
         card.classList.remove('hidden');
         card.style.display = 'block';
-      } else {
-        card.classList.add('hidden');
-        setTimeout(() => {
-          if (card.classList.contains('hidden')) {
-            card.style.display = 'none';
-          }
-        }, 300);
+        visibleCount++;
       }
     });
+    
+    updateCount(visibleCount);
   }
   
-  function updateCount() {
-    const visibleCards = document.querySelectorAll('.resource-card:not(.hidden)');
+  function updateCount(visibleCount) {
     let countElement = document.querySelector('.resource-count');
     
     if (!countElement) {
@@ -155,9 +221,15 @@ document.addEventListener('DOMContentLoaded', function() {
       document.querySelector('.masonry-container').parentNode.appendChild(countElement);
     }
     
-    const count = visibleCards.length;
     const totalCount = resourceCards.length;
-    countElement.innerHTML = `Showing ${count} of ${totalCount} resources<br><small class="text-xs">Active filter: ${activeFilter}</small>`;
+    
+    const activeFilterText = [];
+    if (activeFilters.program) activeFilterText.push(activeFilters.program);
+    if (activeFilters.help !== 'all') activeFilterText.push(activeFilters.help);
+    if (searchTerm) activeFilterText.push(`search: "${searchTerm}"`);
+    
+    const filterDisplay = activeFilterText.length > 0 ? activeFilterText.join(' + ') : 'all';
+    countElement.innerHTML = `Showing ${visibleCount} of ${totalCount} resources<br><small class="text-xs">Active filters: ${filterDisplay}</small>`;
   }
 });
 </script>
