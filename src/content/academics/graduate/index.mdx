@@ -11,6 +11,8 @@ import sensing from "../images/sensing.jpg"
 import reasoning from "../images/reasoning.jpg"
 import acting from "../images/acting.jpg"
 import trot from "../images/trot-mars-yard.jpg"
+import mbotAssebmly from "../images/mbot-assembly.jpg"
+import digitTest from "../images/digit-test.jpg"
 import AnimatedActivities from '../../../components/AnimatedActivities.astro';
 import DroneAnimation from '../../../components/DroneAnimation.astro';
 import RollingBot from '../../../components/RollingBot.astro';
@@ -50,16 +52,18 @@ import RollingBot from '../../../components/RollingBot.astro';
 
 <PhotoGallery
 images={[
-   { src: trot, alt: "Two graduate students work on a house-built quadruped robot by a large red mound resembling the planet Mars", caption: "Graduate students develop a modular bio-inspired robot and test it out on the Mars Yard." },
-    { src: reasoning, alt: "PhD student working on algorithmic reasoning for robot navigation", caption: "PhD students advance the state of the art in robot reasoning and decision-making." },
-     { src: acting, alt: "Master's student testing robotic actuation systems", caption: "Master's students gain hands-on experience with robotic manipulation and locomotion systems." },
-   
+   { src: trot, alt: "Two graduate students work on a house-built quadruped robot by a large red mound resembling the planet Mars", caption: "A modular bio-inspired robot is tested out on the Mars Yard." },
+     { src: digitTest, alt: "PhD students observe a simulation of a bipedal robot before testing it out on the real robot in the background.", caption: "A Digit bipedal robot's vision is analyzed before testing in the real world." },
+     { src: mbotAssebmly, alt: "Graduate student instructors assemblying Mbots for upcoming term with 3d printed parts, actuators, and circuit boards scattered around a work table", caption: "Graduate student instructors develop and assemble Mbots to prepare for an upcoming semester of courses." },
 ]} 
 />
 
 
 ## What graduate students do
 
+### What students learn
+
+The Michigan Robotics graduate program consists of three main technical areas, which converge as students produce functioning robots:
 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
   <div class="flex flex-col items-center surface card-padded border-l-2 border-maize dark:border-arboretumBlue">
     <Image src={sensing} alt="Sensing" class="mt-0 h-64 w-full object-cover rounded-sm" />
@@ -85,6 +89,8 @@ images={[
     </div>
   </div>
 </div>
+
+### What students research
 
 <AnimatedActivities>
 
