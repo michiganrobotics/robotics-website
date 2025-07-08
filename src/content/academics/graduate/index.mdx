@@ -10,7 +10,126 @@ image:
 import sensing from "../images/sensing.jpg"
 import reasoning from "../images/reasoning.jpg"
 import acting from "../images/acting.jpg"
+import trot from "../images/trot-mars-yard.jpg"
+import AnimatedActivities from '../../../components/AnimatedActivities.astro';
+import DroneAnimation from '../../../components/DroneAnimation.astro';
+import RollingBot from '../../../components/RollingBot.astro';
 
+<div class="grid lg:grid-cols-3 gap-8 items-start">
+  <div class="lg:col-span-2">
+    <p class="mt-0 text-xl max-w-2xl leading-relaxed">Michigan Robotics offers both Master's and PhD programs that provide deep technical training in autonomous systems across hardware and software, preparing graduates to become full-stack roboticists in research, industry, and innovation.</p>
+    <p class="text-lg max-w-3xl leading-relaxed">Graduate students work alongside faculty on the latest research in leading facilities and working in partnerships across campus and industry to gain expertise across the fundamental areas of robotics. Our programs emphasize *hands-on experience* with real robotic systems and *interdisciplinary collaboration* that mirrors the complex challenges facing the field.</p>
+    <p class="text-lg max-w-3xl leading-relaxed">Michigan roboticists develop, teach, and learn technologies and socially engaged systems to improve everyday life, make our world safer, and tackle the pressing issues that society faces.</p>
+  </div>
+  <div class="lg:col-span-1 flex justify-center lg:justify-end">
+    <div class="surface-secondary rounded-lg p-6 w-full max-w-sm relative">
+      <img src="/illustrations/trees.png" alt="" class="absolute -bottom-5 -left-4 w-20 h-auto pointer-events-none" />
+      <RollingBot />
+      <DroneAnimation />
+      <div class="space-y-4 relative z-10">
+          <div class="text-center">
+            <div class="text-3xl font-bold text-maize">2014</div>
+            <div class="text-sm text-neutral-200">Program Established</div>
+          </div>
+        <div class="text-center">
+          <div class="text-3xl font-bold text-maize">100+</div>
+          <div class="text-sm text-neutral-200">MS Students</div>
+        </div>
+        <div class="text-center">
+          <div class="text-3xl font-bold text-maize">100+</div>
+          <div class="text-sm text-neutral-200">PhD Students</div>
+        </div>
+        <div class="text-center">
+          <div class="text-3xl font-bold text-maize">$75M</div>
+          <div class="text-sm text-neutral-200"><a href="/about/facilities/ford-robotics-building">Ford Robotics Building</a><br />built in 2021</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<PhotoGallery
+images={[
+   { src: trot, alt: "Two graduate students work on a house-built quadruped robot by a large red mound resembling the planet Mars", caption: "Graduate students develop a modular bio-inspired robot and test it out on the Mars Yard." },
+    { src: reasoning, alt: "PhD student working on algorithmic reasoning for robot navigation", caption: "PhD students advance the state of the art in robot reasoning and decision-making." },
+     { src: acting, alt: "Master's student testing robotic actuation systems", caption: "Master's students gain hands-on experience with robotic manipulation and locomotion systems." },
+   
+]} 
+/>
+
+
+## What graduate students do
+
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+  <div class="flex flex-col items-center surface card-padded border-l-2 border-maize dark:border-arboretumBlue">
+    <Image src={sensing} alt="Sensing" class="mt-0 h-64 w-full object-cover rounded-sm" />
+    <div class="w-full">
+      <h3 class="text-arboretumBlue dark:text-maize text-xl my-2 font-semibold mt-2">Sensing</h3>
+      <p class="text-left">of the environment, external agents, and internal information to determine state.</p>
+    </div>
+  </div>
+
+  <div class="flex flex-col items-center surface card-padded rounded-md p-4 pb-2 border-l-2 border-maize dark:border-arboretumBlue">
+    <Image src={reasoning} alt="Reasoning" class="mt-0 h-64 w-full object-cover rounded-sm" />
+    <div class="w-full">
+      <h3 class="text-arboretumBlue dark:text-maize text-xl my-2 font-semibold mt-2">Reasoning</h3>
+      <p class="text-left">with that information to make decisions for guidance, control, and localization.</p>
+    </div>
+  </div>
+
+  <div class="flex flex-col items-center surface card-padded rounded-md p-4 pb-2 border-l-2 border-maize dark:border-arboretumBlue">
+    <Image src={acting} alt="Acting" class="mt-0 h-64 w-full object-cover rounded-sm" />
+    <div class="w-full">
+      <h3 class="text-arboretumBlue dark:text-maize text-xl my-2 font-semibold mt-2">Acting</h3>
+      <p class="text-left">upon the body and environment to enable locomotion or interaction.</p>
+    </div>
+  </div>
+</div>
+
+<AnimatedActivities>
+
+<div class="activity-card surface rounded-lg p-6 mb-6 break-inside-avoid">
+
+### Conduct cutting-edge research
+Graduate students work on fundamental and applied research problems that advance the field of robotics. Whether pursuing a Master's or PhD, students collaborate with faculty and industry partners on projects spanning:
+
+* **Autonomous Systems** - developing robots that can operate independently in complex, unstructured environments
+* **Human-Robot Interaction** - creating intuitive and safe interactions between humans and robotic systems
+* **Machine Learning & AI** - advancing robot perception, planning, and learning capabilities
+* **Bio-inspired Robotics** - drawing inspiration from biological systems to create novel robotic solutions
+
+<Button href="/research/" text="Explore our research" class="mt-4" />
+
+</div>
+
+<div class="activity-card surface rounded-lg p-6 mb-6 break-inside-avoid">
+
+### Collaborate across disciplines
+Robotics inherently requires expertise from multiple fields. Graduate students work with researchers from computer science, mechanical engineering, electrical engineering, psychology, and other disciplines to solve complex challenges.
+
+Many students also participate in industry collaborations, giving them exposure to real-world applications and career opportunities while contributing to practical robotics solutions.
+
+</div>
+
+<div class="activity-card surface rounded-lg p-6 mb-6 break-inside-avoid">
+
+### Teach and mentor
+Graduate students gain valuable teaching experience by serving as graduate student instructors (GSIs) for undergraduate courses. This experience helps develop communication skills and provides insights into pedagogical approaches.
+
+PhD students also mentor undergraduate researchers and junior graduate students, building leadership skills essential for future academic or industry careers.
+
+</div>
+
+<div class="activity-card surface rounded-lg p-6 mb-6 break-inside-avoid">
+
+### Publish and present
+Graduate students regularly publish their research in top-tier conferences and journals, establishing their reputation in the robotics community. They present their work at international conferences, building networks and gaining feedback from leading researchers worldwide.
+
+<Button href="/news/?category=publications" text="View recent publications" class="mt-4" />
+
+</div>
+
+</AnimatedActivities>
 
 The Michigan Robotics graduate program consists of <span class="text-arboretumBlue dark:text-maize font-semibold">three main technical areas</span>, which converge as students produce functioning robots:
 

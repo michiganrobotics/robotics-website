@@ -12,203 +12,227 @@ import AcademicSearch from '../../../components/AcademicSearch.astro';
 
 <div class="grid lg:grid-cols-3 gap-8 items-start">
   <div class="lg:col-span-3">
-    <p class="mt-0 text-lg max-w-4xl leading-relaxed">The Department offers students many resources: find the ones you need right now.</p>
-    <p class="text-lg max-w-3xl leading-relaxed">We've assembled the **Student Robodex** to quickly get you to the things you need. Filter by program or topic, or just search to find what may help you out!</p>
+    <p class="mt-0 text-lg max-w-4xl leading-relaxed">The Department offers students many resources: we’ve assembled the **Student Robodex** to quickly get you to the things you need.</p>
+    <p class="max-w-3xl leading-relaxed">Filter by program, topic, or just search to find what may help you out!</p>
     </div>
 </div>
-<div class="filter-section surface-secondary backdrop-blur-sm rounded-lg p-6 mb-6 border border-gray-200 dark:border-gray-700">
-  
-  <div class="grid lg:grid-cols-2 gap-6 mb-4">
-    <div>
-      <h3 class="text-lg font-semibold mb-3">What program are you in?</h3>
-      <div class="flex flex-wrap gap-3">
-        <button class="filter-btn bg-white/80 dark:bg-gray-800/80 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-full text-sm font-medium shadow-md backdrop-blur-sm border border-gray-200 dark:border-gray-600 transition-all duration-200 hover:bg-maize hover:text-umichblue" data-filter="undergraduate">Undergraduate</button>
-        <button class="filter-btn bg-white/80 dark:bg-gray-800/80 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-full text-sm font-medium shadow-md backdrop-blur-sm border border-gray-200 dark:border-gray-600 transition-all duration-200 hover:bg-maize hover:text-umichblue" data-filter="masters">Master's</button>
-        <button class="filter-btn bg-white/80 dark:bg-gray-800/80 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-full text-sm font-medium shadow-md backdrop-blur-sm border border-gray-200 dark:border-gray-600 transition-all duration-200 hover:bg-maize hover:text-umichblue" data-filter="phd">PhD</button>
-      </div>
+<div class="grid lg:grid-cols-4 gap-6 mb-6">
+  <div class="filter-section surface-secondary backdrop-blur-sm rounded-lg p-6 border border-gray-200 dark:border-gray-700 lg:sticky lg:top-6 lg:self-start relative overflow-hidden" role="region" aria-label="Filter options">
+    <h3 class="text-lg font-semibold mb-4 mt-0 relative z-10">What program are you in?</h3>
+    <div class="space-y-3">
+      <label class="flex items-center cursor-pointer">
+        <input type="radio" name="program" class="filter-btn mr-3 text-maize focus:ring-maize focus:ring-2" data-filter="undergraduate" />
+        <span class="text-sm">Undergraduate</span>
+      </label>
+      <label class="flex items-center cursor-pointer">
+        <input type="radio" name="program" class="filter-btn mr-3 text-maize focus:ring-maize focus:ring-2" data-filter="masters" />
+        <span class="text-sm">Master's</span>
+      </label>
+      <label class="flex items-center cursor-pointer">
+        <input type="radio" name="program" class="filter-btn mr-3 text-maize focus:ring-maize focus:ring-2" data-filter="phd" />
+        <span class="text-sm">PhD</span>
+      </label>
     </div>
-
-    <div>
-      <h3 class="text-lg font-semibold mb-3">What do you need help with?</h3>
-      <div class="flex flex-wrap gap-3">
-        <button class="filter-btn bg-white/80 dark:bg-gray-800/80 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-full text-sm font-medium shadow-md backdrop-blur-sm border border-gray-200 dark:border-gray-600 transition-all duration-200 hover:bg-maize hover:text-umichblue" data-filter="all">All Resources</button>
-        <button class="filter-btn bg-white/80 dark:bg-gray-800/80 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-full text-sm font-medium shadow-md backdrop-blur-sm border border-gray-200 dark:border-gray-600 transition-all duration-200 hover:bg-maize hover:text-umichblue" data-filter="academic">Academic Support</button>
-        <button class="filter-btn bg-white/80 dark:bg-gray-800/80 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-full text-sm font-medium shadow-md backdrop-blur-sm border border-gray-200 dark:border-gray-600 transition-all duration-200 hover:bg-maize hover:text-umichblue" data-filter="career">Career & Jobs</button>
-        <button class="filter-btn bg-white/80 dark:bg-gray-800/80 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-full text-sm font-medium shadow-md backdrop-blur-sm border border-gray-200 dark:border-gray-600 transition-all duration-200 hover:bg-maize hover:text-umichblue" data-filter="community">Community & Life</button>
-        <button class="filter-btn bg-white/80 dark:bg-gray-800/80 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-full text-sm font-medium shadow-md backdrop-blur-sm border border-gray-200 dark:border-gray-600 transition-all duration-200 hover:bg-maize hover:text-umichblue" data-filter="support">Support & Wellness</button>
-        <button class="filter-btn bg-white/80 dark:bg-gray-800/80 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-full text-sm font-medium shadow-md backdrop-blur-sm border border-gray-200 dark:border-gray-600 transition-all duration-200 hover:bg-maize hover:text-umichblue" data-filter="research">Research & Projects</button>
-        <button class="filter-btn bg-white/80 dark:bg-gray-800/80 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-full text-sm font-medium shadow-md backdrop-blur-sm border border-gray-200 dark:border-gray-600 transition-all duration-200 hover:bg-maize hover:text-umichblue" data-filter="international">International Students</button>
-      </div>
+    
+    <h3 class="text-lg font-semibold mb-4 mt-6 relative z-10">What do you need help with?</h3>
+    <div class="space-y-3">
+      <button class="filter-btn w-full text-left px-3 py-2 rounded text-sm bg-white dark:bg-umichblue-dark text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-arboretumBlue hover:bg-maize hover:text-umichblue focus:bg-maize focus:text-umichblue focus:ring-2 focus:ring-maize transition-colors relative z-10 cursor-pointer" data-filter="all" aria-pressed="false">All resources</button>
+      <button class="filter-btn w-full text-left px-3 py-2 rounded text-sm bg-white dark:bg-umichblue-dark text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-arboretumBlue hover:bg-maize hover:text-umichblue focus:bg-maize focus:text-umichblue focus:ring-2 focus:ring-maize transition-colors relative z-10 cursor-pointer" data-filter="academic" aria-pressed="false">Academic support</button>
+      <button class="filter-btn w-full text-left px-3 py-2 rounded text-sm bg-white dark:bg-umichblue-dark text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-arboretumBlue hover:bg-maize hover:text-umichblue focus:bg-maize focus:text-umichblue focus:ring-2 focus:ring-maize transition-colors relative z-10 cursor-pointer" data-filter="career" aria-pressed="false">Career & jobs</button>
+      <button class="filter-btn w-full text-left px-3 py-2 rounded text-sm bg-white dark:bg-umichblue-dark text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-arboretumBlue hover:bg-maize hover:text-umichblue focus:bg-maize focus:text-umichblue focus:ring-2 focus:ring-maize transition-colors relative z-10 cursor-pointer" data-filter="community" aria-pressed="false">Community & life</button>
+      <button class="filter-btn w-full text-left px-3 py-2 rounded text-sm bg-white dark:bg-umichblue-dark text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-arboretumBlue hover:bg-maize hover:text-umichblue focus:bg-maize focus:text-umichblue focus:ring-2 focus:ring-maize transition-colors relative z-10 cursor-pointer" data-filter="support" aria-pressed="false">Support & wellness</button>
+      <button class="filter-btn w-full text-left px-3 py-2 rounded text-sm bg-white dark:bg-umichblue-dark text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-arboretumBlue hover:bg-maize hover:text-umichblue focus:bg-maize focus:text-umichblue focus:ring-2 focus:ring-maize transition-colors relative z-10 cursor-pointer" data-filter="research" aria-pressed="false">Research & projects</button>
+      <button class="filter-btn w-full text-left px-3 py-2 rounded text-sm bg-white dark:bg-umichblue-dark text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-arboretumBlue hover:bg-maize hover:text-umichblue focus:bg-maize focus:text-umichblue focus:ring-2 focus:ring-maize transition-colors relative z-10 cursor-pointer" data-filter="international" aria-pressed="false">International students</button>
     </div>
   </div>
-  
-  <div class="mb-4">
-    <h3 class="text-lg font-semibold mb-3">Or search for specific resources:</h3>
-    <input 
-      type="text" 
-      id="search-input" 
-      placeholder="Search for courses, forms, guides, help..." 
-      class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-maize focus:border-maize transition-colors"
-    />
-  </div>
-</div>
 
-<div class="masonry-container lg:columns-2 lg:gap-6">
+  <div class="lg:col-span-3">
+    <div class="filter-section surface-secondary backdrop-blur-sm rounded-lg p-6 mb-6 border border-gray-200 dark:border-gray-700" role="search">
+      <label for="search-input" class="text-lg font-semibold mb-3 mt-0 block">Search for specific resources:</label>
+      <input 
+        type="text" 
+        id="search-input" 
+        placeholder="Search for courses, forms, guides, help..." 
+        class="search-bar px-4 py-3 rounded-lg focus:ring-2 focus:ring-maize focus:border-maize transition-colors text-neutral-900 dark:text-neutral-100"
+        aria-describedby="search-help"
+      />
+      <div id="search-help" class="sr-only">Type keywords to search through all available resources</div>
+    </div>
+    
+    <div id="results-area" role="region" aria-label="Search results" aria-live="polite">
+      <div class="masonry-container lg:columns-2 lg:gap-6" role="list">
 
 <div class="resource-card surface rounded-lg p-6 mb-6 break-inside-avoid" data-categories="all community career undergraduate graduate masters phd international">
-### Email Lists & Communication
+### Email lists & communication
 - <a href="https://documentation.its.umich.edu/node/352#JoinResign" title="joining" data-search-terms="email list join leave subscribe unsubscribe mcommunity mailing communication">How to join/leave email lists</a>
-  <div class="description-text">Step-by-step instructions for managing your email subscriptions and staying connected with the robotics community</div>
-- <a href="https://mcommunity.umich.edu/group/Robotics%20Events" title="Robotics Events" data-search-terms="events workshops speakers networking department activities announcements">Robotics Events List</a>
-  <div class="description-text">Get notified about workshops, guest speakers, networking events, and special department activities</div>
-- <a href="https://mcommunity.umich.edu/group/Robotics%20Jobs" title="Robotics Jobs" data-search-terms="jobs career internship employment opportunities positions hiring work">Robotics Jobs List</a>
-  <div class="description-text">Receive curated internship opportunities, full-time positions, and research openings in robotics</div>
+  <div class="description-text text-sm">Step-by-step instructions for managing your Mcommunity email subscriptions</div>
+- <a href="https://mcommunity.umich.edu/group/Robotics%20Events" title="Robotics Events" data-search-terms="events workshops speakers networking department activities announcements mcommunity">Robotics Events list</a>
+  <div class="description-text text-sm">Get notified about workshops, guest speakers, and special department activities in this Mcommunity</div>
+- <a href="https://mcommunity.umich.edu/group/Robotics%20Jobs" title="Robotics Jobs" data-search-terms="jobs career internship employment opportunities positions hiring work mcommunity">Robotics Jobs list</a>
+  <div class="description-text text-sm">Receive curated internship opportunities, full-time positions, and research openings in this Mcommunity</div>
+- <a href="https://umrobotics.substack.com" data-search-terms="newsletter quarterly updates news department highlights research achievements substack">Quarterly Robotics newsletter</a>
+  <div class="description-text text-sm">Stay updated with quarterly highlights, research achievements, and department news from our Substack</div>
 </div>
 
 <div class="resource-card surface rounded-lg p-6 mb-6 break-inside-avoid" data-categories="all academic undergraduate graduate masters phd">
-### Course Planning & Registration
+### Course planning & registration
 - <a href="https://robotics.umich.edu/academics/courses/course-offerings" data-search-terms="courses schedule semester offerings enrollment prerequisites registration">Current Term Courses</a>
-  <div class="description-text">Browse all robotics courses offered this semester, including prerequisites and enrollment information</div>
+  <div class="description-text text-sm">Browse all robotics courses offered this semester, including prerequisites and enrollment information</div>
 - <a href="https://robotics.umich.edu/academics/student-services/registering-for-classes/" data-search-terms="registration enroll add drop waitlist classes schedule">Course Registration Guide</a>
-  <div class="description-text">Comprehensive step-by-step instructions for adding, dropping, and waitlisting classes</div>
+  <div class="description-text text-sm">Comprehensive step-by-step instructions for adding, dropping, and waitlisting classes</div>
 - <a href="https://forms.gle/tX4umSrkaegPcMxc9" data-search-terms="permission course approval override registration restricted">Course Approval Request</a>
-  <div class="description-text">Request special permission for courses with enrollment restrictions or unique circumstances</div>
+  <div class="description-text text-sm">Request special permission for courses with enrollment restrictions or unique circumstances</div>
 </div>
 
 <div class="resource-card surface rounded-lg p-6 mb-6 break-inside-avoid" data-categories="all academic undergraduate graduate masters phd">
-### Program Guides & Requirements
+### Program guides & requirements
 - <a href="http://robotics.umich.edu/undergrad-guide" data-search-terms="undergraduate bse degree requirements guide roadmap planning electives">Undergraduate Program Guide</a>
-  <div class="description-text">Your essential roadmap to the Robotics BSE degree, including all requirements, electives, and planning strategies</div>
+  <div class="description-text text-sm">Your essential roadmap to the Robotics BSE degree, including all requirements, electives, and planning strategies</div>
 - <a href="https://docs.google.com/document/d/e/2PACX-1vTCjWRdEl4wM_n4oIU875yAzzG_4tBdmqnJcj4gNntgyG3Q5LY0qw_J_ei5nqmMEi1ljJpfvLbGCzdJ/pub" data-search-terms="graduate manual masters phd requirements policies milestones timeline">Graduate Program Manual</a>
-  <div class="description-text">Comprehensive guide covering all Master's and PhD requirements, policies, and milestone timelines</div>
+  <div class="description-text text-sm">Comprehensive guide covering all Master's and PhD requirements, policies, and milestone timelines</div>
 - <a href="http://robotics.umich.edu/ms-degree-worksheet/" data-search-terms="masters worksheet degree tracking progress requirements">MS Degree Worksheet</a>
-  <div class="description-text">Interactive tool to track your Master's degree progress and ensure you're meeting all requirements</div>
+  <div class="description-text text-sm">Interactive tool to track your Master's degree progress and ensure you're meeting all requirements</div>
 - <a href="https://robotics.umich.edu/academics/graduate/sugs/" data-search-terms="sugs combined degree 5-year accelerated bachelor master">Sequential Undergraduate/Graduate Studies (SUGS)</a>
-  <div class="description-text">Fast-track your education with this accelerated 5-year combined Bachelor's and Master's program</div>
+  <div class="description-text text-sm">Fast-track your education with this accelerated 5-year combined Bachelor's and Master's program</div>
 </div>
 
 <div class="resource-card surface rounded-lg p-6 mb-6 break-inside-avoid" data-categories="all academic undergraduate graduate masters phd">
-### Academic Advising & Support
+### Academic advising & support
 - <a href="https://robotics.umich.edu/academics/graduate/graduate-advising/" data-search-terms="graduate advising support planning milestones masters phd">Graduate Advising</a>
-  <div class="description-text">Academic support for MS and PhD students including course planning and milestone guidance</div>
+  <div class="description-text text-sm">Academic support for MS and PhD students including course planning and milestone guidance</div>
 - <a href="https://robotics.umich.edu/academics/undergraduate/scheduling/" data-search-terms="undergraduate advising scheduling appointment academic support">Scheduling and Advising Information</a>
-  <div class="description-text">Undergraduate academic advising resources and appointment scheduling</div>
+  <div class="description-text text-sm">Undergraduate academic advising resources and appointment scheduling</div>
 - <a href="http://piazza.com/umich/winter2022/roboticsugqa" data-search-terms="piazza forum questions discussion peer support undergraduate">Undergrad Q&A Piazza</a>
-  <div class="description-text">Student discussion forum for questions and peer-to-peer support</div>
+  <div class="description-text text-sm">Student discussion forum for questions and peer-to-peer support</div>
 </div>
 
 <div class="resource-card surface rounded-lg p-6 mb-6 break-inside-avoid" data-categories="all support graduate masters phd">
-### Funding & Financial Support
+### Funding & financial support
 - <a href="https://robotics.umich.edu/academics/graduate/admissions/funding-for-graduate-students/" data-search-terms="funding graduate assistantship fellowship grants financial support money">Funding for Graduate Students</a>
-  <div class="description-text">Information on assistantships, fellowships, and grants to support your graduate education</div>
+  <div class="description-text text-sm">Information on assistantships, fellowships, and grants to support your graduate education</div>
 </div>
 
 <div class="resource-card surface rounded-lg p-6 mb-6 break-inside-avoid" data-categories="all research academic graduate masters phd">
-### Research & Independent Study
+### Research & independent study
 - <a href="https://docs.google.com/forms/d/e/1FAIpQLSea5YctmfxwoRBWPfQxC6n1Pw8-SU2IHf8MXTZQ09rNmhu_CA/viewform?usp=sf_link" data-search-terms="590 690 independent study research proposal faculty mentor project">ROB 590/690 Proposal Form</a>
-  <div class="description-text">Submit proposals for independent study courses and research projects with faculty mentors</div>
+  <div class="description-text text-sm">Submit proposals for independent study courses and research projects with faculty mentors</div>
 </div>
 
 <div class="resource-card surface rounded-lg p-6 mb-6 break-inside-avoid" data-categories="all academic graduate masters phd">
-### Degree Transitions & Advanced Options
+### Degree transitions & advanced options
 - <a href="https://robotics.umich.edu/academics/student-services/ms-to-phd-admission-process-and-instructions/" data-search-terms="masters phd admission continue doctoral degree transition">MS to PhD Admission Process</a>
-  <div class="description-text">Process for continuing from Master's to doctoral study</div>
+  <div class="description-text text-sm">Process for continuing from Master's to doctoral study</div>
 - <a href="https://robotics.umich.edu/academics/graduate/admissions/add-a-degreedual-degree-instructions/" data-search-terms="dual degree second program add concurrent">Dual Degree Instructions</a>
-  <div class="description-text">How to add a second degree program</div>
+  <div class="description-text text-sm">How to add a second degree program</div>
 - <a href="https://docs.google.com/document/d/e/2PACX-1vTCjWRdEl4wM_n4oIU875yAzzG_4tBdmqnJcj4gNntgyG3Q5LY0qw_J_ei5nqmMEi1ljJpfvLbGCzdJ/pub#h.3whwml4" data-search-terms="transfer credit previous coursework apply degree requirements">Transfer of Credit</a>
-  <div class="description-text">Apply previous coursework toward your degree</div>
+  <div class="description-text text-sm">Apply previous coursework toward your degree</div>
 </div>
 
 <div class="resource-card surface rounded-lg p-6 mb-6 break-inside-avoid" data-categories="all graduate phd">
-### PhD Resources
+### PhD resources
 - <a href="https://robotics.umich.edu/academics/student-services/dissertation-committee-formation-and-proposal/" data-search-terms="dissertation committee thesis proposal formation guidelines phd">Dissertation Committee & Thesis Proposal</a>
-  <div class="description-text">Guidelines for forming your committee and preparing your thesis proposal</div>
+  <div class="description-text text-sm">Guidelines for forming your committee and preparing your thesis proposal</div>
 - <a href="https://rackham.umich.edu/navigating-your-degree/completing-doctoral-degree-requirements/#before" data-search-terms="rackham doctoral degree requirements phd completion timeline">Completing Rackham's Doctoral Degree Requirements</a>
-  <div class="description-text">Official requirements and timeline for PhD completion</div>
+  <div class="description-text text-sm">Official requirements and timeline for PhD completion</div>
 - <a href="http://www.rackham.umich.edu/current-students/policies/doctoral/phd-students/doctoral-degree-deadlines" data-search-terms="rackham deadlines dissertation defense graduation phd timeline">Rackham Doctoral Degree Deadlines</a>
-  <div class="description-text">Important deadlines for dissertation defense and graduation</div>
+  <div class="description-text text-sm">Important deadlines for dissertation defense and graduation</div>
 - <a href="https://www.rackham.umich.edu/downloads/oard-dissertation-handbook.pdf" data-search-terms="rackham dissertation handbook formatting submitting guide phd">Rackham Dissertation Handbook</a>
-  <div class="description-text">Comprehensive guide to formatting and submitting your dissertation</div>
+  <div class="description-text text-sm">Comprehensive guide to formatting and submitting your dissertation</div>
 - <a href="https://drive.google.com/file/d/1DikoqwrhSeiqFP0AtCHjrlOMc2eSeomT/view?usp=sharing" data-search-terms="changing advisor phd research mentor switch faculty">Changing PhD Advisors</a>
-  <div class="description-text">Process and considerations for changing research advisors</div>
+  <div class="description-text text-sm">Process and considerations for changing research advisors</div>
 </div>
 
 <div class="resource-card surface rounded-lg p-6 mb-6 break-inside-avoid" data-categories="all undergraduate graduate masters phd international">
-### International Student Resources
+### International student resources
 - <a href="https://internationalcenter.umich.edu/" data-search-terms="international center student support services visa immigration">International Center</a>
-  <div class="description-text">Campus resource for international student support and services</div>
+  <div class="description-text text-sm">Campus resource for international student support and services</div>
 - <a href="https://robotics.umich.edu/academics/student-services/cptopt-instructions/" data-search-terms="cpt opt work authorization international students employment">CPT/OPT Instructions</a>
-  <div class="description-text">Work authorization guidance for international students</div>
+  <div class="description-text text-sm">Work authorization guidance for international students</div>
 - <a href="https://robotics.umich.edu/academics/student-services/reduced-course-load/" data-search-terms="reduced course load fewer courses academic personal circumstances">Reduced Course Load</a>
-  <div class="description-text">Process for taking fewer courses due to academic or personal circumstances</div>
+  <div class="description-text text-sm">Process for taking fewer courses due to academic or personal circumstances</div>
 - <a href="https://robotics.umich.edu/academics/student-services/i-20-extensions/" data-search-terms="i20 extension visa international student program completion">I-20 Extensions</a>
-  <div class="description-text">How to extend your I-20 for program completion</div>
+  <div class="description-text text-sm">How to extend your I-20 for program completion</div>
 </div>
 
 <div class="resource-card surface rounded-lg p-6 mb-6 break-inside-avoid" data-categories="all career community undergraduate graduate masters phd">
-### Student Employment & Work
+### Student employment & work
 - <a href="/academics/student-services/student-appointments/" data-search-terms="student work department ta ra staff positions employment jobs">Information on working for the department as a student</a>
-  <div class="description-text">TA, RA, and staff positions within robotics</div>
+  <div class="description-text text-sm">TA, RA, and staff positions within robotics</div>
 </div>
 
 <div class="resource-card surface rounded-lg p-6 mb-6 break-inside-avoid" data-categories="all community undergraduate graduate masters phd">
-### Outreach & Community Impact
+### Outreach & community impact
 - <a href="https://docs.google.com/spreadsheets/d/19nhZK_DM6uF_YKqY0mlQarLoiZuDJGgBw6g0dWkxZkg/edit?usp=sharing" data-search-terms="outreach volunteer school visits demos community events opportunities">Outreach Opportunities</a>
-  <div class="description-text">Volunteer for school visits, demos, and community events</div>
+  <div class="description-text text-sm">Volunteer for school visits, demos, and community events</div>
 - <a href="https://docs.google.com/forms/d/e/1FAIpQLScCeyhrKtlSWBLor1DH4_sU_4uYzYV7KAovBGjg21VLFpDQZQ/viewform" data-search-terms="outreach ambassador hours reporting form volunteer log">Outreach Ambassador Hours Reporting Form</a>
-  <div class="description-text">Log your volunteer hours</div>
+  <div class="description-text text-sm">Log your volunteer hours</div>
 </div>
 
 <div class="resource-card surface rounded-lg p-6 mb-6 break-inside-avoid" data-categories="all support undergraduate graduate masters phd international">
-### Safety, Wellness & Support
+### Safety, wellness & support
 - <a href="https://care.engin.umich.edu/student-support-services/" data-search-terms="care center help support confidential academic personal financial crisis">Find help through the C.A.R.E. Center</a>
-  <div class="description-text">Confidential academic, personal, and financial support</div>
+  <div class="description-text text-sm">Confidential academic, personal, and financial support</div>
 - <a href="/academics/student-services/reporting-concerns-and-misconduct/" data-search-terms="reporting concerns misconduct safe confidential harassment discrimination">Reporting concerns or misconduct</a>
-  <div class="description-text">Safe and confidential reporting options</div>
+  <div class="description-text text-sm">Safe and confidential reporting options</div>
 </div>
 
 <div class="resource-card surface rounded-lg p-6 mb-6 break-inside-avoid" data-categories="all academic support undergraduate graduate masters phd">
-### University-Wide Resources
+### University-wide resources
 - <a href="https://ro.umich.edu/calendars" data-search-terms="academic calendar deadlines semester dates registration add drop">Academic Calendar & Add-Drop Deadlines</a>
-  <div class="description-text">Important semester dates and registration deadlines</div>
+  <div class="description-text text-sm">Important semester dates and registration deadlines</div>
 - <a href="https://bulletin.engin.umich.edu/courses/" data-search-terms="engineering course guide catalog bulletin courses requirements">Engineering Course Guide</a>
-  <div class="description-text">Complete catalog of College of Engineering courses</div>
+  <div class="description-text text-sm">Complete catalog of College of Engineering courses</div>
 - <a href="https://guides.lib.umich.edu/robotics" data-search-terms="robotics research guide library resources literature papers">Robotics Research Guide</a>
-  <div class="description-text">Library resources for robotics research</div>
+  <div class="description-text text-sm">Library resources for robotics research</div>
 - <a href="http://www.rackham.umich.edu/current-students/life-at-michigan/guide" data-search-terms="rackham new student guide graduate essential information">Rackham New Student Guide</a>
-  <div class="description-text">Essential information for new graduate students</div>
+  <div class="description-text text-sm">Essential information for new graduate students</div>
 - <a href="http://www.rackham.umich.edu/current-students/policies" data-search-terms="rackham graduate school academic policies official rules">Rackham Graduate School Academic Policies</a>
-  <div class="description-text">Official graduate school policies</div>
+  <div class="description-text text-sm">Official graduate school policies</div>
 - <a href="https://crlt.umich.edu/programs-services/graduate-students-post-docs" data-search-terms="crlt teaching support development graduate students postdocs">Teaching Support (CRLT)</a>
-  <div class="description-text">Teaching development for graduate students and postdocs</div>
+  <div class="description-text text-sm">Teaching development for graduate students and postdocs</div>
 </div>
 
 <div class="resource-card surface rounded-lg p-6 mb-6 break-inside-avoid" data-categories="all community undergraduate graduate masters phd">
-### Share Your Success & Get Materials
+### Share your success & get materials
 - <a href="https://drive.google.com/drive/folders/16Y-QifDAcqtZNPigTK2OjXLLWW0DJFM5?usp=share_link" data-search-terms="communications resources slides templates logos presentations branding materials">Robotics Communications resources</a>
-  <div class="description-text">Official slides, templates, and logos for presentations</div>
+  <div class="description-text text-sm">Official slides, templates, and logos for presentations</div>
 - <a href="https://docs.google.com/forms/d/e/1FAIpQLSems8fcRc8jlR-B_PlLu85P8rqzjwC-b59lyJmXVZu9xF6UOg/viewform" data-search-terms="submit story achievement accomplishments share department news">Submit your story/achievement</a>
-  <div class="description-text">Share your accomplishments with the department</div>
+  <div class="description-text text-sm">Share your accomplishments with the department</div>
 </div>
 
 <div class="resource-card surface rounded-lg p-6 mb-6 break-inside-avoid" data-categories="all career undergraduate graduate masters phd">
-### Career Development & Job Search
+### Career development & job search
 - <a href="http://career.engin.umich.edu/" data-search-terms="ecrc career center resume help job fairs coaching employment">Engineering Career Resource Center</a>
-  <div class="description-text">Resume help, job fairs, and career coaching</div>
+  <div class="description-text text-sm">Resume help, job fairs, and career coaching</div>
 - <a href="https://robotics.umich.edu/events/robotics-pathways-speaker-series/" data-search-terms="pathways careers speaker series industry professionals career paths events">Robotics Pathways & Careers Speaker Series</a>
-  <div class="description-text">Learn from industry professionals about career paths</div>
+  <div class="description-text text-sm">Learn from industry professionals about career paths</div>
 </div>  
 
 <div class="resource-card surface rounded-lg p-6 mb-6 break-inside-avoid" data-categories="all community undergraduate graduate masters phd">
-### Student Organizations & Community
+### Student organizations & community
 - <a href="https://robotics.umich.edu/academics/student-services/robotics-undergraduate-student-council/" data-search-terms="rusc undergraduate student council government community organization org orgs">Robotics Undergraduate Student Council (RUSC)</a>
-  <div class="description-text">Undergraduate student government and community</div>
+  <div class="description-text text-sm">Undergraduate student government and community</div>
 - <a href="https://robotics.umich.edu/academics/student-services/robotics-graduate-student-council/" data-search-terms="rgsc graduate student council government community organization org orgs">Robotics Graduate Student Council (RGSC)</a>
-  <div class="description-text">Graduate student government and community</div>
+  <div class="description-text text-sm">Graduate student government and community</div>
 - <a href="https://teamprojects.engin.umich.edu/home/teams/" data-search-terms="student project teams wilson center makerspace competition teams org orgs">Student Project Teams</a>
-  <div class="description-text">Teams who have a home in the Wilson Student Team Project Center, which also includes the Robotics Makerspace.</div> 
+  <div class="description-text text-sm">Teams who have a home in the Wilson Student Team Project Center, which also includes the Robotics Makerspace</div> 
 </div>
 
+<div class="resource-card surface rounded-lg p-6 mb-6 break-inside-avoid" data-categories="all support international graduate masters phd">
+### English language resources
+- <a href="https://lsa.umich.edu/eli" data-search-terms="english language institute eli writing speaking communication skills">English Language Institute</a>
+  <div class="description-text text-sm">Comprehensive language support and instruction for international students</div>
+- <a href="https://lsa.umich.edu/eli/grad-students-scholars/courses.html" data-search-terms="academic english courses writing speaking graduate international">Academic English Courses</a>
+  <div class="description-text text-sm">Specialized courses for graduate students and scholars to improve academic communication</div>
+- <a href="https://lsa.umich.edu/eli/grad-students-scholars/language-clinics.html" data-search-terms="language clinics tutoring help writing speaking pronunciation graduate">Language Clinics</a>
+  <div class="description-text text-sm">One-on-one and small group tutoring for graduate students on specific language skills</div>
+- <a href="https://lsa.umich.edu/eli/conversation-circles.html" data-search-terms="conversation circles speaking practice english communication social">Conversation Circles</a>
+  <div class="description-text text-sm">Informal conversation practice groups to improve speaking and listening skills</div>
+</div>
+
+      </div>
+    </div>
+  </div>
 </div>
 
 <ResourceFilter />

@@ -47,25 +47,6 @@ button.filter-btn.active:hover {
   to { opacity: 1; }
 }
 
-.description-text {
-  color: rgb(107 114 128);
-  font-style: italic;
-  font-size: 0.9rem;
-  line-height: 1.4;
-  margin-top: 0.5rem;
-  padding-left: 1rem;
-  border-left: 3px solid rgba(255, 203, 5, 0.3);
-  transition: all 0.2s ease;
-}
-
-.dark .description-text {
-  color: rgb(156 163 175);
-}
-
-.resource-card:hover .description-text {
-  border-left-color: rgba(255, 203, 5, 0.8);
-  padding-left: 1.25rem;
-}
 </style>
 
 <script>
@@ -147,7 +128,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }
   
   function updateDisplay() {
-    let visibleCount = 0;
+    let visibleResourceCount = 0;
     
     resourceCards.forEach(card => {
       const categories = card.getAttribute('data-categories') || '';
@@ -166,23 +147,26 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
       }
       
+      // Count individual resources within this card
+      const resourceLinks = card.querySelectorAll('a[data-search-terms]');
+      let cardVisibleResources = 0;
+      let hasVisibleItems = false;
+      
       // For search, check individual items within the card
       if (searchTerm) {
-        const searchItems = card.querySelectorAll('li');
-        let hasVisibleItems = false;
-        
-        searchItems.forEach(item => {
-          const link = item.querySelector('a[data-search-terms]');
-          if (link) {
-            const itemText = item.textContent?.toLowerCase() || '';
+        resourceLinks.forEach(link => {
+          const listItem = link.closest('li');
+          if (listItem) {
+            const itemText = listItem.textContent?.toLowerCase() || '';
             const searchTerms = link.getAttribute('data-search-terms')?.toLowerCase() || '';
             const itemMatches = itemText.includes(searchTerm) || searchTerms.includes(searchTerm);
             
             if (itemMatches) {
-              item.style.display = '';
+              listItem.style.display = '';
               hasVisibleItems = true;
+              cardVisibleResources++;
             } else {
-              item.style.display = 'none';
+              listItem.style.display = 'none';
             }
           }
         });
@@ -191,13 +175,13 @@ document.addEventListener('DOMContentLoaded', function() {
         if (hasVisibleItems) {
           card.classList.remove('hidden');
           card.style.display = 'block';
-          visibleCount++;
+          visibleResourceCount += cardVisibleResources;
         } else {
           card.classList.add('hidden');
           card.style.display = 'none';
         }
       } else {
-        // No search term - show all items and the card
+        // No search term - show all items and count all resources in this card
         const allItems = card.querySelectorAll('li');
         allItems.forEach(item => {
           item.style.display = '';
@@ -205,11 +189,11 @@ document.addEventListener('DOMContentLoaded', function() {
         
         card.classList.remove('hidden');
         card.style.display = 'block';
-        visibleCount++;
+        visibleResourceCount += resourceLinks.length;
       }
     });
     
-    updateCount(visibleCount);
+    updateCount(visibleResourceCount);
   }
   
   function updateCount(visibleCount) {
@@ -217,11 +201,31 @@ document.addEventListener('DOMContentLoaded', function() {
     
     if (!countElement) {
       countElement = document.createElement('div');
-      countElement.className = 'resource-count text-sm text-gray-500 dark:text-gray-400 text-center mt-6';
-      document.querySelector('.masonry-container').parentNode.appendChild(countElement);
+      countElement.className = 'resource-count text-sm text-gray-100 mt-4 relative z-10 text-center';
+      
+      // Find the filter sidebar - look for the first filter-section which should be the sidebar
+      const filterSidebar = document.querySelector('.filter-section');
+      console.log('Filter sidebar found:', filterSidebar);
+      
+      if (filterSidebar) {
+        filterSidebar.appendChild(countElement);
+        console.log('Count element added to sidebar');
+      } else {
+        // Fallback to original location if sidebar not found
+        console.log('Sidebar not found, using fallback location');
+        const fallbackContainer = document.querySelector('.masonry-container');
+        if (fallbackContainer && fallbackContainer.parentNode) {
+          fallbackContainer.parentNode.appendChild(countElement);
+        }
+      }
     }
     
-    const totalCount = resourceCards.length;
+    // Calculate total number of individual resources across all cards
+    let totalResourceCount = 0;
+    resourceCards.forEach(card => {
+      const resourceLinks = card.querySelectorAll('a[data-search-terms]');
+      totalResourceCount += resourceLinks.length;
+    });
     
     const activeFilterText = [];
     if (activeFilters.program) activeFilterText.push(activeFilters.program);
@@ -229,7 +233,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (searchTerm) activeFilterText.push(`search: "${searchTerm}"`);
     
     const filterDisplay = activeFilterText.length > 0 ? activeFilterText.join(' + ') : 'all';
-    countElement.innerHTML = `Showing ${visibleCount} of ${totalCount} resources<br><small class="text-xs">Active filters: ${filterDisplay}</small>`;
+    countElement.innerHTML = `Showing ${visibleCount} of ${totalResourceCount} resources<br><small class="text-xs">Active filters: ${filterDisplay}</small>`;
   }
 });
 </script>

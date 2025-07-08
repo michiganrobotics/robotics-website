@@ -1,0 +1,63 @@
+---
+// DroneAnimation.astro - Animated drone with shadow for graduate stats box
+---
+
+<div class="drone-container">
+  <img src="/illustrations/drone.png" alt="" class="drone-float" />
+  <img src="/illustrations/drone-shadow.png" alt="" class="drone-shadow" />
+</div>
+
+<style>
+.drone-container {
+  position: absolute;
+  top: -56px;
+  right: -12px;
+  pointer-events: none;
+}
+
+.drone-float {
+  width: 4rem;
+  height: auto;
+  animation: droneFloat 3s ease-in-out infinite;
+  position: relative;
+  z-index: 2;
+}
+
+.drone-shadow {
+  position: absolute;
+  top: 28px;
+  right: 12px;
+  width: 3rem;
+  height: auto;
+  animation: shadowPulse 3s ease-in-out infinite;
+  transform-origin: center;
+  z-index: 1;
+}
+
+@keyframes droneFloat {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes shadowPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  50% {
+    transform: scale(0.8);
+    opacity: 0.3;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .drone-float,
+  .drone-shadow {
+    animation: none;
+  }
+}
+</style>

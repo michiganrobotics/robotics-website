@@ -14,7 +14,9 @@ const { images, variant = 'default' } = Astro.props;
 
 const gridClass = variant === 'profile' 
   ? 'grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-8 justify-items-center text-center'
-  : 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6';
+  : images.length === 3 
+    ? 'photo-gallery-three-item gap-6'
+    : 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6';
 ---
 
 <div class={`not-prose ${gridClass} py-6`}>
@@ -72,6 +74,45 @@ const gridClass = variant === 'profile'
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 1.5rem;
     padding: 1.5rem 0;
+  }
+
+  .photo-gallery-three-item {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding: 1.5rem 0;
+  }
+
+  @media (min-width: 640px) {
+    .photo-gallery-three-item {
+      grid-template-columns: 1fr 1fr;
+      grid-template-areas: 
+        "first second"
+        "third third";
+    }
+    
+    .photo-gallery-three-item > *:nth-child(1) {
+      grid-area: first;
+    }
+    
+    .photo-gallery-three-item > *:nth-child(2) {
+      grid-area: second;
+    }
+    
+    .photo-gallery-three-item > *:nth-child(3) {
+      grid-area: third;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .photo-gallery-three-item {
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-areas: "first second third";
+    }
+    
+    .photo-gallery-three-item > *:nth-child(3) {
+      grid-area: third;
+    }
   }
 
   .photo-gallery.profile-grid {
