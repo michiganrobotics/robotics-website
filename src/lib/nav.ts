@@ -277,8 +277,10 @@ export const subNavConfig: Record<string, SubNavItem[]> = {
       { title: "Student Services", href: "/academics/student-services" }
     ],
     'academics/student-services': [
-      { title: "Academic Advising", href: "/academics/student-services#academic-advising-for-current-michigan-robotics-students", anchor: true },
-      { title: "Student Resources", href: "/academics/student-services#student-resources", anchor: true },
+      { title: "Robodex", href: "/academics/student-services/robodex" },
+      { title: "RGSC", href: "/academics/student-services/robotics-graduate-student-council" },
+      { title: "RUSC", href: "/academics/student-services/robotics-undergraduate-student-council" },
+      { title: "Student resources", href: "/academics/student-services#student-resources", anchor: true },
       { title: "Staff", href: "/academics/student-services#student-services-staff", anchor: true },
       { title: "Communicate to our students", href: "/academics/student-services#communicate-to-our-students", anchor: true }
     ],
