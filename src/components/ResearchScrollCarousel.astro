@@ -34,14 +34,16 @@ const projects = lines
 ---
 
 <div class="research-carousel-container relative mt-6">
-  <h4 class="text-lg font-semibold mb-4">Sampling of research projects</h4>
+  <h4 id="research-carousel-heading" class="text-lg font-semibold mb-4">Sampling of research projects</h4>
   
-  <div class="relative">
+  <div class="relative" role="region" aria-labelledby="research-carousel-heading">
     <!-- Left scroll arrow -->
     <button 
       class="scroll-arrow scroll-arrow-left absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-full p-2 shadow-md hover:shadow-lg transition-all duration-200 hover:bg-gray-50 dark:hover:bg-gray-700"
+      aria-label="Scroll to previous research projects"
+      type="button"
     >
-      <svg class="w-4 h-4 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <svg class="w-4 h-4 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
       </svg>
     </button>
@@ -49,31 +51,51 @@ const projects = lines
     <!-- Right scroll arrow -->
     <button 
       class="scroll-arrow scroll-arrow-right absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-full p-2 shadow-md hover:shadow-lg transition-all duration-200 hover:bg-gray-50 dark:hover:bg-gray-700"
+      aria-label="Scroll to next research projects"
+      type="button"
     >
-      <svg class="w-4 h-4 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <svg class="w-4 h-4 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
       </svg>
     </button>
     
-    <div class="research-scroll-container overflow-x-auto scrollbar-hide px-8">
+    <div 
+      class="research-scroll-container overflow-x-auto scrollbar-hide px-8"
+      aria-label="Research projects showcase - use navigation buttons to browse"
+      role="img"
+    >
       <div class="flex gap-4 pb-4 infinite-content" style="width: max-content;">
         {/* First set */}
         {projects.map((project, index) => (
-          <div class="research-card surface-alternative rounded-lg p-4 flex-shrink-0 w-80">
+          <div 
+            class="research-card surface-alternative rounded-lg p-4 flex-shrink-0 w-80"
+            aria-hidden="true"
+          >
             <h5 class="text-sm font-semibold mb-2 line-clamp-2">{project.title}</h5>
             <p class="text-xs line-clamp-4 leading-relaxed">{project.description}</p>
           </div>
         ))}
         
-        {/* Duplicate for seamless loop */}
+        {/* Duplicate for seamless loop - hidden from screen readers */}
         {projects.map((project, index) => (
-          <div class="research-card surface-alternative rounded-lg p-4 flex-shrink-0 w-80">
+          <div 
+            class="research-card surface-alternative rounded-lg p-4 flex-shrink-0 w-80"
+            aria-hidden="true"
+          >
             <h5 class="text-sm font-semibold text-gray-700 dark:text-gray-100 mb-2 line-clamp-2">{project.title}</h5>
             <p class="text-xs text-gray-700 dark:text-neutral-300 line-clamp-4 leading-relaxed">{project.description}</p>
           </div>
         ))}
       </div>
     </div>
+    
+    <!-- Screen reader description -->
+    <div class="sr-only" id="carousel-description">
+      Visual showcase of {projects.length} research projects. Use the previous and next buttons to browse through different projects.
+    </div>
+    
+    <!-- Live region for announcements -->
+    <div class="sr-only" aria-live="polite" id="carousel-announcements"></div>
   </div>
 </div>
 
@@ -122,6 +144,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const content = document.querySelector('.infinite-content');
   const leftArrow = document.querySelector('.scroll-arrow-left');
   const rightArrow = document.querySelector('.scroll-arrow-right');
+  const announcements = document.querySelector('#carousel-announcements');
   
   if (!container || !content || !leftArrow || !rightArrow) return;
   
@@ -139,6 +162,8 @@ document.addEventListener('DOMContentLoaded', function() {
   const startPosition = cardsToSkip * scrollAmount; // Align to complete card boundary
   container.scrollLeft = startPosition;
   
+  let currentCardIndex = cardsToSkip; // Track current position for announcements
+  
   function handleInfiniteScroll() {
     const scrollLeft = container.scrollLeft;
     
@@ -152,13 +177,34 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
   
+  function scrollToCard(direction) {
+    container.scrollBy({ left: direction * scrollAmount, behavior: 'smooth' });
+    
+    // Update current card index for announcements
+    if (direction > 0) {
+      currentCardIndex = (currentCardIndex + 1) % totalCards;
+    } else {
+      currentCardIndex = (currentCardIndex - 1 + totalCards) % totalCards;
+    }
+    
+    // Announce to screen readers
+    if (announcements) {
+      const visibleCards = content.querySelectorAll('.research-card:not([aria-hidden="true"])');
+      const currentCard = visibleCards[currentCardIndex];
+      if (currentCard) {
+        const title = currentCard.querySelector('h5').textContent;
+        announcements.textContent = `Now showing: ${title}`;
+      }
+    }
+  }
+  
   // Arrow click handlers
   leftArrow.addEventListener('click', () => {
-    container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+    scrollToCard(-1);
   });
   
   rightArrow.addEventListener('click', () => {
-    container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    scrollToCard(1);
   });
   
   // Handle infinite scroll on scroll end
