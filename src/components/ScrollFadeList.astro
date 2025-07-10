@@ -2,40 +2,78 @@
 // ScrollFadeList.astro - List with scroll-triggered fade-in animation using Tailwind
 ---
 
-<ul class="not-prose grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-1 mt-4 mb-4 text-sm list-disc pl-6 scroll-fade-list">
+<ul class="not-prose grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 mt-4 mb-4 text-sm list-disc pl-6 scroll-fade-list items-start">
   <slot />
 </ul>
 
+<style>
+.scroll-fade-list li {
+  opacity: 0 !important; /* Force initial hidden state */
+  transform: translateY(8px) !important;
+  transition: opacity 0.6s ease, transform 0.6s ease !important;
+  display: block; /* Changed from flex to block for better text flow */
+  line-height: 1.4;
+  margin-bottom: 0.25rem; /* Reduced spacing between items */
+  align-self: start; /* Align items to start of grid cell */
+}
+
+.scroll-fade-list li.fade-in {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+</style>
+
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-  const list = document.querySelector('.scroll-fade-list');
-  if (!list) return;
+  const lists = document.querySelectorAll('.scroll-fade-list');
+  if (!lists.length) return;
   
-  const observer = new IntersectionObserver(function(entries) {
-    entries.forEach(function(entry) {
-      if (entry.isIntersecting) {
-        const items = list.querySelectorAll('li');
-        
-        // Detect number of columns based on screen size
-        const screenWidth = window.innerWidth;
-        let columns = 1; // mobile default
-        if (screenWidth >= 1024) columns = 3; // lg breakpoint
-        else if (screenWidth >= 768) columns = 2; // md breakpoint
-        
-        // Animate each column with staggered delay
-        items.forEach((item, index) => {
-          const columnIndex = index % columns;
-          setTimeout(() => {
-            item.classList.remove('opacity-0', 'translate-y-2');
-            item.classList.add('opacity-100', 'translate-y-0');
-          }, columnIndex * 200); // 200ms delay between columns
-        });
-        
-        observer.unobserve(entry.target);
-      }
+  function initializeItems(list) {
+    const items = list.querySelectorAll('li');
+    items.forEach(item => {
+      item.style.opacity = '0';
+      item.style.transform = 'translateY(8px)';
+      item.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
     });
-  }, { threshold: 0.3 });
+    return items;
+  }
   
-  observer.observe(list);
+  lists.forEach(list => {
+    // Initialize immediately for static content
+    initializeItems(list);
+    
+    // Wait a bit for dynamic content to load, then reinitialize
+    setTimeout(() => {
+      initializeItems(list);
+    }, 100);
+    
+    const observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          // Get fresh list of items in case they were dynamically added
+          const currentItems = list.querySelectorAll('li');
+          
+          // Detect number of columns based on screen size
+          const screenWidth = window.innerWidth;
+          let columns = 1; // mobile default
+          if (screenWidth >= 1024) columns = 3; // lg breakpoint
+          else if (screenWidth >= 768) columns = 2; // md breakpoint
+          
+          // Animate items with a short staggered delay
+          currentItems.forEach((item, index) => {
+            const delay = Math.floor(index / columns) * 100; // 100ms delay per row
+            setTimeout(() => {
+              item.style.opacity = '1';
+              item.style.transform = 'translateY(0)';
+            }, delay);
+          });
+          
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.2 });
+    
+    observer.observe(list);
+  });
 });
 </script>

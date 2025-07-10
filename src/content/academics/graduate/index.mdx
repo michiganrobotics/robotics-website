@@ -16,6 +16,8 @@ import digitTest from "../images/digit-test.jpg"
 import AnimatedActivities from '../../../components/AnimatedActivities.astro';
 import DroneAnimation from '../../../components/DroneAnimation.astro';
 import RollingBot from '../../../components/RollingBot.astro';
+import ResearchScrollCarousel from '../../../components/ResearchScrollCarousel.astro';
+import ScrollFadeList from '../../../components/ScrollFadeList.astro';
 
 <div class="grid lg:grid-cols-3 gap-8 items-start">
   <div class="lg:col-span-2">
@@ -61,144 +63,142 @@ images={[
 
 ## What graduate students do
 
-### What students learn
-
-The Michigan Robotics graduate program consists of three main technical areas, which converge as students produce functioning robots:
-<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-  <div class="flex flex-col items-center surface card-padded border-l-2 border-maize dark:border-arboretumBlue">
-    <Image src={sensing} alt="Sensing" class="mt-0 h-64 w-full object-cover rounded-sm" />
-    <div class="w-full">
-      <h3 class="text-arboretumBlue dark:text-maize text-xl my-2 font-semibold mt-2">Sensing</h3>
-      <p class="text-left">of the environment, external agents, and internal information to determine state.</p>
-    </div>
-  </div>
-
-  <div class="flex flex-col items-center surface card-padded rounded-md p-4 pb-2 border-l-2 border-maize dark:border-arboretumBlue">
-    <Image src={reasoning} alt="Reasoning" class="mt-0 h-64 w-full object-cover rounded-sm" />
-    <div class="w-full">
-      <h3 class="text-arboretumBlue dark:text-maize text-xl my-2 font-semibold mt-2">Reasoning</h3>
-      <p class="text-left">with that information to make decisions for guidance, control, and localization.</p>
-    </div>
-  </div>
-
-  <div class="flex flex-col items-center surface card-padded rounded-md p-4 pb-2 border-l-2 border-maize dark:border-arboretumBlue">
-    <Image src={acting} alt="Acting" class="mt-0 h-64 w-full object-cover rounded-sm" />
-    <div class="w-full">
-      <h3 class="text-arboretumBlue dark:text-maize text-xl my-2 font-semibold mt-2">Acting</h3>
-      <p class="text-left">upon the body and environment to enable locomotion or interaction.</p>
-    </div>
-  </div>
-</div>
-
-### What students research
-
 <AnimatedActivities>
 
 <div class="activity-card surface rounded-lg p-6 mb-6 break-inside-avoid">
 
-### Conduct cutting-edge research
-Graduate students work on fundamental and applied research problems that advance the field of robotics. Whether pursuing a Master's or PhD, students collaborate with faculty and industry partners on projects spanning:
+### Learn the core concepts
 
-* **Autonomous Systems** - developing robots that can operate independently in complex, unstructured environments
-* **Human-Robot Interaction** - creating intuitive and safe interactions between humans and robotic systems
-* **Machine Learning & AI** - advancing robot perception, planning, and learning capabilities
-* **Bio-inspired Robotics** - drawing inspiration from biological systems to create novel robotic solutions
+The Michigan Robotics graduate program consists of three main technical areas, which converge as students produce functioning robots:
 
-<Button href="/research/" text="Explore our research" class="mt-4" />
+<div class="flex flex-col md:flex-row gap-6 items-start mb-8 pl-4">
+  <div class="md:w-1/3 flex-shrink-0">
+    <Image src={sensing} alt="Sensing" class="w-full h-48 object-cover rounded-md shadow-md hover:scale-105 transition-transform duration-300" />
+  </div>
+  <div class="md:w-2/3">
+    <h4 class="text-arboretumBlue dark:text-maize text-xl font-semibold mb-3">Sensing</h4>
+    <p class="text-gray-700 dark:text-gray-300 mb-0">of the environment, external agents, and internal information to determine state.</p>
+  </div>
+</div>
+
+<div class="flex flex-col md:flex-row gap-6 items-start mb-8 pl-4">
+  <div class="md:w-1/3 flex-shrink-0">
+    <Image src={reasoning} alt="Reasoning" class="w-full h-48 object-cover rounded-md shadow-md hover:scale-105 transition-transform duration-300" />
+  </div>
+  <div class="md:w-2/3">
+    <h4 class="text-arboretumBlue dark:text-maize text-xl font-semibold mb-3">Reasoning</h4>
+    <p class="text-gray-700 dark:text-gray-300 mb-0">with that information to make decisions for guidance, control, and localization.</p>
+  </div>
+</div>
+
+<div class="flex flex-col md:flex-row gap-6 items-start mb-0 pl-4">
+  <div class="md:w-1/3 flex-shrink-0">
+    <Image src={acting} alt="Acting" class="w-full h-48 object-cover rounded-md shadow-md hover:scale-105 transition-transform duration-300" />
+  </div>
+  <div class="md:w-2/3">
+    <h4 class="text-arboretumBlue dark:text-maize text-xl font-semibold mb-3">Acting</h4>
+    <p class="text-gray-700 dark:text-gray-300 mb-0">upon the body and environment to enable locomotion or interaction.</p>
+  </div>
+</div>
+
+    <Button href="/academics/graduate/degree-requirements/" text="Explore the degree" />
+</div>
+
+<div class="activity-card surface rounded-lg p-6 mb-6 break-inside-avoid">
+
+### Conduct leading research
+Graduate students work on fundamental and applied research problems that advance the field of robotics. Whether pursuing a Master's or PhD, students collaborate with faculty and industry partners on projects spanning our focus areas.
+
+<ResearchScrollCarousel />
+
+<Button href="/research/" text="Explore our research focus areas" class="mt-4" />
 
 </div>
 
 <div class="activity-card surface rounded-lg p-6 mb-6 break-inside-avoid">
 
-### Collaborate across disciplines
-Robotics inherently requires expertise from multiple fields. Graduate students work with researchers from computer science, mechanical engineering, electrical engineering, psychology, and other disciplines to solve complex challenges.
+### Publish, pitch, and present
+Graduate students regularly publish their research in top-tier conferences and journals, establishing their reputation in the robotics community. They present their work at international conferences, such as IROS, ICRA, and RSS, building networks and gaining feedback from leading researchers worldwide.
 
-Many students also participate in industry collaborations, giving them exposure to real-world applications and career opportunities while contributing to practical robotics solutions.
+Students also take advantage of the deep entrepreneurial and business programs available at Michigan through the College of Engineering and Ross School of Business to develop skills and market test ideas by pitching their innovations to industry partners, investors, and startup competitions, translating research into real-world applications.
+
+</div>
+
+<div class="activity-card surface rounded-lg p-6 mb-6 break-inside-avoid">
+
+### Build community
+Graduate students contribute to a vibrant robotics community through multiple channels:
+
+<div class="mt-4">
+
+* [Practicing our values](/about/values)
+  <div class="-mt-4 text-sm">Championed originally by our students, the department values include *robotics with respect*, *enthusiastic outreach*, and *integrity in action*.</div>
+
+* [Robotics Graduate Student Council](/academics/student-services/robotics-graduate-student-council) (RGSC)
+  <div class="-mt-4 text-sm">Group that organizes social events, professional development workshops, peer support networks, and works with department leadership to improve the student experience.</div>
+
+* [Outreach initiatives](/about/partnerships)
+  <div class="-mt-4 text-sm">We regularly partner with community organizations to show off our work and inspire future roboticists, as well as celebrating those who take part in such community work.</div>
+
+* Collaborate together and beyond
+  <div class="-mt-4 text-sm">Our building and program were designed from the ground-up to foster cross-lab partnerships and interdisciplinary connections that strengthen the entire robotics ecosystem, with an expert in your problem just a desk, hall, or building away.</div>
+
+</div>
 
 </div>
 
 <div class="activity-card surface rounded-lg p-6 mb-6 break-inside-avoid">
 
 ### Teach and mentor
-Graduate students gain valuable teaching experience by serving as graduate student instructors (GSIs) for undergraduate courses. This experience helps develop communication skills and provides insights into pedagogical approaches.
+Graduate students gain valuable teaching experience by serving as graduate student instructors (GSIs) for undergraduate and graduate courses. This experience helps develop communication skills and provides insights into pedagogical approaches.
 
-PhD students also mentor undergraduate researchers and junior graduate students, building leadership skills essential for future academic or industry careers.
-
+There are also opportunities to be a mentor for peers or undergraduates, and leadership training programs to gain differentiating skills and new approaches to working in a collaborative field.
 </div>
 
-<div class="activity-card surface rounded-lg p-6 mb-6 break-inside-avoid">
-
-### Publish and present
-Graduate students regularly publish their research in top-tier conferences and journals, establishing their reputation in the robotics community. They present their work at international conferences, building networks and gaining feedback from leading researchers worldwide.
-
-<Button href="/news/?category=publications" text="View recent publications" class="mt-4" />
-
-</div>
 
 </AnimatedActivities>
 
-The Michigan Robotics graduate program consists of <span class="text-arboretumBlue dark:text-maize font-semibold">three main technical areas</span>, which converge as students produce functioning robots:
-
-<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-  <div class="flex flex-col items-center surface card-padded border-l-2 border-maize dark:border-arboretumBlue">
-    <Image src={sensing} alt="Sensing" class="mt-0 h-64 w-full object-cover rounded-sm" />
-    <div class="w-full">
-      <h3 class="text-arboretumBlue dark:text-maize text-xl my-2 font-semibold mt-2">Sensing</h3>
-      <p class="text-left">of the environment, external agents, and internal information to determine state.</p>
-    </div>
-  </div>
-
-  <div class="flex flex-col items-center surface card-padded rounded-md p-4 pb-2 border-l-2 border-maize dark:border-arboretumBlue">
-    <Image src={reasoning} alt="Reasoning" class="mt-0 h-64 w-full object-cover rounded-sm" />
-    <div class="w-full">
-      <h3 class="text-arboretumBlue dark:text-maize text-xl my-2 font-semibold mt-2">Reasoning</h3>
-      <p class="text-left">with that information to make decisions for guidance, control, and localization.</p>
-    </div>
-  </div>
-
-  <div class="flex flex-col items-center surface card-padded rounded-md p-4 pb-2 border-l-2 border-maize dark:border-arboretumBlue">
-    <Image src={acting} alt="Acting" class="mt-0 h-64 w-full object-cover rounded-sm" />
-    <div class="w-full">
-      <h3 class="text-arboretumBlue dark:text-maize text-xl my-2 font-semibold mt-2">Acting</h3>
-      <p class="text-left">upon the body and environment to enable locomotion or interaction.</p>
-    </div>
-  </div>
-</div>
-
-Each of these areas may be considered a subplan for coursework and research study.
-
-Our students come to the field with a variety of backgrounds, particularly in mechanical engineering, electrical engineering, and computer science. They learn to work in teams to accomplish the many tasks necessary to build and operate an autonomous system, including mechanical design, electronics, programming and integrating all the parts. Students graduate the program as independent researchers and engineers, and many will go on to become leaders in robotics research, academia, industry and government (see a few of our [alumni](/people/alumni/)).
-
-<TwoColumn>
-  <div slot="left">
-    <h2>Admissions</h2>
-    The graduate program has application deadlines through the winter, and notifies applicants about decisions in the spring.
-
-    <MaizeButton href="/academics/graduate/admissions/" text="Find out about applying" />
-
-
-  </div>
-
-  <div slot="right">
-    <h2>Degree Requirements & Courses</h2>
-    There are many courses that fall under sensing, reasoning, and acting, as well as electives you can take to fulfill requirements.
-
-    <Button href="/academics/graduate/degree-requirements/" text="Explore the degree" />
-  
-  </div>
-</TwoColumn>
 
 <YouTubeGallery playlistId="PLdPQZLMHRjDLkdgDCGbxR9pc8XlAyZsZQ" showDate={false} title="Robotics graduate program highlights" />
 
-{/* 
+
+
+  <h2>Where our graduates go</h2>
+  <p>
+    Our Robotics graduate [alumni](/people/alumni/) are highly sought after by a diverse range of innovative companies and institutions. Here's a sample of where they have launched their careers, [provided by the College of Engineering Career Center](https://career.engin.umich.edu/students/michigan-engineering-student-salary-information/).
+  </p>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+    {/* Masters Employers */}
+    <div class="p-6 surface card-padded rounded-lg shadow-md">
+      <h3 class="text-2xl font-semibold mb-4 text-arboretumBlue dark:text-maize text-center">Masters Program Alumni Employers</h3>
+      <p class="text-xs text-gray-800 dark:text-gray-200 text-center mb-3">Showing a selection of top employers by placement frequency.</p>
+      <ScrollFadeList>
+        {[ "Amazon", "Apple", "Applied Intuition", "Aptiv", "Aurora Innovation", "Blue Origin", "Boeing", "Bosch", "Collins Aerospace", "Consumers Energy", "Dell", "Deloitte", "DENSO", "Eli Lilly", "Epic", "FANUC", "Ford Motor Company", "GE Aviation", "General Dynamics Land Systems", "General Motors", "Gentex Corporation", "Google", "Honda", "Honeywell", "Hyundai Mobis", "IBM", "Intel", "Intuitive Surgical", "John Deere", "Johns Hopkins Applied Physics Laboratory", "Johnson & Johnson", "KLA", "KPMG", "Kuka", "Lear", "Lockheed Martin", "Magna", "MathWorks", "May Mobility", "Meta", "Microsoft", "NASA Jet Propulsion Laboratory", "NVIDIA", "National Instruments", "Northrop Grumman", "Our Next Energy", "Parker Hannifin", "Path Robotics", "Procter & Gamble", "Qualcomm", "Raytheon", "Rivian", "Rockwell Automation", "Samsung", "Shield AI", "Siemens", "Southwest Research Institute", "SpaceX", "Stellantis", "Stryker", "Symbotic", "Tesla", "Texas Instruments", "Toyota", "University of Michigan", "Waymo", "Whirlpool", "Zoox" ].sort((a, b) => a.localeCompare(b)).map(employer => (
+          <li key={employer}>{employer}</li>
+        ))}
+      </ScrollFadeList>
+    </div>
+
+    {/* PhD Employers */}
+    <div class="p-6 surface card-padded rounded-lg shadow-md">
+      <h3 class="text-2xl font-semibold mb-4 text-arboretumBlue dark:text-maize text-center">Doctoral Program Alumni Employers</h3>
+      <ScrollFadeList>
+        {[ "Amazon", "Applied Intuition", "Apple", "Aurora Flight Sciences", "Aurora Innovation", "Battelle", "Boston Dynamics", "Ford Motor Company", "General Motors", "Gideon Brothers", "Google", "Honeywell", "Kodiak Robotics", "Meta", "Microsoft", "Motional", "NASA Jet Propulsion Laboratory", "NVIDIA", "Path Robotics", "RIOS Intelligent Machines", "Rivian", "Shield AI", "Sixth Extinction", "Southwest Research Institute", "SRI International", "Johns Hopkins Applied Physics Laboratory", "Toyota Research Institute", "Tusimple", "University of Michigan", "Virtualitics", "Waymo", "Zoox"].sort((a, b) => a.localeCompare(b)).map(employer => (
+          <li key={employer}>{employer}</li>
+        ))}
+      </ScrollFadeList>
+  </div>
+</div>
+
 <div class="my-12">
-  <h2>Robotics graduate median salaries</h2>
+  <h3>Robotics graduate median salaries</h3>
 
     A snapshot of median annual salaries for our Robotics graduate programs, based on [data reported between 2022 and 2024](https://career.engin.umich.edu/students/michigan-engineering-student-salary-information/) and collected by the College of Engineering Career Center.
 
 
   <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-    {/* Masters Section *\/}
+
     <div class="p-4 surface card-padded rounded-lg shadow-md flex flex-col items-center text-center overflow-hidden">
       <h3 class="text-xl font-semibold mb-1 text-arboretumBlue dark:text-maize">Masters in Robotics</h3>
       <p class="text-3xl font-bold text-gray-800 dark:text-gray-100 mb-1">$110,000</p>
@@ -246,7 +246,7 @@ Our students come to the field with a variety of backgrounds, particularly in me
       </details>
     </div>
 
-    {/* PhD Section *\/}
+
     <div class="p-4 surface card-padded rounded-lg shadow-md flex flex-col items-center text-center overflow-hidden">
       <h3 class="text-xl font-semibold mb-1 text-arboretumBlue dark:text-maize">PhD in Robotics</h3>
       <p class="text-3xl font-bold text-gray-800 dark:text-gray-100 mb-1">$157,500</p>
@@ -293,33 +293,20 @@ Our students come to the field with a variety of backgrounds, particularly in me
     </div>
   </div>
 </div>
-*/}
 
-  <h2>Where our graduates work</h2>
-  <p>
-    Our Robotics graduate alumni are highly sought after by a diverse range of innovative companies and institutions. Here's a sample of where they have launched their careers, [provided by the College of Engineering Career Center](https://career.engin.umich.edu/students/michigan-engineering-student-salary-information/).
-  </p>
+## Becoming a Michigan Robotics graduate student
 
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
-    {/* Masters Employers */}
-    <div class="p-6 surface card-padded rounded-lg shadow-md">
-      <h3 class="text-2xl font-semibold mb-4 text-arboretumBlue dark:text-maize text-center">Masters Program Alumni Employers</h3>
-      <p class="text-xs text-gray-800 dark:text-gray-200 text-center mb-3">Showing a selection of top employers by placement frequency.</p>
-      <ul class="list-disc list-inside columns-2 sm:columns-3 gap-x-6 text-sm">
-        {[ "Amazon", "Apple", "Applied Intuition", "Aptiv", "Aurora Innovation", "Blue Origin", "Boeing", "Bosch", "Collins Aerospace", "Consumers Energy", "Dell", "Deloitte", "DENSO", "Eli Lilly", "Epic", "FANUC", "Ford Motor Company", "GE Aviation", "General Dynamics Land Systems", "General Motors", "Gentex Corporation", "Google", "Honda", "Honeywell", "Hyundai Mobis", "IBM", "Intel", "Intuitive Surgical", "John Deere", "Johns Hopkins Applied Physics Laboratory", "Johnson & Johnson", "KLA", "KPMG", "Kuka", "Lear", "Lockheed Martin", "Magna", "MathWorks", "May Mobility", "Meta", "Microsoft", "NASA Jet Propulsion Laboratory", "NVIDIA", "National Instruments", "Northrop Grumman", "Our Next Energy", "Parker Hannifin", "Path Robotics", "Procter & Gamble", "Qualcomm", "Raytheon", "Rivian", "Rockwell Automation", "Samsung", "Shield AI", "Siemens", "Southwest Research Institute", "SpaceX", "Stellantis", "Stryker", "Symbotic", "Tesla", "Texas Instruments", "Toyota", "University of Michigan", "Waymo", "Whirlpool", "Zoox" ].sort((a, b) => a.localeCompare(b)).map(employer => (
-          <li key={employer}>{employer}</li>
-        ))}
-      </ul>
-    </div>
-
-    {/* PhD Employers */}
-    <div class="p-6 surface card-padded rounded-lg shadow-md">
-      <h3 class="text-2xl font-semibold mb-4 text-arboretumBlue dark:text-maize text-center">Doctoral Program Alumni Employers</h3>
-      <ul class="list-disc list-inside columns-1 sm:columns-2 gap-x-6 text-sm">
-        {[ "Amazon", "Applied Intuition", "Apple", "Aurora Flight Sciences", "Aurora Innovation", "Battelle", "Boston Dynamics", "Ford Motor Company", "General Motors", "Gideon Brothers", "Google", "Honeywell", "Kodiak Robotics", "Meta", "Microsoft", "Motional", "NASA Jet Propulsion Laboratory", "NVIDIA", "Path Robotics", "RIOS Intelligent Machines", "Rivian", "Shield AI", "Sixth Extinction", "Southwest Research Institute", "SRI International", "Johns Hopkins Applied Physics Laboratory", "Toyota Research Institute", "Tusimple", "University of Michigan", "Virtualitics", "Waymo", "Zoox"].sort((a, b) => a.localeCompare(b)).map(employer => (
-          <li key={employer}>{employer}</li>
-        ))}
-      </ul>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6 mb-8">
+  <div class="surface rounded-lg p-6 border border-arboretumBlue border-2 dark:border dark:border-arboretumBlue/40 flex flex-col">
+    <h3 class="text-xl font-bold mb-3">Master's Program</h3>
+    <p class="mb-4 text-sm flex-grow">Pursue an MS in Robotics with coursework and research opportunities. The graduate program has application deadlines through the winter, and notifies applicants about decisions in the spring.</p>
+    <MaizeButton href="/academics/graduate/admissions/" text="Apply for Master's" class="!w-full mt-auto" />
+  </div>
+  
+  <div class="surface rounded-lg card-padded surface-accent p-6 flex flex-col">
+    <h3 class="text-xl font-bold mb-3">Doctoral Program</h3>
+    <p class="mb-4 text-sm flex-grow">Pursue a PhD in Robotics with advanced research and dissertation work. Application deadlines are in the winter with decisions announced in the spring.</p>
+    <MaizeButton href="/academics/graduate/admissions/" text="Apply for PhD" class="!w-full mt-auto" />
   </div>
 </div>
 

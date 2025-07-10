@@ -1,0 +1,175 @@
+---
+// ResearchScrollCarousel.astro - Horizontal scrolling carousel for research projects
+import { readFileSync } from 'fs';
+import { join } from 'path';
+
+// Read and parse the CSV file
+const csvPath = join(process.cwd(), 'src/content/academics/graduate/research.csv');
+const csvContent = readFileSync(csvPath, 'utf-8');
+const lines = csvContent.split('\n').slice(1); // Skip header
+
+const projects = lines
+  .filter(line => line.trim() && !line.startsWith('Title of project'))
+  .map(line => {
+    // Simple CSV parsing (handles quotes)
+    const match = line.match(/^"([^"]+)","([^"]+)"$/);
+    if (match) {
+      return {
+        title: match[1].trim(),
+        description: match[2].trim().replace(/"/g, '') // Remove all quotes
+      };
+    }
+    // Fallback for lines without quotes
+    const parts = line.split(',');
+    if (parts.length >= 2) {
+      return {
+        title: parts[0].trim(),
+        description: parts.slice(1).join(',').trim().replace(/"/g, '') // Remove all quotes
+      };
+    }
+    return null;
+  })
+  .filter(Boolean)
+  // Show all projects
+---
+
+<div class="research-carousel-container relative mt-6">
+  <h4 class="text-lg font-semibold mb-4">Sampling of research projects</h4>
+  
+  <div class="relative">
+    <!-- Left scroll arrow -->
+    <button 
+      class="scroll-arrow scroll-arrow-left absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-full p-2 shadow-md hover:shadow-lg transition-all duration-200 hover:bg-gray-50 dark:hover:bg-gray-700"
+    >
+      <svg class="w-4 h-4 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+      </svg>
+    </button>
+    
+    <!-- Right scroll arrow -->
+    <button 
+      class="scroll-arrow scroll-arrow-right absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-full p-2 shadow-md hover:shadow-lg transition-all duration-200 hover:bg-gray-50 dark:hover:bg-gray-700"
+    >
+      <svg class="w-4 h-4 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+      </svg>
+    </button>
+    
+    <div class="research-scroll-container overflow-x-auto scrollbar-hide px-8">
+      <div class="flex gap-4 pb-4 infinite-content" style="width: max-content;">
+        {/* First set */}
+        {projects.map((project, index) => (
+          <div class="research-card surface-alternative rounded-lg p-4 flex-shrink-0 w-80">
+            <h5 class="text-sm font-semibold mb-2 line-clamp-2">{project.title}</h5>
+            <p class="text-xs line-clamp-4 leading-relaxed">{project.description}</p>
+          </div>
+        ))}
+        
+        {/* Duplicate for seamless loop */}
+        {projects.map((project, index) => (
+          <div class="research-card surface-alternative rounded-lg p-4 flex-shrink-0 w-80">
+            <h5 class="text-sm font-semibold text-gray-700 dark:text-gray-100 mb-2 line-clamp-2">{project.title}</h5>
+            <p class="text-xs text-gray-700 dark:text-neutral-300 line-clamp-4 leading-relaxed">{project.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.research-scroll-container {
+  scroll-behavior: smooth;
+}
+
+
+.scroll-arrow {
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+}
+
+.scroll-arrow:hover {
+  opacity: 1;
+}
+
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-4 {
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const container = document.querySelector('.research-scroll-container');
+  const content = document.querySelector('.infinite-content');
+  const leftArrow = document.querySelector('.scroll-arrow-left');
+  const rightArrow = document.querySelector('.scroll-arrow-right');
+  
+  if (!container || !content || !leftArrow || !rightArrow) return;
+  
+  const cardWidth = 320; // w-80 = 20rem = 320px
+  const gap = 16; // gap-4 = 1rem = 16px
+  const scrollAmount = cardWidth + gap;
+  
+  // Calculate the width of one complete set of projects
+  const cards = content.querySelectorAll('.research-card');
+  const totalCards = cards.length / 2; // We have duplicates
+  const singleSetWidth = totalCards * scrollAmount;
+  
+  // Start at a position that allows backward scrolling - align to card boundary
+  const cardsToSkip = Math.floor(totalCards / 4); // Skip 1/4 of the cards
+  const startPosition = cardsToSkip * scrollAmount; // Align to complete card boundary
+  container.scrollLeft = startPosition;
+  
+  function handleInfiniteScroll() {
+    const scrollLeft = container.scrollLeft;
+    
+    // If we've scrolled past the first set, reset to the beginning + start offset
+    if (scrollLeft >= singleSetWidth) {
+      container.scrollLeft = (scrollLeft - singleSetWidth) + startPosition;
+    }
+    // If we scroll backwards past the beginning, jump to the duplicate set
+    else if (scrollLeft <= 0) {
+      container.scrollLeft = singleSetWidth + scrollLeft;
+    }
+  }
+  
+  // Arrow click handlers
+  leftArrow.addEventListener('click', () => {
+    container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+  });
+  
+  rightArrow.addEventListener('click', () => {
+    container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+  });
+  
+  // Handle infinite scroll on scroll end
+  container.addEventListener('scroll', () => {
+    // Use timeout to detect scroll end
+    clearTimeout(container.scrollTimeout);
+    container.scrollTimeout = setTimeout(handleInfiniteScroll, 150);
+  });
+  
+  // Arrows always visible for infinite scroll
+  leftArrow.style.opacity = '0.8';
+  rightArrow.style.opacity = '0.8';
+});
+</script>
