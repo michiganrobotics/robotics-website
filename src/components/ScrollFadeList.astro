@@ -10,7 +10,7 @@
 .scroll-fade-list li {
   opacity: 0 !important; /* Force initial hidden state */
   transform: translateY(8px) !important;
-  transition: opacity 0.6s ease, transform 0.6s ease !important;
+  transition: opacity 0.3s ease, transform 0.3s ease !important;
   display: block; /* Changed from flex to block for better text flow */
   line-height: 1.4;
   margin-bottom: 0.25rem; /* Reduced spacing between items */
@@ -28,44 +28,26 @@ document.addEventListener('DOMContentLoaded', function() {
   const lists = document.querySelectorAll('.scroll-fade-list');
   if (!lists.length) return;
   
-  function initializeItems(list) {
+  lists.forEach(list => {
     const items = list.querySelectorAll('li');
+    
+    // Set initial state
     items.forEach(item => {
       item.style.opacity = '0';
       item.style.transform = 'translateY(8px)';
       item.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
     });
-    return items;
-  }
-  
-  lists.forEach(list => {
-    // Initialize immediately for static content
-    initializeItems(list);
-    
-    // Wait a bit for dynamic content to load, then reinitialize
-    setTimeout(() => {
-      initializeItems(list);
-    }, 100);
     
     const observer = new IntersectionObserver(function(entries) {
       entries.forEach(function(entry) {
         if (entry.isIntersecting) {
-          // Get fresh list of items in case they were dynamically added
           const currentItems = list.querySelectorAll('li');
           
-          // Detect number of columns based on screen size
-          const screenWidth = window.innerWidth;
-          let columns = 1; // mobile default
-          if (screenWidth >= 1024) columns = 3; // lg breakpoint
-          else if (screenWidth >= 768) columns = 2; // md breakpoint
-          
-          // Animate items with a short staggered delay
           currentItems.forEach((item, index) => {
-            const delay = Math.floor(index / columns) * 100; // 100ms delay per row
             setTimeout(() => {
               item.style.opacity = '1';
               item.style.transform = 'translateY(0)';
-            }, delay);
+            }, index * 50);
           });
           
           observer.unobserve(entry.target);

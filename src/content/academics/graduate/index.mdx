@@ -25,7 +25,7 @@ import ScrollFadeList from '../../../components/ScrollFadeList.astro';
     <p class="text-lg max-w-3xl leading-relaxed">Graduate students work alongside faculty on the latest research in leading facilities and working in partnerships across campus and industry to gain expertise across the fundamental areas of robotics. Our programs emphasize *hands-on experience* with real robotic systems and *interdisciplinary collaboration* that mirrors the complex challenges facing the field.</p>
     <p class="text-lg max-w-3xl leading-relaxed">Michigan roboticists develop, teach, and learn technologies and socially engaged systems to improve everyday life, make our world safer, and tackle the pressing issues that society faces.</p>
   </div>
-  <div class="lg:col-span-1 flex justify-center lg:justify-end">
+  <div class="lg:col-span-1 flex justify-center lg:justify-end mb-8">
     <div class="surface-secondary rounded-lg p-6 w-full max-w-sm relative">
       <img src="/illustrations/trees.png" alt="" class="absolute -bottom-5 -left-4 w-20 h-auto pointer-events-none" />
       <RollingBot />
@@ -71,37 +71,37 @@ images={[
 
 The Michigan Robotics graduate program consists of three main technical areas, which converge as students produce functioning robots:
 
-<div class="flex flex-col md:flex-row gap-6 items-start mb-8 pl-4">
+<div class="flex flex-col md:flex-row gap-3 md:gap-6 items-start mb-8 pl-4">
   <div class="md:w-1/3 flex-shrink-0">
     <Image src={sensing} alt="Sensing" class="w-full h-48 object-cover rounded-md shadow-md hover:scale-105 transition-transform duration-300" />
   </div>
   <div class="md:w-2/3">
-    <h4 class="text-arboretumBlue dark:text-maize text-xl font-semibold mb-3">Sensing</h4>
+    <h4 class="text-arboretumBlue dark:text-maize text-xl font-semibold mb-3 mt-0 md:mt-8">Sensing</h4>
     <p class="text-gray-700 dark:text-gray-300 mb-0">of the environment, external agents, and internal information to determine state.</p>
   </div>
 </div>
 
-<div class="flex flex-col md:flex-row gap-6 items-start mb-8 pl-4">
+<div class="flex flex-col md:flex-row gap-3 md:gap-6 items-start mb-8 pl-4">
   <div class="md:w-1/3 flex-shrink-0">
     <Image src={reasoning} alt="Reasoning" class="w-full h-48 object-cover rounded-md shadow-md hover:scale-105 transition-transform duration-300" />
   </div>
   <div class="md:w-2/3">
-    <h4 class="text-arboretumBlue dark:text-maize text-xl font-semibold mb-3">Reasoning</h4>
+    <h4 class="text-arboretumBlue dark:text-maize text-xl font-semibold mb-3 mt-0 md:mt-8">Reasoning</h4>
     <p class="text-gray-700 dark:text-gray-300 mb-0">with that information to make decisions for guidance, control, and localization.</p>
   </div>
 </div>
 
-<div class="flex flex-col md:flex-row gap-6 items-start mb-0 pl-4">
+<div class="flex flex-col md:flex-row gap-3 md:gap-6 items-start mb-8 pl-4">
   <div class="md:w-1/3 flex-shrink-0">
     <Image src={acting} alt="Acting" class="w-full h-48 object-cover rounded-md shadow-md hover:scale-105 transition-transform duration-300" />
   </div>
   <div class="md:w-2/3">
-    <h4 class="text-arboretumBlue dark:text-maize text-xl font-semibold mb-3">Acting</h4>
+    <h4 class="text-arboretumBlue dark:text-maize text-xl font-semibold mb-3 mt-0 md:mt-8">Acting</h4>
     <p class="text-gray-700 dark:text-gray-300 mb-0">upon the body and environment to enable locomotion or interaction.</p>
   </div>
 </div>
 
-    <Button href="/academics/graduate/degree-requirements/" text="Explore the degree" />
+    <Button href="/academics/graduate/degree-requirements/" text="Explore the degree" class="!w-full" />
 </div>
 
 <div class="activity-card surface rounded-lg p-6 mb-6 break-inside-avoid">
@@ -190,7 +190,7 @@ There are also opportunities to be a mentor for peers or undergraduates, and lea
       </ScrollFadeList>
   </div>
 </div>
-
+{/* 
 <div class="my-12">
   <h3>Robotics graduate median salaries</h3>
 
@@ -293,14 +293,14 @@ There are also opportunities to be a mentor for peers or undergraduates, and lea
     </div>
   </div>
 </div>
-
+*/}
 ## Becoming a Michigan Robotics graduate student
 
 <div class="flex justify-center mt-6 mb-8">
   <div class="surface rounded-lg p-6 border border-arboretumBlue border-2 dark:border dark:border-arboretumBlue/40 flex flex-col w-full">
     <h3 class="text-xl font-bold mb-3">Graduate admissions</h3>
     <p class="mb-4 flex-grow">Apply for either our MS or PhD programs in Robotics.</p>
-    <MaizeButton href="/academics/graduate/admissions/" text="Learn About Applying" class="mt-auto" />
+    <MaizeButton href="/academics/graduate/admissions/" text="Learn about applying" class="mt-auto" />
   </div>
 </div>
 
