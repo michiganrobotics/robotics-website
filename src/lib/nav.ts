@@ -72,7 +72,7 @@ export const mainNav: MenuItem[] = [
                 },
                 {
                   label: "Advising",
-                  uri: "/academics/graduate/graduate-advising",
+                  uri: "/academics/graduate/advising",
                   id: "academics-graduate-advising",
                   childItems: { nodes: [] }
                 },
@@ -314,7 +314,7 @@ export const subNavConfig: Record<string, SubNavItem[]> = {
     'academics/graduate': [
       { title: "Admissions", href: "/academics/graduate/admissions" },
       { title: "Degree Requirements", href: "/academics/graduate/degree-requirements" },
-      { title: "Advising", href: "/academics/graduate/graduate-advising" }
+      { title: "Advising", href: "/academics/graduate/advising" }
     ],
     'academics/graduate/admissions': [
       { title: "Apply", href: "https://rackham.umich.edu/admissions/applying/", external: true },
@@ -323,17 +323,17 @@ export const subNavConfig: Record<string, SubNavItem[]> = {
       { title: "Common Questions", href: "/academics/graduate/admissions#common-questions", anchor: true },
       { title: "Contact", href: "/academics/graduate/admissions#contact", anchor: true },
       { title: "Degree Requirements", href: "/academics/graduate/degree-requirements" },
-      { title: "Graduate Advising", href: "/academics/graduate/graduate-advising" },
+      { title: "Graduate Advising", href: "/academics/graduate/advising" },
       { title: "SUGS", href: "/academics/graduate/sugs" }
     ],
     'academics/graduate/degree-requirements': [
       { title: "Credit Requirements", href: "/academics/graduate/degree-requirements#credit-requirements", anchor: true },
       { title: "1st Year Students", href: "/academics/graduate/degree-requirements#1st-year-students-", anchor: true },
       { title: "Grade Requirements", href: "/academics/graduate/degree-requirements#grade-requirements", anchor: true },
-      { title: "Graduate Advising", href: "/academics/graduate/graduate-advising" },
+      { title: "Graduate Advising", href: "/academics/graduate/advising" },
       { title: "Admissions", href: "/academics/graduate/admissions" }
     ],
-    'academics/graduate/graduate-advising': [
+    'academics/graduate/advising': [
       { title: "Degree Requirements", href: "/academics/graduate/degree-requirements" },
       { title: "Admissions", href: "/academics/graduate/admissions" }
     ],
@@ -358,7 +358,7 @@ export const subNavConfig: Record<string, SubNavItem[]> = {
     'academics/graduate/sugs': [
       { title: "Graduate Admissions", href: "/academics/graduate/admissions" },
       { title: "Degree Requirements", href: "/academics/graduate/degree-requirements" },
-      { title: "Graduate Advising", href: "/academics/graduate/graduate-advising" },
+      { title: "Graduate Advising", href: "/academics/graduate/advising" },
       { title: "SUGS Deadlines", href: "/academics/graduate/sugs#application-deadlines", anchor: true }
     ],
     'academics/undergraduate/sure': [

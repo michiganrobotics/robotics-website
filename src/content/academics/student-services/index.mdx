@@ -13,6 +13,8 @@ import { Image } from 'astro:assets';
 import janne from '../images/janne.jpeg';
 import trushant from '../images/trushant.jpg';
 import studentServices from "../images/student-services-landing.jpg";
+import RobodexIcon from '../../../components/RobodexIcon.astro';
+import RobodexButton from '../../../components/RobodexButton.astro';
 
 import AcademicSearch from '../../../components/AcademicSearch.astro';
 
@@ -44,11 +46,13 @@ You can call us at **734-763-2369** and leave a message. Please include your ful
 
 ### Appointments
 
-Current University of Michigan students can schedule an advising appointment with an [Undergraduate Academic Advisor](https://robotics.umich.edu/academics/undergraduate/advising/) or our [Graduate Coordinator](https://robotics.umich.edu/academics/graduate/graduate-advising#graduate-program-coordinator).
+Current University of Michigan students can schedule an advising appointment with an [Undergraduate Academic Advisor](/academics/undergraduate/advising/) or our [Graduate Coordinator](/academics/graduate/graduate-advising#graduate-program-coordinator).
 
 ## Meet our Student Services staff
 
 <StaffList />
+
+<div class="surface rounded-lg p-6 mb-6">
 
 ## How to send announcements to our students
 
@@ -69,10 +73,14 @@ After emailing these groups the SSO staff will receive a request to approve your
 
 Tip: When sending, please write the email as if you are speaking directly to the students. Students will be able to reply directly to the email that you send your message from.
 
-### Job opportunities for Robotics students
+### Sending job opportunities for Robotics students
   Job postings should be sent to the <a href="https://career.engin.umich.edu/">Engineering Career Resource Center (ECRC)</a>. The Engineering Career Resource Center (ECRC) hosts an online system that allows you to post employment opportunities that will be easily accessible to all of our students. Visit the <a href="https://career.engin.umich.edu/employers/engagement/#jobs">ECRC Hire a Michigan Engineer</a> page to post your job.
+
+</div>
 
 
 ## Student resources
 
-We've organized relevant resources available at the Department, College, and University level for easy access within our [Student Robodex](/academics/student-services/robodex), an index of Robotics student resources.
+We've organized relevant resources available at the Department, College, and University level for easy access within our [<RobodexIcon class="w-7 h-7 mr-1" />Student Robodex](/academics/student-services/robodex), an index of Robotics student resources.
+
+<RobodexButton href="/academics/student-services/robodex" />
