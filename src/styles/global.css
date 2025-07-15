@@ -216,6 +216,11 @@
            border border-arboretumBlue/20 dark:border-arboretumBlue/40;
   }
 
+  /* Maize bullet points in surface-secondary */
+  .surface-secondary ul li {
+    @apply marker:text-maize;
+  }
+
   .surface-alternative {
     @apply bg-rackhamGreen dark:bg-rackhamGreen/80
            text-neutral-100
