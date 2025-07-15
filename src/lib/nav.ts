@@ -461,19 +461,19 @@ export const subNavConfig: Record<string, SubNavItem[]> = {
     ],
     'about/facilities': [
       { title: "Ford Robotics Building", href: "/about/facilities/ford-robotics-building" },
-      { title: "M-Air", href: "/about/facilities/m-air" },
+      { title: "M-Air Net", href: "/about/facilities/m-air-net" },
       { title: "Makerspace", href: "https://teamprojects.engin.umich.edu/makerspace-about/", external: true },
       { title: "Mcity", href: "https://mcity.umich.edu", external: true },
       { title: "Other U-M Facilities", href: "https://www.engin.umich.edu/research/labs-facilities/", external: true }
     ],
     'about/facilities/ford-robotics-building': [
-      { title: "M-Air", href: "/about/facilities/m-air" },      
+      { title: "M-Air Net", href: "/about/facilities/m-air-net" },      
       { title: "Makerspace", href: "https://teamprojects.engin.umich.edu/makerspace-about/", external: true },
       { title: "Mcity", href: "https://mcity.umich.edu", external: true },
       { title: "Other U-M Facilities", href: "https://www.engin.umich.edu/research/labs-facilities/", external: true },
       { title: "Tours", href: "/about/facilities/ford-robotics-building#tours", anchor: true }
     ],
-    'about/facilities/m-air': [
+    'about/facilities/m-air-net': [
       { title: "Ford Robotics Building", href: "/about/facilities/ford-robotics-building" },
       { title: "Makerspace", href: "https://teamprojects.engin.umich.edu/makerspace-about/", external: true },
       { title: "Mcity", href: "https://mcity.umich.edu", external: true },

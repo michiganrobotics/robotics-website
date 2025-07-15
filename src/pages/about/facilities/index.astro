@@ -14,7 +14,7 @@ import Link from '../../../components/Link.astro';
 import ogImage from '/public/social/about-facilities.jpg';
 import featureImage from '../../../images/featured-images/about-makerspace.jpg';
 ---
-<Layout title="Facilities" image={ogImage.src} description="Michigan Robotics utilizes a plethora of facilities at the University of Michigan, including Mcity and M-Air." >
+<Layout title="Facilities" image={ogImage.src} description="Michigan Robotics utilizes a plethora of facilities at the University of Michigan, including Mcity and M-Air Net." >
     <Breadcrumbs />
     <PageTitle title="Facilities" image={featureImage} imageAlt="FormLabs 3D printers in the Makerspace" />
     
@@ -70,7 +70,7 @@ import featureImage from '../../../images/featured-images/about-makerspace.jpg';
                         <div class="hidden dark:block relative h-28 -mt-4 -mx-4 mb-3 rounded-t-lg overflow-hidden">
                             <Image 
                                 src={mairNight} 
-                                alt="M-Air at night" 
+                                alt="M-Air Net at night" 
                                 class="w-full h-full object-cover transition-all scale-[1.01]"
                                 loading="eager"
                             />
@@ -78,13 +78,13 @@ import featureImage from '../../../images/featured-images/about-makerspace.jpg';
                         <div class="block dark:hidden relative h-28 -mt-4 -mx-4 mb-3 rounded-t-lg overflow-hidden">
                             <Image 
                                 src={mairDay} 
-                                alt="M-Air in the Fall" 
+                                alt="M-Air Net in the Fall" 
                                 class="w-full h-full object-cover transition-all scale-[1.01]"
                                 loading="eager"
                             />
                         </div>
-                        <Link href={`/about/facilities/m-air`} class="no-underline group/title">
-                            <h2 class="text-lg font-bold text-umichblue mb-1 group-hover/title:underline decoration-maize decoration-2 underline-offset-2 inline-flex items-center">M-Air <Icon name="mdi:arrow-right" class="inline w-4 h-4 ml-1" /></h2>
+                        <Link href={`/about/facilities/m-air-net`} class="no-underline group/title">
+                            <h2 class="text-lg font-bold text-umichblue mb-1 group-hover/title:underline decoration-maize decoration-2 underline-offset-2 inline-flex items-center">M-Air Net <Icon name="mdi:arrow-right" class="inline w-4 h-4 ml-1" /></h2>
                         </Link>
                         <p class="text-sm mb-2 dark:text-neutral-700">A 10,000 sq ft netted facility for testing aerial vehicles in all Michigan weather conditions.</p>
                     </div>
@@ -162,12 +162,12 @@ import featureImage from '../../../images/featured-images/about-makerspace.jpg';
             </div>
 
             <div class="w-full">
-                <Link href={`/about/facilities/m-air`} class="block no-underline w-full">
+                <Link href={`/about/facilities/m-air-net`} class="block no-underline w-full">
                     <div class="group card-base card-padded surface card-hover border border-arboretumBlue/20 dark:border-arboretumBlue/40 h-full">
                         <div class="hidden dark:block relative h-28 -mt-4 -mx-4 mb-3 overflow-hidden">
                             <Image 
                                 src={mairNight} 
-                                alt="M-Air at night" 
+                                alt="M-Air Net at night" 
                                 class="w-full h-full object-cover"
                                 loading="eager"
                             />
@@ -175,13 +175,13 @@ import featureImage from '../../../images/featured-images/about-makerspace.jpg';
                         <div class="block dark:hidden relative h-28 -mt-4 -mx-4 mb-3 overflow-hidden">
                             <Image 
                                 src={mairDay} 
-                                alt="M-Air in the Fall" 
+                                alt="M-Air Net in the Fall" 
                                 class="w-full h-full object-cover"
                                 loading="eager"
                             />
                         </div>
-                        <Link href={`/about/facilities/m-air`} class="no-underline group/title">
-                            <h2 class="text-xl font-bold text-umichblue dark:text-neutral-100 mb-2 group-hover:underline decoration-maize decoration-2 underline-offset-2 inline-flex items-center">M-Air <Icon name="mdi:arrow-right" class="inline w-4 h-4 ml-1" /></h2>
+                        <Link href={`/about/facilities/m-air-net`} class="no-underline group/title">
+                            <h2 class="text-xl font-bold text-umichblue dark:text-neutral-100 mb-2 group-hover:underline decoration-maize decoration-2 underline-offset-2 inline-flex items-center">M-Air Net <Icon name="mdi:arrow-right" class="inline w-4 h-4 ml-1" /></h2>
                         </Link>
                         <p class="text-sm mb-4 text-neutral-700 dark:text-neutral-300">A 10,000 sq ft netted facility for testing aerial vehicles in all Michigan weather conditions.</p>
                     </div>
