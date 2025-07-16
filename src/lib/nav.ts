@@ -321,7 +321,11 @@ export const subNavConfig: Record<string, SubNavItem[]> = {
       { title: "Funding", href: "/academics/graduate/admissions/funding-for-graduate-students" },
       { title: "Degree Requirements", href: "/academics/graduate/degree-requirements" },
       { title: "Graduate Advising", href: "/academics/graduate/advising" },
-      { title: "SUGS", href: "/academics/graduate/sugs" }
+      { title: "SUGS", href: "/academics/graduate/sugs" },
+      { title: "Deadlines", href: "/academics/graduate/admissions#application-deadlines", anchor: true },
+      { title: "Criteria", href: "/academics/graduate/admissions#criteria-our-admissions-committee-looks-for", anchor: true },
+      { title: "Tuition", href: "/academics/graduate/admissions#cost-of-attendance--funding", anchor: true },
+      { title: "Decisions", href: "/academics/graduate/admissions#admission-decisions-timeline", anchor: true }  
     ],
     'academics/graduate/degree-requirements': [
       { title: "Credit Requirements", href: "/academics/graduate/degree-requirements#credit-requirements", anchor: true },
