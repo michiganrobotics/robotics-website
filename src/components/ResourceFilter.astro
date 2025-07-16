@@ -131,65 +131,78 @@ document.addEventListener('DOMContentLoaded', function() {
     let visibleResourceCount = 0;
     
     resourceCards.forEach(card => {
-      const categories = card.getAttribute('data-categories') || '';
-      const categoryList = categories.split(' ');
+      // Get all links with data-categories in this card
+      const resourceLinks = card.querySelectorAll('a[data-categories]');
       
-      // Check program filter match
-      const programMatch = !activeFilters.program || categoryList.includes(activeFilters.program);
+      // Check if any link in this card matches the filters
+      let cardHasMatchingLinks = false;
       
-      // Check help filter match  
-      const helpMatch = activeFilters.help === 'all' || categoryList.includes(activeFilters.help);
+      resourceLinks.forEach(link => {
+        const categories = link.getAttribute('data-categories') || '';
+        const categoryList = categories.split(' ');
+        
+        // Check program filter match
+        const programMatch = !activeFilters.program || categoryList.includes(activeFilters.program);
+        
+        // Check help filter match  
+        const helpMatch = activeFilters.help === 'all' || categoryList.includes(activeFilters.help);
+        
+        // If this link matches the filters, mark the card as having matching links
+        if (programMatch && helpMatch) {
+          cardHasMatchingLinks = true;
+        }
+      });
       
-      // Apply category filters to entire card
-      if (!programMatch || !helpMatch) {
+      // Apply category filters to entire card based on whether any of its links match
+      if (!cardHasMatchingLinks) {
         card.classList.add('hidden');
         card.style.display = 'none';
         return;
       }
       
       // Count individual resources within this card
-      const resourceLinks = card.querySelectorAll('a[data-search-terms]');
+      const allResourceLinks = card.querySelectorAll('a[data-search-terms]');
       let cardVisibleResources = 0;
       let hasVisibleItems = false;
       
-      // For search, check individual items within the card
-      if (searchTerm) {
-        resourceLinks.forEach(link => {
-          const listItem = link.closest('li');
-          if (listItem) {
+      // For each link, check both category filters and search term
+      allResourceLinks.forEach(link => {
+        const listItem = link.closest('li');
+        if (listItem) {
+          // Check category filters for this specific link
+          const linkCategories = link.getAttribute('data-categories') || '';
+          const linkCategoryList = linkCategories.split(' ');
+          const linkProgramMatch = !activeFilters.program || linkCategoryList.includes(activeFilters.program);
+          const linkHelpMatch = activeFilters.help === 'all' || linkCategoryList.includes(activeFilters.help);
+          const linkCategoryMatch = linkProgramMatch && linkHelpMatch;
+          
+          // Check search term match
+          let linkSearchMatch = true;
+          if (searchTerm) {
             const itemText = listItem.textContent?.toLowerCase() || '';
             const searchTerms = link.getAttribute('data-search-terms')?.toLowerCase() || '';
-            const itemMatches = itemText.includes(searchTerm) || searchTerms.includes(searchTerm);
-            
-            if (itemMatches) {
-              listItem.style.display = '';
-              hasVisibleItems = true;
-              cardVisibleResources++;
-            } else {
-              listItem.style.display = 'none';
-            }
+            linkSearchMatch = itemText.includes(searchTerm) || searchTerms.includes(searchTerm);
           }
-        });
-        
-        // Show/hide the entire card based on whether it has visible items
-        if (hasVisibleItems) {
-          card.classList.remove('hidden');
-          card.style.display = 'block';
-          visibleResourceCount += cardVisibleResources;
-        } else {
-          card.classList.add('hidden');
-          card.style.display = 'none';
+          
+          // Show/hide this specific link based on both filters and search
+          if (linkCategoryMatch && linkSearchMatch) {
+            listItem.style.display = '';
+            hasVisibleItems = true;
+            cardVisibleResources++;
+          } else {
+            listItem.style.display = 'none';
+          }
         }
-      } else {
-        // No search term - show all items and count all resources in this card
-        const allItems = card.querySelectorAll('li');
-        allItems.forEach(item => {
-          item.style.display = '';
-        });
-        
+      });
+      
+      // Show/hide the entire card based on whether it has visible items
+      if (hasVisibleItems) {
         card.classList.remove('hidden');
         card.style.display = 'block';
-        visibleResourceCount += resourceLinks.length;
+        visibleResourceCount += cardVisibleResources;
+      } else {
+        card.classList.add('hidden');
+        card.style.display = 'none';
       }
     });
     
