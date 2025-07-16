@@ -543,6 +543,12 @@ export const subNavConfig: Record<string, SubNavItem[]> = {
       { title: "Transcripts", href: "/academics/graduate/admissions/transcripts" },
       { title: "Academic & Personal Statements", href: "/academics/graduate/admissions/academic-and-personal-statements" },
       { title: "Resume/CV", href: "/academics/graduate/admissions/resume-curriculum-vitae" }
-    ]
+    ],
+    'academics/graduate/admissions/funding-for-graduate-students': [
+      { title: "Admissions", href: "/academics/graduate/admissions/" } ],
+    'academics/graduate/admissions/change-of-program': [
+      { title: "Admissions", href: "/academics/graduate/admissions/" } ],  
+    'academics/graduate/admissions/dual-degree': [
+      { title: "Admissions", href: "/academics/graduate/admissions/" } ],       
   };
   
