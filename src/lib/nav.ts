@@ -366,7 +366,7 @@ export const subNavConfig: Record<string, SubNavItem[]> = {
     'academics/undergraduate/advising': [
       { title: "Degree Requirements", href: "/academics/undergraduate/degree-requirements" },
       { title: "Tips & Advice", href: "/academics/undergraduate/advising#general-advising-tips-for-robotics-majors", anchor: true },
-      { title: "Sample Schedules", href: "/academics/undergraduate/advising#sample--editable-schedules", anchor: true },
+      { title: "Sample Schedules", href: "/academics/undergraduate/advising#robotics-sample-schedules", anchor: true },
       { title: "Petitions", href: "/academics/undergraduate/advising#departmental-petitions", anchor: true },
       { title: "Get Involved", href: "/academics/undergraduate/advising#join-our-community", anchor: true },
       { title: "Program Guide", href: "http://robotics.umich.edu/undergrad-guide", external: true }
