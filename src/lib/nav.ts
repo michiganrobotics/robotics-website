@@ -291,6 +291,18 @@ export const subNavConfig: Record<string, SubNavItem[]> = {
       { title: "Independent Study", href: "/academics/student-services/registering-for-classes#enroll-in-an-independent-study-rob-590690990995", anchor: true },
       { title: "Visit or Audit Classes", href: "/academics/student-services/registering-for-classes#visitaudit-a-course", anchor: true }
     ],
+    'academics/student-services/cptopt-instructions': [
+    { title: "Student Services", href: "/academics/student-services" },
+    { title: "Robodex", href: "/academics/student-services/robodex" }
+    ],
+    'academics/student-services/i-20-extensions': [
+    { title: "Student Services", href: "/academics/student-services" },
+    { title: "Robodex", href: "/academics/student-services/robodex" }
+    ],
+    'academics/student-services/reduced-course-load': [
+    { title: "Student Services", href: "/academics/student-services" },
+    { title: "Robodex", href: "/academics/student-services/robodex" }
+    ],
     'academics/courses': [
       { title: "Current Term Courses", href: "/academics/courses/course-offerings" },
       { title: "Complete Course List", href: "/academics/courses/complete-course-list" },
@@ -336,7 +348,10 @@ export const subNavConfig: Record<string, SubNavItem[]> = {
     ],
     'academics/graduate/advising': [
       { title: "Degree Requirements", href: "/academics/graduate/degree-requirements" },
-      { title: "Admissions", href: "/academics/graduate/admissions" }
+      { title: "Admissions", href: "/academics/graduate/admissions" },
+      { title: "Petitions", href: "/academics/graduate/advising#departmental-petitions", anchor: true },
+      { title: "Get Involved", href: "/academics/graduate/advising#join-our-community", anchor: true },
+      { title: "Program Guide", href: "http://robotics.umich.edu/grad-guide", external: true }
     ],
     'academics/undergraduate': [
       { title: "Advising", href: "/academics/undergraduate/advising" },
