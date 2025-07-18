@@ -1,0 +1,85 @@
+---
+import Layout from '../../../../layouts/MainLayout.astro';
+import Breadcrumbs from "../../../../components/Breadcrumbs.astro";
+import PageTitle from "../../../../components/PageTitle.astro";
+import GradApplicationNav from '../../../../components/GradApplicationNav.astro';
+import GradApplicationTransitions from '../../../../components/GradApplicationTransitions.astro';
+import { ClientRouter } from 'astro:transitions';
+
+const pageData = {
+  title: "English Proficiency Test Scores",
+  subtitle: "Demonstrating proficiency & sending scores",
+  description: "Information about English proficiency test requirements for graduate applications to Michigan Robotics"
+};
+---
+
+<Layout title={`${pageData.title} | Michigan Robotics`} description={pageData.description}>
+  <ClientRouter slot="head" />
+  <GradApplicationTransitions slot="head" />
+  <main>
+    <Breadcrumbs />
+    <PageTitle title={`Graduate Application: ${pageData.title}`} />
+    <article transition:name="grad-content" class="prose dark:prose-invert max-w-6xl w-11/12 mx-auto mt-4 mb-4 prose-headings:font-roboto prose-h2:text-3xl prose-h2:mt-10 prose-h3:text-2xl prose-h4:text-xl prose-h5:text-lg prose-h6:text-base prose-headings:font-bold">
+      <GradApplicationNav currentPage='english-proficiency-test-scores'/>
+      {pageData.subtitle && 
+        <div class="mb-8 mt-8 relative">
+          <h2 class="pt-8 lg:pt-0 text-xl md:text-2xl font-roboto text-gray-800 dark:text-gray-200 leading-relaxed not-prose tracking-wide">
+            {pageData.subtitle}
+          </h2>
+          <div class="subtitle-double-line"></div>
+        </div>
+      }
+
+      <p class="mt-0">Applicants whose native language is not English must demonstrate English proficiency and are required to provide one of the following tests: <a href="http://www.ets.org/toefl.html?utm_source=institution&utm_medium=ref&utm_campaign=toefl-demandgen-partner-US-con-2025-Q1-10&utm_content=uni-michigan-ann_arbor&utm_creative=link">TOEFL</a>, <a href="https://michiganassessment.org/michigan-tests/met/">MET</a>, <a href="http://www.cambridgemichigan.org/ecpe">ECPE</a>, or <a href="http://www.ielts.org/">IELTS</a>.</p>
+
+      <p><strong>Submission deadline</strong>: Test scores must be received on or before the application deadline. We will accept your English test scores as long as they are received before they expire. If the expiration date is close, we encourage applicants to take the test again and request ETS to send us the new scores.</p>
+
+      <p>The test scores are valid for two years from the testing date. Additional information including score requirements can be found on Rackham's website <a href="http://www.rackham.umich.edu/prospective-students/admissions/required-tests-for-non-native-english-speakers">Required Tests for Non-Native English Speakers</a>.</p>
+
+      <p>An applicant can qualify for an exemption from taking an English proficiency examination if <strong>one of the following</strong> criteria is met:</p>
+
+      <ul>
+        <li>You are a native speaker of English.</li>
+        <li>You are an applicant from Puerto Rico.</li>
+        <li>You completed <strong>all</strong> of your undergraduate education at an institution where the language of instruction is English only. Undergraduate degree requirements must be completed before the start of classes at the University of Michigan.</li>
+        <li>You completed <strong>all</strong> of your graduate education at an institution where the language of instruction is English only. Graduate degree requirements must be completed before the start of classes at the University of Michigan.</li>
+        <li>Current U-M student.</li>
+      </ul>
+
+      <p>The following does <strong>not</strong> meet an English proficiency exemption:</p>
+
+      <ul>
+        <li>A one year graduate degree.</li>
+        <li>If you completed a Master's degree that was strictly research and no academic classes. This type of Master's degree is generally awarded at a non-U.S. institution.</li>
+      </ul>
+
+      <p>NOTE: If the TOEFL, MELAB or IELTS score is below the minimum requirement, the applicant will need to take it again. The admissions committee will be able to view all test scores submitted with your application.</p>
+
+      <h3>How to send scores</h3>
+
+      <p>Photocopies or faxes are not accepted. Test scores must come directly from the testing agency.</p>
+
+      <ul>
+        <li><strong>TOEFL</strong>: applicants request ETS to submit their test scores to the University of Michigan by way of code 1839. There is no longer a Department Code to select when requesting the scores to be sent to Robotics. If you are required to enter a department code please use "99".</li>
+        <li><strong>MET</strong>: official paper copies must be sent to the <a href="https://rackham.umich.edu/admissions/preparing-your-application/tests/">Rackham Graduate School</a> from the testing agency.
+          <br />
+          Mailing address:<br />
+          Rackham Graduate School<br />
+          915 E. Washington St.<br />
+          Ann Arbor, MI 48109-1070</li>
+        <li><strong>IELTS</strong>: scores can be sent electronically (code 1839) or mailed directly to the <a href="https://rackham.umich.edu/admissions/preparing-your-application/tests/">Rackham Graduate School</a> from the testing agency.
+          <br />
+          Mailing address:<br />
+          Rackham Graduate School<br />
+          915 E. Washington St.<br />
+          Ann Arbor, MI 48109-1070</li>
+        <li><strong>ECPE</strong>: scores can be sent electronically (code 1839) or mailed directly to the <a href="https://rackham.umich.edu/admissions/preparing-your-application/tests/">Rackham Graduate School</a> from the testing agency.
+          <br />
+          Mailing address:<br />
+          Rackham Graduate School<br />
+          915 E. Washington St.<br />
+          Ann Arbor, MI 48109-1070</li>
+      </ul>
+    </article>
+  </main>
+</Layout>

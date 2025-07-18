@@ -1,0 +1,61 @@
+---
+import Layout from '../../../../layouts/MainLayout.astro';
+import Breadcrumbs from "../../../../components/Breadcrumbs.astro";
+import PageTitle from "../../../../components/PageTitle.astro";
+import GradApplicationNav from '../../../../components/GradApplicationNav.astro';
+import GradApplicationTransitions from '../../../../components/GradApplicationTransitions.astro';
+import { ClientRouter } from 'astro:transitions';
+
+const pageData = {
+  title: "Letters of Recommendation",
+  subtitle: "Submitting letters, changing recommenders, late letters",
+  description: "Information about letters of recommendation for graduate applications to Michigan Robotics"
+};
+---
+
+<Layout title={`${pageData.title} | Michigan Robotics`} description={pageData.description}>
+  <ClientRouter slot="head" />
+  <GradApplicationTransitions slot="head" />
+  <main>
+    <Breadcrumbs />
+    <PageTitle title={`Graduate Application: ${pageData.title}`} />
+    <article transition:name="grad-content" class="prose dark:prose-invert max-w-6xl w-11/12 mx-auto mt-4 mb-4 prose-headings:font-roboto prose-h2:text-3xl prose-h2:mt-10 prose-h3:text-2xl prose-h4:text-xl prose-h5:text-lg prose-h6:text-base prose-headings:font-bold">
+    
+      <GradApplicationNav currentPage='letters-of-recommendation'/>
+  {pageData.subtitle && 
+        <div class="mb-8 mt-8 relative" >
+          <h2 class="pt-8 lg:pt-0 text-xl md:text-2xl font-roboto text-gray-800 dark:text-gray-200 leading-relaxed not-prose tracking-wide">
+            {pageData.subtitle}
+          </h2>
+          <div class="subtitle-double-line"></div>
+        </div>
+      }
+      
+      <p class="mt-0">Our department requires three letters of recommendation. They should be from professors, employers, or others who know you well. It is strongly recommended that you determine your three recommenders before starting your application, as they cannot be modified on the form once entered. Letters of recommendation should be submitted online and this is the preferred method of delivery.</p>
+
+      <h2>Logistics</h2>
+
+      <h3>Letter submission</h3>
+
+      <p>Applicants will enter the names and e-mail addresses of their recommenders on the online application. Once the names are entered, the recommenders will receive an e-mail with steps on how to set up a recommender account. They will be able to submit their recommendations electronically.</p>
+
+      <p>Applicants can log onto the online application system to resend the email to the recommender if needed.</p>
+
+      <h3>Change recommender or edit name</h3>
+
+      <p>Applicants can change a recommender at any time unless the recommender they listed has already started the recommendation process online. The applicant can always send a reminder to the recommender to submit the letter.</p>
+
+      <p>It is very important to spell the recommender's name and e-mail correctly. As long as you have not submitted the application yet, any applicant can log back onto the online application to edit the information. Once the application is submitted, no one can modify the content listed on the application (This includes the Rackham Graduate School and Robotics Program). For instance, if an applicant changes a recommender on the Letter of Recommendation online application section and <em>has</em> submitted the application, no one can update the new recommender on the online application. The new recommender will receive a message to submit the letter of recommendation but the new person will not be listed on the online application since it was submitted before the change.</p>
+
+      <h3>Late Letters</h3>
+
+      <p>We will accept letters that arrive after the deadline. We understand that a professor may not provide the letter by the deadline, however, please keep in mind that we need to receive the missing letter in order to completely review your file. Accordingly, a late letter may result in a delayed review.</p>
+
+      <h2>Additional information</h2>
+
+      <ul>
+        <li><a href="https://rackham.umich.edu/admissions/preparing-your-application/letters-of-recommendation/">Rackham Graduate School's Letters of Recommendation</a></li>
+      </ul>
+    </article>
+  </main>
+</Layout>

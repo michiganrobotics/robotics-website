@@ -15,9 +15,12 @@ const applicationComponents = [
 ];
 ---
 
-<nav class="surface-secondary p-2 rounded-md border-maize mb-8" aria-label="Graduate Application Components">
-  <h2 class="not-prose mt-0 text-sm font-semibold mb-3">Graduate application components</h2>
-  <div class="flex flex-wrap gap-2">
+<nav class="not-prose text-gray-200 bg-umichblue p-2 rounded-md border-maize mb-8 sticky top-0 z-10" transition:name="grad-nav" aria-label="Graduate Application Components">
+ <div class="flex flex-wrap gap-2 items-center">
+    <a href="/academics/graduate/admissions/" class="text-xs transition-colors">
+      ← Admissions overview
+    </a>
+    <span class="text-gray-400 text-xs">|</span>
     {applicationComponents.map(component => (
       <a 
         href={component.href}

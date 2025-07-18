@@ -1,0 +1,106 @@
+---
+import Layout from '../../../../layouts/MainLayout.astro';
+import Breadcrumbs from "../../../../components/Breadcrumbs.astro";
+import PageTitle from "../../../../components/PageTitle.astro";
+import GradApplicationNav from '../../../../components/GradApplicationNav.astro';
+import GradApplicationTransitions from '../../../../components/GradApplicationTransitions.astro';
+import { ClientRouter } from 'astro:transitions';
+
+const pageData = {
+  title: "Graduate Application & Fees",
+  subtitle: "Applying, fees, updating an application, application status",
+  description: "Learn about the graduate application process and fees for the Michigan Robotics program"
+};
+---
+
+<Layout title={`${pageData.title} | Michigan Robotics`} description={pageData.description}>
+  <ClientRouter slot="head" />
+  <GradApplicationTransitions slot="head" />
+  <main>
+    <Breadcrumbs />
+    <PageTitle title={`Graduate Application: ${pageData.title}`} />
+    <article transition:name="grad-content" class="prose dark:prose-invert max-w-6xl w-11/12 mx-auto mt-4 mb-4 prose-headings:font-roboto prose-h2:text-3xl prose-h2:mt-10 prose-h3:text-2xl prose-h4:text-xl prose-h5:text-lg prose-h6:text-base prose-headings:font-bold">
+      <GradApplicationNav currentPage='graduate-application'/>
+      {pageData.subtitle && 
+        <div class="mb-8 mt-8 relative">
+          <h2 class="pt-8 lg:pt-0 text-xl md:text-2xl font-roboto text-gray-800 dark:text-gray-200 leading-relaxed not-prose tracking-wide">
+            {pageData.subtitle}
+          </h2>
+          <div class="subtitle-double-line"></div>
+        </div>
+      }
+
+      <p class="mt-0">Prospective students interested in applying to the Robotics Graduate Program must submit a Rackham Graduate School <a href="https://rackham.umich.edu/admissions/applying/">online application</a>.</p>
+
+      <h2>Application fees and payment</h2>
+
+      <p>Rackham Graduate School <a href="https://rackham.umich.edu/admissions/applying/application-fee-and-waivers/">lists required fees and waiver</a> information, which includes:</p>
+
+      <ul>
+        <li>United States citizen & permanent resident: $75</li>
+        <li>Non-Resident citizen: $90</li>
+        <li>Current University of Michigan (U-M) Ann Arbor Rackham graduate student: $10</li>
+        <li>The application fee is non-refundable and subject to change.</li>
+        <li>All prospective students pay the application fee in order for their application to be processed and submitted to Robotics, unless they received an approved Rackham application fee waiver or a need-based fee grant.</li>
+      </ul>
+
+      <p><strong>Fee Waivers</strong>: The Robotics Program does not provide fee waivers or grants. For information about fee waivers and need-based grants for Ph.D. and MSE applicants, see the <a href="https://rackham.umich.edu/admissions/applying/application-fee-and-waivers/">Rackham website</a>.</p>
+
+      <p><strong>Enrollment Deposit</strong>: An enrollment deposit is not required.</p>
+
+      <h2>What application to submit</h2>
+
+      <p>Michigan Robotics offers two graduate degrees: <strong>Master's of Science (MS)</strong> and a <strong>PhD in Robotics</strong>, however, there are several applications to choose from.</p>
+
+      <p><strong>PhD Application</strong><br />This is for all applicants who will have completed at least a Bachelor's degree by the beginning of their PhD program.</p>
+
+      <p><strong>MS Application</strong><br />This is for all applicants who will have completed at least a Bachelor's degree by the beginning of their MS program and plan to complete their academic journey at the Master's level.</p>
+
+      <p><strong>SUGS</strong><br />The <a href="/academics/graduate/sugs/">Sequential Undergraduate/Graduate Studies (SUGS) program</a> is available only to students completing a Robotics BSE intending to complete the Robotics MS.</p>
+
+      <p><strong>Change of Program</strong><br />This is for applicants who <em>are currently enrolled</em> in a Rackham graduate program and wish to <a href="/academics/graduate/admissions/change-of-program/">change from one graduate program to another Rackham graduate program</a>.</p>
+
+      <p><strong>Dual Degree</strong><br />This is for applicants who are not currently in the Robotics program and are seeking to <a href="/academics/graduate/admissions/dual-degree/">add a Robotics Master's Degree</a>. <em>Note: Applicants whose primary program offers a robotics option (e.g. ECE and MECHENG) will not be admitted.</em></p>
+
+      <h2>After you submit your application….</h2>
+
+      <h3>University of Michigan Identification (UMID) number</h3>
+
+      <p>Applicants who apply to Robotics will receive a UMID number after submitting the online application to Rackham. See Rackham's <a href="https://rackham.umich.edu/admissions/checklist-for-completing-the-application-process#create-umid">Register for Your University of Michigan Identification Number (UMID) link</a> for more information. If you do not receive the UMID number in ten days from submitting the application, please contact Rackham directly at rackadmis@umich.edu.</p>
+
+      <h3>Application review</h3>
+
+      <p>Your application will have multiple evaluations times, reviewed by trained College of Engineering application evaluators and by Robotics faculty. Unfortunately, we are unable to provide pre-application evaluations or feedback on the competitiveness of your application.</p>
+
+      <h3>Updating your application after submission</h3>
+
+      <h4>Personal Information</h4>
+
+      <p>If information on your application is incorrect or incomplete, such as your date of birth, or your name, you can notify the Rackham Graduate School at <a href="mailto:rackadmis@umich.edu">rackadmis@umich.edu</a> and request the correction. They will inform you of any required documents to confirm the new information and could include your UMID number, a copy of your US Driver's License, a Passport, a marriage license, birth certificate, etc.</p>
+
+      <h4>Additional materials or updates</h4>
+
+      <p>Due to volume, unfortunately, we are unable to process requests for updates to your application such as revised essays, resume/CV, additional letters of recommendation, etc.</p>
+
+      <h3>How to check status of application</h3>
+
+      <p>Before viewing whether your application and materials have been received you must:</p>
+
+      <ol>
+        <li>Submit an application</li>
+        <li>Receive a University of Michigan ID number (sent 5 business days after Rackham receives the application)</li>
+        <li>Create a Friend Account, if you do not have a UMICH uniqname and Kerberos password</li>
+        <li>Log into Wolverine Access and select New & Prospective Student Business.<br />Allow 10 business days, after completing the steps above, to view your application and materials.</li>
+      </ol>
+
+      <p>You can confirm the receipt of the following via Wolverine Access:</p>
+      <ul>
+        <li>Test scores</li>
+        <li>Transcripts from institutions that awarded the Bachelor's, Master's, Professional, and/or Doctoral degree.</li>
+        <li>Recommendations can be tracked through the online application system, ApplyWeb Account, activity page, or in your Wolverine Access account.</li>
+      </ul>
+
+      <p>All applicants with complete applications will receive a notification of their admission decision from the Robotics Department. Please refer to the deadlines chart on the Admissions page to understand when decisions are typically made by.</p>
+    </article>
+  </main>
+</Layout>

@@ -521,48 +521,48 @@ export const subNavConfig: Record<string, SubNavItem[]> = {
       { title: "Pathways & Careers Series", href: "/events/robotics-pathways-speaker-series" },
       { title: "Events on Happening @ Michigan", href: "https://events.umich.edu/group/3998", external: true }
     ],
-    'academics/graduate/admissions/graduate-application': [
-      { title: "Letters of Recommendation", href: "/academics/graduate/admissions/letters-of-recommendation" },
-      { title: "Transcripts", href: "/academics/graduate/admissions/transcripts" },
-      { title: "Academic & Personal Statements", href: "/academics/graduate/admissions/academic-and-personal-statements" },
-      { title: "Resume/CV", href: "/academics/graduate/admissions/resume-curriculum-vitae" },
-      { title: "English Proficiency", href: "/academics/graduate/admissions/english-proficiency-test-scores" }
-    ],
-    'academics/graduate/admissions/letters-of-recommendation': [
-      { title: "Graduate Application", href: "/academics/graduate/admissions/graduate-application" },
-      { title: "Transcripts", href: "/academics/graduate/admissions/transcripts" },
-      { title: "Academic & Personal Statements", href: "/academics/graduate/admissions/academic-and-personal-statements" },
-      { title: "Resume/CV", href: "/academics/graduate/admissions/resume-curriculum-vitae" },
-      { title: "English Proficiency", href: "/academics/graduate/admissions/english-proficiency-test-scores" }
-    ],
-    'academics/graduate/admissions/transcripts': [
-      { title: "Graduate Application", href: "/academics/graduate/admissions/graduate-application" },
-      { title: "Letters of Recommendation", href: "/academics/graduate/admissions/letters-of-recommendation" },
-      { title: "Academic & Personal Statements", href: "/academics/graduate/admissions/academic-and-personal-statements" },
-      { title: "Resume/CV", href: "/academics/graduate/admissions/resume-curriculum-vitae" },
-      { title: "English Proficiency", href: "/academics/graduate/admissions/english-proficiency-test-scores" }
-    ],
-    'academics/graduate/admissions/academic-and-personal-statements': [
-      { title: "Graduate Application", href: "/academics/graduate/admissions/graduate-application" },
-      { title: "Letters of Recommendation", href: "/academics/graduate/admissions/letters-of-recommendation" },
-      { title: "Transcripts", href: "/academics/graduate/admissions/transcripts" },
-      { title: "Resume/CV", href: "/academics/graduate/admissions/resume-curriculum-vitae" },
-      { title: "English Proficiency", href: "/academics/graduate/admissions/english-proficiency-test-scores" }
-    ],
-    'academics/graduate/admissions/resume-curriculum-vitae': [
-      { title: "Graduate Application", href: "/academics/graduate/admissions/graduate-application" },
-      { title: "Letters of Recommendation", href: "/academics/graduate/admissions/letters-of-recommendation" },
-      { title: "Transcripts", href: "/academics/graduate/admissions/transcripts" },
-      { title: "Academic & Personal Statements", href: "/academics/graduate/admissions/academic-and-personal-statements" },
-      { title: "English Proficiency", href: "/academics/graduate/admissions/english-proficiency-test-scores" }
-    ],
-    'academics/graduate/admissions/english-proficiency-test-scores': [
-      { title: "Graduate Application", href: "/academics/graduate/admissions/graduate-application" },
-      { title: "Letters of Recommendation", href: "/academics/graduate/admissions/letters-of-recommendation" },
-      { title: "Transcripts", href: "/academics/graduate/admissions/transcripts" },
-      { title: "Academic & Personal Statements", href: "/academics/graduate/admissions/academic-and-personal-statements" },
-      { title: "Resume/CV", href: "/academics/graduate/admissions/resume-curriculum-vitae" }
-    ],
+    // 'academics/graduate/admissions/graduate-application': [
+    //   { title: "Letters of Recommendation", href: "/academics/graduate/admissions/letters-of-recommendation" },
+    //   { title: "Transcripts", href: "/academics/graduate/admissions/transcripts" },
+    //   { title: "Academic & Personal Statements", href: "/academics/graduate/admissions/academic-and-personal-statements" },
+    //   { title: "Resume/CV", href: "/academics/graduate/admissions/resume-curriculum-vitae" },
+    //   { title: "English Proficiency", href: "/academics/graduate/admissions/english-proficiency-test-scores" }
+    // ],
+    // 'academics/graduate/admissions/letters-of-recommendation': [
+    //   { title: "Graduate Application", href: "/academics/graduate/admissions/graduate-application" },
+    //   { title: "Transcripts", href: "/academics/graduate/admissions/transcripts" },
+    //   { title: "Academic & Personal Statements", href: "/academics/graduate/admissions/academic-and-personal-statements" },
+    //   { title: "Resume/CV", href: "/academics/graduate/admissions/resume-curriculum-vitae" },
+    //   { title: "English Proficiency", href: "/academics/graduate/admissions/english-proficiency-test-scores" }
+    // ],
+    // 'academics/graduate/admissions/transcripts': [
+    //   { title: "Graduate Application", href: "/academics/graduate/admissions/graduate-application" },
+    //   { title: "Letters of Recommendation", href: "/academics/graduate/admissions/letters-of-recommendation" },
+    //   { title: "Academic & Personal Statements", href: "/academics/graduate/admissions/academic-and-personal-statements" },
+    //   { title: "Resume/CV", href: "/academics/graduate/admissions/resume-curriculum-vitae" },
+    //   { title: "English Proficiency", href: "/academics/graduate/admissions/english-proficiency-test-scores" }
+    // ],
+    // 'academics/graduate/admissions/academic-and-personal-statements': [
+    //   { title: "Graduate Application", href: "/academics/graduate/admissions/graduate-application" },
+    //   { title: "Letters of Recommendation", href: "/academics/graduate/admissions/letters-of-recommendation" },
+    //   { title: "Transcripts", href: "/academics/graduate/admissions/transcripts" },
+    //   { title: "Resume/CV", href: "/academics/graduate/admissions/resume-curriculum-vitae" },
+    //   { title: "English Proficiency", href: "/academics/graduate/admissions/english-proficiency-test-scores" }
+    // ],
+    // 'academics/graduate/admissions/resume-curriculum-vitae': [
+    //   { title: "Graduate Application", href: "/academics/graduate/admissions/graduate-application" },
+    //   { title: "Letters of Recommendation", href: "/academics/graduate/admissions/letters-of-recommendation" },
+    //   { title: "Transcripts", href: "/academics/graduate/admissions/transcripts" },
+    //   { title: "Academic & Personal Statements", href: "/academics/graduate/admissions/academic-and-personal-statements" },
+    //   { title: "English Proficiency", href: "/academics/graduate/admissions/english-proficiency-test-scores" }
+    // ],
+    // 'academics/graduate/admissions/english-proficiency-test-scores': [
+    //   { title: "Graduate Application", href: "/academics/graduate/admissions/graduate-application" },
+    //   { title: "Letters of Recommendation", href: "/academics/graduate/admissions/letters-of-recommendation" },
+    //   { title: "Transcripts", href: "/academics/graduate/admissions/transcripts" },
+    //   { title: "Academic & Personal Statements", href: "/academics/graduate/admissions/academic-and-personal-statements" },
+    //   { title: "Resume/CV", href: "/academics/graduate/admissions/resume-curriculum-vitae" }
+    // ],
     'academics/graduate/admissions/funding-for-graduate-students': [
       { title: "Admissions", href: "/academics/graduate/admissions/" } ],
     'academics/graduate/admissions/change-of-program': [
