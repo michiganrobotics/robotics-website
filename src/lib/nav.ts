@@ -375,7 +375,11 @@ export const subNavConfig: Record<string, SubNavItem[]> = {
       { title: "Graduate Admissions", href: "/academics/graduate/admissions" },
       { title: "Degree Requirements", href: "/academics/graduate/degree-requirements" },
       { title: "Graduate Advising", href: "/academics/graduate/advising" },
-      { title: "SUGS Deadlines", href: "/academics/graduate/sugs#application-deadlines", anchor: true }
+      { title: "Who to meet with", href: "/academics/graduate/sugs#who-should-i-meet-with", anchor: true },
+      { title: "Applying", href: "/academics/graduate/sugs#how-to-apply", anchor: true },
+      { title: "SUGS Deadlines", href: "/academics/graduate/sugs#application-deadlines", anchor: true },
+      { title: "FAQ", href: "/academics/graduate/sugs#faq", anchor: true }
+   
     ],
     'academics/undergraduate/sure': [
       { title: "SURE Projects", href: "/academics/undergraduate/sure#robotics-sure-projects", anchor: true },
