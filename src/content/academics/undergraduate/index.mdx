@@ -16,13 +16,18 @@ import ScrollFadeList from '../../../components/ScrollFadeList.astro';
 
 
 
-<div class="grid lg:grid-cols-3 gap-8 items-start">
-  <div class="lg:col-span-2">
+<div class="grid md:grid-cols-3 gap-8 items-start">
+  <div class="md:col-span-2">
     <p class="mt-0 text-xl max-w-2xl leading-relaxed">As one of the first undergraduate robotics programs at a top-ten engineering school, Michigan Robotics has developed cutting-edge courses that stay current with the fast-advancing robotics field.</p>
+    
+    <div class="md:hidden flex justify-center my-8">
+      <MBotAnimation />
+    </div>
+    
     <p class="text-lg max-w-3xl leading-relaxed">Robotics students gain an understanding of foundational concepts through *hands-on core courses* such as human-robot interaction, sensors and signals, and operating systems, then quickly *adapt the degree* to their interests with electives in areas such as robot control, autonomous robotics, wearable sensors, aircraft structres, or even marine dynamics.</p>
     <p class="text-lg max-w-3xl leading-relaxed">Leveraging the breadth of courses available across other top-ranked departments throughout the University, **a Michigan Robotics degree demonstrates the force-multiplying impact of the field** across a vast array of applications from medicine to manufacturing, and beyond.</p>
   </div>
-  <div class="lg:col-span-1 flex justify-center lg:justify-end">
+  <div class="hidden md:flex md:col-span-1 justify-center md:justify-end overflow-hidden">
     <MBotAnimation />
   </div>
 </div>

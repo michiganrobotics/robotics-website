@@ -19,13 +19,40 @@ import RollingBot from '../../../components/RollingBot.astro';
 import ResearchScrollCarousel from '../../../components/ResearchScrollCarousel.astro';
 import ScrollFadeList from '../../../components/ScrollFadeList.astro';
 
-<div class="grid lg:grid-cols-3 gap-8 items-start">
-  <div class="lg:col-span-2">
+<div class="grid md:grid-cols-3 gap-8 items-start">
+  <div class="md:col-span-2">
     <p class="mt-0 text-xl max-w-2xl leading-relaxed">Michigan Robotics offers both Master's and PhD programs that provide deep technical training in autonomous systems across hardware and software, preparing graduates to become full-stack roboticists in research, industry, and innovation.</p>
+    
+    <div class="md:hidden flex justify-center my-8">
+      <div class="surface-secondary rounded-lg p-6 w-full max-w-sm relative">
+        <img src="/illustrations/trees.png" alt="" class="absolute -bottom-5 -left-4 w-20 h-auto pointer-events-none" />
+        <RollingBot />
+        <DroneAnimation />
+        <div class="space-y-4 relative z-10">
+            <div class="text-center">
+              <div class="text-3xl font-bold text-maize">2014</div>
+              <div class="text-sm text-neutral-200">Program Established</div>
+            </div>
+          <div class="text-center">
+            <div class="text-3xl font-bold text-maize">100+</div>
+            <div class="text-sm text-neutral-200">MS Students</div>
+          </div>
+          <div class="text-center">
+            <div class="text-3xl font-bold text-maize">100+</div>
+            <div class="text-sm text-neutral-200">PhD Students</div>
+          </div>
+          <div class="text-center">
+            <div class="text-3xl font-bold text-maize">$75M</div>
+            <div class="text-sm text-neutral-200"><a href="/about/facilities/ford-robotics-building">Ford Robotics Building</a><br />built in 2021</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
     <p class="text-lg max-w-3xl leading-relaxed">Graduate students work alongside faculty on the latest research in leading facilities and working in partnerships across campus and industry to gain expertise across the fundamental areas of robotics. Our programs emphasize *hands-on experience* with real robotic systems and *interdisciplinary collaboration* that mirrors the complex challenges facing the field.</p>
     <p class="text-lg max-w-3xl leading-relaxed">Michigan roboticists develop, teach, and learn technologies and socially engaged systems to improve everyday life, make our world safer, and tackle the pressing issues that society faces.</p>
   </div>
-  <div class="lg:col-span-1 flex justify-center lg:justify-end mb-8">
+  <div class="hidden md:flex md:col-span-1 justify-center md:justify-end mb-8">
     <div class="surface-secondary rounded-lg p-6 w-full max-w-sm relative">
       <img src="/illustrations/trees.png" alt="" class="absolute -bottom-5 -left-4 w-20 h-auto pointer-events-none" />
       <RollingBot />
