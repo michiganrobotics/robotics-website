@@ -1,0 +1,48 @@
+---
+// RollingBot.astro - Rolling bot animation under trees
+---
+
+<div class="rolling-bot-container">
+  <img src="/illustrations/rolling-bot.png" alt="" class="rolling-bot" />
+</div>
+
+<style>
+.rolling-bot-container {
+  position: absolute;
+  bottom: -12px;
+  left: 14px;
+  width: 60px;
+  height: 32px;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.rolling-bot {
+  width: 2rem;
+  height: auto;
+  animation: rollBackForth 6s ease-in-out infinite;
+  position: absolute;
+  bottom: 0;
+}
+
+@keyframes rollBackForth {
+  0%, 15% {
+    transform: translateX(0px) translateY(0px);
+  }
+  35% {
+    transform: translateX(24px) translateY(5px);
+  }
+  50%, 65% {
+    transform: translateX(24px) translateY(5px);
+  }
+  85%, 100% {
+    transform: translateX(0px) translateY(0px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rolling-bot {
+    animation: none;
+  }
+}
+</style>

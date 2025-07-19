@@ -1,0 +1,42 @@
+---
+// Custom transitions for graduate application pages
+---
+
+<style>
+  /* Custom transition for graduate application content */
+  @keyframes grow-in {
+    0% {
+      transform: scale(0.95);
+      opacity: 0;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+  
+  @keyframes shrink-out {
+    0% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(0.95);
+      opacity: 0;
+    }
+  }
+  
+  ::view-transition-old(grad-content) {
+    animation: shrink-out 0.3s ease-out;
+  }
+  
+  ::view-transition-new(grad-content) {
+    animation: grow-in 0.3s ease-out;
+  }
+  
+  /* Keep the navigation stable */
+  ::view-transition-old(grad-nav),
+  ::view-transition-new(grad-nav) {
+    animation: none;
+  }
+</style>

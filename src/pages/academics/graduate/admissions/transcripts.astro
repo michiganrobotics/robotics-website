@@ -1,0 +1,60 @@
+---
+import Layout from '../../../../layouts/MainLayout.astro';
+import Breadcrumbs from "../../../../components/Breadcrumbs.astro";
+import PageTitle from "../../../../components/PageTitle.astro";
+import GradApplicationNav from '../../../../components/GradApplicationNav.astro';
+import GradApplicationTransitions from '../../../../components/GradApplicationTransitions.astro';
+import { ClientRouter } from 'astro:transitions';
+
+const pageData = {
+  title: "Transcripts",
+  subtitle: "Sending transcripts & GPA",
+  description: "Information about transcript requirements for graduate applications to Michigan Robotics"
+};
+---
+
+<Layout title={`${pageData.title} | Michigan Robotics`} description={pageData.description}>
+  <ClientRouter slot="head" />
+  <GradApplicationTransitions slot="head" />
+  <main>
+    <Breadcrumbs />
+    <PageTitle title={`Graduate Application: ${pageData.title}`} />
+    <article transition:name="grad-content" class="prose dark:prose-invert max-w-6xl w-11/12 mx-auto mt-4 mb-4 prose-headings:font-roboto prose-h2:text-3xl prose-h2:mt-10 prose-h3:text-2xl prose-h4:text-xl prose-h5:text-lg prose-h6:text-base prose-headings:font-bold">
+      <GradApplicationNav currentPage='transcripts'/>
+      {pageData.subtitle && 
+        <div class="mb-8 mt-8 relative">
+          <h2 class="pt-8 lg:pt-0 text-xl md:text-2xl font-roboto text-gray-800 dark:text-gray-200 leading-relaxed not-prose tracking-wide">
+            {pageData.subtitle}
+          </h2>
+          <div class="subtitle-double-line"></div>
+        </div>
+      }
+
+      <p class="mt-0">A scanned/electronic copy of the official transcript will be used for initial review by our admissions committee. This transcript should be uploaded with your application.</p>
+
+      <h3>Where to send official transcripts after admission</h3>
+
+      <p>You will be required to have your official, final transcript sent to the Rackham Graduate School only if you are recommended for admission. They can be sent, either electronically or by mail, to the Rackham Graduate School.</p>
+
+      <h4>Electronic submission</h4>
+
+      <p>Request your Registrar to send an electronic transcript and <a href="https://rackham.umich.edu/downloads/admissions/academic_record_transcript_submission_form.pdf">Transcripts/Academic Records Submission Form</a> to racketranscripts@umich.edu. The transcripts cannot be an email attachment or forwarded email.</p>
+
+      <h4>Postal mail submission</h4>
+
+      <p>If an e-transcript option is not available, submit a paper transcript and the <a href="https://rackham.umich.edu/downloads/admissions/academic_record_transcript_submission_form.pdf">Transcripts/Academic Records Submission Form</a>, in the envelope sealed by the institution, directly to:</p>
+
+      <p>Rackham Graduate School<br />
+      Attn: Transcripts/U-M ID# or Transcripts/Date of Birth (mm/dd/yyyy)<br />
+      915 E. Washington Street<br />
+      Ann Arbor, Michigan 48109-1070<br />
+      USA</p>
+
+      <h3>Grade Point Average (GPA)</h3>
+
+      <p>All applicants should report their Grade Point Average (GPA) on page 5 of the online application. The GPA should be reported using a standard U.S. four point scale. Applicants who attended an institution outside the United States should follow the instructions to <a href="https://rackham.umich.edu/admissions/applying/required-credentials-from-non-us-institutions/">convert their international average grade point to a U.S. four point GPA</a>.</p>
+
+      <p>While our admissions committee does not require a minimum GPA, they review overall academic performance amongst all application materials such as your letters of recommendation, research experience, essay responses, etc.</p>
+    </article>
+  </main>
+</Layout>

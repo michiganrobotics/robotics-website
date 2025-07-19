@@ -1,0 +1,38 @@
+---
+interface Props {
+  currentPage: string;
+}
+
+const { currentPage } = Astro.props;
+
+const applicationComponents = [
+  { id: 'graduate-application', title: 'Application & Fee', href: '/academics/graduate/admissions/graduate-application/' },
+  { id: 'letters-of-recommendation', title: 'Letters of Recommendation', href: '/academics/graduate/admissions/letters-of-recommendation/' },
+  { id: 'transcripts', title: 'Transcripts', href: '/academics/graduate/admissions/transcripts/' },
+  { id: 'academic-and-personal-statements', title: 'Academic & Personal Statements', href: '/academics/graduate/admissions/academic-and-personal-statements/' },
+  { id: 'resume-curriculum-vitae', title: 'Resumé/CV', href: '/academics/graduate/admissions/resume-curriculum-vitae/' },
+  { id: 'english-proficiency-test-scores', title: 'English Proficiency', href: '/academics/graduate/admissions/english-proficiency-test-scores/' }
+];
+---
+
+<nav class="not-prose text-gray-200 bg-umichblue p-2 rounded-md border-maize mb-8 md:sticky md:top-0 z-10" transition:name="grad-nav" aria-label="Graduate Application Components">
+ <div class="flex flex-wrap gap-2 items-center">
+    <a href="/academics/graduate/admissions/" class="text-xs transition-colors">
+      ← Admissions overview
+    </a>
+    <span class="text-gray-400 text-xs">|</span>
+    {applicationComponents.map(component => (
+      <a 
+        href={component.href}
+        class={`px-3 py-1 rounded-sm text-xs font-medium transition-colors duration-200 ${
+          currentPage === component.id 
+            ? 'bg-maize !text-umichblue font-semibold' 
+            : 'bg-gray-200 !text-gray-800'
+        }`}
+        aria-current={currentPage === component.id ? 'page' : undefined}
+      >
+        {component.title}
+      </a>
+    ))}
+  </div>
+</nav>

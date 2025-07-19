@@ -7,7 +7,9 @@
     "src": "https://news.engin.umich.edu/wp-content/uploads/2025/07/Tilbury-lab-U-M-digital-twins.jpg",
     "alt": "Digital twins for manufacturing: industry collaborators wanted"
   },
-  "categories": ["manufacturing"],
+  "categories": [
+    "manufacturing"
+  ],
   "tags": [
     "Dawn Tilbury",
     "Kira Barton"

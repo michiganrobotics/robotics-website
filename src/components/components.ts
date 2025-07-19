@@ -19,6 +19,8 @@ import SeminarSpeakerProfile from '../components/SeminarSpeakerProfile.astro';
 import RPCSSSpeakerProfile from '../components/RPCSSSpeakerProfile.astro';
 import Callout from '../components/Callout.astro';
 import YouTubeGallery from '../components/YouTubeGallery.astro';
+import TableOfContents from '../components/TableOfContents.astro';
+import PageSearch from '../components/PageSearch.astro';
 
 export const components = {
   Button,
@@ -41,7 +43,9 @@ export const components = {
   SeminarSpeakerProfile,
   RPCSSSpeakerProfile,
   Callout,
-  YouTubeGallery
+  YouTubeGallery,
+  TableOfContents,
+  PageSearch
 };
 
 
