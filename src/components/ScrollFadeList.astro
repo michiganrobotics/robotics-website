@@ -1,0 +1,61 @@
+---
+// ScrollFadeList.astro - List with scroll-triggered fade-in animation using Tailwind
+---
+
+<ul class="not-prose grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 mt-4 mb-4 text-sm list-disc pl-6 scroll-fade-list items-start">
+  <slot />
+</ul>
+
+<style>
+.scroll-fade-list li {
+  opacity: 0 !important; /* Force initial hidden state */
+  transform: translateY(8px) !important;
+  transition: opacity 0.3s ease, transform 0.3s ease !important;
+  display: block; /* Changed from flex to block for better text flow */
+  line-height: 1.4;
+  margin-bottom: 0.25rem; /* Reduced spacing between items */
+  align-self: start; /* Align items to start of grid cell */
+}
+
+.scroll-fade-list li.fade-in {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const lists = document.querySelectorAll('.scroll-fade-list');
+  if (!lists.length) return;
+  
+  lists.forEach(list => {
+    const items = list.querySelectorAll('li');
+    
+    // Set initial state
+    items.forEach(item => {
+      item.style.opacity = '0';
+      item.style.transform = 'translateY(8px)';
+      item.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    });
+    
+    const observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          const currentItems = list.querySelectorAll('li');
+          
+          currentItems.forEach((item, index) => {
+            setTimeout(() => {
+              item.style.opacity = '1';
+              item.style.transform = 'translateY(0)';
+            }, index * 50);
+          });
+          
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.2 });
+    
+    observer.observe(list);
+  });
+});
+</script>

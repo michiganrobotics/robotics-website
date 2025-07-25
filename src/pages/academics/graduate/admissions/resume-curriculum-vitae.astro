@@ -1,0 +1,83 @@
+---
+import Layout from '../../../../layouts/MainLayout.astro';
+import Breadcrumbs from "../../../../components/Breadcrumbs.astro";
+import PageTitle from "../../../../components/PageTitle.astro";
+import GradApplicationNav from '../../../../components/GradApplicationNav.astro';
+import GradApplicationTransitions from '../../../../components/GradApplicationTransitions.astro';
+import { ClientRouter } from 'astro:transitions';
+
+const pageData = {
+  title: "Resumé or Curriculum Vitae",
+  subtitle: "What to include, tips, and submission",
+  description: "Guidelines for preparing a resumé or CV for graduate applications to Michigan Robotics"
+};
+---
+
+<Layout title={`${pageData.title} | Michigan Robotics`} description={pageData.description}>
+  <ClientRouter slot="head" />
+  <GradApplicationTransitions slot="head" />
+  <main>
+    <Breadcrumbs />
+    <PageTitle title={`Graduate Application: ${pageData.title}`} />
+    <article transition:name="grad-content" class="prose dark:prose-invert max-w-6xl w-11/12 mx-auto mt-4 mb-4 prose-headings:font-roboto prose-h2:text-3xl prose-h2:mt-10 prose-h3:text-2xl prose-h4:text-xl prose-h5:text-lg prose-h6:text-base prose-headings:font-bold">
+      <GradApplicationNav currentPage='resume-curriculum-vitae'/>
+      {pageData.subtitle && 
+        <div class="mb-8 mt-8 relative">
+          <h2 class="pt-8 lg:pt-0 text-xl md:text-2xl font-roboto text-gray-800 dark:text-gray-200 leading-relaxed not-prose tracking-wide">
+            {pageData.subtitle}
+          </h2>
+          <div class="subtitle-double-line"></div>
+        </div>
+      }
+
+      <p class="mt-0">As part of your application to our graduate programs, all applicants are required to submit a resumé or curriculum vitae (CV). This document is an essential part of your application, providing the admissions committee with an overview of your educational background, academic achievements, research experience, work history, and any other relevant skills or accomplishments. Please note: your resumé or CV must not exceed four (4) pages in length.</p>
+
+      <p>Please note that once an applicant submits their online application, no changes to the Personal Statement, Academic Statement of Purpose Letter, Curriculum Vitae, and Application can be modified online.</p>
+
+      <h3>What to include in your resumé or CV</h3>
+
+      <p>To help guide you, we recommend including the following sections:</p>
+
+      <ul>
+        <li><strong>Contact information</strong>: Your full name, email address, phone number, and address.</li>
+        <li><strong>Education</strong>: List all post-secondary institutions attended, degrees earned or in progress, majors/minors, and graduation dates (or expected dates).</li>
+        <li><strong>Research experience</strong>: Include research projects, thesis or dissertation topics, publications, or presentations. Provide details about your role, methods or techniques used, and outcomes.</li>
+        <li><strong>Work experience</strong>: List professional positions in reverse chronological order. Describe your responsibilities and highlight relevant skills gained.</li>
+        <li><strong>Teaching experience</strong>: If you have served as a teaching assistant, tutor, or instructor, describe your role and the courses taught.</li>
+        <li><strong>Honors & awards</strong>: Scholarships, academic honors, or fellowships.</li>
+        <li><strong>Professional skills & certifications</strong>: Include lab techniques, programming languages, statistical methods, language proficiency, or certifications relevant to your field.</li>
+        <li><strong>Service & leadership</strong>: Participation in student organizations, outreach, volunteer work, or leadership roles.</li>
+        <li><strong>Publications & presentations</strong> <em>(if applicable)</em>: List articles, book chapters, conference proceedings, posters, or invited talks.</li>
+      </ul>
+
+      <h3>Tips for preparing a strong resumé or cV</h3>
+
+      <ul>
+        <li><strong>Be concise and organized</strong>: Stick to the 4-page maximum. Use clear headings, consistent formatting, and bullet points where appropriate to improve readability.</li>
+        <li><strong>Tailor to the program</strong>: Highlight information most relevant to the graduate program to which you are applying. Research the program to emphasize experiences or skills aligned with its focus.</li>
+        <li><strong>Quantify accomplishments</strong>: When possible, use numbers or clear examples to illustrate achievements (e.g., "Managed a team of 5," "Published 2 peer-reviewed papers").</li>
+        <li><strong>Use action verbs</strong>: Begin descriptions with strong verbs such as "developed," "analyzed," "designed," "led," or "collaborated."</li>
+        <li><strong>Proofread</strong>: Carefully check for spelling, grammar, or formatting errors. Consider having someone else review your document.</li>
+        <li><strong>Be honest</strong>: Accurately describe your experience and achievements.</li>
+      </ul>
+
+      <h3>Resumé vs. CV: Which should I submit?</h3>
+
+      <ul>
+        <li>A resumé typically summarizes your academic and work experience in a more concise format, usually 1-2 pages.</li>
+        <li>A CV (curriculum vitae) often includes more detailed information, such as research, publications, presentations, and academic achievements, and is usually preferred for academic and research-oriented graduate programs.</li>
+        <li>Either format is usually accepted unless a specific format is requested by your intended program. If unsure, check the program's admissions page or contact the department.</li>
+      </ul>
+
+      <h3>Submission guidelines</h3>
+
+      <ul>
+        <li>Format: Submit your resume or CV as a PDF file to ensure accurate formatting.</li>
+        <li>Length: Maximum of 4 pages.</li>
+        <li>File naming: Use a standard file name, such as Lastname_Firstname_Resume or Lastname_Firstname_CV.</li>
+      </ul>
+
+      <p>For additional support, consider using resources available at your current institution, such as career centers or writing workshops. You may also review <a href="https://career.engin.umich.edu/resumes-cvs-cover-letters/">resumé and CV resources from the College of Engineering's Engineering Career Resource Center</a> for templates and further guidance.</p>
+    </article>
+  </main>
+</Layout>
