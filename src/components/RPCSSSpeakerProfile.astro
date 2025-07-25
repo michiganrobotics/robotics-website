@@ -17,11 +17,11 @@ interface Props {
 const { image, imageAlt, title = '', subtitle, name, role, website, isExpanded = false } = Astro.props;
 ---
 
-<div class="speaker-profile my-6 border border-gray-200 dark:border-gray-700 rounded-md overflow-visible">
+<div class="rpcss-speaker-profile my-6 border border-gray-200 dark:border-gray-700 rounded-md overflow-visible">
   <button 
     class="group w-full text-left card-base card-padded surface hover:bg-[var(--bg-elevated-light)] dark:hover:bg-[var(--bg-elevated-dark)] transition-colors cursor-pointer flex flex-wrap items-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-arboretumBlue dark:focus-visible:ring-maize focus-visible:ring-offset-2 dark:focus-visible:ring-offset-gray-900 relative z-10"
     aria-expanded={isExpanded}
-    data-speaker-button
+    data-rpcss-speaker-button
   >
     <div class="flex items-center gap-4 w-full sm:w-2/5">
       <div class="w-16 h-16 shrink-0">
@@ -91,11 +91,11 @@ const { image, imageAlt, title = '', subtitle, name, role, website, isExpanded =
 </div>
 
 <script>
-  function setupSpeakerProfile() {
-    const profiles = document.querySelectorAll('.speaker-profile');
+  function setupRPCSSSpeakerProfile() {
+    const profiles = document.querySelectorAll('.rpcss-speaker-profile');
     
     profiles.forEach(profile => {
-      const button = profile.querySelector('[data-speaker-button]');
+      const button = profile.querySelector('[data-rpcss-speaker-button]');
       const content = profile.querySelector('[data-content]');
       const expandIcon = profile.querySelector('[data-expand-icon]');
       
@@ -153,10 +153,10 @@ const { image, imageAlt, title = '', subtitle, name, role, website, isExpanded =
   }
 
   // Run on initial load
-  setupSpeakerProfile();
+  setupRPCSSSpeakerProfile();
 
   // Run on client-side navigation
-  document.addEventListener('astro:page-load', setupSpeakerProfile);
+  document.addEventListener('astro:page-load', setupRPCSSSpeakerProfile);
 </script>
 
 <style>
