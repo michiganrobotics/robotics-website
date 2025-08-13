@@ -1,0 +1,55 @@
+---
+title: "Unique robot shape adopts advanced actuators for better performance"
+date: "2025-08-13"
+seoDescription: "Using quasi-direct drive actuators, researchers developed a faster tensegrity robot with better capabilities for autonomy and payload capacity."
+excerpt: "Using quasi-direct drive actuators, researchers developed a faster tensegrity robot with better capabilities for autonomy and payload capacity."
+image:
+  src: "images/tensegrity-robot.png"
+  alt: "A robot made of three tubes and cables connecting them tumbles across the floor in different arrangements in this composite image."
+categories:
+  - "motion-planning"
+tags:
+  - "Johnathan Mi"
+  - "Xiaonan Huang"
+author: "Dan Newman"
+---
+
+<VideoCenter url="https://youtu.be/YznAy63wcdw" />
+
+
+By using actuators typically seen in humanoid robots, a University of Michigan group of researchers greatly improved the performance of a robot design that could not be further from a human: a tensegrity robot.
+
+Tensegrity robots are made up of bars connected with tensed cables that enable their movement. Often, they resemble a geometry diagram brought to life: points connected in space with the minimum of material in between. Due to this unique design, this class of robots can deform themselves to fit in tough spaces, and spring back to working order after rough experiences.
+
+However, tensegrity robots’ shape also makes it difficult to model, with high degrees of freedom and complex dynamics. This means comparatively poor state estimation, not knowing the robot’s current shape or trajectory, which limits its autonomous uses.
+
+<figure>
+
+  ![A robot made of three tubes and cables connecting them tumbles across the floor in different arrangements in this composite image.](images/tensegrity-robot.png)
+
+  <figcaption>A composite photo of the tensegrity robot shows it changes shape as it moves across the ground. Credit: Paper authors.</figcaption>
+</figure>
+
+“For our design, we used quasi-direct drive actuators, typically used in legged robots or exoskeletons,” said Xiaonan Huang, associate professor of Robotics at the University of Michigan. 
+
+“These actuators can control cable stiffness and detect external forces through motor current sensing, eliminating the need for external torque sensors, force sensors, or series elastic elements.”
+
+In their modular design, the researchers paired the actuators with three polycarbonate tubes that can accommodate any other hardware. While the current three-bar design represents the minimum for locomotion, the system can be easily expanded to four, five, six, or more bars. Connecting everything is ultra-high-molecular-weight polyethylene cord, which allows for smaller pulleys and cables compared to steel cord.
+
+Another benefit of the quasi-direct drive actuator is improved control over the stiffness of the cables, opening up new applications for these robots.
+
+“Other tensegrity robot designs typically require tuning stiffness prior to operation,” said Jonathan Mi, robotics PhD candidate and first author on the associated paper.
+
+“Because we are able to modulate the stiffness and shape on-the-fly, the robot can adjust to various payloads, traverse under obstacles, and even clear debris from a path.”
+
+In testing, the 12kg robot was able to successfully carry a payload of 11kg, had less than 1% error in cable length estimation accuracy relative to bar length, and only a 3% error in shape reconstruction and 5% error in trajectory drift.
+
+The team also compared their design to the most comparable tensegrity robot, the latest version of NASA’s Superball robot intended for planetary exploration. The team’s design was able to travel 36% faster, in addition to improvements of enabling the robot to duck under obstacles, carry heavy payloads, and incorporating hardware for full state  estimation.
+
+“In the future, we’ll work on incorporating more computing capabilities, advanced sensing systems such as cameras, and optimizing locomotion algorithms for full autonomous operation,” said Huang.
+
+The paper, “[Design of a Variable Stiffness Quasi-Direct Drive Cable-Actuated Tensegrity Robot](https://ieeexplore.ieee.org/abstract/document/11072300/),” is published in IEEE Robotics and Automation Letters. Additional authors include Wenzhe Tong and Yilin Ma. The design files for the robot are [available on Github](https://github.com/UMich-HDRLab/tensegrity-robot-hardware).
+
+A related paper on the robot’s state estimation, “[Tensegrity Robot Proprioceptive State Estimation With Geometric Constraints](https://ieeexplore.ieee.org/document/10910166),“ was also published in IEEE Robotics and Automation Letters earlier this year.
+
+The research was supported by the National Science Foundation through the Graduate Research Fellowship (DGE 2241144).
