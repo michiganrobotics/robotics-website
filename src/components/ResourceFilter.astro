@@ -1,0 +1,252 @@
+---
+// ResourceFilter.astro - Simple filtering for robodex resources
+---
+
+<style>
+.resource-card {
+  transition: all 0.3s ease;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.resource-card.hidden {
+  opacity: 0;
+  transform: translateY(-10px);
+  pointer-events: none;
+}
+
+.filter-btn {
+  transition: all 0.2s ease;
+}
+
+.filter-btn:hover {
+  transform: translateY(-1px);
+}
+
+button.filter-btn.active {
+  background-color: #FFCB05 !important;
+  color: #00274C !important;
+  border-color: #FFCB05 !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 12px rgba(255, 203, 5, 0.3) !important;
+  font-weight: 600 !important;
+  backdrop-filter: none !important;
+}
+
+button.filter-btn.active:hover {
+  background-color: #FFCB05 !important;
+  color: #00274C !important;
+}
+
+.resource-count {
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const filterButtons = document.querySelectorAll('.filter-btn');
+  const resourceCards = document.querySelectorAll('.resource-card');
+  const searchInput = document.getElementById('search-input');
+  
+  // Define filter groups
+  const programFilters = ['undergraduate', 'masters', 'phd'];
+  const helpFilters = ['all', 'academic', 'career', 'community', 'support', 'research', 'international'];
+  
+  let activeFilters = {
+    program: null,
+    help: 'all'
+  };
+  let searchTerm = '';
+  
+  // Set initial state
+  updateActiveButtons();
+  updateDisplay();
+  
+  // Search functionality
+  if (searchInput) {
+    searchInput.addEventListener('input', function(e) {
+      searchTerm = e.target.value.toLowerCase();
+      updateDisplay();
+    });
+  }
+  
+  filterButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      const filter = this.getAttribute('data-filter');
+      console.log('Button clicked:', filter);
+      
+      // Determine which filter group this belongs to
+      if (programFilters.includes(filter)) {
+        // Toggle program filter (allow deselecting)
+        activeFilters.program = activeFilters.program === filter ? null : filter;
+      } else if (helpFilters.includes(filter)) {
+        activeFilters.help = filter;
+      }
+      
+      console.log('Active filters:', activeFilters);
+      
+      // Update active buttons
+      updateActiveButtons();
+      
+      // Update display
+      updateDisplay();
+    });
+  });
+  
+  function updateActiveButtons() {
+    filterButtons.forEach(btn => {
+      const filter = btn.getAttribute('data-filter');
+      const isActive = filter === activeFilters.program || filter === activeFilters.help;
+      
+      if (isActive) {
+        btn.classList.add('active');
+        // Force the styling with direct style application
+        btn.style.backgroundColor = '#FFCB05';
+        btn.style.color = '#00274C';
+        btn.style.borderColor = '#FFCB05';
+        btn.style.fontWeight = '600';
+        btn.style.transform = 'translateY(-1px)';
+        btn.style.boxShadow = '0 4px 12px rgba(255, 203, 5, 0.3)';
+      } else {
+        btn.classList.remove('active');
+        // Reset to original styling
+        btn.style.backgroundColor = '';
+        btn.style.color = '';
+        btn.style.borderColor = '';
+        btn.style.fontWeight = '';
+        btn.style.transform = '';
+        btn.style.boxShadow = '';
+      }
+    });
+  }
+  
+  function updateDisplay() {
+    let visibleResourceCount = 0;
+    
+    resourceCards.forEach(card => {
+      // Get all links with data-categories in this card
+      const resourceLinks = card.querySelectorAll('a[data-categories]');
+      
+      // Check if any link in this card matches the filters
+      let cardHasMatchingLinks = false;
+      
+      resourceLinks.forEach(link => {
+        const categories = link.getAttribute('data-categories') || '';
+        const categoryList = categories.split(' ');
+        
+        // Check program filter match
+        const programMatch = !activeFilters.program || categoryList.includes(activeFilters.program);
+        
+        // Check help filter match  
+        const helpMatch = activeFilters.help === 'all' || categoryList.includes(activeFilters.help);
+        
+        // If this link matches the filters, mark the card as having matching links
+        if (programMatch && helpMatch) {
+          cardHasMatchingLinks = true;
+        }
+      });
+      
+      // Apply category filters to entire card based on whether any of its links match
+      if (!cardHasMatchingLinks) {
+        card.classList.add('hidden');
+        card.style.display = 'none';
+        return;
+      }
+      
+      // Count individual resources within this card
+      const allResourceLinks = card.querySelectorAll('a[data-search-terms]');
+      let cardVisibleResources = 0;
+      let hasVisibleItems = false;
+      
+      // For each link, check both category filters and search term
+      allResourceLinks.forEach(link => {
+        const listItem = link.closest('li');
+        if (listItem) {
+          // Check category filters for this specific link
+          const linkCategories = link.getAttribute('data-categories') || '';
+          const linkCategoryList = linkCategories.split(' ');
+          const linkProgramMatch = !activeFilters.program || linkCategoryList.includes(activeFilters.program);
+          const linkHelpMatch = activeFilters.help === 'all' || linkCategoryList.includes(activeFilters.help);
+          const linkCategoryMatch = linkProgramMatch && linkHelpMatch;
+          
+          // Check search term match
+          let linkSearchMatch = true;
+          if (searchTerm) {
+            const itemText = listItem.textContent?.toLowerCase() || '';
+            const searchTerms = link.getAttribute('data-search-terms')?.toLowerCase() || '';
+            linkSearchMatch = itemText.includes(searchTerm) || searchTerms.includes(searchTerm);
+          }
+          
+          // Show/hide this specific link based on both filters and search
+          if (linkCategoryMatch && linkSearchMatch) {
+            listItem.style.display = '';
+            hasVisibleItems = true;
+            cardVisibleResources++;
+          } else {
+            listItem.style.display = 'none';
+          }
+        }
+      });
+      
+      // Show/hide the entire card based on whether it has visible items
+      if (hasVisibleItems) {
+        card.classList.remove('hidden');
+        card.style.display = 'block';
+        visibleResourceCount += cardVisibleResources;
+      } else {
+        card.classList.add('hidden');
+        card.style.display = 'none';
+      }
+    });
+    
+    updateCount(visibleResourceCount);
+  }
+  
+  function updateCount(visibleCount) {
+    let countElement = document.querySelector('.resource-count');
+    
+    if (!countElement) {
+      countElement = document.createElement('div');
+      countElement.className = 'resource-count text-sm text-gray-100 mt-4 relative z-10 text-center';
+      
+      // Find the filter sidebar - look for the first filter-section which should be the sidebar
+      const filterSidebar = document.querySelector('.filter-section');
+      console.log('Filter sidebar found:', filterSidebar);
+      
+      if (filterSidebar) {
+        filterSidebar.appendChild(countElement);
+        console.log('Count element added to sidebar');
+      } else {
+        // Fallback to original location if sidebar not found
+        console.log('Sidebar not found, using fallback location');
+        const fallbackContainer = document.querySelector('.masonry-container');
+        if (fallbackContainer && fallbackContainer.parentNode) {
+          fallbackContainer.parentNode.appendChild(countElement);
+        }
+      }
+    }
+    
+    // Calculate total number of individual resources across all cards
+    let totalResourceCount = 0;
+    resourceCards.forEach(card => {
+      const resourceLinks = card.querySelectorAll('a[data-search-terms]');
+      totalResourceCount += resourceLinks.length;
+    });
+    
+    const activeFilterText = [];
+    if (activeFilters.program) activeFilterText.push(activeFilters.program);
+    if (activeFilters.help !== 'all') activeFilterText.push(activeFilters.help);
+    if (searchTerm) activeFilterText.push(`search: "${searchTerm}"`);
+    
+    const filterDisplay = activeFilterText.length > 0 ? activeFilterText.join(' + ') : 'all';
+    countElement.innerHTML = `Showing ${visibleCount} of ${totalResourceCount} resources<br><small class="text-xs">Active filters: ${filterDisplay}</small>`;
+  }
+});
+</script>

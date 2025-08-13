@@ -19,7 +19,7 @@ interface Props {
 const { image, imageAlt, title = '', subtitle, name, role, website, location, zoomUrl, isExpanded = false } = Astro.props;
 ---
 
-<div class="speaker-profile my-6 border border-gray-200 dark:border-gray-700 rounded-md overflow-visible">
+<div class="seminar-speaker-profile my-6 border border-gray-200 dark:border-gray-700 rounded-md overflow-visible">
   <button 
     class="group w-full text-left card-base card-padded surface hover:bg-[var(--bg-elevated-light)] dark:hover:bg-[var(--bg-elevated-dark)] transition-colors cursor-pointer flex flex-wrap items-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-arboretumBlue dark:focus-visible:ring-maize focus-visible:ring-offset-2 dark:focus-visible:ring-offset-gray-900 relative z-10"
     aria-expanded={isExpanded}
@@ -104,7 +104,7 @@ const { image, imageAlt, title = '', subtitle, name, role, website, location, zo
 
 <script>
   function setupSeminarProfile() {
-    const profiles = document.querySelectorAll('.speaker-profile');
+    const profiles = document.querySelectorAll('.seminar-speaker-profile');
     
     profiles.forEach(profile => {
       const button = profile.querySelector('[data-seminar-button]');

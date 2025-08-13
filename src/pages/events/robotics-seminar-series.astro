@@ -144,7 +144,7 @@ const pastSeminars = sortedSeminars.filter(seminar => {
 <script>
   function setupSearch() {
     const searchInput = document.getElementById('speakerSearch') as HTMLInputElement;
-    const speakerProfiles = document.querySelectorAll('.speaker-profile');
+    const speakerProfiles = document.querySelectorAll('.seminar-speaker-profile');
 
     if (searchInput) {
       searchInput.addEventListener('input', (e) => {

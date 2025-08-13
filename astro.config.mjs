@@ -27,14 +27,20 @@ export default defineConfig({
   markdown: {
     remarkPlugins: [
       () => (tree, file) => {
+        // Only apply this plugin to course files, not all markdown files
         const courseMatch = file.history[0].match(/courses\/([^/]+)/);
-        const courseId = courseMatch ? courseMatch[1] : '';
+        if (!courseMatch) {
+          return; // Exit early if not a course file
+        }
+        
+        const courseId = courseMatch[1];
         
         function visitLinks(tree) {
           if (tree.type === 'link' && 
               !tree.url.startsWith('/') && 
               !tree.url.startsWith('http') && 
-              !tree.url.startsWith('mailto:')) {
+              !tree.url.startsWith('mailto:') &&
+              !tree.url.startsWith('#')) { // Also exclude anchor links
             tree.url = `${import.meta.env.BASE_URL}/academics/courses/online-courses/${courseId}/${tree.url}`;
           }
           

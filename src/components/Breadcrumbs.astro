@@ -37,7 +37,7 @@ const isDeepPath = breadcrumbs.length >= 3;
     <nav aria-label="Breadcrumb">
       <ol class="flex flex-wrap items-center gap-1 sm:gap-2 justify-end">
         <li class={isDeepPath ? "hidden md:block" : ""}>
-          <a href="/" class="hover:text-arboretumBlue dark:hover:text-taubmanTeal underline-hover-only">Home</a>
+          <a href="/" class="hover:text-arboretumBlue dark:hover:text-gray-100 underline-hover-only">Home</a>
         </li>
         {breadcrumbs.map((breadcrumb, index) => (
           <li class="flex items-center gap-1 sm:gap-2">
@@ -50,7 +50,7 @@ const isDeepPath = breadcrumbs.length >= 3;
             )}
             <a 
               href={breadcrumb.href}
-              class={`hover:text-arboretumBlue dark:hover:text-taubmanTeal underline-hover-only ${index === breadcrumbs.length - 1 ? 'text-gray-600 dark:text-gray-300' : ''}`}
+              class={`hover:text-arboretumBlue dark:hover:text-gray-100 underline-hover-only ${index === breadcrumbs.length - 1 ? 'text-gray-600 dark:text-gray-300' : ''}`}
             >
               {breadcrumb.text}
             </a>

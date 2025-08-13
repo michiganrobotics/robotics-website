@@ -1,11 +1,11 @@
 ---
-const { href, text, external = false } = Astro.props;
+const { href, text, external = false, class: className = "" } = Astro.props;
 ---
 
 <div class="my-4">
   <a 
     href={href} 
-    class="button-component inline-flex items-center justify-center text-base sm:text-lg w-full sm:w-auto 
+    class={`button-component inline-flex items-center justify-center text-base sm:text-lg w-full sm:w-auto 
     bg-maize text-black  
     px-4 sm:px-6 py-2.5 sm:py-3 rounded-md 
     hover:bg-maize/90  
@@ -14,7 +14,7 @@ const { href, text, external = false } = Astro.props;
     shadow-md hover:shadow-lg 
     focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-umichblue dark:focus:ring-arboretumBlue
     no-underline button-component
-    whitespace-normal break-words"
+    whitespace-normal break-words ${className}`}
     {...external ? { target: "_blank", rel: "noopener noreferrer" } : {}}
   >
   <span class="no-underline flex-1 text-center">{text}</span>
