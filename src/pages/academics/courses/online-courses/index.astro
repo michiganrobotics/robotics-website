@@ -9,6 +9,7 @@ import ogFeatureImage from '../../../../images/featured-images/og/academics-onli
 // Import course images
 import rob101 from '../../../../images/online-courses/rob101.jpg';
 import rob102 from '../../../../images/online-courses/rob102.jpg';
+import rob201 from '../../../../images/online-courses/rob201.jpg';
 import rob311 from '../../../../images/online-courses/rob311.jpg';
 import rob320 from '../../../../images/online-courses/rob320.jpg';
 import rob501 from '../../../../images/online-courses/rob501.jpg';
@@ -25,6 +26,11 @@ const courses = [
     title: "ROB 102: Introduction to AI and Programming",
     image: rob102,
     link: "https://robotics102.github.io"
+  },
+    {
+    title: "ROB 201: Calculus for the Modern Engineer",
+    image: rob201,
+    link: "https://github.com/michiganrobotics/rob201"
   },
   {
     title: "ROB 311: How to Build Robots and Make Them Move",
@@ -68,7 +74,7 @@ const courses = [
       {courses.map(course => (
         <div class="card-base surface border border-arboretumBlue p-4">
           <a href={course.link} class="block no-underline group">
-            <div class="relative mb-4 overflow-hidden rounded-lg">
+            <div class="relative mb-4 overflow-hidden rounded-t-lg">
               <Image 
                 src={course.image} 
                 alt={course.title}
