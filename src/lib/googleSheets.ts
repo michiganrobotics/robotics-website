@@ -190,6 +190,15 @@ interface StudentCouncilMember {
   profileImage: string | null;
 }
 
+interface RobodexResource {
+  resourceName: string;
+  description: string;
+  section: string;
+  searchTerms: string;
+  categories: string;
+  link?: string;
+}
+
 function createSlug(name: string): string {
   return name
     .toLowerCase()
@@ -644,4 +653,19 @@ export const getStudentCouncilData = cached(async (): Promise<StudentCouncilMemb
   }));
 
   return members;
+});
+
+export const getRobodexData = cached(async (): Promise<RobodexResource[]> => {
+  await doc.loadInfo();
+  const sheet = doc.sheetsByTitle['Robodex'];
+  const rows = await sheet.getRows();
+  
+  return rows.map(row => ({
+    resourceName: row.get('Resource Name') || row.get('resourceName'),
+    description: row.get('Description') || row.get('description'),
+    section: row.get('Section') || row.get('section'),
+    searchTerms: row.get('Search Terms') || row.get('searchTerms'),
+    categories: row.get('Categories') || row.get('categories'),
+    link: row.get('Link') || row.get('link'),
+  }));
 });

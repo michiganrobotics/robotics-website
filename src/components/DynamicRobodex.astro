@@ -1,0 +1,54 @@
+---
+import { getRobodexData } from '../lib/googleSheets';
+
+const robodexData = await getRobodexData();
+
+// Group data by section
+const groupedData = robodexData.reduce((acc, resource) => {
+  const section = resource.section || 'Other';
+  if (!acc[section]) {
+    acc[section] = [];
+  }
+  acc[section].push(resource);
+  return acc;
+}, {} as Record<string, typeof robodexData>);
+
+// Sort sections alphabetically
+const sortedSections = Object.keys(groupedData).sort();
+---
+
+<div class="columns-1 lg:columns-2 gap-6" role="list">
+  {sortedSections.map(section => (
+    <div class="resource-card surface rounded-lg p-6 mb-6 break-inside-avoid">
+      <h3 class="text-lg font-semibold mb-4">{section}</h3>
+      <ul class="space-y-3">
+        {groupedData[section].map(resource => (
+          <li>
+            {resource.link ? (
+              <a 
+                href={resource.link} 
+                data-search-terms={resource.searchTerms}
+                data-categories={resource.categories}
+              >
+                {resource.resourceName}
+              </a>
+            ) : (
+              <span 
+                data-search-terms={resource.searchTerms}
+                data-categories={resource.categories}
+                class="font-medium"
+              >
+                {resource.resourceName}
+              </span>
+            )}
+            {resource.description && (
+              <div class="description-text text-sm text-gray-600 dark:text-gray-400 mt-1">
+                {resource.description}
+              </div>
+            )}
+          </li>
+        ))}
+      </ul>
+    </div>
+  ))}
+</div>
