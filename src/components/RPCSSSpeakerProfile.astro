@@ -90,7 +90,7 @@ const { image, imageAlt, title = '', subtitle, name, role, website, isExpanded =
   </div>
 </div>
 
-<script>
+<script is:inline>
   function setupRPCSSSpeakerProfile() {
     const profiles = document.querySelectorAll('.rpcss-speaker-profile');
     
@@ -101,10 +101,11 @@ const { image, imageAlt, title = '', subtitle, name, role, website, isExpanded =
       
       if (button && content && expandIcon) {
         // Track state with a custom data attribute
-        profile.dataset.state = button.getAttribute('aria-expanded') === 'true' ? 'expanded' : 'collapsed';
+        const initialState = button.getAttribute('aria-expanded') === 'true' ? 'expanded' : 'collapsed';
+        profile.setAttribute('data-state', initialState);
         
         // Set initial state based on data-state
-        if (profile.dataset.state === 'expanded') {
+        if (initialState === 'expanded') {
           expandIcon.classList.add('rotated');
         } else {
           expandIcon.classList.remove('rotated');
@@ -116,18 +117,18 @@ const { image, imageAlt, title = '', subtitle, name, role, website, isExpanded =
         // Function to toggle expansion state
         const toggleExpansion = () => {
           // Get current state from our data attribute
-          const currentState = profile.dataset.state;
+          const currentState = profile.getAttribute('data-state');
           
           // Toggle the state
           if (currentState === 'collapsed') {
             // Opening
-            profile.dataset.state = 'expanded';
+            profile.setAttribute('data-state', 'expanded');
             button.setAttribute('aria-expanded', 'true');
             content.classList.remove('hidden');
             expandIcon.classList.add('rotated');
           } else {
             // Closing
-            profile.dataset.state = 'collapsed';
+            profile.setAttribute('data-state', 'collapsed');
             button.setAttribute('aria-expanded', 'false');
             content.classList.add('hidden');
             expandIcon.classList.remove('rotated');
@@ -149,7 +150,11 @@ const { image, imageAlt, title = '', subtitle, name, role, website, isExpanded =
   }
 
   // Run on initial load
-  setupRPCSSSpeakerProfile();
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupRPCSSSpeakerProfile);
+  } else {
+    setupRPCSSSpeakerProfile();
+  }
 
   // Run on client-side navigation
   document.addEventListener('astro:page-load', setupRPCSSSpeakerProfile);
