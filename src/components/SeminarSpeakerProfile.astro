@@ -112,6 +112,14 @@ const { image, imageAlt, title = '', subtitle, name, role, website, location, zo
       const expandIcon = profile.querySelector('[data-expand-icon]');
       
       if (button && content && expandIcon) {
+        // Check if already initialized to prevent duplicate setup
+        if (profile.getAttribute('data-initialized') === 'true') {
+          return;
+        }
+        
+        // Mark as initialized
+        profile.setAttribute('data-initialized', 'true');
+        
         // Track state with a custom data attribute
         const initialState = button.getAttribute('aria-expanded') === 'true' ? 'expanded' : 'collapsed';
         profile.setAttribute('data-state', initialState);

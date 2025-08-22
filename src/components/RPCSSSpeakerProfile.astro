@@ -92,22 +92,16 @@ const { image, imageAlt, title = '', subtitle, name, role, website, isExpanded =
 
 <script is:inline>
   function setupRPCSSSpeakerProfile() {
-    console.log('🔧 Setting up RPCSS Speaker Profile...');
     const profiles = document.querySelectorAll('.rpcss-speaker-profile');
-    console.log('🔍 Found profiles:', profiles.length);
     
-    profiles.forEach((profile, index) => {
-      console.log(`🔧 Setting up profile ${index}...`);
+    profiles.forEach(profile => {
       const button = profile.querySelector('[data-rpcss-speaker-button]');
       const content = profile.querySelector('[data-content]');
       const expandIcon = profile.querySelector('[data-expand-icon]');
       
-      console.log(`Profile ${index} elements:`, { button: !!button, content: !!content, expandIcon: !!expandIcon });
-      
       if (button && content && expandIcon) {
         // Check if already initialized to prevent duplicate setup
         if (profile.getAttribute('data-initialized') === 'true') {
-          console.log(`⚠️ Profile ${index} already initialized, skipping...`);
           return;
         }
         
@@ -117,7 +111,6 @@ const { image, imageAlt, title = '', subtitle, name, role, website, isExpanded =
         // Track state with a custom data attribute
         const initialState = button.getAttribute('aria-expanded') === 'true' ? 'expanded' : 'collapsed';
         profile.setAttribute('data-state', initialState);
-        console.log(`Profile ${index} initial state:`, initialState);
         
         // Set initial state based on data-state
         if (initialState === 'expanded') {
@@ -131,47 +124,34 @@ const { image, imageAlt, title = '', subtitle, name, role, website, isExpanded =
         
         // Function to toggle expansion state
         const toggleExpansion = (e) => {
-          console.log(`🔄 Toggle clicked on profile ${index}`);
           e.preventDefault();
           e.stopPropagation();
           
           // Get current state from our data attribute
           const currentState = profile.getAttribute('data-state');
-          console.log(`Current state before toggle:`, currentState);
           
           // Toggle the state
           if (currentState === 'collapsed') {
             // Opening
-            console.log(`📖 Opening profile ${index}`);
             profile.setAttribute('data-state', 'expanded');
             button.setAttribute('aria-expanded', 'true');
             content.classList.remove('hidden');
             expandIcon.classList.add('rotated');
           } else {
             // Closing
-            console.log(`📕 Closing profile ${index}`);
             profile.setAttribute('data-state', 'collapsed');
             button.setAttribute('aria-expanded', 'false');
             content.classList.add('hidden');
             expandIcon.classList.remove('rotated');
           }
-          
-          // Check state after change
-          setTimeout(() => {
-            const newState = profile.getAttribute('data-state');
-            const ariaExpanded = button.getAttribute('aria-expanded');
-            console.log(`State after 100ms:`, { newState, ariaExpanded });
-          }, 100);
         };
         
         // Handle click events
         button.addEventListener('click', toggleExpansion);
-        console.log(`✅ Event listener added to profile ${index}`);
         
         // Add keyboard support for Enter key
         button.addEventListener('keydown', (e) => {
           if (e.key === 'Enter' || e.key === ' ') {
-            console.log(`⌨️ Keyboard toggle on profile ${index}`);
             toggleExpansion(e);
           }
         });
@@ -181,18 +161,13 @@ const { image, imageAlt, title = '', subtitle, name, role, website, isExpanded =
 
   // Run on initial load
   if (document.readyState === 'loading') {
-    console.log('📄 DOM is loading, waiting for DOMContentLoaded...');
     document.addEventListener('DOMContentLoaded', setupRPCSSSpeakerProfile);
   } else {
-    console.log('📄 DOM is ready, running setup immediately...');
     setupRPCSSSpeakerProfile();
   }
 
   // Run on client-side navigation
-  document.addEventListener('astro:page-load', () => {
-    console.log('🚀 Astro page load event fired');
-    setupRPCSSSpeakerProfile();
-  });
+  document.addEventListener('astro:page-load', setupRPCSSSpeakerProfile);
 </script>
 
 <style>
