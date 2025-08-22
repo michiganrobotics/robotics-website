@@ -112,14 +112,11 @@ const { image, imageAlt, title = '', subtitle, name, role, website, location, zo
       const expandIcon = profile.querySelector('[data-expand-icon]');
       
       if (button && content && expandIcon) {
-        // Cast profile to HTMLElement to access dataset
-        const profileEl = profile as HTMLElement;
-        
         // Track state with a custom data attribute
-        profileEl.dataset.state = button.getAttribute('aria-expanded') === 'true' ? 'expanded' : 'collapsed';
+        profile.dataset.state = button.getAttribute('aria-expanded') === 'true' ? 'expanded' : 'collapsed';
         
         // Set initial state based on data-state
-        if (profileEl.dataset.state === 'expanded') {
+        if (profile.dataset.state === 'expanded') {
           expandIcon.classList.add('rotated');
         } else {
           expandIcon.classList.remove('rotated');
@@ -131,18 +128,18 @@ const { image, imageAlt, title = '', subtitle, name, role, website, location, zo
         // Function to toggle expansion state
         const toggleExpansion = () => {
           // Get current state from our data attribute
-          const currentState = profileEl.dataset.state;
+          const currentState = profile.dataset.state;
           
           // Toggle the state
           if (currentState === 'collapsed') {
             // Opening
-            profileEl.dataset.state = 'expanded';
+            profile.dataset.state = 'expanded';
             button.setAttribute('aria-expanded', 'true');
             content.classList.remove('hidden');
             expandIcon.classList.add('rotated');
           } else {
             // Closing
-            profileEl.dataset.state = 'collapsed';
+            profile.dataset.state = 'collapsed';
             button.setAttribute('aria-expanded', 'false');
             content.classList.add('hidden');
             expandIcon.classList.remove('rotated');
@@ -154,8 +151,7 @@ const { image, imageAlt, title = '', subtitle, name, role, website, location, zo
         
         // Add keyboard support for Enter key
         button.addEventListener('keydown', (e) => {
-          const keyEvent = e as KeyboardEvent;
-          if (keyEvent.key === 'Enter' || keyEvent.key === ' ') {
+          if (e.key === 'Enter' || e.key === ' ') {
             e.preventDefault();
             toggleExpansion();
           }
