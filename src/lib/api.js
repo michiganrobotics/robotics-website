@@ -55,10 +55,27 @@ import { XMLParser } from 'fast-xml-parser';
 export async function collegeNewsQuery() {
   try {
     console.log('Fetching college news feed...');
-    const response = await fetch('https://news.engin.umich.edu/category/research/robotics/feed');
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => {
+      console.log('Timeout reached, aborting request...');
+      controller.abort();
+    }, 5000); // 5 second timeout
+    
+    const response = await fetch('https://news.engin.umich.edu/category/research/robotics/feed', {
+      signal: controller.signal,
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+      }
+    });
+    
+    clearTimeout(timeoutId);
     
     if (!response.ok) {
-      console.error('Feed response not OK:', response.status, response.statusText);
+      if (response.status === 403) {
+        console.warn('Feed access blocked (403). Using existing data if available.');
+      } else {
+        console.error('Feed response not OK:', response.status, response.statusText);
+      }
       return [];
     }
 
@@ -113,7 +130,11 @@ export async function collegeNewsQuery() {
     console.log(`Processed ${truncatedData.length} items`);
     return truncatedData;
   } catch (error) {
-    console.error('Error in collegeNewsQuery:', error);
+    if (error.name === 'AbortError') {
+      console.warn('Request timed out after 5 seconds');
+    } else {
+      console.error('Error in collegeNewsQuery:', error);
+    }
     return [];
   }
 }
