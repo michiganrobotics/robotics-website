@@ -3,8 +3,8 @@ import { jwtVerify, createRemoteJWKSet } from "jose";
 
 const OIDC_CONFIG = {
   discoveryUrl: 'https://shibboleth.umich.edu/.well-known/openid-configuration',
-  clientId: process.env.UMICH_CLIENT_ID!,
-  clientSecret: process.env.UMICH_CLIENT_SECRET!,
+  clientId: process.env.UMICH_590_690_CLIENT_ID!,
+  clientSecret: process.env.UMICH_590_690_CLIENT_SECRET!,
   redirectUri: (request: Request) => {
     const url = new URL(request.url);
     return `${url.protocol}//${url.host}/auth/590-690/callback`;
