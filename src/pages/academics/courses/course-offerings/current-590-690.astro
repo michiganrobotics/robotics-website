@@ -1,0 +1,181 @@
+---
+import Layout from '../../../../layouts/MainLayout.astro';
+import { Image } from 'astro:assets';
+import Breadcrumbs from "../../../../components/Breadcrumbs.astro";
+import PageTitle from "../../../../components/PageTitle.astro";
+import { get590690Data } from '../../../../lib/googleSheets';
+
+import featureImage from '../../../../images/featured-images/academics-complete-course-list.jpg';
+import ogFeatureImage from '../../../../images/featured-images/og/academics-complete-course-list.jpg';
+
+// TODO: Add OIDC auth check here
+const projectData = await get590690Data();
+---
+
+<Layout title="Current 590/690 Research Projects | Michigan Robotics" image={ogFeatureImage.src} imageAlt="Students working with faculty in the student team space on a laptop" imagePosition="25% 75%" description="Current ROB 590 and ROB 690 independent research projects available for students.">
+    <Breadcrumbs />
+    <PageTitle title="Current ROB 590/690 Research Projects" image={featureImage} imageAlt="Students studying in the Robotics Building atrium" imagePosition="25% 75%" />
+      <div class="prose dark:prose-invert max-w-6xl w-11/12 mx-auto mt-4 mb-4">
+          <p class="mb-4">
+            Current ROB 590 and ROB 690 independent research projects available for students. These projects are submitted by faculty members and offer opportunities for hands-on research experience.
+          </p>
+          <p class="mb-4">
+            Search to find projects that match your interests by <strong>faculty name</strong>, <strong>lab</strong>, <strong>project name</strong>, or <strong>research area</strong>.
+          </p>
+          <div class="relative">
+              <div class="mb-4">
+                <input type="text" id="searchInput" placeholder="Search projects..." 
+                  class="search-bar"
+                />
+              </div>
+              <div class="overflow-x-auto shadow-md">
+                <table class="w-full text-sm text-left">
+                  <thead class="text-xs uppercase page-bg">
+                    <tr>
+                      <th scope="col" class="px-4 py-3 cursor-pointer border-r" data-sort="faculty">
+                        Faculty
+                        <span class="ml-1">↕</span>
+                      </th>
+                      <th scope="col" class="px-4 py-3 cursor-pointer border-r" data-sort="lab">
+                        Lab
+                        <span class="ml-1">↕</span>
+                      </th>
+                      <th scope="col" class="px-4 py-3 cursor-pointer border-r" data-sort="project">
+                        Project Name
+                        <span class="ml-1">↕</span>
+                      </th>
+                      <th scope="col" class="px-4 py-3 cursor-pointer border-r" data-sort="description">
+                        Description
+                        <span class="ml-1">↕</span>
+                      </th>
+                      <th scope="col" class="px-4 py-3 cursor-pointer border-r" data-sort="apply">
+                        How to Apply
+                        <span class="ml-1">↕</span>
+                      </th>
+                      <th scope="col" class="px-4 py-3 cursor-pointer border-r" data-sort="deadline">
+                        Deadline
+                        <span class="ml-1">↕</span>
+                      </th>
+                      <th scope="col" class="px-4 py-3 cursor-pointer border-r" data-sort="contact">
+                        Contact
+                        <span class="ml-1">↕</span>
+                      </th>
+                      <th scope="col" class="px-4 py-3 cursor-pointer" data-sort="link">
+                        Additional Info
+                        <span class="ml-1">↕</span>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {projectData.map((project) => (
+                      <tr class="bg-[var(--bg-undersurface-light)] dark:bg-[var(--bg-undersurface-dark)] border-b hover:bg-[var(--bg-surface-hover)] dark:hover:bg-[var(--bg-surface-hover-dark)]">
+                        <th scope="row" class="px-6 py-4 font-medium border-r align-middle">
+                          {project.facultyName}
+                        </th>
+                        <td class="px-6 py-4 border-r align-middle">
+                          {project.labName}
+                        </td>
+                        <td class="px-6 py-4 border-r align-middle">
+                          {project.projectName}
+                        </td>
+                        <td class="px-6 py-4 border-r align-middle max-w-md">
+                          <div class="line-clamp-3">{project.projectDescription}</div>
+                        </td>
+                        <td class="px-6 py-4 border-r align-middle">
+                          {project.howToApply}
+                        </td>
+                        <td class="px-6 py-4 border-r align-middle">
+                          {project.applicationDeadline}
+                        </td>
+                        <td class="px-6 py-4 border-r align-middle">
+                          <div class="font-medium">{project.projectContactName}</div>
+                          {project.projectContactEmail && (
+                            <div class="text-sm">
+                              <a href={`mailto:${project.projectContactEmail}`} class="underline hover:text-umichblue dark:hover:text-gray-300">
+                                {project.projectContactEmail}
+                              </a>
+                            </div>
+                          )}
+                        </td>
+                        <td class="px-6 py-4 align-middle">
+                          {project.additionalInfoLink && (
+                            <a href={project.additionalInfoLink} target="_blank" rel="noopener noreferrer" class="underline hover:text-umichblue dark:hover:text-gray-300">
+                              View Link
+                            </a>
+                          )}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <script>
+            // Search functionality
+            const searchInput = document.getElementById('searchInput');
+            const tableRows = document.querySelectorAll('tbody tr');
+            
+            if (searchInput) {
+              searchInput.addEventListener('keyup', function(e) {
+                if (e.target) {
+                  const searchTerm = (e.target as HTMLInputElement).value.toLowerCase();
+                  
+                  tableRows.forEach(row => {
+                    const text = row.textContent?.toLowerCase() || '';
+                    if (row instanceof HTMLElement) {
+                      row.style.display = text.includes(searchTerm) ? '' : 'none';
+                    }
+                  });
+                }
+              });
+            }
+
+            // Sorting functionality
+            const getCellValue = (tr: HTMLElement, idx: number) => {
+              const cell = tr.children[idx];
+              return cell ? cell.textContent || '' : '';
+            };
+            
+            const comparer = (idx: number, asc: boolean) => (a: HTMLElement, b: HTMLElement) => {
+              const v1 = getCellValue(a, idx);
+              const v2 = getCellValue(b, idx);
+              return v1 !== '' && v2 !== '' && !isNaN(Number(v1)) && !isNaN(Number(v2))
+                ? (asc ? 1 : -1) * (Number(v1) - Number(v2))
+                : (asc ? 1 : -1) * v1.toString().localeCompare(v2);
+            };
+            
+            document.querySelectorAll('th[data-sort]').forEach(th => {
+              let asc = true;
+              th.addEventListener('click', () => {
+                const table = th.closest('table');
+                const tbody = table?.querySelector('tbody');
+                if (!tbody) return;
+                
+                const columnIndex = Array.from(th.parentElement?.children || []).indexOf(th);
+                
+                // Update sort indicators
+                if (th.parentElement) {
+                  th.parentElement.querySelectorAll('th').forEach(header => {
+                    const span = header.querySelector('span');
+                    if (span) {
+                      span.textContent = '↕';
+                    }
+                  });
+                }
+                
+                const span = th.querySelector('span');
+                if (span) {
+                  span.textContent = asc ? '↑' : '↓';
+                }
+                
+                const rows = Array.from(tbody.querySelectorAll('tr'));
+                rows.sort(comparer(columnIndex, asc))
+                  .forEach(tr => tbody.appendChild(tr));
+                
+                asc = !asc;
+              });
+            });
+          </script>
+</Layout>
