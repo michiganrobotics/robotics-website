@@ -12,6 +12,7 @@
   "dependencies": {
     "@astrojs/mdx": "^4.3.5",
     "@astrojs/node": "^9.4.3",
+    "@astrojs/rss": "^4.0.12",
     "@astrojs/sitemap": "^3.5.1",
     "@fontsource/open-sans": "^5.2.6",
     "@fontsource/roboto-condensed": "^5.2.6",
