@@ -71,7 +71,7 @@ export async function GET() {
         link: `https://robotics.umich.edu/news/${item.data.date.split('-')[0]}/${slug}/`,
         categories: item.data.categories || [],
         customData: `
-          ${imageUrl ? `<enclosure url="${imageUrl}" type="image/jpeg" />` : ''}
+          ${imageUrl ? `<enclosure url="${imageUrl}" type="image/jpeg" length="0" />` : ''}
           ${item.data.author ? `<dc:creator><![CDATA[${item.data.author}]]></dc:creator>` : ''}
         `.trim(),
       };
@@ -84,7 +84,7 @@ export async function GET() {
       link: item.link,
       categories: item.categories || [],
       customData: `
-        ${item.image ? `<enclosure url="${item.image.src}" type="image/jpeg" />` : ''}
+        ${item.image ? `<enclosure url="${item.image.src}" type="image/jpeg" length="0" />` : ''}
         <dc:creator><![CDATA[Michigan Engineering]]></dc:creator>
       `.trim(),
     }))
@@ -107,16 +107,18 @@ export async function GET() {
       <category>Technology</category>
       <category>Education</category>
       <ttl>60</ttl>
+      <atom:link href="https://robotics.umich.edu/rss.xml" rel="self" type="application/rss+xml" />
       <image>
         <url>https://robotics.umich.edu/images/favicons/favicon-96x96.png</url>
         <title>Michigan Robotics News</title>
-        <link>https://robotics.umich.edu</link>
+        <link>https://robotics.umich.edu/</link>
         <width>96</width>
         <height>96</height>
       </image>
     `,
     xmlns: {
       dc: 'http://purl.org/dc/elements/1.1/',
+      atom: 'http://www.w3.org/2005/Atom',
     },
   });
 }
