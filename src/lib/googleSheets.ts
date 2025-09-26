@@ -199,6 +199,21 @@ interface RobodexResource {
   link?: string;
 }
 
+interface Project590690 {
+  timestamp: string;
+  emailAddress: string;
+  facultyName: string;
+  labName: string;
+  listOnIntranet: string;
+  projectName: string;
+  projectDescription: string;
+  howToApply: string;
+  applicationDeadline: string;
+  projectContactName: string;
+  projectContactEmail: string;
+  additionalInfoLink?: string;
+}
+
 function createSlug(name: string): string {
   return name
     .toLowerCase()
@@ -667,5 +682,26 @@ export const getRobodexData = cached(async (): Promise<RobodexResource[]> => {
     searchTerms: row.get('Search Terms') || row.get('searchTerms'),
     categories: row.get('Categories') || row.get('categories'),
     link: row.get('Link') || row.get('link'),
+  }));
+});
+
+export const get590690Data = cached(async (): Promise<Project590690[]> => {
+  await doc.loadInfo();
+  const sheet = doc.sheetsByTitle['590-690'];
+  const rows = await sheet.getRows();
+  
+  return rows.map(row => ({
+    timestamp: row.get('Timestamp') || '',
+    emailAddress: row.get('Email Address') || '',
+    facultyName: row.get('Faculty Name') || '',
+    labName: row.get('Lab Name') || '',
+    listOnIntranet: row.get('Would you like for your project to be listed on the U-M Robotics Intranet?') || '',
+    projectName: row.get('Project Name') || '',
+    projectDescription: row.get('Project Description') || '',
+    howToApply: row.get('How to Apply') || '',
+    applicationDeadline: row.get('Application Deadline') || '',
+    projectContactName: row.get('Project Contact Name (can be faculty or PhD student)') || '',
+    projectContactEmail: row.get('Project Contact email') || '',
+    additionalInfoLink: row.get('Link to any additional information (optional)') || '',
   }));
 });
