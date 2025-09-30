@@ -1,0 +1,15 @@
+{
+  "title": "Simulated humanoid robots learn to hike rugged terrain autonomously",
+  "date": "2025-09-15T19:03:16.000Z",
+  "description": "Now able to learn locomotion and navigation together, robots develop balanced gaits and safe routes.",
+  "link": "https://news.engin.umich.edu/2025/09/simulated-humanoid-robots-learn-to-hike-rugged-terrain-autonomously/",
+  "image": {
+    "src": "https://news.engin.umich.edu/wp-content/uploads/2025/09/Hiking-robots.jpg",
+    "alt": "A 3-D geometric, gray simulated hiking trail including stepping stones with gaps in between, tall structures and a ridged plateau. A human-shaped robot with arms fixed at a 90 degree angle steps over a gap to the next stepping stone. A triangle visual field extends from the robot’s head, ending with a TV-screen of what the robot “sees.” Overhead, three sets of spheres hover in the air moving from largest to smallest pointing in the direction the robot moves. An orange set is closest to the robot, then a green set is closely followed by a gray set."
+  },
+  "categories": [],
+  "tags": [
+    "motion-planning"
+  ],
+  "featured": false
+}
