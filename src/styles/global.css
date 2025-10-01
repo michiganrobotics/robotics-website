@@ -212,6 +212,7 @@
   .surface-secondary {
     @apply bg-arboretumBlue dark:bg-arboretumBlue/80
            text-neutral-100 prose-a:text-neutral-100
+           prose-headings:text-neutral-100
            shadow-md
            border border-arboretumBlue/20 dark:border-arboretumBlue/40;
   }

@@ -1,5 +1,5 @@
 ---
-const { href, text, external = false, class: className = "" } = Astro.props;
+const { href, text, external = false, umlogin = false, class: className = "" } = Astro.props;
 ---
 
 <div class="my-4">
@@ -17,10 +17,15 @@ const { href, text, external = false, class: className = "" } = Astro.props;
     whitespace-normal break-words ${className}`}
     {...external ? { target: "_blank", rel: "noopener noreferrer" } : {}}
   >
-  <span class="no-underline flex-1 text-center">{text}</span>
+  <span class="no-underline flex-1 text-center flex flex-col items-start gap-0.5">
+    <span>{text}</span>
+    {umlogin && (
+      <span class="text-xs italic">U-M login required</span>
+    )}
+  </span>
   {external ? (
-    <svg 
-      class="flex-shrink-0 ml-2 -mr-1 w-4 h-4" 
+    <svg
+      class="flex-shrink-0 ml-2 -mr-1 w-4 h-4 self-start mt-2" 
       fill="none" 
       stroke="currentColor" 
       viewBox="0 0 24 24" 
