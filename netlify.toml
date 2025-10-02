@@ -41,3 +41,11 @@ function = "auth"
 [[edge_functions]]
 path = "/auth/callback"
 function = "auth"
+
+[[edge_functions]]
+path = "/academics/courses/course-offerings/current-590-690"
+function = "auth-590-690"
+
+[[edge_functions]]
+path = "/auth/590-690/callback"
+function = "auth-590-690"
