@@ -17,8 +17,8 @@
     "@fontsource/open-sans": "^5.2.7",
     "@fontsource/roboto-condensed": "^5.2.8",
     "@iconify-json/mdi": "^1.2.3",
-    "@netlify/edge-functions": "^2.18.1",
-    "@tailwindcss/vite": "^4.1.13",
+    "@netlify/edge-functions": "^2.18.2",
+    "@tailwindcss/vite": "^4.1.14",
     "astro": "^5.14.1",
     "astro-embed": "^0.9.1",
     "astro-icon": "^1.1.5",
@@ -33,11 +33,11 @@
     "rehype-figure": "^1.0.1",
     "satori": "^0.18.3",
     "sharp": "^0.34.4",
-    "tailwindcss": "^4.1.13"
+    "tailwindcss": "^4.1.14"
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.19",
-    "@types/node": "^24.6.0",
+    "@types/node": "^24.6.2",
     "terser": "^5.44.0",
     "tsx": "^4.20.6"
   }
