@@ -14,6 +14,8 @@ interface CollegeNewsItem {
   };
   categories?: string[];
   tags?: string[];
+  featured?: boolean;
+  exclude?: boolean;
 }
 
 export async function GET() {
@@ -30,7 +32,10 @@ export async function GET() {
     try {
       const content = await readFile(join(collegeNewsPath, file), 'utf-8');
       const item: CollegeNewsItem = JSON.parse(content);
-      collegeNewsItems.push(item);
+      // Skip excluded items
+      if (!item.exclude) {
+        collegeNewsItems.push(item);
+      }
     } catch (error) {
       console.error(`Error reading college news file ${file}:`, error);
     }
