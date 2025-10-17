@@ -26,6 +26,7 @@ interface NewsData {
   categories: string[];
   tags: string[];
   featured: boolean;
+  exclude?: boolean;
 }
 
 function decodeHtmlEntities(text: string): string {
@@ -78,6 +79,12 @@ export async function fetchAndSaveCollegeNews() {
       try {
         const fileContent = await fs.readFile(filePath, 'utf-8');
         existingData = JSON.parse(fileContent) as NewsData;
+
+        // Skip this item if it's marked as excluded
+        if (existingData.exclude === true) {
+          console.log(`Skipping excluded item: ${slug}`);
+          continue;
+        }
       } catch (error) {
         // Silently continue if file doesn't exist
       }

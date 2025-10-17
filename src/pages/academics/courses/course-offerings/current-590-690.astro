@@ -5,14 +5,13 @@ import Breadcrumbs from "../../../../components/Breadcrumbs.astro";
 import PageTitle from "../../../../components/PageTitle.astro";
 import { get590690Data } from '../../../../lib/googleSheets';
 
-import featureImage from '../../../../images/featured-images/academics-complete-course-list.jpg';
-import ogFeatureImage from '../../../../images/featured-images/og/academics-complete-course-list.jpg';
+import featureImage from '../../../../images/featured-images/academics-courses-590.jpg';
 
 // TODO: Add OIDC auth check here
 const projectData = await get590690Data();
 ---
 
-<Layout title="Current 590/690 Research Projects | Michigan Robotics" image={ogFeatureImage.src} imageAlt="Students working with faculty in the student team space on a laptop" imagePosition="25% 75%" description="Current ROB 590 and ROB 690 independent research projects available for students.">
+<Layout title="Current 590/690 Research Projects | Michigan Robotics" description="Current ROB 590 and ROB 690 independent research projects available for students.">
     <Breadcrumbs />
     <PageTitle title="Current ROB 590/690 Research Projects" image={featureImage} imageAlt="Students studying in the Robotics Building atrium" imagePosition="25% 75%" />
       <div class="prose dark:prose-invert max-w-6xl w-11/12 mx-auto mt-4 mb-4">
@@ -23,17 +22,13 @@ const projectData = await get590690Data();
             To submit a project, please fill out 
             <a href="https://docs.google.com/forms/d/e/1FAIpQLSfaPimpYqbSZ-WGs6-qkbqZLFe0Va8L71krTlTJKawOteM_-Q/viewform?usp=header" 
               target="_blank" 
-              rel="noopener noreferrer"
-              class="text-blue-600 hover:underline"> this form
-            </a>.
+              rel="noopener noreferrer">this form</a>.
           </p>
           <p class="mb-4">
             Once you have been selected by a faculty member to participate in a 590 project, please submit
             <a href="https://docs.google.com/forms/d/e/1FAIpQLSea5YctmfxwoRBWPfQxC6n1Pw8-SU2IHf8MXTZQ09rNmhu_CA/viewform" 
               target="_blank" 
-              rel="noopener noreferrer"
-              class="text-blue-600 hover:underline"> this form
-            </a>.
+              rel="noopener noreferrer">this form</a>.
           </p>
           <p class="mb-4">
             Search to find projects that match your interests by <strong>faculty name</strong>, <strong>lab</strong>, <strong>project name</strong>, or <strong>research area</strong>.
