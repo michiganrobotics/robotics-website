@@ -307,7 +307,7 @@ export const subNavConfig: Record<string, SubNavItem[]> = {
       { title: "Current Term Courses", href: "/academics/courses/course-offerings" },
       { title: "Complete Course List", href: "/academics/courses/complete-course-list" },
       { title: "Free Online Courses", href: "/academics/courses/online-courses" },
-      { title: "Course Guide", href: "https://docs.google.com/spreadsheets/d/1qXqC4uJqZYVOadw0eIn9LAWEu_8lLwX65nOFFohlj4Y/edit?usp=sharing", external: true },
+      { title: "Course Guide", href: "https://docs.google.com/spreadsheets/d/1Z-9yq0-OD008TCdxGza8RQ1_CscwD6fs0LOV3_YQuyo/edit?usp=sharing", external: true },
       { title: "Course Override Requests", href: "/academics/courses#course-override-requests", anchor: true }
     ],
     'academics/courses/course-offerings': [
