@@ -1,0 +1,120 @@
+---
+import Layout from '../../../layouts/MainLayout.astro';
+import { Image } from 'astro:assets';
+import Breadcrumbs from "../../../components/Breadcrumbs.astro";
+import PageTitle from "../../../components/PageTitle.astro";
+import { getFellowshipData } from '../../../lib/googleSheets';
+import featureImage from '../../../images/featured-images/academics-courses-590.jpg';
+
+// TODO: Add OIDC auth check here
+const fellowshipData = await getFellowshipData();
+---
+
+<Layout title="Current Fellowships | Michigan Robotics" description="Explore current fellowship opportunities available to Robotics students.">
+  <Breadcrumbs />
+  <PageTitle 
+    title="Current Fellowship Opportunities" 
+    image={featureImage} 
+    imageAlt="Students collaborating in the Robotics Building atrium" 
+    imagePosition="25% 75%" 
+  />
+
+  <div class="prose dark:prose-invert max-w-6xl w-11/12 mx-auto mt-4 mb-4">
+    <p class="mb-4">
+      Explore current <strong>fellowship opportunities</strong> available to Robotics students. These fellowships are submitted by faculty members and departments, offering funding and research-based experience to enhance your academic journey.
+    </p>
+    <p class="mb-4">
+      Search to find fellowships by <strong>award name</strong>, <strong>administering department</strong>, <strong>eligibility</strong>, or <strong>nomination requirements</strong>.
+    </p>
+
+    <div class="relative">
+      <div class="mb-4">
+        <input 
+          type="text" 
+          id="searchInput" 
+          placeholder="Search fellowships..." 
+          class="search-bar"
+        />
+      </div>
+
+      <div class="overflow-x-auto shadow-md">
+        <table class="w-full text-sm text-left">
+          <thead class="text-xs uppercase page-bg">
+            <tr>
+              <th class="px-4 py-3 cursor-pointer border-r" data-sort="award">Award<span class="ml-1">↕</span></th>
+              <th class="px-4 py-3 cursor-pointer border-r" data-sort="administeredBy">Administered By<span class="ml-1">↕</span></th>
+              <th class="px-4 py-3 cursor-pointer border-r" data-sort="finalDeadline">Final Deadline<span class="ml-1">↕</span></th>
+              <th class="px-4 py-3 cursor-pointer border-r" data-sort="eligibility">Eligibility<span class="ml-1">↕</span></th>
+              <th class="px-4 py-3 cursor-pointer" data-sort="nominationBy">Nomination By<span class="ml-1">↕</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            {fellowshipData.map((fellowship) => (
+              <tr class="bg-[var(--bg-undersurface-light)] dark:bg-[var(--bg-undersurface-dark)] border-b hover:bg-[var(--bg-surface-hover)] dark:hover:bg-[var(--bg-surface-hover-dark)]">
+                <th scope="row" class="px-6 py-4 font-medium border-r align-middle">
+                  {fellowship.award}
+                </th>
+                <td class="px-6 py-4 border-r align-middle">{fellowship.administeredBy}</td>
+                <td class="px-6 py-4 border-r align-middle">{fellowship.finalDeadline}</td>
+                <td class="px-6 py-4 border-r align-middle max-w-md">{fellowship.eligibility}</td>
+                <td class="px-6 py-4 align-middle">{fellowship.nominationBy}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Search functionality
+    const searchInput = document.getElementById('searchInput');
+    const tableRows = document.querySelectorAll('tbody tr');
+    
+    if (searchInput) {
+      searchInput.addEventListener('keyup', function(e) {
+        if (e.target) {
+          const searchTerm = (e.target as HTMLInputElement).value.toLowerCase();
+          tableRows.forEach(row => {
+            const text = row.textContent?.toLowerCase() || '';
+            if (row instanceof HTMLElement) {
+              row.style.display = text.includes(searchTerm) ? '' : 'none';
+            }
+          });
+        }
+      });
+    }
+
+    // Sorting functionality
+    const getCellValue = (tr: HTMLElement, idx: number) => {
+      const cell = tr.children[idx];
+      return cell ? cell.textContent || '' : '';
+    };
+    
+    const comparer = (idx: number, asc: boolean) => (a: HTMLElement, b: HTMLElement) => {
+      const v1 = getCellValue(a, idx);
+      const v2 = getCellValue(b, idx);
+      return v1 !== '' && v2 !== '' && !isNaN(Number(v1)) && !isNaN(Number(v2))
+        ? (asc ? 1 : -1) * (Number(v1) - Number(v2))
+        : (asc ? 1 : -1) * v1.toString().localeCompare(v2);
+    };
+    
+    document.querySelectorAll('th[data-sort]').forEach(th => {
+      let asc = true;
+      th.addEventListener('click', () => {
+        const table = th.closest('table');
+        const tbody = table?.querySelector('tbody');
+        if (!tbody) return;
+        
+        const columnIndex = Array.from(th.parentElement?.children || []).indexOf(th);
+        th.parentElement?.querySelectorAll('th span')?.forEach(span => span.textContent = '↕');
+        const span = th.querySelector('span');
+        if (span) span.textContent = asc ? '↑' : '↓';
+        
+        const rows = Array.from(tbody.querySelectorAll('tr'));
+        rows.sort(comparer(columnIndex, asc)).forEach(tr => tbody.appendChild(tr));
+        asc = !asc;
+      });
+    });
+  </script>
+</Layout>
