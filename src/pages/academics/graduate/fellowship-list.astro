@@ -23,6 +23,12 @@ const fellowshipData = await getFellowshipData();
     <p class="mb-4">
       Explore current <strong>fellowship opportunities</strong> available to Robotics students. These fellowships are submitted by faculty members and departments, offering funding and research-based experience to enhance your academic journey.
     </p>
+    <p class="mb-3">
+        The presented data was last generated on 11-06-25. Some information may have changed. Be sure to check linked websites for the most accurate information and deadlines
+    </p>
+    <p class="mb-4 text-yellow-400 text-sm italic ">
+        *For fellowships requiring a departmental nomination, the internal submission deadline is typically at least one month earlier than the date listed.
+    </p>
     <p class="mb-4">
       Search to find fellowships by <strong>award name</strong>, <strong>administering department</strong>, <strong>eligibility</strong>, or <strong>nomination requirements</strong>.
     </p>
@@ -43,7 +49,7 @@ const fellowshipData = await getFellowshipData();
             <tr>
               <th class="px-4 py-3 cursor-pointer border-r" data-sort="award">Award<span class="ml-1">↕</span></th>
               <th class="px-4 py-3 cursor-pointer border-r" data-sort="administeredBy">Administered By<span class="ml-1">↕</span></th>
-              <th class="px-4 py-3 cursor-pointer border-r" data-sort="finalDeadline">Final Deadline<span class="ml-1">↕</span></th>
+              <th class="px-4 py-3 cursor-pointer border-r" data-sort="finalDeadline">Typical Deadline<span class="ml-1">↕</span></th>
               <th class="px-4 py-3 cursor-pointer border-r" data-sort="eligibility">Eligibility<span class="ml-1">↕</span></th>
               <th class="px-4 py-3 cursor-pointer" data-sort="nominationBy">Nomination By<span class="ml-1">↕</span></th>
             </tr>
@@ -52,7 +58,16 @@ const fellowshipData = await getFellowshipData();
             {fellowshipData.map((fellowship) => (
               <tr class="bg-[var(--bg-undersurface-light)] dark:bg-[var(--bg-undersurface-dark)] border-b hover:bg-[var(--bg-surface-hover)] dark:hover:bg-[var(--bg-surface-hover-dark)]">
                 <th scope="row" class="px-6 py-4 font-medium border-r align-middle">
-                  {fellowship.award}
+                  {fellowship.awardLink ? (
+                    <a href={fellowship.awardLink} 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        class="underline text-white hover:text-blue-200 dark:text-white dark:hover:text-blue-300">
+                        {fellowship.award}
+                    </a>
+                    ) : (
+                    fellowship.award
+                    )}
                 </th>
                 <td class="px-6 py-4 border-r align-middle">{fellowship.administeredBy}</td>
                 <td class="px-6 py-4 border-r align-middle">{fellowship.finalDeadline}</td>

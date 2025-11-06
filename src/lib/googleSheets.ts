@@ -216,6 +216,7 @@ interface Project590690 {
 
 interface FellowshipData {
   award: string;
+  awardLink: string;
   administeredBy: string;
   finalDeadline: string;
   eligibility: string;
@@ -721,6 +722,8 @@ export const getFellowshipData = cached(async (): Promise<FellowshipData[]> => {
 
   return rows.map(row => ({
     award: row.get('Award') || '',
+    awardLink: row.get('Award Link') || '',
+
     administeredBy: row.get('Administered by') || '',
     finalDeadline: row.get('Final Deadline*') || '',
     eligibility: row.get('Eligibility') || '',
