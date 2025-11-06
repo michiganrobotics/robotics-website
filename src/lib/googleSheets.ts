@@ -214,6 +214,15 @@ interface Project590690 {
   additionalInfoLink?: string;
 }
 
+interface FellowshipData {
+  award: string;
+  awardLink: string;
+  administeredBy: string;
+  finalDeadline: string;
+  eligibility: string;
+  nominationBy: string;
+}
+
 function createSlug(name: string): string {
   return name
     .toLowerCase()
@@ -703,5 +712,21 @@ export const get590690Data = cached(async (): Promise<Project590690[]> => {
     projectContactName: row.get('Project Contact Name (can be faculty or PhD student)') || '',
     projectContactEmail: row.get('Project Contact email') || '',
     additionalInfoLink: row.get('Link to any additional information (optional)') || '',
+  }));
+});
+
+export const getFellowshipData = cached(async (): Promise<FellowshipData[]> => {
+  await doc.loadInfo();
+  const sheet = doc.sheetsByTitle['Fellowships']; // Change to your actual tab name
+  const rows = await sheet.getRows();
+
+  return rows.map(row => ({
+    award: row.get('Award') || '',
+    awardLink: row.get('Award Link') || '',
+
+    administeredBy: row.get('Administered by') || '',
+    finalDeadline: row.get('Final Deadline*') || '',
+    eligibility: row.get('Eligibility') || '',
+    nominationBy: row.get('Nomination by*') || '',
   }));
 });
