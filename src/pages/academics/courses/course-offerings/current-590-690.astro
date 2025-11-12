@@ -110,11 +110,7 @@ const projectData = await get590690Data();
                           )}
                         </td>
                         <td class="px-6 py-4 align-middle">
-                          {project.additionalInfoLink && (
-                            <a href={project.additionalInfoLink} target="_blank" rel="noopener noreferrer" class="underline hover:text-umichblue dark:hover:text-gray-300">
-                              View Link
-                            </a>
-                          )}
+                          {project.additionalInfoLink}
                         </td>
                       </tr>
                     ))}
