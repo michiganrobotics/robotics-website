@@ -350,3 +350,13 @@ footer ul li {
 footer ul li:last-child {
   margin-bottom: 0 !important;
 }
+
+.desc {
+  cursor: pointer;
+}
+
+.desc.expanded {
+  -webkit-line-clamp: unset !important;
+  line-clamp: unset !important;
+  display: block;
+}
