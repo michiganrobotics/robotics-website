@@ -7,7 +7,7 @@ import { get590690Data } from '../../../../lib/googleSheets';
 
 import featureImage from '../../../../images/featured-images/academics-courses-590.jpg';
 
-// TODO: Add OIDC auth check here
+
 const projectData = await get590690Data();
 ---
 
@@ -187,3 +187,14 @@ const projectData = await get590690Data();
             });
           </script>
 </Layout>
+<style>
+  .desc {
+  cursor: pointer;
+}
+
+.desc.expanded {
+  -webkit-line-clamp: unset !important;
+  line-clamp: unset !important;
+  display: block;
+}
+</style>
