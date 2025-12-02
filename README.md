@@ -67,5 +67,4 @@ Site can also be updated manually by pushing to the main branch, which triggers 
 
 
 ## Additional Resources
-
 - [Astro Documentation](https://docs.astro.build)
