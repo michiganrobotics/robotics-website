@@ -282,7 +282,7 @@ export const subNavConfig: Record<string, SubNavItem[]> = {
       { title: "RUSC", href: "/academics/student-services/robotics-undergraduate-student-council" },
       { title: "Student resources", href: "/academics/student-services#student-resources", anchor: true },
       { title: "Staff", href: "/academics/student-services#student-services-staff", anchor: true },
-      { title: "Communicate to our students", href: "/academics/student-services#communicate-to-our-students", anchor: true }
+      { title: "Communicate to our students", href: "/academics/student-services#how-to-send-announcements-to-our-students", anchor: true }
     ],
     'academics/student-services/registering-for-classes': [
       { title: "Add a class", href: "/academics/student-services/registering-for-classes#add-a-class", anchor: true },
