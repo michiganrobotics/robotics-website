@@ -9,16 +9,8 @@ const OIDC_CONFIG = {
     const url = new URL(request.url);
     return `${url.protocol}//${url.host}/auth/590-690/callback`;
   },
-  scope: 'openid profile email eduperson_affiliation edumember'
+  scope: 'openid profile email'
 };
-
-// Required groups for 590-690 access
-const REQUIRED_GROUPS = [
-  'Robotics Faculty',
-  'robotics-masters',
-  'robotics-phd',
-  'robotics-staff'
-];
 
 let JWKS: any = null;
 
@@ -32,28 +24,6 @@ async function getJWKS(config: any) {
 async function getOIDCConfig() {
   const response = await fetch(OIDC_CONFIG.discoveryUrl);
   return response.json();
-}
-
-async function getUserInfo(accessToken: string, config: any) {
-  const response = await fetch(config.userinfo_endpoint, {
-    headers: {
-      'Authorization': `Bearer ${accessToken}`
-    }
-  });
-  
-  if (!response.ok) {
-    throw new Error('Failed to get user info');
-  }
-  
-  return response.json();
-}
-
-function checkGroupMembership(userGroups: string[] | undefined): boolean {
-  if (!Array.isArray(userGroups)) {
-    return false;
-  }
-  
-  return REQUIRED_GROUPS.some(requiredGroup => userGroups.includes(requiredGroup));
 }
 
 export default async function(request: Request, context: Context) {
@@ -119,75 +89,9 @@ export default async function(request: Request, context: Context) {
     const tokenData = await tokenResponse.json();
     console.log('590-690 Token exchange response status:', tokenResponse.status);
     
-    if (!tokenData.access_token || !tokenData.id_token) {
+    if (!tokenData.id_token) {
       console.error('Token exchange failed for 590-690:', tokenData);
-      return new Response(`
-        <!DOCTYPE html>
-        <html>
-        <head><title>Authentication Failed</title></head>
-        <body>
-          <h1>Authentication Failed</h1>
-          <p>Unable to authenticate with University of Michigan.</p>
-          <a href="/">Return to Home</a>
-        </body>
-        </html>
-      `, {
-        headers: { 'Content-Type': 'text/html' },
-        status: 403
-      });
-    }
-
-    // Get user info to check group membership
-    let userInfo;
-    try {
-      userInfo = await getUserInfo(tokenData.access_token, config);
-      console.log('Got user info for 590-690, checking groups...');
-      console.log('User groups (edumember_is_member_of):', userInfo.edumember_is_member_of);
-    } catch (error) {
-      console.error('Failed to get user info for 590-690:', error);
-      return new Response(`
-        <!DOCTYPE html>
-        <html>
-        <head><title>Authentication Failed</title></head>
-        <body>
-          <h1>Authentication Failed</h1>
-          <p>Unable to retrieve user information.</p>
-          <a href="/">Return to Home</a>
-        </body>
-        </html>
-      `, {
-        headers: { 'Content-Type': 'text/html' },
-        status: 403
-      });
-    }
-
-    // Check group membership
-    const userGroups = userInfo.edumember_is_member_of || userInfo.groups || [];
-    const hasAccess = checkGroupMembership(userGroups);
-    
-    if (!hasAccess) {
-      console.log('User does not have required group membership for 590-690');
-      console.log('User groups:', userGroups);
-      console.log('Required groups:', REQUIRED_GROUPS);
-      
-      return new Response(`
-        <!DOCTYPE html>
-        <html>
-        <head><title>Access Denied</title></head>
-        <body>
-          <h1>Access Denied</h1>
-          <p>You must be a member of one of the following groups to access ROB 590/690 projects:</p>
-          <ul>
-            ${REQUIRED_GROUPS.map(group => `<li>${group}</li>`).join('')}
-          </ul>
-          <p>If you believe you should have access, please contact the Robotics department.</p>
-          <a href="/">Return to Home</a>
-        </body>
-        </html>
-      `, {
-        headers: { 'Content-Type': 'text/html' },
-        status: 403
-      });
+      return Response.redirect('/');
     }
 
     // Verify the token before setting cookie
@@ -197,23 +101,9 @@ export default async function(request: Request, context: Context) {
         issuer: "https://shibboleth.umich.edu",
         audience: OIDC_CONFIG.clientId
       });
-      console.log('Token verified for 590-690, user has access');
     } catch (error) {
-      console.error('Token verification failed for 590-690:', error);
-      return new Response(`
-        <!DOCTYPE html>
-        <html>
-        <head><title>Authentication Failed</title></head>
-        <body>
-          <h1>Authentication Failed</h1>
-          <p>Token verification failed.</p>
-          <a href="/">Return to Home</a>
-        </body>
-        </html>
-      `, {
-        headers: { 'Content-Type': 'text/html' },
-        status: 403
-      });
+      console.error('Initial token verification failed for 590-690:', error);
+      return Response.redirect('/');
     }
     
     return new Response('', {

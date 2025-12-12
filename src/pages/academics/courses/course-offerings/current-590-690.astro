@@ -7,8 +7,14 @@ import { get590690Data } from '../../../../lib/googleSheets';
 
 import featureImage from '../../../../images/featured-images/academics-courses-590.jpg';
 
-
 const projectData = await get590690Data();
+
+// Helper function to convert URLs in text to clickable links
+function linkifyText(text: string): string {
+  if (!text) return '';
+  const urlRegex = /(https?:\/\/[^\s<>)\]]+)/g;
+  return text.replace(urlRegex, '<a href="$1" target="_blank" rel="noopener noreferrer" class="text-umichblue dark:text-[#7eb8da] underline hover:no-underline" onclick="event.stopPropagation()">$1</a>');
+}
 ---
 
 <Layout title="Current 590/690 Research Projects | Michigan Robotics" description="Current ROB 590 and ROB 690 independent research projects available for students.">
@@ -16,7 +22,7 @@ const projectData = await get590690Data();
     <PageTitle title="Current ROB 590/690 Research Projects" image={featureImage} imageAlt="Students studying in the Robotics Building atrium" imagePosition="25% 75%" />
       <div class="prose dark:prose-invert max-w-6xl w-11/12 mx-auto mt-4 mb-4">
           <p class="mb-4">
-            Current ROB 590 and ROB 690 independent research projects available for students. These projects are submitted by faculty members and offer opportunities for hands-on research experience.
+            Current ROB 590 and ROB 690 independent research projects intended for Robotics MS students. These projects are submitted by faculty members and offer opportunities for hands-on research experience.
           </p>
           <p class="mb-4">
             Once you have been selected by a faculty member to participate in a ROB 590 project, 
@@ -56,25 +62,21 @@ const projectData = await get590690Data();
                         Project Name
                         <span class="ml-1">↕</span>
                       </th>
-                      <th scope="col" class="px-4 py-3 cursor-pointer border-r" data-sort="description">
+                      <th scope="col" class="px-4 py-3 border-r">
                         Description
-                        <span class="ml-1">↕</span>
                       </th>
-                      <th scope="col" class="px-4 py-3 cursor-pointer border-r" data-sort="apply">
+                      <th scope="col" class="px-4 py-3 border-r">
                         How to Apply
-                        <span class="ml-1">↕</span>
                       </th>
                       <th scope="col" class="px-4 py-3 cursor-pointer border-r" data-sort="deadline">
                         Deadline
                         <span class="ml-1">↕</span>
                       </th>
-                      <th scope="col" class="px-4 py-3 cursor-pointer border-r" data-sort="contact">
+                      <th scope="col" class="px-4 py-3 border-r">
                         Contact
-                        <span class="ml-1">↕</span>
                       </th>
-                      <th scope="col" class="px-4 py-3 cursor-pointer" data-sort="link">
+                      <th scope="col" class="px-4 py-3">
                         Additional Info
-                        <span class="ml-1">↕</span>
                       </th>
                     </tr>
                   </thead>
@@ -91,10 +93,15 @@ const projectData = await get590690Data();
                           {project.projectName}
                         </td>
                         <td class="px-6 py-4 border-r align-middle max-w-md">
-                          <div class="desc line-clamp-3" onclick="this.classList.toggle('expanded')">{project.projectDescription}</div>
+                          <div class="desc-wrapper">
+                            <div class="desc-content line-clamp-3">
+                              <span set:html={linkifyText(project.projectDescription)} />
+                            </div>
+                            <span class="click-more">(click to expand)</span>
+                          </div>
                         </td>
                         <td class="px-6 py-4 border-r align-middle">
-                          {project.howToApply}
+                          <span set:html={linkifyText(project.howToApply)} />
                         </td>
                         <td class="px-6 py-4 border-r align-middle">
                           {project.applicationDeadline}
@@ -110,7 +117,7 @@ const projectData = await get590690Data();
                           )}
                         </td>
                         <td class="px-6 py-4 align-middle">
-                          {project.additionalInfoLink}
+                          <span set:html={linkifyText(project.additionalInfoLink || '')} />
                         </td>
                       </tr>
                     ))}
@@ -121,6 +128,47 @@ const projectData = await get590690Data();
           </div>
 
           <script>
+            // Check if description cells are truncated and show/hide "click to expand"
+            function checkTruncation() {
+              document.querySelectorAll('.desc-wrapper').forEach(wrapper => {
+                const content = wrapper.querySelector('.desc-content') as HTMLElement;
+                const clickMore = wrapper.querySelector('.click-more') as HTMLElement;
+                if (!content || !clickMore) return;
+
+                const isExpanded = wrapper.classList.contains('expanded');
+
+                if (isExpanded) {
+                  // When expanded, hide click-more but keep pointer cursor
+                  clickMore.style.display = 'none';
+                  (wrapper as HTMLElement).style.cursor = 'pointer';
+                } else {
+                  // When collapsed, check if content is truncated
+                  const isTruncated = content.scrollHeight > content.clientHeight;
+                  if (isTruncated) {
+                    clickMore.style.display = 'block';
+                    (wrapper as HTMLElement).style.cursor = 'pointer';
+                  } else {
+                    clickMore.style.display = 'none';
+                    (wrapper as HTMLElement).style.cursor = 'default';
+                  }
+                }
+              });
+            }
+
+            // Add click handlers to toggle expanded state
+            document.querySelectorAll('.desc-wrapper').forEach(wrapper => {
+              wrapper.addEventListener('click', (e) => {
+                // Don't toggle if clicking a link
+                if ((e.target as HTMLElement).tagName === 'A') return;
+                wrapper.classList.toggle('expanded');
+                checkTruncation();
+              });
+            });
+
+            // Run on load and window resize
+            checkTruncation();
+            window.addEventListener('resize', checkTruncation);
+
             // Search functionality
             const searchInput = document.getElementById('searchInput');
             const tableRows = document.querySelectorAll('tbody tr');
@@ -188,13 +236,21 @@ const projectData = await get590690Data();
           </script>
 </Layout>
 <style>
-  .desc {
-  cursor: pointer;
-}
+  .desc-wrapper {
+    cursor: default;
+  }
 
-.desc.expanded {
-  -webkit-line-clamp: unset !important;
-  line-clamp: unset !important;
-  display: block;
-}
+  .desc-wrapper.expanded .desc-content {
+    -webkit-line-clamp: unset !important;
+    line-clamp: unset !important;
+    display: block;
+  }
+
+  .click-more {
+    display: none;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-style: italic;
+    margin-top: 0.25rem;
+  }
 </style>
