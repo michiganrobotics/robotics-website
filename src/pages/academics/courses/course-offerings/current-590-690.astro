@@ -83,16 +83,16 @@ function linkifyText(text: string): string {
                   <tbody>
                     {projectData.map((project) => (
                       <tr class="bg-[var(--bg-undersurface-light)] dark:bg-[var(--bg-undersurface-dark)] border-b hover:bg-[var(--bg-surface-hover)] dark:hover:bg-[var(--bg-surface-hover-dark)]">
-                        <th scope="row" class="px-6 py-4 font-medium border-r align-middle">
+                        <th scope="row" class="px-6 py-4 font-medium border-r align-top">
                           {project.facultyName}
                         </th>
-                        <td class="px-6 py-4 border-r align-middle">
+                        <td class="px-6 py-4 border-r align-top">
                           {project.labName}
                         </td>
-                        <td class="px-6 py-4 border-r align-middle">
+                        <td class="px-6 py-4 border-r align-top">
                           {project.projectName}
                         </td>
-                        <td class="px-6 py-4 border-r align-middle max-w-md">
+                        <td class="px-6 py-4 border-r align-top max-w-md">
                           <div class="desc-wrapper">
                             <div class="desc-content line-clamp-3">
                               <span set:html={linkifyText(project.projectDescription)} />
@@ -100,13 +100,13 @@ function linkifyText(text: string): string {
                             <span class="click-more">(click to expand)</span>
                           </div>
                         </td>
-                        <td class="px-6 py-4 border-r align-middle">
+                        <td class="px-6 py-4 border-r align-top">
                           <span set:html={linkifyText(project.howToApply)} />
                         </td>
-                        <td class="px-6 py-4 border-r align-middle">
+                        <td class="px-6 py-4 border-r align-top">
                           {project.applicationDeadline}
                         </td>
-                        <td class="px-6 py-4 border-r align-middle">
+                        <td class="px-6 py-4 border-r align-top">
                           <div class="font-medium">{project.projectContactName}</div>
                           {project.projectContactEmail && (
                             <div class="text-sm">
@@ -116,7 +116,7 @@ function linkifyText(text: string): string {
                             </div>
                           )}
                         </td>
-                        <td class="px-6 py-4 align-middle">
+                        <td class="px-6 py-4 align-top">
                           <span set:html={linkifyText(project.additionalInfoLink || '')} />
                         </td>
                       </tr>
