@@ -9,5 +9,6 @@
   },
   "categories": [],
   "tags": [],
-  "featured": true
+  "featured": false,
+  "exclude": true
 }
