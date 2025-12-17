@@ -1,0 +1,57 @@
+---
+title: "How a robotics hackathon can get you building"
+date: "2025-12-17"
+seoDescription: "Robotics undergraduate Chad Brouze shares his experience at the Hugging Face LeRobot Worldwide Hackathon, where his team built a voice-controlled robot arm."
+excerpt: "Robotics undergraduate Chad Brouze participated in the Hugging Face LeRobot Worldwide Hackathon, where his team built a voice-controlled robot arm to assist auto mechanics."
+image:
+  src: "images/brouze-hackathon.jpeg"
+  alt: "Chad Brouze at the LeRobot Worldwide Hackathon"
+categories:
+  - "robotics-community"
+tags:
+  - "Chad Brouze"
+author: "Dan Newman"
+---
+
+<VideoCenter url="https://youtube.com/shorts/CsC10SPbaq0" />
+
+Robotics undergraduate Chad Brouze participated in the Hugging Face [LeRobot Worldwide Hackathon](https://huggingface.co/LeRobot-worldwide-hackathon) last summer. In a day and a half, Chad and his team built a voice-controlled robot arm to assist auto mechanics in common tasks, such as the classic "hand me that wrench." They placed in the top five teams in the Mountain View, CA competition, and for Brouze, the experience allowed him to get building, prepare for higher level robotics courses, and find out more about the robotics industry.
+
+Brouze shares his thoughts on why you might dedicate a weekend to building robots with strangers in this interview.
+
+**What led you to the idea of a mechanic's assistant robot?**
+
+Over the summer, I worked at a biotech startup where we operated in sterile environments. To avoid contamination, we couldn't remove our hands from the workspace. Instead, someone outside the sterile area would pass in equipment to us. Our robot was not versatile enough for such a task but this inspired us to create a "helping hand": handing tools to people who are in awkward places like a mechanic under a car.
+
+**What drew you to take part in the LeRobot hackathon?**
+
+I wanted to meet people in the robotics industry and gain experience by doing. This Hackathon was taking place worldwide so the energy felt great. It was co-hosted by HuggingFace, an organization whose tech I have used extensively in the past.
+
+**Did you already have a team put together?**
+
+I had one partner going in who I met on the LeRobot Discord. We met once before the Hackathon to assemble the robot and I slept on his couch in San Jose on the night of the hackathon. We met two more teammates once we were there.
+
+**What expertise, if any, did you bring to the team? What skills did your teammates have?**
+
+I am experienced with training open-source AI models. I was able to make use of the Lightning AI credits we were given to fine-tune our vision language action (VLA) model on an H100 GPU. My team included an ex-Nvidia, Meta project management expert who kept the wheels turning and a robotics masters student who was able to debug hardware failures.
+
+**What was the design and build process like? Did you sleep?**
+
+It was very chaotic but the venue closed at 9pm so we did get to go and sleep. We decided to 3D print the parts although motors were more expensive due to tariffs on China.
+
+We got very scrappy. The eyes of our robot was a webcam balancing on a spinning chair which had to stay still so our robot wouldn't get confused.
+
+We got a surprising amount done in one-and-a-half days:
+
+- A web app (Lovable Frontend + Flask backend) doing live speech-to-text ("Hey AutoMate, pass me the screwdriver").
+- Generated a dataset via Imitation Learning using Hugging Face LeRobot leader and follower robot arms.
+- Policy training with SmolVLA using Lightning AI, visualized through Weights & Biases.
+- A polished pitch video using Google Veo + Canva.
+
+**What was the biggest challenge of the project?**
+
+Working with hardware is difficult. You need to be patient as a lot of things go wrong and it's usually not clear why. This was good mental preparation as I move to start taking more hardware-oriented robotics classes at Michigan.
+
+**What did you learn from taking part in the hackathon?**
+
+There's a lot of hype around robotics and it can be difficult to distinguish between signal and noise. It was great to get some inside information on which companies are doing interesting research.
