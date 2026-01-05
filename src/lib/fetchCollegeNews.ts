@@ -119,7 +119,7 @@ export async function fetchAndSaveCollegeNews() {
     }
   } catch (error) {
     console.error('Error fetching college news:', error);
-    process.exit(1);
+    console.log('Continuing with existing data...');
   }
 }
 
