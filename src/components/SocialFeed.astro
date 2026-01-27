@@ -19,7 +19,29 @@ async function fetchSocialPosts() {
     }));
 }
 
+// Helper to check if remote URL is accessible
+async function isUrlAccessible(url) {
+  if (!url) return false;
+  try {
+    const response = await fetch(url, { method: 'HEAD' });
+    return response.ok;
+  } catch {
+    return false;
+  }
+}
+
 const posts = await fetchSocialPosts();
+
+// Check Instagram URLs and remove inaccessible ones
+for (const post of posts) {
+  if (post.platform === 'Instagram') {
+    const mediaUrlOk = post.mediaUrl ? await isUrlAccessible(post.mediaUrl) : false;
+    const thumbnailOk = post.thumbnailUrl ? await isUrlAccessible(post.thumbnailUrl) : false;
+
+    if (!mediaUrlOk) post.mediaUrl = null;
+    if (!thumbnailOk) post.thumbnailUrl = null;
+  }
+}
 
 const socialLinks = {
   Instagram: 'https://www.instagram.com/umrobotics/',

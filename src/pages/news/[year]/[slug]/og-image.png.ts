@@ -104,14 +104,17 @@ export const GET: APIRoute = async function get({ params, props }) {
         } else {
           backgroundData = await fs.readFile(`./src/content/${bgImage}`);
         }
-        
-        // Convert PNG to JPEG if necessary
-        if (bgImage.toLowerCase().endsWith('.png')) {
-          backgroundData = await sharp(backgroundData)
-            .jpeg()
-            .toBuffer();
-        }
-        
+
+        // Resize and optimize image before base64 encoding to avoid buffer limit issues
+        // Target size is 1200x630, so we resize to max 1600px on longest side for quality while keeping buffer reasonable
+        backgroundData = await sharp(backgroundData)
+          .resize(1600, 1600, {
+            fit: 'inside',
+            withoutEnlargement: true
+          })
+          .jpeg({ quality: 90 })
+          .toBuffer();
+
         console.log('Successfully loaded image data');
       } catch (error) {
         console.error('Error loading background image:', error);
