@@ -459,12 +459,27 @@ const sectionIcons: Record<SectionKey, string> = {
             {section.links.map(link => (
               <li class="resource-item" data-search-terms={link.searchTerms || ''}>
                 {link.url ? (
-                  <a href={link.url} 
-                     class="flex items-start" 
-                     target="_blank">
-                    <Icon name="mdi:arrow-right" class="w-4 h-4 mr-1 text-arboretumBlue dark:text-taubmanTeal mt-1 flex-shrink-0" />
-                    {link.text}
-                  </a>
+                  <div>
+                    <a href={link.url}
+                       class="flex items-start"
+                       target="_blank">
+                      <Icon name="mdi:arrow-right" class="w-4 h-4 mr-1 text-arboretumBlue dark:text-taubmanTeal mt-1 flex-shrink-0" />
+                      {link.text}
+                    </a>
+                    {link.description && (
+                      <div class="text-sm text-neutral-700 dark:text-neutral-300 ml-5 mt-1">
+                        {link.description.includes('@') ? (
+                          <>
+                            {link.description.split(': ')[0]}: <a href={`mailto:${link.description.split(': ')[1]}`}>
+                              {link.description.split(': ')[1]}
+                            </a>
+                          </>
+                        ) : (
+                          link.description
+                        )}
+                      </div>
+                    )}
+                  </div>
                 ) : (
                   <div>
                     <div class="font-medium dark:text-white flex items-start">
