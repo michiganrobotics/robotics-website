@@ -67,42 +67,50 @@ const socialIcons = {
               (post.platform === 'X' && post.mediaType === 'IMAGE' && post.mediaUrl) || 
               (post.platform !== 'Instagram' && post.thumbnailUrl)) ? (
               <div class="h-44 relative">
-                {post.platform === 'Instagram' && 
-                 (post.mediaType === 'IMAGE' || post.mediaType === 'CAROUSEL_ALBUM') && 
+                {post.platform === 'Instagram' &&
+                 (post.mediaType === 'IMAGE' || post.mediaType === 'CAROUSEL_ALBUM') &&
                  post.mediaUrl && (
-                  <Image 
-                    src={post.mediaUrl} 
+                  <Image
+                    src={post.mediaUrl}
                     alt="Instagram post"
                     width={320}
                     height={176}
                     class="w-full h-full object-cover"
+                    format="webp"
+                    quality={75}
                   />
                 )}
                 {post.platform === 'Instagram' && post.mediaType === 'VIDEO' && post.thumbnailUrl && (
-                  <Image 
-                    src={post.thumbnailUrl} 
+                  <Image
+                    src={post.thumbnailUrl}
                     alt="Instagram video thumbnail"
                     width={320}
                     height={176}
                     class="w-full h-full object-cover"
+                    format="webp"
+                    quality={75}
                   />
                 )}
                 {post.platform === 'X' && post.mediaType === 'IMAGE' && post.mediaUrl && (
-                  <Image 
-                    src={post.mediaUrl} 
+                  <Image
+                    src={post.mediaUrl}
                     alt="X/Twitter post"
                     width={320}
                     height={176}
                     class="w-full h-full object-cover"
+                    format="webp"
+                    quality={75}
                   />
                 )}
                 {post.platform !== 'Instagram' && post.thumbnailUrl && (
-                  <Image 
-                    src={post.thumbnailUrl} 
+                  <Image
+                    src={post.thumbnailUrl}
                     alt={post.content}
                     width={320}
                     height={176}
                     class="w-full h-full object-cover"
+                    format="webp"
+                    quality={75}
                   />
                 )}
               </div>
