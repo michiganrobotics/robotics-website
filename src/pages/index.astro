@@ -78,7 +78,6 @@ const eventsData = await eventsQuery();
 const recentEvents = eventsData.slice(0, 3);
 
 Astro.response.headers.set('Cache-Control', 'public, max-age=86400, must-revalidate');
-const videoMp4Path = '/robotics-promo-2025-2.mp4';
 const videoWebmPath = '/robotics-promo-2025-2.webm';
 
 ---
@@ -95,7 +94,7 @@ const videoWebmPath = '/robotics-promo-2025-2.webm';
 
 	  </Fragment>
 	<main class="preload-visible">
-		<Hero videoMp4Path={videoMp4Path} videoWebmPath={videoWebmPath}></Hero>
+		<Hero videoWebmPath={videoWebmPath}></Hero>
 		<div class="mx-2 m-auto mb-4 md:mx-12">
 			<div class="relative mb-22 section-with-gradient-border border-arboretumBlue before:from-arboretumBlue after:from-arboretumBlue">
 				<div class="flex justify-center mb-2 sm:mb-0">
