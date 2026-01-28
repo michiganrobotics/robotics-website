@@ -5,7 +5,7 @@ import SocialFeed from '../components/SocialFeed.astro';
 import { getCollection } from 'astro:content';
 import { eventsQuery } from "../lib/api";
 import EmailSignup from "../components/EmailSignup.astro";
-import { Image, getImage } from "astro:assets";
+import { Image } from "astro:assets";
 import academicsImage from '../images/homepage/homepage-academics.jpg';
 import researchImage from '../images/homepage/homepage-research.jpg';
 import peopleImage from '../images/homepage/homepage-people.jpg';
@@ -13,6 +13,7 @@ import ContentImage from '../components/ContentImage.astro';
 import Link from '../components/Link.astro';
 import { Icon } from 'astro-icon/components';
 import defaultEventImage from '../images/default-event.jpg';
+
 
 // Add these type definitions at the top of the file
 interface Event {
@@ -102,25 +103,20 @@ const videoWebmPath = '/robotics-promo-2025-2.webm';
 				</div>
 				<div class="flex flex-wrap gap-4 justify-center mb-8 md:flex-nowrap pt-10 px-2">
 					{recentPosts.map(async (post, index) => {
-						const postImage = post.data.image?.src ? await getImage({
-							src: post.data.image.src,
-							width: 450,
-							height: 192,
-						}) : null;
-
+						const postImageSrc = post.data.image?.src;
 						const excerpt = getExcerptText(post);
 
 						return (
-							
-							<Link 
+
+							<Link
 								href={getPostLink(post)}
 								class="no-underline group card-base surface md:flex-1 max-w-md border border-arboretumBlue"
 								target={isCollegeNews(post) ? '_blank' : undefined}
 								rel={isCollegeNews(post) ? 'noopener noreferrer' : undefined}
 							>
-								{postImage ? (
-									<Image 
-										src={postImage.src}
+								{postImageSrc ? (
+									<Image
+										src={postImageSrc}
 										alt={post.data.image?.alt || post.data.title}
 										width={450}
 										height={192}
@@ -215,16 +211,29 @@ const videoWebmPath = '/robotics-promo-2025-2.webm';
 						aria-label={event.event_title}
 					  >
 						<section>
-						  <Image
-							class="rounded-t-sm aspect-video object-cover w-full"
-							src={event.styled_images.event_feature_large === "/social/default-event.jpg" ? defaultEventImage : event.styled_images.event_feature_large} 
-							alt={event.image_description}
-							height={300}
-							width={446}
-							loading='lazy'
-							format="webp"
-							quality={80}
-						  />
+						  {event.styled_images.event_feature_large === "/social/default-event.jpg" ? (
+							<Image
+							  class="rounded-t-sm aspect-video object-cover w-full"
+							  src={defaultEventImage}
+							  alt={event.image_description}
+							  height={300}
+							  width={446}
+							  loading='lazy'
+							  format="webp"
+							  quality={80}
+							/>
+						  ) : (
+							<Image
+							  class="rounded-t-sm aspect-video object-cover w-full"
+							  src={event.styled_images.event_feature_large}
+							  alt={event.image_description}
+							  height={300}
+							  width={446}
+							  loading='lazy'
+							  format="webp"
+							  quality={80}
+							/>
+						  )}
 						  <div class="p-5 pl-0">
 							<div class="mb-3 text-sm italic bg-matthaeiViolet text-neutral-200 inline-block pl-5 pr-2 py-1">
 							  <time datetime={event.datetime_start}>
@@ -245,7 +254,8 @@ const videoWebmPath = '/robotics-promo-2025-2.webm';
 							  {event.event_title}
 							  <span class="block w-0 h-0.5 bg-maize transition-all duration-300 group-hover:w-full" />
 							</h3>
-							<h4 class="pl-5 mb-2 text-lg tracking-tight dark:text-neutral-300">{event.event_subtitle}</h4>  
+							<h4 class="pl-5 mb-2 text-lg tracking-tight dark:text-neutral-300">{event.event_subtitle}</h4>
+						  </div>
 						</section>
 					  </a>
 					))}

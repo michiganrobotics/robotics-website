@@ -26,10 +26,7 @@ const news = defineCollection({
     image: z.object({
       src: image(),
       alt: z.string(),
-    }).optional().default({
-      src: "/public/social/og-default.jpg",
-      alt: "University of Michigan Robotics"
-    }),
+    }).optional(),
     categories: z.array(z.enum([
       'artificial-intelligence',
       'autonomous-vehicles',
@@ -81,13 +78,13 @@ const academics = defineCollection({
 
 const collegeNews = defineCollection({
   loader: glob({ pattern: "*.json", base: "./src/content/college-news" }),
-  schema: z.object({
+  schema: ({ image }) => z.object({
     title: z.string(),
     date: z.string(),
     description: z.string().optional(),
     link: z.string().url(),
     image: z.object({
-      src: z.string(),
+      src: image(),
       alt: z.string(),
     }).optional(),
     categories: z.array(z.enum([
