@@ -17,6 +17,11 @@ export default defineConfig({
   // Remove GitHub Pages base path
   base: '/',
 
+  // Inline stylesheets under 8KB to reduce render-blocking requests
+  build: {
+    inlineStylesheets: 'auto',
+  },
+
   integrations: [
     icon(),
     sitemap(), 
