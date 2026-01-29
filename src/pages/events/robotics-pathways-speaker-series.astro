@@ -34,7 +34,7 @@ const upcomingSpeakers = sortedSpeakers.filter(speaker => {
 const pastSpeakers = sortedSpeakers.filter(speaker => {
   const speakerDate = new Date(speaker.date);
   speakerDate.setHours(23, 59, 59, 999);
-  return speakerDate < today;
+  return speakerDate < today && speaker.name;
 }).reverse();
 ---
 
@@ -53,7 +53,7 @@ const pastSpeakers = sortedSpeakers.filter(speaker => {
 
     <p>The Robotics Pathways and Careers Speaker Series (RPCSS) invites professionals working in robotics to come talk about a variety of topics including their own education and career path, the technical challenges they address in their industry, and what they hope to see in students looking to enter the profession.</p>
 
-    <p>The RPCSS is held every other Thursday evening from 4:30-6:00pm on the campus of the University of Michigan in 2300 FMCRB.</p>
+    <p>The RPCSS is held every other Tuesday evening from 4:30-6:00pm on the campus of the University of Michigan in 2300 FMCRB.</p>
 
     <p>The 90-minute format of the event will consist of a 30-minute presentation from the invited speaker and up to 60 minutes of moderated Q&A and discussion. Students will be able to participate in person or remotely. Each seminar will be available <a href="https://umich.zoom.us/j/92286702864">via Zoom</a>, and recordings will be posted if available.</p>
 
@@ -72,30 +72,50 @@ const pastSpeakers = sortedSpeakers.filter(speaker => {
         <h2>Upcoming speakers</h2>
 
         {upcomingSpeakers.map(speaker => (
-          <SpeakerProfile
-            image={cachedImages[speaker.imageUrl] || defaultProfileImage.default}
-            imageAlt={speaker.name}
-            title={speaker.title}
-            subtitle={new Date(speaker.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
-            name={speaker.name}
-            role={`${speaker.role}${speaker.organization ? `, ${speaker.organization}` : ''}`}
-            website={speaker.website}
-            isExpanded={true}
-          >
-            {speaker.abstract && (
-              <>
-                <h3>Abstract</h3>
-                <p>{speaker.abstract}</p>
-              </>
-            )}
+          speaker.name ? (
+            <SpeakerProfile
+              image={cachedImages[speaker.imageUrl] || defaultProfileImage.default}
+              imageAlt={speaker.name}
+              title={speaker.title}
+              subtitle={new Date(speaker.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+              name={speaker.name}
+              role={`${speaker.role}${speaker.organization ? `, ${speaker.organization}` : ''}`}
+              website={speaker.website}
+              isExpanded={true}
+            >
+              {speaker.abstract && (
+                <>
+                  <h3>Abstract</h3>
+                  <p>{speaker.abstract}</p>
+                </>
+              )}
 
-            {speaker.bio && (
-              <>
-                <h3>Bio</h3>
-                <p>{speaker.bio}</p>
-              </>
-            )}
-          </SpeakerProfile>
+              {speaker.bio && (
+                <>
+                  <h3>Bio</h3>
+                  <p>{speaker.bio}</p>
+                </>
+              )}
+            </SpeakerProfile>
+          ) : (
+            <div class="rpcss-speaker-profile my-6 border border-gray-200 dark:border-gray-700 rounded-md overflow-visible">
+              <div class="w-full text-left card-base card-padded surface flex items-center gap-4">
+                <div class="w-16 h-16 shrink-0">
+                  <Image
+                    src={defaultProfileImage.default}
+                    alt=""
+                    width={256}
+                    height={256}
+                    class="rounded-full w-full h-full object-cover not-prose opacity-50"
+                  />
+                </div>
+                <div class="min-w-0">
+                  <p class="text-neutral-600 dark:text-neutral-200 text-sm">{new Date(speaker.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</p>
+                  <h3 class="text-xl font-bold dark:text-neutral-100 mt-0 mb-0">To be announced</h3>
+                </div>
+              </div>
+            </div>
+          )
         ))}
       </>
     )}
