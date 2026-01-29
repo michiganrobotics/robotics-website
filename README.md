@@ -1,70 +1,93 @@
-# Website Documentation
+# Michigan Robotics website
 
-Site has a github action to automatically build at 3am EST, incorporating any new changes to the various spreadsheets, events, or College news.
+The website for the University of Michigan Robotics Department at [robotics.umich.edu](https://robotics.umich.edu). Built with [Astro](https://astro.build), Tailwind CSS, and MDX.
 
-Site can also be updated manually by pushing to the main branch, which triggers a build on Netlify.
+## Getting started
 
-## Site Structure
+Requires Node.js 22+.
 
-### Pages
+```bash
+npm install
+npm run dev
+```
 
-#### Main Pages
-- `/` - Homepage
-- `/about` - About page with information about the organization
-- `/404` - Custom 404 error page
+The dev server fetches college news before starting. To just build:
 
-### Academic Pages
-- `/academic/` - Academic landing page
-- Pages can be created under /src/pages/academic as .astro files OR /src/content/academic as .md or .mdx files
+```bash
+npm run build
+npm run preview
+```
 
-#### Research
-- `/research` - Main research landing page
-- `/research/projects-and-datasets` - Projects and datasets overview
-- `/research/focus-areas` - Research focus areas landing page
-- `/research/focus-areas/[slug]` - Dynamic pages for individual research focus areas
+API credentials for Google Sheets and other integrations are stored as environment variables (not committed).
 
-#### News
-- `/news` - News landing page
-- `/news/[year]/[slug]` - News article page
-- `/news/[category]/[...page]` - Category news pages with pagination
-- `/news/[year]/[slug]/og-image.png` - Open Graph image generator for news articles
+## How it works
 
-### Page Functionality
+The site is statically generated and deployed to Netlify. A nightly GitHub Actions workflow triggers a fresh build so dynamic data stays current. Pushing to the main branch also triggers a deploy.
 
-#### Homepage (`/index.astro`)
-- Main landing page
-- Populates the news carousel with the latest 3 news articles
-- Draws from events.umich.edu
-- Draws social posts from social profiles
+### Content
 
-#### About Page (`/about/index.astro`)
-- Organization information
-- Mission and values
-- Contact details
+- **News articles** live in `src/content/news/`, organized by year
+- **Academic pages** live in `src/content/academics/` as MDX
+- **Research focus areas** are in `src/content/focus-areas/`
+- **Course materials** are in `src/content/courses/`
 
-#### Research Pages
-1. Main Research Page (`/research/index.astro`)
-   - Overview of research activities
-   - Links to focus areas and projects
+Future work: Non-technical editors will be able to manage academic content through [Pages CMS](https://pagescms.org), configured in `.pages.yml`.
 
-2. Projects and Datasets (`/research/projects-and-datasets.astro`)
-   - Listing of research projects
-   - Available datasets
-   - Research resources
+### People and profiles
 
-3. Focus Areas
-   - Landing Page (`/research/focus-areas/index.astro`)
-     - Overview of all research focus areas
-   - Individual Focus Area Pages (`/research/focus-areas/[slug].astro`)
-     - Dynamic pages for each focus area
-     - Detailed information about specific research domains
+Faculty, staff, and student data is managed in Google Sheets and pulled in via API at build time. Faculty and staff each get a generated profile page under `/people/` with their photo, research interests, and contact info. Students are listed on a single searchable directory page. Profile images are cached locally by a Netlify build plugin to avoid re-fetching on every deploy.
 
-#### Profile Pages
-- Faculty, staff, student profiles from Google Sheets
-- `/people/[type]/[slug]` - Dynamic profile pages for faculty, staff, and students
+**ROBODEX** is a filterable student resource directory at `/academics/student-services/robodex/`. Students can filter by program (undergrad, master's, PhD) and topic (academic support, career, research, etc.) or search by keyword to find relevant resources, forms, and guides.
 
+### Dynamic data
 
+Several other data sources are pulled in at build time:
 
+- **Events** from the U-M events calendar (events.umich.edu)
+- **College news** aggregated from the College of Engineering RSS feed
+- **Other external news** can be added manually as stubs
+- **Social media posts** from Instagram, YouTube, and Twitter/X
 
-## Additional Resources
-- [Astro Documentation](https://docs.astro.build)
+### Authentication
+
+Some pages are behind Netlify Edge Functions for U-M authentication:
+
+- `/intranet/*` -- internal department resources
+- `/academics/courses/course-offerings/current-590-690` -- restricted course listings
+
+## Other features
+
+- Auto-generated Open Graph images for news articles (via Satori)
+- RSS feed at `/rss.xml` and auto-generated sitemap
+- Image optimization and caching with Sharp and custom Netlify plugins
+- Searchable and sortable tables for alumni, honors & awards, projects & datasets, and course listings
+- Real-time filtering on seminar and speaker series pages
+- Online course materials for several freely accessible robotics courses
+- Dark mode
+- Responsive design with U-M brand colors
+- Hidden ASCII game
+
+## Project structure
+
+```
+src/
+  components/   Astro components
+  content/      Markdown/MDX content collections
+  layouts/      Page layouts
+  lib/          Data fetching and utilities
+  pages/        Astro page routes
+  styles/       Global styles
+public/         Static assets
+netlify/        Edge functions and build plugins
+```
+
+### Key pages
+
+- `/` -- homepage with news carousel, events, and social feed
+- `/about` -- department info, facilities, partnerships, values
+- `/academics` -- undergrad and grad programs, courses, student services
+- `/research` -- focus areas, projects and datasets
+- `/people` -- faculty, staff, student, and emeritus profiles (generated from Google Sheets)
+- `/academics/student-services/robodex` -- filterable student resource directory
+- `/news` -- articles with category filtering and pagination
+- `/events` -- seminar series and speaker events
