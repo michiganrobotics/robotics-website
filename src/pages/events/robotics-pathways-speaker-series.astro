@@ -81,7 +81,7 @@ const pastSpeakers = sortedSpeakers.filter(speaker => {
               name={speaker.name}
               role={`${speaker.role}${speaker.organization ? `, ${speaker.organization}` : ''}`}
               website={speaker.website}
-              isExpanded={true}
+              isExpanded={!!(speaker.abstract || speaker.bio)}
             >
               {speaker.abstract && (
                 <>
