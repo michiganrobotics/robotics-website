@@ -83,10 +83,18 @@ function formatDate(dateString: string): string {
           target={isCollegeNews(post) ? '_blank' : undefined}
           rel={isCollegeNews(post) ? 'noopener noreferrer' : undefined}
         >
-          {post.data.image?.src && (
-            <Image 
+          {post.data.image?.src ? (
+            <Image
               src={post.data.image.src}
               alt={post.data.image?.alt || post.data.title}
+              width={540}
+              height={360}
+              class="w-full h-48 object-cover"
+            />
+          ) : (
+            <img
+              src="/social/og-default.jpg"
+              alt={post.data.title}
               width={540}
               height={360}
               class="w-full h-48 object-cover"

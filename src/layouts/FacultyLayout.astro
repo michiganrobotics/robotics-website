@@ -182,14 +182,22 @@ const relatedPosts = [...allNamedPosts, ...formattedCollegeNews]
                 >
                   <div class="relative aspect-video overflow-hidden shadow-lg not-prose">
                     {postImage ? (
-                      <Image 
+                      <Image
                         src={postImage.src}
                         alt={post.data.image?.alt || post.data.title}
                         width={450}
                         height={300}
                         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                       />
-                    ) : null}
+                    ) : (
+                      <img
+                        src="/social/og-default.jpg"
+                        alt={post.data.title}
+                        width={450}
+                        height={300}
+                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                    )}
                   </div>
                   <div class="p-4">
                     <h3 class="text-lg font-medium decoration-maize decoration-2 group-hover:underline">
