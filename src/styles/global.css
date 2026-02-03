@@ -223,7 +223,7 @@
   }
 
   .surface-alternative {
-    @apply bg-[#4E7264] dark:bg-[#4E7264]/80
+    @apply bg-[#3B5C4E] dark:bg-[#3B5C4E]/80
            text-neutral-100
            shadow-md
            border border-rackhamGreen/20 dark:border-rackhamGreen/40;
