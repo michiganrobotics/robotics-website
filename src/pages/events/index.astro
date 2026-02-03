@@ -74,7 +74,7 @@ const recentEvents = eventsData.slice(0, 6);
           <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-4 not-prose">	
             {recentEvents.map((event: Event) => (
               <div>
-                <a href={event.permalink} class="no-underline group surface card-base card-hover flex flex-col h-full" aria-label={event.event_title}>
+                <a href={event.permalink} class="no-underline group surface card-base card-hover flex flex-col h-full">
                   <div class="relative overflow-hidden">
                     <Image
                       src={event.styled_images.event_feature_large} 

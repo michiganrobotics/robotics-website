@@ -63,7 +63,7 @@ import PageTitle from "../../components/PageTitle.astro";
            <Icon name="mdi:arrow-right" class="w-4 h-4 mr-1" /> Tours, transit, parking, and more visitor information</a>
           </p>
         </div>
-        <div id="map" class="rounded-lg shadow-md overflow-hidden h-[300px]"></div>
+        <div id="map" class="rounded-lg shadow-md overflow-hidden h-[300px]" role="img" aria-label="Map showing the location of the Ford Robotics Building at 2505 Hayward St, Ann Arbor"></div>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -114,7 +114,7 @@ import PageTitle from "../../components/PageTitle.astro";
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
 
-    L.marker([42.2943546,-83.7096]).addTo(map)
+    L.marker([42.2943546,-83.7096], {alt: 'Ford Motor Company Robotics Building'}).addTo(map)
       .bindPopup('Ford Motor Company Robotics Building<br>2505 Hayward St')
       .openPopup();
   }

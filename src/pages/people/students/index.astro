@@ -35,11 +35,13 @@ students.sort((a, b) => {
           aria-label="Search for students by name, research interests, or lab"
         >
         <div class="flex gap-4">
+          <label for="degreeFilter" class="sr-only">Academic program</label>
           <select id="degreeFilter" class="w-full sm:w-auto p-2 pl-2 pr-6 sm:pr-8 sm:pl-4 border border-neutral-400 dark:border-arboretumBlue bg-[var(--bg-undersurface-light)] dark:bg-[var(--bg-page-dark)] text-neutral-700 dark:text-neutral-100 rounded-md">
             <option value="">Academic program</option>
             <option value="PhD">PhD</option>
             <option value="MS">Master's</option>
           </select>
+          <label for="statusFilter" class="sr-only">Work availability</label>
           <select id="statusFilter" class="w-full sm:w-auto p-2 px-2 sm:px-4 border border-neutral-400 dark:border-arboretumBlue bg-[var(--bg-undersurface-light)] dark:bg-[var(--bg-page-dark)] text-neutral-700 dark:text-neutral-100 rounded-md">
             <option value="">Work availability</option>
             <option value="seeking internship">Seeking internship</option>

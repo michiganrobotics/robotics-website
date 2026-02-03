@@ -124,21 +124,19 @@ function getHrClass(level: string) {
         </div>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
           {points.map((point) => (
-            <div 
-              class="engagement-point" 
-              role="button"
-              aria-labelledby={`engagement-title-${point.title.toLowerCase().replace(/\s+/g, '-')}`}
+            <div
+              class="engagement-point"
+              aria-labelledby={`engagement-title-${point.title.toLowerCase().replace(/\s+/g, '-')} engagement-desc-${point.title.toLowerCase().replace(/\s+/g, '-')}`}
               tabindex="0"
               aria-expanded="false"
               aria-controls={`content-${point.title.toLowerCase().replace(/\s+/g, '-')}`}
-              aria-haspopup="true"
             >
               <div class={`engagement-point-content card-base card-hover surface p-4 ${level === 'Initial' ? 'border border-maize' : ''} ${level === 'Mid-Level' ? 'border border-taubmanTeal' : ''} ${level === 'Advanced' ? 'border border-arboretumBlue' : ''}`}>
                 <div class="flex items-start gap-3">
                   <div class={`w-3 h-3 mt-1.5 rounded-full transition-colors duration-300 ${level === 'Initial' ? 'bg-maize dark:bg-maize' : ''} ${level === 'Mid-Level' ? 'bg-taubmanTeal' : ''} ${level === 'Advanced' ? 'bg-arboretumBlue' : ''}`}></div>
                   <div class="w-full">
                     <h4 id={`engagement-title-${point.title.toLowerCase().replace(/\s+/g, '-')}`} class="font-bold text-neutral-900 dark:text-neutral-100 not-prose">{point.title}</h4>
-                    <p class="text-sm text-neutral-800 dark:text-neutral-100 not-prose">{point.description}</p>
+                    <p id={`engagement-desc-${point.title.toLowerCase().replace(/\s+/g, '-')}`} class="text-sm text-neutral-800 dark:text-neutral-100 not-prose">{point.description}</p>
                   </div>
                 </div>
                 {point.media && (
