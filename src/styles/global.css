@@ -210,7 +210,7 @@
 
   /* Surface Variants */
   .surface-secondary {
-    @apply bg-arboretumBlue dark:bg-arboretumBlue/80
+    @apply bg-[#1E4F8A] dark:bg-[#1E4F8A]/80
            text-neutral-100 prose-a:text-neutral-100
            prose-headings:text-neutral-100
            shadow-md
