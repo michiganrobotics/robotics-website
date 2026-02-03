@@ -14,17 +14,16 @@ const HeadingTag = headingLevel;
 const uniqueId = id || title.toLowerCase().replace(/\s+/g, '-');
 ---
 
-<div 
+<div
   class="accordion border-matthaeiViolet dark:border-arboretumBlue border-2 rounded-lg mb-4 overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-maize focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-arboretumBlue"
   tabindex="0"
-  role="region"
-  aria-expanded="false"
   aria-labelledby={`accordion-header-${uniqueId}`}
 >
   <button
     id={`accordion-header-${uniqueId}`}
     class="accordion-trigger flex justify-between items-center w-full p-5 text-left bg-matthaeiViolet/5 dark:bg-arboretumBlue/30 text-gray-800 dark:text-neutral-100 hover:bg-matthaeiViolet/10 dark:hover:bg-arboretumBlue transition-colors duration-200 cursor-pointer gap-4"
     aria-controls={`accordion-content-${uniqueId}`}
+    aria-expanded="false"
     tabindex="-1"
   >
     <span class="font-medium text-lg font-roboto flex-1">
@@ -63,7 +62,7 @@ const uniqueId = id || title.toLowerCase().replace(/\s+/g, '-');
   }
 
   /* Add a subtle border between items when expanded */
-  .accordion[aria-expanded="true"] button {
+  .accordion-trigger[aria-expanded="true"] {
     @apply border-b border-gray-200 dark:border-gray-700 bg-matthaeiViolet/20 dark:bg-arboretumBlue;
   }
 
@@ -73,7 +72,7 @@ const uniqueId = id || title.toLowerCase().replace(/\s+/g, '-');
   }
 
   /* Rotate the arrow icon when expanded */
-  .accordion[aria-expanded="true"] svg {
+  .accordion-trigger[aria-expanded="true"] svg {
     @apply rotate-180;
   }
 
@@ -93,34 +92,34 @@ const uniqueId = id || title.toLowerCase().replace(/\s+/g, '-');
   // Initialize all accordions
   function initAccordions() {
     const accordions = document.querySelectorAll('.accordion');
-    
+
     accordions.forEach(accordion => {
       const trigger = accordion.querySelector('.accordion-trigger');
       const contentId = trigger.getAttribute('aria-controls');
       const content = document.getElementById(contentId);
-      
+
       // Initial state check - ensure DOM and aria state are in sync
       if (content && !content.classList.contains('hidden')) {
-        accordion.setAttribute('aria-expanded', 'true');
+        trigger.setAttribute('aria-expanded', 'true');
       }
-      
+
       trigger.addEventListener('click', (e) => {
         // Prevent default button behavior that might cause page jumps
         e.preventDefault();
-        
+
         // Store current scroll position
         const scrollPosition = window.scrollY;
-        
-        // Toggle aria-expanded on the accordion container
-        const isExpanded = accordion.getAttribute('aria-expanded') === 'true';
+
+        // Toggle aria-expanded on the button trigger
+        const isExpanded = trigger.getAttribute('aria-expanded') === 'true';
         const newExpandedState = (!isExpanded).toString();
-        accordion.setAttribute('aria-expanded', newExpandedState);
-        
+        trigger.setAttribute('aria-expanded', newExpandedState);
+
         // Toggle content visibility
         if (content) {
           content.classList.toggle('hidden');
         }
-        
+
         // Restore scroll position to prevent jumps
         window.scrollTo({
           top: scrollPosition
@@ -140,9 +139,12 @@ const uniqueId = id || title.toLowerCase().replace(/\s+/g, '-');
           // Find and expand the accordion
           const accordion = accordionContent.closest('.accordion');
           if (accordion) {
-            accordion.setAttribute('aria-expanded', 'true');
+            const trigger = accordion.querySelector('.accordion-trigger');
+            if (trigger) {
+              trigger.setAttribute('aria-expanded', 'true');
+            }
             accordionContent.classList.remove('hidden');
-            
+
             // Scroll to the target after a brief delay
             setTimeout(() => {
               targetElement.scrollIntoView({ behavior: 'smooth' });
@@ -165,13 +167,16 @@ const uniqueId = id || title.toLowerCase().replace(/\s+/g, '-');
           const accordionContent = targetElement.closest('.accordion-content');
           if (accordionContent) {
             e.preventDefault();
-            
+
             // Find and expand the accordion
             const accordion = accordionContent.closest('.accordion');
             if (accordion) {
-              accordion.setAttribute('aria-expanded', 'true');
+              const trigger = accordion.querySelector('.accordion-trigger');
+              if (trigger) {
+                trigger.setAttribute('aria-expanded', 'true');
+              }
               accordionContent.classList.remove('hidden');
-              
+
               // Scroll to the target after a brief delay
               setTimeout(() => {
                 targetElement.scrollIntoView({ behavior: 'smooth' });

@@ -3,7 +3,7 @@ title: "ROB 502: Programming for Robotics: Homework 2.5 Clicker Questions"
 date: "2020-10-07"
 ---
 
-### Clicker Questions
+## Clicker Questions
 
 1. How many different values can a bit represent?
 2. How many different values can a single hexadecimal digit represent?

@@ -3,7 +3,7 @@ title: "ROB 502: Programming for Robotics: Class 5"
 date: "2020-07-07"
 ---
 
-### Clicker Questions
+## Clicker Questions
 
 Use p4r-clicker to submit your answer
 

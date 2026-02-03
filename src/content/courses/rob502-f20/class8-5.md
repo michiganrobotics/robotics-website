@@ -3,7 +3,7 @@ title: "ROB 502: Programming for Robotics: Class 8.5 Clicker Questions"
 date: "2020-10-14"
 ---
 
-### Clicker Questions
+## Clicker Questions
 
 1. How many bits are in a byte?
 2. How many bytes are in a `uint16_t`?

@@ -3,7 +3,7 @@ title: "ROB 502: Programming for Robotics: Homework 4.5"
 date: "2020-11-09"
 ---
 
-### Clicker Questions
+## Clicker Questions
 
 Use p4r-clicker to submit your answer
 

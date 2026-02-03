@@ -3,7 +3,7 @@ title: "ROB 502: Programming for Robotics: Class 14 Discussion"
 date: "2020-11-11"
 ---
 
-### Clicker Questions
+## Clicker Questions
 
 Use p4r-clicker to submit your answer
 

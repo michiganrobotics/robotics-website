@@ -3,7 +3,7 @@ title: "ROB 502: Programming for Robotics: Class 8.5 Clicker Questions"
 date: "2020-10-14"
 ---
 
-### Clicker Questions
+## Clicker Questions
 
 1. How many bits are in a byte? There are **8** bits in a byte! A byte is the smallest amount of data that the computer can easily work with. So for example, if you have 8 boolean values, the fastest way to work with them is to have 8 `bool` types which are each 1 byte large. It is possible to use the bits individually with bitwise operations, but that is going to be slower, because again, a byte is the smallest data type the computer can perform operations on!
     
