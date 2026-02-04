@@ -29,7 +29,7 @@ By definition, a byte is **8 bit**s. A byte is the smallest unit that most compu
 
 This is a bitwise OR operation, so each bit of output is a 1 if either of the input bits is 1. With the lower hex digits we have 0x1 and 0x2, which correspond to a 1-bit (2^0) and a 2-bit (2^1), so the output has both, 1+2=3. For the higher hex digit, we have 0x3 and 0x5, which correspond to the 1-bit and 2-bit and then the 1-bit and 4-bit (2^2), so the output has 1-bit, 2-bit, and 4-bit set, for 1+2+4=7. So the result is **0x73**.
 
-#### Least-significant byte first (LSB) or Most-significant byte first (MSB)
+### Least-significant byte first (LSB) or Most-significant byte first (MSB)
 
 When multiple bytes are stored by the computer, they can be stored either in order of least significant first, or most significant first. Modern Intel/AMD x86 processors use the least significant byte first convention. This distinction is also often called endianness, and LSB can also be called little-endian (little end in first), and MSB being called big-endian (big end in first). "First" in this context means a lower memory address/lower index in a buffer.
 

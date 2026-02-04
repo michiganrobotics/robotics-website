@@ -120,7 +120,7 @@ I have made several changes to the default files for this assignment folder, so 
 git pull upstream master
 ```
 
-#### A note on program organization
+### A note on program organization
 
 This homework is considerably more complex than the last one. I suggest that you organize your code into different files so that your code is easy to reuse between problems 1 and 2, and so that it is easy for you to keep related code together.
 
@@ -185,7 +185,7 @@ For a 4 by 4 image, that indices of pixels would map to pixels like so:
 12  13  14  15
 ```
 
-#### Making the black image
+### Making the black image
 
 We have provided a C header file `bmp.h` with various definitions to make this problem easier. We can construct a `bitmap_t` to represent our black image like this:
 
@@ -219,7 +219,7 @@ int main(void) {
 }
 ```
 
-#### Creating the bitmap format headers
+### Creating the bitmap format headers
 
 Unfortunately, we also have to provide some extra information about the image so that the computer knows how to interpret it. For an uncompressed image, the bitmap format will contain two headers of information about the image followed by the RGB pixel data.
 
@@ -250,7 +250,7 @@ info_header.biHeight = ...;
 - All the fields you don't use can be set to/left at 0. For example, `biClrUsed`.
 - You may have noticed the odd `__attribute__((__packed__))` in the declaration of the structures in the file, and this line instructs the compiler to not add any extra padding bytes to those structures. This is important if we want to directly use the structures with memcpy as parts of the file which needs to have the exact right order and size of bytes.
 
-#### Serializing the whole bitmap image
+### Serializing the whole bitmap image
 
 The next step is figuring out how to put all these sections, including the two headers and the pixel data, together into one continuous stream of bytes.
 
@@ -327,7 +327,7 @@ void bmp_serialize(bitmap_t *bmp, uint8_t *data) {
 
 I recommend trying to duplicate the provided sample `all_black_img.bmp` with the below debugging suggestions before completely finishing this task.
 
-#### Debugging suggestions:
+### Debugging suggestions:
 
 For debugging purposes, you might find it useful use `printf` to display your serialized data as hexadecimal. For example:
 
@@ -360,7 +360,7 @@ If the files are different it will print out a message saying so.
 
 Once you have an all-black image, try making an image all of some other color. This makes for a good test of the logic in your bmp\_serialize, since if you miscopy any part of the image, that part you miss will still be black.
 
-#### Using the image server to display your image
+### Using the image server to display your image
 
 Once you think the bmp image is being constructed correctly, you can give it to the provided image server to show in your browser.
 
@@ -515,7 +515,7 @@ vector_xy_t *vector_xy_create(void) {
 }
 ```
 
-#### Point "rounding"
+### Point "rounding"
 
 Before we draw them we have to handle "rounding". The goal of this rounding is to preserve the size of polygons and to not draw overlapping polygons that do not overlap mathematically. Our simple method for this is:
 

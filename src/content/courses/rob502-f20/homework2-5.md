@@ -12,7 +12,7 @@ date: "2020-10-07"
 5. How many values can be represented by a single byte?
 6. `0x31 | 0x52 == 0x?`
 
-#### Least-significant byte first (LSB) or Most-significant byte first (MSB)
+### Least-significant byte first (LSB) or Most-significant byte first (MSB)
 
 When multiple bytes are stored by the computer, they can be stored either in order of least significant first, or most significant first. Modern Intel/AMD x86 processors use the least significant byte first convention. This distinction is also often called endianness, and LSB can also be called little-endian (little end in first), and MSB being called big-endian (big end in first). "First" in this context means a lower memory address/lower index in a buffer.
 
