@@ -175,7 +175,7 @@ usage: ./parity [<text>]
 
 ### Debugging with GDB
 
-As the next problem is slightly trickier, it may help to have a brief initial introduction to GDB, the Gnome debugger. When debugging sometimes you know exactly which variables you need to check, and you can debug very effectively with printf statements. However, sometimes you know something is fishy going on but you aren’t sure what the issue is.
+As the next problem is slightly trickier, it may help to have a brief initial introduction to GDB, the GNU debugger. When debugging sometimes you know exactly which variables you need to check, and you can debug very effectively with printf statements. However, sometimes you know something is fishy going on but you aren’t sure what the issue is.
 
 In this kind of situation it can be very helpful to run your code in GDB to test which of your assumptions about your programs operation is wrong. In the debugger you can test many different hypotheses very quickly!
 

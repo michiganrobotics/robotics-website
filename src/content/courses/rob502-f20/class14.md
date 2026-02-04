@@ -150,7 +150,7 @@ Hello world from 2101487808!
 
 And each time you run it, the result should be slightly different. If the results are all too clean and perfect (everything in order and no big numbers), try commenting out the `-fsanitize=address` line in your makefile; it is slowing down your program too much.
 
-The reason that some of the numbers are coming out of order is that Linux makes no guarentees about how it schedules when to run different threads or processes. Our program can make all these threads, but we can't control the order that they run in. This is okay! We will learn more about the difficulties and solutions to this situation in the next class.
+The reason that some of the numbers are coming out of order is that Linux makes no guarantees about how it schedules when to run different threads or processes. Our program can make all these threads, but we can't control the order that they run in. This is okay! We will learn more about the difficulties and solutions to this situation in the next class.
 
 The only actual problem we have is that on occasion the last couple lines we sometimes get very large numbers... and then somehow the wrong number of lines! This is 17 not 16!
 

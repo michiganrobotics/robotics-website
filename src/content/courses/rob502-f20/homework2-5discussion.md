@@ -13,7 +13,7 @@ A bit is the smallest amount of information that computers can easily use, and c
 
 A hexadecimal digit can store **16** different values, 0 through 15. This can be seen in the name "hex" meaning 6 and "deci" meaning 10.
 
-3. How many bits are in a single hexadecmial digit?
+3. How many bits are in a single hexadecimal digit?
 
 Since it can store 16 values and a bit can store 2, and 2 to the 4th power is 16, a hexadecimal digit contains **4 bits**.
 

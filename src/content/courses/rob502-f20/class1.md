@@ -225,7 +225,7 @@ These two commands will help:
 - `which` gives the full path to a command’s executable file
 - `chmod` (change mode) sets file permissions/modes. `chmod +x` marks a file as executable.
 
-Run `which bash` to get the full bath to the bash executable. It will likely be `/bin/bash` or `/usr/bin/bash`.
+Run `which bash` to get the full path to the bash executable. It will likely be `/bin/bash` or `/usr/bin/bash`.
 
 Then add the shebang line to the script. The script, test.sh, will look like this:
 

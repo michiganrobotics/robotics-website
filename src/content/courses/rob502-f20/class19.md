@@ -27,7 +27,7 @@ Each TCP segment is marked with both a source and a destination _port_ number. B
 
 #### User Datagram Protocol (UDP)
 
-In contrast, the User Datagram Protocol (UDP), sometimes referred to as the _Unreliable_ Datagram Protocol, makes none of these guarentees. Messages can get lost, out of order, and its only an option to check that messages are received without errors! The benefit of UDP is that because it has very low overhead, it has low latency and high throughput. LCM uses UDP for message passing, especially since old messages can quickly get out of date and the slowdown for guaranteed receipt is not always worthwhile. ROS has been trying to add UDP as an option but generally uses TCP. There have also been some movements to use UDP for mobile internet because TCP tends to mistake a poor connection for network congestion, resulting in an even slower connection.
+In contrast, the User Datagram Protocol (UDP), sometimes referred to as the _Unreliable_ Datagram Protocol, makes none of these guarantees. Messages can get lost, out of order, and its only an option to check that messages are received without errors! The benefit of UDP is that because it has very low overhead, it has low latency and high throughput. LCM uses UDP for message passing, especially since old messages can quickly get out of date and the slowdown for guaranteed receipt is not always worthwhile. ROS has been trying to add UDP as an option but generally uses TCP. There have also been some movements to use UDP for mobile internet because TCP tends to mistake a poor connection for network congestion, resulting in an even slower connection.
 
 Just like TCP, UDP datagrams also have both source and destination ports that allow different applications to use UDP at the same time.
 
