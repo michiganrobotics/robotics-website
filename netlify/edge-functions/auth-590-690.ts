@@ -1,5 +1,5 @@
-import type { Context } from "@netlify/edge-functions";
-import { jwtVerify, createRemoteJWKSet } from "jose";
+import type { Context } from "https://edge.netlify.com";
+import { jwtVerify, createRemoteJWKSet } from "https://esm.sh/jose@6";
 
 const DISCOVERY_URL = 'https://shibboleth.umich.edu/.well-known/openid-configuration';
 const SCOPE = 'openid profile email';
@@ -7,8 +7,8 @@ const SCOPE = 'openid profile email';
 function getClientConfig(request: Request) {
   const url = new URL(request.url);
   return {
-    clientId: Netlify.env.get('UMICH_590_690_CLIENT_ID') || '',
-    clientSecret: Netlify.env.get('UMICH_590_690_CLIENT_SECRET') || '',
+    clientId: Deno.env.get('UMICH_590_690_CLIENT_ID') || '',
+    clientSecret: Deno.env.get('UMICH_590_690_CLIENT_SECRET') || '',
     redirectUri: `${url.protocol}//${url.host}/auth/590-690/callback`,
   };
 }
@@ -46,7 +46,7 @@ export default async function(request: Request, context: Context) {
   console.log('Got OIDC config for 590-690');
 
   // Development bypass
-  if (Netlify.env.get('NODE_ENV') === 'development') {
+  if (Deno.env.get('NODE_ENV') === 'development') {
     console.log('Development mode - bypassing 590-690 auth');
     return context.next();
   }
