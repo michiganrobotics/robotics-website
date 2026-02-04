@@ -1,34 +1,35 @@
 import type { Context } from "@netlify/edge-functions";
 import { jwtVerify, createRemoteJWKSet } from "jose";
 
-// Using the well-known configuration URL like the Flask example
-const OIDC_CONFIG = {
-  discoveryUrl: 'https://shibboleth.umich.edu/.well-known/openid-configuration',
-  clientId: process.env.UMICH_CLIENT_ID!,
-  clientSecret: process.env.UMICH_CLIENT_SECRET!,
-  redirectUri: (request: Request) => {
-    const url = new URL(request.url);
-    return `${url.protocol}//${url.host}/auth/callback`;
-  },
-  scope: 'openid profile email eduperson_affiliation edumember'  // Match scopes from ITS
-};
+const DISCOVERY_URL = 'https://shibboleth.umich.edu/.well-known/openid-configuration';
+const SCOPE = 'openid profile email eduperson_affiliation edumember';
 
-let JWKS: any = null;
+function getClientConfig(request: Request) {
+  const url = new URL(request.url);
+  return {
+    clientId: Netlify.env.get('UMICH_CLIENT_ID') || '',
+    clientSecret: Netlify.env.get('UMICH_CLIENT_SECRET') || '',
+    redirectUri: `${url.protocol}//${url.host}/auth/callback`,
+  };
+}
 
-async function getJWKS(config: any) {
+let JWKS: ReturnType<typeof createRemoteJWKSet> | null = null;
+
+async function getJWKS(jwksUri: string) {
   if (!JWKS) {
-    JWKS = createRemoteJWKSet(new URL(config.jwks_uri));
+    JWKS = createRemoteJWKSet(new URL(jwksUri));
   }
   return JWKS;
 }
 
-async function getOIDCConfig() {
-  const response = await fetch(OIDC_CONFIG.discoveryUrl);
+async function fetchOIDCDiscovery() {
+  const response = await fetch(DISCOVERY_URL);
   return response.json();
 }
 
 export default async function(request: Request, context: Context) {
   const url = new URL(request.url);
+  const baseUrl = `${url.protocol}//${url.host}`;
   console.log('Auth function called for:', url.pathname);
   const token = context.cookies.get('umich_token');
 
@@ -39,11 +40,12 @@ export default async function(request: Request, context: Context) {
   }
 
   // Get OIDC endpoints from discovery URL
-  const config = await getOIDCConfig();
-  console.log('Got OIDC config:', config);
+  const discovery = await fetchOIDCDiscovery();
+  const clientConfig = getClientConfig(request);
+  console.log('Got OIDC config:', discovery);
 
   // Development bypass
-  if (process.env.NODE_ENV === 'development') {
+  if (Netlify.env.get('NODE_ENV') === 'development') {
     console.log('Development mode - bypassing auth');
     return context.next();
   }
@@ -54,11 +56,11 @@ export default async function(request: Request, context: Context) {
     console.log('Callback received with code:', code);
     if (!code) {
       console.log('No code in callback, redirecting home');
-      return Response.redirect('/');
+      return Response.redirect(`${baseUrl}/`);
     }
 
     // Exchange code for token using discovered token endpoint
-    const tokenResponse = await fetch(config.token_endpoint, {
+    const tokenResponse = await fetch(discovery.token_endpoint, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -66,9 +68,9 @@ export default async function(request: Request, context: Context) {
       body: new URLSearchParams({
         grant_type: 'authorization_code',
         code,
-        client_id: OIDC_CONFIG.clientId,
-        client_secret: OIDC_CONFIG.clientSecret,
-        redirect_uri: OIDC_CONFIG.redirectUri(request),
+        client_id: clientConfig.clientId,
+        client_secret: clientConfig.clientSecret,
+        redirect_uri: clientConfig.redirectUri,
       }),
     });
 
@@ -76,21 +78,21 @@ export default async function(request: Request, context: Context) {
     console.log('Token exchange response:', tokenData);
     if (!tokenData.id_token) {
       console.error('Token exchange failed:', tokenData);
-      return Response.redirect('/');
+      return Response.redirect(`${baseUrl}/`);
     }
 
     // Verify the token before setting cookie
     try {
-      const JWKS = await getJWKS(config);
-      await jwtVerify(tokenData.id_token, JWKS, {
+      const jwks = await getJWKS(discovery.jwks_uri);
+      await jwtVerify(tokenData.id_token, jwks, {
         issuer: "https://shibboleth.umich.edu",
-        audience: OIDC_CONFIG.clientId
+        audience: clientConfig.clientId
       });
     } catch (error) {
       console.error('Initial token verification failed:', error);
-      return Response.redirect('/');
+      return Response.redirect(`${baseUrl}/`);
     }
-    
+
     return new Response('', {
       status: 302,
       headers: {
@@ -102,11 +104,11 @@ export default async function(request: Request, context: Context) {
 
   // No token = redirect to login
   if (!token) {
-    const authUrl = new URL(config.authorization_endpoint);
-    authUrl.searchParams.set('client_id', OIDC_CONFIG.clientId);
+    const authUrl = new URL(discovery.authorization_endpoint);
+    authUrl.searchParams.set('client_id', clientConfig.clientId);
     authUrl.searchParams.set('response_type', 'code');
-    authUrl.searchParams.set('scope', OIDC_CONFIG.scope);
-    authUrl.searchParams.set('redirect_uri', OIDC_CONFIG.redirectUri(request));
+    authUrl.searchParams.set('scope', SCOPE);
+    authUrl.searchParams.set('redirect_uri', clientConfig.redirectUri);
     authUrl.searchParams.set('state', url.pathname);
 
     return Response.redirect(authUrl.toString());
@@ -114,13 +116,13 @@ export default async function(request: Request, context: Context) {
 
   // Verify existing token
   try {
-    const JWKS = await getJWKS(config);
+    const jwks = await getJWKS(discovery.jwks_uri);
     console.log('Got JWKS, verifying token...');
     console.log('Token to verify:', token);
-    
-    const verified = await jwtVerify(token, JWKS, {
+
+    const verified = await jwtVerify(token, jwks, {
       issuer: "https://shibboleth.umich.edu",
-      audience: OIDC_CONFIG.clientId,
+      audience: clientConfig.clientId,
       clockTolerance: '5 minutes'
     });
     console.log('Token verified:', verified);
@@ -136,11 +138,11 @@ export default async function(request: Request, context: Context) {
     }
 
     // If token is expired or invalid, clear it and redirect to login
-    const authUrl = new URL(config.authorization_endpoint);
-    authUrl.searchParams.set('client_id', OIDC_CONFIG.clientId);
+    const authUrl = new URL(discovery.authorization_endpoint);
+    authUrl.searchParams.set('client_id', clientConfig.clientId);
     authUrl.searchParams.set('response_type', 'code');
-    authUrl.searchParams.set('scope', OIDC_CONFIG.scope);
-    authUrl.searchParams.set('redirect_uri', OIDC_CONFIG.redirectUri(request));
+    authUrl.searchParams.set('scope', SCOPE);
+    authUrl.searchParams.set('redirect_uri', clientConfig.redirectUri);
     authUrl.searchParams.set('state', url.pathname);
 
     // Create a new Response with the cookie clearing header
@@ -152,4 +154,4 @@ export default async function(request: Request, context: Context) {
       }
     });
   }
-} 
+}

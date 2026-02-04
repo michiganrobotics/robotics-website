@@ -1,49 +1,52 @@
 import type { Context } from "@netlify/edge-functions";
 import { jwtVerify, createRemoteJWKSet } from "jose";
 
-const OIDC_CONFIG = {
-  discoveryUrl: 'https://shibboleth.umich.edu/.well-known/openid-configuration',
-  clientId: process.env.UMICH_590_690_CLIENT_ID!,
-  clientSecret: process.env.UMICH_590_690_CLIENT_SECRET!,
-  redirectUri: (request: Request) => {
-    const url = new URL(request.url);
-    return `${url.protocol}//${url.host}/auth/590-690/callback`;
-  },
-  scope: 'openid profile email'
-};
+const DISCOVERY_URL = 'https://shibboleth.umich.edu/.well-known/openid-configuration';
+const SCOPE = 'openid profile email';
 
-let JWKS: any = null;
+function getClientConfig(request: Request) {
+  const url = new URL(request.url);
+  return {
+    clientId: Netlify.env.get('UMICH_590_690_CLIENT_ID') || '',
+    clientSecret: Netlify.env.get('UMICH_590_690_CLIENT_SECRET') || '',
+    redirectUri: `${url.protocol}//${url.host}/auth/590-690/callback`,
+  };
+}
 
-async function getJWKS(config: any) {
+let JWKS: ReturnType<typeof createRemoteJWKSet> | null = null;
+
+async function getJWKS(jwksUri: string) {
   if (!JWKS) {
-    JWKS = createRemoteJWKSet(new URL(config.jwks_uri));
+    JWKS = createRemoteJWKSet(new URL(jwksUri));
   }
   return JWKS;
 }
 
-async function getOIDCConfig() {
-  const response = await fetch(OIDC_CONFIG.discoveryUrl);
+async function fetchOIDCDiscovery() {
+  const response = await fetch(DISCOVERY_URL);
   return response.json();
 }
 
 export default async function(request: Request, context: Context) {
   const url = new URL(request.url);
+  const baseUrl = `${url.protocol}//${url.host}`;
   console.log('590-690 Auth function called for:', url.pathname);
   const token = context.cookies.get('umich_590_690_token');
 
   // Only check auth for 590-690 pages and callback
-  if (!url.pathname.startsWith('/academics/courses/course-offerings/current-590-690') && 
+  if (!url.pathname.startsWith('/academics/courses/course-offerings/current-590-690') &&
       url.pathname !== '/auth/590-690/callback') {
     console.log('Skipping auth for non-590-690 path');
     return context.next();
   }
 
   // Get OIDC endpoints from discovery URL
-  const config = await getOIDCConfig();
+  const discovery = await fetchOIDCDiscovery();
+  const clientConfig = getClientConfig(request);
   console.log('Got OIDC config for 590-690');
 
   // Development bypass
-  if (process.env.NODE_ENV === 'development') {
+  if (Netlify.env.get('NODE_ENV') === 'development') {
     console.log('Development mode - bypassing 590-690 auth');
     return context.next();
   }
@@ -52,7 +55,7 @@ export default async function(request: Request, context: Context) {
     const code = url.searchParams.get('code');
     const state = url.searchParams.get('state') || '/academics/courses/course-offerings/current-590-690';
     console.log('590-690 Callback received with code:', code);
-    
+
     if (!code) {
       console.log('No code in callback, redirecting to access denied');
       return new Response(`
@@ -72,7 +75,7 @@ export default async function(request: Request, context: Context) {
     }
 
     // Exchange code for token
-    const tokenResponse = await fetch(config.token_endpoint, {
+    const tokenResponse = await fetch(discovery.token_endpoint, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -80,32 +83,32 @@ export default async function(request: Request, context: Context) {
       body: new URLSearchParams({
         grant_type: 'authorization_code',
         code,
-        client_id: OIDC_CONFIG.clientId,
-        client_secret: OIDC_CONFIG.clientSecret,
-        redirect_uri: OIDC_CONFIG.redirectUri(request),
+        client_id: clientConfig.clientId,
+        client_secret: clientConfig.clientSecret,
+        redirect_uri: clientConfig.redirectUri,
       }),
     });
 
     const tokenData = await tokenResponse.json();
     console.log('590-690 Token exchange response status:', tokenResponse.status);
-    
+
     if (!tokenData.id_token) {
       console.error('Token exchange failed for 590-690:', tokenData);
-      return Response.redirect('/');
+      return Response.redirect(`${baseUrl}/`);
     }
 
     // Verify the token before setting cookie
     try {
-      const JWKS = await getJWKS(config);
-      await jwtVerify(tokenData.id_token, JWKS, {
+      const jwks = await getJWKS(discovery.jwks_uri);
+      await jwtVerify(tokenData.id_token, jwks, {
         issuer: "https://shibboleth.umich.edu",
-        audience: OIDC_CONFIG.clientId
+        audience: clientConfig.clientId
       });
     } catch (error) {
       console.error('Initial token verification failed for 590-690:', error);
-      return Response.redirect('/');
+      return Response.redirect(`${baseUrl}/`);
     }
-    
+
     return new Response('', {
       status: 302,
       headers: {
@@ -117,11 +120,11 @@ export default async function(request: Request, context: Context) {
 
   // No token = redirect to login
   if (!token) {
-    const authUrl = new URL(config.authorization_endpoint);
-    authUrl.searchParams.set('client_id', OIDC_CONFIG.clientId);
+    const authUrl = new URL(discovery.authorization_endpoint);
+    authUrl.searchParams.set('client_id', clientConfig.clientId);
     authUrl.searchParams.set('response_type', 'code');
-    authUrl.searchParams.set('scope', OIDC_CONFIG.scope);
-    authUrl.searchParams.set('redirect_uri', OIDC_CONFIG.redirectUri(request));
+    authUrl.searchParams.set('scope', SCOPE);
+    authUrl.searchParams.set('redirect_uri', clientConfig.redirectUri);
     authUrl.searchParams.set('state', url.pathname);
 
     return Response.redirect(authUrl.toString());
@@ -129,12 +132,12 @@ export default async function(request: Request, context: Context) {
 
   // Verify existing token
   try {
-    const JWKS = await getJWKS(config);
+    const jwks = await getJWKS(discovery.jwks_uri);
     console.log('Verifying existing 590-690 token...');
-    
-    const verified = await jwtVerify(token, JWKS, {
+
+    const verified = await jwtVerify(token, jwks, {
       issuer: "https://shibboleth.umich.edu",
-      audience: OIDC_CONFIG.clientId,
+      audience: clientConfig.clientId,
       clockTolerance: '5 minutes'
     });
     console.log('590-690 token verified successfully');
@@ -143,11 +146,11 @@ export default async function(request: Request, context: Context) {
     console.error('590-690 token verification failed:', error);
 
     // If token is expired or invalid, clear it and redirect to login
-    const authUrl = new URL(config.authorization_endpoint);
-    authUrl.searchParams.set('client_id', OIDC_CONFIG.clientId);
+    const authUrl = new URL(discovery.authorization_endpoint);
+    authUrl.searchParams.set('client_id', clientConfig.clientId);
     authUrl.searchParams.set('response_type', 'code');
-    authUrl.searchParams.set('scope', OIDC_CONFIG.scope);
-    authUrl.searchParams.set('redirect_uri', OIDC_CONFIG.redirectUri(request));
+    authUrl.searchParams.set('scope', SCOPE);
+    authUrl.searchParams.set('redirect_uri', clientConfig.redirectUri);
     authUrl.searchParams.set('state', url.pathname);
 
     return new Response(null, {
