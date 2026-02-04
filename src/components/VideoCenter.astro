@@ -8,15 +8,45 @@ interface Props {
 }
 
 const { url, caption, class: className } = Astro.props;
+
+// Extract video ID from various YouTube URL formats or use as-is if it's just an ID
+function getVideoId(input: string): string {
+  // Already just an ID
+  if (/^[\w-]{11}$/.test(input)) return input;
+
+  // Full URL formats
+  const patterns = [
+    /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&?\s]+)/,
+  ];
+  for (const pattern of patterns) {
+    const match = input.match(pattern);
+    if (match) return match[1];
+  }
+  return input;
+}
+
+const videoId = getVideoId(url);
+
+// Check if maxresdefault exists at build time, fall back to hqdefault
+async function getPosterUrl(id: string): Promise<string> {
+  const maxRes = `https://i.ytimg.com/vi/${id}/maxresdefault.jpg`;
+  try {
+    const response = await fetch(maxRes, { method: 'HEAD' });
+    if (response.ok) return maxRes;
+  } catch {}
+  return `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
+}
+
+const posterUrl = await getPosterUrl(videoId);
 ---
 <div class="block w-full mb-8">
   <figure class={`${className}`}>
     <div class="aspect-video flex items-center justify-center">
-      <YouTube 
-        id={url} 
-        class="w-full h-full" 
-        playsInline={true} 
-        posterQuality="max"
+      <YouTube
+        id={videoId}
+        class="w-full h-full"
+        playsInline={true}
+        poster={posterUrl}
         params={{
           rel: 0,
           modestbranding: 1,
@@ -36,3 +66,4 @@ const { url, caption, class: className } = Astro.props;
   max-width:none;
 }
 </style>
+
