@@ -24,6 +24,26 @@ const cached = <T>(fn: () => Promise<T>) => {
   };
 };
 
+/**
+ * Normalizes a URL by ensuring it has a protocol prefix (https://).
+ * This prevents URLs like "example.com" from being treated as relative paths.
+ */
+function normalizeUrl(url: string | undefined): string | undefined {
+  if (!url || url.trim() === '') {
+    return undefined;
+  }
+
+  const trimmedUrl = url.trim();
+
+  // Already has a protocol
+  if (trimmedUrl.startsWith('http://') || trimmedUrl.startsWith('https://')) {
+    return trimmedUrl;
+  }
+
+  // Add https:// prefix
+  return `https://${trimmedUrl}`;
+}
+
 const SCOPES: string[] = [
   'https://www.googleapis.com/auth/spreadsheets',
   'https://www.googleapis.com/auth/drive.file',
@@ -118,7 +138,7 @@ interface Alumni {
   firstName: string;
   lastName: string;
   email: string;
-  website: string;
+  website?: string;
   title: string;
   graduationYear: string;
   degree: string;
@@ -134,8 +154,8 @@ interface AffiliateFaculty {
   department1: string;
   department2: string;
   researchInterests: string;
-  googleScholar: string;
-  website: string;
+  googleScholar?: string;
+  website?: string;
 }
 
 interface Student {
@@ -282,9 +302,9 @@ export const getFacultyData = cached(async () => {
     department1: row.get('department1'),
     department2: row.get('department2'),
     researchInterests: row.get('researchInterests'),
-    googleScholar: row.get('googleScholar'),
-    labWebsite: row.get('labWebsite'),
-    website: row.get('website'),
+    googleScholar: normalizeUrl(row.get('googleScholar')),
+    labWebsite: normalizeUrl(row.get('labWebsite')),
+    website: normalizeUrl(row.get('website')),
     office: row.get('office'),
   }));
 });
@@ -308,9 +328,9 @@ export const getEmeritusFacultyData = cached(async () => {
     department1: row.get('department1'),
     department2: row.get('department2'),
     researchInterests: row.get('researchInterests'),
-    googleScholar: row.get('googleScholar'),
-    labWebsite: row.get('labWebsite'),
-    website: row.get('website'),
+    googleScholar: normalizeUrl(row.get('googleScholar')),
+    labWebsite: normalizeUrl(row.get('labWebsite')),
+    website: normalizeUrl(row.get('website')),
     office: row.get('office'),
   }));
 });
@@ -412,7 +432,7 @@ export const getAlumni = cached(async (): Promise<Alumni[]> => {
     lastName: row.get('lastName'),
     fullName: row.get('fullName'),
     email: row.get('email'),
-    website: row.get('website'),
+    website: normalizeUrl(row.get('website')),
     title: row.get('title'),
     graduationYear: row.get('graduationYear'),
     degree: row.get('degree'),
@@ -433,8 +453,8 @@ export const getAffiliateFacultyData = cached(async (): Promise<AffiliateFaculty
     department1: row.get('department1'),
     department2: row.get('department2'),
     researchInterests: row.get('researchInterests'),
-    googleScholar: row.get('googleScholar'),
-    website: row.get('website'),
+    googleScholar: normalizeUrl(row.get('googleScholar')),
+    website: normalizeUrl(row.get('website')),
   }));
 });
 
@@ -578,11 +598,11 @@ export const getStudentData = cached(async (): Promise<Student[]> => {
       advisors: row.get('advisors') || '',
       researchInterests: row.get('researchInterests') || '',
       email: row.get('email') || '',
-      website: row.get('website'),
-      googleScholar: row.get('googleScholar'),
-      github: row.get('github'),
+      website: normalizeUrl(row.get('website')),
+      googleScholar: normalizeUrl(row.get('googleScholar')),
+      github: normalizeUrl(row.get('github')),
       jobSeekingStatus: row.get('jobSeekingStatus'),
-      linkedin: row.get('linkedin'),
+      linkedin: normalizeUrl(row.get('linkedin')),
       outreachAmbassador: row.get('outreachAmbassador') === 'TRUE',
       profileImage,
     };
@@ -616,9 +636,9 @@ export const getSpeakerSeriesData = cached(async (): Promise<SpeakerSeries[]> =>
       organization: row.get('organization'),
       abstract: row.get('abstract'),
       bio: row.get('bio'),
-      website: row.get('website'),
+      website: normalizeUrl(row.get('website')),
       imageUrl: imageUrl || '/src/images/profile-images/robot-profile.jpg',
-      recordingUrl: row.get('recordingUrl'),
+      recordingUrl: normalizeUrl(row.get('recordingUrl')),
     };
   }));
 
@@ -645,11 +665,11 @@ export const getSeminarsData = cached(async (): Promise<Seminars[]> => {
       organization: row.get('organization'),
       abstract: row.get('abstract') || 'Information to come.',
       bio: row.get('bio') || 'Information to come.',
-      website: row.get('website'),
+      website: normalizeUrl(row.get('website')),
       imageUrl: imageUrl || '/src/images/profile-images/robot-profile.jpg',
       location: row.get('location'),
-      zoomUrl: row.get('zoomUrl'),
-      recordingUrl: row.get('recordingUrl'),
+      zoomUrl: normalizeUrl(row.get('zoomUrl')),
+      recordingUrl: normalizeUrl(row.get('recordingUrl')),
     };
   }));
 
