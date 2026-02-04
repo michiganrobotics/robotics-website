@@ -3,7 +3,7 @@ title: "ROB 502: Programming for Robotics: Homework 3.5"
 date: "2020-10-26"
 ---
 
-### Take the additional midterm feedback survey on Canvas!
+## Take the additional midterm feedback survey on Canvas!
 
 It proposes some changes to the code-viewing policy and to breakout groups
 

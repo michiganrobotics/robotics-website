@@ -3,8 +3,6 @@ title: "ROB 502: Programming for Robotics: Class 0"
 date: "2020-08-11"
 ---
 
-## Setting up the ROB 502 command line system
-
 ## Linux and the Bash Terminal
 
 Almost everything we do in ROB 502 will be on the Linux command line, or terminal. You can open the terminal by going to “applications” in the top left corner of your screen, typing “terminal”, and hitting enter. The program that actually manages the terminal window is called a “shell”, and the most common shell is called bash (Bourne again shell). While there are many other shells you can install and use, most of the information online is about bash. Including the word “bash” in any online searches will probably help you find relevant results!

@@ -81,7 +81,7 @@ We also need to avoid another degenerate case called _live lock_. In live lock, 
 
 ## Video example using YouTube and Twitter: "Why Computers Can't Count Sometimes"
 
-[https://www.youtube.com/watch?v=RY\_2gElt3SA](https://www.youtube.com/watch?v=RY_2gElt3SA)
+Watch the video: [Why Computers Can't Count Sometimes](https://www.youtube.com/watch?v=RY_2gElt3SA)
 
 ## In-class problem 1: buffer
 
