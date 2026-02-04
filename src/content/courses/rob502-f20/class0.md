@@ -29,11 +29,11 @@ This class system is based on the software Git:
 
 Git is a piece of software for managing code when multiple people are making various changes to that code on multiple computers. Even though you will work on your code for this class by yourself, Git will make it easy for me to access your code for automatic grading and supply you with basic code and resources for assignments. Git will also help prevent you from losing your hard work, because every time you _commit_ your code to gitlab.eecs.umich.edu (which we are using for class instead of github.com), that version of your code will be saved for you.
 
-# Setup based on your operating system
+## Setup based on your operating system
 
 Regardless of whether the computer you use for this class is on Linux, Mac OS, or Windows 10, you should be able to do everything in almost the same way, just with a small amount of different setup right now in the beginning. If you are running Windows 10 or Mac OS, there are additional steps further below to complete _first_ before continuing with the main Ubuntu instructions. Please feel free to ask questions and get help with this setup! The main goal of today is to complete all this setup.
 
-# On Ubuntu/Other Linux
+## On Ubuntu/Other Linux
 
 Open up a terminal. You should be in your home directory, indicated by the prompt ending with `~$` (or similar). If you are not, you can get there by running `cd ~`
 
@@ -135,7 +135,7 @@ p4r-check
 
 The system should tell you that you have not submitted anything for it yet, and thus have 0%. Congrats! Your computer is all set up!
 
-# On Windows 10
+## On Windows 10
 
 Windows has an impressive built-in virtualization system for running Linux called the Windows Subsystem for Linux (WSL). Follow Microsoft’s instructions for installing WSL2 here: [https://docs.microsoft.com/en-us/windows/wsl/install-win10](https://docs.microsoft.com/en-us/windows/wsl/install-win10) If you have trouble, try following the extra instructions at [https://cybergav.in/2020/08/28/wsl2-on-windows-10/](https://cybergav.in/2020/08/28/wsl2-on-windows-10/) and download the appropriate Windows update file for your computer, which is probably the x64 with your Windows build version.
 
@@ -153,7 +153,7 @@ Also install the Windows Terminal from the Microsoft Store. This will give you a
 
 Once you have Ubuntu running, continue the instructions here under Ubuntu/Other Linux.
 
-# On Mac OS
+## On Mac OS
 
 On Mac, you can copy and paste from the terminal directly with Command-C and Command-V, unlike in Linux or Windows.
 

@@ -126,6 +126,7 @@ function getHrClass(level: string) {
           {points.map((point) => (
             <div
               class="engagement-point"
+              role="button"
               aria-labelledby={`engagement-title-${point.title.toLowerCase().replace(/\s+/g, '-')} engagement-desc-${point.title.toLowerCase().replace(/\s+/g, '-')}`}
               tabindex="0"
               aria-expanded="false"

@@ -9,15 +9,14 @@ const { placeholder = "Search this page..." } = Astro.props;
 <div class="page-search-container">
   <div class="relative">
     <label for="page-search" class="sr-only">Search this page</label>
-    <input 
-      type="text" 
+    <input
+      type="text"
       id="page-search"
       placeholder={placeholder}
       class="search-bar pr-10 text-gray-800 dark:text-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-maize focus:border-transparent"
       role="searchbox"
       aria-describedby="search-instructions search-results"
-      aria-expanded="false"
-      aria-autocomplete="none"
+      aria-controls="search-results floating-results"
     />
     <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none" aria-hidden="true">
       <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -192,13 +191,11 @@ const { placeholder = "Search this page..." } = Astro.props;
     if (currentMatches.length > 0) {
       searchResults.textContent = `${currentMatches.length} match${currentMatches.length !== 1 ? 'es' : ''} found`;
       searchResults.classList.remove('hidden');
-      if (searchInput) searchInput.setAttribute('aria-expanded', 'true');
       currentIndex = 0;
       scrollToCurrentMatch();
     } else {
       searchResults.textContent = 'No matches found';
       searchResults.classList.remove('hidden');
-      if (searchInput) searchInput.setAttribute('aria-expanded', 'true');
     }
   }
   
@@ -256,7 +253,6 @@ const { placeholder = "Search this page..." } = Astro.props;
     }
     if (searchInput) {
       searchInput.value = '';
-      searchInput.setAttribute('aria-expanded', 'false');
     }
     if (floatingResults) {
       floatingResults.classList.add('hidden');
