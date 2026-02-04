@@ -3,7 +3,7 @@ title: "ROB 502: Programming for Robotics: Class 14"
 date: "2020-07-07"
 ---
 
-## Due Monday, November 16 6:00PM
+**Due Monday, November 16 6:00PM**
 
 ## Casting pointers
 

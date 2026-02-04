@@ -256,7 +256,9 @@ const videoWebmPath = '/robotics-promo-2025-2.webm';
 							  {event.event_title}
 							  <span class="block w-0 h-0.5 bg-maize transition-all duration-300 group-hover:w-full" />
 							</h3>
-							<h4 class="pl-5 mb-2 text-lg tracking-tight dark:text-neutral-300">{event.event_subtitle}</h4>
+							{event.event_subtitle && (
+							  <p class="pl-5 mb-2 text-lg tracking-tight dark:text-neutral-300">{event.event_subtitle}</p>
+							)}
 						  </div>
 						</section>
 					  </a>

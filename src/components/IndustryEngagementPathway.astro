@@ -124,36 +124,34 @@ function getHrClass(level: string) {
         </div>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
           {points.map((point) => (
-            <div
-              class="engagement-point"
-              role="button"
-              aria-labelledby={`engagement-title-${point.title.toLowerCase().replace(/\s+/g, '-')} engagement-desc-${point.title.toLowerCase().replace(/\s+/g, '-')}`}
-              tabindex="0"
-              aria-expanded="false"
-              aria-controls={`content-${point.title.toLowerCase().replace(/\s+/g, '-')}`}
-            >
+            <div class="engagement-point">
               <div class={`engagement-point-content card-base card-hover surface p-4 ${level === 'Initial' ? 'border border-maize' : ''} ${level === 'Mid-Level' ? 'border border-taubmanTeal' : ''} ${level === 'Advanced' ? 'border border-arboretumBlue' : ''}`}>
-                <div class="flex items-start gap-3">
-                  <div class={`w-3 h-3 mt-1.5 rounded-full transition-colors duration-300 ${level === 'Initial' ? 'bg-maize dark:bg-maize' : ''} ${level === 'Mid-Level' ? 'bg-taubmanTeal' : ''} ${level === 'Advanced' ? 'bg-arboretumBlue' : ''}`}></div>
+                <button
+                  type="button"
+                  class="engagement-point-trigger flex items-start gap-3 w-full text-left"
+                  aria-expanded="false"
+                  aria-controls={`content-${point.title.toLowerCase().replace(/\s+/g, '-')}`}
+                >
+                  <div class={`w-3 h-3 mt-1.5 rounded-full shrink-0 transition-colors duration-300 ${level === 'Initial' ? 'bg-maize dark:bg-maize' : ''} ${level === 'Mid-Level' ? 'bg-taubmanTeal' : ''} ${level === 'Advanced' ? 'bg-arboretumBlue' : ''}`}></div>
                   <div class="w-full">
-                    <h4 id={`engagement-title-${point.title.toLowerCase().replace(/\s+/g, '-')}`} class="font-bold text-neutral-900 dark:text-neutral-100 not-prose">{point.title}</h4>
-                    <p id={`engagement-desc-${point.title.toLowerCase().replace(/\s+/g, '-')}`} class="text-sm text-neutral-800 dark:text-neutral-100 not-prose">{point.description}</p>
+                    <span id={`engagement-title-${point.title.toLowerCase().replace(/\s+/g, '-')}`} class="font-bold text-neutral-900 dark:text-neutral-100 not-prose block">{point.title}</span>
+                    <span id={`engagement-desc-${point.title.toLowerCase().replace(/\s+/g, '-')}`} class="text-sm text-neutral-800 dark:text-neutral-100 not-prose block">{point.description}</span>
                   </div>
-                </div>
+                </button>
                 {point.media && (
-                  <div 
+                  <div
                     id={`content-${point.title.toLowerCase().replace(/\s+/g, '-')}`}
-                    role="region" 
+                    role="region"
                     class="engagement-point-media mt-4 space-y-3"
                     aria-labelledby={`engagement-title-${point.title.toLowerCase().replace(/\s+/g, '-')}`}
                   >
                     {point.media.type === "image" && (
                       <div class="rounded-lg overflow-hidden">
-                        <Image 
-                          src={point.media.src} 
-                          alt={point.media.alt} 
-                          class="w-full h-48 object-cover" 
-                          width={1200} 
+                        <Image
+                          src={point.media.src}
+                          alt={point.media.alt}
+                          class="w-full h-48 object-cover"
+                          width={1200}
                           height={630}
                           format="webp"
                           quality={80}
@@ -182,6 +180,19 @@ function getHrClass(level: string) {
   .engagement-point {
     transition: margin-bottom 0.3s ease;
     -webkit-tap-highlight-color: transparent; /* Remove tap highlight on mobile */
+  }
+  .engagement-point-trigger {
+    background: none;
+    border: none;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+    outline: inherit;
+  }
+  .engagement-point-trigger:focus-visible {
+    outline: 2px solid var(--focus-ring-color-light, #2F65A7);
+    outline-offset: 2px;
+    border-radius: 4px;
   }
   .engagement-point-content {
     transition: all 0.3s ease;
@@ -223,29 +234,12 @@ function getHrClass(level: string) {
     }
   }
 
-  /* Remove focus outline on mobile */
-  @media (hover: none) {
-    .engagement-point:focus {
-      outline: none;
-    }
-    .engagement-point:focus-within {
-      outline: none;
-    }
-  }
-
-  /* Keep focus outline for keyboard navigation on desktop */
-  @media (hover: hover) {
-    .engagement-point:focus-within {
-      outline: 2px solid var(--focus-ring-color-light);
-      outline-offset: 2px;
-      position: relative;
-      z-index: 10; /* Ensure focused item appears above others */
-    }
-  }
-
   @media (prefers-color-scheme: dark) {
     .engagement-point-content {
       color: #f0f0f0;
+    }
+    .engagement-point-trigger:focus-visible {
+      outline-color: var(--focus-ring-color-dark, #ffcb05);
     }
     .hr-initial {
       background: linear-gradient(to right, #ffcb05, transparent);
@@ -256,16 +250,6 @@ function getHrClass(level: string) {
     .hr-advanced {
       background: linear-gradient(to right, #2F65A7, transparent);
     }
-    
-    /* Dark mode focus style */
-    @media (hover: hover) {
-      .engagement-point:focus-within {
-        outline: 2px solid var(--focus-ring-color-dark);
-        outline-offset: 2px;
-        position: relative;
-        z-index: 10; /* Ensure focused item appears above others */
-      }
-    }
   }
 </style>
 
@@ -273,36 +257,36 @@ function getHrClass(level: string) {
   document.querySelectorAll('.engagement-point').forEach((point: HTMLElement) => {
     let isExpanded = false;
     const isMobile = window.matchMedia('(hover: none)').matches;
+    const trigger = point.querySelector('.engagement-point-trigger') as HTMLButtonElement;
+    const mediaContent = point.querySelector('.engagement-point-media') as HTMLElement;
 
     // Function to toggle expansion state
-    const toggleExpansion = function(this: HTMLElement, e?: Event) {
+    const toggleExpansion = function(e?: Event) {
       if (e) {
         e.preventDefault();
-        e.stopPropagation();
       }
-      
-      const mediaContent = this.querySelector('.engagement-point-media') as HTMLElement;
-      
+
       // Toggle the current point
       isExpanded = !isExpanded;
-      this.classList.toggle('expanded');
-      this.setAttribute('aria-expanded', String(isExpanded));
-      
-      if (isExpanded) {
+      point.classList.toggle('expanded');
+      trigger.setAttribute('aria-expanded', String(isExpanded));
+
+      if (isExpanded && mediaContent) {
         mediaContent.style.maxHeight = `${mediaContent.scrollHeight}px`;
         mediaContent.style.opacity = '1';
-      } else {
+      } else if (mediaContent) {
         mediaContent.style.maxHeight = '0';
         mediaContent.style.opacity = '0';
       }
-      
+
       // Close other points
       document.querySelectorAll('.engagement-point').forEach((otherPoint: HTMLElement) => {
-        if (otherPoint !== this) {
+        if (otherPoint !== point) {
+          const otherTrigger = otherPoint.querySelector('.engagement-point-trigger') as HTMLButtonElement;
           const otherMedia = otherPoint.querySelector('.engagement-point-media') as HTMLElement;
-          if (otherMedia) {
+          if (otherMedia && otherTrigger) {
             otherPoint.classList.remove('expanded');
-            otherPoint.setAttribute('aria-expanded', 'false');
+            otherTrigger.setAttribute('aria-expanded', 'false');
             otherMedia.style.maxHeight = '0';
             otherMedia.style.opacity = '0';
           }
@@ -310,34 +294,34 @@ function getHrClass(level: string) {
       });
     };
 
-    // Handle click/tap events
-    point.addEventListener('click', function(this: HTMLElement, e: Event) {
-      if (!isMobile) return;
-      toggleExpansion.call(this, e);
+    // Handle button click
+    trigger.addEventListener('click', function(e: Event) {
+      toggleExpansion(e);
     });
 
-    // Add keyboard support for Enter key
-    point.addEventListener('keydown', function(this: HTMLElement, e: KeyboardEvent) {
-      if (e.key === 'Enter' || e.key === ' ') {
-        toggleExpansion.call(this, e);
-      }
-    });
-
-    // Desktop hover behavior
+    // Desktop hover behavior on the whole card
     if (!isMobile) {
-      point.addEventListener('mouseenter', function(this: HTMLElement) {
+      point.addEventListener('mouseenter', function() {
         if (!isExpanded) {
-          this.classList.add('expanded');
-          this.setAttribute('aria-expanded', 'true');
+          point.classList.add('expanded');
+          trigger.setAttribute('aria-expanded', 'true');
           isExpanded = true;
+          if (mediaContent) {
+            mediaContent.style.maxHeight = `${mediaContent.scrollHeight}px`;
+            mediaContent.style.opacity = '1';
+          }
         }
       });
 
-      point.addEventListener('mouseleave', function(this: HTMLElement) {
-        if (!this.contains(document.activeElement)) {
-          this.classList.remove('expanded');
-          this.setAttribute('aria-expanded', 'false');
+      point.addEventListener('mouseleave', function() {
+        if (!point.contains(document.activeElement)) {
+          point.classList.remove('expanded');
+          trigger.setAttribute('aria-expanded', 'false');
           isExpanded = false;
+          if (mediaContent) {
+            mediaContent.style.maxHeight = '0';
+            mediaContent.style.opacity = '0';
+          }
         }
       });
     }

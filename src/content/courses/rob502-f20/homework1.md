@@ -214,8 +214,6 @@ for (int i = 0; i < 4; i++) {
 }
 ```
 
-### Quickly illustrated example
-
 ### Structures
 
 You may find it useful in your program to use a structure to represent the polygons. The general syntax for a structure is:

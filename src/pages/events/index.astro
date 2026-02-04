@@ -87,8 +87,8 @@ const recentEvents = eventsData.slice(0, 6);
                       quality={80}
                     />
                   </div>
-                  <div class="p-4 flex-grow">
-                    <div class="mb-3 text-sm italic bg-matthaeiViolet text-neutral-50 inline-block pl-5 pr-2 py-1">
+                  <div class="p-4 pl-0 grow">
+                    <div class="mb-3 text-sm italic bg-matthaeiViolet text-neutral-50 inline-block pl-4 pr-2 py-1">
                       <time datetime={event.datetime_start}>
                         {new Date(event.datetime_start.replace(
                           /(\d{4})(\d{2})(\d{2})T(\d{2})(\d{2})(\d{2})/,
@@ -103,12 +103,14 @@ const recentEvents = eventsData.slice(0, 6);
                         })}
                       </time>
                     </div> 
-                    <h3 class="text-2xl font-bold tracking-tight text-umichblue dark:text-neutral-50 mb-2">
+                    <h3 class="pl-4 text-2xl font-bold tracking-tight text-umichblue dark:text-neutral-50 mb-2">
                       {event.event_title}
                       <span class="block w-0 h-0.5 bg-maize transition-all duration-300 group-hover:w-full" />
                     </h3>
-                    <h4 class="text-xl tracking-tight text-umichblue dark:text-neutral-50 mb-2">{event.event_subtitle}</h4>  
-                    <div class="font-normal text-gray-700 dark:text-gray-100 whitespace-pre-wrap" set:html={event.description} />
+                    {event.event_subtitle && (
+                      <p class="pl-4 text-xl tracking-tight text-umichblue dark:text-neutral-50 mb-2">{event.event_subtitle}</p>
+                    )}
+                    <div class="pl-4 font-normal text-gray-700 dark:text-gray-100 whitespace-pre-wrap" set:html={event.description} />
                   </div>
                 </a>
               </div>

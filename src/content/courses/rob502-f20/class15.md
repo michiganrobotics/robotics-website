@@ -3,7 +3,7 @@ title: "ROB 502: Programming for Robotics: Class 15"
 date: "2020-07-07"
 ---
 
-## Due date: Monday November 30th, 6:00pm, updated on 11/25/20 3:35pm with some small clarifications.
+**Due date: Monday November 30th, 6:00pm** *(updated on 11/25/20 3:35pm with some small clarifications)*
 
 ## ATM's and race conditions
 
