@@ -52,10 +52,10 @@ const anchorItems = configuredItems.filter(item => item.anchor);
   <nav class="flex flex-wrap justify-end gap-1.5 sm:gap-2 mt-0 relative z-10 
               transition-opacity duration-200">
     {navItems.map((item, idx) => (
-      <a 
+      <a
         href={item.href}
-        class={`pl-2 pr-1 py-1 sm:px-2 sm:py-1.5 md:px-2 md:py-2 rounded-sm 
-                text-xs sm:text-sm md:text-sm 
+        class={`px-3 py-2.5 min-h-[44px] flex items-center rounded-sm
+                text-sm
                 bg-white/90 dark:bg-umichblue/80
                 hover:bg-white/80 dark:hover:bg-[var(--bg-surface-hover-dark)]
                 text-umichblue dark:text-neutral-100

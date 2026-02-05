@@ -34,7 +34,7 @@ const isActive = (itemPath: string) => {
 
   <!-- Mobile Menu (details/summary) -->
   <details class="md:hidden z-50">
-    <summary class="mt-2 text-2xl sm:text-3xl text-umichblue mr-2 dark:text-maize list-none cursor-pointer" aria-label="Toggle navigation menu">&#9776;</summary>
+    <summary class="mt-2 text-2xl sm:text-3xl text-umichblue dark:text-maize list-none cursor-pointer w-[44px] h-[44px] flex items-center justify-center" aria-label="Toggle navigation menu">&#9776;</summary>
        <nav class="absolute left-0 right-0 w-full top-[72px] border-b-8 border-maize border-double page-bg z-50 pb-8" aria-label="Mobile navigation">
         <ul class="flex w-full list-none flex-col items-stretch px-4">
             {menuItems.map((menuItem: MenuItem) => {
@@ -42,15 +42,15 @@ const isActive = (itemPath: string) => {
               return (
                 <li class="w-full">
                     <div class="flex items-center justify-between">
-                        <a href={menuItem.uri || '/'} 
-                           class={`pl-2 pr-4 py-3 ${isMenuItemActive ? 'text-umichblue dark:text-maize' : ''}`}
+                        <a href={menuItem.uri || '/'}
+                           class={`pl-2 pr-4 py-3 min-h-[44px] flex items-center ${isMenuItemActive ? 'text-umichblue dark:text-maize' : ''}`}
                            aria-label={menuItem.label}
                            aria-current={isMenuItemActive ? 'page' : undefined}>
                             {menuItem.label}
                         </a>
                         {menuItem.childItems.nodes.length > 0 && (
                             <div>
-                             <button class="px-2 py-2 text-umichblue dark:text-maize hover:bg-gray-300 dark:hover:bg-gray-500 rounded-md border border-gray-500 dark:border-gray-500 mr-1"
+                             <button class="px-2 py-2 min-w-[44px] min-h-[44px] text-umichblue dark:text-maize hover:bg-gray-300 dark:hover:bg-gray-500 rounded-md border border-gray-500 dark:border-gray-500 mr-1 flex items-center justify-center"
                                     onclick="const details = this.closest('li').querySelector('details'); details.open = !details.open; this.querySelector('.arrow').classList.toggle('rotate-180')"
                                     aria-label={`Expand ${menuItem.label} submenu`}
                                     aria-expanded="false">
@@ -68,15 +68,15 @@ const isActive = (itemPath: string) => {
                                   return (
                                     <li>
                                         <div class="flex items-center justify-between">
-                                            <a href={childItem.uri || '/'} 
-                                               class={`pl-4 pr-4 py-3 ${isChildItemActive ? 'text-umichblue dark:text-maize' : ''}`}
+                                            <a href={childItem.uri || '/'}
+                                               class={`pl-4 pr-4 py-3 min-h-[44px] flex items-center ${isChildItemActive ? 'text-umichblue dark:text-maize' : ''}`}
                                                aria-label={childItem.label}
                                                aria-current={isChildItemActive ? 'page' : undefined}>
                                                 {childItem.label}
                                             </a>
                                             {childItem.childItems.nodes.length > 0 && (
                                                 <div>
-                                                   <button class="px-2 py-2 text-umichblue dark:text-maize hover:bg-gray-300 dark:hover:bg-gray-500 rounded-md border border-gray-500 dark:border-gray-500 mr-1"
+                                                   <button class="px-2 py-2 min-w-[44px] min-h-[44px] text-umichblue dark:text-maize hover:bg-gray-300 dark:hover:bg-gray-500 rounded-md border border-gray-500 dark:border-gray-500 mr-1 flex items-center justify-center"
                                                            onclick="const details = this.closest('li').querySelector('details'); details.open = !details.open; this.querySelector('.arrow').classList.toggle('rotate-180')"
                                                            aria-label={`Expand ${childItem.label} submenu`}
                                                            aria-expanded="false">
@@ -93,8 +93,8 @@ const isActive = (itemPath: string) => {
                                                       const isGrandChildItemActive = isActive(grandChildItem.uri);
                                                       return (
                                                         <li>
-                                                            <a href={grandChildItem.uri || '/'} 
-                                                               class={`block px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-600 ${isGrandChildItemActive ? 'text-umichblue dark:text-maize' : ''}`}
+                                                            <a href={grandChildItem.uri || '/'}
+                                                               class={`flex items-center px-4 py-3 min-h-[44px] hover:bg-gray-200 dark:hover:bg-gray-600 ${isGrandChildItemActive ? 'text-umichblue dark:text-maize' : ''}`}
                                                                aria-label={grandChildItem.label}
                                                                aria-current={isGrandChildItemActive ? 'page' : undefined}
                                                                role="menuitem">
@@ -125,11 +125,16 @@ const isActive = (itemPath: string) => {
         {menuItems.map((menuItem: MenuItem, index: number) => {
           const isMenuItemActive = isActive(menuItem.uri);
           const isLastItem = index === menuItems.length - 1;
-          
+
           return (
-            <li class={`ml-5 relative group ${isLastItem ? 'last-item' : ''}`}>
-                <a href={menuItem.uri || '/'} 
-                   class={`block ${isMenuItemActive ? 'text-umichblue dark:text-maize' : ''}`}
+            <li class={`relative group ${isLastItem ? 'last-item -mr-3' : ''}`}>
+                <a href={menuItem.uri || '/'}
+                   class={`px-3 py-2.5 min-h-[44px] flex items-center
+                           border-b-2 border-transparent
+                           hover:border-maize
+                           hover:bg-umichblue/5 dark:hover:bg-[var(--bg-surface-hover-dark)]
+                           transition-colors duration-150 no-underline
+                           ${isMenuItemActive ? 'border-maize bg-umichblue/5 dark:bg-[var(--bg-surface-hover-dark)]' : ''}`}
                    aria-label={menuItem.label}
                    aria-current={isMenuItemActive ? 'page' : undefined}
                    aria-expanded={menuItem.childItems.nodes.length > 0 ? "false" : undefined}
@@ -144,8 +149,8 @@ const isActive = (itemPath: string) => {
                               const isChildItemActive = isActive(childItem.uri);
                               return (
                                 <li class="relative group/child">
-                                    <a href={childItem.uri || '/'} 
-                                       class={`block px-4 py-2 hover:bg-[var(--bg-surface-hover)] dark:hover:bg-[var(--bg-surface-hover-dark)] ${isChildItemActive ? 'text-umichblue dark:text-maize' : ''} ${childItem.childItems.nodes.length > 0 ? 'pr-8' : ''}`}
+                                    <a href={childItem.uri || '/'}
+                                       class={`flex items-center px-4 py-3 min-h-[44px] hover:bg-[var(--bg-surface-hover)] dark:hover:bg-[var(--bg-surface-hover-dark)] ${isChildItemActive ? 'text-umichblue dark:text-maize' : ''} ${childItem.childItems.nodes.length > 0 ? 'pr-8' : ''}`}
                                        aria-label={childItem.label}
                                        aria-current={isChildItemActive ? 'page' : undefined}
                                        aria-expanded={childItem.childItems.nodes.length > 0 ? "false" : undefined}
@@ -163,8 +168,8 @@ const isActive = (itemPath: string) => {
                                               const isGrandChildItemActive = isActive(grandChildItem.uri);
                                               return (
                                                 <li>
-                                                    <a href={grandChildItem.uri || '/'} 
-                                                       class={`block px-4 py-2 hover:bg-[var(--bg-surface-hover)] dark:hover:bg-[var(--bg-surface-hover-dark)] ${isGrandChildItemActive ? 'text-umichblue dark:text-maize' : ''}`}
+                                                    <a href={grandChildItem.uri || '/'}
+                                                       class={`flex items-center px-4 py-3 min-h-[44px] hover:bg-[var(--bg-surface-hover)] dark:hover:bg-[var(--bg-surface-hover-dark)] ${isGrandChildItemActive ? 'text-umichblue dark:text-maize' : ''}`}
                                                        aria-label={grandChildItem.label}
                                                        aria-current={isGrandChildItemActive ? 'page' : undefined}
                                                        role="menuitem">
@@ -400,22 +405,137 @@ nav ul li {
         button.setAttribute('aria-expanded', isExpanded ? 'false' : 'true');
       });
     });
-    
-    // Handle keyboard navigation for desktop menu
-    const menuItems = document.querySelectorAll('.group > a[aria-haspopup="true"]');
-    menuItems.forEach(item => {
+
+    // Handle keyboard navigation for desktop menu (ARIA menubar pattern)
+    const topLevelItems = document.querySelectorAll('.group > a[aria-haspopup="true"]');
+    const topLevelArray = Array.from(topLevelItems);
+
+    topLevelItems.forEach((item, index) => {
       item.addEventListener('keydown', (e) => {
-        // Type assertion for KeyboardEvent
         const keyEvent = e as KeyboardEvent;
-        if (keyEvent.key === 'Enter' || keyEvent.key === ' ' || keyEvent.key === 'ArrowDown') {
-          e.preventDefault();
-          const dropdown = item.nextElementSibling;
-          if (dropdown) {
-            dropdown.classList.add('block');
-            dropdown.classList.remove('hidden');
-            const firstLink = dropdown.querySelector('a');
-            if (firstLink) firstLink.focus();
-          }
+        const dropdown = item.nextElementSibling as HTMLElement | null;
+
+        switch (keyEvent.key) {
+          case ' ':
+          case 'ArrowDown':
+            // Space or ArrowDown: Open submenu and focus first item
+            e.preventDefault();
+            if (dropdown) {
+              dropdown.classList.add('block');
+              dropdown.classList.remove('hidden');
+              item.setAttribute('aria-expanded', 'true');
+              const firstLink = dropdown.querySelector('a') as HTMLElement | null;
+              if (firstLink) firstLink.focus();
+            }
+            break;
+
+          case 'ArrowRight':
+            // Move to next top-level item
+            e.preventDefault();
+            const nextIndex = (index + 1) % topLevelArray.length;
+            (topLevelArray[nextIndex] as HTMLElement).focus();
+            break;
+
+          case 'ArrowLeft':
+            // Move to previous top-level item
+            e.preventDefault();
+            const prevIndex = (index - 1 + topLevelArray.length) % topLevelArray.length;
+            (topLevelArray[prevIndex] as HTMLElement).focus();
+            break;
+
+          case 'Escape':
+            // Close any open dropdown
+            if (dropdown) {
+              dropdown.classList.add('hidden');
+              dropdown.classList.remove('block');
+              item.setAttribute('aria-expanded', 'false');
+            }
+            break;
+
+          // Enter: Let the link navigate naturally (no preventDefault)
+        }
+      });
+    });
+
+    // Handle keyboard navigation within dropdowns
+    document.querySelectorAll('a[role="menuitem"]').forEach(menuItem => {
+      menuItem.addEventListener('keydown', (e) => {
+        const keyEvent = e as KeyboardEvent;
+        const currentLi = menuItem.closest('li');
+        const currentMenu = currentLi?.closest('ul');
+        if (!currentLi || !currentMenu) return;
+
+        // Get only immediate sibling menu items (not nested ones)
+        const siblings = Array.from(currentMenu.querySelectorAll(':scope > li > a[role="menuitem"]')) as HTMLElement[];
+        const currentIndex = siblings.findIndex(link => link === menuItem);
+
+        // Check if this item has a submenu
+        const submenu = currentLi.querySelector(':scope > ul[role="menu"]') as HTMLElement | null;
+        const hasSubmenu = submenu !== null;
+
+        switch (keyEvent.key) {
+          case 'ArrowDown':
+            e.preventDefault();
+            const nextIndex = (currentIndex + 1) % siblings.length;
+            siblings[nextIndex]?.focus();
+            break;
+
+          case 'ArrowUp':
+            e.preventDefault();
+            const prevIndex = (currentIndex - 1 + siblings.length) % siblings.length;
+            siblings[prevIndex]?.focus();
+            break;
+
+          case 'ArrowRight':
+            // Open submenu if exists
+            if (hasSubmenu && submenu) {
+              e.preventDefault();
+              submenu.classList.add('block');
+              submenu.classList.remove('hidden');
+              menuItem.setAttribute('aria-expanded', 'true');
+              const firstChild = submenu.querySelector('a[role="menuitem"]') as HTMLElement | null;
+              if (firstChild) firstChild.focus();
+            }
+            break;
+
+          case 'ArrowLeft':
+            // Close current submenu and return to parent
+            e.preventDefault();
+            const parentDropdown = currentMenu.closest('.group > div[role="menu"], li > ul[role="menu"]');
+            if (parentDropdown && parentDropdown.tagName === 'UL') {
+              // We're in a nested submenu, close it and go back to parent
+              const parentUl = parentDropdown as HTMLElement;
+              parentUl.classList.add('hidden');
+              parentUl.classList.remove('block');
+              const parentItem = parentUl.closest('li')?.querySelector('a[role="menuitem"]') as HTMLElement | null;
+              if (parentItem) {
+                parentItem.setAttribute('aria-expanded', 'false');
+                parentItem.focus();
+              }
+            }
+            break;
+
+          case 'Escape':
+            e.preventDefault();
+            // Close all dropdowns and return to top-level
+            const topDropdown = menuItem.closest('.group > div[role="menu]') as HTMLElement | null;
+            if (topDropdown) {
+              topDropdown.classList.add('hidden');
+              topDropdown.classList.remove('block');
+              // Also close any nested submenus
+              topDropdown.querySelectorAll('ul[role="menu"]').forEach(sub => {
+                sub.classList.add('hidden');
+                sub.classList.remove('block');
+              });
+              const topLink = topDropdown.previousElementSibling as HTMLElement | null;
+              if (topLink) {
+                topLink.setAttribute('aria-expanded', 'false');
+                topLink.focus();
+              }
+            }
+            break;
+
+          // Enter: Let the link navigate naturally
         }
       });
     });
