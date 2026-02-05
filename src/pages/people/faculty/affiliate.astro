@@ -54,27 +54,27 @@ facultyMembers.sort((a, b) => a.lastName.localeCompare(b.lastName));
                 </p>
               </details>
 
-              <div class="flex gap-3 mt-auto pt-4 flex-wrap items-center">
+              <div class="flex gap-1 mt-auto pt-4 flex-wrap items-center -ml-2">
                 {faculty.googleScholar && (
-                  <a 
+                  <a
                     href={faculty.googleScholar}
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="text-gray-600 dark:text-gray-300 hover:text-arboretumBlue dark:hover:text-taubmanTeal"
+                    class="w-11 h-11 flex items-center justify-center text-neutral-600 dark:text-neutral-300 hover:text-arboretumBlue dark:hover:text-taubmanTeal hover:bg-neutral-200 dark:hover:bg-neutral-600/50 rounded-full transition-colors"
                     title="Google Scholar"
                   >
-                    <Icon name="mdi:school" class="w-5 h-5" />
+                    <Icon name="mdi:school" class="w-6 h-6" />
                   </a>
                 )}
                 {faculty.website && (
-                  <a 
+                  <a
                     href={faculty.website}
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="text-gray-600 dark:text-gray-300 hover:text-arboretumBlue dark:hover:text-taubmanTeal"
+                    class="w-11 h-11 flex items-center justify-center text-neutral-600 dark:text-neutral-300 hover:text-arboretumBlue dark:hover:text-taubmanTeal hover:bg-neutral-200 dark:hover:bg-neutral-600/50 rounded-full transition-colors"
                     title="Website"
                   >
-                    <Icon name="mdi:web" class="w-5 h-5" />
+                    <Icon name="mdi:web" class="w-6 h-6" />
                   </a>
                 )}
               </div>
