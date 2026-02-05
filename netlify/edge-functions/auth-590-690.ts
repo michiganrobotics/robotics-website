@@ -1,5 +1,5 @@
 import type { Context } from "https://edge.netlify.com";
-import { jwtVerify, createRemoteJWKSet } from "https://deno.land/x/jose@v5.9.6/index.ts";
+import { jwtVerify, createRemoteJWKSet } from "npm:jose@5";
 
 const DISCOVERY_URL = 'https://shibboleth.umich.edu/.well-known/openid-configuration';
 const SCOPE = 'openid profile email';
