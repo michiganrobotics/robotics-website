@@ -121,7 +121,7 @@ const isActive = (itemPath: string) => {
 
   <!-- Desktop Nav -->
   <nav class="hidden md:flex self-end items-center justify-end z-[11]" aria-label="Main navigation">
-    <ul class="flex m-0 p-0 list-none">
+    <ul class="flex m-0 p-0 list-none gap-1">
         {menuItems.map((menuItem: MenuItem, index: number) => {
           const isMenuItemActive = isActive(menuItem.uri);
           const isLastItem = index === menuItems.length - 1;
