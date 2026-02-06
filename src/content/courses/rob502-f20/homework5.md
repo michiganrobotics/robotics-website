@@ -89,9 +89,9 @@ Being able to live-tune the parameters of your robot will be very useful for the
 
 [This website](https://www.cs.mcgill.ca/~hsafad/robotics/) illustrates a student project on potential fields. The report describes one way to overcome the local minima problems that basic potential field methods can get caught in.
 
-[This table](http://ascii-table.com/ansi-escape-sequences.php) shows escape code sequences that represent various input keys and output effects for the terminal.
+This table shows escape code sequences that represent various input keys and output effects for the terminal.
 
-[This additional table](http://ascii-table.com/ansi-escape-sequences-vt-100.php) shows escape sequences you can send to the terminal (through printf) to control various aspects of the output, like the colors used.
+This additional table shows escape sequences you can send to the terminal (through printf) to control various aspects of the output, like the colors used.
 
 ### Potential field control
 

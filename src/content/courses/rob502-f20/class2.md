@@ -74,7 +74,7 @@ helloworld: helloworld.c
     - Run `git push` to send your commits up to the eecs gitlab repository we made earlier.
 - We have installed a script called `p4r-submit` to make submission and evaluation of code easy. Run `p4r-submit helloworld` to ask the class server to pull your github repository and evaluate the helloworld problem. It knows which class or homework problem set to evaluate by checking the current directory of your terminal. If you just run `p4r-submit` without specifying a problem, it will evaluate all the problems in the current assignment.
 - You should get a response from `p4r-submit` about how much of the problem solution was correct. It should say you had the correct exit/status code of 0, but that it failed to output the correct string, which is `"hello world\n"` (`\n` is a new line character). It should also note that you have passed a Valgrind test, which checks for memory violations, and a style check, which enforces a class coding style.
-- Fix your program so that it prints out `"hello world\n"`. You can refer to this [tutorial document](/wp-content/uploads/sites/6/2019/07/c_review_notes.pdf) for a review of the C programming language.
+- Fix your program so that it prints out `"hello world\n"`. You can refer to this [tutorial document](c_review_notes.pdf) for a review of the C programming language.
 - Run `git status`. You should see that it recognizes your `helloworld.c` file has been modified.
 - Run `git add -u` to add all the files that `git status` had listed as modified.
 - Run commit (with `git commit -m "your message"`), push (`git push`), and resubmit (`p4r-submit helloworld`). You should now get full points for this problem.

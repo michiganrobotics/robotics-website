@@ -55,17 +55,13 @@ The figure below shows a ternary search tree that represents the words "the", "t
 
 [This video](https://youtu.be/CIGyewO7868?t=224) gives an explanation of how to search and build a similar TST.
 
-![Comparison of structure of linked list vs ternary search tree](/wp-content/uploads/sites/6/2019/07/ternary_search_tree.svg)
-
 > In the last class we looked at linked lists. A linked list can be seen as a "tree" where each node has only one child node.
 
 ### Building a Ternary Search Tree
 
 In order to build a TST, we follow the existing tree as far as we can: if a letter matches we take the equal/middle branch and start looking for the next letter; if our letter is smaller ("e" in "tea" instead of "h"), then we take the lower/left branch and continue looking for it; and if our letter is greater ("e" in "thee" instead of "\\0"), then we likewise take the higher/right branch.
 
-When we reach a null link, we create the new node that we want to be there. In the figure below, we add words in the order "the", "tea", "that", and "thee".
-
-![Inserting words into a ternary search tree](/wp-content/uploads/sites/6/2019/07/building_ternary_search_tree.svg)
+When we reach a null link, we create the new node that we want to be there. In the example below, we add words in the order "the", "tea", "that", and "thee".
 
 > The tree will be constructed differently depending on the order of the words. If the words come in alphabetical (low to high) order, then every branch will always be a "higher" branch, and all the "low" branches will be wasted. This would make a "degenerate" tree. To prevent this, the word list we are using has been randomized. There are also balancing algorithms to modify the tree so that both low and high branches are used equally often, but a randomized word order gives similar performance without any more code.
 

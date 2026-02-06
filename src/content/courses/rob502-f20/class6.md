@@ -90,8 +90,6 @@ The list overall will keep track of both the start and end nodes.
 
 Here are a couple of sketches I made to show three different examples of how all the pointers are going to work! I use `0` to represent a NULL pointer.
 
-![Illustration of three linked lists, one empty, one with a single value 10, and one with the values 10 and 20.](/wp-content/uploads/sites/6/2020/09/linked_lists.svg)
-
 You will likely find it **very useful** to use the PythonTutor/CTutor website to watch how your own program handles the pointers in the linked list in real time! It will be like my illustration, but for your own code and changing line by line! It will also make it very clear what memory is on the heap vs a local variable.
 
 [http://pythontutor.com/c.html](http://pythontutor.com/c.html)

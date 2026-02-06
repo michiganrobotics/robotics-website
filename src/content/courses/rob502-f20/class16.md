@@ -98,9 +98,9 @@ While the ASCII standard contains control characters for things like backspace o
 
 This escape code character is number 27, and when printed to the screen it is often represented as `^[`. You can represent it in your code as the character `'\e'` in a C-style escape code!
 
-[This table](http://ascii-table.com/ansi-escape-sequences.php) shows escape code sequences that represent various input keys and output effects for the terminal.
+This table shows escape code sequences that represent various input keys and output effects for the terminal.
 
-[This additional table](http://ascii-table.com/ansi-escape-sequences-vt-100.php) shows escape sequences you can send to the terminal (through printf) to control various aspects of the output, like the colors used.
+This additional table shows escape sequences you can send to the terminal (through printf) to control various aspects of the output, like the colors used.
 
 ## In-class assignment 1: manual
 
