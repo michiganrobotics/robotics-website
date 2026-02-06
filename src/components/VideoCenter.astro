@@ -16,7 +16,7 @@ function getVideoId(input: string): string {
 
   // Full URL formats
   const patterns = [
-    /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&?\s]+)/,
+    /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/|youtube\.com\/shorts\/)([^&?\s]+)/,
   ];
   for (const pattern of patterns) {
     const match = input.match(pattern);
