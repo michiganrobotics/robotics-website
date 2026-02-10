@@ -4,7 +4,7 @@ The website for the University of Michigan Robotics Department at [robotics.umic
 
 ## Getting started
 
-Requires Node.js 22+.
+Requires Node.js 22+ (According to the Astro docs only even-numbered Node versions are supported, e.g 22.x, 24.x, etc).
 
 ```bash
 npm install
