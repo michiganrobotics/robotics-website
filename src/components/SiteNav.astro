@@ -130,8 +130,8 @@ const isActive = (itemPath: string) => {
             <li class={`relative group ${isLastItem ? 'last-item -mr-3' : ''}`}>
                 <a href={menuItem.uri || '/'}
                    class={`px-3 py-2.5 min-h-[44px] flex items-center
-                           border-b-2 border-transparent
-                           hover:border-maize
+                           border-b-2 border-t-2 border-transparent
+                           hover:border-b-maize
                            hover:bg-umichblue/5 dark:hover:bg-[var(--bg-surface-hover-dark)]
                            transition-colors duration-150 no-underline
                            ${isMenuItemActive ? 'border-maize bg-umichblue/5 dark:bg-[var(--bg-surface-hover-dark)]' : ''}`}
