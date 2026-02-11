@@ -16,8 +16,7 @@ const pageData = {
 <Layout title={`${pageData.title} | Michigan Robotics`} description={pageData.description}>
   <ClientRouter slot="head" />
   <GradApplicationTransitions slot="head" />
-  <main>
-    <Breadcrumbs />
+    <Breadcrumbs slot="breadcrumbs" />
     <PageTitle title={`Graduate Application: ${pageData.title}`} />
     <article transition:name="grad-content" class="prose dark:prose-invert max-w-6xl w-11/12 mx-auto mt-4 mb-4 prose-headings:font-roboto prose-h2:text-3xl prose-h2:mt-10 prose-h3:text-2xl prose-h4:text-xl prose-h5:text-lg prose-h6:text-base prose-headings:font-bold">
       <GradApplicationNav currentPage='transcripts'/>
@@ -56,5 +55,4 @@ const pageData = {
 
       <p>While our admissions committee does not require a minimum GPA, they review overall academic performance amongst all application materials such as your letters of recommendation, research experience, essay responses, etc.</p>
     </article>
-  </main>
 </Layout>

@@ -11,7 +11,7 @@ import dayBuildingImage from '../../../images/facilities/ford-robotics-building-
 import ogImage from '/public/social/about-facilities.jpg';
 ---
 <Layout title="Ford Robotics Building" image={ogImage.src} description="The Ford Robotics Building at U-M is a national centerpiece in robotics research, learning, and collaboration." >
-    <Breadcrumbs />
+    <Breadcrumbs slot="breadcrumbs" />
     <PageTitle title="Ford Robotics Building" image={featureImage} imageAlt="The Robot Playground at the Ford Robotics Building" />
     <article class="prose max-w-6xl w-11/12 mx-auto dark:prose-invert mt-8">
             <div class="mb-8 w-full aspect-video [&>lite-youtube]:!max-w-none">
@@ -136,5 +136,4 @@ import ogImage from '/public/social/about-facilities.jpg';
 				<p><strong>Accommodations:</strong> Search for hotels near North Campus, or see more <a href="https://campusinfo.umich.edu/article/accommodations" class="text-arboretumBlue dark:text-maize hover:underline">hotel information</a>.</p>
 			</div>
 		</div>
-	</main>
 </Layout>

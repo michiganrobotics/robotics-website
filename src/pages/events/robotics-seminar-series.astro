@@ -40,7 +40,7 @@ const pastSeminars = sortedSeminars.filter(seminar => {
 ---
 
 <Layout title={`${title} | Michigan Robotics`} description="Robotics experts present their work to the Michigan Robotics community.">
-  <Breadcrumbs />
+  <Breadcrumbs slot="breadcrumbs" />
   <PageTitle title={title} image={featureImage} imageAlt="A presentation in the atrium of the Ford Robotics Building" imagePosition="0% 45%" />
   
   <article class="prose dark:prose-invert max-w-6xl w-11/12 mx-auto mt-4 mb-4 prose-headings:font-roboto prose-h2:text-3xl prose-h3:text-2xl prose-h4:text-xl prose-h5:text-lg prose-h6:text-base prose-headings:font-bold">

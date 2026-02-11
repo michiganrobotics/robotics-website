@@ -13,7 +13,7 @@ const sortedAlumni = [...alumni].sort((a, b) => Number(b.graduationYear) - Numbe
 ---
 
 <Layout title="Alumni | Michigan Robotics" image={ogFeatureImage.src} description="Michigan Robotics alumni who are making a difference in the field of robotics.">
-    <Breadcrumbs />
+    <Breadcrumbs slot="breadcrumbs" />
     <PageTitle title="Alumni" image={featureImage} imageAlt="Graduates file in for commencement" />
           <div class="prose dark:prose-invert mt-4 mb-4 max-w-6xl w-11/12 mx-auto">
             <div class="mb-8 mt-8 relative">

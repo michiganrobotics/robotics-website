@@ -77,9 +77,9 @@ const relatedPosts = [...allNamedPosts, ...formattedCollegeNews]
   image={profileImage?.default?.src || robotProfile.default.src} 
   description={`Learn more about Michigan Robotics faculty member ${faculty.fullName}.`}
 >
-  <Breadcrumbs />
+  <Breadcrumbs slot="breadcrumbs" />
   {faculty ? (
-    <main class="mt-4 max-w-4xl mx-auto py-8 px-4 font-roboto text-umichblue dark:text-neutral-50 bg-white dark:bg-umichblue">
+    <div class="mt-4 max-w-4xl mx-auto py-8 px-4 font-roboto text-umichblue dark:text-neutral-50 bg-white dark:bg-umichblue">
       <div class="grid md:grid-cols-3 gap-8">
         <!-- Profile Photo -->
         <div class="md:col-span-1">
@@ -212,7 +212,7 @@ const relatedPosts = [...allNamedPosts, ...formattedCollegeNews]
           </div>
         </div>
       )}
-    </main>
+    </div>
   ) : (
     <p class="text-center text-angellHallAsh dark:text-burtonTowerBeige">Error loading faculty data...</p>
   )}

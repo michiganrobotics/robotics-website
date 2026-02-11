@@ -28,8 +28,7 @@ const profileImages = await Promise.all(
 ---
 
 <Layout title="Advisory Board | Michigan Robotics" description="Michigan Robotics advisory board members who provide valuable insights and support to the department's research and educational programs.">
-  <main>
-    <Breadcrumbs />
+  <Breadcrumbs slot="breadcrumbs" />
     <PageTitle title="Advisory Board" />
     
     <div class="prose dark:prose-invert mt-4 mb-4 max-w-6xl w-11/12 mx-auto">
@@ -77,5 +76,5 @@ const profileImages = await Promise.all(
         </div>
       </div>
     </div>
-  </main>
+
 </Layout>

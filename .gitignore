@@ -17,6 +17,12 @@ pnpm-debug.log*
 
 # macOS-specific files
 .DS_Store
+Icon?
+
+# Work in progress / not ready for tracking
+focus-area-migration.md
+src/components/ProjectCarousel.astro
+src/content/academics/courses/rob-450.mdx
 
 # Editor directories and files
 .vscode/

@@ -1,7 +1,6 @@
 ---
 import Layout from '../../../../../layouts/MainLayout.astro';
 import { getCollection, render } from 'astro:content';
-import Breadcrumbs from '../../../../../components/Breadcrumbs.astro';
 
 export async function getStaticPaths() {
   const courseEntries = await getCollection('courses');

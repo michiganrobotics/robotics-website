@@ -22,8 +22,7 @@ students.sort((a, b) => {
 ---
 
 <Layout title="Students | Michigan Robotics" description="University of Michigan Robotics students who are advancing the field of robotics." image={ogFeatureImage.src}>
-  <main>
-    <Breadcrumbs />
+  <Breadcrumbs slot="breadcrumbs" />
     <PageTitle title="Students" image={featuredImage} imageAlt="A silhouette of a student working in the Robotics Building" imagePosition="15% 70%" />
     <div class="prose dark:prose-invert mt-4 mb-4 max-w-6xl w-11/12 mx-auto">
       <div class="not-prose mt-12 mb-6 flex flex-col sm:flex-row gap-4">
@@ -176,7 +175,7 @@ students.sort((a, b) => {
         Note: This directory is opt-in and does not represent all students currently enrolled. Current graduate students: <a href="https://docs.google.com/spreadsheets/d/1f7zkbOIKgNURCmXfjXHyyUz4r6cBaM8609zCRGRGhY0/edit?usp=sharing" target="_blank" rel="noopener noreferrer">update or add your profile to this directory</a>.
       </p>
     </div>
-  </main>
+
 </Layout>
 <style>
   select {
