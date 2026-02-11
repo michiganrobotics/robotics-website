@@ -1,0 +1,17 @@
+{
+  "title": "Open-source, modular robot for understanding evolution",
+  "date": "2026-02-11T16:45:56.000Z",
+  "description": "A cost-effective, customizable quadruped could help researchers discover the particular advantages related to the length and segmentation of animal limbs.",
+  "link": "https://news.engin.umich.edu/2026/02/open-source-modular-robot-for-understanding-evolution/",
+  "image": {
+    "src": "https://news.engin.umich.edu/wp-content/uploads/2026/02/TROT-lab-Modular-Robot.jpg",
+    "alt": "The robot has four legs with backward-facing knees. Each leg has three actuators, controlling hip ab/adduction, hip flexion/extension, and knee flexion/extension.  Exposed wires link up to the motors. T.R.O.T is emblazoned on the case around the belly of the robot."
+  },
+  "categories": [
+    "design-soft-robotics"
+  ],
+  "tags": [
+    "Talia Moore"
+  ],
+  "featured": true
+}
