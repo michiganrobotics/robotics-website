@@ -106,6 +106,32 @@ import PageTitle from "../../components/PageTitle.astro";
   </div>
 </MainLayout>
 
+<style is:global>
+  #map.leaflet-container:focus {
+    outline: none !important;
+    box-shadow: 0 0 0 3px var(--color-arboretumBlue) !important;
+  }
+  #map .leaflet-control-zoom a:focus,
+  #map .leaflet-marker-icon:focus,
+  #map .leaflet-popup-close-button:focus,
+  #map .leaflet-control-attribution a:focus {
+    outline: 3px solid var(--color-arboretumBlue) !important;
+    outline-offset: 2px !important;
+    box-shadow: none !important;
+  }
+  @media (prefers-color-scheme: dark) {
+    #map.leaflet-container:focus {
+      box-shadow: 0 0 0 3px var(--color-maize) !important;
+    }
+    #map .leaflet-control-zoom a:focus,
+    #map .leaflet-marker-icon:focus,
+    #map .leaflet-popup-close-button:focus,
+    #map .leaflet-control-attribution a:focus {
+      outline-color: var(--color-maize) !important;
+    }
+  }
+</style>
+
 <script>
   window.onload = function() {
     var map = L.map('map').setView([42.2926, -83.7144], 16);

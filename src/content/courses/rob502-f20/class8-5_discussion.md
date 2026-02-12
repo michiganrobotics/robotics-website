@@ -1,5 +1,5 @@
 ---
-title: "ROB 502: Programming for Robotics: Class 8.5 Clicker Questions"
+title: "ROB 502: Programming for Robotics: Class 8.5 Clicker Questions Discussion"
 date: "2020-10-14"
 ---
 

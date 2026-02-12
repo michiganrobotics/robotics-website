@@ -1,5 +1,5 @@
 ---
-title: "ROB 502: Programming for Robotics: Class 16"
+title: "ROB 502: Programming for Robotics: Class 16 Discussion"
 date: "2020-11-19"
 ---
 

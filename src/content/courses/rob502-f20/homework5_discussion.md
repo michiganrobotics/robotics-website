@@ -1,5 +1,5 @@
 ---
-title: "ROB 502: Programming for Robotics: Homework 5"
+title: "ROB 502: Programming for Robotics: Homework 5 Discussion"
 date: "2020-11-30"
 ---
 
