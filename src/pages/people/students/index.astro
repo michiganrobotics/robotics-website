@@ -125,7 +125,7 @@ students.sort((a, b) => {
                 {student.email && (
                   <a href={`mailto:${student.email}`}
                      class="w-11 h-11 flex items-center justify-center text-neutral-600 dark:text-neutral-300 hover:text-arboretumBlue dark:hover:text-taubmanTeal hover:bg-neutral-200 dark:hover:bg-neutral-600/50 rounded-full transition-colors"
-                     title="Email">
+                     title={`Email ${student.preferredFullName}`}>
                     <Icon name="mdi:email" class="w-6 h-6" />
                   </a>
                 )}
@@ -134,7 +134,7 @@ students.sort((a, b) => {
                      target="_blank"
                      rel="noopener noreferrer"
                      class="w-11 h-11 flex items-center justify-center text-neutral-600 dark:text-neutral-300 hover:text-arboretumBlue dark:hover:text-taubmanTeal hover:bg-neutral-200 dark:hover:bg-neutral-600/50 rounded-full transition-colors"
-                     title="Website">
+                     title={`${student.preferredFullName}'s website`}>
                     <Icon name="mdi:web" class="w-6 h-6" />
                   </a>
                 )}
@@ -143,7 +143,7 @@ students.sort((a, b) => {
                      target="_blank"
                      rel="noopener noreferrer"
                      class="w-11 h-11 flex items-center justify-center text-neutral-600 dark:text-neutral-300 hover:text-arboretumBlue dark:hover:text-taubmanTeal hover:bg-neutral-200 dark:hover:bg-neutral-600/50 rounded-full transition-colors"
-                     title="Google Scholar">
+                     title={`${student.preferredFullName}'s Google Scholar`}>
                     <Icon name="mdi:school" class="w-6 h-6" />
                   </a>
                 )}
@@ -152,7 +152,7 @@ students.sort((a, b) => {
                      target="_blank"
                      rel="noopener noreferrer"
                      class="w-11 h-11 flex items-center justify-center text-neutral-600 dark:text-neutral-300 hover:text-arboretumBlue dark:hover:text-taubmanTeal hover:bg-neutral-200 dark:hover:bg-neutral-600/50 rounded-full transition-colors"
-                     title="GitHub">
+                     title={`${student.preferredFullName}'s GitHub`}>
                     <Icon name="mdi:github" class="w-6 h-6" />
                   </a>
                 )}
@@ -161,7 +161,7 @@ students.sort((a, b) => {
                      target="_blank"
                      rel="noopener noreferrer"
                      class="w-11 h-11 flex items-center justify-center text-neutral-600 dark:text-neutral-300 hover:text-arboretumBlue dark:hover:text-taubmanTeal hover:bg-neutral-200 dark:hover:bg-neutral-600/50 rounded-full transition-colors"
-                     title="LinkedIn">
+                     title={`${student.preferredFullName}'s LinkedIn`}>
                     <Icon name="mdi:linkedin" class="w-6 h-6" />
                   </a>
                 )}
