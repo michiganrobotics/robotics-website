@@ -40,7 +40,7 @@ Some class sessions will not have any formally scheduled instruction or problems
 - [**Class 3**: Arrays, ASCII, bytes, and GDB](/academics/courses/online-courses/rob502-f20/class3)
 - [**Homework 1**: Polygonal collision detection, cryptogram](/academics/courses/online-courses/rob502-f20/homework1)
 - There are variety of C concepts that will not be explicitly covered in class! We are providing a [tutorial document](c_review_notes.pdf) to help explain the necessary syntax and basic ideas so we can delve right into the good stuff!
-- For an even gentler introduction to C, I highly recommend Harvard's CS50 lectures. Although the whole lectures can be long, they have good tables of contents on each lecture on YouTube, and work well at 2X playing speed. [This clip](https://www.youtube.com/watch?v=wEdvGqxafq8&t=3078s) focuses on compiling C, on using make, and on common compiler errors. [This one](https://www.youtube.com/watch?v=u-kH-5JJSgU&t=287s) is on the compilation process. If you want to follow along with their examples, you will need to use their [sandbox](https://sandbox.cs50.io/).
+- For an even gentler introduction to C, I highly recommend Harvard's CS50 lectures. Although the whole lectures can be long, they have good tables of contents on each lecture on YouTube, and work well at 2X playing speed. [CS50 on compiling C, make, and compiler errors](https://www.youtube.com/watch?v=wEdvGqxafq8&t=3078s) focuses on compiling C, on using make, and on common compiler errors. [CS50 on the compilation process](https://www.youtube.com/watch?v=u-kH-5JJSgU&t=287s) is on the compilation process. If you want to follow along with their examples, you will need to use their [sandbox](https://sandbox.cs50.io/).
 
 ### Classes 4-7: Memory concepts and debugging
 
@@ -50,7 +50,7 @@ Some class sessions will not have any formally scheduled instruction or problems
 - [**Class 6**: Linked lists](/academics/courses/online-courses/rob502-f20/class6)
 - **Class 7**: As needed
 - [**Homework 2**: Rasterizing bitmaps, Braitenberg vehicles](/academics/courses/online-courses/rob502-f20/homework2)
-- [This clip](https://youtu.be/u-kH-5JJSgU?t=1700) talks about how data is stored in memory. [This one](https://www.youtube.com/watch?v=cC9I3XxkZXw&t=2871s) talks about pointers. [This one](https://youtu.be/cC9I3XxkZXw?t=3602) talks about malloc and free. [This one](https://www.youtube.com/watch?v=cC9I3XxkZXw&feature=youtu.be&t=5126) talks about memory addresses and hexadecimal. [This one](https://youtu.be/cC9I3XxkZXw?t=7213) is on stack overflows.
+- [CS50 on data storage in memory](https://youtu.be/u-kH-5JJSgU?t=1700) talks about how data is stored in memory. [CS50 on pointers](https://www.youtube.com/watch?v=cC9I3XxkZXw&t=2871s) talks about pointers. [CS50 on malloc and free](https://youtu.be/cC9I3XxkZXw?t=3602) talks about malloc and free. [CS50 on memory addresses and hexadecimal](https://www.youtube.com/watch?v=cC9I3XxkZXw&feature=youtu.be&t=5126) talks about memory addresses and hexadecimal. [CS50 on stack overflows](https://youtu.be/cC9I3XxkZXw?t=7213) is on stack overflows.
 
 ### Classes 8-10: Recursion and Search
 
@@ -58,7 +58,7 @@ Some class sessions will not have any formally scheduled instruction or problems
 - [**Class 8**: Bisection search, midpoint method, recursion vs iteration](/academics/courses/online-courses/rob502-f20/class8)
 - [**Class 9**: Tree search](/academics/courses/online-courses/rob502-f20/class9)
 - **Class 10**: As needed
-- [This clip](https://www.youtube.com/watch?v=Mv9NEXX1VHc) gives an overview of recursion and how the computer's stack is used to hold multiple versions of the same function in memory.
+- [CS50 on recursion and the stack](https://www.youtube.com/watch?v=Mv9NEXX1VHc) gives an overview of recursion and how the computer's stack is used to hold multiple versions of the same function in memory.
 - [**Homework 3**: Equation parsing, robot chase](/academics/courses/online-courses/rob502-f20/homework3)
 
 ### Classes 11-13: Object abstractions

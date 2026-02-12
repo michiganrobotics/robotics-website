@@ -60,7 +60,7 @@ facultyMembers.sort((a, b) => a.lastName.localeCompare(b.lastName));
                     target="_blank"
                     rel="noopener noreferrer"
                     class="w-11 h-11 flex items-center justify-center text-neutral-600 dark:text-neutral-300 hover:text-arboretumBlue dark:hover:text-taubmanTeal hover:bg-neutral-200 dark:hover:bg-neutral-600/50 rounded-full transition-colors"
-                    title="Google Scholar"
+                    title={`${faculty.preferredName} ${faculty.lastName}'s Google Scholar`}
                   >
                     <Icon name="mdi:school" class="w-6 h-6" />
                   </a>
@@ -71,7 +71,7 @@ facultyMembers.sort((a, b) => a.lastName.localeCompare(b.lastName));
                     target="_blank"
                     rel="noopener noreferrer"
                     class="w-11 h-11 flex items-center justify-center text-neutral-600 dark:text-neutral-300 hover:text-arboretumBlue dark:hover:text-taubmanTeal hover:bg-neutral-200 dark:hover:bg-neutral-600/50 rounded-full transition-colors"
-                    title="Website"
+                    title={`${faculty.preferredName} ${faculty.lastName}'s website`}
                   >
                     <Icon name="mdi:web" class="w-6 h-6" />
                   </a>
