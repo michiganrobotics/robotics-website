@@ -63,8 +63,8 @@ And Fernandez reflected on employing 'people-first engineering':
 
 "It made me think more about stakeholders not always being users, and how that can apply to robots within society. It’s a good reminder to consider the effects a design can have regardless of if they’re related to the robot’s ability to function. For example, a robot’s appearance, whether or not it interacts with humans directly, can affect people’s perception of it and can even invoke emotion."
 
-As instructor of ROB 203, [Derrick Yeo](https://robotics.umich.edu/profile/derrick-yeo/ "Derrick Yeo") mentored the team.
+As instructor of ROB 203, [Derrick Yeo](https://robotics.umich.edu/people/faculty/derrick-yeo/ "Derrick Yeo") mentored the team.
 
 "The projects are pretty open ended so it can be easy to get lost without clear instructions and deadlines, but Dr. Yeo is an amazing guide and will lead you in the right direction," added Fernandez.
 
-Dr. Yeo and Professor [Chad Jenkins](https://robotics.umich.edu/profile/chad-jenkins/ "Chad Jenkins") developed ROB 203, which encompasses hands-on design, building, operations of robotic systems, and development of maker-shop skills, as a part of the new robotics undergraduate major offered at U-M. It is another example of how Michigan roboticists are pioneering teachers and learners who are defining the discipline of robotics.
+Dr. Yeo and Professor [Chad Jenkins](https://robotics.umich.edu/people/faculty/chad-jenkins/ "Chad Jenkins") developed ROB 203, which encompasses hands-on design, building, operations of robotic systems, and development of maker-shop skills, as a part of the new robotics undergraduate major offered at U-M. It is another example of how Michigan roboticists are pioneering teachers and learners who are defining the discipline of robotics.

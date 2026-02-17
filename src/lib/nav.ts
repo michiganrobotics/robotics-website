@@ -351,7 +351,7 @@ export const subNavConfig: Record<string, SubNavItem[]> = {
       { title: "Admissions", href: "/academics/graduate/admissions" },
       { title: "Petitions", href: "/academics/graduate/advising#departmental-petitions", anchor: true },
       { title: "Get Involved", href: "/academics/graduate/advising#join-our-community", anchor: true },
-      { title: "Program Guide", href: "http://robotics.umich.edu/grad-guide", external: true }
+      { title: "Program Guide", href: "https://robotics.umich.edu/grad-guide", external: true }
     ],
     'academics/undergraduate': [
       { title: "Advising", href: "/academics/undergraduate/advising" },
@@ -361,7 +361,7 @@ export const subNavConfig: Record<string, SubNavItem[]> = {
     ],
     'academics/undergraduate/degree-requirements': [
       { title: "Advising", href: "/academics/undergraduate/advising" },
-      { title: "Program Guide", href: "http://robotics.umich.edu/undergrad-guide", external: true }
+      { title: "Program Guide", href: "https://robotics.umich.edu/undergrad-guide", external: true }
     ],
     'academics/undergraduate/advising': [
       { title: "Degree Requirements", href: "/academics/undergraduate/degree-requirements" },
@@ -369,7 +369,7 @@ export const subNavConfig: Record<string, SubNavItem[]> = {
       { title: "Sample Schedules", href: "/academics/undergraduate/advising#robotics-sample-schedules", anchor: true },
       { title: "Petitions", href: "/academics/undergraduate/advising#departmental-petitions", anchor: true },
       { title: "Get Involved", href: "/academics/undergraduate/advising#join-our-community", anchor: true },
-      { title: "Program Guide", href: "http://robotics.umich.edu/undergrad-guide", external: true }
+      { title: "Program Guide", href: "https://robotics.umich.edu/undergrad-guide", external: true }
     ],
     'academics/graduate/sugs': [
       { title: "Graduate Admissions", href: "/academics/graduate/admissions" },
