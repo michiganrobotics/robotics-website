@@ -91,19 +91,14 @@ const randomIllustration = illustrations[Math.floor(Math.random() * illustration
     </article>
   </div>
   <script is:inline>
-    var gc = window.goatcounter;
-    if (gc && gc.count) {
-      gc.count({
-        path: '/404:' + location.pathname + location.search,
-        event: true,
-      });
-    } else {
-      window.addEventListener('gc:count', function() {
+    var t = setInterval(function() {
+      if (window.goatcounter && window.goatcounter.count) {
+        clearInterval(t);
         window.goatcounter.count({
           path: '/404:' + location.pathname + location.search,
           event: true,
         });
-      });
-    }
+      }
+    }, 100);
   </script>
 </Layout>
