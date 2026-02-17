@@ -41,7 +41,7 @@ const node = {
     nodes: entry.data.categories.map(cat => ({
       name: cat,
       prettyName: categoryTitles[cat] || cat.replace(/-/g, ' '),
-      uri: `/news/${cat}`
+      uri: `/news/${cat}/`
     }))
   } : null
 };

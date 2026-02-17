@@ -39,7 +39,7 @@ function getPostLink(post: any) {
   if (isCollegeNews(post)) {
     return post.data.link;
   }
-  return `/news/${new Date(post.data.date).getFullYear()}/${post.id.split('/')[1]}`;
+  return `/news/${new Date(post.data.date).getFullYear()}/${post.id.split('/')[1]}/`;
 }
 
 function getExcerptText(post: any): string {
@@ -98,7 +98,7 @@ const videoWebmPath = '/robotics-promo-2025-2.webm';
 		<div class="mx-2 m-auto mb-4 md:mx-12">
 			<div class="relative mb-22 section-with-gradient-border border-arboretumBlue before:from-arboretumBlue after:from-arboretumBlue">
 				<div class="flex justify-center mb-2 sm:mb-0">
-					<h2 id="latest-news" class="absolute -top-6 z-10 bg-arboretumBlue text-neutral-50 px-6 py-2 rounded-sm text-3xl font-bold"><a href="/news" class="underline-hover-only">Latest news</a></h2>
+					<h2 id="latest-news" class="absolute -top-6 z-10 bg-arboretumBlue text-neutral-50 px-6 py-2 rounded-sm text-3xl font-bold"><a href="/news/" class="underline-hover-only">Latest news</a></h2>
 				</div>
 				<div class="flex flex-wrap gap-4 justify-center mb-8 md:flex-nowrap pt-10 px-2">
 					{recentPosts.map(async (post, index) => {
@@ -154,7 +154,7 @@ const videoWebmPath = '/robotics-promo-2025-2.webm';
 
 			<div class="relative mb-18 section-with-gradient-border border-rackhamGreen before:from-rackhamGreen after:from-rackhamGreen">
 				<div class="flex justify-center mb-12 sm:mb-0">
-					<h2 class="absolute -top-6 z-10 bg-rackhamGreen-dark text-neutral-50 px-6 py-2 rounded-sm text-3xl font-bold"><a href="/about" class="underline-hover-only">Get to know Michigan Robotics</a></h2>
+					<h2 class="absolute -top-6 z-10 bg-rackhamGreen-dark text-neutral-50 px-6 py-2 rounded-sm text-3xl font-bold"><a href="/about/" class="underline-hover-only">Get to know Michigan Robotics</a></h2>
 				</div>
 				<div class="flex flex-wrap gap-4 justify-center mb-8 md:flex-nowrap pt-10 px-2">
 					{[
@@ -205,7 +205,7 @@ const videoWebmPath = '/robotics-promo-2025-2.webm';
 		
 			{recentEvents.length > 0 && (
 				<div class="relative mb-24 section-with-gradient-border border-matthaeiViolet before:from-matthaeiViolet after:from-matthaeiViolet">
-				  <h2 class="absolute -top-6 left-1/2 transform -translate-x-1/2 z-10 bg-matthaeiViolet text-neutral-50 px-6 py-2 rounded-sm text-3xl font-bold"><a href="/events" class="underline-hover-only">Events</a></h2>		
+				  <h2 class="absolute -top-6 left-1/2 transform -translate-x-1/2 z-10 bg-matthaeiViolet text-neutral-50 px-6 py-2 rounded-sm text-3xl font-bold"><a href="/events/" class="underline-hover-only">Events</a></h2>		
 				  <div class="cards-container">	
 					{recentEvents.map((event: Event) => (
 					  <a

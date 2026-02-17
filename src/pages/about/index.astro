@@ -121,7 +121,7 @@ const focusAreas = await getCollection('focusAreas');
       <h2 class="text-3xl font-roboto-condensed font-bold mb-6 text-umichblue dark:text-neutral-50">Academics</h2>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div class="surface card-padded surface-border">
-          <a href="/academics/undergraduate" class="group block">
+          <a href="/academics/undergraduate/" class="group block">
             <div class="flex items-center">
               <h3 class="text-xl font-bold mb-2 text-umichblue dark:text-neutral-50">Undergraduate</h3>
               <Icon name="mdi:chevron-right" class="h-5 w-5 ml-1" />
@@ -131,7 +131,7 @@ const focusAreas = await getCollection('focusAreas');
           <p>16 alumni</p>
         </div>
         <div class="surface card-padded surface-border">
-          <a href="/academics/graduate" class="group block">
+          <a href="/academics/graduate/" class="group block">
             <div class="flex items-center">
               <h3 class="text-xl font-bold mb-2 text-umichblue dark:text-neutral-50">Graduate</h3>
               <Icon name="mdi:chevron-right" class="h-5 w-5 ml-1" />
@@ -141,7 +141,7 @@ const focusAreas = await getCollection('focusAreas');
           <p>Program started in 2014</p>
         </div>
         <div class="surface card-padded surface-border">
-          <a href="/academics/courses" class="group block">
+          <a href="/academics/courses/" class="group block">
             <div class="flex items-center">
               <h3 class="text-xl font-bold mb-2 text-umichblue dark:text-neutral-50">Robotics courses</h3>
               <Icon name="mdi:chevron-right" class="h-5 w-5 ml-1" />
@@ -154,7 +154,7 @@ const focusAreas = await getCollection('focusAreas');
     </section>
     <section class="mt-12">
       <h2 class="text-3xl font-roboto-condensed font-bold mb-6 text-umichblue dark:text-neutral-50">
-        <a href="/research/focus-areas" class="flex items-center underline-hover-only">
+        <a href="/research/focus-areas/" class="flex items-center underline-hover-only">
           Research focus areas
           <Icon name="mdi:chevron-right" class="h-5 w-5 ml-1" />
         </a>
@@ -162,7 +162,7 @@ const focusAreas = await getCollection('focusAreas');
       <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
         {focusAreas.map((area) => (
           <a 
-            href={`/research/focus-areas/${area.id}`} 
+            href={`/research/focus-areas/${area.id}/`} 
             class="surface card-base card-hover surface-border focus:outline focus:outline-2 focus:outline-offset-4 [&:focus-visible]:!transition-none [&:focus-visible]:!duration-0 [&:focus-visible]:!ease-none underline-hover-only"
           >
             <div class="p-2">
@@ -249,7 +249,7 @@ const focusAreas = await getCollection('focusAreas');
     <div class="surface card-padded surface-border">
       <h2 class="text-3xl font-roboto-condensed font-bold mb-6 text-umichblue dark:text-neutral-50">Contact Us</h2>
       <p class="mb-4">Have questions about Michigan Robotics? We'd love to hear from you.</p>
-      <Button href="/about/contact" text="Get in touch" />
+      <Button href="/about/contact/" text="Get in touch" />
     </div>
   </section>
   </div>

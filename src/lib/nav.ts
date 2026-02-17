@@ -21,31 +21,31 @@ interface SubNavItem {
 export const mainNav: MenuItem[] = [
     {
       label: "Academics",
-      uri: "/academics",
+      uri: "/academics/",
       id: "academics",
       childItems: {
         nodes: [
           {
             label: "Undergraduate",
-            uri: "/academics/undergraduate",
+            uri: "/academics/undergraduate/",
             id: "academics-undergraduate",
             childItems: {
               nodes: [
                 {
                   label: "Degree Requirements",
-                  uri: "/academics/undergraduate/degree-requirements",
+                  uri: "/academics/undergraduate/degree-requirements/",
                   id: "academics-undergraduate-requirements",
                   childItems: { nodes: [] }
                 },
                 {
                   label: "Advising", 
-                  uri: "/academics/undergraduate/advising",
+                  uri: "/academics/undergraduate/advising/",
                   id: "academics-undergraduate-advising",
                   childItems: { nodes: [] }
                 },
                 {
                   label: "SURE",
-                  uri: "/academics/undergraduate/sure",
+                  uri: "/academics/undergraduate/sure/",
                   id: "academics-undergraduate-sure",
                   childItems: { nodes: [] }
                 }
@@ -54,31 +54,31 @@ export const mainNav: MenuItem[] = [
           },
           {
             label: "Graduate",
-            uri: "/academics/graduate",
+            uri: "/academics/graduate/",
             id: "academics-graduate",
             childItems: {
               nodes: [
                 {
                   label: "Admissions",
-                  uri: "/academics/graduate/admissions",
+                  uri: "/academics/graduate/admissions/",
                   id: "academics-graduate-admissions",
                   childItems: { nodes: [] }
                 },
                 {
                   label: "Degree Requirements",
-                  uri: "/academics/graduate/degree-requirements",
+                  uri: "/academics/graduate/degree-requirements/",
                   id: "academics-graduate-requirements",
                   childItems: { nodes: [] }
                 },
                 {
                   label: "Advising",
-                  uri: "/academics/graduate/advising",
+                  uri: "/academics/graduate/advising/",
                   id: "academics-graduate-advising",
                   childItems: { nodes: [] }
                 },
                 {
                   label: "SUGS",
-                  uri: "/academics/graduate/sugs",
+                  uri: "/academics/graduate/sugs/",
                   id: "academics-graduate-sugs",
                   childItems: { nodes: [] }
                 }
@@ -87,13 +87,13 @@ export const mainNav: MenuItem[] = [
           },
           {
             label: "Courses",
-            uri: "/academics/courses",
+            uri: "/academics/courses/",
             id: "academics-courses",
             childItems: { nodes: [] }
           },
           {
             label: "Student Services",
-            uri: "/academics/student-services",
+            uri: "/academics/student-services/",
             id: "academics-student-services",
             childItems: { nodes: [] }
           }
@@ -102,19 +102,19 @@ export const mainNav: MenuItem[] = [
     },
     {
       label: "Research",
-      uri: "/research",
+      uri: "/research/",
       id: "research",
       childItems: {
         nodes: [
           {
             label: "Focus Areas",
-            uri: "/research/focus-areas",
+            uri: "/research/focus-areas/",
             id: "research-focus-areas",
             childItems: { nodes: [] }
           },
           {
             label: "Projects & Datasets",
-            uri: "/research/projects-and-datasets",
+            uri: "/research/projects-and-datasets/",
             id: "research-projects-and-datasets",
             childItems: { nodes: [] }
           }
@@ -123,49 +123,49 @@ export const mainNav: MenuItem[] = [
     },
     {
       label: "People",
-      uri: "/people",
+      uri: "/people/",
       id: "people",
       childItems: {
         nodes: [
           {
             label: "Faculty",
-            uri: "/people/faculty",
+            uri: "/people/faculty/",
             id: "people-faculty",
             childItems: { nodes: [] }
           },
           {
             label: "Staff",
-            uri: "/people/staff",
+            uri: "/people/staff/",
             id: "people-staff",
             childItems: { nodes: [] }
           },
           {
             label: "Students",
-            uri: "/people/students",
+            uri: "/people/students/",
             id: "people-students",
             childItems: { nodes: [] }
           },
           {
             label: "Student Teams",
-            uri: "/people/student-teams",
+            uri: "/people/student-teams/",
             id: "people-student-teams",
             childItems: { nodes: [] }
           },
           {
             label: "Alumni",
-            uri: "/people/alumni",
+            uri: "/people/alumni/",
             id: "people-alumni",
             childItems: { nodes: [] }
           },
           {
             label: "Advisory Board",
-            uri: "/people/advisory-board",
+            uri: "/people/advisory-board/",
             id: "advisory-board",
             childItems: { nodes: [] }
           },
           {
             label: "Honors & Awards",
-            uri: "/people/honors-and-awards",
+            uri: "/people/honors-and-awards/",
             id: "people-honors-awards",
             childItems: { nodes: [] }
           }
@@ -174,24 +174,24 @@ export const mainNav: MenuItem[] = [
     },
     {
       label: "News",
-      uri: "/news",
+      uri: "/news/",
       id: "news",
       childItems: { nodes: [] }
     },
     {
       label: "Events",
-      uri: "/events",
+      uri: "/events/",
       id: "events",
       childItems: { nodes: [
         {
           label: "Pathways & Careers Series",
-          uri: "/events/robotics-pathways-speaker-series",
+          uri: "/events/robotics-pathways-speaker-series/",
           id: "events-robotics-pathways-speaker-series",
           childItems: { nodes: [] }
         },
         {
           label: "Robotics Seminar Series",
-          uri: "/events/robotics-seminar-series",
+          uri: "/events/robotics-seminar-series/",
           id: "events-robotics-seminar-series",
           childItems: { nodes: [] }
         }
@@ -199,37 +199,37 @@ export const mainNav: MenuItem[] = [
     },
     {
       label: "About",
-      uri: "/about",
+      uri: "/about/",
       id: "about",
       childItems: {
         nodes: [
           {
             label: "Values",
-            uri: "/about/values",
+            uri: "/about/values/",
             id: "about-values",
             childItems: { nodes: [] }
           },
           {
             label: "Facilities",
-            uri: "/about/facilities",
+            uri: "/about/facilities/",
             id: "about-facilities",
             childItems: { nodes: [] }
           },
           {
             label: "Partnerships",
-            uri: "/about/partnerships",
+            uri: "/about/partnerships/",
             id: "about-partnerships",
             childItems: { nodes: [] }
           },
           {
             label: "Faculty Jobs",
-            uri: "/about/faculty-jobs",
+            uri: "/about/faculty-jobs/",
             id: "about-faculty-jobs",
             childItems: { nodes: [] }
           },
           {
             label: "Contact",
-            uri: "/about/contact",
+            uri: "/about/contact/",
             id: "about-contact",
             childItems: { nodes: [] }
           }
@@ -261,311 +261,311 @@ export const subNavConfig: Record<string, SubNavItem[]> = {
     // Match WordPress slugs exactly to edit their subnav menus
     // Only match exact 'research' path, not children
     'research$': [
-      { title: "Focus Areas", href: "/research/focus-areas" },
-      { title: "Open-Source Projects & Datasets", href: "/research/projects-and-datasets" }
+      { title: "Focus Areas", href: "/research/focus-areas/" },
+      { title: "Open-Source Projects & Datasets", href: "/research/projects-and-datasets/" }
     ],
     'research/focus-areas': [
-      { title: "Open-Source Projects & Datasets", href: "/research/projects-and-datasets" }
+      { title: "Open-Source Projects & Datasets", href: "/research/projects-and-datasets/" }
     ],
     'research/projects-and-datasets': [
-      { title: "Focus Areas", href: "/research/focus-areas" }
+      { title: "Focus Areas", href: "/research/focus-areas/" }
     ],
     'academics$': [
-      { title: "Undergraduate", href: "/academics/undergraduate" },
-      { title: "Graduate", href: "/academics/graduate" },
-      { title: "Courses", href: "/academics/courses" },
-      { title: "Student Services", href: "/academics/student-services" }
+      { title: "Undergraduate", href: "/academics/undergraduate/" },
+      { title: "Graduate", href: "/academics/graduate/" },
+      { title: "Courses", href: "/academics/courses/" },
+      { title: "Student Services", href: "/academics/student-services/" }
     ],
     'academics/student-services': [
-      { title: "Robodex", href: "/academics/student-services/robodex" },
-      { title: "RGSC", href: "/academics/student-services/robotics-graduate-student-council" },
-      { title: "RUSC", href: "/academics/student-services/robotics-undergraduate-student-council" },
-      { title: "Student resources", href: "/academics/student-services#student-resources", anchor: true },
-      { title: "Staff", href: "/academics/student-services#student-services-staff", anchor: true },
-      { title: "Communicate to our students", href: "/academics/student-services#how-to-send-announcements-to-our-students", anchor: true }
+      { title: "Robodex", href: "/academics/student-services/robodex/" },
+      { title: "RGSC", href: "/academics/student-services/robotics-graduate-student-council/" },
+      { title: "RUSC", href: "/academics/student-services/robotics-undergraduate-student-council/" },
+      { title: "Student resources", href: "/academics/student-services/#student-resources", anchor: true },
+      { title: "Staff", href: "/academics/student-services/#student-services-staff", anchor: true },
+      { title: "Communicate to our students", href: "/academics/student-services/#how-to-send-announcements-to-our-students", anchor: true }
     ],
     'academics/student-services/registering-for-classes': [
-      { title: "Add a class", href: "/academics/student-services/registering-for-classes#add-a-class", anchor: true },
-      { title: "Drop a class", href: "/academics/student-services/registering-for-classes#drop-a-class", anchor: true },
-      { title: "Waitlists", href: "/academics/student-services/registering-for-classes#waitlist", anchor: true },
-      { title: "Independent Study", href: "/academics/student-services/registering-for-classes#enroll-in-an-independent-study-rob-590690990995", anchor: true },
-      { title: "Visit or Audit Classes", href: "/academics/student-services/registering-for-classes#visitaudit-a-course", anchor: true }
+      { title: "Add a class", href: "/academics/student-services/registering-for-classes/#add-a-class", anchor: true },
+      { title: "Drop a class", href: "/academics/student-services/registering-for-classes/#drop-a-class", anchor: true },
+      { title: "Waitlists", href: "/academics/student-services/registering-for-classes/#waitlist", anchor: true },
+      { title: "Independent Study", href: "/academics/student-services/registering-for-classes/#enroll-in-an-independent-study-rob-590690990995", anchor: true },
+      { title: "Visit or Audit Classes", href: "/academics/student-services/registering-for-classes/#visitaudit-a-course", anchor: true }
     ],
     'academics/student-services/cptopt-instructions': [
-    { title: "Student Services", href: "/academics/student-services" },
-    { title: "Robodex", href: "/academics/student-services/robodex" }
+    { title: "Student Services", href: "/academics/student-services/" },
+    { title: "Robodex", href: "/academics/student-services/robodex/" }
     ],
     'academics/student-services/i-20-extensions': [
-    { title: "Student Services", href: "/academics/student-services" },
-    { title: "Robodex", href: "/academics/student-services/robodex" }
+    { title: "Student Services", href: "/academics/student-services/" },
+    { title: "Robodex", href: "/academics/student-services/robodex/" }
     ],
     'academics/student-services/reduced-course-load': [
-    { title: "Student Services", href: "/academics/student-services" },
-    { title: "Robodex", href: "/academics/student-services/robodex" }
+    { title: "Student Services", href: "/academics/student-services/" },
+    { title: "Robodex", href: "/academics/student-services/robodex/" }
     ],
     'academics/courses': [
-      { title: "Current Term Courses", href: "/academics/courses/course-offerings" },
-      { title: "Complete Course List", href: "/academics/courses/complete-course-list" },
-      { title: "Free Online Courses", href: "/academics/courses/online-courses" },
+      { title: "Current Term Courses", href: "/academics/courses/course-offerings/" },
+      { title: "Complete Course List", href: "/academics/courses/complete-course-list/" },
+      { title: "Free Online Courses", href: "/academics/courses/online-courses/" },
       { title: "Course Guide", href: "https://docs.google.com/spreadsheets/d/1Z-9yq0-OD008TCdxGza8RQ1_CscwD6fs0LOV3_YQuyo/edit?usp=sharing", external: true },
-      { title: "Course Override Requests", href: "/academics/courses#course-override-requests", anchor: true }
+      { title: "Course Override Requests", href: "/academics/courses/#course-override-requests", anchor: true }
     ],
     'academics/courses/course-offerings': [
-      { title: "Complete Course List", href: "/academics/courses/complete-course-list" },
-      { title: "Free Online Courses", href: "/academics/courses/online-courses" },
+      { title: "Complete Course List", href: "/academics/courses/complete-course-list/" },
+      { title: "Free Online Courses", href: "/academics/courses/online-courses/" },
       { title: "Course Guide", href: "https://docs.google.com/spreadsheets/d/1Z-9yq0-OD008TCdxGza8RQ1_CscwD6fs0LOV3_YQuyo/edit?usp=sharing", external: true }
     ],
     'academics/courses/complete-course-list': [
-      { title: "Current Term Courses", href: "/academics/courses/course-offerings" },
+      { title: "Current Term Courses", href: "/academics/courses/course-offerings/" },
       { title: "Course Guide", href: "https://docs.google.com/spreadsheets/d/1Z-9yq0-OD008TCdxGza8RQ1_CscwD6fs0LOV3_YQuyo/edit?usp=sharing", external: true }
     ],
     'academics/courses/online-courses': [
-      { title: "Current Term Courses", href: "/academics/courses/course-offerings" },
-      { title: "Complete Course List", href: "/academics/courses/complete-course-list" },
+      { title: "Current Term Courses", href: "/academics/courses/course-offerings/" },
+      { title: "Complete Course List", href: "/academics/courses/complete-course-list/" },
     ],
     'academics/graduate': [
-      { title: "Admissions", href: "/academics/graduate/admissions" },
-      { title: "Degree Requirements", href: "/academics/graduate/degree-requirements" },
-      { title: "Advising", href: "/academics/graduate/advising" }
+      { title: "Admissions", href: "/academics/graduate/admissions/" },
+      { title: "Degree Requirements", href: "/academics/graduate/degree-requirements/" },
+      { title: "Advising", href: "/academics/graduate/advising/" }
     ],
     'academics/graduate/admissions': [
       { title: "Apply", href: "https://rackham.umich.edu/admissions/applying/", external: true },
-      { title: "Funding", href: "/academics/graduate/admissions/funding-for-graduate-students" },
-      { title: "Degree Requirements", href: "/academics/graduate/degree-requirements" },
-      { title: "Graduate Advising", href: "/academics/graduate/advising" },
-      { title: "SUGS", href: "/academics/graduate/sugs" },
-      { title: "Deadlines", href: "/academics/graduate/admissions#application-deadlines", anchor: true },
-      { title: "Criteria", href: "/academics/graduate/admissions#criteria-our-admissions-committee-looks-for", anchor: true },
-      { title: "Tuition", href: "/academics/graduate/admissions#cost-of-attendance--funding", anchor: true },
-      { title: "Decisions", href: "/academics/graduate/admissions#admission-decisions-timeline", anchor: true }  
+      { title: "Funding", href: "/academics/graduate/admissions/funding-for-graduate-students/" },
+      { title: "Degree Requirements", href: "/academics/graduate/degree-requirements/" },
+      { title: "Graduate Advising", href: "/academics/graduate/advising/" },
+      { title: "SUGS", href: "/academics/graduate/sugs/" },
+      { title: "Deadlines", href: "/academics/graduate/admissions/#application-deadlines", anchor: true },
+      { title: "Criteria", href: "/academics/graduate/admissions/#criteria-our-admissions-committee-looks-for", anchor: true },
+      { title: "Tuition", href: "/academics/graduate/admissions/#cost-of-attendance--funding", anchor: true },
+      { title: "Decisions", href: "/academics/graduate/admissions/#admission-decisions-timeline", anchor: true }  
     ],
     'academics/graduate/degree-requirements': [
-      { title: "Credit Requirements", href: "/academics/graduate/degree-requirements#credit-requirements", anchor: true },
-      { title: "1st Year Students", href: "/academics/graduate/degree-requirements#1st-year-students-", anchor: true },
-      { title: "Grade Requirements", href: "/academics/graduate/degree-requirements#grade-requirements", anchor: true },
-      { title: "Graduate Advising", href: "/academics/graduate/advising" },
-      { title: "Admissions", href: "/academics/graduate/admissions" }
+      { title: "Credit Requirements", href: "/academics/graduate/degree-requirements/#credit-requirements", anchor: true },
+      { title: "1st Year Students", href: "/academics/graduate/degree-requirements/#1st-year-students-", anchor: true },
+      { title: "Grade Requirements", href: "/academics/graduate/degree-requirements/#grade-requirements", anchor: true },
+      { title: "Graduate Advising", href: "/academics/graduate/advising/" },
+      { title: "Admissions", href: "/academics/graduate/admissions/" }
     ],
     'academics/graduate/advising': [
-      { title: "Degree Requirements", href: "/academics/graduate/degree-requirements" },
-      { title: "Admissions", href: "/academics/graduate/admissions" },
-      { title: "Petitions", href: "/academics/graduate/advising#departmental-petitions", anchor: true },
-      { title: "Get Involved", href: "/academics/graduate/advising#join-our-community", anchor: true },
+      { title: "Degree Requirements", href: "/academics/graduate/degree-requirements/" },
+      { title: "Admissions", href: "/academics/graduate/admissions/" },
+      { title: "Petitions", href: "/academics/graduate/advising/#departmental-petitions", anchor: true },
+      { title: "Get Involved", href: "/academics/graduate/advising/#join-our-community", anchor: true },
       { title: "Program Guide", href: "https://robotics.umich.edu/grad-guide", external: true }
     ],
     'academics/undergraduate': [
-      { title: "Advising", href: "/academics/undergraduate/advising" },
-      { title: "Degree Requirements", href: "/academics/undergraduate/degree-requirements" },
-      { title: "Current Courses", href: "/academics/courses/course-offerings" },
-      { title: "Pathways Speakers", href: "/events/robotics-pathways-speaker-series" }
+      { title: "Advising", href: "/academics/undergraduate/advising/" },
+      { title: "Degree Requirements", href: "/academics/undergraduate/degree-requirements/" },
+      { title: "Current Courses", href: "/academics/courses/course-offerings/" },
+      { title: "Pathways Speakers", href: "/events/robotics-pathways-speaker-series/" }
     ],
     'academics/undergraduate/degree-requirements': [
-      { title: "Advising", href: "/academics/undergraduate/advising" },
+      { title: "Advising", href: "/academics/undergraduate/advising/" },
       { title: "Program Guide", href: "https://robotics.umich.edu/undergrad-guide", external: true }
     ],
     'academics/undergraduate/advising': [
-      { title: "Degree Requirements", href: "/academics/undergraduate/degree-requirements" },
-      { title: "Tips & Advice", href: "/academics/undergraduate/advising#general-advising-tips-for-robotics-majors", anchor: true },
-      { title: "Sample Schedules", href: "/academics/undergraduate/advising#robotics-sample-schedules", anchor: true },
-      { title: "Petitions", href: "/academics/undergraduate/advising#departmental-petitions", anchor: true },
-      { title: "Get Involved", href: "/academics/undergraduate/advising#join-our-community", anchor: true },
+      { title: "Degree Requirements", href: "/academics/undergraduate/degree-requirements/" },
+      { title: "Tips & Advice", href: "/academics/undergraduate/advising/#general-advising-tips-for-robotics-majors", anchor: true },
+      { title: "Sample Schedules", href: "/academics/undergraduate/advising/#robotics-sample-schedules", anchor: true },
+      { title: "Petitions", href: "/academics/undergraduate/advising/#departmental-petitions", anchor: true },
+      { title: "Get Involved", href: "/academics/undergraduate/advising/#join-our-community", anchor: true },
       { title: "Program Guide", href: "https://robotics.umich.edu/undergrad-guide", external: true }
     ],
     'academics/graduate/sugs': [
-      { title: "Graduate Admissions", href: "/academics/graduate/admissions" },
-      { title: "Degree Requirements", href: "/academics/graduate/degree-requirements" },
-      { title: "Graduate Advising", href: "/academics/graduate/advising" },
-      { title: "Who to meet with", href: "/academics/graduate/sugs#who-should-i-meet-with", anchor: true },
-      { title: "Applying", href: "/academics/graduate/sugs#how-to-apply", anchor: true },
-      { title: "SUGS Deadlines", href: "/academics/graduate/sugs#application-deadlines", anchor: true },
-      { title: "FAQ", href: "/academics/graduate/sugs#faq", anchor: true }
+      { title: "Graduate Admissions", href: "/academics/graduate/admissions/" },
+      { title: "Degree Requirements", href: "/academics/graduate/degree-requirements/" },
+      { title: "Graduate Advising", href: "/academics/graduate/advising/" },
+      { title: "Who to meet with", href: "/academics/graduate/sugs/#who-should-i-meet-with", anchor: true },
+      { title: "Applying", href: "/academics/graduate/sugs/#how-to-apply", anchor: true },
+      { title: "SUGS Deadlines", href: "/academics/graduate/sugs/#application-deadlines", anchor: true },
+      { title: "FAQ", href: "/academics/graduate/sugs/#faq", anchor: true }
    
     ],
     'academics/undergraduate/sure': [
-      { title: "SURE Projects", href: "/academics/undergraduate/sure#robotics-sure-projects", anchor: true },
-      { title: "Advising", href: "/academics/undergraduate/advising" },
-      { title: "Degree Requirements", href: "/academics/undergraduate/degree-requirements" }
+      { title: "SURE Projects", href: "/academics/undergraduate/sure/#robotics-sure-projects", anchor: true },
+      { title: "Advising", href: "/academics/undergraduate/advising/" },
+      { title: "Degree Requirements", href: "/academics/undergraduate/degree-requirements/" }
     ],
     'people$': [
-      { title: "Faculty", href: "/people/faculty" },
-      { title: "Staff", href: "/people/staff" },
-      { title: "Students", href: "/people/students" },
-      { title: "Student Teams", href: "/people/student-teams" },
-      { title: "Advisory Board", href: "/people/advisory-board" },
-      { title: "Alumni", href: "/people/alumni" },
-      { title: "Honors and Awards", href: "/people/honors-and-awards"}
+      { title: "Faculty", href: "/people/faculty/" },
+      { title: "Staff", href: "/people/staff/" },
+      { title: "Students", href: "/people/students/" },
+      { title: "Student Teams", href: "/people/student-teams/" },
+      { title: "Advisory Board", href: "/people/advisory-board/" },
+      { title: "Alumni", href: "/people/alumni/" },
+      { title: "Honors and Awards", href: "/people/honors-and-awards/"}
     ],
     'people/faculty': [
-      { title: "Emeritus Faculty", href: "/people/faculty/emeritus" },
-      { title: "Affiliate Faculty", href: "/people/faculty/affiliate" },
-      { title: "Staff", href: "/people/staff" },
-      { title: "Students", href: "/people/students" },
-      { title: "Student Teams", href: "/people/student-teams" },
-      { title: "Advisory Board", href: "/people/advisory-board" },
-      { title: "Alumni", href: "/people/alumni" },
-      { title: "Honors and Awards", href: "/people/honors-and-awards"}
+      { title: "Emeritus Faculty", href: "/people/faculty/emeritus/" },
+      { title: "Affiliate Faculty", href: "/people/faculty/affiliate/" },
+      { title: "Staff", href: "/people/staff/" },
+      { title: "Students", href: "/people/students/" },
+      { title: "Student Teams", href: "/people/student-teams/" },
+      { title: "Advisory Board", href: "/people/advisory-board/" },
+      { title: "Alumni", href: "/people/alumni/" },
+      { title: "Honors and Awards", href: "/people/honors-and-awards/"}
     ],
     'people/faculty/emeritus': [
-      { title: "Faculty", href: "/people/faculty" },
-      { title: "Affiliate Faculty", href: "/people/faculty/affiliate" },
-      { title: "Staff", href: "/people/staff" },
-      { title: "Student Teams", href: "/people/student-teams" },
-      { title: "Advisory Board", href: "/people/advisory-board" },
-      { title: "Alumni", href: "/people/alumni" },
-      { title: "Honors and Awards", href: "/people/honors-and-awards"}
+      { title: "Faculty", href: "/people/faculty/" },
+      { title: "Affiliate Faculty", href: "/people/faculty/affiliate/" },
+      { title: "Staff", href: "/people/staff/" },
+      { title: "Student Teams", href: "/people/student-teams/" },
+      { title: "Advisory Board", href: "/people/advisory-board/" },
+      { title: "Alumni", href: "/people/alumni/" },
+      { title: "Honors and Awards", href: "/people/honors-and-awards/"}
     ],
     'people/faculty/affiliate': [
-      { title: "Faculty", href: "/people/faculty" },
-      { title: "Emeritus Faculty", href: "/people/faculty/emeritus" },
-      { title: "Staff", href: "/people/staff" },
-      { title: "Student Teams", href: "/people/student-teams" },
-      { title: "Advisory Board", href: "/people/advisory-board" },
-      { title: "Alumni", href: "/people/alumni" },
-      { title: "Honors and Awards", href: "/people/honors-and-awards"}
+      { title: "Faculty", href: "/people/faculty/" },
+      { title: "Emeritus Faculty", href: "/people/faculty/emeritus/" },
+      { title: "Staff", href: "/people/staff/" },
+      { title: "Student Teams", href: "/people/student-teams/" },
+      { title: "Advisory Board", href: "/people/advisory-board/" },
+      { title: "Alumni", href: "/people/alumni/" },
+      { title: "Honors and Awards", href: "/people/honors-and-awards/"}
     ],
     'people/staff': [
-      { title: "Faculty", href: "/people/faculty" },
-      { title: "Students", href: "/people/students" },
-      { title: "Student Teams", href: "/people/student-teams" },
-      { title: "Advisory Board", href: "/people/advisory-board" },
-      { title: "Alumni", href: "/people/alumni" },
-      { title: "Honors and Awards", href: "/people/honors-and-awards"}
+      { title: "Faculty", href: "/people/faculty/" },
+      { title: "Students", href: "/people/students/" },
+      { title: "Student Teams", href: "/people/student-teams/" },
+      { title: "Advisory Board", href: "/people/advisory-board/" },
+      { title: "Alumni", href: "/people/alumni/" },
+      { title: "Honors and Awards", href: "/people/honors-and-awards/"}
     ],
     'people/students': [
-      { title: "Faculty", href: "/people/faculty" },
-      { title: "Staff", href: "/people/staff" },
-      { title: "Student Teams", href: "/people/student-teams" },
-      { title: "Advisory Board", href: "/people/advisory-board" },
-      { title: "Alumni", href: "/people/alumni" },
-      { title: "Honors and Awards", href: "/people/honors-and-awards"}
+      { title: "Faculty", href: "/people/faculty/" },
+      { title: "Staff", href: "/people/staff/" },
+      { title: "Student Teams", href: "/people/student-teams/" },
+      { title: "Advisory Board", href: "/people/advisory-board/" },
+      { title: "Alumni", href: "/people/alumni/" },
+      { title: "Honors and Awards", href: "/people/honors-and-awards/"}
     ],
     'people/alumni': [
-      { title: "Faculty", href: "/people/faculty" },
-      { title: "Staff", href: "/people/staff" },
-      { title: "Students", href: "/people/students" },
-      { title: "Student Teams", href: "/people/student-teams" },
-      { title: "Advisory Board", href: "/people/advisory-board" },
-      { title: "Honors and Awards", href: "/people/honors-and-awards"}
+      { title: "Faculty", href: "/people/faculty/" },
+      { title: "Staff", href: "/people/staff/" },
+      { title: "Students", href: "/people/students/" },
+      { title: "Student Teams", href: "/people/student-teams/" },
+      { title: "Advisory Board", href: "/people/advisory-board/" },
+      { title: "Honors and Awards", href: "/people/honors-and-awards/"}
     ],
     'people/student-teams': [
-      { title: "Faculty", href: "/people/faculty" },
-      { title: "Staff", href: "/people/staff" },
-      { title: "Students", href: "/people/students" },
-      { title: "Alumni", href: "/people/alumni" },
-      { title: "Advisory Board", href: "/people/advisory-board" },
-      { title: "Honors and Awards", href: "/people/honors-and-awards"}
+      { title: "Faculty", href: "/people/faculty/" },
+      { title: "Staff", href: "/people/staff/" },
+      { title: "Students", href: "/people/students/" },
+      { title: "Alumni", href: "/people/alumni/" },
+      { title: "Advisory Board", href: "/people/advisory-board/" },
+      { title: "Honors and Awards", href: "/people/honors-and-awards/"}
     ],
     'people/advisory-board': [
-      { title: "Faculty", href: "/people/faculty" },
-      { title: "Staff", href: "/people/staff" },
-      { title: "Students", href: "/people/students" },
-      { title: "Student Teams", href: "/people/student-teams" },
-      { title: "Alumni", href: "/people/alumni" },
-      { title: "Honors and Awards", href: "/people/honors-and-awards"}
+      { title: "Faculty", href: "/people/faculty/" },
+      { title: "Staff", href: "/people/staff/" },
+      { title: "Students", href: "/people/students/" },
+      { title: "Student Teams", href: "/people/student-teams/" },
+      { title: "Alumni", href: "/people/alumni/" },
+      { title: "Honors and Awards", href: "/people/honors-and-awards/"}
     ],
     'people/honors-and-awards': [
-      { title: "Faculty", href: "/people/faculty" },
-      { title: "Staff", href: "/people/staff" },
-      { title: "Students", href: "/people/students" },
-      { title: "Student Teams", href: "/people/student-teams" },
-      { title: "Alumni", href: "/people/alumni" },
-      { title: "Advisory Board", href: "/people/advisory-board"}
+      { title: "Faculty", href: "/people/faculty/" },
+      { title: "Staff", href: "/people/staff/" },
+      { title: "Students", href: "/people/students/" },
+      { title: "Student Teams", href: "/people/student-teams/" },
+      { title: "Alumni", href: "/people/alumni/" },
+      { title: "Advisory Board", href: "/people/advisory-board/"}
     ],
     'about$': [
-      { title: "Values", href: "/about/values" },
-      { title: "Facilities", href: "/about/facilities" },
-      { title: "Faculty Jobs", href: "/about/faculty-jobs" },
-      { title: "Contact", href: "/about/contact"}
+      { title: "Values", href: "/about/values/" },
+      { title: "Facilities", href: "/about/facilities/" },
+      { title: "Faculty Jobs", href: "/about/faculty-jobs/" },
+      { title: "Contact", href: "/about/contact/"}
     ],
     'about/values': [
-      { title: "Facilities", href: "/about/facilities" },
-      { title: "Faculty Jobs", href: "/about/faculty-jobs" },
-      { title: "Contact", href: "/about/contact"}
+      { title: "Facilities", href: "/about/facilities/" },
+      { title: "Faculty Jobs", href: "/about/faculty-jobs/" },
+      { title: "Contact", href: "/about/contact/"}
     ],
     'about/facilities': [
-      { title: "Ford Robotics Building", href: "/about/facilities/ford-robotics-building" },
-      { title: "M-Air Net", href: "/about/facilities/m-air-net" },
+      { title: "Ford Robotics Building", href: "/about/facilities/ford-robotics-building/" },
+      { title: "M-Air Net", href: "/about/facilities/m-air-net/" },
       { title: "Makerspace", href: "https://teamprojects.engin.umich.edu/makerspace-about/", external: true },
       { title: "Mcity", href: "https://mcity.umich.edu", external: true },
       { title: "Other U-M Facilities", href: "https://www.engin.umich.edu/research/labs-facilities/", external: true }
     ],
     'about/facilities/ford-robotics-building': [
-      { title: "M-Air Net", href: "/about/facilities/m-air-net" },      
+      { title: "M-Air Net", href: "/about/facilities/m-air-net/" },      
       { title: "Makerspace", href: "https://teamprojects.engin.umich.edu/makerspace-about/", external: true },
       { title: "Mcity", href: "https://mcity.umich.edu", external: true },
       { title: "Other U-M Facilities", href: "https://www.engin.umich.edu/research/labs-facilities/", external: true },
-      { title: "Tours", href: "/about/facilities/ford-robotics-building#tours", anchor: true }
+      { title: "Tours", href: "/about/facilities/ford-robotics-building/#tours", anchor: true }
     ],
     'about/facilities/m-air-net': [
-      { title: "Ford Robotics Building", href: "/about/facilities/ford-robotics-building" },
+      { title: "Ford Robotics Building", href: "/about/facilities/ford-robotics-building/" },
       { title: "Makerspace", href: "https://teamprojects.engin.umich.edu/makerspace-about/", external: true },
       { title: "Mcity", href: "https://mcity.umich.edu", external: true },
       { title: "Other U-M Facilities", href: "https://www.engin.umich.edu/research/labs-facilities/", external: true }
     ],
     'about/faculty-jobs': [
-      { title: "Values", href: "/about/values" },
-      { title: "Facilities", href: "/about/facilities" },
-      { title: "Contact", href: "/about/contact"}
+      { title: "Values", href: "/about/values/" },
+      { title: "Facilities", href: "/about/facilities/" },
+      { title: "Contact", href: "/about/contact/"}
     ],
     'about/contact': [
-      { title: "Values", href: "/about/values" },
-      { title: "Facilities", href: "/about/facilities" },
-      { title: "Faculty Jobs", href: "/about/faculty-jobs"}
+      { title: "Values", href: "/about/values/" },
+      { title: "Facilities", href: "/about/facilities/" },
+      { title: "Faculty Jobs", href: "/about/faculty-jobs/"}
     ],
     'events$': [
-      { title: "Pathways & Careers Series", href: "/events/robotics-pathways-speaker-series" },
-      { title: "Robotics Seminar Series", href: "/events/robotics-seminar-series" },
+      { title: "Pathways & Careers Series", href: "/events/robotics-pathways-speaker-series/" },
+      { title: "Robotics Seminar Series", href: "/events/robotics-seminar-series/" },
       { title: "Events on Happening @ Michigan", href: "https://events.umich.edu/group/3998", external: true }
     ],
     'events/robotics-pathways-speaker-series': [
-      { title: "Robotics Seminar Series", href: "/events/robotics-seminar-series" },
+      { title: "Robotics Seminar Series", href: "/events/robotics-seminar-series/" },
       { title: "Events on Happening @ Michigan", href: "https://events.umich.edu/group/3998", external: true }
     ],
     'events/robotics-seminar-series': [
-      { title: "Pathways & Careers Series", href: "/events/robotics-pathways-speaker-series" },
+      { title: "Pathways & Careers Series", href: "/events/robotics-pathways-speaker-series/" },
       { title: "Events on Happening @ Michigan", href: "https://events.umich.edu/group/3998", external: true }
     ],
     // 'academics/graduate/admissions/graduate-application': [
-    //   { title: "Letters of Recommendation", href: "/academics/graduate/admissions/letters-of-recommendation" },
-    //   { title: "Transcripts", href: "/academics/graduate/admissions/transcripts" },
-    //   { title: "Academic & Personal Statements", href: "/academics/graduate/admissions/academic-and-personal-statements" },
-    //   { title: "Resume/CV", href: "/academics/graduate/admissions/resume-curriculum-vitae" },
-    //   { title: "English Proficiency", href: "/academics/graduate/admissions/english-proficiency-test-scores" }
+    //   { title: "Letters of Recommendation", href: "/academics/graduate/admissions/letters-of-recommendation/" },
+    //   { title: "Transcripts", href: "/academics/graduate/admissions/transcripts/" },
+    //   { title: "Academic & Personal Statements", href: "/academics/graduate/admissions/academic-and-personal-statements/" },
+    //   { title: "Resume/CV", href: "/academics/graduate/admissions/resume-curriculum-vitae/" },
+    //   { title: "English Proficiency", href: "/academics/graduate/admissions/english-proficiency-test-scores/" }
     // ],
     // 'academics/graduate/admissions/letters-of-recommendation': [
-    //   { title: "Graduate Application", href: "/academics/graduate/admissions/graduate-application" },
-    //   { title: "Transcripts", href: "/academics/graduate/admissions/transcripts" },
-    //   { title: "Academic & Personal Statements", href: "/academics/graduate/admissions/academic-and-personal-statements" },
-    //   { title: "Resume/CV", href: "/academics/graduate/admissions/resume-curriculum-vitae" },
-    //   { title: "English Proficiency", href: "/academics/graduate/admissions/english-proficiency-test-scores" }
+    //   { title: "Graduate Application", href: "/academics/graduate/admissions/graduate-application/" },
+    //   { title: "Transcripts", href: "/academics/graduate/admissions/transcripts/" },
+    //   { title: "Academic & Personal Statements", href: "/academics/graduate/admissions/academic-and-personal-statements/" },
+    //   { title: "Resume/CV", href: "/academics/graduate/admissions/resume-curriculum-vitae/" },
+    //   { title: "English Proficiency", href: "/academics/graduate/admissions/english-proficiency-test-scores/" }
     // ],
     // 'academics/graduate/admissions/transcripts': [
-    //   { title: "Graduate Application", href: "/academics/graduate/admissions/graduate-application" },
-    //   { title: "Letters of Recommendation", href: "/academics/graduate/admissions/letters-of-recommendation" },
-    //   { title: "Academic & Personal Statements", href: "/academics/graduate/admissions/academic-and-personal-statements" },
-    //   { title: "Resume/CV", href: "/academics/graduate/admissions/resume-curriculum-vitae" },
-    //   { title: "English Proficiency", href: "/academics/graduate/admissions/english-proficiency-test-scores" }
+    //   { title: "Graduate Application", href: "/academics/graduate/admissions/graduate-application/" },
+    //   { title: "Letters of Recommendation", href: "/academics/graduate/admissions/letters-of-recommendation/" },
+    //   { title: "Academic & Personal Statements", href: "/academics/graduate/admissions/academic-and-personal-statements/" },
+    //   { title: "Resume/CV", href: "/academics/graduate/admissions/resume-curriculum-vitae/" },
+    //   { title: "English Proficiency", href: "/academics/graduate/admissions/english-proficiency-test-scores/" }
     // ],
     // 'academics/graduate/admissions/academic-and-personal-statements': [
-    //   { title: "Graduate Application", href: "/academics/graduate/admissions/graduate-application" },
-    //   { title: "Letters of Recommendation", href: "/academics/graduate/admissions/letters-of-recommendation" },
-    //   { title: "Transcripts", href: "/academics/graduate/admissions/transcripts" },
-    //   { title: "Resume/CV", href: "/academics/graduate/admissions/resume-curriculum-vitae" },
-    //   { title: "English Proficiency", href: "/academics/graduate/admissions/english-proficiency-test-scores" }
+    //   { title: "Graduate Application", href: "/academics/graduate/admissions/graduate-application/" },
+    //   { title: "Letters of Recommendation", href: "/academics/graduate/admissions/letters-of-recommendation/" },
+    //   { title: "Transcripts", href: "/academics/graduate/admissions/transcripts/" },
+    //   { title: "Resume/CV", href: "/academics/graduate/admissions/resume-curriculum-vitae/" },
+    //   { title: "English Proficiency", href: "/academics/graduate/admissions/english-proficiency-test-scores/" }
     // ],
     // 'academics/graduate/admissions/resume-curriculum-vitae': [
-    //   { title: "Graduate Application", href: "/academics/graduate/admissions/graduate-application" },
-    //   { title: "Letters of Recommendation", href: "/academics/graduate/admissions/letters-of-recommendation" },
-    //   { title: "Transcripts", href: "/academics/graduate/admissions/transcripts" },
-    //   { title: "Academic & Personal Statements", href: "/academics/graduate/admissions/academic-and-personal-statements" },
-    //   { title: "English Proficiency", href: "/academics/graduate/admissions/english-proficiency-test-scores" }
+    //   { title: "Graduate Application", href: "/academics/graduate/admissions/graduate-application/" },
+    //   { title: "Letters of Recommendation", href: "/academics/graduate/admissions/letters-of-recommendation/" },
+    //   { title: "Transcripts", href: "/academics/graduate/admissions/transcripts/" },
+    //   { title: "Academic & Personal Statements", href: "/academics/graduate/admissions/academic-and-personal-statements/" },
+    //   { title: "English Proficiency", href: "/academics/graduate/admissions/english-proficiency-test-scores/" }
     // ],
     // 'academics/graduate/admissions/english-proficiency-test-scores': [
-    //   { title: "Graduate Application", href: "/academics/graduate/admissions/graduate-application" },
-    //   { title: "Letters of Recommendation", href: "/academics/graduate/admissions/letters-of-recommendation" },
-    //   { title: "Transcripts", href: "/academics/graduate/admissions/transcripts" },
-    //   { title: "Academic & Personal Statements", href: "/academics/graduate/admissions/academic-and-personal-statements" },
-    //   { title: "Resume/CV", href: "/academics/graduate/admissions/resume-curriculum-vitae" }
+    //   { title: "Graduate Application", href: "/academics/graduate/admissions/graduate-application/" },
+    //   { title: "Letters of Recommendation", href: "/academics/graduate/admissions/letters-of-recommendation/" },
+    //   { title: "Transcripts", href: "/academics/graduate/admissions/transcripts/" },
+    //   { title: "Academic & Personal Statements", href: "/academics/graduate/admissions/academic-and-personal-statements/" },
+    //   { title: "Resume/CV", href: "/academics/graduate/admissions/resume-curriculum-vitae/" }
     // ],
     'academics/graduate/admissions/funding-for-graduate-students': [
       { title: "Admissions", href: "/academics/graduate/admissions/" } ],

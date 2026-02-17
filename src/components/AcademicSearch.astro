@@ -63,7 +63,7 @@ const searchableContent = filteredContent.map(entry => {
     description: entry.data.description || '',
     // Clean the content before storing
     content: cleanMDXContent(entry.body || ''),
-    path: fullPath === 'index' ? '/academics' : `/academics/${fullPath}`,
+    path: fullPath === 'index' ? '/academics/' : `/academics/${fullPath}/`,
     breadcrumbs
   };
 });

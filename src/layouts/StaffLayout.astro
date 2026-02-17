@@ -40,7 +40,7 @@ function getPostLink(post: any) {
   if (isCollegeNews(post)) {
     return post.data.link;
   }
-  return `/news/${new Date(post.data.date).getFullYear()}/${post.id.split('/')[1]}`;
+  return `/news/${new Date(post.data.date).getFullYear()}/${post.id.split('/')[1]}/`;
 }
 
 // Combine and sort all posts by date

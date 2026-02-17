@@ -10,6 +10,7 @@ const isNetlify = process.env.NETLIFY_BUILD === 'true';
 
 export default defineConfig({
   output: 'static',
+  trailingSlash: 'always',
 
   // Simplified site config
   site: 'https://robotics.umich.edu',

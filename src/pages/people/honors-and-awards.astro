@@ -102,7 +102,7 @@ const matchedAwards = awards.map(award => {
                       {award.recipients.map((recipient, index) => (
                         <>
                           {recipient.profileUrl ? (
-                            <Link href={`/people/${recipient.profileUrl}`} class="hover:underline">
+                            <Link href={`/people/${recipient.profileUrl}/`} class="hover:underline">
                               {recipient.name}
                             </Link>
                           ) : (

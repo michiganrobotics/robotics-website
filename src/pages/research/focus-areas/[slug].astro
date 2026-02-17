@@ -57,7 +57,7 @@ function getPostLink(post: any) {
   if (isCollegeNews(post)) {
     return post.data.link;
   }
-  return `/news/${new Date(post.data.date).getFullYear()}/${post.id.split('/')[1]}`;
+  return `/news/${new Date(post.data.date).getFullYear()}/${post.id.split('/')[1]}/`;
 }
 
 // Get focus areas collection to ensure consistent image handling
@@ -149,7 +149,7 @@ const relatedPosts = allAreaPosts
             {allRelatedPosts.length > 6 && (
               <div class="mt-8 text-right not-prose">
                 <a 
-                  href={`/news/${entry.id}`}
+                  href={`/news/${entry.id}/`}
                   class="inline-flex items-center justify-center text-base sm:text-lg w-full sm:w-auto 
                     bg-umichblue text-white dark:bg-arboretumBlue dark:text-white 
                     px-4 sm:px-6 py-2.5 sm:py-3 rounded-md 

@@ -69,7 +69,7 @@ const { Content } = await render(entry);
           <ul>
             {courseEntries.map(entry => (
               <li>
-                <a href={`/academics/courses/online-courses/${Astro.params.course}/${entry.id.split('/').pop()}`}>
+                <a href={`/academics/courses/online-courses/${Astro.params.course}/${entry.id.split('/').pop()}/`}>
                   {entry.data.title}
                 </a>
               </li>

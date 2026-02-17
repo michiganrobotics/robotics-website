@@ -12,7 +12,7 @@ const searchableNews = [
   ...allPosts.map(post => ({
     title: post.data.title,
     date: post.data.date,
-    url: `/news/${new Date(post.data.date).getFullYear()}/${post.id.split('/')[1]}`,
+    url: `/news/${new Date(post.data.date).getFullYear()}/${post.id.split('/')[1]}/`,
     category: post.data.categories?.[0] || 'Uncategorized',
     excerpt: post.data.excerpt || '',
     type: 'robotics'

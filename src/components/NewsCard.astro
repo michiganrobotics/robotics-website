@@ -25,7 +25,7 @@ const {
   isLarge = false 
 } = Astro.props;
 
-const linkPath = href || `/news/${new Date(date).getFullYear()}/${slug}`;
+const linkPath = href || `/news/${new Date(date).getFullYear()}/${slug}/`;
 ---
 
 <a href={linkPath} 
