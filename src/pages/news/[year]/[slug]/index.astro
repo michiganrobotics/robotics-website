@@ -32,6 +32,33 @@ const description = entry.data.seoDescription || entry.data.excerpt || `${entry.
 // Generate OG image URL
 const ogImage = `/_generated-og/${entry.data.date.split('-')[0]}-${entry.id.split('/')[1]}.png`;
 
+// Structured data for NewsArticle
+const siteUrl = "https://robotics.umich.edu";
+const articleUrl = `${siteUrl}/news/${entry.data.date.split('-')[0]}/${entry.id.split('/')[1]}/`;
+const newsArticleSchema = {
+  "@context": "https://schema.org",
+  "@type": "NewsArticle",
+  "headline": entry.data.title,
+  "datePublished": entry.data.date,
+  "description": description,
+  "image": `${siteUrl}${ogImage}`,
+  "url": articleUrl,
+  ...(entry.data.author && {
+    "author": {
+      "@type": "Person",
+      "name": entry.data.author
+    }
+  }),
+  "publisher": {
+    "@type": "Organization",
+    "name": "Michigan Robotics",
+    "logo": {
+      "@type": "ImageObject",
+      "url": `${siteUrl}/images/logo.png`
+    }
+  }
+};
+
 // Transform entry data to match Single template's expected node structure
 const node = {
   title: entry.data.title,
@@ -47,11 +74,14 @@ const node = {
 };
 ---
 
-<Layout 
+<Layout
   title={entry.data.title}
   description={description}
   image={ogImage}
 >
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(newsArticleSchema)} />
+  </Fragment>
   <News node={node}>
     <Content slot="content" components={components}/>
   </News>

@@ -62,9 +62,31 @@ if (imageLoader) {
   profileImage = robotProfile;
 }
 
+// Structured data for Person
+const siteUrl = "https://robotics.umich.edu";
+const personSchema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": staff.fullName,
+  "jobTitle": staff.title,
+  "url": `${siteUrl}/people/staff/${staff.slug}/`,
+  "image": profileImage?.default?.src ? `${siteUrl}${profileImage.default.src}` : undefined,
+  ...(staff.email && { "email": `mailto:${staff.email}` }),
+  ...(staff.phone && { "telephone": staff.phone }),
+  ...(staff.profileSummary && { "description": staff.profileSummary }),
+  "worksFor": {
+    "@type": "Organization",
+    "name": "Michigan Robotics",
+    "url": siteUrl
+  }
+};
+
 ---
 
 <Layout title={staff?.preferredName && staff?.lastName ? `${staff.preferredName} ${staff.lastName} | Robotics Staff Profile` : 'Staff Profile'} image={profileImage.default.src} description={`Learn more about Michigan Robotics staff member ${staff.fullName}.`}>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
+  </Fragment>
   <Breadcrumbs slot="breadcrumbs" />
   {staff ? (
     <div class="mt-4 max-w-4xl mx-auto py-8 px-4 font-roboto text-umichblue dark:text-neutral-50 bg-white dark:bg-umichblue">

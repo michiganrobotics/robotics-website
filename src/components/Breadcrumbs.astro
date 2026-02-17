@@ -31,7 +31,28 @@ function generateBreadcrumbs(): Breadcrumb[] {
 
 const breadcrumbs = generateBreadcrumbs();
 const isDeepPath = breadcrumbs.length >= 3;
+
+const siteUrl = "https://robotics.umich.edu";
+const breadcrumbListSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": siteUrl
+    },
+    ...breadcrumbs.map((breadcrumb, index) => ({
+      "@type": "ListItem",
+      "position": index + 2,
+      "name": breadcrumb.text,
+      "item": `${siteUrl}${breadcrumb.href}`
+    }))
+  ]
+};
 ---
+<script type="application/ld+json" set:html={JSON.stringify(breadcrumbListSchema)} />
 <div class="max-w-6xl w-11/12 mx-auto py-4">
   <div class="flex justify-end text-[13px] text-gray-700 dark:text-gray-300">
     <nav aria-label="Breadcrumb">

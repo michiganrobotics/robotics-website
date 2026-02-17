@@ -70,13 +70,35 @@ function getPostLink(post: any) {
 // Combine and sort all posts by date
 const relatedPosts = [...allNamedPosts, ...formattedCollegeNews]
   .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
+
+// Structured data for Person
+const siteUrl = "https://robotics.umich.edu";
+const sameAs = [faculty.googleScholar, faculty.labWebsite, faculty.website].filter(Boolean);
+const personSchema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": faculty.fullName,
+  "jobTitle": faculty.title,
+  "url": `${siteUrl}/people/faculty/${faculty.slug}/`,
+  "image": profileImage?.default?.src ? `${siteUrl}${profileImage.default.src}` : undefined,
+  ...(faculty.email && { "email": `mailto:${faculty.email}` }),
+  "worksFor": {
+    "@type": "Organization",
+    "name": "Michigan Robotics",
+    "url": siteUrl
+  },
+  ...(sameAs.length > 0 && { "sameAs": sameAs })
+};
 ---
 
-<Layout 
-  title={faculty?.preferredName && faculty?.lastName ? `${faculty.preferredName} ${faculty.lastName} | Robotics Faculty Profile` : 'Faculty Profile' } 
-  image={profileImage?.default?.src || robotProfile.default.src} 
+<Layout
+  title={faculty?.preferredName && faculty?.lastName ? `${faculty.preferredName} ${faculty.lastName} | Robotics Faculty Profile` : 'Faculty Profile' }
+  image={profileImage?.default?.src || robotProfile.default.src}
   description={`Learn more about Michigan Robotics faculty member ${faculty.fullName}.`}
 >
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
+  </Fragment>
   <Breadcrumbs slot="breadcrumbs" />
   {faculty ? (
     <div class="mt-4 max-w-4xl mx-auto py-8 px-4 font-roboto text-umichblue dark:text-neutral-50 bg-white dark:bg-umichblue">

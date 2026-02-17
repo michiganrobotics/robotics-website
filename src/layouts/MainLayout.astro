@@ -31,6 +31,23 @@ const siteUrl = "https://robotics.umich.edu";
 		<link rel="sitemap" href="/sitemap-index.xml" />
 
 		<slot name="head"/>
+		<script type="application/ld+json" set:html={JSON.stringify({
+			"@context": "https://schema.org",
+			"@type": "Department",
+			"name": "University of Michigan Robotics Department",
+			"url": siteUrl,
+			"logo": `${siteUrl}/images/logo.png`,
+			"parentOrganization": [{
+				"@type": "CollegeOrUniversity",
+				"name": "University of Michigan College of Engineering",
+				"parentOrganization": {
+					"@type": "University",
+					"name": "University of Michigan"
+				}
+			}],
+			"description": "The Robotics Department at the University of Michigan College of Engineering: working together to create smart machines and serve society.",
+			"areaServed": "Ann Arbor, Michigan"
+		})} />
 		<SEO
 			title={title}
 			description={description}
@@ -65,24 +82,7 @@ const siteUrl = "https://robotics.umich.edu";
 						name: 'keywords',
 						content: 'robotics, michigan, engineering, research, education'
 					}
-				],
-				jsonLd: {
-					"@context": "https://schema.org",
-					"@type": "Department",
-					"name": "University of Michigan Robotics Department",
-					"url": siteUrl,
-					"logo": `${siteUrl}/images/logo.png`,
-					"parentOrganization": [{
-						"@type": "CollegeOrUniversity",
-						"name": "University of Michigan College of Engineering",
-						"parentOrganization": {
-							"@type": "University",
-							"name": "University of Michigan"
-						}
-					}],
-					"description": "The Robotics Department at the University of Michigan College of Engineering: working together to create smart machines and serve society.",
-					"areaServed": "Ann Arbor, Michigan"
-				}
+				]
 			}}
 		/>
 		<link 
