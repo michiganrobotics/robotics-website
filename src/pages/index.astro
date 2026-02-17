@@ -217,7 +217,7 @@ const videoWebmPath = '/robotics-promo-2025-2.webm';
 							<Image
 							  class="rounded-t-sm aspect-video object-cover w-full"
 							  src={defaultEventImage}
-							  alt={event.image_description}
+							  alt={event.image_description || "Michigan Robotics event"}
 							  height={300}
 							  width={446}
 							  loading='lazy'
@@ -228,7 +228,7 @@ const videoWebmPath = '/robotics-promo-2025-2.webm';
 							<Image
 							  class="rounded-t-sm aspect-video object-cover w-full"
 							  src={event.styled_images.event_feature_large}
-							  alt={event.image_description}
+							  alt={event.image_description || "Michigan Robotics event"}
 							  height={300}
 							  width={446}
 							  loading='lazy'

@@ -213,6 +213,7 @@ academics/course-offerings/rob101 /academics/courses/course-offerings/rob-101-fa
 /academics/undergraduate/robotics-pathways-speaker-series /events/robotics-pathways-speaker-series 301
 /academics/admissions-info/funding-for-graduate-students /academics/graduate/admissions/funding-for-graduate-students 301
 /academic-program/degree-requirements /academics/graduate/degree-requirements 301
+/academic-program/admissions-info/academic-and-personal-statements /academics/graduate/admissions/academic-and-personal-statements 301
 /academic-program/admissions-info /academics/graduate/admissions 301
 /academic-program/course-offerings /academics/courses 301
 /academic-program/* /academics/:splat 301

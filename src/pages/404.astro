@@ -90,4 +90,20 @@ const randomIllustration = illustrations[Math.floor(Math.random() * illustration
       </div>
     </article>
   </div>
+  <script is:inline>
+    var gc = window.goatcounter;
+    if (gc && gc.count) {
+      gc.count({
+        path: '/404:' + location.pathname + location.search,
+        event: true,
+      });
+    } else {
+      window.addEventListener('gc:count', function() {
+        window.goatcounter.count({
+          path: '/404:' + location.pathname + location.search,
+          event: true,
+        });
+      });
+    }
+  </script>
 </Layout>
