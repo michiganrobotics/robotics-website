@@ -33,18 +33,18 @@ const siteUrl = "https://robotics.umich.edu";
 		<slot name="head"/>
 		<script type="application/ld+json" set:html={JSON.stringify({
 			"@context": "https://schema.org",
-			"@type": "Department",
+			"@type": "EducationalOrganization",
 			"name": "University of Michigan Robotics Department",
 			"url": siteUrl,
-			"logo": `${siteUrl}/images/logo.png`,
-			"parentOrganization": [{
+			"logo": `${siteUrl}/robotics-og-logo.png`,
+			"parentOrganization": {
 				"@type": "CollegeOrUniversity",
 				"name": "University of Michigan College of Engineering",
 				"parentOrganization": {
-					"@type": "University",
+					"@type": "CollegeOrUniversity",
 					"name": "University of Michigan"
 				}
-			}],
+			},
 			"description": "The Robotics Department at the University of Michigan College of Engineering: working together to create smart machines and serve society.",
 			"areaServed": "Ann Arbor, Michigan"
 		})} />
