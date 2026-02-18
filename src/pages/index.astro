@@ -6,13 +6,39 @@ import { getCollection } from 'astro:content';
 import { eventsQuery } from "../lib/api";
 import EmailSignup from "../components/EmailSignup.astro";
 import { Image } from "astro:assets";
-import academicsImage from '../images/homepage/homepage-academics.jpg';
-import researchImage from '../images/homepage/homepage-research.jpg';
-import peopleImage from '../images/homepage/homepage-people.jpg';
 import ContentImage from '../components/ContentImage.astro';
 import Link from '../components/Link.astro';
 import { Icon } from 'astro-icon/components';
 import defaultEventImage from '../images/default-event.jpg';
+
+// Homepage card images — a random image is selected at build time
+const academicsImages = [
+	{ src: (await import('../images/homepage/homepage-academics/mbot-programming-in-lab.jpg')).default, alt: "A student programs an MBot mobile robot in a robotics lab" },
+	{ src: (await import('../images/homepage/homepage-academics/mbot-assembly.jpg')).default, alt: "A student assembles an MBot mobile robot with a screwdriver" },
+	{ src: (await import('../images/homepage/homepage-academics/embir-legged-robot-outdoors.jpg')).default, alt: "A student works on a laptop beside a small legged robot outside the Ford Robotics Building" },
+	{ src: (await import('../images/homepage/homepage-academics/rob311-robot-programming.jpg')).default, alt: "A student programs a wheeled robot on a laptop in a robotics classroom" },
+];
+const researchImages = [
+	{ src: (await import('../images/homepage/homepage-research/exoskeleton-ankle-closeup.jpg')).default, alt: "Close-up of a robotic ankle exoskeleton being tested on a treadmill" },
+	{ src: (await import('../images/homepage/homepage-research/knee-joint-research.jpg')).default, alt: "A researcher adjusts a robotic knee joint brace on a test subject" },
+	{ src: (await import('../images/homepage/homepage-research/exoskeleton-treadmill-testing.jpg')).default, alt: "A person walks on a treadmill wearing a robotic exoskeleton in a Michigan Robotics lab" },
+	{ src: (await import('../images/homepage/homepage-research/robot-assembly-at-iros.jpg')).default, alt: "A researcher examines a robotic joint mechanism at the IROS conference" },
+	{ src: (await import('../images/homepage/homepage-research/robotic-ultrasound-research.jpg')).default, alt: "A researcher performs a robotic ultrasound procedure while screens display imaging results" },
+	{ src: (await import('../images/homepage/homepage-research/spot-and-drone-at-mcity.jpg')).default, alt: "A Boston Dynamics Spot robot and a large drone on display at the Mcity test facility" },
+];
+const peopleImages = [
+	{ src: (await import('../images/homepage/homepage-people/mrover-team-at-ford-building.jpg')).default, alt: "Five Michigan Robotics students pose with the MRover robot at the Ford Robotics Building Mars Yard" },
+	{ src: (await import('../images/homepage/homepage-people/student-with-spot-on-farm.jpg')).default, alt: "A student operates a Boston Dynamics Spot robot in a farm building" },
+	{ src: (await import('../images/homepage/homepage-people/mrover-team-with-rover-outdoors.jpg')).default, alt: "Students transport the MRover robot outside the Ford Robotics Building" },
+	{ src: (await import('../images/homepage/homepage-people/researcher-in-server-room.jpg')).default, alt: "A researcher stands in a server room illuminated by green LED lights" },
+	{ src: (await import('../images/homepage/homepage-people/ford-robotics-building-aerial.jpg')).default, alt: "Aerial view of the Ford Robotics Building at sunset on the University of Michigan North Campus" },
+];
+function randomPick(arr: {src: ImageMetadata; alt: string}[]) {
+	return arr[Math.floor(Math.random() * arr.length)];
+}
+const academicsCard = randomPick(academicsImages);
+const researchCard = randomPick(researchImages);
+const peopleCard = randomPick(peopleImages);
 
 
 // Add these type definitions at the top of the file
@@ -159,21 +185,21 @@ const videoWebmPath = '/robotics-promo-2025-2.webm';
 				<div class="flex flex-wrap gap-4 justify-center mb-8 md:flex-nowrap pt-10 px-2">
 					{[
 						{
-							image: academicsImage,
-							alt: "Academics at Michigan Robotics",
+							image: academicsCard.src,
+							alt: academicsCard.alt,
 							title: "Graduate and undergrad programs",
 							href: "/academics"
 						},
 						{
-							image: researchImage, 
-							alt: "Research at Michigan Robotics",
+							image: researchCard.src,
+							alt: researchCard.alt,
 							title: "Explore robotics research",
 							href: "/research"
 						},
 						{
-							image: peopleImage,
-							alt: "People at Michigan Robotics",
-							title: "Find cross-disciplinary roboticists", 
+							image: peopleCard.src,
+							alt: peopleCard.alt,
+							title: "Find cross-disciplinary roboticists",
 							href: "/people"
 						}
 					].map(item => (
