@@ -181,7 +181,7 @@ additive_expression(input_string) {
 
     // use the peak function to check the next character
     while the next character (skipping whitespace) is a '+' or '-' {
-        // use the parse_token function to save that + or - so that we peform the correct operation
+        // use the parse_token function to save that + or - so that we perform the correct operation
         add or subtract multiplicative_expression from existing value
     }
     return value

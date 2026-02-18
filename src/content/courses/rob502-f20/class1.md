@@ -322,7 +322,7 @@ fi
 
 The contents between the square brackets are actually given to special command called `test` and then `test` itself determines if they are true or not. When writing an if statement, it may be useful to first try getting the condition to work correctly with the `test` command before actually putting that condition into `if [ ... ] ;`.
 
-The following conditions (and many more) are supported by test (and therefor in an if statement):
+The following conditions (and many more) are supported by test (and therefore in an if statement):
 
 - `A = B` tests if strings are equal
 - `A != B` tests if strings are not equal

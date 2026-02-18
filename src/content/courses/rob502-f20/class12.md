@@ -39,8 +39,6 @@ table["hello world"] = 10;
 table[9476] = 10;
 ```
 
-![Illustration of a string, double, and array all getting hashed to three indices of a table](/wp-content/uploads/sites/6/2020/11/hashtable_intro.svg)
-
 The mapping between the data and the index is through a [_hash function_](https://en.wikipedia.org/wiki/Hash_function). Hash functions are able to map arbitrary amounts of data to a fixed-size, which we then manipulate to fit the size of our table. When used for a hash table, the fixed-size from the hash function is generally 32 or 64 bits. If our hash table currently only needs to store up to around 500 entries, we would then reduce the hash to be 10 bits, allowing us to map 1024 values.
 
 In order to be effective, the hash function will optimally be very fast and have as uniform a distribution of outputs as possible. A consequence of pursuing uniformly distributed outputs is that any single bit flip in the input should be equally likely to flip every bit of the output. If our hash table encounters collisions (where different data map to the same index), that may slow it down significantly. If the number of elements in the table grows to the point that there are many collisions, we will want to grow the table and redistribute all the items in the new table so that they are more uniformly distributed again. This process is called rehashing and it represents one of the main drawbacks to hash tables.

@@ -46,7 +46,7 @@ typedef struct my_file_struct {
 
 7. What is the value of a in the file?
 
-The variable a has a type of `uint16_t` meaning it has the size of 2 bytes. The first two bytes in the file are 0x10 and 0x00. The first byte is the least-significant, and the second byte is 0. The least-significant byte is essentially in the 1's place (256^0). That byte 0x10, with a 1 in the hexadecimal 16's place, therefor has a value 0f 16. In the 1's place of the entire number, the entire number has a value of **16**.
+The variable a has a type of `uint16_t` meaning it has the size of 2 bytes. The first two bytes in the file are 0x10 and 0x00. The first byte is the least-significant, and the second byte is 0. The least-significant byte is essentially in the 1's place (256^0). That byte 0x10, with a 1 in the hexadecimal 16's place, therefore has a value of 16. In the 1's place of the entire number, the entire number has a value of **16**.
 
 8. What is the value of b in the file?
 
