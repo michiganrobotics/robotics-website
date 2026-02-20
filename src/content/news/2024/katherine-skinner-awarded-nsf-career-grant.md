@@ -18,8 +18,8 @@ author: "Dan Newman"
 ---
 
 <figure>
-![Two researchers on a boat, as one of them points to the sonar data they are collecting on a screen.](images/52120423534_429f727a64_k-1024x734.jpg)
 
+![Two researchers on a boat, as one of them points to the sonar data they are collecting on a screen.](images/52120423534_429f727a64_k-1024x734.jpg)
 <figcaption>Professor Katie Skinner discusses the freshly captured footage of a shipwreck Montana on board of the research vessel R/V Storm in Thunder Bay, Lake Huron. Photo by Marcin Szczepanski.</figcaption>
 </figure>
 

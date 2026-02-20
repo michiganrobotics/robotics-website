@@ -17,8 +17,8 @@ author: "Dan Newman"
 ---
 
 <figure>
-![Three four-wheeled robot vehicles drive along grass while a researcher works on a computer in the background in a netted research facility outdoors.](images/DSC01522-1024x683.jpg)
 
+![Three four-wheeled robot vehicles drive along grass while a researcher works on a computer in the background in a netted research facility outdoors.](images/DSC01522-1024x683.jpg)
 <figcaption>Members of Dimitra Panagou's lab test out a team of networked autonomous vehicles at M-Air.</figcaption>
 </figure>
 

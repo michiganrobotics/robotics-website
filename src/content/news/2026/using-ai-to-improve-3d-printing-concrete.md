@@ -17,9 +17,11 @@ author: "Dan Newman"
 ---
 
 <figure>
+  
   ![3D printed concrete art on display during the 2019 Innovation in Concrete Symposium organized by the University of Michigan Taubman College of Architecture and Urban Planning and the Civil and Environmental Engineering department.](images/3d-printed-concrete-art.jpg)
 
   <figcaption>3D printed concrete art on display during the 2019 Innovation in Concrete Symposium organized by the University of Michigan Taubman College of Architecture + Urban Planning and the Civil and Environmental Engineering department. Photo: Robert Coelius.</figcaption>
+
 </figure>
 
 Concrete is ubiquitous in built environments, but working with it requires attention to the details of timing, forms, supports, and weather. Three-dimensional printing also requires attention to details of timing, form, and supports, or the plastic may end up in much the same spaghetti shape as before. And to 3D print concrete, the potential issues from both realms require solutions before the technology can be useful in a traditional construction setting.

@@ -18,8 +18,8 @@ author: "Dan Newman"
 ---
 
 <figure>
-![A Digit bipedal robot holds a package in the lobby of the Robotics Building at the University of Michigan.](./images/52667228760_cb7d3d70a7_k-1024x758.jpg)
 
+![A Digit bipedal robot holds a package in the lobby of the Robotics Building at the University of Michigan.](./images/52667228760_cb7d3d70a7_k-1024x758.jpg)
 <figcaption>An Agility Robotics Digit bipedal robot carries a package into the Ford Motor Company Robotics Building at the University of Michigan. A new $1.2M NSF grant aims to innovate on the design of such legged robots.</figcaption>
 </figure>
 

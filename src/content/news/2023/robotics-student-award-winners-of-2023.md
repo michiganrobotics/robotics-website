@@ -16,8 +16,8 @@ author: "Dan Newman"
 ---
 
 <figure>
-![A student smiles with the iconic yellow staircase of the Robotics Building in the background.](images/2023-01-17-15.27.04-cropped-1024x504.jpg)
 
+![A student smiles with the iconic yellow staircase of the Robotics Building in the background.](images/2023-01-17-15.27.04-cropped-1024x504.jpg)
 <figcaption>Prince Kuevor, winner of the Kabamba Award, pictured before presenting a PhD defense in January, 2023.</figcaption>
 </figure>
 

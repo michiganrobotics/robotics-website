@@ -22,8 +22,8 @@ author: "Dan Newman"
 ---
 
 <figure>
-![A drone flying at night with navigation lights on under a netted facility with larger spotlights in a grid.](images/2018-M-Air-First-Flight-Event005-1024x683.jpg)
 
+![A drone flying at night with navigation lights on under a netted facility with larger spotlights in a grid.](images/2018-M-Air-First-Flight-Event005-1024x683.jpg)
 <figcaption>Autonomous aerial vehicles are flown at M-Air, an advanced robotics testing facility for air, sea, and land, on North Campus of the University of Michigan in Ann Arbor, MI. Photo: Joseph Xu</figcaption>
 </figure>
 
