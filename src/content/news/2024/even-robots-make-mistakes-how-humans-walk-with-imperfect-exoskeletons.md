@@ -20,15 +20,9 @@ author: "Patricia DeLacey"
 **Researchers assessed the impact of exoskeleton accuracy on walking behavior, working towards co-adaptive exoskeleton algorithms.**
 
 <figure>
-
 ![A person wearing sturdy boots and jeans walks on a treadmill wearing a metal brace from the ankle to just below the knee.](images/52035779917_46c224da4d_k-1024x683.jpg)
 
-<figcaption>
-
-When a lower limb exoskeleton does not operate properly, some users recover their step quickly while others overcompensate with their hip or ankle. Credit: Brenda Ahearn, Michigan Engineering.
-
-</figcaption>
-
+<figcaption>When a lower limb exoskeleton does not operate properly, some users recover their step quickly while others overcompensate with their hip or ankle. Credit: Brenda Ahearn, Michigan Engineering.</figcaption>
 </figure>
 
 When lower limb exoskeletons—mechanical structures worn on the leg—do not operate properly, some people adjust quickly while others compensate with their ankle or hip, expending more energy than necessary, according to a new study by University of Michigan researchers. 

@@ -24,12 +24,9 @@ A 3D-printed bipedal robot inspired by the design of a commercial-scale robot ai
 The design of Legolas is inspired by Agility Robotics’ Cassie robot. This includes inverted legs, like the namesake Cassowary bird.
 
 <figure>
-
 ![Researchers unbox and test Cassie, Prof. Jessy Grizzle's new robot with serial number 001, in August, 2017.](images/cassie-in-grizzle-lab.jpg)
 
-<figcaption>
-Researchers unbox and test Cassie, Prof. Jessy Grizzle's new robot with serial number 001, in August, 2017. Photo: Joseph Xu/Michigan Engineering, Communications & Marketing  
-</figcaption>
+<figcaption>Researchers unbox and test Cassie, Prof. Jessy Grizzle's new robot with serial number 001, in August, 2017. Photo: Joseph Xu/Michigan Engineering, Communications & Marketing</figcaption>
 </figure>
 
 “I was particularly inspired by the structure of Cassie’s legs,” Ho said. “Agility Robotics' mathematical and physics-based solution that inadvertently mimicked natural biomechanical structures was fascinating. It’s incredible how their practical approach converged toward biomimicry.”
@@ -39,15 +36,9 @@ Ho began the project as a mechanical engineering student at Texas A&M University
 “My vision for Legolas is to inspire younger versions of myself, showing the joys of engineering and robotics,” said Ho. “There are many areas for improvement and features to add. I hope to engage more Michigan Roboticists to make this vision a reality.”
 
 <figure>
-
 ![David Ho sits at a workbench with the Legolas bipedal robot](images/David-15-of-22-copy.jpg)
 
-<figcaption>
-
-David Ho and the Legolas bipedal robot he designed and built. Photo: Wanyu Xu.
-
-</figcaption>
-
+<figcaption>David Ho and the Legolas bipedal robot he designed and built. Photo: Wanyu Xu.</figcaption>
 </figure>
 
 For more details on the project, Ho answered a few questions:
@@ -85,15 +76,9 @@ As Legolas was my first from-scratch robotics project, I spent a lot of time exp
 Many! Tackling the complex kinematics of a closed-chain manipulator, and struggling with a slow, 2D numerical kinematics program built in pygame are a few. After consulting robotics books, I switched to proper transformation matrices using numpy. Soon after, I discovered a geometric simplification that required another redesign.
 
 <figure>
-
 ![Legolas biped robot stands in front of some of its code on a screen](images/David-11-of-22-1024x1024.jpg)
 
-<figcaption>
-
-Legolas stands in front of its code. Photo: Wanyu Xu
-
-</figcaption>
-
+<figcaption>Legolas stands in front of its code. Photo: Wanyu Xu</figcaption>
 </figure>
 
 **What are some of the key lessons you learned from this project?**

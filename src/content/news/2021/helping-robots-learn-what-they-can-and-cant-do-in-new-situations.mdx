@@ -37,15 +37,9 @@ Another method is to check how inaccurate a model is in order to generate the be
 In experiments, the team created a simple model of a rope’s dynamics while moving it around an open space. Then, they added obstacles and created a classifier, which learned when this simple rope model was reliable—but did not attempt to learn the more complex behavior of how the rope interacted with the objects. Finally, the team added recovery steps if the robot encountered a situation—such assay, when the rope collided with an obstacle—and the classifier determined that the simple model was unreliable. 
 
 <figure>
-
 ![A robot performs the difficult to model task of manipulating straps without tangling them around a mock car engine in the Autonomous Robotic Manipulation Lab.](images/robot-in-car-1024x549.jpg)
 
-<figcaption>
-
-A robot performs the difficult to model task of manipulating straps without tangling them around a mock car engine in the Autonomous Robotic Manipulation Lab. Courtesy Peter Mitrano.
-
-</figcaption>
-
+<figcaption>A robot performs the difficult to model task of manipulating straps without tangling them around a mock car engine in the Autonomous Robotic Manipulation Lab. Courtesy Peter Mitrano.</figcaption>
 </figure>
 
 The team tested their simple model, classifier, and recovery approach against the current state-of-the-art, full dynamic approach. Given the task of dragging a rope to a goal position among obstacles, the team’s method was successful 84% of the time, compared to 18% of the time for the full dynamic model.

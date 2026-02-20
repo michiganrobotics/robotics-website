@@ -17,7 +17,6 @@ author: "Dan Newman"
 ---
 
 <figure>
-
   ![3D printed concrete art on display during the 2019 Innovation in Concrete Symposium organized by the University of Michigan Taubman College of Architecture and Urban Planning and the Civil and Environmental Engineering department.](images/3d-printed-concrete-art.jpg)
 
   <figcaption>3D printed concrete art on display during the 2019 Innovation in Concrete Symposium organized by the University of Michigan Taubman College of Architecture + Urban Planning and the Civil and Environmental Engineering department. Photo: Robert Coelius.</figcaption>

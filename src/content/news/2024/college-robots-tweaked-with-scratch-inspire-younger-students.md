@@ -16,15 +16,9 @@ tags:
 ---
 
 <figure>
-
 ![A student works on a laptop with Scratch programming as an MBot robot sets off into a maze made of plastic barriers.](images/c4s-1-1024x598.jpg)
 
-<figcaption>
-
-A Center for Success student runs their Scratch program on an MBot to have it autonomously navigate the maze. Courtesy Brody Riopelle.
-
-</figcaption>
-
+<figcaption>A Center for Success student runs their Scratch program on an MBot to have it autonomously navigate the maze. Courtesy Brody Riopelle.</figcaption>
 </figure>
 
 Brody Riopelle (CE 2024) recently proved that [MBots](http://mbot.robotics.umich.edu/), a University of Michigan educational robotics platform designed for teaching robotics to undergraduate and graduate students, could be simplified to introduce younger students without any programming knowledge to robotics.
@@ -36,15 +30,9 @@ Riopelle now works as an engineer in the U-M Robotics Department under the guida
 The MBot was key to their plan.
 
 <figure>
-
 ![An MBot, a two-wheeled robot, stands ready for instruction while three students work together to program it in the background.](images/c4s-3.jpg)
 
-<figcaption>
-
-Students work to program an MBot using Scratch, a simple to use visual programming interface. Courtesy Brody Riopelle.
-
-</figcaption>
-
+<figcaption>Students work to program an MBot using Scratch, a simple to use visual programming interface. Courtesy Brody Riopelle.</figcaption>
 </figure>
 
 “The MBot is an educational robotics platform designed to be adaptable to different types of robotics curricula at the undergraduate level,” Riopelle explained. These topics include controls, navigation, path planning, and SLAM (simultaneous localization and mapping).
@@ -72,15 +60,9 @@ What did the students at the Center for Success think?
 “To put it simply, the students thought this was really cool,” said Riopelle. 
 
 <figure>
-
 ![A group of students and instructors pose in a group holding MBot robots up while a few wear golden medallions of completion in a classroom.](images/c4s-2.jpg)
 
-<figcaption>
-
-Brody Riopelle (back left) and the Center for Success in Pontiac, MI, after the robotics outreach program. Courtesy Brody Riopelle.
-
-</figcaption>
-
+<figcaption>Brody Riopelle (back left) and the Center for Success in Pontiac, MI, after the robotics outreach program. Courtesy Brody Riopelle.</figcaption>
 </figure>
 
 “Having the ability to control a real robot in real time was mind-blowing for them. The students were very excited and inspired.”

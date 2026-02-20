@@ -17,15 +17,9 @@ author: "Dan Newman"
 ---
 
 <figure>
-
 ![Three four-wheeled robot vehicles drive along grass while a researcher works on a computer in the background in a netted research facility outdoors.](images/DSC01522-1024x683.jpg)
 
-<figcaption>
-
-Members of Dimitra Panagou's lab test out a team of networked autonomous vehicles at M-Air.
-
-</figcaption>
-
+<figcaption>Members of Dimitra Panagou's lab test out a team of networked autonomous vehicles at M-Air.</figcaption>
 </figure>
 
 [Dimitra Panagou](https://robotics.umich.edu/people/faculty/dimitra-panagou/ "Dimitra Panagou")’s research has the potential to create safe networked control systems across a vast number of fields, from aerial swarms to satellite constellations, connected vehicles, human-robot networks and beyond. Panagou, associate professor of robotics, has been recognized for these research efforts with the George J. Huebner, Jr. Research Excellence Award, which is given to those who have demonstrated sustained excellence in research and related scholarly activities. 

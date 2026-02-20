@@ -39,15 +39,9 @@ Stirling's nomination was spurred by her work as the chair for diversity, equity
 Nazon's nomination focused on connecting with students that may have never considered robotics or graduate study, especially at U-M. Through his own initiative, Nazon planned a multi-campus speaking tour that included stops at Maryland, North Carolina, and California. Nazon presented his graduate robotics experience, engaged one-on-one, and helped mentor and advise those considering U-M.
 
 <figure>
-
 ![Yves Nazon works with a ballbot for ROB 311](images/52300183375_f8d3925650_k-1024x683.jpg)
 
-<figcaption>
-
-Senthur Ayyappan and Yves Nazon work on a robot design in the atrium at the Ford Robotics Building in summer of 2022. The robot they designed is for use in ROB 311, How to Build Robots and Make Them Move, one of the new undergraduate courses. It is designed to balance on top of a basketball and then move when commanded by remote controls. Photo: Brenda Ahearn.
-
-</figcaption>
-
+<figcaption>Senthur Ayyappan and Yves Nazon work on a robot design in the atrium at the Ford Robotics Building in summer of 2022. The robot they designed is for use in ROB 311, How to Build Robots and Make Them Move, one of the new undergraduate courses. It is designed to balance on top of a basketball and then move when commanded by remote controls. Photo: Brenda Ahearn.</figcaption>
 </figure>
 
 In addition, as a graduate student instructor, Nazon helped develop Robotics 311, a new undergraduate course where students learn "How to Build Robots and Make Them Move." Nazon helped create the novel robot that balances on top of and uses a basketball to roll around, like a Star Wars-inspired droid, making the curriculum both accessible and enjoyable for the students.

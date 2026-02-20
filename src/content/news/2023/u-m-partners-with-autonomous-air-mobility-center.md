@@ -22,15 +22,9 @@ author: "Dan Newman"
 ---
 
 <figure>
-
 ![A drone flying at night with navigation lights on under a netted facility with larger spotlights in a grid.](images/2018-M-Air-First-Flight-Event005-1024x683.jpg)
 
-<figcaption>
-
-Autonomous aerial vehicles are flown at M-Air, an advanced robotics testing facility for air, sea, and land, on North Campus of the University of Michigan in Ann Arbor, MI. Photo: Joseph Xu
-
-</figcaption>
-
+<figcaption>Autonomous aerial vehicles are flown at M-Air, an advanced robotics testing facility for air, sea, and land, on North Campus of the University of Michigan in Ann Arbor, MI. Photo: Joseph Xu</figcaption>
 </figure>
 
 The University of Michigan is proud to be a partner in the pioneering [Center for Autonomous Air Mobility and Sensing](https://caams.center/) (CAAMS). This recognized National Science Foundation (NSF) [Industry-University Cooperative Research Center](https://iucrc.nsf.gov) (IUCRC), established in 2022, conducts cutting-edge research and training in autonomous air mobility and sensing technology.

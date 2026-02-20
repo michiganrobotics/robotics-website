@@ -18,15 +18,9 @@ author: "Dan Newman"
 ---
 
 <figure>
-
 ![Two hands place a robotic fish in an LED-lit aquarium, next to a robot fish already in the water.](images/SwarmFish-1024x683.jpg)
 
-<figcaption>
-
-A robot fish is placed in an aquarium.
-
-</figcaption>
-
+<figcaption>A robot fish is placed in an aquarium.</figcaption>
 </figure>
 
 Three University of Michigan students engineered a robotic school of fish prototype, named "[Swarm Fish](https://sites.google.com/umich.edu/dev-blog/home)," as part of their class project in ROB 203: Robotics Mechanisms.
@@ -40,15 +34,9 @@ https://youtube.com/shorts/w7hUNs7l0HM
 For Swarm Fish, the team created robotic fish that swim autonomously around a tank with decorative elements made from common trash, such as discarded ramen packaging as coral. A few of the challenges the team had to overcome included waterproofing electronics, coding fish behavior, and calculating appropriate buoyancy and tail movements. In addition to the engineering tasks, the team wanted to communicate the effects of plastic pollution on aquatic life.
 
 <figure>
-
 ![Three students and lecturer stand behind their project of an aquarium filled with robotic fish and plastic pollution decorated to be an aquatic environment.](images/SymposiumGroupPic-1-1007x1024.jpg)
 
-<figcaption>
-
-The team in front of a successful demonstration at the Arts Engine symposium.
-
-</figcaption>
-
+<figcaption>The team in front of a successful demonstration at the Arts Engine symposium.</figcaption>
 </figure>
 
 Following the project, the students discussed what drew them to the course.

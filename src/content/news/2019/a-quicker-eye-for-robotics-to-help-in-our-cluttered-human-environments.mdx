@@ -15,15 +15,9 @@ author: "Dan Newman"
 ---
 
 <figure>
-
 ![](images/PoseEstimation-contentfeatured-1024x682.jpg)
 
-<figcaption>
-
-Chad Jenkins, seen here with a Fetch robot, leads the Laboratory for Progress, which aims to discover methods for computational reasoning and perception that will enable robots to effectively assist people in common human environments. Karthik Desingh, lead author on the paper, is a member of the lab. Photo: Joseph Xu/Michigan Engineering
-
-</figcaption>
-
+<figcaption>Chad Jenkins, seen here with a Fetch robot, leads the Laboratory for Progress, which aims to discover methods for computational reasoning and perception that will enable robots to effectively assist people in common human environments. Karthik Desingh, lead author on the paper, is a member of the lab. Photo: Joseph Xu/Michigan Engineering</figcaption>
 </figure>
 
 In a step toward home-helper robots that can quickly navigate unpredictable and disordered spaces, University of Michigan researchers have developed an algorithm that lets machines perceive their environments orders of magnitude faster than similar previous approaches.
@@ -53,16 +47,9 @@ But no matter the number of dimensions, earlier works understand a scene by tran
 The algorithms then hypothesize—or create beliefs of—component locations and orientations when given a set of constraints. These beliefs, which the researchers call particles, vary across a range of probabilities. To narrow down the most likely locations and orientations, the components utilize push messaging to send probable location information across nodes and back. That location information is then compared with sensor data. This process takes several iterations to ultimately arrive at an accurate belief of a scene.
 
 <figure>
-
 ![robot sensing drawers](images/drawers-1024x577.jpg)
 
-<figcaption>
-
-The ﬁrst two columns show observations of the same scene, the first as a typical 2D image, the second as a 3D point cloud, or a map of the distance to multiple points. The last two columns are estimates of the pose, or position and orientation, computed by the team’s new algorithm from two different perspectives. Image courtesy paper authors.  
-
-
-</figcaption>
-
+<figcaption>The ﬁrst two columns show observations of the same scene, the first as a typical 2D image, the second as a 3D point cloud, or a map of the distance to multiple points. The last two columns are estimates of the pose, or position and orientation, computed by the team’s new algorithm from two different perspectives. Image courtesy paper authors.</figcaption>
 </figure>
 
 For example, given a dresser with three drawers, each component of the object—in this case each drawer and the dresser itself—is a node that informs the others on their probable location while considering inherent constraints. A few such constraints would be that the drawers must be within the dresser, and the drawers move laterally but not vertically. The information, passed among the nodes, is compared with real observations from sensors, such as a 2D image and 3D point cloud. The messages are repeated through iterations until there is an agreement between the beliefs and sensor data.
@@ -72,15 +59,9 @@ This is computationally intensive, which means it requires a lot of processing t
 In this example, instead of the dresser sending location information to a drawer only after computing information from the other drawers, the dresser checks with the drawers first. It asks each drawer for its own belief of its location, then, for accuracy, weights that belief against information from the other drawers. It converges on a accurate understanding of a scene through iterations just as the push approach.
 
 <figure>
-
 ![PMPNBP vs PAMPAS](images/charts-1024x431.jpg)
 
-<figcaption>
-
-The average error of the proposed PMPNBP method developed by the Michigan team is on par with previous methods, such as PAMPAS, while the computation time is exponentially less. These results are from tests on a two-dimensional pattern. Image courtesy paper authors.
-
-</figcaption>
-
+<figcaption>The average error of the proposed PMPNBP method developed by the Michigan team is on par with previous methods, such as PAMPAS, while the computation time is exponentially less. These results are from tests on a two-dimensional pattern. Image courtesy paper authors.</figcaption>
 </figure>
 
 To directly compare their new approach with previous approaches, they tested it on a simple 2D scene of a circle with four rectangular arms hidden among a pattern of similar circles and rectangles. The new approach could do in 10 minutes what took today’s techniques more than an hour and a half.

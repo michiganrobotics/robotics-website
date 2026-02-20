@@ -19,6 +19,9 @@ module.exports = {
 							paddingBottom: '0.25em',
 							paddingRight: '1em',
 						},
+						'blockquote p': {
+							fontStyle: 'normal',
+						},
 						'figure figcaption': {
 							marginTop: '0.5em',
 							fontSize: '0.875em',

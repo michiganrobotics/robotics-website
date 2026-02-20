@@ -107,7 +107,7 @@
   figure img {
     @apply w-full rounded-sm shadow-md;
   }
-  figcaption::after {
+  figure > figcaption::after {
     content: "";
     display: block;
     width: 2em;

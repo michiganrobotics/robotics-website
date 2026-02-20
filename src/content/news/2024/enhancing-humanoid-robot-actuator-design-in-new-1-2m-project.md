@@ -18,15 +18,9 @@ author: "Dan Newman"
 ---
 
 <figure>
-
 ![A Digit bipedal robot holds a package in the lobby of the Robotics Building at the University of Michigan.](./images/52667228760_cb7d3d70a7_k-1024x758.jpg)
 
-<figcaption>
-
-An Agility Robotics Digit bipedal robot carries a package into the Ford Motor Company Robotics Building at the University of Michigan. A new $1.2M NSF grant aims to innovate on the design of such legged robots.
-
-</figcaption>
-
+<figcaption>An Agility Robotics Digit bipedal robot carries a package into the Ford Motor Company Robotics Building at the University of Michigan. A new $1.2M NSF grant aims to innovate on the design of such legged robots.</figcaption>
 </figure>
 
 Researchers at the University of Michigan have been [awarded a $1.2 million grant](https://www.nsf.gov/awardsearch/showAward?AWD_ID=2427036&HistoricalAwards=false) from the National Science Foundation (NSF) to enhance the design of humanoid legged robots, enabling their use in demanding situations such as warehouse labor and emergency response. The researchers will develop a new framework for designing energy-efficient robots by focusing on a specialized type of motors: Quasi-Direct-Drive (QDD) actuators with Unidirectional Parallel Spring (UPS) mechanisms.
