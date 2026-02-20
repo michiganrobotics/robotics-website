@@ -15,8 +15,9 @@ module.exports = {
 							borderLeftColor: theme('colors.maize'),
 							backgroundColor: theme('colors.gray.100'),
 							borderRadius: '0.125rem',
-							paddingTop: '0.75em',
-							paddingBottom: '0.75em',
+							paddingTop: '0.25em',
+							paddingBottom: '0.25em',
+							paddingRight: '1em',
 						},
 						'figure figcaption': {
 							marginTop: '0.5em',
