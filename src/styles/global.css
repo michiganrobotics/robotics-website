@@ -98,7 +98,7 @@
   
   /* Figure and image styling */
   figure {
-    @apply my-4;
+    @apply mt-4 !mb-2;
   }
   /* This rule is moved to utilities layer */
   figure.aspect-video {
@@ -106,6 +106,14 @@
   }
   figure img {
     @apply w-full rounded-sm shadow-md;
+  }
+  figcaption::after {
+    content: "";
+    display: block;
+    width: 2em;
+    height: 0;
+    border-bottom: 1px solid var(--color-maize);
+    margin-top: 0.5em;
   }
   /* Override Tailwind Typography's image margins */
   .prose img {

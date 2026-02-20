@@ -59,6 +59,7 @@ const categoryTitles = Object.fromEntries(
 );
 
 const categoryName = category === 'robotics-community' ? 'the Michigan Robotics community' : (categoryTitles[category]?.title || category.replace(/-/g, ' '));
+const pageTitle = category === 'robotics-community' ? 'Community News' : `${categoryName} News`;
 const categoryImage = categoryTitles[category]?.image?.src || null;
 const categoryImageAlt = categoryTitles[category]?.image?.alt || null;
 function formatDate(dateString: string): string {
@@ -70,7 +71,7 @@ function formatDate(dateString: string): string {
 }
 ---
 
-<Layout title={`${categoryName} News${currentPage > 1 ? ` - Page ${currentPage}` : ''} | Michigan Robotics`} description={`Robotics news about ${categoryName} at the University of Michigan`}>
+<Layout title={`${pageTitle}${currentPage > 1 ? ` - Page ${currentPage}` : ''} | Michigan Robotics`} description={`Robotics news about ${categoryName} at the University of Michigan`}>
   <Breadcrumbs slot="breadcrumbs" />
   <PageTitle title={`News about ${categoryName}`} image={categoryImage} imageAlt={categoryImageAlt} />
 

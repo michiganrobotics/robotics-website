@@ -9,11 +9,20 @@ module.exports = {
 						'--tw-prose-bullets': theme('colors.arboretumBlue'),
 						'blockquote p:first-of-type::before': false,
 						'blockquote p:last-of-type::after': false,
+						blockquote: {
+							fontStyle: 'normal',
+							borderLeftWidth: '4px',
+							borderLeftColor: theme('colors.maize'),
+							backgroundColor: theme('colors.gray.100'),
+							borderRadius: '0.125rem',
+							paddingTop: '0.75em',
+							paddingBottom: '0.75em',
+						},
 						'figure figcaption': {
 							marginTop: '0.5em',
 							fontSize: '0.875em',
 							lineHeight: '1.4285714',
-							fontStyle: 'italic',
+							fontStyle: 'normal',
 							color: theme('colors.gray.600'),
 						},
 						h2: {			
@@ -49,6 +58,10 @@ module.exports = {
 						'--tw-prose-body': theme('colors.gray[200]'),
 						'figure figcaption': {
 							color: theme('colors.gray.200'),
+						},
+						blockquote: {
+							borderLeftColor: theme('colors.maize'),
+							backgroundColor: 'rgba(47, 101, 167, 0.15)',
 						},
 						'a': {
 							textDecoration: 'underline',
