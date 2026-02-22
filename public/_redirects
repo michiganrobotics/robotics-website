@@ -208,11 +208,11 @@ academics/course-offerings/rob101 /academics/courses/course-offerings/rob-101-fa
 /academic-program/course-offerings/rob-204-winter-2022 /academics/courses/course-offerings/rob-204-winter-2022 301
 /academics/courses/rob-204-winter-2022 /academics/courses/course-offerings/rob-204-winter-2022 301
 /academics/graduate/admissions/graduate-application/what-are-specific-faculty-looking-for-in-phd-applications /news/2024/what-are-specific-faculty-looking-for-in-phd-applications 301
-/academics/graduate/fellowship-list  /academics/graduate/fellowships  301
+/academics/graduate/fellowship-list  /academics/graduate/fellowships/  301
 /academic-program/courses/rob599-f19 /academics/courses/online-courses/rob502-f20 301
 /academics/courses/online-courses/rob599-f19 /academics/courses/online-courses/rob502-f20 301
 /academics/courses/online-courses/rob502-f21 /academics/courses/online-courses/rob502-f20 301
-/academics/undergraduate/robotics-pathways-speaker-series /events/robotics-pathways-speaker-series 301
+/academics/undergraduate/robotics-pathways-speaker-series /events/robotics-pathways-speaker-series/ 301
 /academics/admissions-info/funding-for-graduate-students /academics/graduate/admissions/funding-for-graduate-students 301
 /academic-program/degree-requirements /academics/graduate/degree-requirements 301
 /academic-program/admissions-info/academic-and-personal-statements /academics/graduate/admissions/academic-and-personal-statements 301
@@ -221,9 +221,9 @@ academics/course-offerings/rob101 /academics/courses/course-offerings/rob-101-fa
 /academic-program/* /academics/:splat 301
 /academics/undergraduate/sugs /academics/graduate/sugs 301
 /academics/undergraduate/program-requirements /academics/undergraduate/degree-requirements 301
-/academics/undergraduate/scheduling /academics/undergraduate/advising 301
-/academics/graduate/admissions/add-a-degreedual-degree-instructions /academics/graduate/admissions/dual-degree 301
-/academics/graduate/graduate-advising /academics/graduate/advising 301
+/academics/undergraduate/scheduling /academics/undergraduate/advising/ 301
+/academics/graduate/admissions/add-a-degreedual-degree-instructions /academics/graduate/admissions/dual-degree/ 301
+/academics/graduate/graduate-advising /academics/graduate/advising/ 301
 /academics/graduate/admissions/gre-scores /academics/graduate/admissions#gre-scores-policy 301
 
 # LLM-hallucinated paths (missing /academics/ prefix)

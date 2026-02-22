@@ -36,7 +36,7 @@ const profileImages = await Promise.all(
        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-6 pt-10 px-2">
           {facultyMembers.map((faculty, index) => (
             <a
-              href={`${Astro.url.pathname}/${faculty.slug}`}
+              href={`/people/faculty/${faculty.slug}/`}
               class="group no-underline surface card-base card-hover p-0 border border-arboretumBlue/20 dark:border-arboretumBlue/30 flex flex-col"
             >
               <Image

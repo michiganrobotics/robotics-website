@@ -17,12 +17,12 @@ function generateBreadcrumbs(): Breadcrumb[] {
       return;
     }
     // Replace hyphens with spaces and capitalize all words
-    const text = item.replace(/-/g, ' ').split(' ').map(word => 
+    const text = item.replace(/-/g, ' ').split(' ').map(word =>
       word.charAt(0).toUpperCase() + word.slice(1)
     ).join(' ');
     breadcrumbs.push({
       text,
-      href: path
+      href: `${path}/`
     });
   });
   
