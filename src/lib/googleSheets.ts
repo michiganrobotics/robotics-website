@@ -243,6 +243,24 @@ interface FellowshipData {
   nominationBy: string;
 }
 
+interface OutreachEvents {
+  timestamp: string;
+  emailAddress: string;
+  eventName: string;
+  eventDescription: string;
+  startDate: string;
+  startTime: string;
+  endDate: string;
+  endTime: string;
+  eventLocation: string;
+  eventContactName: string;
+  eventContactEmail: string;
+  lookingForVolunteer: boolean;
+  numberOfVolunteers: string;
+  volunteerTasks: string;
+  howToSignUpVolunteer: string;
+}
+
 function createSlug(name: string): string {
   return name
     .toLowerCase()
@@ -749,4 +767,27 @@ export const getFellowshipData = cached(async (): Promise<FellowshipData[]> => {
     eligibility: row.get('Eligibility') || '',
     nominationBy: row.get('Nomination by*') || '',
   }));
+});
+
+export const getRoboticsOutreachEvents = cached(async (): Promise<OutreachEvents[]> => {
+  await doc.loadInfo();
+  const sheet = doc.sheetsByTitle['OutreachEvents'];
+  const rows = await sheet.getRows();
+  return rows.map(row => ({
+    timestamp: row.get('Timestamp') || '',
+    emailAddress: row.get('Email Address') || '',
+    eventName: row.get('Event Name') || '',
+    eventDescription: row.get('Event Description') || '',
+    startDate: row.get('Start Date') || '',
+    startTime: row.get('Start Time') || '',
+    endDate: row.get('End Date') || '',
+    endTime: row.get('End Time') || '',
+    eventLocation: row.get('Location') || '',
+    eventContactName: row.get('Event Point of Contact Name') || '',
+    eventContactEmail: row.get('Event Point of Contact Email') || '',
+    lookingForVolunteer: row.get('Are you looking for volunteers?') || '',
+    numberOfVolunteers: row.get('Number of Volunteers Needed') || '',
+    volunteerTasks: row.get('Volunteer Tasks') || '',
+    howToSignUpVolunteer: row.get('How to Sign Up for Volunteer') || ''
+  }))
 });
