@@ -18,7 +18,7 @@ author: "Dan Newman"
 
 <figure>
   
-  ![3D printed concrete art on display during the 2019 Innovation in Concrete Symposium organized by the University of Michigan Taubman College of Architecture and Urban Planning and the Civil and Environmental Engineering department.](images/3d-printed-concrete-art.jpg)
+  ![3D printed concrete art in the vague shape of a chair and a star burst and a small dog in a gallery space.](images/3d-printed-concrete-art.jpg)
 
   <figcaption>3D printed concrete art on display during the 2019 Innovation in Concrete Symposium organized by the University of Michigan Taubman College of Architecture + Urban Planning and the Civil and Environmental Engineering department. Photo: Robert Coelius.</figcaption>
 
@@ -26,7 +26,7 @@ author: "Dan Newman"
 
 Concrete is ubiquitous in built environments, but working with it requires attention to the details of timing, forms, supports, and weather. Three-dimensional printing also requires attention to details of timing, form, and supports, or the plastic may end up in much the same spaghetti shape as before. And to 3D print concrete, the potential issues from both realms require solutions before the technology can be useful in a traditional construction setting.
 
-To research this, [Yulun Tian](/people/faculty/yulun-tian/), assistant professor of robotics, is starting a new project backed by an award from the Bold Challenges Initiative from the University of Michigan's [Research Launchpad](https://research.umich.edu/michigan-research-launchpad/). The project, "AI-Enabled Digital Twins for Closed-Loop Robotic 3D Concrete Printing," is a collaboration with Jiaqi Li, assistant professor of civil and environmental engineering.
+To research how to avoid the pitfalls of 3D concrete printing, [Yulun Tian](/people/faculty/yulun-tian/), assistant professor of robotics, is starting a new project backed by an award from the Bold Challenges Initiative from the University of Michigan's [Research Launchpad](https://research.umich.edu/michigan-research-launchpad/). The project, "AI-Enabled Digital Twins for Closed-Loop Robotic 3D Concrete Printing," is a collaboration with Jiaqi Li, assistant professor of civil and environmental engineering.
 
 According to the researchers, additive manufacturing in construction could reduce labor costs by 50 to 80 percent and represent a nearly $5 billion market by 2030. But, concrete mixes can go awry, weather and temperature can cause issues, and 3D printing itself requires a high standard of accuracy to create strong structures that meet blueprints.
 
