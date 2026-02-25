@@ -210,6 +210,18 @@ interface StudentCouncilMember {
   profileImage: string | null;
 }
 
+interface IntranetLink {
+  section: string;
+  sectionTitle: string;
+  icon: string;
+  text: string;
+  url: string;
+  description: string;
+  searchTerms: string;
+  quickLink: boolean;
+  quickLinkIcon: string;
+}
+
 interface RobodexResource {
   resourceName: string;
   description: string;
@@ -748,5 +760,23 @@ export const getFellowshipData = cached(async (): Promise<FellowshipData[]> => {
     finalDeadline: row.get('Final Deadline*') || '',
     eligibility: row.get('Eligibility') || '',
     nominationBy: row.get('Nomination by*') || '',
+  }));
+});
+
+export const getIntranetData = cached(async (): Promise<IntranetLink[]> => {
+  await doc.loadInfo();
+  const sheet = doc.sheetsByTitle['Intranet'];
+  const rows = await sheet.getRows();
+
+  return rows.map(row => ({
+    section: row.get('section') || '',
+    sectionTitle: row.get('sectionTitle') || '',
+    icon: row.get('icon') || '',
+    text: row.get('text') || '',
+    url: row.get('url') || '',
+    description: row.get('description') || '',
+    searchTerms: row.get('searchTerms') || '',
+    quickLink: (row.get('quickLink') || '').toUpperCase() === 'TRUE',
+    quickLinkIcon: row.get('quickLinkIcon') || '',
   }));
 });
