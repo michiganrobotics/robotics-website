@@ -29,7 +29,7 @@ author: "Dan Newman"
 
 The University of Michigan is proud to be a partner in the pioneering [Center for Autonomous Air Mobility and Sensing](https://caams.center/) (CAAMS). This recognized National Science Foundation (NSF) [Industry-University Cooperative Research Center](https://iucrc.nsf.gov) (IUCRC), established in 2022, conducts cutting-edge research and training in autonomous air mobility and sensing technology.
 
-"As a contributing member, the University of Michigan is enabling advancements at the forefront of research on autonomous aerospace vehicles and systems," said Dimitra Panagou, associate professor of robotics and aerospace engineering, and U-M's site director for CAAMS.
+"As a contributing member, the University of Michigan is enabling advancements at the forefront of research on autonomous aerospace vehicles and systems," said [Dimitra Panagou](/people/faculty/dimitra-panagou/), associate professor of robotics and aerospace engineering, and U-M's site director for CAAMS.
 
 CAAMS is the only NSF-funded autonomous air mobility research center and is a collaboration of universities, including U-M, University of Colorado Boulder, Brigham Young University, Virginia Tech, Texas A&M, and Penn State.
 
@@ -37,7 +37,7 @@ CAAMS works with academia, industry, and government to drive innovative solution
 
 Prominent areas of concentrated research include assured autonomy, AI/ML for aviation, unmanned aircraft systems, air mobility and air taxi systems, certification, testing, and evaluation, aerodynamics and design, robotics, and sensing applications.
 
-One U-M research project done in coordination with CAAMS, “Enhancing the Agility of Tailsitter UAVs using Hybrid Data-Driven Aerodynamic Models,” is led by Derrick Yeo, lecturer in robotics, and Elena Shrestha, a postdoctoral associate. Their work aims to improve guidance and control techniques for multi-mode UAS during aggressive maneuvering beyond the envelope of conventional aircraft configurations by combining well-established aerodynamic principles with learning-based algorithms for inflight flowfield estimation.
+One U-M research project done in coordination with CAAMS, “Enhancing the Agility of Tailsitter UAVs using Hybrid Data-Driven Aerodynamic Models,” is led by [Derrick Yeo](/people/faculty/derrick-yeo/), lecturer in robotics, and Elena Shrestha, a postdoctoral associate. Their work aims to improve guidance and control techniques for multi-mode UAS during aggressive maneuvering beyond the envelope of conventional aircraft configurations by combining well-established aerodynamic principles with learning-based algorithms for inflight flowfield estimation.
 
 Another CAAMS initiative at U-M is conducted by Carlos Cesnik, the Richard A. Auhll Department Chair of Aerospace Engineering. The project, “Real-time Simulation of Very Flexible Aircraft,” aims to develop computationally-efficient modeling and simulation for these aircraft.
 

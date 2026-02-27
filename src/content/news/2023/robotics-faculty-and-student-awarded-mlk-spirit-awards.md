@@ -16,7 +16,7 @@ tags:
 
 ![A bust of Martin Luther King Jr. with text "2023 North Campus Deans' Martin Luther King Spirit Awards"](images/2023MLK.Website-Banner-2048x1152-1-1024x576.jpg)
 
-Honoring efforts that exemplify the leadership of Dr. Martin Luther King, Jr., the North Campus Deans presented Professors Jessy Grizzle and Leia Stirling and PhD student Yves Nazon with MLK Spirit Awards.
+Honoring efforts that exemplify the leadership of Dr. Martin Luther King, Jr., the North Campus Deans presented Professors [Jessy Grizzle](/people/faculty/jessy-grizzle/) and [Leia Stirling](/people/faculty/leia-stirling/) and PhD student Yves Nazon with MLK Spirit Awards.
 
 The [North Campus Deans' MLK Spirit Awards](https://artsengine.engin.umich.edu/mlk-spirit-awards/) recognizes students, faculty, and staff for "their commitment to social justice, diversity, equity, and inclusion, including within the context of the pandemic and our reignited sense of urgency to address root causes of social injustice." The award ceremony took place Monday, January 16, 2023.
 

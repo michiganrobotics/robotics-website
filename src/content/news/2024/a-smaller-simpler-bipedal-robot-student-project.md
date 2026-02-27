@@ -26,7 +26,7 @@ The design of Legolas is inspired by Agility Robotics’ Cassie robot. This incl
 <figure>
 
 ![Researchers unbox and test Cassie, Prof. Jessy Grizzle's new robot with serial number 001, in August, 2017.](images/cassie-in-grizzle-lab.jpg)
-<figcaption>Researchers unbox and test Cassie, Prof. Jessy Grizzle's new robot with serial number 001, in August, 2017. Photo: Joseph Xu/Michigan Engineering, Communications & Marketing</figcaption>
+<figcaption>Researchers unbox and test Cassie, Prof. [Jessy Grizzle's](/people/faculty/jessy-grizzle/) new robot with serial number 001, in August, 2017. Photo: Joseph Xu/Michigan Engineering, Communications & Marketing</figcaption>
 </figure>
 
 “I was particularly inspired by the structure of Cassie’s legs,” Ho said. “Agility Robotics' mathematical and physics-based solution that inadvertently mimicked natural biomechanical structures was fascinating. It’s incredible how their practical approach converged toward biomimicry.”
