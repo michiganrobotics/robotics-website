@@ -29,7 +29,7 @@ if (!entry) {
 const { Content } = await render(entry);
 ---
 
-<Layout title={`${courseEntry?.data.title} - ${entry.data.title}`}>
+<Layout title={`${courseEntry?.data.title} - ${entry.data.title}`} description={`${entry.data.title} from ${courseEntry?.data.title}, a free online course from Michigan Robotics.`}>
   <div class="max-w-6xl w-11/12 mx-auto py-12">
     <article class="prose prose-lg dark:prose-invert max-w-none">
       <h1>{entry.data.title}</h1>
