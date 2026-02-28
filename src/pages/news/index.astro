@@ -472,7 +472,7 @@ const pageDescription = "Latest robotics news and upcoming events from the Unive
           const excerpt = getExcerptText(post);
 
           return (
-            <Link 
+            <Link
               href={postLink}
               class="no-underline group surface card-base card-hover flex flex-col"
               target={isCollegeNews(post) ? '_blank' : undefined}
@@ -523,5 +523,109 @@ const pageDescription = "Latest robotics news and upcoming events from the Unive
         })}
       </div>
     </section>
+
+    <section id="load-more-news" class="mb-12" aria-label="Additional news articles">
+      <div id="load-more-grid" aria-live="polite" aria-relevant="additions"></div>
+      <div class="flex justify-center mt-8">
+        <button
+          id="load-more-btn"
+          aria-label="Load more news articles"
+          class="px-8 py-3 bg-umichblue dark:bg-transparent dark:border-2 dark:border-arboretumBlue text-white font-roboto font-bold rounded hover:bg-umichblue/90 dark:hover:bg-arboretumBlue/50 transition-colors duration-200 cursor-pointer"
+        >
+          Load more news
+        </button>
+      </div>
+    </section>
   </div>
+
+<script>
+  const grid = document.getElementById('load-more-grid')!;
+  const btn = document.getElementById('load-more-btn')!;
+  let currentPage = 1;
+  let loading = false;
+
+  const externalIcon = `<svg class="inline w-4 h-4 ml-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>`;
+  const srNewTab = `<span class="sr-only">(opens in a new tab)</span>`;
+
+  function escapeAttr(str: string) {
+    return str.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+
+  async function loadMore() {
+    if (loading) return;
+    loading = true;
+    btn.setAttribute('aria-busy', 'true');
+    btn.textContent = 'Loading...';
+
+    try {
+      const res = await fetch(`/api/news/${currentPage}/`);
+      if (!res.ok) {
+        btn.style.display = 'none';
+        return;
+      }
+
+      const { articles, hasMore } = await res.json();
+
+      const batch = document.createElement('div');
+      batch.className = 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-6';
+
+      articles.forEach((article: { title: string; date: string; url: string; isCollege: boolean; image: { src: string; alt: string } | null }) => {
+        const date = new Date(article.date).toLocaleDateString('en-US', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+        });
+
+        const imgSrc = article.image?.src || '/social/og-default.jpg';
+        const imgAlt = escapeAttr(article.image?.alt || article.title);
+        const titleEscaped = escapeAttr(article.title);
+
+        const a = document.createElement('a');
+        a.href = article.url;
+        a.className =
+          'no-underline group surface card-base card-hover flex flex-col';
+        if (article.isCollege) {
+          a.target = '_blank';
+          a.rel = 'noopener noreferrer';
+        }
+        a.innerHTML = `
+          <div class="relative overflow-hidden">
+            <img src="${imgSrc}" alt="${imgAlt}" width="540" height="360" class="w-full h-48 object-cover" loading="lazy" />
+          </div>
+          <div class="p-4 flex-grow flex flex-col justify-between">
+            <div>
+              <h2 class="text-lg leading-tight font-roboto font-bold text-umichblue dark:text-gray-100 mb-2 border-b-2 border-transparent group-hover:border-maize transition-all duration-300">
+                ${titleEscaped}${article.isCollege ? externalIcon + srNewTab : ''}
+              </h2>
+              <p class="text-sm italic font-sans text-neutral-700 dark:text-neutral-300">${date}</p>
+            </div>
+          </div>
+        `;
+
+        batch.appendChild(a);
+      });
+
+      grid.appendChild(batch);
+
+      // Move focus to the first new article for keyboard users
+      const firstNewLink = batch.querySelector('a');
+      if (firstNewLink) firstNewLink.focus({ preventScroll: true });
+
+      currentPage++;
+
+      if (!hasMore) {
+        btn.style.display = 'none';
+      } else {
+        btn.textContent = 'Load more news';
+      }
+    } catch {
+      btn.style.display = 'none';
+    } finally {
+      loading = false;
+      btn.removeAttribute('aria-busy');
+    }
+  }
+
+  btn.addEventListener('click', loadMore);
+</script>
 </MainLayout>
