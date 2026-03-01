@@ -12,6 +12,8 @@ categories:
 tags:
   - "Jessy Grizzle"
   - "Leia Stirling"
+  - "awards"
+  - "MLK Spirit Award"
 ---
 
 ![A bust of Martin Luther King Jr. with text "2023 North Campus Deans' Martin Luther King Spirit Awards"](images/2023MLK.Website-Banner-2048x1152-1-1024x576.jpg)

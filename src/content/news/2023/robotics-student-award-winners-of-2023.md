@@ -12,6 +12,7 @@ categories:
   - "robotics-community"
 tags:
   - "Student Awards"
+  - "awards"
 author: "Dan Newman"
 ---
 

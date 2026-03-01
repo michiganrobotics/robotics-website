@@ -13,6 +13,9 @@ tags:
   - "Brody Riopelle"
   - "Scratch"
   - "MBot"
+  - "outreach"
+  - "education"
+  - "K-12"
 ---
 
 <figure>

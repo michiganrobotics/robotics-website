@@ -12,7 +12,9 @@ categories:
 tags:
   - "Dimitra Panagou"
   - "Research Excellence Award"
-  - "award"
+  - "awards"
+  - "multi-agent systems"
+  - "safe autonomy"
 author: "Dan Newman"
 ---
 

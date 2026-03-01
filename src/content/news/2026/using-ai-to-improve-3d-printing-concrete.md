@@ -13,6 +13,8 @@ tags:
   - "Yulun Tian"
   - "3D printing"
   - "digital twins"
+  - "construction"
+  - "additive manufacturing"
 author: "Dan Newman"
 ---
 

@@ -7,13 +7,16 @@
     "src": "https://news.engin.umich.edu/wp-content/uploads/2025/10/preliminary-test-OssurLeg.jpg",
     "alt": "Three men walk through a lab with a treadmill built into the floor behind them. In the center, Seelhoff wears a prosthetic leg that stores its electronics inside a slim calf-shaped casing. On the left, Kevin carries an open laptop computer."
   },
-  "categories": [    
+  "categories": [
     "rehabilitation",
     "legged-robots",
-    "medical-robotics"],
+    "medical-robotics"
+  ],
   "tags": [
     "Robert Gregg",
-    "Kevin Best"
+    "Kevin Best",
+    "prosthetics",
+    "legged locomotion"
   ],
   "featured": true
 }

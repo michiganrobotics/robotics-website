@@ -17,7 +17,9 @@ tags:
   - "CAAMS"
   - "NSF"
   - "I-UCRC"
-  - "auotnomous air mobility"
+  - "autonomous air mobility"
+  - "aerial vehicles"
+  - "drones"
 author: "Dan Newman"
 ---
 

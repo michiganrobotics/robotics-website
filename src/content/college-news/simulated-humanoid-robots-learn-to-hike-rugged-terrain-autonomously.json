@@ -9,7 +9,10 @@
   },
   "categories": [],
   "tags": [
-    "motion-planning"
+    "humanoid robots",
+    "reinforcement learning",
+    "simulation",
+    "legged locomotion"
   ],
   "featured": false
 }

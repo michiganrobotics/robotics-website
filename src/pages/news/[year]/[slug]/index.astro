@@ -1,24 +1,63 @@
 ---
 import Layout from '../../../../layouts/MainLayout.astro';
 import News from '../../../../components/templates/News.astro';
+import RelatedNews from '../../../../components/RelatedNews.astro';
 import { getCollection, render } from 'astro:content';
 import { components } from '../../../../components/components';
 
 export async function getStaticPaths() {
   const newsEntries = await getCollection('news');
-  
+
   return newsEntries.map(entry => {
     const year = entry.data.date.split('-')[0];
     const slug = entry.id.split('/')[1];
-    
+    const entryId = entry.id;
+    const entryTags = entry.data.tags || [];
+
+    let tagGroups: { tag: string; articles: { title: string; date: string; slug: string; image?: { src: any; alt: string } }[] }[] = [];
+
+    if (entryTags.length > 0) {
+      const tagCounts = entryTags.map(tag => {
+        const matches = newsEntries.filter(other =>
+          other.id !== entryId && other.data.tags?.includes(tag)
+        );
+        return { tag, count: matches.length, matches };
+      });
+
+      tagCounts.sort((a, b) => b.count - a.count);
+      const tagsWithMatches = tagCounts.filter(t => t.count > 0).slice(0, 3);
+
+      // Deduplicate articles across groups so the same article doesn't appear twice
+      const seen = new Set<string>();
+      for (const t of tagsWithMatches) {
+        const articles = t.matches
+          .filter(m => !seen.has(m.id))
+          .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime())
+          .slice(0, 3)
+          .map(a => {
+            seen.add(a.id);
+            return {
+              title: a.data.title,
+              date: a.data.date,
+              slug: a.id.split('/')[1],
+              image: a.data.image,
+            };
+          });
+
+        if (articles.length > 0) {
+          tagGroups.push({ tag: t.tag, articles });
+        }
+      }
+    }
+
     return {
       params: { year, slug },
-      props: { entry }
+      props: { entry, tagGroups }
     };
   });
 }
 
-const { entry } = Astro.props;
+const { entry, tagGroups } = Astro.props;
 const { Content } = await render(entry);
 
 // Get all focus areas to map categories to titles
@@ -85,4 +124,7 @@ const node = {
   <News node={node}>
     <Content slot="content" components={components}/>
   </News>
+  {tagGroups.length > 0 && (
+    <RelatedNews tagGroups={tagGroups} />
+  )}
 </Layout>

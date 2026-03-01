@@ -14,6 +14,8 @@ tags:
   - "Chad Jenkins"
   - "Swarm Fish"
   - "ROB 203"
+  - "student project"
+  - "underwater robotics"
 author: "Dan Newman"
 ---
 

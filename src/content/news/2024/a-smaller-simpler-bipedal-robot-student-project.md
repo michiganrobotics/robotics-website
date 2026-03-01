@@ -14,6 +14,9 @@ tags:
   - "David Ho"
   - "Legolas"
   - "bipedal robot"
+  - "reinforcement learning"
+  - "open source"
+  - "3D printing"
 author: "Dan Newman"
 ---
 

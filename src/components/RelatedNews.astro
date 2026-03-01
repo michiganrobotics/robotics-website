@@ -1,0 +1,124 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+interface Article {
+  title: string;
+  date: string;
+  slug: string;
+  image?: {
+    src: ImageMetadata;
+    alt: string;
+  };
+}
+
+interface TagGroup {
+  tag: string;
+  articles: Article[];
+}
+
+interface Props {
+  tagGroups: TagGroup[];
+}
+
+const { tagGroups } = Astro.props;
+
+function displayTag(tag: string) {
+  if (tag[0] === tag[0].toUpperCase()) return tag;
+  return tag[0].toUpperCase() + tag.slice(1);
+}
+---
+
+<section class="related-news max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-12" aria-label="Newsletter and related news">
+  <div class="border-t border-maize pt-8">
+    <div class="related-fade cta-fade mb-10 text-lg">
+      <p>Get stories like these in your inbox quarterly.</p>
+      <p><a href="https://umrobotics.substack.com" target="_blank" rel="noopener noreferrer">Subscribe to the Michigan Robotics Newsletter<span class="sr-only"> (opens in a new tab)</span></a>.</p>
+    </div>
+
+    {tagGroups.map((group, groupIndex) => (
+      <div class="mb-8" style={`--group-delay: ${0.5 + groupIndex * 0.4}s`}>
+        <p class="related-fade tag-group-fade mb-3 font-roboto-condensed font-bold uppercase tracking-wide text-lg sm:text-base">
+          {displayTag(group.tag)}
+        </p>
+        <div class="related-fade tag-articles-fade grid grid-cols-1 sm:grid-cols-3 gap-4" style={`--articles-delay: ${0.7 + groupIndex * 0.4}s`}>
+          {group.articles.map((article) => (
+            <a href={`/news/${new Date(article.date).getFullYear()}/${article.slug}/`}
+               class="no-underline group block rounded-sm surface shadow-sm hover:shadow-md hover:scale-[1.02] transition-all duration-75 motion-reduce:transition-none motion-reduce:hover:scale-100 focus-visible:outline-2 focus-visible:outline-maize focus-visible:outline-offset-2">
+              {article.image?.src && (
+                <div class="aspect-video overflow-hidden rounded-t-sm">
+                  <Image
+                    src={article.image.src}
+                    alt={article.image.alt}
+                    width={600}
+                    height={340}
+                    class="w-full h-full object-cover"
+                  />
+                </div>
+              )}
+              <div class="p-3">
+                <p class="text-sm font-roboto font-bold leading-snug group-hover:underline group-hover:decoration-maize group-hover:decoration-2 group-hover:underline-offset-2">{article.title}</p>
+                <p class="text-xs italic font-sans text-gray-600 dark:text-gray-300 mt-1 mb-0">
+                  {new Date(article.date).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
+                </p>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
+
+<style>
+  .related-fade {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .related-fade.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .tag-group-fade {
+    transition-delay: var(--group-delay, 0.3s);
+  }
+
+  .tag-articles-fade {
+    transition-delay: var(--articles-delay, 0.5s);
+  }
+
+  .cta-fade {
+    transition-delay: 0s;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .related-fade {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  const section = document.querySelector('.related-news');
+  if (section) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            section.querySelectorAll('.related-fade').forEach((el) => {
+              el.classList.add('visible');
+            });
+            observer.disconnect();
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+    observer.observe(section);
+  }
+</script>

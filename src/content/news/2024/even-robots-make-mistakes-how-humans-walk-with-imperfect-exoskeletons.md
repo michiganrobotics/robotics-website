@@ -14,6 +14,8 @@ tags:
   - "Leia Stirling"
   - "Man I Wu"
   - "exoskeletons"
+  - "gait"
+  - "biomechanics"
 author: "Patricia DeLacey"
 ---
 
