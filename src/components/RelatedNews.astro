@@ -1,13 +1,17 @@
 ---
 import { Image } from 'astro:assets';
+import { Icon } from 'astro-icon/components';
 import type { ImageMetadata } from 'astro';
+const defaultImageUrl = '/social/og-default.jpg';
 
 interface Article {
   title: string;
   date: string;
   slug: string;
+  href: string;
+  isCollege?: boolean;
   image?: {
-    src: ImageMetadata;
+    src: ImageMetadata | string;
     alt: string;
   };
 }
@@ -43,10 +47,12 @@ function displayTag(tag: string) {
         </p>
         <div class="related-fade tag-articles-fade grid grid-cols-1 sm:grid-cols-3 gap-4" style={`--articles-delay: ${0.7 + groupIndex * 0.4}s`}>
           {group.articles.map((article) => (
-            <a href={`/news/${new Date(article.date).getFullYear()}/${article.slug}/`}
+            <a href={article.href}
+               target={article.isCollege ? '_blank' : undefined}
+               rel={article.isCollege ? 'noopener noreferrer' : undefined}
                class="no-underline group block rounded-sm surface shadow-sm hover:shadow-md hover:scale-[1.02] transition-all duration-75 motion-reduce:transition-none motion-reduce:hover:scale-100 focus-visible:outline-2 focus-visible:outline-maize focus-visible:outline-offset-2">
-              {article.image?.src && (
-                <div class="aspect-video overflow-hidden rounded-t-sm">
+              <div class="aspect-video overflow-hidden rounded-t-sm">
+                {article.image?.src && typeof article.image.src !== 'string' ? (
                   <Image
                     src={article.image.src}
                     alt={article.image.alt}
@@ -54,10 +60,23 @@ function displayTag(tag: string) {
                     height={340}
                     class="w-full h-full object-cover"
                   />
-                </div>
-              )}
+                ) : (
+                  <img
+                    src={typeof article.image?.src === 'string' ? article.image.src : defaultImageUrl}
+                    alt={article.image?.alt ?? ''}
+                    width={600}
+                    height={340}
+                    loading="lazy"
+                    class="w-full h-full object-cover"
+                  />
+                )}
+              </div>
               <div class="p-3">
-                <p class="text-sm font-roboto font-bold leading-snug group-hover:underline group-hover:decoration-maize group-hover:decoration-2 group-hover:underline-offset-2">{article.title}</p>
+                <p class="text-sm font-roboto font-bold leading-snug group-hover:underline group-hover:decoration-maize group-hover:decoration-2 group-hover:underline-offset-2 grid grid-cols-[1fr_auto] items-center gap-1">
+                  <span>{article.title}</span>
+                  {article.isCollege && <Icon name="mdi:open-in-new" class="w-4 h-4" />}
+                  {article.isCollege && <span class="sr-only">(opens in a new tab)</span>}
+                </p>
                 <p class="text-xs italic font-sans text-gray-600 dark:text-gray-300 mt-1 mb-0">
                   {new Date(article.date).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
                 </p>
