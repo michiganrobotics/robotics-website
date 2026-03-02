@@ -48,7 +48,7 @@ export async function getStaticPaths() {
       });
 
       tagCounts.sort((a, b) => b.count - a.count);
-      const tagsWithMatches = tagCounts.filter(t => t.count > 0).slice(0, 3);
+      const tagsWithMatches = tagCounts.filter(t => t.count > 0 && t.tag.toLowerCase() !== 'awards').slice(0, 3);
 
       // Deduplicate articles across groups so the same article doesn't appear twice
       const seen = new Set<string>();

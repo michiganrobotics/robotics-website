@@ -36,53 +36,55 @@ function displayTag(tag: string) {
 <section class="related-news max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-12" aria-label="Newsletter and related news">
   <div class="border-t border-maize pt-8">
     <div class="related-fade cta-fade mb-10 text-lg">
-      <p>Get stories like these in your inbox quarterly.</p>
-      <p><a href="https://umrobotics.substack.com" target="_blank" rel="noopener noreferrer">Subscribe to the Michigan Robotics Newsletter<span class="sr-only"> (opens in a new tab)</span></a>.</p>
+      <p>Get stories like these in your inbox quarterly.<br class="hidden sm:block" /> <a href="https://umrobotics.substack.com" target="_blank" rel="noopener noreferrer">Subscribe to the Michigan Robotics Newsletter<span class="sr-only"> (opens in a new tab)</span></a>.</p>
     </div>
 
     {tagGroups.map((group, groupIndex) => (
       <div class="mb-8" style={`--group-delay: ${0.5 + groupIndex * 0.4}s`}>
-        <p class="related-fade tag-group-fade mb-3 font-roboto-condensed font-bold uppercase tracking-wide text-lg sm:text-base">
+        <h2 id={`tag-label-${groupIndex}`} class="related-fade tag-group-fade mb-3 font-roboto-condensed font-bold uppercase tracking-wide text-lg sm:text-base">
           {displayTag(group.tag)}
-        </p>
-        <div class="related-fade tag-articles-fade grid grid-cols-1 sm:grid-cols-3 gap-4" style={`--articles-delay: ${0.7 + groupIndex * 0.4}s`}>
-          {group.articles.map((article) => (
-            <a href={article.href}
-               target={article.isCollege ? '_blank' : undefined}
-               rel={article.isCollege ? 'noopener noreferrer' : undefined}
-               class="no-underline group block rounded-sm surface shadow-sm hover:shadow-md hover:scale-[1.02] transition-all duration-75 motion-reduce:transition-none motion-reduce:hover:scale-100 focus-visible:outline-2 focus-visible:outline-maize focus-visible:outline-offset-2">
-              <div class="aspect-video overflow-hidden rounded-t-sm">
-                {article.image?.src && typeof article.image.src !== 'string' ? (
-                  <Image
-                    src={article.image.src}
-                    alt={article.image.alt}
-                    width={600}
-                    height={340}
-                    class="w-full h-full object-cover"
-                  />
-                ) : (
-                  <img
-                    src={typeof article.image?.src === 'string' ? article.image.src : defaultImageUrl}
-                    alt={article.image?.alt ?? ''}
-                    width={600}
-                    height={340}
-                    loading="lazy"
-                    class="w-full h-full object-cover"
-                  />
-                )}
-              </div>
-              <div class="p-3">
-                <p class="text-sm font-roboto font-bold leading-snug group-hover:underline group-hover:decoration-maize group-hover:decoration-2 group-hover:underline-offset-2 grid grid-cols-[1fr_auto] items-center gap-1">
-                  <span>{article.title}</span>
-                  {article.isCollege && <Icon name="mdi:open-in-new" class="w-4 h-4" />}
-                  {article.isCollege && <span class="sr-only">(opens in a new tab)</span>}
-                </p>
-                <p class="text-xs italic font-sans text-gray-600 dark:text-gray-300 mt-1 mb-0">
-                  {new Date(article.date).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
-                </p>
-              </div>
-            </a>
-          ))}
+        </h2>
+        <div class="relative scroll-fade-container" role="region" aria-labelledby={`tag-label-${groupIndex}`}>
+          <div class="related-fade tag-articles-fade articles-scroll flex overflow-x-auto pb-4 gap-4 scrollbar-hide cursor-grab active:cursor-grabbing sm:grid sm:grid-cols-3 sm:overflow-visible sm:pb-0 sm:cursor-auto" style={`--articles-delay: ${0.7 + groupIndex * 0.4}s`} data-scroll-container>
+            {group.articles.map((article) => (
+              <a href={article.href}
+                 target={article.isCollege ? '_blank' : undefined}
+                 rel={article.isCollege ? 'noopener noreferrer' : undefined}
+                 class="no-underline group block rounded-sm surface shadow-sm hover:shadow-md hover:scale-[1.02] transition-all duration-75 motion-reduce:transition-none motion-reduce:hover:scale-100 focus-visible:outline-2 focus-visible:outline-maize focus-visible:outline-offset-2 flex-none w-[260px] sm:w-auto">
+                <div class="aspect-video overflow-hidden rounded-t-sm">
+                  {article.image?.src && typeof article.image.src !== 'string' ? (
+                    <Image
+                      src={article.image.src}
+                      alt={article.image.alt}
+                      width={600}
+                      height={340}
+                      class="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <img
+                      src={typeof article.image?.src === 'string' ? article.image.src : defaultImageUrl}
+                      alt={article.image?.alt ?? ''}
+                      width={600}
+                      height={340}
+                      loading="lazy"
+                      class="w-full h-full object-cover"
+                    />
+                  )}
+                </div>
+                <div class="p-3">
+                  <p class="text-sm font-roboto font-bold leading-snug group-hover:underline group-hover:decoration-maize group-hover:decoration-2 group-hover:underline-offset-2 grid grid-cols-[1fr_auto] items-center gap-1">
+                    <span>{article.title}</span>
+                    {article.isCollege && <Icon name="mdi:open-in-new" class="w-4 h-4" />}
+                    {article.isCollege && <span class="sr-only">(opens in a new tab)</span>}
+                  </p>
+                  <p class="text-xs italic font-sans text-gray-600 dark:text-gray-300 mt-1 mb-0">
+                    {new Date(article.date).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
+                  </p>
+                </div>
+              </a>
+            ))}
+          </div>
+
         </div>
       </div>
     ))}
@@ -113,10 +115,59 @@ function displayTag(tag: string) {
     transition-delay: 0s;
   }
 
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  /* Fade edge hints — mobile only */
+  @media (max-width: 639px) {
+    .scroll-fade-container {
+      overflow: clip; /* clips visually but doesn't affect scroll or focus ring overflow */
+    }
+    .scroll-fade-container::before,
+    .scroll-fade-container::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 40px;
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .scroll-fade-container::before {
+      left: 0;
+      background: linear-gradient(to right, var(--bg-page-light), transparent);
+    }
+    .scroll-fade-container::after {
+      right: 0;
+      background: linear-gradient(to left, var(--bg-page-light), transparent);
+    }
+    @media (prefers-color-scheme: dark) {
+      .scroll-fade-container::before {
+        background: linear-gradient(to right, var(--bg-page-dark), transparent);
+      }
+      .scroll-fade-container::after {
+        background: linear-gradient(to left, var(--bg-page-dark), transparent);
+      }
+    }
+    .scroll-fade-container.fade-left::before  { opacity: 1; }
+    .scroll-fade-container.fade-right::after  { opacity: 1; }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .related-fade {
       opacity: 1;
       transform: none;
+      transition: none;
+    }
+    .scroll-fade-container::before,
+    .scroll-fade-container::after {
       transition: none;
     }
   }
@@ -140,4 +191,44 @@ function displayTag(tag: string) {
     );
     observer.observe(section);
   }
+
+  // Fade edge hints + drag-to-scroll for each article group
+  document.querySelectorAll('[data-scroll-container]').forEach((container) => {
+    const parent = container.closest('.scroll-fade-container') as HTMLElement | null;
+    const el = container as HTMLElement;
+
+    // Drag-to-scroll
+    let isMouseDown = false;
+    let startX = 0;
+    let scrollLeftPos = 0;
+
+    el.addEventListener('mousedown', (e: MouseEvent) => {
+      isMouseDown = true;
+      startX = e.pageX - el.offsetLeft;
+      scrollLeftPos = el.scrollLeft;
+    });
+    el.addEventListener('mouseleave', () => { isMouseDown = false; });
+    el.addEventListener('mouseup', () => { isMouseDown = false; });
+    el.addEventListener('mousemove', (e: MouseEvent) => {
+      if (!isMouseDown) return;
+      e.preventDefault();
+      const x = e.pageX - el.offsetLeft;
+      el.scrollLeft = scrollLeftPos - (x - startX) * 1.5;
+    });
+    el.addEventListener('selectstart', (e) => { if (isMouseDown) e.preventDefault(); });
+
+    const updateFades = () => {
+      if (!parent) return;
+      const atStart = el.scrollLeft <= 0;
+      const atEnd = Math.ceil(el.scrollLeft + el.clientWidth) >= el.scrollWidth;
+      const hasOverflow = el.scrollWidth > el.clientWidth;
+      parent.classList.toggle('fade-left', hasOverflow && !atStart);
+      parent.classList.toggle('fade-right', hasOverflow && !atEnd);
+    };
+
+    el.addEventListener('scroll', updateFades);
+    window.addEventListener('resize', updateFades);
+    updateFades();
+  });
+
 </script>
