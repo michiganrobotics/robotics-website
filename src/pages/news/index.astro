@@ -243,7 +243,7 @@ const pageDescription = "Latest robotics news and upcoming events from the Unive
                         </>
                     ) : post.data.title}
                 </h2>
-                <p class="text-sm italic font-sans text-neutral-700 dark:text-neutral-300 mb-4">
+                <p class="text-sm font-sans text-neutral-700 dark:text-neutral-300 mb-4">
                   {new Date(post.data.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
                 </p>
                 <p class="text-neutral-700 dark:text-gray-200" set:html={excerpt} />
@@ -272,7 +272,7 @@ const pageDescription = "Latest robotics news and upcoming events from the Unive
             </div>
             <div class="p-4 flex-grow flex flex-col justify-between">
               <div>
-                <p class="text-sm italic font-sans text-neutral-700 dark:text-neutral-300 mb-2">
+                <p class="text-sm font-sans text-neutral-700 dark:text-neutral-300 mb-2">
                   <time datetime={event.datetime_start}>
 								  {new Date(event.datetime_start.replace(
 									/(\d{4})(\d{2})(\d{2})T(\d{2})(\d{2})(\d{2})/,
@@ -354,7 +354,7 @@ const pageDescription = "Latest robotics news and upcoming events from the Unive
                         </>
                     ) : post.data.title}
                   </h2>
-                  <p class="text-sm italic font-sans text-neutral-700 dark:text-neutral-300">
+                  <p class="text-sm font-sans text-neutral-700 dark:text-neutral-300">
                     {new Date(post.data.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
                   </p>
                   <p class="text-neutral-700 dark:text-gray-200 mt-2" set:html={excerpt} />
@@ -390,7 +390,7 @@ const pageDescription = "Latest robotics news and upcoming events from the Unive
                 <span class="sm:hidden">Subscribe to the </span>Michigan Robotics Newsletter
                 <Icon name="mdi:open-in-new" class="inline w-4 h-4 ml-1" />
               </h2>
-              <p class="text-sm italic font-sans text-neutral-700 dark:text-neutral-300">
+              <p class="text-sm font-sans text-neutral-700 dark:text-neutral-300">
                 umrobotics.substack.com
               </p>
             </div>
@@ -448,7 +448,7 @@ const pageDescription = "Latest robotics news and upcoming events from the Unive
                         </>
                     ) : post.data.title}
                   </h2>
-                  <p class="text-sm italic font-sans text-neutral-700 dark:text-neutral-300">
+                  <p class="text-sm font-sans text-neutral-700 dark:text-neutral-300">
                     {new Date(post.data.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
                   </p>
                 </div>
@@ -513,7 +513,7 @@ const pageDescription = "Latest robotics news and upcoming events from the Unive
                         </>
                     ) : post.data.title}
                   </h2>
-                  <p class="text-sm italic font-sans text-neutral-700 dark:text-neutral-300">
+                  <p class="text-sm font-sans text-neutral-700 dark:text-neutral-300">
                     {new Date(post.data.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
                   </p>
                 </div>
@@ -597,7 +597,7 @@ const pageDescription = "Latest robotics news and upcoming events from the Unive
               <h2 class="text-lg leading-tight font-roboto font-bold text-umichblue dark:text-gray-100 mb-2 border-b-2 border-transparent group-hover:border-maize transition-all duration-300">
                 ${titleEscaped}${article.isCollege ? externalIcon + srNewTab : ''}
               </h2>
-              <p class="text-sm italic font-sans text-neutral-700 dark:text-neutral-300">${date}</p>
+              <p class="text-sm font-sans text-neutral-700 dark:text-neutral-300">${date}</p>
             </div>
           </div>
         `;

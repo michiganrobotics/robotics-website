@@ -4,7 +4,6 @@ import { Image, getImage } from 'astro:assets';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 const { staff } = Astro.props;
 import { getCollection } from 'astro:content';
-import Link from '../components/Link.astro';
 import { getProfileImagePath, getAwards } from '../lib/googleSheets';
 import { Icon } from 'astro-icon/components';
 
@@ -150,43 +149,54 @@ const personSchema = {
       {relatedPosts.length > 0 && (
         <div class="mt-12">
           <h2 class="text-2xl font-bold mb-4 font-roboto-condensed dark:text-neutral-50">Related news</h2>
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {relatedPosts.map(async (post) => {
-              const postImage = post.data.image?.src ? await getImage({
-                src: post.data.image.src,
-                width: 450,
-                height: 300,
-              }) : null;
+          <div class="relative scroll-fade-container" role="region" aria-label="Related news articles">
+            <div class="related-news-scroll flex overflow-x-auto pb-4 gap-4 scrollbar-hide sm:grid sm:grid-cols-2 lg:grid-cols-3 sm:overflow-visible sm:pb-0" data-scroll-container tabindex="0">
+              {relatedPosts.map(async (post) => {
+                const postImage = post.data.image?.src ? await getImage({
+                  src: post.data.image.src,
+                  width: 450,
+                  height: 300,
+                }) : null;
 
-              return (
-              <div class="group bg-white dark:bg-gray-900 rounded-sm shadow-lg">
-                <Link 
+                return (
+                <a
                   href={getPostLink(post)}
-                  class="group block overflow-hidden rounded-sm no-underline"
                   target={isCollegeNews(post) ? '_blank' : undefined}
                   rel={isCollegeNews(post) ? 'noopener noreferrer' : undefined}
+                  class="no-underline group block surface card-base card-hover flex-none w-65 sm:w-auto"
                 >
-                  <div class="relative aspect-video overflow-hidden shadow-lg not-prose">
+                  <div class="aspect-video overflow-hidden rounded-t-sm not-prose">
                     {postImage ? (
-                      <Image 
+                      <Image
                         src={postImage.src}
                         alt={post.data.image?.alt || post.data.title}
                         width={450}
                         height={300}
-                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        class="w-full h-full object-cover"
                       />
-                    ) : null}
+                    ) : (
+                      <img
+                        src="/social/og-default.jpg"
+                        alt={post.data.title}
+                        width={450}
+                        height={300}
+                        class="w-full h-full object-cover"
+                      />
+                    )}
                   </div>
-                  <div class="p-4">
-                    <h3 class="text-lg font-medium decoration-maize decoration-2 group-hover:underline">
+                  <div class="p-3">
+                    <p class="text-base font-roboto font-bold leading-snug group-hover:underline group-hover:decoration-maize group-hover:decoration-2 group-hover:underline-offset-2">
                       {post.data.title}
-                      {isCollegeNews(post) && <Icon name="mdi:open-in-new" class="inline w-4 h-4 ml-1" />}
-                    </h3>
+                      {isCollegeNews(post) && <><Icon name="mdi:open-in-new" class="inline w-4 h-4 ml-1" aria-hidden="true" /><span class="sr-only">(opens in a new tab)</span></>}
+                    </p>
+                    <p class="text-xs text-gray-600 dark:text-gray-300 mt-1 mb-0">
+                      {new Date(post.data.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+                    </p>
                   </div>
-                </Link>
-                </div>
-              );
-            })}
+                </a>
+                );
+              })}
+            </div>
           </div>
         </div>
       )}
@@ -215,3 +225,58 @@ const personSchema = {
     <p class="text-center text-angellHallAsh dark:text-burtonTowerBeige">Error loading staff data...</p>
   )}
 </Layout>
+
+<style>
+  .scrollbar-hide::-webkit-scrollbar { display: none; }
+  .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+
+  @media (max-width: 639px) {
+    .scroll-fade-container { overflow: clip; }
+    .scroll-fade-container::before,
+    .scroll-fade-container::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 40px;
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .scroll-fade-container::before {
+      left: 0;
+      background: linear-gradient(to right, white, transparent);
+    }
+    .scroll-fade-container::after {
+      right: 0;
+      background: linear-gradient(to left, white, transparent);
+    }
+    @media (prefers-color-scheme: dark) {
+      .scroll-fade-container::before { background: linear-gradient(to right, var(--color-umichblue), transparent); }
+      .scroll-fade-container::after { background: linear-gradient(to left, var(--color-umichblue), transparent); }
+    }
+    .scroll-fade-container.fade-left::before { opacity: 1; }
+    .scroll-fade-container.fade-right::after { opacity: 1; }
+  }
+</style>
+
+<script>
+  document.querySelectorAll('[data-scroll-container]').forEach((container) => {
+    const parent = container.closest('.scroll-fade-container') as HTMLElement | null;
+    const el = container as HTMLElement;
+
+    const updateFades = () => {
+      if (!parent) return;
+      const atStart = el.scrollLeft <= 0;
+      const atEnd = Math.ceil(el.scrollLeft + el.clientWidth) >= el.scrollWidth;
+      const hasOverflow = el.scrollWidth > el.clientWidth;
+      parent.classList.toggle('fade-left', hasOverflow && !atStart);
+      parent.classList.toggle('fade-right', hasOverflow && !atEnd);
+    };
+
+    el.addEventListener('scroll', updateFades);
+    window.addEventListener('resize', updateFades);
+    updateFades();
+  });
+</script>
