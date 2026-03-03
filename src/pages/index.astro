@@ -140,16 +140,18 @@ const videoWebmPath = '/robotics-promo-2025-2.webm';
 								rel={isCollegeNews(post) ? 'noopener noreferrer' : undefined}
 							>
 								{postImageSrc ? (
-									<Image
-										src={postImageSrc}
-										alt={post.data.image?.alt || post.data.title}
-										width={450}
-										height={192}
-										class="w-full h-48 object-cover"
-										loading="eager"
-										format="webp"
-										quality={75}
-									/>
+									<div class="overflow-hidden">
+										<Image
+											src={postImageSrc}
+											alt={post.data.image?.alt || post.data.title}
+											width={450}
+											height={192}
+											class="w-full h-48 object-cover transition-all duration-500 group-hover:scale-105"
+											loading="eager"
+											format="webp"
+											quality={75}
+										/>
+									</div>
 								) : null}
 								<div class="relative group">
 									<div class="p-4">

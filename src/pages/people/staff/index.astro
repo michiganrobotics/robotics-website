@@ -3,7 +3,7 @@ import Layout from '../../../layouts/MainLayout.astro';
 import { getStaffData, getProfileImagePath } from '../../../lib/googleSheets';
 import Breadcrumbs from "../../../components/Breadcrumbs.astro";
 import PageTitle from "../../../components/PageTitle.astro";
-import { Image } from 'astro:assets';
+import PersonCard from "../../../components/PersonCard.astro";
 
 const staffMembers = await getStaffData();
 
@@ -17,12 +17,12 @@ const profileImages = await Promise.all(
   staffMembers.map(async (staff) => {
     const imagePath = getProfileImagePath(staff);
     const imageLoader = images[imagePath];
-    
+
     if (imageLoader) {
       const image = await imageLoader();
       return image.default;
     }
-    
+
     // Randomly choose between robot profiles
     return Math.random() < 0.5 ? robotProfile.default : robotProfile2.default;
   })
@@ -37,30 +37,13 @@ const profileImages = await Promise.all(
       <div class="relative mb-16">
        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-6 pt-10 px-2">
           {staffMembers.map((staff, index) => (
-            <a
+            <PersonCard
+              name={`${staff.preferredName} ${staff.lastName}`}
               href={`/people/staff/${staff.slug}/`}
-              class="group no-underline surface card-base card-hover p-0 border border-arboretumBlue/20 dark:border-arboretumBlue/30 flex flex-col"
-            >
-              <Image
-                src={profileImages[index]}
-                alt={`Portrait of ${staff.fullName}`}
-                width={566}
-                height={192}
-                loading={index < 2 || 
-                  (index < 4 && 'sm:hidden') || 
-                  (index < 6 && 'md:hidden') || 
-                  (index < 8 && 'lg:hidden') || 
-                  (index < 10 && 'xl:hidden') || 
-                  (index < 12 && '2xl:hidden') ? 'eager' : 'lazy'}
-                class="w-full h-48 object-cover"
-              />
-              <div class="p-4 flex-grow border-t border-arboretumBlue/20 dark:border-arboretumBlue/30">
-                <h2 class="text-lg font-bold mb-2 text-umichblue dark:text-neutral-50 group-hover:underline group-hover:decoration-maize group-hover:decoration-2">{staff.preferredName} {staff.lastName}</h2>
-                <div class="space-y-1">
-                  <p class="text-sm text-arboretumBlue dark:text-neutral-200">{staff.title}</p>
-                </div>
-              </div>
-            </a>
+              image={profileImages[index]}
+              title={staff.title}
+              loading={index < 12 ? 'eager' : 'lazy'}
+            />
           ))}
         </div>
       </div>

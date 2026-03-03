@@ -41,7 +41,7 @@ function displayTag(tag: string) {
 
     {tagGroups.map((group, groupIndex) => (
       <div class="mb-8" style={`--group-delay: ${0.5 + groupIndex * 0.4}s`}>
-        <h2 id={`tag-label-${groupIndex}`} class="related-fade tag-group-fade mb-3 font-roboto-condensed font-bold uppercase tracking-wide text-lg sm:text-base">
+        <h2 id={`tag-label-${groupIndex}`} class="related-fade tag-group-fade mb-3 font-roboto-condensed font-bold uppercase tracking-wide text-xl">
           {displayTag(group.tag)}
         </h2>
         <div class="relative scroll-fade-container" role="region" aria-labelledby={`tag-label-${groupIndex}`}>
@@ -72,7 +72,7 @@ function displayTag(tag: string) {
                   )}
                 </div>
                 <div class="p-3">
-                  <p class="text-sm font-roboto font-bold leading-snug group-hover:underline group-hover:decoration-maize group-hover:decoration-2 group-hover:underline-offset-2 grid grid-cols-[1fr_auto] items-center gap-1">
+                  <p class="text-base font-roboto font-bold leading-snug group-hover:underline group-hover:decoration-maize group-hover:decoration-2 group-hover:underline-offset-2 grid grid-cols-[1fr_auto] items-center gap-1">
                     <span>{article.title}</span>
                     {article.isCollege && <Icon name="mdi:open-in-new" class="w-4 h-4" />}
                     {article.isCollege && <span class="sr-only">(opens in a new tab)</span>}

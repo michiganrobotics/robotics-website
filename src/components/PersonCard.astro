@@ -1,0 +1,42 @@
+---
+import { Image } from 'astro:assets';
+
+interface Props {
+  name: string;
+  href: string;
+  image: ImageMetadata;
+  title: string;
+  additionalTitle?: string;
+  subtitle?: string;
+  loading?: 'eager' | 'lazy';
+}
+
+const { name, href, image, title, additionalTitle, subtitle, loading = 'lazy' } = Astro.props;
+---
+
+<a
+  href={href}
+  class="group no-underline surface card-base card-hover p-0 border border-arboretumBlue/20 dark:border-arboretumBlue/30 flex flex-col h-full"
+>
+  <Image
+    src={image}
+    alt={`Portrait of ${name}`}
+    width={566}
+    height={192}
+    loading={loading}
+    class="w-full h-48 object-cover"
+  />
+  <div class="p-4 flex-grow border-t border-arboretumBlue/20 dark:border-arboretumBlue/30">
+    <h2 class="text-lg font-bold mb-2 text-umichblue dark:text-neutral-50 group-hover:underline group-hover:decoration-maize group-hover:decoration-2">{name}</h2>
+    <div class="space-y-1">
+      <p class="text-sm text-arboretumBlue dark:text-neutral-200">{title}</p>
+      {additionalTitle && (
+        <p class="text-sm text-arboretumBlue dark:text-neutral-200">{additionalTitle}</p>
+      )}
+      {subtitle && (
+        <p class="text-xs text-gray-600 dark:text-gray-300">{subtitle}</p>
+      )}
+    </div>
+    <slot />
+  </div>
+</a>
