@@ -50,7 +50,7 @@ function displayTag(tag: string) {
               <a href={article.href}
                  target={article.isCollege ? '_blank' : undefined}
                  rel={article.isCollege ? 'noopener noreferrer' : undefined}
-                 class="no-underline group block rounded-sm surface shadow-sm hover:shadow-md hover:scale-[1.02] transition-all duration-75 motion-reduce:transition-none motion-reduce:hover:scale-100 focus-visible:outline-2 focus-visible:outline-maize focus-visible:outline-offset-2 flex-none w-[260px] sm:w-auto">
+                 class="no-underline group block surface card-base card-hover motion-reduce:transition-none motion-reduce:hover:scale-100 focus-visible:outline-2 focus-visible:outline-maize focus-visible:outline-offset-2 flex-none w-65 sm:w-auto">
                 <div class="aspect-video overflow-hidden rounded-t-sm">
                   {article.image?.src && typeof article.image.src !== 'string' ? (
                     <Image

@@ -5,7 +5,7 @@ import Breadcrumbs from '../components/Breadcrumbs.astro';
 const { staff } = Astro.props;
 import { getCollection } from 'astro:content';
 import Link from '../components/Link.astro';
-import { getProfileImagePath } from '../lib/googleSheets';
+import { getProfileImagePath, getAwards } from '../lib/googleSheets';
 import { Icon } from 'astro-icon/components';
 
 // Fetch all news posts with tag of staff member's full name
@@ -61,6 +61,13 @@ if (imageLoader) {
 } else {
   profileImage = robotProfile;
 }
+
+// Fetch awards for this staff member
+const allAwards = await getAwards();
+const staffAwards = allAwards.filter(award => {
+  const recipients = award.awardRecipient.split('\n').map((r: string) => r.trim());
+  return recipients.includes(staff.fullName);
+}).sort((a, b) => parseInt(b.awardYear) - parseInt(a.awardYear));
 
 // Structured data for Person
 const siteUrl = "https://robotics.umich.edu";
@@ -180,6 +187,26 @@ const personSchema = {
                 </div>
               );
             })}
+          </div>
+        </div>
+      )}
+
+      {/* Honors and Awards Section */}
+      {staffAwards.length > 0 && (
+        <div class="mt-12">
+          <h2 class="text-2xl font-bold mb-4 font-roboto-condensed dark:text-neutral-50">Honors and awards</h2>
+          <div class="space-y-0">
+            {staffAwards.map(award => (
+              <div class="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-4 py-3 border-b border-gray-200 dark:border-gray-700">
+                <span class="text-sm font-medium text-gray-700 dark:text-gray-300 sm:w-16 shrink-0">{award.awardYear}</span>
+                <div>
+                  <span class="font-medium">{award.award}</span>
+                  {award.awardOrganization && (
+                    <span class="text-sm text-gray-600 dark:text-gray-300"> &mdash; {award.awardOrganization}</span>
+                  )}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       )}
