@@ -77,8 +77,8 @@ function displayTag(tag: string) {
                     {article.isCollege && <Icon name="mdi:open-in-new" class="w-4 h-4" />}
                     {article.isCollege && <span class="sr-only">(opens in a new tab)</span>}
                   </p>
-                  <p class="text-xs italic font-sans text-gray-600 dark:text-gray-300 mt-1 mb-0">
-                    {new Date(article.date).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
+                  <p class="text-xs font-sans text-gray-600 dark:text-gray-300 mt-1 mb-0">
+                    {new Date(article.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
                   </p>
                 </div>
               </a>
