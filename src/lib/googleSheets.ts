@@ -781,7 +781,6 @@ export const getFellowshipData = cached(async (): Promise<FellowshipData[]> => {
   }));
 });
 
-<<<<<<< HEAD
 export const getRoboticsOutreachEvents = cached(async (): Promise<OutreachEvents[]> => {
   await doc.loadInfo();
   const sheet = doc.sheetsByTitle['OutreachEvents'];
@@ -802,8 +801,10 @@ export const getRoboticsOutreachEvents = cached(async (): Promise<OutreachEvents
     numberOfVolunteers: row.get('Number of Volunteers Needed') || '',
     volunteerTasks: row.get('Volunteer Tasks') || '',
     howToSignUpVolunteer: row.get('How to Sign Up for Volunteer') || ''
-  }))
-=======
+  }));
+  
+});
+
 export const getIntranetData = cached(async (): Promise<IntranetLink[]> => {
   await doc.loadInfo();
   const sheet = doc.sheetsByTitle['Intranet'];
@@ -820,5 +821,5 @@ export const getIntranetData = cached(async (): Promise<IntranetLink[]> => {
     quickLink: (row.get('quickLink') || '').toUpperCase() === 'TRUE',
     quickLinkIcon: row.get('quickLinkIcon') || '',
   }));
->>>>>>> 47bc14e586449dab0079cfa2f508a92bbb6e0932
+
 });
