@@ -13,6 +13,31 @@ function linkifyText(text: string): string {
   const urlRegex = /(https?:\/\/[^\s<>)\]]+)/g;
   return text.replace(urlRegex, '<a href="$1" target="_blank" rel="noopener noreferrer" class="text-umichblue dark:text-[#7eb8da] underline hover:no-underline" onclick="event.stopPropagation()">$1</a>');
 }
+
+function addPaddingToDates(date: string): string {
+  if(!date) return '';
+  let split = date.split('/');
+  let day;
+  let month;
+  let year;
+  if(split && split.length){
+    day = split[0];
+    month = split[1];
+    year = split[2];
+    if(!isNaN(parseInt(day))){
+      if(parseInt(day)< 10){
+        day = `0${day}`
+      }
+    }
+    if(!isNaN(parseInt(month))){
+      if(parseInt(month)< 10){
+        month = `0${month}`
+      }
+    }
+    return `${day}/${month}/${year}`;
+  }
+  else return date;
+}
 ---
 
 <Layout title="Current Robotics Outreach Events | Michigan Robotics" description="Current robotics outreach events available for students.">
@@ -90,11 +115,11 @@ function linkifyText(text: string): string {
                           </div>
                         </td>
                         <td class="px-6 py-4 border-r align-top">
-                          {event.startDate}
+                          {addPaddingToDates(event.startDate)}
                           {event.startTime}
                         </td>
                         <td class="px-6 py-4 border-r align-top">
-                          {event.endDate}
+                          {addPaddingToDates(event.endDate)}
                           {event.endTime}
                         </td>
                         <td class="px-6 py-4 border-r align-top">
