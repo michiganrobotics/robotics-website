@@ -255,6 +255,16 @@ interface FellowshipData {
   nominationBy: string;
 }
 
+interface JobPosting {
+  dateReceived: string;
+  jobTitle: string;
+  employer: string;
+  industry: string;
+  emailSubject: string;
+  emailFrom: string;
+  emailSnippet: string;
+}
+
 function createSlug(name: string): string {
   return name
     .toLowerCase()
@@ -779,4 +789,22 @@ export const getIntranetData = cached(async (): Promise<IntranetLink[]> => {
     quickLink: (row.get('quickLink') || '').toUpperCase() === 'TRUE',
     quickLinkIcon: row.get('quickLinkIcon') || '',
   }));
+});
+
+export const getJobPostings = cached(async (): Promise<JobPosting[]> => {
+  await doc.loadInfo();
+  const sheet = doc.sheetsByTitle['JobPostings'];
+  if (!sheet) return [];
+  const rows = await sheet.getRows();
+
+  return rows.map(row => ({
+    dateReceived: row.get('dateReceived') || '',
+    jobTitle: row.get('jobTitle') || '',
+    employer: row.get('employer') || '',
+    industry: row.get('industry') || '',
+    emailSubject: row.get('emailSubject') || '',
+    emailFrom: row.get('emailFrom') || '',
+    emailSnippet: row.get('emailSnippet') || '',
+  })).sort((a, b) => b.dateReceived.localeCompare(a.dateReceived))
+    .slice(0, 10);
 });

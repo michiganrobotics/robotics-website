@@ -1,0 +1,217 @@
+---
+import Layout from '../../../layouts/MainLayout.astro';
+import Breadcrumbs from "../../../components/Breadcrumbs.astro";
+import PageTitle from "../../../components/PageTitle.astro";
+import Button from "../../../components/Button.astro";
+import MaizeButton from "../../../components/MaizeButton.astro";
+import ScrollingMarquee from "../../../components/ScrollingMarquee.astro";
+import JobPostingsCarousel from "../../../components/JobPostingsCarousel.astro";
+
+import featureImage from '../../../images/featured-images/academics-careers-outcomes.jpg';
+
+const msRows = [
+  { year: "2022-2024", median: "$110,000", avg: "$109,077", min: "$57,000", max: "$165,000", records: 55, highlight: true },
+  { year: "2024", median: "$120,000", avg: "$115,855", min: "$60,000", max: "$143,000", records: 19 },
+  { year: "2023", median: "$98,000", avg: "$103,950", min: "$78,000", max: "$165,000", records: 20 },
+  { year: "2022", median: "$110,000", avg: "$107,438", min: "$57,000", max: "$160,000", records: 16 },
+];
+
+const phdRows = [
+  { year: "2022-2024", median: "$157,500", avg: "$154,830", min: "$90,000", max: "$190,000", records: 10, highlight: true },
+  { year: "2024", median: "$155,000", avg: "$149,000", min: "$90,000", max: "$190,000", records: 5 },
+];
+---
+
+<Layout title="Careers & Outcomes | Michigan Robotics" image={featureImage.src} imageAlt="Students celebrate at commencement in the Ford Robotics Building atrium" description="Career outcomes, placement data, and professional development resources for Michigan Robotics undergraduate and graduate students.">
+  <Breadcrumbs slot="breadcrumbs" />
+  <PageTitle title="Careers & Outcomes" image={featureImage} imageAlt="Students celebrate at commencement in the Ford Robotics Building atrium" imagePosition="0% 62%" />
+  <article class="prose dark:prose-invert max-w-6xl w-11/12 mx-auto mt-4 mb-4 prose-headings:font-roboto prose-h2:text-3xl prose-h2:mt-10 prose-h3:text-2xl prose-h4:text-xl prose-h5:text-lg prose-h6:text-base prose-headings:font-bold">
+    <div class="mb-8 mt-8 relative">
+      <p class="pt-8 lg:pt-0 text-xl md:text-2xl font-roboto text-gray-800 dark:text-gray-200 leading-relaxed not-prose tracking-wide">
+        Where robotics takes you
+      </p>
+      <div class="subtitle-double-line"></div>
+    </div>
+
+    <p>Michigan Robotics graduates go on to careers across industry, academia, and government, building the future of autonomous systems, AI, medical devices, manufacturing, and more. Whether you're exploring what a robotics degree can do or actively job searching, we have resources to help.</p>
+
+    <h2 id="undergraduate-outcomes">Undergraduate outcomes</h2>
+
+    <p>Founded in 2022, the Department of Robotics is young, but early outcomes are strong. As of spring 2025, 74 students have graduated with a Robotics degree. Graduates are entering industry roles across automotive, aerospace, autonomous systems, and technology, while many continue to graduate school at top programs.</p>
+
+    <ScrollingMarquee label="Selected employers:" items={["AbbVie", "Amazon", "Amazon Robotics", "Bosch", "Carnegie Mellon", "Caterpillar", "Draper", "FANUC", "Ford Motor Company", "General Atomics", "General Motors", "Gentex Corporation", "Google", "Hyundai America", "Intel", "Medtronic", "NASA JPL", "Northrop Grumman", "Nuro", "Our Next Energy", "Pratt Miller", "Remora", "Renesas Electronics", "Seoul National Hospital", "SpaceX", "Stellantis", "Stryker", "Symbotic", "Tesla", "University of Michigan", "VRSI", "Walmart", "Wazuh", "wheel.me", "Williams International"]} speed={40} />
+
+    <div class="my-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="not-prose surface rounded-lg shadow-md p-5">
+        <h3 class="text-lg font-semibold mb-3 text-arboretumBlue dark:text-maize">Common job titles</h3>
+        <ul class="text-sm space-y-1.5 text-gray-700 dark:text-gray-300">
+          <li>Robotics and Automation Engineer</li>
+          <li>Autonomy Engineer</li>
+          <li>Controls / Systems and Controls Engineer</li>
+          <li>Machine Learning Engineer</li>
+          <li>Software Engineer</li>
+          <li>Integration and Test Engineer</li>
+          <li>Infrastructure Engineer</li>
+        </ul>
+      </div>
+      <div class="not-prose surface rounded-lg shadow-md p-5">
+        <h3 class="text-lg font-semibold mb-3 text-arboretumBlue dark:text-maize">Graduate school destinations</h3>
+        <ul class="text-sm space-y-1.5 text-gray-700 dark:text-gray-300">
+          <li>University of Michigan (many through <a href="/academics/graduate/sugs/">SUGS</a>)</li>
+          <li>Carnegie Mellon University</li>
+          <li>Stanford University</li>
+          <li>Georgia Tech</li>
+          <li>MIT</li>
+          <li>University of Pennsylvania</li>
+          <li>UIUC</li>
+        </ul>
+      </div>
+    </div>
+
+    <p>The Robotics major is new, so program-specific salary data is not yet available. We will publish salary and placement data when the Engineering Career Resource Center makes it available.</p>
+
+    <h2 id="graduate-outcomes">Graduate outcomes</h2>
+
+    <p>Michigan Robotics PhD and MS graduates are leaders in academia, industry research labs, and startups around the world. Our alumni hold positions at organizations including major tech companies, national labs, and top-tier universities.</p>
+
+    <ScrollingMarquee label="Selected employers:" items={["Amazon", "Apple", "Applied Intuition", "Aptiv", "Aurora Innovation", "Blue Origin", "Boeing", "Bosch", "Boston Dynamics", "Collins Aerospace", "DENSO", "FANUC", "Ford Motor Company", "GE Aviation", "General Dynamics", "General Motors", "Google", "Honda", "Honeywell", "IBM", "Intel", "Intuitive Surgical", "Johns Hopkins APL", "Johnson & Johnson", "Kodiak Robotics", "Lockheed Martin", "MathWorks", "May Mobility", "Meta", "Microsoft", "NASA JPL", "NVIDIA", "Northrop Grumman", "Path Robotics", "Qualcomm", "Raytheon", "Rivian", "Samsung", "Shield AI", "Siemens", "SpaceX", "Stellantis", "Stryker", "Symbotic", "Tesla", "Toyota Research Institute", "University of Michigan", "Waymo", "Zoox"]} speed={50} />
+
+    <div class="my-8">
+      <h3>Robotics graduate median salaries</h3>
+
+      <p>A snapshot of median annual salaries for our Robotics graduate programs, based on <a href="https://career.engin.umich.edu/students/michigan-engineering-student-salary-information/">data reported between 2022 and 2024</a> and collected by the College of Engineering Career Center.</p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+        <div class="not-prose p-4 surface rounded-lg shadow-md flex flex-col items-center text-center overflow-hidden">
+          <h3 class="text-xl font-semibold mb-1 text-arboretumBlue dark:text-maize">Master's in Robotics</h3>
+          <p class="text-3xl font-bold text-gray-800 dark:text-gray-100 mb-1">$110,000</p>
+          <div class="text-sm text-gray-700 dark:text-gray-200 mb-1">
+            median annual salary (2022-2024) <br />
+            (55 reported salaries)
+          </div>
+          <details class="mt-1 w-full">
+            <summary class="not-prose text-xs hover:underline font-semibold cursor-pointer">
+              <span class="inline-block hover:underline">View detailed breakdown</span>
+            </summary>
+            <div class="mt-4 w-full">
+              <div class="w-full overflow-x-auto">
+                <table class="w-full min-w-[600px] divide-y divide-gray-200 dark:divide-gray-700 text-sm">
+                  <thead class="bg-gray-50 dark:bg-gray-700">
+                    <tr>
+                      <th class="px-3 py-2 text-left font-medium text-gray-600 dark:text-gray-300 tracking-wider">Year</th>
+                      <th class="px-3 py-2 text-left font-medium text-gray-600 dark:text-gray-300 tracking-wider">Median</th>
+                      <th class="px-3 py-2 text-left font-medium text-gray-600 dark:text-gray-300 tracking-wider">Average</th>
+                      <th class="px-3 py-2 text-left font-medium text-gray-600 dark:text-gray-300 tracking-wider">Min</th>
+                      <th class="px-3 py-2 text-left font-medium text-gray-600 dark:text-gray-300 tracking-wider">Max</th>
+                      <th class="px-3 py-2 text-left font-medium text-gray-600 dark:text-gray-300 tracking-wider"># Records</th>
+                    </tr>
+                  </thead>
+                  <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                    {msRows.map(row => (
+                      <tr class={row.highlight ? "bg-gray-50 dark:bg-gray-700/50" : ""}>
+                        <td class="px-3 py-2 whitespace-nowrap text-gray-700 dark:text-gray-300">{row.year}</td>
+                        <td class="px-3 py-2 whitespace-nowrap text-gray-700 dark:text-gray-300">{row.median}</td>
+                        <td class="px-3 py-2 whitespace-nowrap text-gray-700 dark:text-gray-300">{row.avg}</td>
+                        <td class="px-3 py-2 whitespace-nowrap text-gray-700 dark:text-gray-300">{row.min}</td>
+                        <td class="px-3 py-2 whitespace-nowrap text-gray-700 dark:text-gray-300">{row.max}</td>
+                        <td class="px-3 py-2 whitespace-nowrap text-gray-700 dark:text-gray-300 text-center">{row.records}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </details>
+        </div>
+
+        <div class="not-prose p-4 surface rounded-lg shadow-md flex flex-col items-center text-center overflow-hidden">
+          <h3 class="text-xl font-semibold mb-1 text-arboretumBlue dark:text-maize">PhD in Robotics</h3>
+          <p class="text-3xl font-bold text-gray-800 dark:text-gray-100 mb-1">$157,500</p>
+          <div class="text-sm text-gray-700 dark:text-gray-200 mb-1">
+            median annual salary (2022-2024) <br />
+            (10 reported salaries)
+          </div>
+          <details class="mt-1 w-full">
+            <summary class="not-prose text-xs hover:underline font-semibold cursor-pointer">
+              <span class="inline-block hover:underline">View detailed breakdown</span>
+            </summary>
+            <div class="mt-4 w-full">
+              <div class="w-full overflow-x-auto">
+                <table class="w-full min-w-[600px] divide-y divide-gray-200 dark:divide-gray-700 text-sm">
+                  <thead class="bg-gray-50 dark:bg-gray-700">
+                    <tr>
+                      <th class="px-3 py-2 text-left font-medium text-gray-600 dark:text-gray-300 tracking-wider">Year</th>
+                      <th class="px-3 py-2 text-left font-medium text-gray-600 dark:text-gray-300 tracking-wider">Median</th>
+                      <th class="px-3 py-2 text-left font-medium text-gray-600 dark:text-gray-300 tracking-wider">Average</th>
+                      <th class="px-3 py-2 text-left font-medium text-gray-600 dark:text-gray-300 tracking-wider">Min</th>
+                      <th class="px-3 py-2 text-left font-medium text-gray-600 dark:text-gray-300 tracking-wider">Max</th>
+                      <th class="px-3 py-2 text-left font-medium text-gray-600 dark:text-gray-300 tracking-wider"># Records</th>
+                    </tr>
+                  </thead>
+                  <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                    {phdRows.map(row => (
+                      <tr class={row.highlight ? "bg-gray-50 dark:bg-gray-700/50" : ""}>
+                        <td class="px-3 py-2 whitespace-nowrap text-gray-700 dark:text-gray-300">{row.year}</td>
+                        <td class="px-3 py-2 whitespace-nowrap text-gray-700 dark:text-gray-300">{row.median}</td>
+                        <td class="px-3 py-2 whitespace-nowrap text-gray-700 dark:text-gray-300">{row.avg}</td>
+                        <td class="px-3 py-2 whitespace-nowrap text-gray-700 dark:text-gray-300">{row.min}</td>
+                        <td class="px-3 py-2 whitespace-nowrap text-gray-700 dark:text-gray-300">{row.max}</td>
+                        <td class="px-3 py-2 whitespace-nowrap text-gray-700 dark:text-gray-300 text-center">{row.records}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </details>
+        </div>
+      </div>
+    </div>
+
+    <h2 id="career-resources">Career resources</h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 my-6">
+      <div class="not-prose surface rounded-lg shadow-md p-6 flex flex-col">
+        <h3 class="text-lg font-semibold mb-2 text-arboretumBlue dark:text-maize">Engineering Career Resource Center</h3>
+        <p class="text-sm mb-4 flex-grow">Career fairs, resume reviews, mock interviews, job postings, and career counseling for all Michigan Engineering students.</p>
+        <Button href="https://career.engin.umich.edu/" text="Visit the ECRC" external />
+      </div>
+      <div class="not-prose surface rounded-lg shadow-md p-6 flex flex-col">
+        <h3 class="text-lg font-semibold mb-2 text-arboretumBlue dark:text-maize">Pathways speaker series</h3>
+        <p class="text-sm mb-4 flex-grow"><em>What can I do with a robotics degree?</em> Professionals from a variety of robotics career paths share their experiences, followed by Q&A. Held every other Wednesday.</p>
+        <Button href="/events/robotics-pathways-speaker-series/" text="View speakers" />
+      </div>
+      <div class="not-prose surface rounded-lg shadow-md p-6 flex flex-col">
+        <h3 class="text-lg font-semibold mb-2 text-arboretumBlue dark:text-maize">Alumni outcomes</h3>
+        <p class="text-sm mb-4 flex-grow">See where Michigan Robotics graduates have landed across industry, academia, and government.</p>
+        <MaizeButton href="/people/alumni/" text="Browse alumni" />
+      </div>
+    </div>
+
+    <h3>Robotics jobs MCommunity</h3>
+
+    <p>The <a href="https://mcommunity.umich.edu/group/Robotics%20Jobs" target="_blank" rel="noopener noreferrer">Robotics Jobs MCommunity</a> is an email list with curated internship opportunities, full-time positions, and research openings posted by employers and faculty. <a href="https://documentation.its.umich.edu/node/352#JoinResign" target="_blank" rel="noopener noreferrer">Learn how to join an MCommunity group</a> to subscribe.</p>
+
+    <p><em>Sample of latest postings:</em></p>
+
+    <JobPostingsCarousel />
+
+    <h2 id="hire-our-students">Hire our students</h2>
+
+    <p>Michigan Robotics students are trained to work across sensing, computation, control, hardware, and human interaction. Through <a href="/academics/undergraduate/degree-requirements/">structured concentrations</a> in areas like perception and reasoning, dynamics and control, and hardware and sensors, graduates bring both systems-level thinking and focused technical depth. They are prepared for roles spanning robotics engineering, autonomy, controls, software, and machine learning.</p>
+
+    <p>Job postings should be sent to the Engineering Career Resource Center (ECRC), which hosts an online system accessible to all of our students.</p>
+
+    <Button href="https://career.engin.umich.edu/employers/engagement/#jobs" text="Post a job on Hire a Michigan Engineer" external />
+
+    <h2 id="work-at-michigan-robotics">Work at Michigan Robotics</h2>
+
+    <p>Interested in joining the Michigan Robotics department?</p>
+
+    <ul>
+      <li><strong>Faculty positions</strong> are listed on our <a href="/about/faculty-jobs/">faculty jobs page</a></li>
+      <li><strong>Staff positions</strong> are posted on <a href="https://careers.umich.edu/" target="_blank" rel="noopener noreferrer">careers.umich.edu</a></li>
+    </ul>
+  </article>
+</Layout>

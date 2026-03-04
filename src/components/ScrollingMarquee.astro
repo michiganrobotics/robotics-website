@@ -1,0 +1,131 @@
+---
+// ScrollingMarquee.astro - Single-row horizontal scrolling ticker, tap to expand
+interface Props {
+  items: string[];
+  speed?: number; // seconds for one full cycle, default 30
+  separator?: string;
+  label?: string; // sticky left label, e.g. "Selected employers:"
+}
+
+const { items, speed = 30, separator = '·', label } = Astro.props;
+
+// Each half of the animation needs to be wider than the viewport.
+// Average item is ~15ch + padding ≈ 120px, so need ~15 items for 1800px.
+// Always at least 2 copies to guarantee coverage.
+const copies = Math.max(2, Math.ceil(30 / items.length));
+const expanded: string[] = [];
+for (let c = 0; c < copies; c++) {
+  expanded.push(...items);
+}
+---
+
+<div class="marquee-wrapper cursor-pointer" role="button" tabindex="0" aria-label="Tap to show all organizations">
+  <div class="marquee-inline flex items-center relative my-2" style={`--marquee-speed: ${speed}s;`}>
+    {label && (
+      <span class="marquee-label shrink-0 text-sm font-semibold pr-2">{label}</span>
+    )}
+    <div class="marquee-track-wrapper overflow-hidden min-w-0 flex-1">
+      <div class="marquee-track flex whitespace-nowrap" aria-hidden="true">
+        {[0, 1].map(() => (
+          <span class="marquee-segment flex items-center">
+            {expanded.map((item) => (
+              <>
+                <span class="inline-block px-2 text-sm text-arboretumBlue dark:text-maize/90">{item}</span>
+                <span class="inline-block text-xs opacity-50">{separator}</span>
+              </>
+            ))}
+          </span>
+        ))}
+      </div>
+    </div>
+    <div class="sr-only">
+      Organizations include: {items.join(', ')}.
+    </div>
+  </div>
+  <div class="marquee-expanded hidden my-2">
+    <div class="flex items-start">
+      {label && (
+        <span class="shrink-0 text-sm font-semibold pr-2">{label}</span>
+      )}
+      <div class="flex flex-wrap items-center min-w-0 flex-1">
+        {items.map((item, i) => (
+          <>
+            <span class="inline-block px-2 text-sm text-arboretumBlue dark:text-maize/80">{item}</span>
+            {i < items.length - 1 && <span class="inline-block text-xs opacity-50">{separator}</span>}
+          </>
+        ))}
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.marquee-track-wrapper {
+  mask-image: linear-gradient(to right, black 0%, black 95%, transparent);
+  -webkit-mask-image: linear-gradient(to right, black 0%, black 95%, transparent);
+}
+
+.marquee-track {
+  animation: marquee-h var(--marquee-speed, 30s) linear infinite;
+}
+
+.marquee-wrapper:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+    flex-wrap: wrap;
+    white-space: normal;
+  }
+
+  .marquee-track-wrapper {
+    mask-image: none;
+    -webkit-mask-image: none;
+  }
+
+  .marquee-segment:nth-child(2) {
+    display: none;
+  }
+}
+
+@keyframes marquee-h {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.marquee-wrapper').forEach((wrapper) => {
+    const scrolling = wrapper.querySelector('.marquee-inline');
+    const expanded = wrapper.querySelector('.marquee-expanded');
+
+    if (!scrolling || !expanded) return;
+
+    function toggle() {
+      const isExpanded = !expanded.classList.contains('hidden');
+      if (isExpanded) {
+        expanded.classList.add('hidden');
+        scrolling.classList.remove('hidden');
+      } else {
+        expanded.classList.remove('hidden');
+        scrolling.classList.add('hidden');
+      }
+    }
+
+    wrapper.addEventListener('click', toggle);
+    wrapper.addEventListener('keydown', (e) => {
+      if (e instanceof KeyboardEvent && (e.key === 'Enter' || e.key === ' ')) {
+        e.preventDefault();
+        toggle();
+      }
+    });
+  });
+});
+</script>

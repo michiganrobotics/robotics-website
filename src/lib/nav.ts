@@ -44,7 +44,7 @@ export const mainNav: MenuItem[] = [
                   childItems: { nodes: [] }
                 },
                 {
-                  label: "SURE",
+                  label: "SURE (Research)",
                   uri: "/academics/undergraduate/sure/",
                   id: "academics-undergraduate-sure",
                   childItems: { nodes: [] }
@@ -95,6 +95,12 @@ export const mainNav: MenuItem[] = [
             label: "Student Services",
             uri: "/academics/student-services/",
             id: "academics-student-services",
+            childItems: { nodes: [] }
+          },
+          {
+            label: "Careers & Outcomes",
+            uri: "/academics/careers/",
+            id: "academics-careers",
             childItems: { nodes: [] }
           }
         ]
@@ -274,7 +280,8 @@ export const subNavConfig: Record<string, SubNavItem[]> = {
       { title: "Undergraduate", href: "/academics/undergraduate/" },
       { title: "Graduate", href: "/academics/graduate/" },
       { title: "Courses", href: "/academics/courses/" },
-      { title: "Student Services", href: "/academics/student-services/" }
+      { title: "Student Services", href: "/academics/student-services/" },
+      { title: "Careers & Outcomes", href: "/academics/careers/" }
     ],
     'academics/student-services': [
       { title: "Robodex", href: "/academics/student-services/robodex/" },
@@ -283,6 +290,11 @@ export const subNavConfig: Record<string, SubNavItem[]> = {
       { title: "Student resources", href: "/academics/student-services/#student-resources", anchor: true },
       { title: "Staff", href: "/academics/student-services/#student-services-staff", anchor: true },
       { title: "Communicate to our students", href: "/academics/student-services/#how-to-send-announcements-to-our-students", anchor: true }
+    ],
+    'academics/careers': [
+      { title: "Undergraduate outcomes", href: "/academics/careers/#undergraduate-outcomes", anchor: true },
+      { title: "Graduate outcomes", href: "/academics/careers/#graduate-outcomes", anchor: true },
+      { title: "Career resources", href: "/academics/careers/#career-resources", anchor: true },
     ],
     'academics/student-services/registering-for-classes': [
       { title: "Add a class", href: "/academics/student-services/registering-for-classes/#add-a-class", anchor: true },
@@ -326,7 +338,8 @@ export const subNavConfig: Record<string, SubNavItem[]> = {
     'academics/graduate': [
       { title: "Admissions", href: "/academics/graduate/admissions/" },
       { title: "Degree Requirements", href: "/academics/graduate/degree-requirements/" },
-      { title: "Advising", href: "/academics/graduate/advising/" }
+      { title: "Advising", href: "/academics/graduate/advising/" },
+      { title: "Careers & Outcomes", href: "/academics/careers/" }
     ],
     'academics/graduate/admissions': [
       { title: "Apply", href: "https://rackham.umich.edu/admissions/applying/", external: true },
@@ -354,13 +367,21 @@ export const subNavConfig: Record<string, SubNavItem[]> = {
       { title: "Program Guide", href: "https://robotics.umich.edu/grad-guide", external: true }
     ],
     'academics/undergraduate': [
+      { title: "Why Robotics?", href: "/academics/undergraduate/why-robotics/" },
       { title: "Advising", href: "/academics/undergraduate/advising/" },
       { title: "Degree Requirements", href: "/academics/undergraduate/degree-requirements/" },
       { title: "Current Courses", href: "/academics/courses/course-offerings/" },
-      { title: "Pathways Speakers", href: "/events/robotics-pathways-speaker-series/" }
+      { title: "Pathways Speakers", href: "/events/robotics-pathways-speaker-series/" },
+      { title: "Careers & Outcomes", href: "/academics/careers/" }
+    ],
+    'academics/undergraduate/why-robotics': [
+      { title: "Degree Requirements", href: "/academics/undergraduate/degree-requirements/" },
+      { title: "Advising", href: "/academics/undergraduate/advising/" },
+      { title: "Careers & Outcomes", href: "/academics/careers/" }
     ],
     'academics/undergraduate/degree-requirements': [
       { title: "Advising", href: "/academics/undergraduate/advising/" },
+      { title: "Why Robotics?", href: "/academics/undergraduate/why-robotics/" },
       { title: "Program Guide", href: "https://robotics.umich.edu/undergrad-guide", external: true }
     ],
     'academics/undergraduate/advising': [
