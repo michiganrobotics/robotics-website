@@ -18,6 +18,8 @@ tags:
   - "Yulun Tian"
   - "Lionel Robert"
   - "Ram Vasudevan"
+  - "PhD applications"
+  - "graduate admissions"
 author: "Dan Newman"
 ---
 

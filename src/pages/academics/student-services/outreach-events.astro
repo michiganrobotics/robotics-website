@@ -4,6 +4,7 @@ import Breadcrumbs from "../../../components/Breadcrumbs.astro";
 import PageTitle from "../../../components/PageTitle.astro";
 
 import { getRoboticsOutreachEvents } from '../../../lib/googleSheets';
+import { string } from 'astro:schema';
 
 const outreachEventsData = await getRoboticsOutreachEvents();
 
@@ -17,9 +18,7 @@ function linkifyText(text: string): string {
 function addPaddingToDates(date: string): string {
   if(!date) return '';
   let split = date.split('/');
-  let day;
-  let month;
-  let year;
+  let day; let month; let year;
   if(split && split.length){
     day = split[0];
     month = split[1];
@@ -37,6 +36,26 @@ function addPaddingToDates(date: string): string {
     return `${day}/${month}/${year}`;
   }
   else return date;
+}
+
+function formatRawTimeString(timestring: string): string{
+  // This function expects the timestrings input to be of format 'HH:MM:SS AM'
+  let timesection; let ampmsection;
+  let level1Split = timestring.split(' ');
+  if(level1Split && level1Split.length){
+    timesection = level1Split[0];
+    ampmsection = level1Split[1];
+  }
+  let level2Split;
+  if(timesection && typeof timesection === 'string'){
+    level2Split = timesection.split(':');
+    if(level2Split && level2Split.length === 3){
+      //Should return 'HH:MM AM'
+      return `${level2Split[0]}:${level2Split[1]} ${ampmsection}`
+    }
+  }
+
+  return timestring;
 }
 ---
 
@@ -116,11 +135,11 @@ function addPaddingToDates(date: string): string {
                         </td>
                         <td class="px-6 py-4 border-r align-top">
                           {addPaddingToDates(event.startDate)}
-                          {event.startTime}
+                          {formatRawTimeString(event.startTime)}
                         </td>
                         <td class="px-6 py-4 border-r align-top">
                           {addPaddingToDates(event.endDate)}
-                          {event.endTime}
+                          {formatRawTimeString(event.endTime)}
                         </td>
                         <td class="px-6 py-4 border-r align-top">
                           {event.eventLocation}

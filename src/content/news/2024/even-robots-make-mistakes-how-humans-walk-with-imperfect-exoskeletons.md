@@ -14,6 +14,8 @@ tags:
   - "Leia Stirling"
   - "Man I Wu"
   - "exoskeletons"
+  - "gait"
+  - "biomechanics"
 author: "Patricia DeLacey"
 ---
 
@@ -29,7 +31,7 @@ When lower limb exoskeletons—mechanical structures worn on the leg—do not op
 
 The results, published in [_IEEE Robotics and Automation Letters_](https://doi.org/10.1109/LRA.2024.3366010)_,_ inform the development of future co-adaptive exoskeleton algorithms—meaning both the person and exoskeleton learn from and adjust to one another.
 
-"Exoskeletons are a potentially very exciting technology to support mobility, but they also can create new cognitive demands and mental representations that people need to learn to use for them to be effective,” said [Leia Stirling,](https://ioe.engin.umich.edu/people/stirling-leia/) an associate professor of robotics and industrial and operations engineering and co-author on the paper. 
+"Exoskeletons are a potentially very exciting technology to support mobility, but they also can create new cognitive demands and mental representations that people need to learn to use for them to be effective,” said [Leia Stirling](/people/faculty/leia-stirling/), an associate professor of robotics and industrial and operations engineering and co-author on the paper. 
 
 “It’s important to understand that not everybody will respond to technology in the same way,” added Stirling.
 

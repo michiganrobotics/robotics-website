@@ -210,6 +210,18 @@ interface StudentCouncilMember {
   profileImage: string | null;
 }
 
+interface IntranetLink {
+  section: string;
+  sectionTitle: string;
+  icon: string;
+  text: string;
+  url: string;
+  description: string;
+  searchTerms: string;
+  quickLink: boolean;
+  quickLinkIcon: string;
+}
+
 interface RobodexResource {
   resourceName: string;
   description: string;
@@ -769,6 +781,7 @@ export const getFellowshipData = cached(async (): Promise<FellowshipData[]> => {
   }));
 });
 
+<<<<<<< HEAD
 export const getRoboticsOutreachEvents = cached(async (): Promise<OutreachEvents[]> => {
   await doc.loadInfo();
   const sheet = doc.sheetsByTitle['OutreachEvents'];
@@ -790,4 +803,22 @@ export const getRoboticsOutreachEvents = cached(async (): Promise<OutreachEvents
     volunteerTasks: row.get('Volunteer Tasks') || '',
     howToSignUpVolunteer: row.get('How to Sign Up for Volunteer') || ''
   }))
+=======
+export const getIntranetData = cached(async (): Promise<IntranetLink[]> => {
+  await doc.loadInfo();
+  const sheet = doc.sheetsByTitle['Intranet'];
+  const rows = await sheet.getRows();
+
+  return rows.map(row => ({
+    section: row.get('section') || '',
+    sectionTitle: row.get('sectionTitle') || '',
+    icon: row.get('icon') || '',
+    text: row.get('text') || '',
+    url: row.get('url') || '',
+    description: row.get('description') || '',
+    searchTerms: row.get('searchTerms') || '',
+    quickLink: (row.get('quickLink') || '').toUpperCase() === 'TRUE',
+    quickLinkIcon: row.get('quickLinkIcon') || '',
+  }));
+>>>>>>> 47bc14e586449dab0079cfa2f508a92bbb6e0932
 });

@@ -3,7 +3,7 @@ import Layout from '../../../layouts/MainLayout.astro';
 import { getFacultyData, getProfileImagePath } from '../../../lib/googleSheets';
 import Breadcrumbs from "../../../components/Breadcrumbs.astro";
 import PageTitle from "../../../components/PageTitle.astro";
-import { Image } from 'astro:assets';
+import PersonCard from "../../../components/PersonCard.astro";
 
 const facultyMembers = await getFacultyData();
 
@@ -16,12 +16,12 @@ const profileImages = await Promise.all(
   facultyMembers.map(async (faculty) => {
     const imagePath = getProfileImagePath(faculty);
     const imageLoader = images[imagePath];
-    
+
     if (imageLoader) {
       const image = await imageLoader();
       return image.default;
     }
-    
+
     return robotProfile.default;
   })
 );
@@ -32,38 +32,134 @@ const profileImages = await Promise.all(
 <Breadcrumbs slot="breadcrumbs" />
 <PageTitle title="Faculty Directory" />
     <div class="mx-2 m-auto mb-4 md:mx-12">
+      <div class="not-prose px-2 pt-10" role="search" aria-label="Faculty directory">
+        <input
+          type="text"
+          id="facultySearch"
+          placeholder="Search by name, title, or research interests..."
+          aria-label="Search faculty"
+          class="search-bar"
+        />
+        <div class="sr-only" aria-live="polite" aria-atomic="true" id="searchStatus"></div>
+      </div>
       <div class="relative mb-16">
-       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-6 pt-10 px-2">
+       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-6 pt-6 px-2">
           {facultyMembers.map((faculty, index) => (
-            <a
-              href={`/people/faculty/${faculty.slug}/`}
-              class="group no-underline surface card-base card-hover p-0 border border-arboretumBlue/20 dark:border-arboretumBlue/30 flex flex-col"
+            <div
+              class="faculty-card h-full"
+              data-name={`${faculty.preferredName} ${faculty.lastName}`.toLowerCase()}
+              data-title={faculty.title.toLowerCase()}
+              data-department={`${faculty.department1 || ''} ${faculty.department2 || ''}`.toLowerCase()}
+              data-department-display={[faculty.department1, faculty.department2].filter(Boolean).join(' and ')}
+              data-research={faculty.researchInterests?.toLowerCase() || ''}
+              data-research-display={faculty.researchInterests || ''}
             >
-              <Image
-                src={profileImages[index]}
-                alt={`Portrait of ${faculty.fullName}`}
-                width={566}
-                height={192}
-                loading={index < 2 || 
-                  (index < 4 && 'sm:hidden') || 
-                  (index < 6 && 'md:hidden') || 
-                  (index < 8 && 'lg:hidden') || 
-                  (index < 10 && 'xl:hidden') || 
-                  (index < 12 && '2xl:hidden') ? 'eager' : 'lazy'}
-                class="w-full h-48 object-cover"
-              />
-              <div class="p-4 flex-grow border-t border-arboretumBlue/20 dark:border-arboretumBlue/30">
-                <h2 class="text-lg font-bold mb-2 text-umichblue dark:text-neutral-50 group-hover:underline group-hover:decoration-maize group-hover:decoration-2">{faculty.preferredName} {faculty.lastName}</h2>
-                <div class="space-y-1">
-                  <p class="text-sm text-arboretumBlue dark:text-neutral-200">{faculty.title}</p>
-                  {faculty.additionalTitle1 && (
-                    <p class="text-sm text-arboretumBlue dark:text-neutral-200">{faculty.additionalTitle1}</p>
-                  )}
-                </div>
-              </div>
-            </a>
+              <PersonCard
+                name={`${faculty.preferredName} ${faculty.lastName}`}
+                href={`/people/faculty/${faculty.slug}/`}
+                image={profileImages[index]}
+                title={faculty.title}
+                additionalTitle={faculty.additionalTitle1}
+                loading={index < 12 ? 'eager' : 'lazy'}
+              >
+                <p class="match-context hidden mt-2 pt-2 border-t border-arboretumBlue/10 dark:border-arboretumBlue/20 text-xs text-gray-600 dark:text-gray-300 line-clamp-3"></p>
+              </PersonCard>
+            </div>
           ))}
         </div>
       </div>
     </div>
 </Layout>
+
+<script>
+  const searchInput = document.getElementById('facultySearch') as HTMLInputElement;
+  const facultyCards = document.querySelectorAll('.faculty-card');
+  const searchStatus = document.getElementById('searchStatus');
+
+  function escapeHtml(text: string): string {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+  }
+
+  let debounceTimer: ReturnType<typeof setTimeout>;
+
+  searchInput.addEventListener('input', (e) => {
+    const searchTerm = (e.target as HTMLInputElement).value.toLowerCase();
+    let visibleCount = 0;
+
+    facultyCards.forEach((card) => {
+      const el = card as HTMLElement;
+      const contextEl = el.querySelector('.match-context') as HTMLElement;
+
+      if (!searchTerm) {
+        el.style.display = '';
+        contextEl.classList.add('hidden');
+        contextEl.textContent = '';
+        visibleCount++;
+        return;
+      }
+
+      const name = el.dataset.name || '';
+      const title = el.dataset.title || '';
+      const dept = el.dataset.department || '';
+      const research = el.dataset.research || '';
+
+      // Find what matched (skip name/title since those are already visible)
+      let matchField = '';
+      let matchDisplay = '';
+      if (name.includes(searchTerm) || title.includes(searchTerm)) {
+        // Name or title matched — no extra context needed
+      } else if (dept.includes(searchTerm)) {
+        matchField = 'Dept';
+        matchDisplay = el.dataset.departmentDisplay || '';
+      } else if (research.includes(searchTerm)) {
+        matchField = 'Research';
+        matchDisplay = el.dataset.researchDisplay || '';
+      }
+
+      const matches = name.includes(searchTerm) || title.includes(searchTerm) ||
+        dept.includes(searchTerm) || research.includes(searchTerm);
+
+      el.style.display = matches ? '' : 'none';
+      if (matches) visibleCount++;
+
+      if (matches && matchDisplay) {
+        const idx = matchDisplay.toLowerCase().indexOf(searchTerm);
+        let html = '';
+        if (idx >= 0) {
+          const snippetRadius = 40;
+          const start = Math.max(0, idx - snippetRadius);
+          const end = Math.min(matchDisplay.length, idx + searchTerm.length + snippetRadius);
+          const prefix = start > 0 ? '...' : '';
+          const suffix = end < matchDisplay.length ? '...' : '';
+
+          const before = escapeHtml(matchDisplay.slice(start, idx));
+          const matched = escapeHtml(matchDisplay.slice(idx, idx + searchTerm.length));
+          const after = escapeHtml(matchDisplay.slice(idx + searchTerm.length, end));
+
+          html = `<span class="font-semibold text-gray-600 dark:text-gray-300">${escapeHtml(matchField)}:</span> ${prefix}${before}<mark class="bg-maize text-umichblue rounded-sm px-0.5">${matched}</mark>${after}${suffix}`;
+        } else {
+          html = `<span class="font-semibold text-gray-600 dark:text-gray-300">${escapeHtml(matchField)}:</span> ${escapeHtml(matchDisplay)}`;
+        }
+        contextEl.innerHTML = html;
+        contextEl.classList.remove('hidden');
+      } else {
+        contextEl.classList.add('hidden');
+        contextEl.textContent = '';
+      }
+    });
+
+    // Announce results to screen readers (debounced)
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(() => {
+      if (searchStatus) {
+        if (!searchTerm) {
+          searchStatus.textContent = '';
+        } else {
+          searchStatus.textContent = `${visibleCount} faculty member${visibleCount !== 1 ? 's' : ''} found`;
+        }
+      }
+    }, 500);
+  });
+</script>

@@ -25,7 +25,7 @@ export default defineConfig({
 
   integrations: [
     icon(),
-    sitemap(), 
+    sitemap({ filter: (page) => !page.includes('/api/') }),
     embeds(), 
     mdx()
   ],

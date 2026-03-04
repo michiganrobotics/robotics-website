@@ -1,3 +1,7 @@
 User-agent: *
 Allow: /
+Disallow: /academics/courses/course-offerings/current-590-690/
+Disallow: /auth/
+Disallow: /intranet/
+Disallow: /api/
 Sitemap: https://robotics.umich.edu/sitemap-index.xml 

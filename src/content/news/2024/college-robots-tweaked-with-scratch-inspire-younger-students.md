@@ -13,6 +13,9 @@ tags:
   - "Brody Riopelle"
   - "Scratch"
   - "MBot"
+  - "outreach"
+  - "education"
+  - "K-12"
 ---
 
 <figure>
@@ -25,7 +28,7 @@ Brody Riopelle (CE 2024) recently proved that [MBots](http://mbot.robotics.umich
 
 By using [Scratch](https://scratch.mit.edu/), a coding language with a simple visual interface, Riopelle worked with the [Center for Success Network](https://www.center4success.org/locations) to bring the exploration of robotics to a more elementary level.
 
-Riopelle now works as an engineer in the U-M Robotics Department under the guidance of Chad Jenkins, professor of robotics, with support from the Sloan Foundation. He became involved with the Center for Success Network in Pontiac, MI, through his high school teacher, Serge Danielson-Francois. Together, they brainstormed ideas for establishing a robotics camp for underserved students and collaborated with Kendra Pitts, the Community Literacy Program Coordinator at the Center for Success.
+Riopelle now works as an engineer in the U-M Robotics Department under the guidance of [Chad Jenkins](/people/faculty/chad-jenkins/), professor of robotics, with support from the Sloan Foundation. He became involved with the Center for Success Network in Pontiac, MI, through his high school teacher, Serge Danielson-Francois. Together, they brainstormed ideas for establishing a robotics camp for underserved students and collaborated with Kendra Pitts, the Community Literacy Program Coordinator at the Center for Success.
 
 The MBot was key to their plan.
 

@@ -1,39 +1,12 @@
 ---
-import { getCollection } from 'astro:content';
 import { Icon } from 'astro-icon/components';
-
-const [allPosts, allCollegePosts] = await Promise.all([
-  getCollection('news'),
-  getCollection('collegeNews')
-]);
-
-// Prepare search data
-const searchableNews = [
-  ...allPosts.map(post => ({
-    title: post.data.title,
-    date: post.data.date,
-    url: `/news/${new Date(post.data.date).getFullYear()}/${post.id.split('/')[1]}/`,
-    category: post.data.categories?.[0] || 'Uncategorized',
-    excerpt: post.data.excerpt || '',
-    type: 'robotics'
-  })),
-  ...allCollegePosts.map(post => ({
-    title: post.data.title,
-    date: post.data.date,
-    url: post.data.link,
-    category: post.data.categories?.[0] || 'College News',
-    excerpt: post.data.description || '',
-    type: 'college'
-  }))
-];
-
 ---
 
 <div class="search-container">
   <div class="relative">
-    <input 
-      type="text" 
-      id="searchInput" 
+    <input
+      type="text"
+      id="searchInput"
       placeholder="Search news..."
       class="search-bar"
     />
@@ -42,25 +15,48 @@ const searchableNews = [
   <div id="searchResults" class="search-results hidden border-neutral-500 dark:border-arboretumBlue border"></div>
 </div>
 
-<script define:vars={{ searchableNews }}>
-  const searchInput = document.getElementById('searchInput');
-  const searchResults = document.getElementById('searchResults');
+<script>
+  const searchInput = document.getElementById('searchInput')!;
+  const searchResults = document.getElementById('searchResults')!;
 
-  searchInput.addEventListener('input', (e) => {
-    const searchTerm = e.target.value.toLowerCase();
-    
+  type NewsItem = {
+    title: string;
+    date: string;
+    url: string;
+    category: string;
+    categories: string[];
+    tags: string[];
+    excerpt: string;
+    type: string;
+  };
+
+  let searchableNews: NewsItem[] | null = null;
+
+  async function loadSearchData(): Promise<NewsItem[]> {
+    if (searchableNews) return searchableNews;
+    const res = await fetch('/api/news/search/');
+    searchableNews = await res.json();
+    return searchableNews!;
+  }
+
+  searchInput.addEventListener('input', async (e) => {
+    const searchTerm = (e.target as HTMLInputElement).value.toLowerCase();
+
     if (searchTerm.length < 2) {
       searchResults.innerHTML = '';
       searchResults.classList.add('hidden');
       return;
     }
 
-    const filteredNews = searchableNews.filter(news => 
+    const data = await loadSearchData();
+
+    const filteredNews = data.filter(news =>
       news.title.toLowerCase().includes(searchTerm) ||
       news.excerpt.toLowerCase().includes(searchTerm) ||
-      news.category.toLowerCase().includes(searchTerm)
+      news.categories.some(c => c.replace(/-/g, ' ').includes(searchTerm)) ||
+      news.tags.some(t => t.toLowerCase().includes(searchTerm))
     )
-    .sort((a, b) => new Date(b.date) - new Date(a.date))
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
     .slice(0, 5);
 
     if (filteredNews.length > 0) {
@@ -77,10 +73,10 @@ const searchableNews = [
                   ${news.type === 'college' ? '<svg class="inline w-4 h-4 mt-1 text-gray-800 dark:text-gray-100 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>' : ''}
                 </div>
                 <p class="text-sm text-gray-600 dark:text-gray-300">
-                  ${new Date(news.date).toLocaleDateString('en-US', { 
-                    year: 'numeric', 
-                    month: 'long', 
-                    day: 'numeric' 
+                  ${new Date(news.date).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
                   })}
                 </p>
               </div>
@@ -88,7 +84,7 @@ const searchableNews = [
           </div>
         `)
         .join('');
-      
+
       searchResults.innerHTML = resultsHtml;
       searchResults.classList.remove('hidden');
     } else {
@@ -103,7 +99,7 @@ const searchableNews = [
 
   // Close search results when clicking outside
   document.addEventListener('click', (e) => {
-    if (!e.target.closest('.search-container')) {
+    if (!(e.target as Element).closest('.search-container')) {
       searchResults.classList.add('hidden');
     }
   });
@@ -130,4 +126,4 @@ const searchableNews = [
     box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
   }
 
-</style> 
+</style>

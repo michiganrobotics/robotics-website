@@ -1,5 +1,4 @@
 ---
-import type { HTMLAttributes } from 'astro/types';
 import MainLayout from '../../layouts/MainLayout.astro';
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import PageTitle from "../../components/PageTitle.astro";
@@ -7,406 +6,37 @@ import WelcomeMessage from "../../components/WelcomeMessage.astro";
 import { Icon } from "astro-icon/components";
 import featuredImage from "../../images/featured-images/intranet.jpg";
 import ogFeatureImage from "../../images/featured-images/og/intranet.jpg";
+import { getIntranetData } from "../../lib/googleSheets";
 
-interface Link {
-  text: string;
-  url?: string;
-  description?: string;
-  searchTerms: string;
-}
+const allLinks = await getIntranetData();
 
-interface Section {
-  title: string;
-  links: Link[];
-}
+// Group links by section, preserving row order for section ordering
+const sectionOrder: string[] = [];
+const sections = new Map<string, { title: string; icon: string; links: typeof allLinks }>();
 
-type SectionKey = 'building' | 'it' | 'purchasing' | 'academics' | 'outreach' | 'makerspace' | 'communications' | 'mair' | 'faculty' | 'department';
-
-type Sections = {
-  [K in SectionKey]: Section;
-}
-
-interface MainLayoutProps {
-  title: string;
-  image?: string;
-  description: string;
-}
-
-const sections: Sections = {
-  department: {
-    title: "Department",
-    links: [
-      {
-        text: "Bylaws",
-        url: "https://docs.google.com/document/d/1DKFJ1trOrYDGgjL1K8IVTPk56UVukzzbmHf9j0Z8d6E/edit?usp=sharing",
-        searchTerms: "rules regulations policies governance"
-      },
-      {
-        text: "Calendar",
-        url: "https://calendar.google.com/calendar/u/0?cid=dW1pY2guZWR1XzE1YWkzcTRrc3NvZXR2M29mZGJmZG42NHA4QGdyb3VwLmNhbGVuZGFyLmdvb2dsZS5jb20",
-        searchTerms: "schedule events meetings department calendar"
-      },
-      {
-        text: "Mcommunity email lists",
-        url: "https://docs.google.com/document/d/1aWUJKjZv0nMOTuV9-pDmqn0tC5hQcntMO3j-TbEAUWQ/edit",
-        searchTerms: "mailing lists listserv groups communication contact directory"
-      },
-      {
-        text: "Service Assignments",
-        url: "https://docs.google.com/document/d/1X_sFkK2jhiUVQOXTRCRFNOPQz12T0P7miallMBQ_my0/edit?usp=sharing",
-        searchTerms: "committee assignments faculty service responsibilities duties"
-      },
-      {
-        text: "Continuity of Operations Plan",
-        url: "https://www.dropbox.com/scl/fi/nwqty5yydjk8vxcm4e9mf/Continuity-of-Operations-Plan-5.28.25.docx?rlkey=1yhj10kwy54i1hkncnb8rxqvi&st=ck70m1o8&dl=0",
-        searchTerms: "committee assignments faculty emergency shutdown crisis building contacts plan service responsibilities duties"
-      },
-      {
-        text: "Robotics Seminar Series",
-        url: "https://robotics.umich.edu/events/robotics-seminar-series/",
-        searchTerms: "seminars talks presentations videos education professional development"
-      },
-
-      {
-        text: "Robotics Pathways & Careers Speaker Series",
-        url: "https://robotics.umich.edu/events/robotics-pathways-speaker-series/",
-        searchTerms: "seminars talks presentations videos education professional development"
-      },
-      {
-        text: "Lunch and Learn recordings",
-        url: "https://drive.google.com/drive/folders/10C7619W-zsGFUPifG2m3-JXaj7T54N0e?usp=sharing",
-        searchTerms: "presentations talks seminars videos training education professional development"
-      },
-      {
-        text: "Award Nominations",
-        url: "https://awards.robotics.umich.edu/",
-        description: "For awards committee and staff. Contact: robawards@umich.edu",
-        searchTerms: "awards nominations committee honors recognition faculty staff"
-      }
-    ]
-  },
-  building: {
-    title: "Building",
-    links: [
-      {
-        text: "General building map",
-        url: "https://www.dropbox.com/scl/fi/f4qgl5o2bu8eaw04iu2od/building-map-general-2024.pdf",
-        searchTerms: "floor plan layout directions rooms offices location where find"
-      },
-      {
-        text: "Wiki",
-        url: "https://docs.google.com/document/d/1uULvy324XQPQb2adQmx-FWBln96syexD-_mzzv79jUY/",
-        searchTerms: "information guide documentation help resources faq building info"
-      },
-      {
-        text: "Building maintenance request",
-        description: "Email: coe-facilities-help@umich.edu",
-        searchTerms: "repairs fix broken maintenance facilities issues problems temperature hvac cleaning"
-      },
-      {
-        text: "Room reservations",
-        url: "https://deptapps.engin.umich.edu/scheduling/?dept=210308",
-        searchTerms: "book meeting conference room space schedule reserve booking"
-      },
-            {
-        text: "Large conference room reservation form",
-        url: "https://docs.google.com/forms/d/e/1FAIpQLSc1S8Yu0GTF1m2lf8IkpCc0mn9LqTN5f0HaamhKA7M1FuTOPg/viewform",
-        searchTerms: "event space booking reserve schedule room area"
-      },
-      {
-        text: "Atrium reservation form",
-        url: "https://docs.google.com/forms/d/e/1FAIpQLSejyppTUR70QxGRJj6_jcBlO_vNx3acMdVOx2wp9by07H-5iw/viewform",
-        searchTerms: "event space booking reserve schedule lobby main entrance area"
-      },
-      {
-        text: "Small Event Catering",
-        url: "https://docs.google.com/forms/d/e/1FAIpQLSfcwfumOVzzmKIk3A_as2NZ7thu551SB_wY_rtLELkXzgBEhg/viewform",
-        searchTerms: "food drinks refreshments order meals events meetings"
-      },
-      {
-        text: "Space request",
-        url: "https://docs.google.com/forms/d/e/1FAIpQLSepuzlb7IQchnzKGWL_SNCFb1a9uAcOIgFeKvYJ-JWWIB8Mxg/viewform",
-        searchTerms: "room office space allocation request desk workspace"
-      }
-    ]
-  },
-  it: {
-    title: "IT Resources",
-    links: [
-      {
-        text: "Connect to wired network",
-        url: "https://docs.google.com/document/d/1zKgSzZWGI2Hw7g4Ds7D7k5g4urPYUjuP2ONT34mbnQo/",
-        searchTerms: "ethernet internet connection network wifi setup configure"
-      },
-      {
-        text: "Phone manual",
-        url: "https://www.cisco.com/c/en/us/td/docs/voice_ip_comm/cuipph/8800-series/english/user-guide/P881_BK_C3A802A0_00_cisco-ip-phone-8800-user_guide/P881_BK_C3A802A0_00_cisco-ip-phone-8800-user_guide_chapter_01.html",
-        searchTerms: "telephone cisco voip instructions guide setup how to use"
-      },
-      {
-        text: "Printing setup",
-        url: "https://docs.google.com/document/d/1aC8tJQZMqGxVHorQL4HOvWmkz0dn-MNH83NJT-kCCUg/",
-        searchTerms: "printer install configuration scanner copy scan"
-      },
-      {
-        text: "Fax how-to",
-        url: "https://docs.google.com/document/d/1lWsIEGx_R8wJoJch05eYKGqRMGDaYGZFGT7eDPkSLyI/",
-        searchTerms: "send receive fax instructions guide"
-      },
-      {
-        text: "Display setup",
-        url: "https://docs.google.com/document/d/120ce_nKzH82Cjh9QZIYXLDCwSZ5CqanlP1foTaYE7mg/",
-        searchTerms: "monitor screen tv projector conference room presentation display"
-      },
-      {
-        text: "IT Help / Create a ticket",
-        description: "Contact David Parkin: IT-Help-Robotics@umich.edu",
-        searchTerms: "computer technical support help desk issues problems troubleshooting assistance"
-      }
-    ]
-  },
-  purchasing: {
-    title: "Purchasing & Travel",
-    links: [
-      {
-        text: "OPS Purchase Request form",
-        url: "https://deptapps.engin.umich.edu/order/index/newform?dept=210308",
-        searchTerms: "buy order purchase request procurement supplies equipment materials expense"
-      },
-      {
-        text: "Purchasing overview",
-        url: "https://sites.google.com/umich.edu/purchasing/home",
-        searchTerms: "how to buy guide help purchase order reimbursement instructions procurement process steps"
-      },
-      {
-        text: "Ordering and Marketsite",
-        url: "https://sites.google.com/umich.edu/purchasing/ordersdeliveries/ordering",
-        searchTerms: "order purchase request procurement supplies equipment materials expense marketsite"
-      },
-      {
-        text: "Deliveries and packages",
-        url: "https://sites.google.com/umich.edu/purchasing/ordersdeliveries/deliveries",
-        searchTerms: "mail shipping receiving delivery post office ups fedex amazon"
-      },
-      {
-        text: "Travel guidelines & reimbursement",
-        url: "https://sites.google.com/umich.edu/purchasing/travel-reimbursements",
-        searchTerms: "travel expense report concur flights hotels transportation conference reimbursement money costs"
-      }
-    ]
-  },
-  academics: {
-    title: "Academics",
-    links: [
-      {
-        text: "Graduate Program guide",
-        url: "https://docs.google.com/document/d/e/2PACX-1vTCjWRdEl4wM_n4oIU875yAzzG_4tBdmqnJcj4gNntgyG3Q5LY0qw_J_ei5nqmMEi1ljJpfvLbGCzdJ/pub",
-        searchTerms: "phd masters graduate student handbook requirements courses curriculum program study"
-      },
-      {
-        text: "Undergraduate Program guide",
-        url: "https://robotics.umich.edu/undergrad-guide",
-        searchTerms: "undergraduate bachelors degree requirements courses curriculum program study bsrob"
-      },
-      {
-        text: "ROB 590/690 Project Offerings",
-        url: "https://robotics.umich.edu/academics/courses/course-offerings/current-590-690",
-        searchTerms: "590 690 research project courses curriculum offering study"
-      },
-      {
-        text: "ROB 590/690 Project Submission Form",
-        url: "https://docs.google.com/forms/d/e/1FAIpQLSfaPimpYqbSZ-WGs6-qkbqZLFe0Va8L71krTlTJKawOteM_-Q/viewform?usp=header",
-        searchTerms: "590 690 research project courses curriculum offering study"
-      },
-      {
-        text: "UGRAB",
-        url: "https://deptapps.engin.umich.edu/app/staff/appfile?dept=210308",
-        searchTerms: "undergraduate research application program student opportunities lab work"
-      }
-    ]
-  },
-  outreach: {
-    title: "Outreach",
-    links: [
-       {
-        text: "Building Tour Site",
-        url: "http://tours.robotics.umich.edu/signup",
-        searchTerms: "building tour guide visitor information tours signup request"
-      },
-      {
-        text: "Outreach opportunities",
-        url: "https://docs.google.com/spreadsheets/d/19nhZK_DM6uF_YKqY0mlQarLoiZuDJGgBw6g0dWkxZkg/",
-        searchTerms: "volunteer community service engagement public education k12 stem schools teaching"
-      },
-      {
-        text: "Outreach Ambassador tracking form",
-        url: "https://docs.google.com/forms/d/e/1FAIpQLScCeyhrKtlSWBLor1DH4_sU_4uYzYV7KAovBGjg21VLFpDQZQ/viewform",
-        description: "2024-25 academic year",
-        searchTerms: "volunteer hours log record service community engagement tracking report"
-      },
-      {
-        text: "Student funding request form",
-        url: "https://docs.google.com/forms/d/e/1FAIpQLScRMEHaY3C9rI7vcnbFRH4vCD81UHnn6mbvmU1kPSA6Tj1tPw/viewform",
-        searchTerms: "money support financial assistance grant funding student request reimbursement"
-      },
-      {
-        text: "Audio tour",
-        url: "http://audio.robotics.umich.edu/",
-        searchTerms: "building tour guide visitor information walking self-guided exploration"
-      },
-      {
-        text: "Children on Campus training",
-        url: "https://umich.zoom.us/rec/share/p-kdPRdLAa2i2ODwJk7hPAYZFsX8-mis8X1pF8DmCzkwr5ypeP2-O3gdSicOrwBK.rg4jOqQ8s82OOHVm",
-        description: "Video recording",
-        searchTerms: "children kids training safety campus video recording zoom learn"
-      },
-      {
-        text: "Children on Campus training",
-        url: "https://docs.google.com/presentation/d/1HRCgeMd67T4KFBj_6flZYAYs-4n3FYJK6fj8pMQIjHE/edit?usp=sharing",
-        description: "Slide deck",
-        searchTerms: "children kids training safety campus presentation slides google docs"
-      },
-    ]
-  },
-  faculty: {
-    title: "Faculty Resources",
-    links: [
-      {
-        text: "Faculty search system",
-        url: "https://deptapps.engin.umich.edu/facultysearch/committee?dept=210308",
-        searchTerms: "hiring recruitment job applications candidates professor positions academic"
-      },
-      {
-        text: "Faculty Activity Report (FAR)",
-        url: "https://deptapps.engin.umich.edu/far/home?dept=210308",
-        searchTerms: "annual report performance evaluation research teaching service accomplishments"
-      },
-      {
-        text: "Faculty Research Admin Assignments",
-        url: "https://docs.google.com/spreadsheets/d/13EN8rXQY5QetGVJ2NEg8m8DEVW0o9o-gLJS2tg8NRlk/edit?usp=sharing",
-        searchTerms: "research administration staff support grants contracts proposals"
-      },
-      {
-        text: "HR Request System",
-        url: "https://deptapps.engin.umich.edu/hr/request/new?dept=210308",
-        description: "For visitors, temporary appointments, research fellows, etc.",
-        searchTerms: "visitors temporary appointments researcher stipend unpaid fellows visitors adaa adjunct"
-      }
-    ]
-  },
-  makerspace: {
-    title: "Makerspace",
-    links: [
-      {
-        text: "Tool reservation",
-        url: "https://www.supersaas.com/schedule/WSTPC/FRB_Makerspace_Tool_Calendar",
-        searchTerms: "equipment tools workshop machinery reserve schedule book"
-      },
-      {
-        text: "3D printing request",
-        url: "https://docs.google.com/forms/d/e/1FAIpQLSecbRId6WVnP8wdAnKEcu0s-GnVLIk4kG8aaqG5kz5xkJgl-Q/viewform",
-        searchTerms: "additive manufacturing prototyping fabrication print model request"
-      },
-      {
-        text: "Wilson Center Training Sessions",
-        url: "https://teamprojects.engin.umich.edu/home/training/",
-        searchTerms: "safety certification workshop equipment training requirements machine shop"
-      }
-    ]
-  },
-  mair: {
-    title: "M-Air Net",
-    links: [
-      {
-        text: "M-Air Net Google Calendar",
-        url: "https://calendar.google.com/calendar/embed?src=umich.edu_q4p3pqpesecd8tlmlcu5aioplg%40group.calendar.google.com",
-        searchTerms: "m-air net drone facility schedule booking calendar reserve time slot flying testing"
-      },
-      {
-        text: "Reservation",
-        description: "Contact: mair-info@umich.edu",
-        searchTerms: "m-air book schedule reserve drone facility flying testing space request"
-      }
-    ]
-  },
-  communications: {
-    title: "Communications & Marketing",
-    links: [
-      {
-        text: "All Michigan Robotics Communications Resources",
-        url: "https://drive.google.com/drive/u/0/folders/16Y-QifDAcqtZNPigTK2OjXLLWW0DJFM5",
-        searchTerms: "marketing branding media resources communications materials templates guides"
-      },
-      {
-        text: "Slideshows and sample slides",
-        url: "https://drive.google.com/drive/u/0/folders/1-CLlDUaSdQd6rUvY98adGBDReYIErO8e",
-        searchTerms: "presentations templates powerpoint slides deck design branding"
-      },
-      {
-        text: "Logos (vector and raster)",
-        url: "https://drive.google.com/drive/u/0/folders/1lL88YgX3dYwVhqQAF1HaCRRENy4J29At",
-        searchTerms: "brand identity graphics images svg png eps design visual"
-      },
-      {
-        text: "Letterhead",
-        url: "https://drive.google.com/drive/u/0/folders/1j3erkedH_mde0zeR19fYYWy-D6lPxvCr",
-        searchTerms: "official paper template document header stationery branding"
-      },
-      {
-        text: "Business card ordering information",
-        url: "https://drive.google.com/drive/u/0/folders/1AmUwUKjf3-8czLES_Tq8eoifLWFK93_M",
-        searchTerms: "contact cards printing order business cards name title information"
-      },
-      {
-        text: "Images and Zoom backgrounds",
-        url: "https://drive.google.com/drive/u/0/folders/1YhlkrunPK0WFKf-zrGkXcnpLkeJjaSXm",
-        searchTerms: "photos pictures virtual backgrounds media assets graphics wallpaper"
-      },
-      {
-        text: "Rapid Research article request",
-        url: "https://form.asana.com/?k=QXWWtmrae3jZr5gsiy1Byg&d=939514425027676",
-        searchTerms: "news story coverage press media publication research highlight"
-      },
-      {
-        text: "Robotics Content Submission form",
-        url: "https://docs.google.com/forms/d/e/1FAIpQLSems8fcRc8jlR-B_PlLu85P8rqzjwC-b59lyJmXVZu9xF6UOg/viewform",
-        searchTerms: "news updates announcements submit content website social media share"
-      },
-      {
-        text: "Robotics Branded Apparel & Gear Shop",
-        url: "https://www.aatwebstore.com/UMBOT/shop/home",
-        searchTerms: "merchandise swag clothing shirts hoodies accessories store shop"
-      },
-      {
-        text: "More information",
-        description: "Contact Dan Newman: dnewms@umich.edu",
-        searchTerms: "communications help contact marketing media assistance questions support"
-      }
-    ]
+for (const link of allLinks) {
+  if (!sections.has(link.section)) {
+    sectionOrder.push(link.section);
+    sections.set(link.section, {
+      title: link.sectionTitle,
+      icon: link.icon,
+      links: [],
+    });
   }
-};
+  sections.get(link.section)!.links.push(link);
+}
 
-const sectionIcons: Record<SectionKey, string> = {
-  building: "mdi:office-building",
-  it: "mdi:desktop-classic",
-  purchasing: "mdi:cart",
-  academics: "mdi:school",
-  outreach: "mdi:account-group",
-  makerspace: "mdi:tools",
-  communications: "mdi:bullhorn",
-  mair: "mdi:drone",
-  faculty: "mdi:account-tie",
-  department: "mdi:domain"
-};
+// Get quick links
+const quickLinks = allLinks.filter(link => link.quickLink);
 ---
 
-<MainLayout 
-  title="Department Intranet | Michigan Robotics" 
-  image={ogFeatureImage.src} 
+<MainLayout
+  title="Department Intranet | Michigan Robotics"
+  image={ogFeatureImage.src}
   description="A list of resources for Michigan Robotics faculty, staff, and students."
 >
   <Breadcrumbs slot="breadcrumbs" />
-  <PageTitle 
+  <PageTitle
     title="Department Intranet"
     image={featuredImage}
     imageAlt="Robotics Building window facade in the sunrise"
@@ -417,10 +47,10 @@ const sectionIcons: Record<SectionKey, string> = {
     <!-- Search Bar -->
     <div class="mb-4 not-prose">
       <div class="relative max-w-full mx-auto">
-        <input 
-          type="text" 
-          id="search" 
-          placeholder="Search resources..." 
+        <input
+          type="text"
+          id="search"
+          placeholder="Search resources..."
           class="search-bar"
         >
       </div>
@@ -433,48 +63,67 @@ const sectionIcons: Record<SectionKey, string> = {
         Frequently Used
       </h2>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <a href="https://deptapps.engin.umich.edu/order/index/newform?dept=210308" 
-           class="flex items-center">
-          <Icon name="mdi:cart" class="w-4 h-4 mr-2 text-arboretumBlue dark:text-taubmanTeal" />
-          OPS Purchase Request Form
-        </a>
-        <a href="https://deptapps.engin.umich.edu/scheduling/?dept=210308" 
-           class="flex items-center">
-          <Icon name="mdi:calendar" class="w-4 h-4 mr-2 text-arboretumBlue dark:text-taubmanTeal" />
-          Room Reservations
-        </a>
-        <a href="mailto:IT-Help-Robotics@umich.edu" 
-           class="flex items-center">
-          <Icon name="mdi:help" class="w-4 h-4 mr-2 text-arboretumBlue dark:text-taubmanTeal" />
-          IT Help
-        </a>
+        {quickLinks.map(link => (
+          link.url ? (
+            <a href={link.url} class="flex items-center">
+              <Icon name={link.quickLinkIcon || link.icon} class="w-4 h-4 mr-2 text-arboretumBlue dark:text-taubmanTeal" />
+              {link.text}
+            </a>
+          ) : (
+            <a href={link.description.includes('@') ? `mailto:${link.description.split(': ')[1]}` : '#'} class="flex items-center">
+              <Icon name={link.quickLinkIcon || link.icon} class="w-4 h-4 mr-2 text-arboretumBlue dark:text-taubmanTeal" />
+              {link.text}
+            </a>
+          )
+        ))}
       </div>
     </div>
 
     <!-- Main Resource Grid -->
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="resource-grid">
-      {(Object.entries(sections) as [SectionKey, Section][]).map(([key, section]) => (
-        <div class="card-base card-padded surface resource-section">
-          <h2 class="text-2xl font-roboto-condensed font-bold mb-4 flex items-center">
-            <Icon name={sectionIcons[key]} class="w-6 h-6 text-umichblue dark:text-maize mr-2" />
-            {section.title}
-          </h2>
-          <ul class="space-y-3">
-            {section.links.map(link => (
-              <li class="resource-item" data-search-terms={link.searchTerms || ''}>
-                {link.url ? (
-                  <div>
-                    <a href={link.url}
-                       class="flex items-start"
-                       target="_blank">
-                      <Icon name="mdi:arrow-right" class="w-4 h-4 mr-1 text-arboretumBlue dark:text-taubmanTeal mt-1 flex-shrink-0" />
-                      {link.text}
-                    </a>
-                    {link.description && (
-                      <div class="text-sm text-neutral-700 dark:text-neutral-300 ml-5 mt-1">
-                        {link.description.includes('@') ? (
+      {sectionOrder.map(sectionKey => {
+        const section = sections.get(sectionKey)!;
+        return (
+          <div class="card-base card-padded surface resource-section">
+            <h2 class="text-2xl font-roboto-condensed font-bold mb-4 flex items-center">
+              <Icon name={section.icon} class="w-6 h-6 text-umichblue dark:text-maize mr-2" />
+              {section.title}
+            </h2>
+            <ul class="space-y-3">
+              {section.links.map(link => (
+                <li class="resource-item" data-search-terms={link.searchTerms || ''}>
+                  {link.url ? (
+                    <div>
+                      <a href={link.url}
+                         class="flex items-start"
+                         target="_blank">
+                        <Icon name="mdi:arrow-right" class="w-4 h-4 mr-1 text-arboretumBlue dark:text-taubmanTeal mt-1 shrink-0" />
+                        {link.text}
+                      </a>
+                      {link.description && (
+                        <div class="text-sm text-neutral-700 dark:text-neutral-300 ml-5 mt-1">
+                          {link.description.includes('@') ? (
+                            <>
+                              {link.description.split(': ')[0]}: <a href={`mailto:${link.description.split(': ')[1]}`}>
+                                {link.description.split(': ')[1]}
+                              </a>
+                            </>
+                          ) : (
+                            link.description
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  ) : (
+                    <div>
+                      <div class="font-medium dark:text-white flex items-start">
+                        <Icon name="mdi:information" class="w-4 h-4 mr-1 text-arboretumBlue dark:text-taubmanTeal mt-1" />
+                        {link.text}
+                      </div>
+                      <div class="text-sm text-neutral-700 dark:text-neutral-300 ml-5">
+                        {link.description && link.description.includes('@') ? (
                           <>
-                            {link.description.split(': ')[0]}: <a href={`mailto:${link.description.split(': ')[1]}`}>
+                            Email: <a href={`mailto:${link.description.split(': ')[1]}`}>
                               {link.description.split(': ')[1]}
                             </a>
                           </>
@@ -482,32 +131,14 @@ const sectionIcons: Record<SectionKey, string> = {
                           link.description
                         )}
                       </div>
-                    )}
-                  </div>
-                ) : (
-                  <div>
-                    <div class="font-medium dark:text-white flex items-start">
-                      <Icon name="mdi:information" class="w-4 h-4 mr-1 text-arboretumBlue dark:text-taubmanTeal mt-1" />
-                      {link.text}
                     </div>
-                    <div class="text-sm text-neutral-700 dark:text-neutral-300 ml-5">
-                      {link.description && link.description.includes('@') ? (
-                        <>
-                          Email: <a href={`mailto:${link.description.split(': ')[1]}`}>
-                            {link.description.split(': ')[1]}
-                          </a>
-                        </>
-                      ) : (
-                        link.description
-                      )}
-                    </div>
-                  </div>
-                )}
-              </li>
-            ))}
-          </ul>
-        </div>
-      ))}
+                  )}
+                </li>
+              ))}
+            </ul>
+          </div>
+        );
+      })}
     </div>
   </div>
 </MainLayout>
@@ -521,12 +152,12 @@ const sectionIcons: Record<SectionKey, string> = {
 
   searchInput?.addEventListener('input', (e) => {
     const searchTerm = (e.target as HTMLInputElement).value.toLowerCase();
-    
+
     // Hide/show quick links section based on search
     if (quickLinksSection) {
       quickLinksSection.style.display = searchTerm ? 'none' : '';
     }
-    
+
     // First, process all items to set their visibility
     resourceItems.forEach(item => {
       const text = item.textContent?.toLowerCase() || '';
@@ -547,7 +178,7 @@ const sectionIcons: Record<SectionKey, string> = {
     if (resourceGrid) {
       const visibleSections = Array.from(resourceSections)
         .filter(section => (section as HTMLElement).style.display !== 'none').length;
-      
+
       if (visibleSections <= 2) {
         resourceGrid.classList.remove('lg:grid-cols-3');
         resourceGrid.classList.add('lg:grid-cols-2');
@@ -557,4 +188,4 @@ const sectionIcons: Record<SectionKey, string> = {
       }
     }
   });
-</script> 
+</script>

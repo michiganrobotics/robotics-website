@@ -50,8 +50,8 @@
   --focus-ring-color-light: var(--color-maize);
   --focus-ring-color-dark: #eeeeee;
 
-  /* Surface Colors - Light Mode */
-  --bg-page-light: #f3f4f6;
+  /* Surface Colors - Light Mode (subtle blue tint for brand warmth) */
+  --bg-page-light: #edf1f8;
   --bg-surface-light: #f8f9fa;
   --bg-surface-hover: #e5e7eb;
   --bg-elevated-light: #ffffff;
@@ -273,7 +273,7 @@
   
   /* Flex layout for card containers */
   .cards-container {
-    @apply flex flex-wrap gap-4 justify-center mb-8 md:flex-nowrap pt-10 px-2;
+    @apply flex flex-wrap gap-4 justify-center mb-8 md:flex-nowrap pt-10 md:pt-14 px-2;
   }
   
   /* Subtitle with double underline that fades - separated into component parts */

@@ -1,24 +1,88 @@
 ---
 import Layout from '../../../../layouts/MainLayout.astro';
 import News from '../../../../components/templates/News.astro';
+import RelatedNews from '../../../../components/RelatedNews.astro';
 import { getCollection, render } from 'astro:content';
 import { components } from '../../../../components/components';
 
 export async function getStaticPaths() {
   const newsEntries = await getCollection('news');
-  
+  const collegeEntries = await getCollection('collegeNews');
+
+  // Normalize both collections into a common shape for tag matching
+  const allArticles = [
+    ...newsEntries.map(e => ({
+      id: e.id,
+      title: e.data.title,
+      date: typeof e.data.date === 'string' ? e.data.date : new Date(e.data.date).toISOString(),
+      tags: e.data.tags || [],
+      image: e.data.image,
+      href: `/news/${e.data.date.split('-')[0]}/${e.id.split('/')[1]}/`,
+      isCollege: false,
+    })),
+    ...collegeEntries.map(e => ({
+      id: `college-${e.id}`,
+      title: e.data.title,
+      date: typeof e.data.date === 'string' ? e.data.date : new Date(e.data.date).toISOString(),
+      tags: e.data.tags || [],
+      image: e.data.image,
+      href: e.data.link,
+      isCollege: true,
+    })),
+  ];
+
   return newsEntries.map(entry => {
     const year = entry.data.date.split('-')[0];
     const slug = entry.id.split('/')[1];
-    
+    const entryId = entry.id;
+    const entryTags = entry.data.tags || [];
+
+    let tagGroups: { tag: string; articles: { title: string; date: string; slug: string; href: string; isCollege: boolean; image?: { src: any; alt: string } }[] }[] = [];
+
+    if (entryTags.length > 0) {
+      const tagCounts = entryTags.map(tag => {
+        const matches = allArticles.filter(other =>
+          other.id !== entryId && other.tags?.includes(tag)
+        );
+        return { tag, count: matches.length, matches };
+      });
+
+      tagCounts.sort((a, b) => b.count - a.count);
+      const tagsWithMatches = tagCounts.filter(t => t.count > 0 && t.tag.toLowerCase() !== 'awards').slice(0, 3);
+
+      // Deduplicate articles across groups so the same article doesn't appear twice
+      const seen = new Set<string>();
+      for (const t of tagsWithMatches) {
+        const articles = t.matches
+          .filter(m => !seen.has(m.id))
+          .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+          .slice(0, 3)
+          .map(a => {
+            seen.add(a.id);
+            return {
+              title: a.title,
+              date: a.date,
+              slug: a.id.split('/')[1],
+              href: a.href,
+              isCollege: a.isCollege,
+              image: a.image,
+            };
+          });
+
+        if (articles.length > 0) {
+          tagGroups.push({ tag: t.tag, articles });
+        }
+      }
+    }
+
     return {
       params: { year, slug },
-      props: { entry }
+      props: { entry, tagGroups }
     };
   });
 }
 
-const { entry } = Astro.props;
+const { entry, tagGroups } = Astro.props;
 const { Content } = await render(entry);
 
 // Get all focus areas to map categories to titles
@@ -85,4 +149,7 @@ const node = {
   <News node={node}>
     <Content slot="content" components={components}/>
   </News>
+  {tagGroups.length > 0 && (
+    <RelatedNews tagGroups={tagGroups} />
+  )}
 </Layout>

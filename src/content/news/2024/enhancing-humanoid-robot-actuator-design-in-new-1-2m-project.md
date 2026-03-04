@@ -14,6 +14,9 @@ categories:
 tags:
   - "Yanran Ding"
   - "Robert Gregg"
+  - "actuators"
+  - "humanoid robots"
+  - "NSF"
 author: "Dan Newman"
 ---
 
