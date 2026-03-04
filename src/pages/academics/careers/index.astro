@@ -59,6 +59,7 @@ const phdRows = [
         <ul class="text-sm space-y-1.5 text-gray-700 dark:text-gray-300">
           <li>University of Michigan (many through <a href="/academics/graduate/sugs/">SUGS</a>)</li>
           <li>Carnegie Mellon University</li>
+          <li>École Polytechnique</li>
           <li>Stanford University</li>
           <li>Georgia Tech</li>
           <li>MIT</li>
@@ -68,7 +69,11 @@ const phdRows = [
       </div>
     </div>
 
-    <p>The Robotics major is new, so program-specific salary data is not yet available. We will publish salary and placement data when the Engineering Career Resource Center makes it available.</p>
+    <div class="not-prose surface rounded-lg shadow-md p-5 my-6">
+      <h3 class="text-lg font-semibold mb-2 text-arboretumBlue dark:text-maize">Explore other data</h3>
+      <p class="text-sm text-gray-700 dark:text-gray-300 mb-3">The Robotics major is new, so program-specific undergraduate salary data is not yet available. The Engineering Career Resource Center publishes salary, employer, and graduate school data for all Michigan Engineering programs. Robotics-specific salary data is not yet included, but employer and graduate school destination data is available.</p>
+      <Button href="https://career.engin.umich.edu/students/michigan-engineering-student-salary-information/" text="Explore ECRC salary data" external />
+    </div>
 
     <h2 id="graduate-outcomes">Graduate outcomes</h2>
 
@@ -169,6 +174,16 @@ const phdRows = [
       </div>
     </div>
 
+    <div class="not-prose surface rounded-lg shadow-md p-5 my-6 flex flex-col sm:flex-row gap-4 items-start">
+      <img src="https://news.engin.umich.edu/wp-content/uploads/2025/09/Gideon-Billings-alumni.jpg" alt="Gideon Billings on a boat wearing an orange life vest, with sea and ice in the background" class="w-full sm:w-40 rounded-md object-cover" />
+      <div>
+        <h3 class="text-lg font-semibold mb-1">Alumni spotlight: Gideon Billings</h3>
+        <p class="text-xs text-gray-500 dark:text-gray-400 mb-2">BS ECE '16, MS ROB '19, PhD ROB '21</p>
+        <p class="text-sm text-gray-700 dark:text-gray-300">Gideon Billings is developing autonomous underwater robots at the Woods Hole Oceanographic Institute that can explore under Arctic ice for months at a time. His work on navigation, virtual reality interfaces, and natural language control is making underwater robotics accessible to researchers without robotics training.</p>
+        <a href="https://news.engin.umich.edu/2025/09/building-curious-robots/" target="_blank" rel="noopener noreferrer" class="text-sm font-semibold hover:underline mt-2 inline-block">Read his story &rarr;</a>
+      </div>
+    </div>
+
     <h2 id="career-resources">Career resources</h2>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 my-6">
@@ -204,14 +219,5 @@ const phdRows = [
     <p>Job postings should be sent to the Engineering Career Resource Center (ECRC), which hosts an online system accessible to all of our students.</p>
 
     <Button href="https://career.engin.umich.edu/employers/engagement/#jobs" text="Post a job on Hire a Michigan Engineer" external />
-
-    <h2 id="work-at-michigan-robotics">Work at Michigan Robotics</h2>
-
-    <p>Interested in joining the Michigan Robotics department?</p>
-
-    <ul>
-      <li><strong>Faculty positions</strong> are listed on our <a href="/about/faculty-jobs/">faculty jobs page</a></li>
-      <li><strong>Staff positions</strong> are posted on <a href="https://careers.umich.edu/" target="_blank" rel="noopener noreferrer">careers.umich.edu</a></li>
-    </ul>
   </article>
 </Layout>
