@@ -122,9 +122,9 @@ function formatRawTimeString(timestring: string): string{
                   <tbody>
                     {outreachEventsData.map((event) => (
                       <tr class="bg-[var(--bg-undersurface-light)] dark:bg-[var(--bg-undersurface-dark)] border-b hover:bg-[var(--bg-surface-hover)] dark:hover:bg-[var(--bg-surface-hover-dark)]">
-                        <th scope="row" class="px-6 py-4 font-medium border-r align-top">
+                        <td scope="row" class="px-6 py-4 font-medium border-r align-top">
                           {event.eventName}
-                        </th>
+                        </td>
                         <td class="px-6 py-4 border-r align-top max-w-md">
                           <div class="desc-wrapper">
                             <div class="desc-content line-clamp-3">
@@ -284,7 +284,7 @@ function formatRawTimeString(timestring: string): string{
 </Layout>
 <style>
   table{
-    min-width: 1750px;
+    min-width: 1950px;
   }
 
   .desc-wrapper {
@@ -295,6 +295,36 @@ function formatRawTimeString(timestring: string): string{
     -webkit-line-clamp: unset !important;
     line-clamp: unset !important;
     display: block;
+  }
+
+  tbody tr :nth-child(2),thead tr :nth-child(2){
+    width: 275px;
+  }
+
+  tbody tr :nth-child(3), tbody tr :nth-child(4), tbody tr :nth-child(5), thead tr :nth-child(3), thead tr :nth-child(4), thead tr :nth-child(5){
+    width: 150px;
+    text-align: center;
+  }
+
+  tbody tr :nth-child(6), thead tr :nth-child(6){
+    width: 205px;
+    max-width: 205px;
+  }
+
+  tbody tr :nth-child(7), thead tr :nth-child(7),tbody tr :nth-child(8), thead tr :nth-child(8){
+    width: 135px;
+    max-width: 135px;
+    text-align: center;
+  }
+
+  tbody tr :nth-child(9), thead tr :nth-child(9){
+    width: 225px;
+    max-width: 225px;
+  }
+
+  tbody tr :nth-child(10), thead tr :nth-child(10){
+    width: 200px;
+    max-width: 200px;
   }
 
   .click-more {
