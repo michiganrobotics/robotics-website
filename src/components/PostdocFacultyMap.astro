@@ -55,8 +55,16 @@ const raw: Institution[] = [
   { name: "ETH Zurich", label: "ETH Zurich", lat: 47.38, lon: 8.55, showLabel: true, labelDx: 10, labelDy: 8, labelAnchor: "start" },
   { name: "Empa (Switzerland)", label: "Empa", lat: 47.40, lon: 8.61, showLabel: true, labelDx: 10, labelDy: 20, labelAnchor: "start" },
   { name: "Military Institute of Engineering (Brazil)", label: "IME (Brazil)", lat: -22.91, lon: -43.17, showLabel: true, labelDx: 10, labelDy: 4, labelAnchor: "start" },
-  { name: "Yonsei University", label: "Yonsei", lat: 37.56, lon: 126.94, showLabel: true, labelDx: 10, labelDy: 4, labelAnchor: "start" },
+  { name: "Yonsei University", label: "Yonsei", lat: 37.56, lon: 126.94, showLabel: true, labelDx: 10, labelDy: -16, labelAnchor: "start" },
+  { name: "Incheon National University", label: "INU", lat: 37.37, lon: 126.63, showLabel: true, labelDx: 10, labelDy: -4, labelAnchor: "start" },
   { name: "Shanghai Jiao Tong University", label: "Shanghai Jiao Tong", lat: 31.03, lon: 121.44, showLabel: true, labelDx: 10, labelDy: 4, labelAnchor: "start" },
+  { name: "Carnegie Mellon University", label: "CMU", lat: 40.44, lon: -79.94, labelDx: 10, labelDy: -6, labelAnchor: "start" },
+  { name: "US Naval Academy", label: "Naval Academy", lat: 38.98, lon: -76.48, labelDx: 10, labelDy: -6, labelAnchor: "start" },
+  { name: "Virginia Tech", label: "Virginia Tech", lat: 37.23, lon: -80.42, labelDx: 10, labelDy: 4, labelAnchor: "start" },
+  { name: "Ohio State University", label: "Ohio State", lat: 40.00, lon: -83.01, labelDx: 10, labelDy: 4, labelAnchor: "start" },
+  { name: "Sungkyunkwan University", label: "SKKU", lat: 37.29, lon: 126.97, showLabel: true, labelDx: 10, labelDy: 8, labelAnchor: "start" },
+  { name: "Wayne State University", label: "Wayne State", lat: 42.36, lon: -83.07, labelDx: 10, labelDy: 10, labelAnchor: "start" },
+  { name: "Oklahoma State University", label: "Oklahoma State", lat: 36.12, lon: -97.07, labelDx: -10, labelDy: -8, labelAnchor: "end" },
 ];
 
 const points = raw.map((inst) => ({
@@ -99,8 +107,8 @@ const arcs = destinations.map((d) => arcPath(origin.x, origin.y, d.x, d.y));
 
     <!-- Institution dots + always-on labels (rendered first, below hover labels) -->
     {destinations.map((pt) => (
-      <g>
-        <circle cx={pt.x} cy={pt.y} r="2.5" class="dot" />
+      <g class={pt.showLabel ? "always-label-group" : ""} data-inst={pt.label}>
+        <circle cx={pt.x} cy={pt.y} r="2.5" class="dot" data-inst={pt.label} />
         {pt.showLabel && (
           <text
             x={pt.x + (pt.labelDx || 0)}
@@ -118,8 +126,8 @@ const arcs = destinations.map((d) => arcPath(origin.x, origin.y, d.x, d.y));
 
     <!-- Hover labels (rendered last, on top of everything) -->
     {destinations.filter((pt) => !pt.showLabel).map((pt) => (
-      <g class="institution-group" tabindex="0" role="group" aria-label={pt.name}>
-        <circle cx={pt.x} cy={pt.y} r="6" fill="transparent" class="hover-target" />
+      <g class="institution-group" tabindex="0" role="group" aria-label={pt.name} data-inst={pt.label}>
+        <circle cx={pt.x} cy={pt.y} r="4" fill="transparent" class="hover-target" />
         <text
           x={pt.x + (pt.labelDx || 0)}
           y={pt.y + (pt.labelDy || 0)}
@@ -145,15 +153,11 @@ const arcs = destinations.map((d) => arcPath(origin.x, origin.y, d.x, d.y));
   </div>
 </div>
 
-<style>
+<style is:global>
   /* Land fill */
   .postdoc-map .land {
     fill: #d1d5db;
     stroke: none;
-  }
-
-  :global(.dark) .postdoc-map .land {
-    fill: #374151;
   }
 
   /* Arc lines */
@@ -163,18 +167,9 @@ const arcs = destinations.map((d) => arcPath(origin.x, origin.y, d.x, d.y));
     opacity: 0.15;
   }
 
-  :global(.dark) .postdoc-map .arc-line {
-    stroke: #FFCB05;
-    opacity: 0.12;
-  }
-
   /* Dots */
   .postdoc-map .dot {
     fill: #00274C;
-  }
-
-  :global(.dark) .postdoc-map .dot {
-    fill: #FFCB05;
   }
 
   /* Labels — paint-order halo for readability */
@@ -185,12 +180,6 @@ const arcs = destinations.map((d) => arcPath(origin.x, origin.y, d.x, d.y));
     stroke-width: 3;
     paint-order: stroke fill;
     stroke-linejoin: round;
-  }
-
-  :global(.dark) .postdoc-map .always-label,
-  :global(.dark) .postdoc-map .hover-label {
-    fill: #f3f4f6;
-    stroke: #111827;
   }
 
   .postdoc-map .hover-label {
@@ -230,18 +219,6 @@ const arcs = destinations.map((d) => arcPath(origin.x, origin.y, d.x, d.y));
     opacity: 0.95;
   }
 
-  :global(.dark) .postdoc-map .origin-ring {
-    fill: white;
-  }
-
-  :global(.dark) .postdoc-map .origin-dot {
-    fill: #FFCB05;
-  }
-
-  :global(.dark) .postdoc-map .origin-label {
-    fill: white;
-  }
-
   /* Origin pulse animation */
   .postdoc-map .origin-glow {
     animation: pfmOriginPulse 2.5s ease-in-out infinite;
@@ -258,9 +235,213 @@ const arcs = destinations.map((d) => arcPath(origin.x, origin.y, d.x, d.y));
     }
   }
 
+  /* Dark mode */
+  @media (prefers-color-scheme: dark) {
+    .postdoc-map .land {
+      fill: #374151;
+    }
+
+    .postdoc-map .arc-line {
+      stroke: #FFCB05;
+      opacity: 0.12;
+    }
+
+    .postdoc-map .dot {
+      fill: white;
+    }
+
+    .postdoc-map .always-label,
+    .postdoc-map .hover-label {
+      fill: #f3f4f6;
+      stroke: #00274C;
+      stroke-width: 4;
+    }
+
+    .postdoc-map .origin-ring {
+      fill: white;
+    }
+
+    .postdoc-map .origin-dot {
+      fill: #FFCB05;
+    }
+
+    .postdoc-map .origin-label {
+      fill: white;
+    }
+  }
+
+  .postdoc-map .hover-label.cycle-visible {
+    opacity: 1 !important;
+  }
+
+  .postdoc-map .always-label {
+    transition: opacity 1.2s ease 0.3s;
+  }
+
+  .postdoc-map .always-label.label-hidden {
+    opacity: 0;
+    transition: opacity 0.15s ease;
+  }
+
+  .postdoc-map .dot.cycle-active {
+    fill: #FFCB05 !important;
+  }
+
+  .postdoc-map .cycle-glow {
+    fill: #FFCB05;
+    animation: pfmDotPulse 1.5s ease-out infinite;
+  }
+
+  @keyframes pfmDotPulse {
+    0% { r: 2.5; opacity: 0.6; }
+    100% { r: 10; opacity: 0; }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .postdoc-map .origin-glow {
       animation: none;
     }
   }
 </style>
+
+<script>
+  function initMapCycle() {
+    const map = document.querySelector('.postdoc-map');
+    if (!map) return;
+
+    const groups = Array.from(map.querySelectorAll('.institution-group'));
+    if (groups.length === 0) return;
+
+    let currentIndex = 0;
+    let intervalId: ReturnType<typeof setInterval> | null = null;
+    let isHovering = false;
+
+    // Map of hover labels that conflict with always-on labels
+    const labelConflicts: Record<string, string[]> = {
+      'Cleveland Clinic': ['Harvard / MIT / Northeastern'],
+      'HSS (NYC)': ['Harvard / MIT / Northeastern'],
+      'Penn State': ['Harvard / MIT / Northeastern'],
+      'Syracuse': ['Harvard / MIT / Northeastern'],
+      'Naval Academy': ['Harvard / MIT / Northeastern'],
+      'Vanderbilt': ['Georgia Tech'],
+      'Arizona State': ['UC Berkeley'],
+      'Oklahoma State': ['Stanford', 'UC Berkeley'],
+    };
+
+    function hideConflicting(inst: string) {
+      const conflicts = labelConflicts[inst];
+      if (!conflicts) return;
+      conflicts.forEach(c => {
+        map.querySelector(`.always-label-group[data-inst="${c}"] .always-label`)?.classList.add('label-hidden');
+      });
+    }
+
+    function showConflicting(inst: string) {
+      const conflicts = labelConflicts[inst];
+      if (!conflicts) return;
+      conflicts.forEach(c => {
+        map.querySelector(`.always-label-group[data-inst="${c}"] .always-label`)?.classList.remove('label-hidden');
+      });
+    }
+
+    function showNext() {
+      // Remove previous
+      groups.forEach(g => {
+        g.querySelector('.hover-label')?.classList.remove('cycle-visible');
+        const inst = g.getAttribute('data-inst');
+        if (inst) {
+          showConflicting(inst);
+          const dot = map!.querySelector(`.dot[data-inst="${inst}"]`);
+          dot?.classList.remove('cycle-active');
+          dot?.parentElement?.querySelector('.cycle-glow')?.remove();
+        }
+      });
+      // Show current
+      const group = groups[currentIndex];
+      group.querySelector('.hover-label')?.classList.add('cycle-visible');
+      const inst = group.getAttribute('data-inst');
+      if (inst) {
+        hideConflicting(inst);
+        const dot = map.querySelector(`.dot[data-inst="${inst}"]`) as SVGCircleElement;
+        if (dot) {
+          dot.classList.add('cycle-active');
+          const glow = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+          glow.setAttribute('cx', dot.getAttribute('cx')!);
+          glow.setAttribute('cy', dot.getAttribute('cy')!);
+          glow.setAttribute('r', '2.5');
+          glow.classList.add('cycle-glow');
+          dot.parentElement?.insertBefore(glow, dot);
+        }
+      }
+      currentIndex = (currentIndex + 1) % groups.length;
+    }
+
+    function startCycle() {
+      if (intervalId || isHovering) return;
+      showNext();
+      intervalId = setInterval(showNext, 2000);
+    }
+
+    function stopCycle() {
+      if (intervalId) {
+        clearInterval(intervalId);
+        intervalId = null;
+      }
+      groups.forEach(g => {
+        g.querySelector('.hover-label')?.classList.remove('cycle-visible');
+        const inst = g.getAttribute('data-inst');
+        if (inst) {
+          showConflicting(inst);
+          const dot = map!.querySelector(`.dot[data-inst="${inst}"]`);
+          dot?.classList.remove('cycle-active');
+          dot?.parentElement?.querySelector('.cycle-glow')?.remove();
+        }
+      });
+    }
+
+    // Stop cycling when user hovers any institution group; highlight hovered dot
+    groups.forEach(g => {
+      g.addEventListener('mouseenter', () => {
+        isHovering = true;
+        stopCycle();
+        const inst = g.getAttribute('data-inst');
+        if (inst) {
+          map!.querySelector(`.dot[data-inst="${inst}"]`)?.classList.add('cycle-active');
+          hideConflicting(inst);
+        }
+      });
+      g.addEventListener('mouseleave', () => {
+        const inst = g.getAttribute('data-inst');
+        if (inst) {
+          map!.querySelector(`.dot[data-inst="${inst}"]`)?.classList.remove('cycle-active');
+          showConflicting(inst);
+        }
+        isHovering = false;
+        setTimeout(() => { if (!isHovering) startCycle(); }, 3000);
+      });
+    });
+
+    // Also stop on hover of always-visible label dots and highlight them
+    map.querySelectorAll('.always-label-group').forEach(g => {
+      g.addEventListener('mouseenter', () => {
+        isHovering = true;
+        stopCycle();
+        g.querySelector('.dot')?.classList.add('cycle-active');
+      });
+      g.addEventListener('mouseleave', () => {
+        g.querySelector('.dot')?.classList.remove('cycle-active');
+        isHovering = false;
+        setTimeout(() => { if (!isHovering) startCycle(); }, 3000);
+      });
+    });
+
+    // Respect reduced motion
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    startCycle();
+  }
+
+  // Run on page load and Astro page transitions
+  initMapCycle();
+  document.addEventListener('astro:page-load', initMapCycle);
+</script>
