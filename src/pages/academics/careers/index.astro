@@ -6,6 +6,7 @@ import Button from "../../../components/Button.astro";
 import MaizeButton from "../../../components/MaizeButton.astro";
 import ScrollingMarquee from "../../../components/ScrollingMarquee.astro";
 import JobPostingsCarousel from "../../../components/JobPostingsCarousel.astro";
+import PostdocFacultyMap from "../../../components/PostdocFacultyMap.astro";
 
 import featureImage from '../../../images/featured-images/academics-careers-outcomes.jpg';
 ---
@@ -69,54 +70,37 @@ import featureImage from '../../../images/featured-images/academics-careers-outc
 
     <ScrollingMarquee label="Selected employers:" items={["Amazon", "Apple", "Applied Intuition", "Aptiv", "Aurora Innovation", "Blue Origin", "Boeing", "Bosch", "Boston Dynamics", "Collins Aerospace", "DENSO", "FANUC", "Ford Motor Company", "GE Aviation", "General Dynamics", "General Motors", "Google", "Honda", "Honeywell", "IBM", "Intel", "Intuitive Surgical", "Johns Hopkins APL", "Johnson & Johnson", "Kodiak Robotics", "Lockheed Martin", "MathWorks", "May Mobility", "Meta", "Microsoft", "NASA JPL", "NVIDIA", "Northrop Grumman", "Path Robotics", "Qualcomm", "Raytheon", "Rivian", "Samsung", "Shield AI", "Siemens", "SpaceX", "Stellantis", "Stryker", "Symbotic", "Tesla", "Toyota Research Institute", "University of Michigan", "Waymo", "Zoox"]} speed={50} />
 
-    <div class="my-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div class="my-6 grid grid-cols-1 md:grid-cols-2 gap-6">
       <div class="not-prose surface rounded-lg shadow-md p-5">
         <h3 class="text-lg font-semibold mb-3 text-arboretumBlue dark:text-maize">Common job titles</h3>
         <ul class="text-sm space-y-1.5 text-gray-700 dark:text-gray-300">
           <li>Applied Scientist</li>
           <li>Research Scientist</li>
+          <li>Software Engineer</li>
           <li>Robotics Software Engineer</li>
           <li>Machine Learning Engineer</li>
           <li>Perception Engineer</li>
+          <li>Computer Vision Engineer</li>
           <li>Controls Engineer</li>
           <li>Autonomy Engineer</li>
           <li>SLAM Engineer</li>
+          <li>Research Engineer</li>
+          <li>Data Scientist</li>
+
         </ul>
       </div>
-      <div class="not-prose surface rounded-lg shadow-md p-5 md:col-span-2">
-        <h3 class="text-lg font-semibold mb-3 text-arboretumBlue dark:text-maize">Postdoc & faculty positions</h3>
-        <ul class="text-sm space-y-1.5 text-gray-700 dark:text-gray-300 md:columns-2">
-          <li>Arizona State University</li>
-          <li>Brigham Young University</li>
-          <li>Cleveland Clinic</li>
-          <li>Empa (Switzerland)</li>
-          <li>Georgia Institute of Technology</li>
-          <li>Harvard University</li>
-          <li>Hospital for Special Surgery</li>
-          <li>Military Institute of Engineering (Brazil)</li>
-          <li>Northeastern University</li>
-          <li>Ohio Northern University</li>
-          <li>Shanghai Jiao Tong University</li>
-          <li>Stanford University</li>
-          <li>Syracuse University</li>
-          <li>UC Berkeley</li>
-          <li>University of Alabama</li>
-          <li>Vanderbilt University</li>
-          <li>University of Michigan</li>
-          <li>University of Washington</li>
-        </ul>
+      <div class="not-prose rounded-lg border border-arboretumBlue dark:border-maize p-5 flex flex-col gap-4">
+        <img src="https://news.engin.umich.edu/wp-content/uploads/2025/09/Gideon-Billings-alumni.jpg" alt="Gideon Billings on a boat wearing an orange life vest, with sea and ice in the background" class="w-full max-h-48 rounded-md object-cover" />
+        <div>
+          <h3 class="text-lg font-semibold mb-1">Alumni spotlight: Gideon Billings</h3>
+          <p class="text-xs text-gray-500 dark:text-gray-400 mb-2">BS ECE '16, MS ROB '19, PhD ROB '21</p>
+          <p class="text-sm text-gray-700 dark:text-gray-300">Gideon Billings develops autonomous underwater robots at the Woods Hole Oceanographic Institute that can explore under Arctic ice for months at a time.</p>
+          <a href="https://news.engin.umich.edu/2025/09/building-curious-robots/" target="_blank" rel="noopener noreferrer" class="text-sm font-semibold underline mt-2 inline-block">Read his story <span class="sr-only">(opens in new tab)</span><svg xmlns="http://www.w3.org/2000/svg" class="inline-block w-4 h-4 ml-1 -mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>
+        </div>
       </div>
     </div>
 
-    <div class="not-prose rounded-lg border border-arboretumBlue dark:border-maize p-5 my-6 flex flex-col sm:flex-row gap-4 items-start">
-      <img src="https://news.engin.umich.edu/wp-content/uploads/2025/09/Gideon-Billings-alumni.jpg" alt="Gideon Billings on a boat wearing an orange life vest, with sea and ice in the background" class="w-full sm:w-40 rounded-md object-cover" />
-      <div>
-        <h3 class="text-lg font-semibold mb-1">Alumni spotlight: Gideon Billings</h3>
-        <p class="text-xs text-gray-500 dark:text-gray-400 mb-2">BS ECE '16, MS ROB '19, PhD ROB '21</p>
-        <p class="text-sm text-gray-700 dark:text-gray-300">Gideon Billings is developing autonomous underwater robots at the Woods Hole Oceanographic Institute that can explore under Arctic ice for months at a time. His work on navigation, virtual reality interfaces, and natural language control is making underwater robotics accessible to researchers without robotics training.</p>
-        <a href="https://news.engin.umich.edu/2025/09/building-curious-robots/" target="_blank" rel="noopener noreferrer" class="text-sm font-semibold hover:underline mt-2 inline-block">Read his story &rarr;</a>
-      </div>
-    </div>
+    <PostdocFacultyMap />
 
     <h2 id="career-resources">Career resources</h2>
 
@@ -140,7 +124,7 @@ import featureImage from '../../../images/featured-images/academics-careers-outc
 
     <div class="not-prose surface rounded-lg shadow-md p-6 my-6">
       <h3 class="text-lg font-semibold mb-2 text-arboretumBlue dark:text-maize">Robotics jobs MCommunity</h3>
-      <p class="text-sm text-gray-700 dark:text-gray-300 mb-4">The <a href="https://mcommunity.umich.edu/group/Robotics%20Jobs" target="_blank" rel="noopener noreferrer" class="underline">Robotics Jobs MCommunity</a> is an email list with curated internship opportunities, full-time positions, and research openings posted by employers and faculty. <a href="https://documentation.its.umich.edu/node/352#JoinResign" target="_blank" rel="noopener noreferrer" class="underline">Learn how to join an MCommunity group</a> to subscribe.</p>
+      <p class="text-sm text-gray-700 dark:text-gray-300 mb-4">The <a href="https://mcommunity.umich.edu/group/Robotics%20Jobs" target="_blank" rel="noopener noreferrer" class="underline">Robotics Jobs MCommunity <span class="sr-only">(opens in new tab)</span></a> is an email list with curated internship opportunities, full-time positions, and research openings posted by employers and faculty. <a href="https://documentation.its.umich.edu/node/352#JoinResign" target="_blank" rel="noopener noreferrer" class="underline">Learn how to join an MCommunity group <span class="sr-only">(opens in new tab)</span></a> to subscribe.</p>
       <p class="text-xs text-gray-500 dark:text-gray-400 mb-3">Sample of latest postings:</p>
       <JobPostingsCarousel />
     </div>
