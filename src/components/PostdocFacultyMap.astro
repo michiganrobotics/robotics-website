@@ -1,0 +1,447 @@
+---
+// PostdocFacultyMap.astro — SVG world map showing postdoc & faculty positions
+
+interface Institution {
+  name: string;
+  label: string;
+  lat: number;
+  lon: number;
+  showLabel?: boolean;
+  origin?: boolean;
+  labelDx?: number;
+  labelDy?: number;
+  labelAnchor?: string;
+  listNames?: string[];
+}
+
+function toSvg(lon: number, lat: number) {
+  return {
+    x: Math.round((lon + 180) / 360 * 1000),
+    y: Math.round((90 - lat) / 180 * 500),
+  };
+}
+
+function arcPath(x1: number, y1: number, x2: number, y2: number) {
+  const dx = x2 - x1;
+  const dy = y2 - y1;
+  const dist = Math.sqrt(dx * dx + dy * dy);
+  const mx = (x1 + x2) / 2;
+  const my = (y1 + y2) / 2;
+  const offset = Math.min(dist * 0.25, 60);
+  return `M${x1},${y1} Q${mx},${my - offset} ${x2},${y2}`;
+}
+
+const raw: Institution[] = [
+  { name: "University of Michigan", label: "Michigan", lat: 42.28, lon: -83.74, origin: true, showLabel: true, labelDx: 0, labelDy: -16, labelAnchor: "middle" },
+  { name: "University of Washington", label: "UW", lat: 47.66, lon: -122.30, showLabel: true, labelDx: -10, labelDy: -8, labelAnchor: "end" },
+  { name: "Stanford University", label: "Stanford", lat: 37.43, lon: -122.17, showLabel: true, labelDx: -10, labelDy: -8, labelAnchor: "end" },
+  { name: "UC Berkeley", label: "UC Berkeley", lat: 37.87, lon: -122.26, showLabel: true, labelDx: -10, labelDy: 6, labelAnchor: "end" },
+  { name: "Arizona State University", label: "Arizona State", lat: 33.42, lon: -111.93, labelDx: -10, labelDy: 4, labelAnchor: "end" },
+  { name: "Brigham Young University", label: "BYU", lat: 40.25, lon: -111.65, labelDx: -10, labelDy: -6, labelAnchor: "end" },
+  { name: "University of Colorado Boulder", label: "CU Boulder", lat: 40.01, lon: -105.27, labelDx: 0, labelDy: -10, labelAnchor: "middle" },
+  { name: "University of Iowa", label: "Iowa", lat: 41.66, lon: -91.53, labelDx: 0, labelDy: -10, labelAnchor: "middle" },
+  { name: "University of Wisconsin-Madison", label: "UW-Madison", lat: 43.08, lon: -89.41, labelDx: 0, labelDy: -10, labelAnchor: "middle" },
+  { name: "UIUC", label: "UIUC", lat: 40.10, lon: -88.23, labelDx: -10, labelDy: 6, labelAnchor: "end" },
+  { name: "Vanderbilt University", label: "Vanderbilt", lat: 36.14, lon: -86.80, labelDx: 10, labelDy: 10, labelAnchor: "start" },
+  { name: "University of Alabama", label: "Alabama", lat: 33.21, lon: -87.57, labelDx: -10, labelDy: 8, labelAnchor: "end" },
+  { name: "Georgia Institute of Technology", label: "Georgia Tech", lat: 33.78, lon: -84.40, showLabel: true, labelDx: 10, labelDy: 8, labelAnchor: "start" },
+  { name: "Ohio Northern University", label: "Ohio Northern", lat: 40.73, lon: -83.65, labelDx: 10, labelDy: 10, labelAnchor: "start" },
+  { name: "Cleveland Clinic", label: "Cleveland Clinic", lat: 41.50, lon: -81.62, labelDx: 10, labelDy: -6, labelAnchor: "start" },
+  { name: "Penn State University", label: "Penn State", lat: 40.80, lon: -77.86, labelDx: 0, labelDy: -10, labelAnchor: "middle" },
+  { name: "Syracuse University", label: "Syracuse", lat: 43.04, lon: -76.14, labelDx: 0, labelDy: -10, labelAnchor: "middle" },
+  { name: "Harvard University / MIT / Northeastern University", label: "Harvard / MIT / Northeastern", lat: 42.36, lon: -71.10, showLabel: true, labelDx: 10, labelDy: -6, labelAnchor: "start", listNames: ["Harvard University", "MIT", "Northeastern University"] },
+  { name: "Hospital for Special Surgery", label: "HSS (NYC)", lat: 40.76, lon: -73.95, labelDx: 10, labelDy: 8, labelAnchor: "start" },
+  { name: "UC Louvain", label: "UC Louvain", lat: 50.67, lon: 4.62, showLabel: true, labelDx: 10, labelDy: -6, labelAnchor: "start" },
+  { name: "ETH Zurich", label: "ETH Zurich", lat: 47.38, lon: 8.55, showLabel: true, labelDx: 10, labelDy: 8, labelAnchor: "start" },
+  { name: "Empa (Switzerland)", label: "Empa", lat: 47.40, lon: 8.61, showLabel: true, labelDx: 10, labelDy: 20, labelAnchor: "start" },
+  { name: "Military Institute of Engineering (Brazil)", label: "IME (Brazil)", lat: -22.91, lon: -43.17, showLabel: true, labelDx: 10, labelDy: 4, labelAnchor: "start" },
+  { name: "Yonsei University", label: "Yonsei", lat: 37.56, lon: 126.94, showLabel: true, labelDx: 10, labelDy: -16, labelAnchor: "start" },
+  { name: "Incheon National University", label: "INU", lat: 37.37, lon: 126.63, showLabel: true, labelDx: 11, labelDy: -4, labelAnchor: "start" },
+  { name: "Shanghai Jiao Tong University", label: "Shanghai Jiao Tong", lat: 31.03, lon: 121.44, showLabel: true, labelDx: 10, labelDy: 4, labelAnchor: "start" },
+  { name: "Carnegie Mellon University", label: "CMU", lat: 40.44, lon: -79.94, labelDx: 10, labelDy: -6, labelAnchor: "start" },
+  { name: "US Naval Academy", label: "Naval Academy", lat: 38.98, lon: -76.48, labelDx: 10, labelDy: -6, labelAnchor: "start" },
+  { name: "Virginia Tech", label: "Virginia Tech", lat: 37.23, lon: -80.42, labelDx: 10, labelDy: 4, labelAnchor: "start" },
+  { name: "Ohio State University", label: "Ohio State", lat: 40.00, lon: -83.01, labelDx: 10, labelDy: 4, labelAnchor: "start" },
+  { name: "Sungkyunkwan University", label: "SKKU", lat: 37.29, lon: 126.97, showLabel: true, labelDx: 10, labelDy: 8, labelAnchor: "start" },
+  { name: "Wayne State University", label: "Wayne State", lat: 42.36, lon: -83.07, labelDx: 10, labelDy: 10, labelAnchor: "start" },
+  { name: "Oklahoma State University", label: "Oklahoma State", lat: 36.12, lon: -97.07, labelDx: -10, labelDy: -8, labelAnchor: "end" },
+];
+
+const points = raw.map((inst) => ({
+  ...inst,
+  ...toSvg(inst.lon, inst.lat),
+}));
+
+const origin = points.find((p) => p.origin)!;
+const destinations = points.filter((p) => !p.origin);
+
+// World landmass path data — derived from Natural Earth 1:110m (public domain), simplified
+const landPath = "M993,71L998,77L954,84L950,88L953,94L936,108L933,92L957,76L945,82L943,78L935,79L928,84L931,86L895,86L875,98L889,99L893,105L880,125L854,140L859,153L851,154L848,140L836,142L838,136L826,142L840,146L831,153L839,162L838,172L822,187L805,194L800,190L794,195L804,213L796,224L792,226L778,213L775,222L786,235L788,247L773,228L770,203L763,206L754,187L742,190L723,206L722,221L715,228L704,206L702,191L696,192L684,179L659,179L658,175L643,173L639,166L633,167L643,183L657,177L658,183L666,188L654,202L621,215L597,168L594,173L590,167L604,198L621,220L642,220L633,238L609,263L613,291L597,305L599,316L590,321L590,329L578,341L554,347L533,300L538,280L524,253L527,241L512,233L478,238L465,230L451,209L455,202L453,189L484,151L526,146L531,147L531,158L553,166L558,159L594,164L600,148L582,150L573,140L593,133L616,133L602,124L609,119L597,121L601,125L594,127L588,120L580,125L580,136L563,138L567,145L562,149L554,134L537,123L535,128L551,138L544,145L541,137L523,127L509,130L494,148L475,148L474,130L495,129L497,122L487,115L496,115L495,112L523,101L524,91L529,90L530,100L555,99L560,91L567,92L565,86L581,83L559,81L558,76L571,69L562,67L550,76L548,80L552,83L546,92L536,96L529,85L516,87L516,76L553,56L578,52L612,61L614,64L607,67L592,65L603,73L603,69L610,71L624,65L621,60L628,60L629,65L649,59L667,60L668,56L690,61L685,53L694,47L702,48L705,60L701,66L708,62L703,52L707,48L709,52L726,51L724,45L790,34L817,39L804,44L853,46L865,53L890,48L942,53L947,57L993,71ZM312,400L319,402L308,404L293,397L302,400L309,396L312,400ZM981,364L984,366L974,378L963,378L981,364ZM985,350L996,355L987,366L980,346L985,350ZM639,288L631,319L626,321L620,313L623,295L633,291L637,283L639,288ZM899,288L907,303L925,320L925,338L917,354L906,358L891,356L884,346L880,348L883,341L878,347L865,337L829,347L820,345L822,339L815,324L817,310L836,305L850,289L860,292L868,284L866,281L879,283L876,292L889,299L895,281L899,288ZM802,269L821,273L801,272L793,269L802,269ZM873,253L876,259L884,255L904,262L919,279L902,271L896,276L882,273L883,265L869,261L867,258L872,257L863,253L873,253ZM848,246L834,249L836,254L843,252L838,255L842,265L836,257L833,266L833,248L848,246ZM794,266L785,262L765,235L785,246L795,259L794,266ZM827,245L831,247L823,261L806,258L803,251L805,244L809,245L824,231L831,235L827,245ZM279,187L294,194L284,195L273,187L264,189L279,187ZM892,147L890,152L877,157L864,156L867,158L863,164L859,158L882,148L890,136L894,139L892,147ZM899,109L902,114L898,113L899,122L895,122L894,102L896,99L899,109ZM492,87L489,90L495,90L491,95L505,104L504,108L484,111L491,107L485,106L487,101L492,100L483,92L492,87ZM460,65L462,69L448,74L432,68L460,65ZM636,135L640,138L637,146L650,147L646,139L652,136L640,127L647,120L632,123L636,135ZM248,57L257,63L262,56L274,58L274,64L248,73L237,86L271,97L278,108L282,104L278,98L287,93L282,87L285,76L307,80L312,88L321,82L328,94L341,98L345,105L329,111L316,110L302,120L319,113L321,122L334,122L318,129L316,126L321,124L305,129L306,134L295,136L300,136L290,140L289,147L287,142L290,151L274,163L277,180L266,166L239,167L230,173L230,193L238,200L258,190L253,206L269,208L267,219L274,226L287,226L301,215L301,225L306,216L311,221L328,220L341,233L356,237L360,250L389,258L404,270L392,288L386,311L368,319L351,346L338,344L340,356L319,364L324,368L312,379L317,384L303,400L292,395L290,385L294,380L290,380L298,368L294,370L294,366L302,340L305,301L289,291L274,267L278,257L275,253L286,239L283,227L270,228L257,213L211,198L184,162L181,166L194,187L154,138L154,116L159,119L159,114L146,109L128,89L91,81L79,86L82,80L57,96L42,99L64,86L50,87L49,83L41,82L39,79L53,70L33,68L51,66L37,60L65,52L121,59L144,54L198,63L200,59L233,63L238,58L232,55L236,50L248,57ZM183,47L199,51L199,47L204,47L220,55L215,59L185,60L174,56L188,55L168,51L183,47ZM260,47L271,45L276,50L299,51L311,55L314,58L309,59L328,64L322,69L311,66L319,71L319,76L309,73L316,78L292,70L284,72L298,63L281,55L251,53L254,52L249,49L260,47ZM165,52L150,50L156,45L153,44L179,46L165,52ZM903,40L880,41L903,40ZM199,38L206,39L205,42L173,41L199,38ZM660,54L643,51L655,41L691,37L658,46L654,49L660,54ZM237,36L278,42L243,42L230,37L237,36ZM551,29L560,31L548,37L529,29L551,29ZM571,27L548,27L571,27ZM778,31L753,27L766,24L778,31ZM258,29L248,33L231,27L243,24L258,29ZM310,19L328,21L286,30L291,32L276,38L251,38L257,33L264,35L256,32L264,30L259,27L273,26L246,23L310,19ZM425,18L442,20L411,22L466,24L444,27L451,27L445,31L449,36L440,37L446,44L431,49L440,54L429,52L427,55L438,55L389,68L380,83L366,81L355,71L350,63L359,56L348,57L349,53L357,54L345,51L348,48L341,42L310,39L302,36L315,35L296,33L333,22L425,18Z";
+
+const arcs = destinations.map((d) => arcPath(origin.x, origin.y, d.x, d.y));
+---
+
+<div class="postdoc-map not-prose my-6">
+  <h3 class="text-lg font-semibold mb-2 text-arboretumBlue dark:text-maize">Postdoc & faculty placements</h3>
+  <svg viewBox="0 0 1000 415" xmlns="http://www.w3.org/2000/svg" class="hidden lg:block h-auto w-full" role="img" aria-label="World map showing postdoc and faculty placements of Michigan Robotics graduates">
+    <title>Postdoc and faculty placements of Michigan Robotics graduates</title>
+    <defs>
+      <radialGradient id="pfm-originGlow" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#FFCB05" stop-opacity="0.7" />
+        <stop offset="100%" stop-color="#FFCB05" stop-opacity="0" />
+      </radialGradient>
+    </defs>
+
+    <!-- Landmasses -->
+    <path d={landPath} class="land" />
+
+    <!-- Arcs from Michigan -->
+    {arcs.map((d) => (
+      <path d={d} fill="none" class="arc-line" />
+    ))}
+
+    <!-- Origin (Michigan) — rendered after arcs so arcs go behind it -->
+    <circle cx={origin.x} cy={origin.y} r="10" fill="url(#pfm-originGlow)" class="origin-glow" />
+    <circle cx={origin.x} cy={origin.y} r="4" class="origin-ring" />
+    <circle cx={origin.x} cy={origin.y} r="3" class="origin-dot" />
+
+    <!-- Institution dots + always-on labels (rendered first, below hover labels) -->
+    {destinations.map((pt) => (
+      <g class={pt.showLabel ? "always-label-group" : ""} data-inst={pt.label}>
+        <circle cx={pt.x} cy={pt.y} r="2.5" class="dot" data-inst={pt.label} />
+        {pt.showLabel && (
+          <text
+            x={pt.x + (pt.labelDx || 0)}
+            y={pt.y + (pt.labelDy || 0)}
+            font-size="13"
+            font-family="system-ui, sans-serif"
+            text-anchor={pt.labelAnchor || "start"}
+            class="always-label"
+          >
+            {pt.label}
+          </text>
+        )}
+      </g>
+    ))}
+
+    <!-- Hover labels (rendered last, on top of everything) -->
+    {destinations.filter((pt) => !pt.showLabel).map((pt) => (
+      <g class="institution-group" tabindex="0" role="group" aria-label={pt.name} data-inst={pt.label}>
+        <circle cx={pt.x} cy={pt.y} r="4" fill="transparent" class="hover-target" />
+        <text
+          x={pt.x + (pt.labelDx || 0)}
+          y={pt.y + (pt.labelDy || 0)}
+          font-size="13"
+          font-family="system-ui, sans-serif"
+          text-anchor={pt.labelAnchor || "start"}
+          class="hover-label"
+        >
+          {pt.label}
+        </text>
+      </g>
+    ))}
+  </svg>
+
+  <div class="lg:hidden surface rounded-lg shadow-md p-5">
+    <ul class="columns-2 gap-x-6 text-sm space-y-1.5 text-gray-700 dark:text-gray-300">
+      {raw.filter(r => !r.origin).flatMap((inst) =>
+        inst.listNames
+          ? inst.listNames.map((n) => <li>{n}</li>)
+          : [<li>{inst.name}</li>]
+      )}
+    </ul>
+  </div>
+</div>
+
+<style is:global>
+  /* Land fill */
+  .postdoc-map .land {
+    fill: #d1d5db;
+    stroke: none;
+  }
+
+  /* Arc lines */
+  .postdoc-map .arc-line {
+    stroke: #00274C;
+    stroke-width: 1;
+    opacity: 0.15;
+  }
+
+  /* Dots */
+  .postdoc-map .dot {
+    fill: #00274C;
+  }
+
+  /* Labels — paint-order halo for readability */
+  .postdoc-map .always-label,
+  .postdoc-map .hover-label {
+    fill: #1f2937;
+    stroke: white;
+    stroke-width: 3;
+    paint-order: stroke fill;
+    stroke-linejoin: round;
+  }
+
+  .postdoc-map .hover-label {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.15s ease;
+  }
+
+  .postdoc-map .institution-group:hover .hover-label,
+  .postdoc-map .institution-group:focus-within .hover-label,
+  .postdoc-map .institution-group:focus .hover-label {
+    opacity: 1 !important;
+  }
+
+  .postdoc-map .institution-group:focus {
+    outline: 2px solid #FFCB05;
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  .postdoc-map .institution-group {
+    cursor: default;
+  }
+
+  /* Origin styling */
+  .postdoc-map .origin-ring {
+    fill: #00274C;
+    opacity: 0.3;
+  }
+
+  .postdoc-map .origin-dot {
+    fill: #FFCB05;
+  }
+
+  .postdoc-map .origin-label {
+    fill: #00274C;
+    opacity: 0.95;
+  }
+
+  /* Origin pulse animation */
+  .postdoc-map .origin-glow {
+    animation: pfmOriginPulse 2.5s ease-in-out infinite;
+  }
+
+  @keyframes pfmOriginPulse {
+    0%, 100% {
+      opacity: 0.3;
+      r: 10;
+    }
+    50% {
+      opacity: 0.6;
+      r: 14;
+    }
+  }
+
+  /* Dark mode */
+  @media (prefers-color-scheme: dark) {
+    .postdoc-map .land {
+      fill: #374151;
+    }
+
+    .postdoc-map .arc-line {
+      stroke: #FFCB05;
+      opacity: 0.12;
+    }
+
+    .postdoc-map .dot {
+      fill: white;
+    }
+
+    .postdoc-map .always-label,
+    .postdoc-map .hover-label {
+      fill: #f3f4f6;
+      stroke: #00274C;
+      stroke-width: 4;
+    }
+
+    .postdoc-map .origin-ring {
+      fill: white;
+    }
+
+    .postdoc-map .origin-dot {
+      fill: #FFCB05;
+    }
+
+    .postdoc-map .origin-label {
+      fill: white;
+    }
+  }
+
+  .postdoc-map .hover-label.cycle-visible {
+    opacity: 1 !important;
+  }
+
+  .postdoc-map .always-label {
+    transition: opacity 1.2s ease 0.3s;
+  }
+
+  .postdoc-map .always-label.label-hidden {
+    opacity: 0;
+    transition: opacity 0.15s ease;
+  }
+
+  .postdoc-map .dot.cycle-active {
+    fill: #FFCB05 !important;
+  }
+
+  .postdoc-map .cycle-glow {
+    fill: #FFCB05;
+    animation: pfmDotPulse 1.5s ease-out infinite;
+  }
+
+  @keyframes pfmDotPulse {
+    0% { r: 2.5; opacity: 0.6; }
+    100% { r: 10; opacity: 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .postdoc-map .origin-glow {
+      animation: none;
+    }
+  }
+</style>
+
+<script>
+  function initMapCycle() {
+    const map = document.querySelector('.postdoc-map');
+    if (!map) return;
+
+    const groups = Array.from(map.querySelectorAll('.institution-group'));
+    if (groups.length === 0) return;
+
+    let currentIndex = 0;
+    let intervalId: ReturnType<typeof setInterval> | null = null;
+    let isHovering = false;
+
+    // Map of hover labels that conflict with always-on labels
+    const labelConflicts: Record<string, string[]> = {
+      'Cleveland Clinic': ['Harvard / MIT / Northeastern'],
+      'HSS (NYC)': ['Harvard / MIT / Northeastern'],
+      'Penn State': ['Harvard / MIT / Northeastern'],
+      'Syracuse': ['Harvard / MIT / Northeastern'],
+      'Naval Academy': ['Harvard / MIT / Northeastern'],
+      'Vanderbilt': ['Georgia Tech'],
+      'Arizona State': ['UC Berkeley'],
+      'Oklahoma State': ['Stanford', 'UC Berkeley'],
+    };
+
+    function hideConflicting(inst: string) {
+      const conflicts = labelConflicts[inst];
+      if (!conflicts) return;
+      conflicts.forEach(c => {
+        map.querySelector(`.always-label-group[data-inst="${c}"] .always-label`)?.classList.add('label-hidden');
+      });
+    }
+
+    function showConflicting(inst: string) {
+      const conflicts = labelConflicts[inst];
+      if (!conflicts) return;
+      conflicts.forEach(c => {
+        map.querySelector(`.always-label-group[data-inst="${c}"] .always-label`)?.classList.remove('label-hidden');
+      });
+    }
+
+    function showNext() {
+      // Remove previous
+      groups.forEach(g => {
+        g.querySelector('.hover-label')?.classList.remove('cycle-visible');
+        const inst = g.getAttribute('data-inst');
+        if (inst) {
+          showConflicting(inst);
+          const dot = map!.querySelector(`.dot[data-inst="${inst}"]`);
+          dot?.classList.remove('cycle-active');
+          dot?.parentElement?.querySelector('.cycle-glow')?.remove();
+        }
+      });
+      // Show current
+      const group = groups[currentIndex];
+      group.querySelector('.hover-label')?.classList.add('cycle-visible');
+      const inst = group.getAttribute('data-inst');
+      if (inst) {
+        hideConflicting(inst);
+        const dot = map.querySelector(`.dot[data-inst="${inst}"]`) as SVGCircleElement;
+        if (dot) {
+          dot.classList.add('cycle-active');
+          const glow = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+          glow.setAttribute('cx', dot.getAttribute('cx')!);
+          glow.setAttribute('cy', dot.getAttribute('cy')!);
+          glow.setAttribute('r', '2.5');
+          glow.classList.add('cycle-glow');
+          dot.parentElement?.insertBefore(glow, dot);
+        }
+      }
+      currentIndex = (currentIndex + 1) % groups.length;
+    }
+
+    function startCycle() {
+      if (intervalId || isHovering) return;
+      showNext();
+      intervalId = setInterval(showNext, 2000);
+    }
+
+    function stopCycle() {
+      if (intervalId) {
+        clearInterval(intervalId);
+        intervalId = null;
+      }
+      groups.forEach(g => {
+        g.querySelector('.hover-label')?.classList.remove('cycle-visible');
+        const inst = g.getAttribute('data-inst');
+        if (inst) {
+          showConflicting(inst);
+          const dot = map!.querySelector(`.dot[data-inst="${inst}"]`);
+          dot?.classList.remove('cycle-active');
+          dot?.parentElement?.querySelector('.cycle-glow')?.remove();
+        }
+      });
+    }
+
+    // Stop cycling when user hovers any institution group; highlight hovered dot
+    groups.forEach(g => {
+      g.addEventListener('mouseenter', () => {
+        isHovering = true;
+        stopCycle();
+        const inst = g.getAttribute('data-inst');
+        if (inst) {
+          map!.querySelector(`.dot[data-inst="${inst}"]`)?.classList.add('cycle-active');
+          hideConflicting(inst);
+        }
+      });
+      g.addEventListener('mouseleave', () => {
+        const inst = g.getAttribute('data-inst');
+        if (inst) {
+          map!.querySelector(`.dot[data-inst="${inst}"]`)?.classList.remove('cycle-active');
+          showConflicting(inst);
+        }
+        isHovering = false;
+        setTimeout(() => { if (!isHovering) startCycle(); }, 3000);
+      });
+    });
+
+    // Also stop on hover of always-visible label dots and highlight them
+    map.querySelectorAll('.always-label-group').forEach(g => {
+      g.addEventListener('mouseenter', () => {
+        isHovering = true;
+        stopCycle();
+        g.querySelector('.dot')?.classList.add('cycle-active');
+      });
+      g.addEventListener('mouseleave', () => {
+        g.querySelector('.dot')?.classList.remove('cycle-active');
+        isHovering = false;
+        setTimeout(() => { if (!isHovering) startCycle(); }, 3000);
+      });
+    });
+
+    // Respect reduced motion
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    startCycle();
+  }
+
+  // Run on page load and Astro page transitions
+  initMapCycle();
+  document.addEventListener('astro:page-load', initMapCycle);
+</script>

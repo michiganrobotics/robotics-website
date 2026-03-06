@@ -1,0 +1,143 @@
+---
+// JobPostingsCarousel.astro - Email-style carousel for recent job postings from robotics-jobs listserv
+import { getJobPostings } from '../lib/googleSheets';
+
+const postings = await getJobPostings();
+---
+
+{postings.length > 0 && (
+<div class="job-carousel-container relative mt-4 not-prose">
+  <div class="relative" role="region" aria-label="Sample recent postings from the robotics-jobs mailing list">
+    <!-- Listserv header -->
+    <div class="flex items-center gap-2 mb-3 text-xs text-gray-500 dark:text-gray-400">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/>
+      </svg>
+      <span class="font-mono">robotics jobs mcommunity</span>
+      <span class="opacity-75">|</span>
+      <span>{postings.length} recent messages</span>
+    </div>
+
+    <!-- Left scroll arrow -->
+    <button
+      class="job-scroll-arrow job-scroll-arrow-left absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-full p-2 shadow-md hover:shadow-lg transition-all duration-200 hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer"
+      aria-label="Scroll to previous job postings"
+      type="button"
+    >
+      <svg class="w-4 h-4 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+      </svg>
+    </button>
+
+    <!-- Right scroll arrow -->
+    <button
+      class="job-scroll-arrow job-scroll-arrow-right absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-full p-2 shadow-md hover:shadow-lg transition-all duration-200 hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer"
+      aria-label="Scroll to next job postings"
+      type="button"
+    >
+      <svg class="w-4 h-4 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+      </svg>
+    </button>
+
+    <div
+      class="job-scroll-container overflow-x-auto scrollbar-hide pr-8"
+      aria-label="Latest from robotics-jobs - use navigation buttons to browse"
+    >
+      <div class="flex gap-3 pb-4" style="width: max-content;">
+        {postings.map((posting) => (
+          <div class="job-card bg-white dark:bg-gray-800/80 border border-gray-200 dark:border-gray-700 rounded-md shrink-0 w-80 overflow-hidden">
+            <div class="border-b border-gray-100 dark:border-gray-700 px-4 py-2 bg-gray-50/50 dark:bg-gray-800">
+              <div class="flex items-center justify-between">
+                <span class="text-xs text-gray-500 dark:text-gray-400 font-mono">{posting.dateReceived}</span>
+                <span class="inline-block text-xs border border-gray-200 dark:border-gray-600 rounded-full px-2 py-0.5 text-gray-500 dark:text-gray-400">{posting.industry}</span>
+              </div>
+            </div>
+            <div class="px-4 py-3">
+              <h4 class="text-sm font-semibold mb-1.5 line-clamp-2 text-gray-800 dark:text-gray-100">{posting.jobTitle}</h4>
+              <p class="text-xs text-gray-500 dark:text-gray-400">
+                <span class="font-medium">{posting.employer}</span>
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- Screen reader description -->
+    <div class="sr-only">
+      Showing {postings.length} recent alerts from the robotics-jobs mailing list.
+    </div>
+
+    <!-- Live region for announcements -->
+    <div class="sr-only" aria-live="polite" id="job-carousel-announcements"></div>
+  </div>
+</div>
+)}
+
+<style>
+.job-carousel-container .scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.job-carousel-container .scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.job-scroll-container {
+  scroll-behavior: smooth;
+}
+
+.job-scroll-arrow {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.job-carousel-container:hover .job-scroll-arrow {
+  opacity: 0.8;
+}
+
+.job-scroll-arrow:hover {
+  opacity: 1;
+}
+
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const container = document.querySelector('.job-scroll-container');
+  const leftArrow = document.querySelector('.job-scroll-arrow-left');
+  const rightArrow = document.querySelector('.job-scroll-arrow-right');
+
+  if (!container || !leftArrow || !rightArrow) return;
+
+  const cardWidth = 320; // w-80 = 20rem = 320px
+  const gap = 12; // gap-3
+  const scrollAmount = cardWidth + gap;
+
+  function updateArrows() {
+    const atStart = container.scrollLeft <= 0;
+    const atEnd = container.scrollLeft >= container.scrollWidth - container.clientWidth - 1;
+    leftArrow.style.display = atStart ? 'none' : '';
+    rightArrow.style.display = atEnd ? 'none' : '';
+  }
+
+  leftArrow.addEventListener('click', () => {
+    container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+  });
+
+  rightArrow.addEventListener('click', () => {
+    container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+  });
+
+  container.addEventListener('scroll', updateArrows);
+  updateArrows();
+});
+</script>

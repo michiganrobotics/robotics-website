@@ -1,0 +1,140 @@
+---
+import Layout from '../../../layouts/MainLayout.astro';
+import Breadcrumbs from "../../../components/Breadcrumbs.astro";
+import PageTitle from "../../../components/PageTitle.astro";
+import Button from "../../../components/Button.astro";
+import MaizeButton from "../../../components/MaizeButton.astro";
+import ScrollingMarquee from "../../../components/ScrollingMarquee.astro";
+import JobPostingsCarousel from "../../../components/JobPostingsCarousel.astro";
+import PostdocFacultyMap from "../../../components/PostdocFacultyMap.astro";
+
+import featureImage from '../../../images/featured-images/academics-careers-outcomes.jpg';
+---
+
+<Layout title="Careers & Outcomes | Michigan Robotics" image={featureImage.src} imageAlt="Students celebrate at commencement in the Ford Robotics Building atrium" description="Career outcomes, placement data, and professional development resources for Michigan Robotics undergraduate and graduate students.">
+  <Breadcrumbs slot="breadcrumbs" />
+  <PageTitle title="Careers & Outcomes" image={featureImage} imageAlt="Students celebrate at commencement in the Ford Robotics Building atrium" imagePosition="0% 62%" />
+  <article class="prose dark:prose-invert max-w-6xl w-11/12 mx-auto mt-4 mb-4 prose-headings:font-roboto prose-h2:text-3xl prose-h2:mt-10 prose-h3:text-2xl prose-h4:text-xl prose-h5:text-lg prose-h6:text-base prose-headings:font-bold">
+    <div class="mb-8 mt-8 relative">
+      <p class="pt-8 lg:pt-0 text-xl md:text-2xl font-roboto text-gray-800 dark:text-gray-200 leading-relaxed not-prose tracking-wide">
+        Where robotics takes you
+      </p>
+      <div class="subtitle-double-line"></div>
+    </div>
+
+    <p>Michigan Robotics graduates go on to careers across industry, academia, and government, building the future of autonomous systems, AI, medical devices, manufacturing, and more. Whether you're exploring what a robotics degree can do or actively job searching, we have resources to help.</p>
+
+    <h2 id="undergraduate-outcomes">Undergraduate outcomes</h2>
+
+    <p>Founded in 2022, the Department of Robotics is young, but early outcomes are strong. As of spring 2025, 74 students have graduated with a Robotics degree. Graduates are entering industry roles across automotive, aerospace, autonomous systems, and technology, while many continue to graduate school at top programs.</p>
+
+    <ScrollingMarquee label="Selected employers:" items={["AbbVie", "Amazon", "Amazon Robotics", "Bosch", "Carnegie Mellon", "Caterpillar", "Draper", "FANUC", "Ford Motor Company", "General Atomics", "General Motors", "Gentex Corporation", "Google", "Hyundai America", "Intel", "Medtronic", "NASA JPL", "Northrop Grumman", "Nuro", "Our Next Energy", "Pratt Miller", "Remora", "Renesas Electronics", "Seoul National Hospital", "SpaceX", "Stellantis", "Stryker", "Symbotic", "Tesla", "University of Michigan", "VRSI", "Walmart", "Wazuh", "wheel.me", "Williams International"]} speed={25} />
+
+    <div class="my-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="not-prose surface rounded-lg shadow-md p-5">
+        <h3 class="text-lg font-semibold mb-3 text-arboretumBlue dark:text-maize">Common job titles</h3>
+        <ul class="text-sm space-y-1.5 text-gray-700 dark:text-gray-300">
+          <li>Robotics and Automation Engineer</li>
+          <li>Autonomy Engineer</li>
+          <li>Controls / Systems and Controls Engineer</li>
+          <li>Machine Learning Engineer</li>
+          <li>Software Engineer</li>
+          <li>Integration and Test Engineer</li>
+          <li>Infrastructure Engineer</li>
+        </ul>
+      </div>
+      <div class="not-prose surface rounded-lg shadow-md p-5">
+        <h3 class="text-lg font-semibold mb-3 text-arboretumBlue dark:text-maize">Graduate school destinations</h3>
+        <ul class="text-sm space-y-1.5 text-gray-700 dark:text-gray-300">
+          <li>University of Michigan (many through <a href="/academics/graduate/sugs/">SUGS</a>)</li>
+          <li>Carnegie Mellon University</li>
+          <li>École Polytechnique</li>
+          <li>Stanford University</li>
+          <li>Georgia Tech</li>
+          <li>MIT</li>
+          <li>University of Pennsylvania</li>
+          <li>UIUC</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="not-prose surface rounded-lg shadow-md p-5 my-6">
+      <h3 class="text-lg font-semibold mb-2 text-arboretumBlue dark:text-maize">Explore other data</h3>
+      <p class="text-sm text-gray-700 dark:text-gray-300 mb-3">The Robotics major is new, so program-specific undergraduate salary data is not yet available. The Engineering Career Resource Center publishes salary, employer, and graduate school data for all Michigan Engineering programs. Robotics-specific salary data is not yet included, but employer and graduate school destination data is available.</p>
+      <Button href="https://career.engin.umich.edu/students/michigan-engineering-student-salary-information/" text="Explore ECRC salary data" external />
+    </div>
+
+    <h2 id="graduate-outcomes">Graduate outcomes</h2>
+
+    <p>Michigan Robotics PhD and MS graduates are leaders in academia, industry research labs, and startups around the world. Our alumni hold positions at organizations including major tech companies, national labs, and top-tier universities. <a href="https://career.engin.umich.edu/students/michigan-engineering-student-salary-information/">Explore alumni-reported data</a> through the Engineering Career Resource Center.</p>
+
+    <ScrollingMarquee label="Selected employers:" items={["Amazon", "Apple", "Applied Intuition", "Aptiv", "Aurora Flight Sciences", "Aurora Innovation", "Battelle", "Blue Origin", "Boeing", "Bosch", "Boston Dynamics", "Collins Aerospace", "Consumers Energy", "Dell", "Deloitte", "DENSO", "Eli Lilly", "Epic", "FANUC", "Ford Motor Company", "GE Aviation", "General Dynamics", "General Motors", "Gentex Corporation", "Gideon Brothers", "Google", "Honda", "Honeywell", "Hyundai Mobis", "IBM", "Intel", "Intuitive Surgical", "John Deere", "Johns Hopkins APL", "Johnson & Johnson", "KLA", "Kodiak Robotics", "KPMG", "Kuka", "Lear", "Lockheed Martin", "Magna", "MathWorks", "May Mobility", "Meta", "Microsoft", "Motional", "NASA JPL", "National Instruments", "NVIDIA", "Northrop Grumman", "Our Next Energy", "Parker Hannifin", "Path Robotics", "Procter & Gamble", "Qualcomm", "Raytheon", "RIOS Intelligent Machines", "Rivian", "Rockwell Automation", "Samsung", "Shield AI", "Siemens", "Sixth Extinction", "Southwest Research Institute", "SpaceX", "SRI International", "Stellantis", "Stryker", "Symbotic", "Tesla", "Texas Instruments", "Toyota", "Toyota Research Institute", "Tusimple", "University of Michigan", "Virtualitics", "Waymo", "Whirlpool", "Zoox"]} speed={30} />
+
+    <div class="my-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="not-prose surface rounded-lg shadow-md p-5">
+        <h3 class="text-lg font-semibold mb-3 text-arboretumBlue dark:text-maize">Common job titles</h3>
+        <ul class="text-sm space-y-1.5 text-gray-700 dark:text-gray-300">
+          <li>Applied Scientist</li>
+          <li>Research Scientist</li>
+          <li>Software Engineer</li>
+          <li>Robotics Software Engineer</li>
+          <li>Machine Learning Engineer</li>
+          <li>Perception Engineer</li>
+          <li>Computer Vision Engineer</li>
+          <li>Controls Engineer</li>
+          <li>Autonomy Engineer</li>
+          <li>SLAM Engineer</li>
+          <li>Research Engineer</li>
+          <li>Data Scientist</li>
+
+        </ul>
+      </div>
+      <div class="not-prose rounded-lg border border-arboretumBlue dark:border-maize p-5 flex flex-col gap-4">
+        <img src="https://news.engin.umich.edu/wp-content/uploads/2025/09/Gideon-Billings-alumni.jpg" alt="Gideon Billings on a boat wearing an orange life vest, with sea and ice in the background" class="w-full max-h-48 rounded-md object-cover" />
+        <div>
+          <h3 class="text-lg font-semibold mb-1">Alumni spotlight: Gideon Billings</h3>
+          <p class="text-xs text-gray-500 dark:text-gray-400 mb-2">BS ECE '16, MS ROB '19, PhD ROB '21</p>
+          <p class="text-sm text-gray-700 dark:text-gray-300">Gideon Billings develops autonomous underwater robots at the Woods Hole Oceanographic Institute that can explore under Arctic ice for months at a time.</p>
+          <a href="https://news.engin.umich.edu/2025/09/building-curious-robots/" target="_blank" rel="noopener noreferrer" class="text-sm font-semibold underline mt-2 inline-block">Read his story <span class="sr-only">(opens in new tab)</span><svg xmlns="http://www.w3.org/2000/svg" class="inline-block w-4 h-4 ml-1 -mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>
+        </div>
+      </div>
+    </div>
+
+    <PostdocFacultyMap />
+
+    <h2 id="career-resources">Career resources</h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 my-6">
+      <div class="not-prose surface rounded-lg shadow-md p-6 flex flex-col">
+        <h3 class="text-lg font-semibold mb-2 text-arboretumBlue dark:text-maize">Engineering Career Resource Center</h3>
+        <p class="text-sm mb-4 flex-grow">Career fairs, resume reviews, mock interviews, job postings, and career counseling for all Michigan Engineering students.</p>
+        <Button href="https://career.engin.umich.edu/" text="Visit the ECRC" external />
+      </div>
+      <div class="not-prose surface rounded-lg shadow-md p-6 flex flex-col">
+        <h3 class="text-lg font-semibold mb-2 text-arboretumBlue dark:text-maize">Pathways speaker series</h3>
+        <p class="text-sm mb-4 flex-grow"><em>What can I do with a robotics degree?</em> Professionals from a variety of robotics career paths share their experiences, followed by Q&A. Held every other Wednesday.</p>
+        <Button href="/events/robotics-pathways-speaker-series/" text="View speakers" />
+      </div>
+      <div class="not-prose surface rounded-lg shadow-md p-6 flex flex-col">
+        <h3 class="text-lg font-semibold mb-2 text-arboretumBlue dark:text-maize">Alumni outcomes</h3>
+        <p class="text-sm mb-4 flex-grow">See where Michigan Robotics graduates have landed across industry, academia, and government.</p>
+        <MaizeButton href="/people/alumni/" text="Browse alumni" />
+      </div>
+    </div>
+
+    <div class="not-prose surface rounded-lg shadow-md p-6 my-6">
+      <h3 class="text-lg font-semibold mb-2 text-arboretumBlue dark:text-maize">Robotics jobs MCommunity</h3>
+      <p class="text-sm text-gray-700 dark:text-gray-300 mb-4">The <a href="https://mcommunity.umich.edu/group/Robotics%20Jobs" target="_blank" rel="noopener noreferrer" class="underline">Robotics Jobs MCommunity <span class="sr-only">(opens in new tab)</span></a> is an email list with curated internship opportunities, full-time positions, and research openings posted by employers and faculty. <a href="https://documentation.its.umich.edu/node/352#JoinResign" target="_blank" rel="noopener noreferrer" class="underline">Learn how to join an MCommunity group <span class="sr-only">(opens in new tab)</span></a> to subscribe.</p>
+      <p class="text-xs text-gray-500 dark:text-gray-400 mb-3">Sample of latest postings:</p>
+      <JobPostingsCarousel />
+    </div>
+
+    <h2 id="hire-our-students">Hire our students</h2>
+
+    <p>Michigan Robotics students are trained to work across sensing, computation, control, hardware, and human interaction. Through <a href="/academics/undergraduate/degree-requirements/">structured concentrations</a> in areas like perception and reasoning, dynamics and control, and hardware and sensors, graduates bring both systems-level thinking and focused technical depth. They are prepared for roles spanning robotics engineering, autonomy, controls, software, and machine learning.</p>
+
+    <p>Job postings should be sent to the Engineering Career Resource Center (ECRC), which hosts an online system accessible to all of our students.</p>
+
+    <Button href="https://career.engin.umich.edu/employers/engagement/#jobs" text="Post a job on Hire a Michigan Engineer" external />
+  </article>
+</Layout>
