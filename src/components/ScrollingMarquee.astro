@@ -2,12 +2,12 @@
 // ScrollingMarquee.astro - Single-row horizontal scrolling ticker, tap to expand
 interface Props {
   items: string[];
-  speed?: number; // seconds for one full cycle, default 30
+  speed?: number; // seconds for one full cycle, default 20
   separator?: string;
   label?: string; // sticky left label, e.g. "Selected employers:"
 }
 
-const { items, speed = 30, separator = '·', label } = Astro.props;
+const { items, speed = 20, separator = '·', label } = Astro.props;
 
 // Each half of the animation needs to be wider than the viewport.
 // Average item is ~15ch + padding ≈ 120px, so need ~15 items for 1800px.
@@ -20,9 +20,13 @@ for (let c = 0; c < copies; c++) {
 ---
 
 <div class="marquee-wrapper cursor-pointer" role="button" tabindex="0" aria-label="Tap to show all organizations">
-  <div class="marquee-inline flex items-center relative my-2" style={`--marquee-speed: ${speed}s;`}>
+  <div class="marquee-inline relative my-2" style={`--marquee-speed: ${speed}s;`}>
     {label && (
-      <span class="marquee-label shrink-0 text-sm font-semibold pr-2">{label}</span>
+      <span class="marquee-label shrink-0 text-sm font-semibold pr-2 block md:hidden mb-1">{label}</span>
+    )}
+    <div class="flex items-center">
+    {label && (
+      <span class="marquee-label shrink-0 text-sm font-semibold pr-2 hidden md:inline">{label}</span>
     )}
     <div class="marquee-track-wrapper overflow-hidden min-w-0 flex-1">
       <div class="marquee-track flex whitespace-nowrap" aria-hidden="true">
@@ -37,6 +41,7 @@ for (let c = 0; c < copies; c++) {
           </span>
         ))}
       </div>
+    </div>
     </div>
     <div class="sr-only">
       Organizations include: {items.join(', ')}.

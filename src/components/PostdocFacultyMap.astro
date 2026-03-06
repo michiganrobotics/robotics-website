@@ -56,7 +56,7 @@ const raw: Institution[] = [
   { name: "Empa (Switzerland)", label: "Empa", lat: 47.40, lon: 8.61, showLabel: true, labelDx: 10, labelDy: 20, labelAnchor: "start" },
   { name: "Military Institute of Engineering (Brazil)", label: "IME (Brazil)", lat: -22.91, lon: -43.17, showLabel: true, labelDx: 10, labelDy: 4, labelAnchor: "start" },
   { name: "Yonsei University", label: "Yonsei", lat: 37.56, lon: 126.94, showLabel: true, labelDx: 10, labelDy: -16, labelAnchor: "start" },
-  { name: "Incheon National University", label: "INU", lat: 37.37, lon: 126.63, showLabel: true, labelDx: 10, labelDy: -4, labelAnchor: "start" },
+  { name: "Incheon National University", label: "INU", lat: 37.37, lon: 126.63, showLabel: true, labelDx: 11, labelDy: -4, labelAnchor: "start" },
   { name: "Shanghai Jiao Tong University", label: "Shanghai Jiao Tong", lat: 31.03, lon: 121.44, showLabel: true, labelDx: 10, labelDy: 4, labelAnchor: "start" },
   { name: "Carnegie Mellon University", label: "CMU", lat: 40.44, lon: -79.94, labelDx: 10, labelDy: -6, labelAnchor: "start" },
   { name: "US Naval Academy", label: "Naval Academy", lat: 38.98, lon: -76.48, labelDx: 10, labelDy: -6, labelAnchor: "start" },
@@ -113,7 +113,7 @@ const arcs = destinations.map((d) => arcPath(origin.x, origin.y, d.x, d.y));
           <text
             x={pt.x + (pt.labelDx || 0)}
             y={pt.y + (pt.labelDy || 0)}
-            font-size="11"
+            font-size="13"
             font-family="system-ui, sans-serif"
             text-anchor={pt.labelAnchor || "start"}
             class="always-label"
@@ -131,7 +131,7 @@ const arcs = destinations.map((d) => arcPath(origin.x, origin.y, d.x, d.y));
         <text
           x={pt.x + (pt.labelDx || 0)}
           y={pt.y + (pt.labelDy || 0)}
-          font-size="11"
+          font-size="13"
           font-family="system-ui, sans-serif"
           text-anchor={pt.labelAnchor || "start"}
           class="hover-label"
