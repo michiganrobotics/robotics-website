@@ -271,6 +271,7 @@ interface OutreachEvents {
   numberOfVolunteers: string;
   volunteerTasks: string;
   howToSignUpVolunteer: string;
+  roboticsLabAffiliation: string;
 }
 
 function createSlug(name: string): string {
@@ -800,7 +801,8 @@ export const getRoboticsOutreachEvents = cached(async (): Promise<OutreachEvents
     lookingForVolunteer: row.get('Are you looking for volunteers?') || '',
     numberOfVolunteers: row.get('Number of Volunteers Needed') || '',
     volunteerTasks: row.get('Volunteer Tasks') || '',
-    howToSignUpVolunteer: row.get('How to Sign Up for Volunteer') || ''
+    howToSignUpVolunteer: row.get('How to Sign Up for Volunteer') || '',
+    roboticsLabAffiliation: row.get('Robotics Lab/Organization Affiliation') || ''
   }));
   
 });

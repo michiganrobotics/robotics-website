@@ -114,8 +114,12 @@ function formatRawTimeString(timestring: string): string{
                       <th scope="col" class="px-4 py-3 border-r">
                         Volunteer Tasks
                       </th>
-                      <th scope="col" class="px-4 py-3">
+                      <th scope="col" class="px-4 py-3 border-r">
                         How to sign up as a Volunteer
+                      </th>
+                      <th scope="col" class="px-4 py-3" data-sort="roboticsLabAffiliation">
+                        Robotics Lab/Organization Affiliation
+                        <span class="ml-1">↕</span>
                       </th>
                     </tr>
                   </thead>
@@ -163,8 +167,11 @@ function formatRawTimeString(timestring: string): string{
                         <td class="px-6 py-4 border-r align-top">
                           {event.volunteerTasks}
                         </td>
-                        <td class="px-6 py-4 align-top">
+                        <td class="px-6 py-4 border-r align-top">
                           <span set:html={linkifyText(event.howToSignUpVolunteer || '')} />
+                        </td>
+                        <td class="px-6 py-4 align-top">
+                          {event.roboticsLabAffiliation}
                         </td>
                       </tr>
                     ))}
@@ -284,7 +291,7 @@ function formatRawTimeString(timestring: string): string{
 </Layout>
 <style>
   table{
-    min-width: 1950px;
+    min-width: 2225px;
   }
 
   .desc-wrapper {
@@ -301,8 +308,13 @@ function formatRawTimeString(timestring: string): string{
     width: 275px;
   }
 
-  tbody tr :nth-child(3), tbody tr :nth-child(4), tbody tr :nth-child(5), thead tr :nth-child(3), thead tr :nth-child(4), thead tr :nth-child(5){
+  tbody tr :nth-child(3), tbody tr :nth-child(4), thead tr :nth-child(3), thead tr :nth-child(4){
     width: 150px;
+    text-align: center;
+  }
+
+  tbody tr :nth-child(5), thead tr :nth-child(5) {
+    width: 250px;
     text-align: center;
   }
 
@@ -323,6 +335,12 @@ function formatRawTimeString(timestring: string): string{
   }
 
   tbody tr :nth-child(10), thead tr :nth-child(10){
+    width: 200px;
+    max-width: 200px;
+    word-wrap: break-word;
+  }
+
+  tbody tr :nth-child(11), thead tr :nth-child(11){
     width: 200px;
     max-width: 200px;
     word-wrap: break-word;
