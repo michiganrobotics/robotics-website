@@ -57,6 +57,15 @@ const jwt = new JWT({
 
 const doc = new GoogleSpreadsheet(process.env.GOOGLE_SPREADSHEET_ID!, jwt);
 
+// Deduplicate doc.loadInfo() calls so it only runs once
+let loadInfoPromise: Promise<void> | null = null;
+async function ensureDocLoaded() {
+  if (!loadInfoPromise) {
+    loadInfoPromise = doc.loadInfo();
+  }
+  return loadInfoPromise;
+}
+
 interface FacultyMember {
   slug: string;
   fullName: string;
@@ -296,7 +305,7 @@ export const getProfileImagePath = (person: { UMID?: string, firstName?: string,
 };
 
 export const getFacultyData = cached(async () => {
-  await doc.loadInfo();
+  await ensureDocLoaded();
   const sheet = doc.sheetsByTitle['Faculty'];
   const rows = await sheet.getRows();
   return rows.map(row => ({
@@ -322,7 +331,7 @@ export const getFacultyData = cached(async () => {
 });
 
 export const getEmeritusFacultyData = cached(async () => {
-  await doc.loadInfo();
+  await ensureDocLoaded();
   const sheet = doc.sheetsByTitle['Emeritus'];
   const rows = await sheet.getRows();
   return rows.map(row => ({
@@ -348,7 +357,7 @@ export const getEmeritusFacultyData = cached(async () => {
 });
 
 export const getProjectsDatasets = cached(async () => {
-  await doc.loadInfo();
+  await ensureDocLoaded();
   const sheet = doc.sheetsByTitle['ProjectsDatasets'];
   const rows = await sheet.getRows();
   
@@ -361,7 +370,7 @@ export const getProjectsDatasets = cached(async () => {
 });
 
 export const getAwards = cached(async (): Promise<Awards[]> => {
-  await doc.loadInfo();
+  await ensureDocLoaded();
   const sheet = doc.sheetsByTitle['Awards'];
   const rows = await sheet.getRows();
   
@@ -379,7 +388,7 @@ export const getAwards = cached(async (): Promise<Awards[]> => {
 });
 
 export const getCourseList = cached(async (): Promise<CourseList[]> => {
-  await doc.loadInfo();
+  await ensureDocLoaded();
   const sheet = doc.sheetsByTitle['Courses'];
   const rows = await sheet.getRows();
   
@@ -400,7 +409,7 @@ export const getCourseList = cached(async (): Promise<CourseList[]> => {
 });
 
 export const getStaffData = cached(async (): Promise<StaffMember[]> => {
-  await doc.loadInfo();
+  await ensureDocLoaded();
   const sheet = doc.sheetsByTitle['Staff'];
   const rows = await sheet.getRows();
   return rows.map(row => ({
@@ -421,7 +430,7 @@ export const getStaffData = cached(async (): Promise<StaffMember[]> => {
 });
 
 export const getAdvisoryBoard = cached(async (): Promise<AdvisoryBoard[]> => {
-  await doc.loadInfo();
+  await ensureDocLoaded();
   const sheet = doc.sheetsByTitle['AdvisoryBoard'];
   const rows = await sheet.getRows();
   return rows.map(row => ({
@@ -436,7 +445,7 @@ export const getAdvisoryBoard = cached(async (): Promise<AdvisoryBoard[]> => {
 });
 
 export const getAlumni = cached(async (): Promise<Alumni[]> => {
-  await doc.loadInfo();
+  await ensureDocLoaded();
   const sheet = doc.sheetsByTitle['Alumni'];
   const rows = await sheet.getRows();
   return rows.map(row => ({
@@ -452,7 +461,7 @@ export const getAlumni = cached(async (): Promise<Alumni[]> => {
 });
 
 export const getAffiliateFacultyData = cached(async (): Promise<AffiliateFaculty[]> => {
-  await doc.loadInfo();
+  await ensureDocLoaded();
   const sheet = doc.sheetsByTitle['Affiliate'];
   const rows = await sheet.getRows();
   return rows.map(row => ({
@@ -488,10 +497,17 @@ async function cacheGoogleDriveImage(url: string, fileName: string): Promise<str
     await fs.mkdir(cacheDir, { recursive: true });
     await fs.mkdir(publicDir, { recursive: true });
 
-    // Check if image exists in cache first
+    // Check if image already exists in public dir (e.g., committed to repo)
+    try {
+      await fs.access(publicPath);
+      return `/src/images/cached-profiles/${fileName}.jpg`;
+    } catch {
+      // Not in public dir
+    }
+
+    // Check if image exists in Netlify cache
     try {
       await fs.access(cachePath);
-      // If we're here, the file exists in cache
       await fs.copyFile(cachePath, publicPath);
       return `/src/images/cached-profiles/${fileName}.jpg`;
     } catch {
@@ -587,7 +603,7 @@ async function getGoogleDriveDirectImageUrl(url: string, studentName: string): P
 }
 
 export const getStudentData = cached(async (): Promise<Student[]> => {
-  await doc.loadInfo();
+  await ensureDocLoaded();
   const sheet = doc.sheetsByTitle['Students'];
   const rows = await sheet.getRows();
   
@@ -629,7 +645,7 @@ export const getStudentData = cached(async (): Promise<Student[]> => {
 });
 
 export const getSpeakerSeriesData = cached(async (): Promise<SpeakerSeries[]> => {
-  await doc.loadInfo();
+  await ensureDocLoaded();
   const sheet = doc.sheetsByTitle['RPCSS'];
   const rows = await sheet.getRows();
   
@@ -658,7 +674,7 @@ export const getSpeakerSeriesData = cached(async (): Promise<SpeakerSeries[]> =>
 });
 
 export const getSeminarsData = cached(async (): Promise<Seminars[]> => {
-  await doc.loadInfo();
+  await ensureDocLoaded();
   const sheet = doc.sheetsByTitle['Seminars'];
   const rows = await sheet.getRows();
   
@@ -689,7 +705,7 @@ export const getSeminarsData = cached(async (): Promise<Seminars[]> => {
 });
 
 export const getStudentCouncilData = cached(async (): Promise<StudentCouncilMember[]> => {
-  await doc.loadInfo();
+  await ensureDocLoaded();
   const sheet = doc.sheetsByTitle['RGSC/RUSC'];
   const rows = await sheet.getRows();
   
@@ -712,7 +728,7 @@ export const getStudentCouncilData = cached(async (): Promise<StudentCouncilMemb
 });
 
 export const getRobodexData = cached(async (): Promise<RobodexResource[]> => {
-  await doc.loadInfo();
+  await ensureDocLoaded();
   const sheet = doc.sheetsByTitle['Robodex'];
   const rows = await sheet.getRows();
   
@@ -727,7 +743,7 @@ export const getRobodexData = cached(async (): Promise<RobodexResource[]> => {
 });
 
 export const get590690Data = cached(async (): Promise<Project590690[]> => {
-  await doc.loadInfo();
+  await ensureDocLoaded();
   const sheet = doc.sheetsByTitle['590-690'];
   const rows = await sheet.getRows();
   
@@ -748,7 +764,7 @@ export const get590690Data = cached(async (): Promise<Project590690[]> => {
 });
 
 export const getFellowshipData = cached(async (): Promise<FellowshipData[]> => {
-  await doc.loadInfo();
+  await ensureDocLoaded();
   const sheet = doc.sheetsByTitle['Fellowships']; // Change to your actual tab name
   const rows = await sheet.getRows();
 
@@ -764,7 +780,7 @@ export const getFellowshipData = cached(async (): Promise<FellowshipData[]> => {
 });
 
 export const getIntranetData = cached(async (): Promise<IntranetLink[]> => {
-  await doc.loadInfo();
+  await ensureDocLoaded();
   const sheet = doc.sheetsByTitle['Intranet'];
   const rows = await sheet.getRows();
 
