@@ -132,10 +132,6 @@ HELLO WORLDHAVE FUN
 
 When the user runs the program without extra arguments (argc is only 1), you should print out some error message saying how to use the program and return an exit code of 1.
 
-## Bitwise operations
-
-For an overview of bitwise operations, how they work, and when they are useful, please see: [https://www.codeproject.com/Articles/2247/An-introduction-to-bitwise-operators](https://www.codeproject.com/Articles/2247/An-introduction-to-bitwise-operators)
-
 ### Clicker Questions
 
 Use p4r-clicker to submit your answer
