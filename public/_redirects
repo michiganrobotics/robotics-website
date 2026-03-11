@@ -231,15 +231,37 @@ academics/course-offerings/rob101 /academics/courses/course-offerings/rob-101-fa
 /graduate/masters-program /academics/graduate 301
 /undergraduate/robotics-major /academics/undergraduate 301
 
-# Focus Areas
-/research/focus-areas/robot-teams-swarms /research/focus-areas/teams-swarms 301
-/research/focus-areas/autonomous-connected-vehicles /research/focus-areas/autonomous-vehicles 301
-/research/focus-areas/rehabilitation-robotics /research/focus-areas/rehabilitation 301
-/research/focus-areas/deep-learning-for-robotics /research/focus-areas/deep-learning 301
-/research/focus-areas/manufacturing-robotics /research/focus-areas/manufacturing 301
-/research/focus-areas/legged-robots-exoskeletons /research/focus-areas/legged-robots 301
-/research/focus-areas/robot-perception-manipulation /research/focus-areas/perception-manipulation 301
-/research/focus-areas/simultaneous-localization-mapping-slam /research/focus-areas/slam 301
+# Focus Areas - legacy redirects (old WordPress slugs)
+/research/focus-areas/robot-teams-swarms /research/focus-areas/multi-robot-swarms/ 301
+/research/focus-areas/autonomous-connected-vehicles /research/focus-areas/autonomous-vehicles/ 301
+/research/focus-areas/rehabilitation-robotics /research/focus-areas/rehabilitation-wearables/ 301
+/research/focus-areas/deep-learning-for-robotics /research/focus-areas/robot-learning-foundational-models/ 301
+/research/focus-areas/manufacturing-robotics /research/focus-areas/manufacturing-robotics/ 301
+/research/focus-areas/legged-robots-exoskeletons /research/focus-areas/legged-robotics/ 301
+/research/focus-areas/robot-perception-manipulation /research/focus-areas/robot-perception/ 301
+/research/focus-areas/simultaneous-localization-mapping-slam /research/focus-areas/robot-perception/ 301
+
+# Focus Areas - renamed slugs
+/research/focus-areas/legged-robots /research/focus-areas/legged-robotics/ 301
+/research/focus-areas/rehabilitation /research/focus-areas/rehabilitation-wearables/ 301
+/research/focus-areas/manufacturing /research/focus-areas/manufacturing-robotics/ 301
+/research/focus-areas/motion-planning /research/focus-areas/motion-planning-control/ 301
+/research/focus-areas/teams-swarms /research/focus-areas/multi-robot-swarms/ 301
+/research/focus-areas/perception-manipulation /research/focus-areas/robot-perception/ 301
+/research/focus-areas/artificial-intelligence /research/focus-areas/robot-learning-foundational-models/ 301
+/research/focus-areas/deep-learning /research/focus-areas/robot-learning-foundational-models/ 301
+/research/focus-areas/slam /research/focus-areas/robot-perception/ 301
+
+# News category page redirects
+/news/legged-robots/* /news/legged-robotics/:splat 301
+/news/rehabilitation/* /news/rehabilitation-wearables/:splat 301
+/news/manufacturing/* /news/manufacturing-robotics/:splat 301
+/news/motion-planning/* /news/motion-planning-control/:splat 301
+/news/teams-swarms/* /news/multi-robot-swarms/:splat 301
+/news/perception-manipulation/* /news/robot-perception/:splat 301
+/news/artificial-intelligence/* /news/robot-learning-foundational-models/:splat 301
+/news/deep-learning/* /news/robot-learning-foundational-models/:splat 301
+/news/slam/* /news/robot-perception/:splat 301
 
 # ======================
 # External Links

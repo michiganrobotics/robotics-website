@@ -7,6 +7,8 @@ import Breadcrumbs from "../../../components/Breadcrumbs.astro";
 import Link from '../../../components/Link.astro';
 import { components } from '../../../components/components';
 import { Icon } from 'astro-icon/components';
+import { getFacultyData } from '../../../lib/googleSheets';
+import { relatedAreasMap } from '../../../lib/focusAreaRelations';
 
 export async function getStaticPaths() {
   const focusAreaEntries = await getCollection('focusAreas');
@@ -68,6 +70,19 @@ const areaImageAlt = areaData?.image?.alt || null;
 
 const relatedPosts = allAreaPosts
   .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
+
+// Faculty for this focus area
+const allFaculty = await getFacultyData();
+const relatedFaculty = allFaculty.filter(faculty => {
+  if (!faculty.focusAreas) return false;
+  return faculty.focusAreas
+    .split(',')
+    .map((area: string) => area.trim())
+    .includes(entry.id);
+});
+
+const relatedAreaSlugs = relatedAreasMap[entry.id] || [];
+const relatedAreas = focusAreas.filter(area => relatedAreaSlugs.includes(area.id));
 ---
 
 <Layout 
@@ -102,6 +117,23 @@ const relatedPosts = allAreaPosts
     <div class="max-w-6xl mx-auto mt-12">
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <Content components={components} />
+
+        <div class="clear-both"></div>
+
+        {/* Faculty */}
+        {relatedFaculty.length > 0 && (
+          <div class="mt-12 not-prose">
+            <h2 class="text-2xl font-bold mb-4 font-roboto-condensed">Focus area faculty</h2>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+              {relatedFaculty.map(faculty => (
+                <a href={`/people/faculty/${faculty.slug}/`} class="group no-underline surface card-base p-3 border border-arboretumBlue/20 dark:border-arboretumBlue/30">
+                  <p class="text-sm font-semibold text-umichblue dark:text-neutral-50 group-hover:underline group-hover:decoration-maize group-hover:decoration-2 mb-0.5">{faculty.preferredName} {faculty.lastName}</p>
+                  <p class="text-xs text-arboretumBlue dark:text-neutral-200 line-clamp-1">{faculty.title}</p>
+                </a>
+              ))}
+            </div>
+          </div>
+        )}
 
         {/* Related News Section */}
         {allRelatedPosts.length > 0 && (
@@ -179,6 +211,24 @@ const relatedPosts = allAreaPosts
                 </a>
               </div>
             )}
+          </div>
+        )}
+
+        {/* Related Focus Areas Section */}
+        {relatedAreas.length > 0 && (
+          <div class="mt-12">
+            <h2 class="text-2xl font-bold mb-4 font-roboto-condensed">Related focus areas</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {relatedAreas.map(area => (
+                <Link href={`/research/focus-areas/${area.id}/`} class="group no-underline not-prose">
+                  <div class="surface card-base p-4">
+                    <p class="text-lg font-medium group-hover:decoration-maize group-hover:decoration-2 group-hover:underline">
+                      {area.data.title}
+                    </p>
+                  </div>
+                </Link>
+              ))}
+            </div>
           </div>
         )}
       </article>

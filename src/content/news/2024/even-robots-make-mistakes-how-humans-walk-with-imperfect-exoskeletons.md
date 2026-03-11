@@ -8,8 +8,8 @@ image:
   alt: "A person wearing sturdy boots and jeans walks on a treadmill wearing a metal brace from the ankle to just below the knee."
 categories: 
   - "human-robot-interaction"
-  - "legged-robots"
-  - "rehabilitation"
+  - "legged-robotics"
+  - "rehabilitation-wearables"
 tags:
   - "Leia Stirling"
   - "Man I Wu"

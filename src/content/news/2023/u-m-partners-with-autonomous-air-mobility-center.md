@@ -10,7 +10,7 @@ image:
 
 categories: 
   - "autonomous-vehicles"
-  - "teams-swarms"
+  - "multi-robot-swarms"
 
 tags:
   - "Dimitra Panagou"

@@ -10,48 +10,294 @@ import Link from '../../../components/Link.astro';
 import ContentImage from '../../../components/ContentImage.astro';
 import featureImage from '../../../images/featured-images/research-focus-areas.jpg';
 import ogFeatureImage from '../../../images/featured-images/og/research-focus-areas.jpg';
+import { relatedAreasMap } from '../../../lib/focusAreaRelations';
 
 // Get all focus areas from the content collection
 const focusAreas = await getCollection('focusAreas');
-// Sort them by title if needed
-const sortedAreas = focusAreas.sort((a, b) => 
-  a.data.title.localeCompare(b.data.title)
-);
+
+const coreAreas = focusAreas
+  .filter((area) => area.data.type === 'core')
+  .sort((a, b) => a.data.title.localeCompare(b.data.title));
+
+const applicationAreas = focusAreas
+  .filter((area) => area.data.type === 'application')
+  .sort((a, b) => a.data.title.localeCompare(b.data.title));
 
 ---
 
 <Layout title="Research Focus Areas | Michigan Robotics" description="University of Michigan Robotics research focuses on a wide range of areas and applications." image={ogFeatureImage.src}>
     <Breadcrumbs slot="breadcrumbs" />
-    <PageTitle title="Research Focus Areas" image={featureImage} imageAlt="A quadcopter drone in flight at M-Air testing facility" />
-      <div class="mt-4 mb-4 max-w-6xl w-11/12 mx-auto">
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
-            {sortedAreas.map((area) => (
-              <div class="group cursor-pointer">
-                <Link href={`/research/focus-areas/${area.id}/`} 
-                   class="block relative overflow-hidden rounded-lg shadow-lg">
-                  <div class="aspect-auto relative">
-                    <Image 
-                      src={area.data.image?.src}
-                      alt={area.data.image?.alt}
-                      width={400}
-                      height={200}
-                      class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                    />
-                    <div class="absolute inset-0 bg-gradient-to-b from-lawQuadStone dark:from-matthaeiViolet to-transparent">
-                      <div class="absolute top-0 left-0 right-0 p-4">
-                        <h2 class="text-xl font-semibold text-white mb-2">
-                          {area.data.title}
-                        </h2>
-                        <p class="text-gray-200 text-sm opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-opacity transition-transform duration-300">
-                          {area.data.description}
-                        </p>
+    <PageTitle title="Research focus areas" image={featureImage} imageAlt="A quadcopter drone in flight at M-Air testing facility" />
+      <div id="focus-areas-wrapper" class="relative mt-4 mb-4 max-w-6xl w-11/12 mx-auto">
+          <svg id="connections-svg" class="absolute inset-0 w-full h-full pointer-events-none" style="z-index: 5; overflow: visible;"></svg>
+
+          <p class="text-lg max-w-3xl mt-6 mb-4">
+            Michigan Robotics research spans foundational methods and real-world applications.
+          </p>
+          <p class="mb-8">Core areas advance the underlying science of robotics, while application areas bring these capabilities to specific domains and challenges. Many projects draw on multiple core areas and often include an application area. This interconnected research is what makes the field of robotics so dynamic and open to aspiring experts in multiple domains.</p>
+
+          <div class="mb-16">
+            <div class="mb-6">
+              <h2 class="text-2xl font-bold font-roboto-condensed">Core research areas</h2>
+              <p class="text-md mt-1">Foundational science and methods behind intelligent robotic systems.</p>
+            </div>
+            <div class="focus-area-flow">
+              {coreAreas.map((area) => (
+                <div class="group cursor-pointer focus-area-card" data-area-id={area.id}>
+                  <Link href={`/research/focus-areas/${area.id}/`}
+                     class="block relative overflow-hidden rounded-lg shadow-lg">
+                    <div class="relative">
+                      <Image
+                        src={area.data.image?.src}
+                        alt={area.data.image?.alt}
+                        width={400}
+                        height={300}
+                        class="focus-area-img w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                      />
+                      <div class="absolute inset-0 bg-gradient-to-b from-lawQuadStone dark:from-matthaeiViolet to-transparent group-hover:from-gray-900/95 group-hover:to-gray-900/70 transition-all duration-300">
+                        <div class="absolute top-0 left-0 right-0 p-4">
+                          <h3 class="text-xl font-semibold text-white mb-2">
+                            {area.data.title}
+                          </h3>
+                          <p class="text-gray-200 text-sm opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
+                            {area.data.description}
+                          </p>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </Link>
-              </div>
-            ))}
+                  </Link>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div class="mb-12">
+            <div class="mb-6">
+              <h2 class="text-2xl font-bold font-roboto-condensed">Application research areas</h2>
+              <p class="text-md mt-1">Robotics research applied to specific domains and real-world challenges.</p>
+            </div>
+            <div class="focus-area-flow">
+              {applicationAreas.map((area) => (
+                <div class="group cursor-pointer focus-area-card" data-area-id={area.id}>
+                  <Link href={`/research/focus-areas/${area.id}/`}
+                     class="block relative overflow-hidden rounded-lg shadow-lg">
+                    <div class="relative">
+                      <Image
+                        src={area.data.image?.src}
+                        alt={area.data.image?.alt}
+                        width={400}
+                        height={300}
+                        class="focus-area-img w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                      />
+                      <div class="absolute inset-0 bg-gradient-to-b from-lawQuadStone dark:from-matthaeiViolet to-transparent group-hover:from-gray-900/95 group-hover:to-gray-900/70 transition-all duration-300">
+                        <div class="absolute top-0 left-0 right-0 p-4">
+                          <h3 class="text-xl font-semibold text-white mb-2">
+                            {area.data.title}
+                          </h3>
+                          <p class="text-gray-200 text-sm opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
+                            {area.data.description}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </Link>
+                </div>
+              ))}
+            </div>
           </div>
       </div>
 </Layout>
-          
+
+<style>
+  .focus-area-flow {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  @media (min-width: 768px) {
+    .focus-area-flow { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (min-width: 1024px) {
+    .focus-area-flow { grid-template-columns: repeat(4, 1fr); }
+  }
+
+  .focus-area-img {
+    height: 200px;
+  }
+
+  /* Tilt on hover — desktop only (where connectors are active) */
+  @media (min-width: 1024px) {
+    .focus-area-card:nth-child(6n+1):hover { transform: rotate(-1.2deg) translateY(-4px); }
+    .focus-area-card:nth-child(6n+2):hover { transform: rotate(0.8deg) translateY(-4px); }
+    .focus-area-card:nth-child(6n+3):hover { transform: rotate(-0.5deg) translateY(-4px); }
+    .focus-area-card:nth-child(6n+4):hover { transform: rotate(1deg) translateY(-4px); }
+    .focus-area-card:nth-child(6n+5):hover { transform: rotate(-0.8deg) translateY(-4px); }
+    .focus-area-card:nth-child(6n+6):hover { transform: rotate(0.4deg) translateY(-4px); }
+  }
+
+  /* Connection hover states */
+  .focus-area-card {
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease, filter 0.3s ease;
+  }
+
+  .focus-area-card.dimmed {
+    opacity: 0.25;
+    filter: grayscale(0.6);
+  }
+
+  .focus-area-card.related {
+    opacity: 0.85;
+    z-index: 6;
+    position: relative;
+  }
+
+  .focus-area-card.highlighted {
+    z-index: 7;
+    position: relative;
+  }
+
+  /* Animated connection line */
+  .connection-line {
+    animation: fade-in 0.3s ease forwards;
+    opacity: 0;
+  }
+
+  @keyframes fade-in {
+    to { opacity: 0.7; }
+  }
+
+  .connection-dot {
+    animation: pop-in 0.3s ease forwards;
+    transform-origin: center;
+  }
+
+  @keyframes pop-in {
+    0% { r: 0; }
+    70% { r: 5; }
+    100% { r: 4; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .focus-area-card {
+      transform: none !important;
+      transition: none;
+    }
+    .connection-line {
+      animation: none;
+      opacity: 0.7;
+    }
+    .connection-dot {
+      animation: none;
+    }
+  }
+</style>
+
+<script>
+  import { relatedAreasMap } from '../../../lib/focusAreaRelations';
+
+  const SVG_NS = 'http://www.w3.org/2000/svg';
+  const darkQuery = window.matchMedia('(prefers-color-scheme: dark)');
+  function getConnectorColor() {
+    return darkQuery.matches ? '#ffcb05' : '#2F65A7';
+  }
+  darkQuery.addEventListener('change', () => clearConnections());
+  const wrapper = document.getElementById('focus-areas-wrapper')!;
+  const svg = document.getElementById('connections-svg')!;
+  const cards = wrapper.querySelectorAll<HTMLElement>('.focus-area-card');
+  const desktopQuery = window.matchMedia('(min-width: 1024px)');
+
+  function getCenter(card: HTMLElement) {
+    const wrapperRect = wrapper.getBoundingClientRect();
+    const cardRect = card.getBoundingClientRect();
+    return {
+      x: cardRect.left + cardRect.width / 2 - wrapperRect.left,
+      y: cardRect.top + cardRect.height / 2 - wrapperRect.top,
+    };
+  }
+
+  function clearConnections() {
+    while (svg.firstChild) svg.removeChild(svg.firstChild);
+    cards.forEach(c => c.classList.remove('dimmed', 'highlighted', 'related'));
+  }
+
+  cards.forEach(card => {
+    card.addEventListener('mouseenter', () => {
+      if (!desktopQuery.matches) return;
+
+      const areaId = card.dataset.areaId!;
+      const related = relatedAreasMap[areaId] || [];
+
+      // Dim / highlight / related
+      cards.forEach(c => {
+        const id = c.dataset.areaId!;
+        if (id === areaId) {
+          c.classList.add('highlighted');
+        } else if (related.includes(id)) {
+          c.classList.add('related');
+        } else {
+          c.classList.add('dimmed');
+        }
+      });
+
+      // Draw connections
+      const source = getCenter(card);
+
+      // Source dot
+      const srcDot = document.createElementNS(SVG_NS, 'circle');
+      srcDot.setAttribute('cx', String(source.x));
+      srcDot.setAttribute('cy', String(source.y));
+      srcDot.setAttribute('r', '4');
+      srcDot.setAttribute('fill', getConnectorColor());
+      srcDot.classList.add('connection-dot');
+      svg.appendChild(srcDot);
+
+      related.forEach(relatedId => {
+        const target = wrapper.querySelector<HTMLElement>(`[data-area-id="${relatedId}"]`);
+        if (!target) return;
+
+        const dest = getCenter(target);
+        const dx = dest.x - source.x;
+        const dy = dest.y - source.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+
+        // Perpendicular offset for a nice arc
+        const nx = -dy / dist;
+        const ny = dx / dist;
+        const bulge = dist * 0.25;
+
+        const cp1x = source.x + dx * 0.33 + nx * bulge;
+        const cp1y = source.y + dy * 0.33 + ny * bulge;
+        const cp2x = source.x + dx * 0.66 + nx * bulge;
+        const cp2y = source.y + dy * 0.66 + ny * bulge;
+
+        const path = document.createElementNS(SVG_NS, 'path');
+        path.setAttribute('d', `M ${source.x} ${source.y} C ${cp1x} ${cp1y}, ${cp2x} ${cp2y}, ${dest.x} ${dest.y}`);
+        path.setAttribute('stroke', getConnectorColor());
+        path.setAttribute('stroke-width', '2');
+        path.setAttribute('stroke-dasharray', '8 4');
+        path.setAttribute('fill', 'none');
+        path.setAttribute('opacity', '0.7');
+        path.classList.add('connection-line');
+        svg.appendChild(path);
+
+        // Target dot
+        const dot = document.createElementNS(SVG_NS, 'circle');
+        dot.setAttribute('cx', String(dest.x));
+        dot.setAttribute('cy', String(dest.y));
+        dot.setAttribute('r', '4');
+        dot.setAttribute('fill', getConnectorColor());
+        dot.classList.add('connection-dot');
+        svg.appendChild(dot);
+      });
+    });
+
+    card.addEventListener('mouseleave', clearConnections);
+  });
+
+  // Clear on resize (debounced)
+  let resizeTimer: ReturnType<typeof setTimeout>;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(clearConnections, 100);
+  });
+</script>

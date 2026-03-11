@@ -7,8 +7,8 @@ image:
   src: "images/3d-printed-concrete-art.jpg"
   alt: "3D printed concrete art on display during the 2019 Innovation in Concrete Symposium organized by the University of Michigan Taubman College of Architecture and Urban Planning and the Civil and Environmental Engineering department."
 categories:
-  - "artificial-intelligence"
-  - "manufacturing"
+  - "robot-learning-foundational-models"
+  - "manufacturing-robotics"
 tags:
   - "Yulun Tian"
   - "3D printing"
