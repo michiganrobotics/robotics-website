@@ -23,13 +23,15 @@ const applicationAreas = focusAreas
   .filter((area) => area.data.type === 'application')
   .sort((a, b) => a.data.title.localeCompare(b.data.title));
 
+const areaTitleMap = Object.fromEntries(focusAreas.map(a => [a.id, a.data.title]));
+
 ---
 
 <Layout title="Research Focus Areas | Michigan Robotics" description="University of Michigan Robotics research focuses on a wide range of areas and applications." image={ogFeatureImage.src}>
     <Breadcrumbs slot="breadcrumbs" />
     <PageTitle title="Research focus areas" image={featureImage} imageAlt="A quadcopter drone in flight at M-Air testing facility" />
       <div id="focus-areas-wrapper" class="relative mt-4 mb-4 max-w-6xl w-11/12 mx-auto">
-          <svg id="connections-svg" class="absolute inset-0 w-full h-full pointer-events-none" style="z-index: 5; overflow: visible;"></svg>
+          <svg id="connections-svg" class="absolute inset-0 w-full h-full pointer-events-none" style="z-index: 5; overflow: visible;" aria-hidden="true"></svg>
 
           <p class="text-lg max-w-3xl mt-6 mb-4">
             Michigan Robotics research spans foundational methods and real-world applications.
@@ -43,25 +45,30 @@ const applicationAreas = focusAreas
             </div>
             <div class="focus-area-flow">
               {coreAreas.map((area) => (
-                <div class="group cursor-pointer focus-area-card" data-area-id={area.id}>
+                <div class="group focus-area-card" data-area-id={area.id}>
                   <Link href={`/research/focus-areas/${area.id}/`}
                      class="block relative overflow-hidden rounded-lg shadow-lg">
                     <div class="relative">
                       <Image
-                        src={area.data.image?.src}
-                        alt={area.data.image?.alt}
+                        src={area.data.image!.src}
+                        alt=""
                         width={400}
                         height={300}
                         class="focus-area-img w-full object-cover transition-transform duration-500 group-hover:scale-110"
                       />
-                      <div class="absolute inset-0 bg-gradient-to-b from-lawQuadStone dark:from-matthaeiViolet to-transparent group-hover:from-gray-900/95 group-hover:to-gray-900/70 transition-all duration-300">
+                      <div class="absolute inset-0 bg-gradient-to-b from-lawQuadStone dark:from-matthaeiViolet to-transparent group-hover:from-gray-900/95 group-hover:to-gray-900/85 group-focus-within:from-gray-900/95 group-focus-within:to-gray-900/85 transition-all duration-300">
                         <div class="absolute top-0 left-0 right-0 p-4">
                           <h3 class="text-xl font-semibold text-white mb-2">
                             {area.data.title}
                           </h3>
-                          <p class="text-gray-200 text-sm opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
+                          <p class="text-gray-200 text-sm opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transform translate-y-4 group-hover:translate-y-0 group-focus-within:translate-y-0 transition-all duration-300">
                             {area.data.description}
                           </p>
+                          {relatedAreasMap[area.id]?.length > 0 && (
+                            <span class="sr-only">
+                              Related areas: {relatedAreasMap[area.id].map((id: string) => areaTitleMap[id]).filter(Boolean).join(', ')}
+                            </span>
+                          )}
                         </div>
                       </div>
                     </div>
@@ -78,25 +85,30 @@ const applicationAreas = focusAreas
             </div>
             <div class="focus-area-flow">
               {applicationAreas.map((area) => (
-                <div class="group cursor-pointer focus-area-card" data-area-id={area.id}>
+                <div class="group focus-area-card" data-area-id={area.id}>
                   <Link href={`/research/focus-areas/${area.id}/`}
                      class="block relative overflow-hidden rounded-lg shadow-lg">
                     <div class="relative">
                       <Image
-                        src={area.data.image?.src}
-                        alt={area.data.image?.alt}
+                        src={area.data.image!.src}
+                        alt=""
                         width={400}
                         height={300}
                         class="focus-area-img w-full object-cover transition-transform duration-500 group-hover:scale-110"
                       />
-                      <div class="absolute inset-0 bg-gradient-to-b from-lawQuadStone dark:from-matthaeiViolet to-transparent group-hover:from-gray-900/95 group-hover:to-gray-900/70 transition-all duration-300">
+                      <div class="absolute inset-0 bg-gradient-to-b from-lawQuadStone dark:from-matthaeiViolet to-transparent group-hover:from-gray-900/95 group-hover:to-gray-900/85 group-focus-within:from-gray-900/95 group-focus-within:to-gray-900/85 transition-all duration-300">
                         <div class="absolute top-0 left-0 right-0 p-4">
                           <h3 class="text-xl font-semibold text-white mb-2">
                             {area.data.title}
                           </h3>
-                          <p class="text-gray-200 text-sm opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
+                          <p class="text-gray-200 text-sm opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transform translate-y-4 group-hover:translate-y-0 group-focus-within:translate-y-0 transition-all duration-300">
                             {area.data.description}
                           </p>
+                          {relatedAreasMap[area.id]?.length > 0 && (
+                            <span class="sr-only">
+                              Related areas: {relatedAreasMap[area.id].map((id: string) => areaTitleMap[id]).filter(Boolean).join(', ')}
+                            </span>
+                          )}
                         </div>
                       </div>
                     </div>
@@ -177,10 +189,26 @@ const applicationAreas = focusAreas
     100% { r: 4; }
   }
 
+  .focus-area-card a:focus-visible {
+    outline: 2px solid #2F65A7;
+    outline-offset: 2px;
+    border-radius: 0.5rem;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .focus-area-card a:focus-visible {
+      outline-color: #ffcb05;
+    }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .focus-area-card {
       transform: none !important;
       transition: none;
+    }
+    .focus-area-img {
+      transition: none;
+      transform: none !important;
     }
     .connection-line {
       animation: none;
@@ -220,78 +248,81 @@ const applicationAreas = focusAreas
     cards.forEach(c => c.classList.remove('dimmed', 'highlighted', 'related'));
   }
 
-  cards.forEach(card => {
-    card.addEventListener('mouseenter', () => {
-      if (!desktopQuery.matches) return;
+  function showConnections(card: HTMLElement) {
+    if (!desktopQuery.matches) return;
 
-      const areaId = card.dataset.areaId!;
-      const related = relatedAreasMap[areaId] || [];
+    const areaId = card.dataset.areaId!;
+    const related = relatedAreasMap[areaId] || [];
 
-      // Dim / highlight / related
-      cards.forEach(c => {
-        const id = c.dataset.areaId!;
-        if (id === areaId) {
-          c.classList.add('highlighted');
-        } else if (related.includes(id)) {
-          c.classList.add('related');
-        } else {
-          c.classList.add('dimmed');
-        }
-      });
-
-      // Draw connections
-      const source = getCenter(card);
-
-      // Source dot
-      const srcDot = document.createElementNS(SVG_NS, 'circle');
-      srcDot.setAttribute('cx', String(source.x));
-      srcDot.setAttribute('cy', String(source.y));
-      srcDot.setAttribute('r', '4');
-      srcDot.setAttribute('fill', getConnectorColor());
-      srcDot.classList.add('connection-dot');
-      svg.appendChild(srcDot);
-
-      related.forEach(relatedId => {
-        const target = wrapper.querySelector<HTMLElement>(`[data-area-id="${relatedId}"]`);
-        if (!target) return;
-
-        const dest = getCenter(target);
-        const dx = dest.x - source.x;
-        const dy = dest.y - source.y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-
-        // Perpendicular offset for a nice arc
-        const nx = -dy / dist;
-        const ny = dx / dist;
-        const bulge = dist * 0.25;
-
-        const cp1x = source.x + dx * 0.33 + nx * bulge;
-        const cp1y = source.y + dy * 0.33 + ny * bulge;
-        const cp2x = source.x + dx * 0.66 + nx * bulge;
-        const cp2y = source.y + dy * 0.66 + ny * bulge;
-
-        const path = document.createElementNS(SVG_NS, 'path');
-        path.setAttribute('d', `M ${source.x} ${source.y} C ${cp1x} ${cp1y}, ${cp2x} ${cp2y}, ${dest.x} ${dest.y}`);
-        path.setAttribute('stroke', getConnectorColor());
-        path.setAttribute('stroke-width', '2');
-        path.setAttribute('stroke-dasharray', '8 4');
-        path.setAttribute('fill', 'none');
-        path.setAttribute('opacity', '0.7');
-        path.classList.add('connection-line');
-        svg.appendChild(path);
-
-        // Target dot
-        const dot = document.createElementNS(SVG_NS, 'circle');
-        dot.setAttribute('cx', String(dest.x));
-        dot.setAttribute('cy', String(dest.y));
-        dot.setAttribute('r', '4');
-        dot.setAttribute('fill', getConnectorColor());
-        dot.classList.add('connection-dot');
-        svg.appendChild(dot);
-      });
+    // Dim / highlight / related
+    cards.forEach(c => {
+      const id = c.dataset.areaId!;
+      if (id === areaId) {
+        c.classList.add('highlighted');
+      } else if (related.includes(id)) {
+        c.classList.add('related');
+      } else {
+        c.classList.add('dimmed');
+      }
     });
 
+    // Draw connections
+    const source = getCenter(card);
+
+    // Source dot
+    const srcDot = document.createElementNS(SVG_NS, 'circle');
+    srcDot.setAttribute('cx', String(source.x));
+    srcDot.setAttribute('cy', String(source.y));
+    srcDot.setAttribute('r', '4');
+    srcDot.setAttribute('fill', getConnectorColor());
+    srcDot.classList.add('connection-dot');
+    svg.appendChild(srcDot);
+
+    related.forEach(relatedId => {
+      const target = wrapper.querySelector<HTMLElement>(`[data-area-id="${relatedId}"]`);
+      if (!target) return;
+
+      const dest = getCenter(target);
+      const dx = dest.x - source.x;
+      const dy = dest.y - source.y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+
+      // Perpendicular offset for a nice arc
+      const nx = -dy / dist;
+      const ny = dx / dist;
+      const bulge = dist * 0.25;
+
+      const cp1x = source.x + dx * 0.33 + nx * bulge;
+      const cp1y = source.y + dy * 0.33 + ny * bulge;
+      const cp2x = source.x + dx * 0.66 + nx * bulge;
+      const cp2y = source.y + dy * 0.66 + ny * bulge;
+
+      const path = document.createElementNS(SVG_NS, 'path');
+      path.setAttribute('d', `M ${source.x} ${source.y} C ${cp1x} ${cp1y}, ${cp2x} ${cp2y}, ${dest.x} ${dest.y}`);
+      path.setAttribute('stroke', getConnectorColor());
+      path.setAttribute('stroke-width', '2');
+      path.setAttribute('stroke-dasharray', '8 4');
+      path.setAttribute('fill', 'none');
+      path.setAttribute('opacity', '0.7');
+      path.classList.add('connection-line');
+      svg.appendChild(path);
+
+      // Target dot
+      const dot = document.createElementNS(SVG_NS, 'circle');
+      dot.setAttribute('cx', String(dest.x));
+      dot.setAttribute('cy', String(dest.y));
+      dot.setAttribute('r', '4');
+      dot.setAttribute('fill', getConnectorColor());
+      dot.classList.add('connection-dot');
+      svg.appendChild(dot);
+    });
+  }
+
+  cards.forEach(card => {
+    card.addEventListener('mouseenter', () => showConnections(card));
+    card.addEventListener('focusin', () => showConnections(card));
     card.addEventListener('mouseleave', clearConnections);
+    card.addEventListener('focusout', clearConnections);
   });
 
   // Clear on resize (debounced)
