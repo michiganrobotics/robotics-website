@@ -56,7 +56,7 @@ const areaTitleMap = Object.fromEntries(focusAreas.map(a => [a.id, a.data.title]
                         height={300}
                         class="focus-area-img w-full object-cover transition-transform duration-500 group-hover:scale-110"
                       />
-                      <div class="absolute inset-0 bg-gradient-to-b from-lawQuadStone dark:from-matthaeiViolet to-transparent group-hover:from-gray-900/95 group-hover:to-gray-900/85 group-focus-within:from-gray-900/95 group-focus-within:to-gray-900/85 transition-all duration-300">
+                      <div class="absolute inset-0 bg-gradient-to-b from-gray-900 to-transparent group-hover:from-gray-900/95 group-hover:to-gray-900/85 group-focus-within:from-gray-900/95 group-focus-within:to-gray-900/85 transition-all duration-300">
                         <div class="absolute top-0 left-0 right-0 p-4">
                           <h3 class="text-xl font-semibold text-white mb-2">
                             {area.data.title}
@@ -96,7 +96,7 @@ const areaTitleMap = Object.fromEntries(focusAreas.map(a => [a.id, a.data.title]
                         height={300}
                         class="focus-area-img w-full object-cover transition-transform duration-500 group-hover:scale-110"
                       />
-                      <div class="absolute inset-0 bg-gradient-to-b from-lawQuadStone dark:from-matthaeiViolet to-transparent group-hover:from-gray-900/95 group-hover:to-gray-900/85 group-focus-within:from-gray-900/95 group-focus-within:to-gray-900/85 transition-all duration-300">
+                      <div class="absolute inset-0 bg-gradient-to-b from-gray-900 to-transparent group-hover:from-gray-900/95 group-hover:to-gray-900/85 group-focus-within:from-gray-900/95 group-focus-within:to-gray-900/85 transition-all duration-300">
                         <div class="absolute top-0 left-0 right-0 p-4">
                           <h3 class="text-xl font-semibold text-white mb-2">
                             {area.data.title}
@@ -152,7 +152,7 @@ const areaTitleMap = Object.fromEntries(focusAreas.map(a => [a.id, a.data.title]
     position: relative;
     z-index: 1;
     border-radius: 0.5rem;
-    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease, filter 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease, filter 0.3s ease, box-shadow 0.15s ease;
   }
 
   .focus-area-card.dimmed {
@@ -165,11 +165,13 @@ const areaTitleMap = Object.fromEntries(focusAreas.map(a => [a.id, a.data.title]
     opacity: 0.85;
     z-index: 6;
     box-shadow: 0 0 0 3px #2F65A7;
+    transition-delay: 0s, 0s, 0s, 0.25s;
   }
 
   .focus-area-card.highlighted {
     z-index: 7;
     box-shadow: 0 0 0 3px #2F65A7;
+    transition-delay: 0s;
   }
 
   @media (prefers-color-scheme: dark) {
@@ -181,10 +183,7 @@ const areaTitleMap = Object.fromEntries(focusAreas.map(a => [a.id, a.data.title]
     }
   }
 
-  /* Animated connection line — draws itself via stroke-dashoffset transition */
-  .connection-line {
-    transition: stroke-dashoffset 0.4s ease;
-  }
+  /* Connection lines are animated via Web Animations API in the script */
 
   .focus-area-card a:focus-visible {
     outline: 2px solid #2F65A7;
@@ -208,7 +207,7 @@ const areaTitleMap = Object.fromEntries(focusAreas.map(a => [a.id, a.data.title]
       transform: none !important;
     }
     .connection-line {
-      transition: none !important;
+      animation: none !important;
     }
   }
 </style>
@@ -312,17 +311,19 @@ const areaTitleMap = Object.fromEntries(focusAreas.map(a => [a.id, a.data.title]
       path.setAttribute('d', `M ${start.x} ${start.y} C ${cp1x} ${cp1y}, ${cp2x} ${cp2y}, ${end.x} ${end.y}`);
       path.setAttribute('stroke', getConnectorColor());
       path.setAttribute('stroke-width', '2');
-      path.setAttribute('stroke-dasharray', '8 4');
       path.setAttribute('fill', 'none');
       path.setAttribute('opacity', '0.6');
       svg.appendChild(path);
 
-      // Animate: offset the dash pattern so it appears to draw in
+      // Animate: solid line draws itself from start to end
       const len = path.getTotalLength();
-      path.style.strokeDashoffset = `${len}`;
-      void path.getBoundingClientRect();
+      path.setAttribute('stroke-dasharray', String(len));
+      path.setAttribute('stroke-dashoffset', String(len));
       path.classList.add('connection-line');
-      path.style.strokeDashoffset = '0';
+      path.animate(
+        [{ strokeDashoffset: `${len}` }, { strokeDashoffset: '0' }],
+        { duration: 600, easing: 'ease', fill: 'forwards' },
+      );
     });
   }
 
