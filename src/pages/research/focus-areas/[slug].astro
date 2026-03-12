@@ -91,7 +91,7 @@ const relatedAreas = focusAreas.filter(area => relatedAreaSlugs.includes(area.id
   image={areaImage ? areaImage.src : undefined}
   imageAlt={areaImageAlt}
 >
-    <Breadcrumbs slot="breadcrumbs" />
+    <Breadcrumbs slot="breadcrumbs" pageTitle={entry.data.title} />
   <div class="max-w-6xl w-11/12 mx-auto pt-4 pb-12">
     <div class="relative rounded-lg overflow-hidden shadow-2xl">
       <div class="absolute inset-0">

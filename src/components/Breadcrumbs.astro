@@ -4,28 +4,36 @@ interface Breadcrumb {
   href: string;
 }
 
+interface Props {
+  pageTitle?: string;
+}
+
+const { pageTitle } = Astro.props;
 const { pathname } = Astro.url;
 const paths = pathname.split('/').filter(Boolean);
 
 function generateBreadcrumbs(): Breadcrumb[] {
   const breadcrumbs: Breadcrumb[] = [];
   let path = '';
-  paths.forEach((item) => {
+  paths.forEach((item, index) => {
     path += `/${item}`;
     // Skip adding breadcrumb if it's the base path in production
     if (process.env.NODE_ENV === 'production' && item === 'rob-astro-23') {
       return;
     }
-    // Replace hyphens with spaces and capitalize all words
-    const text = item.replace(/-/g, ' ').split(' ').map(word =>
-      word.charAt(0).toUpperCase() + word.slice(1)
-    ).join(' ');
+    // Use pageTitle for the last segment if provided
+    const isLast = index === paths.length - 1;
+    const text = isLast && pageTitle
+      ? pageTitle
+      : item.replace(/-/g, ' ').split(' ').map(word =>
+          word.charAt(0).toUpperCase() + word.slice(1)
+        ).join(' ');
     breadcrumbs.push({
       text,
       href: `${path}/`
     });
   });
-  
+
   return breadcrumbs;
 }
 

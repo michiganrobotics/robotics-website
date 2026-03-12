@@ -152,7 +152,8 @@ const areaTitleMap = Object.fromEntries(focusAreas.map(a => [a.id, a.data.title]
     position: relative;
     z-index: 1;
     border-radius: 0.5rem;
-    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease, filter 0.3s ease, box-shadow 0.15s ease;
+    /* No box-shadow in base transition so outline disappears instantly on clear */
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease, filter 0.3s ease;
   }
 
   .focus-area-card.dimmed {
@@ -165,18 +166,19 @@ const areaTitleMap = Object.fromEntries(focusAreas.map(a => [a.id, a.data.title]
     opacity: 0.85;
     z-index: 6;
     box-shadow: 0 0 0 3px #2F65A7;
-    transition-delay: 0s, 0s, 0s, 0.25s;
+    /* Include box-shadow transition so outline fades in smoothly */
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease, filter 0.3s ease, box-shadow 0.15s ease 0.15s;
   }
 
   .focus-area-card.highlighted {
     z-index: 7;
     box-shadow: 0 0 0 3px #2F65A7;
-    transition-delay: 0s;
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease, filter 0.3s ease, box-shadow 0.15s ease;
   }
 
   @media (prefers-color-scheme: dark) {
     .focus-area-card.related {
-      box-shadow: 0 0 0 3px #ffcb05;
+      box-shadow: 0 0 0 2px rgba(255, 203, 5, 0.8);
     }
     .focus-area-card.highlighted {
       box-shadow: 0 0 0 3px #ffcb05;
