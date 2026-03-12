@@ -32,18 +32,18 @@ const areaTitleMap = Object.fromEntries(focusAreas.map(a => [a.id, a.data.title]
     <PageTitle title="Research focus areas" image={featureImage} imageAlt="A quadcopter drone in flight at M-Air testing facility" />
       <div id="focus-areas-wrapper" class="relative mt-4 mb-4 max-w-6xl w-11/12 mx-auto">
           <svg id="connections-svg" class="absolute inset-0 w-full h-full pointer-events-none" style="z-index: 5; overflow: visible;" aria-hidden="true"></svg>
-
           <p class="text-lg max-w-3xl mt-6 mb-4">
             Michigan Robotics research spans foundational methods and real-world applications.
           </p>
           <p class="mb-8">Core areas advance the underlying science of robotics, while application areas bring these capabilities to specific domains and challenges. Many projects draw on multiple core areas and often include an application area. This interconnected research is what makes the field of robotics so dynamic and open to aspiring experts in multiple domains.</p>
 
-          <div class="mb-16">
-            <div class="mb-6">
-              <h2 class="text-2xl font-bold font-roboto-condensed">Core research areas</h2>
-              <p class="text-md mt-1">Foundational science and methods behind intelligent robotic systems.</p>
-            </div>
-            <div class="focus-area-flow">
+          <div class="mb-6">
+            <h2 class="text-2xl font-bold font-roboto-condensed">Core research areas</h2>
+            <p class="text-md mt-1">Foundational science and methods behind intelligent robotic systems.</p>
+          </div>
+
+          <div class="blueprint-bg mb-12">
+            <div class="focus-area-flow mb-16">
               {coreAreas.map((area) => (
                 <div class="group focus-area-card" data-area-id={area.id}>
                   <Link href={`/research/focus-areas/${area.id}/`}
@@ -76,10 +76,8 @@ const areaTitleMap = Object.fromEntries(focusAreas.map(a => [a.id, a.data.title]
                 </div>
               ))}
             </div>
-          </div>
 
-          <div class="mb-12">
-            <div class="mb-6">
+            <div class="application-heading mb-6">
               <h2 class="text-2xl font-bold font-roboto-condensed">Application research areas</h2>
               <p class="text-md mt-1">Robotics research applied to specific domains and real-world challenges.</p>
             </div>
@@ -121,6 +119,80 @@ const areaTitleMap = Object.fromEntries(focusAreas.map(a => [a.id, a.data.title]
 </Layout>
 
 <style>
+  /* Diagonal blueprint grid */
+  .blueprint-bg {
+    position: relative;
+  }
+  .blueprint-bg::before {
+    content: '';
+    position: absolute;
+    top: -3rem;
+    left: -2rem;
+    right: -4rem;
+    bottom: 0;
+    transform: rotate(-12deg);
+    transform-origin: center center;
+    -webkit-mask-image:
+      linear-gradient(to bottom, transparent, black 4rem, black calc(100% - 4rem), transparent),
+      linear-gradient(to right, transparent, black 3rem, black calc(100% - 6rem), transparent);
+    -webkit-mask-composite: destination-in;
+    mask-image:
+      linear-gradient(to bottom, transparent, black 4rem, black calc(100% - 4rem), transparent),
+      linear-gradient(to right, transparent, black 3rem, black calc(100% - 6rem), transparent);
+    mask-composite: intersect;
+    background-image:
+      repeating-linear-gradient(
+        0deg,
+        rgba(47, 101, 167, 0.15) 0px,
+        rgba(47, 101, 167, 0.15) 1px,
+        transparent 1px,
+        transparent 40px
+      ),
+      repeating-linear-gradient(
+        90deg,
+        rgba(47, 101, 167, 0.15) 0px,
+        rgba(47, 101, 167, 0.15) 1px,
+        transparent 1px,
+        transparent 40px
+      );
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .blueprint-bg::before {
+      background-image:
+        repeating-linear-gradient(
+          0deg,
+          rgba(47, 101, 167, 0.25) 0px,
+          rgba(47, 101, 167, 0.25) 1px,
+          transparent 1px,
+          transparent 40px
+        ),
+        repeating-linear-gradient(
+          90deg,
+          rgba(47, 101, 167, 0.25) 0px,
+          rgba(47, 101, 167, 0.25) 1px,
+          transparent 1px,
+          transparent 40px
+        );
+    }
+  }
+
+  .application-heading {
+    position: relative;
+    z-index: 1;
+    background: var(--bg-page-light);
+    display: inline-block;
+    margin: 0 -4rem 0 -1rem;
+    padding: 1.5rem 4rem 1.5rem 1rem;
+  }
+  @media (prefers-color-scheme: dark) {
+    .application-heading {
+      background: var(--bg-page-dark);
+    }
+  }
+
   .focus-area-flow {
     display: grid;
     grid-template-columns: 1fr;
@@ -157,8 +229,8 @@ const areaTitleMap = Object.fromEntries(focusAreas.map(a => [a.id, a.data.title]
   }
 
   .focus-area-card.dimmed {
-    opacity: 0.25;
-    filter: grayscale(0.6);
+    opacity: 0.4;
+    filter: grayscale(0.4);
     z-index: 1;
   }
 
