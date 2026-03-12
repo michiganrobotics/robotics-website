@@ -96,10 +96,11 @@ const relatedAreas = focusAreas.filter(area => relatedAreaSlugs.includes(area.id
     <div class="relative rounded-lg overflow-hidden shadow-2xl">
       <div class="absolute inset-0">
         {areaImage && (
-          <Image 
+          <Image
             src={areaImage}
             alt={areaImageAlt || entry.data.title}
             class="w-full h-full object-cover"
+            width={1536}
           />
         )}
         <div class="absolute inset-0 bg-gradient-to-r from-gray-900 via-gray-900/70 to-transparent" />

@@ -191,6 +191,18 @@
 /2022/* /news/2022/:splat 301
 /2023/* /news/2023/:splat 301
 /2024/* /news/2024/:splat 301
+
+# News category page redirects (must be above /news/* catch-all)
+/news/legged-robots/* /news/legged-robotics/:splat 301
+/news/rehabilitation/* /news/rehabilitation-wearables/:splat 301
+/news/manufacturing/* /news/manufacturing-robotics/:splat 301
+/news/motion-planning/* /news/motion-planning-control/:splat 301
+/news/teams-swarms/* /news/multi-robot-swarms/:splat 301
+/news/perception-manipulation/* /news/robot-perception/:splat 301
+/news/artificial-intelligence/* /news/robot-learning-foundational-models/:splat 301
+/news/deep-learning/* /news/robot-learning-foundational-models/:splat 301
+/news/slam/* /news/robot-perception/:splat 301
+
 /news/* /news 301
 
 # Academic Redirects
@@ -251,17 +263,6 @@ academics/course-offerings/rob101 /academics/courses/course-offerings/rob-101-fa
 /research/focus-areas/artificial-intelligence /research/focus-areas/robot-learning-foundational-models/ 301
 /research/focus-areas/deep-learning /research/focus-areas/robot-learning-foundational-models/ 301
 /research/focus-areas/slam /research/focus-areas/robot-perception/ 301
-
-# News category page redirects
-/news/legged-robots/* /news/legged-robotics/:splat 301
-/news/rehabilitation/* /news/rehabilitation-wearables/:splat 301
-/news/manufacturing/* /news/manufacturing-robotics/:splat 301
-/news/motion-planning/* /news/motion-planning-control/:splat 301
-/news/teams-swarms/* /news/multi-robot-swarms/:splat 301
-/news/perception-manipulation/* /news/robot-perception/:splat 301
-/news/artificial-intelligence/* /news/robot-learning-foundational-models/:splat 301
-/news/deep-learning/* /news/robot-learning-foundational-models/:splat 301
-/news/slam/* /news/robot-perception/:splat 301
 
 # ======================
 # External Links
