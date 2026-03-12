@@ -123,6 +123,9 @@ const areaTitleMap = Object.fromEntries(focusAreas.map(a => [a.id, a.data.title]
   .blueprint-bg {
     position: relative;
   }
+  .blueprint-bg {
+    overflow: hidden;
+  }
   .blueprint-bg::before {
     content: '';
     position: absolute;
@@ -184,8 +187,14 @@ const areaTitleMap = Object.fromEntries(focusAreas.map(a => [a.id, a.data.title]
     z-index: 1;
     background: var(--bg-page-light);
     display: inline-block;
-    margin: 0 -4rem 0 -1rem;
-    padding: 1.5rem 4rem 1.5rem 1rem;
+    margin: 0 0 0 0;
+    padding: 1.5rem 1rem 1.5rem 0;
+  }
+  @media (min-width: 768px) {
+    .application-heading {
+      margin: 0 -4rem 0 -1rem;
+      padding: 1.5rem 4rem 1.5rem 1rem;
+    }
   }
   @media (prefers-color-scheme: dark) {
     .application-heading {
