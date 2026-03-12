@@ -47,7 +47,7 @@ const areaTitleMap = Object.fromEntries(focusAreas.map(a => [a.id, a.data.title]
               {coreAreas.map((area) => (
                 <div class="group focus-area-card" data-area-id={area.id}>
                   <Link href={`/research/focus-areas/${area.id}/`}
-                     class="block relative overflow-hidden rounded-lg shadow-lg">
+                     class="block relative overflow-hidden rounded-lg shadow-lg dark:ring-1 dark:ring-white/15">
                     <div class="relative">
                       <Image
                         src={area.data.image!.src}
@@ -85,7 +85,7 @@ const areaTitleMap = Object.fromEntries(focusAreas.map(a => [a.id, a.data.title]
               {applicationAreas.map((area) => (
                 <div class="group focus-area-card" data-area-id={area.id}>
                   <Link href={`/research/focus-areas/${area.id}/`}
-                     class="block relative overflow-hidden rounded-lg shadow-lg">
+                     class="block relative overflow-hidden rounded-lg shadow-lg dark:ring-1 dark:ring-white/15">
                     <div class="relative">
                       <Image
                         src={area.data.image!.src}
@@ -122,16 +122,19 @@ const areaTitleMap = Object.fromEntries(focusAreas.map(a => [a.id, a.data.title]
   /* Diagonal blueprint grid */
   .blueprint-bg {
     position: relative;
+    overflow-x: clip;
   }
-  .blueprint-bg {
-    overflow: hidden;
+  @media (min-width: 1024px) {
+    .blueprint-bg {
+      overflow-x: visible;
+    }
   }
   .blueprint-bg::before {
     content: '';
     position: absolute;
     top: -3rem;
-    left: -2rem;
-    right: -4rem;
+    left: 0;
+    right: 0;
     bottom: 0;
     transform: rotate(-12deg);
     transform-origin: center center;
@@ -160,6 +163,12 @@ const areaTitleMap = Object.fromEntries(focusAreas.map(a => [a.id, a.data.title]
       );
     pointer-events: none;
     z-index: 0;
+  }
+  @media (min-width: 768px) {
+    .blueprint-bg::before {
+      left: -2rem;
+      right: -4rem;
+    }
   }
 
   @media (prefers-color-scheme: dark) {
