@@ -120,6 +120,10 @@ const areaTitleMap = Object.fromEntries(focusAreas.map(a => [a.id, a.data.title]
 
 <style>
   /* Diagonal blueprint grid */
+  :global(#main-content) {
+    overflow-x: clip;
+  }
+
   .blueprint-bg {
     position: relative;
     overflow-x: clip;
