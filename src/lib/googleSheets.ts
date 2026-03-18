@@ -81,6 +81,7 @@ interface FacultyMember {
   department1: string;
   department2: string;
   researchInterests: string;
+  focusAreas: string;
   googleScholar: string;
   labWebsite: string;
   website: string;
@@ -333,6 +334,7 @@ export const getFacultyData = cached(async () => {
     department1: row.get('department1'),
     department2: row.get('department2'),
     researchInterests: row.get('researchInterests'),
+    focusAreas: row.get('focusAreas'),
     googleScholar: normalizeUrl(row.get('googleScholar')),
     labWebsite: normalizeUrl(row.get('labWebsite')),
     website: normalizeUrl(row.get('website')),

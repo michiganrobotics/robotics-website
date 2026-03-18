@@ -1,0 +1,30 @@
+---
+title: "Motion Planning & Control"
+slug: "motion-planning-control"
+type: "core"
+description: "Robot planning and control, path planning for multiple agents, model-based control, and trajectory optimization."
+icon: "route"
+image:
+  src: "../../images/focus-areas/motion-planning.jpg"
+  alt: "Motion Planning"
+videos:
+  - "YznAy63wcdw"
+---
+import VideoRight from '../../components/VideoRight.astro';
+
+At the University of Michigan, research in motion planning and control acts as the "brain" of a robot, turning an end goal, such as a robot walking to a destination, into the specific physical commands needed to move joints or wheels.
+
+<VideoRight
+  url="https://youtu.be/YznAy63wcdw"
+  caption="Three-bar tensegrity robot shows locomotion and unique capabilities."
+/>
+
+This process involves breaking a big task into a series of small, safe motions that follow strict rules to avoid obstacles like walls or stairs while being as efficient as possible. Faculty here create methods to compute collision-free paths through cluttered environments, generating smooth trajectories that take into account physical limits of speed and force. A part of these methods are feedback controllers that keep robots on track if they are knocked off course.
+
+One focus of this research is on reachability analysis. In this, the robot computes all states that it can reach despite any uncertainty, and creates safety guarantees. This means that before any move, the robot makes sure that it can always do so safely. This method has been refined to make these calculations fast enough for the split-second decisions needed in autonomous vehicles and walking robots.
+
+Michigan researchers also use model-based control and trajectory optimization, where robots constantly simulate their next few seconds of movement to handle challenges like wind or high-speed maneuvers. This is often paired with model predictive control (MPC) to help humanoid robots walk or to assist surgeons with high-precision tasks in robotic surgery.
+
+Michigan researchers also study trajectory optimization to help make any plan the robot has as efficient as possible. Algorithms assist in finding the least energy-intensive gaits for legged robots, the fastest paths for manufacturing arms, and the most fuel-efficient maneuvers for spacecraft. Model predictive control (MPC) is an extension of this work. MPC helps to continuously calculate the best answer as conditions change, enabling robots to account for gusting winds, picking up an unsteady object, or running into unexpected obstacles.
+
+And by using iterative learning control, robots can actually get better at a task every time they repeat it, using "previous experience" to perfect movements in industrial manufacturing or when handling tricky, flexible items like cloth, laundry, and rope. This allows a robot to achieve accuracy in a given task that might have been incredibly difficult to program manually.

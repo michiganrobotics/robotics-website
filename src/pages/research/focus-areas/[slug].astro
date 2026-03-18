@@ -7,6 +7,8 @@ import Breadcrumbs from "../../../components/Breadcrumbs.astro";
 import Link from '../../../components/Link.astro';
 import { components } from '../../../components/components';
 import { Icon } from 'astro-icon/components';
+import { getFacultyData } from '../../../lib/googleSheets';
+import { relatedAreasMap } from '../../../lib/focusAreaRelations';
 
 export async function getStaticPaths() {
   const focusAreaEntries = await getCollection('focusAreas');
@@ -68,6 +70,19 @@ const areaImageAlt = areaData?.image?.alt || null;
 
 const relatedPosts = allAreaPosts
   .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
+
+// Faculty for this focus area
+const allFaculty = await getFacultyData();
+const relatedFaculty = allFaculty.filter(faculty => {
+  if (!faculty.focusAreas) return false;
+  return faculty.focusAreas
+    .split(',')
+    .map((area: string) => area.trim())
+    .includes(entry.id);
+});
+
+const relatedAreaSlugs = relatedAreasMap[entry.id] || [];
+const relatedAreas = focusAreas.filter(area => relatedAreaSlugs.includes(area.id));
 ---
 
 <Layout 
@@ -76,15 +91,16 @@ const relatedPosts = allAreaPosts
   image={areaImage ? areaImage.src : undefined}
   imageAlt={areaImageAlt}
 >
-    <Breadcrumbs slot="breadcrumbs" />
+    <Breadcrumbs slot="breadcrumbs" pageTitle={entry.data.title} />
   <div class="max-w-6xl w-11/12 mx-auto pt-4 pb-12">
     <div class="relative rounded-lg overflow-hidden shadow-2xl">
       <div class="absolute inset-0">
         {areaImage && (
-          <Image 
+          <Image
             src={areaImage}
             alt={areaImageAlt || entry.data.title}
             class="w-full h-full object-cover"
+            width={1536}
           />
         )}
         <div class="absolute inset-0 bg-gradient-to-r from-gray-900 via-gray-900/70 to-transparent" />
@@ -103,12 +119,29 @@ const relatedPosts = allAreaPosts
       <article class="prose prose-lg dark:prose-invert max-w-none">
         <Content components={components} />
 
+        <div class="clear-both"></div>
+
+        {/* Faculty */}
+        {relatedFaculty.length > 0 && (
+          <div class="mt-12 not-prose">
+            <h2 class="text-2xl font-bold mb-4 font-roboto-condensed">Focus area faculty</h2>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+              {relatedFaculty.map(faculty => (
+                <a href={`/people/faculty/${faculty.slug}/`} class="group no-underline surface card-base p-3 border border-arboretumBlue/20 dark:border-arboretumBlue/30">
+                  <p class="text-sm font-semibold text-umichblue dark:text-neutral-50 group-hover:underline group-hover:decoration-maize group-hover:decoration-2 mb-0.5">{faculty.preferredName} {faculty.lastName}</p>
+                  <p class="text-xs text-arboretumBlue dark:text-neutral-200 line-clamp-1">{faculty.title}</p>
+                </a>
+              ))}
+            </div>
+          </div>
+        )}
+
         {/* Related News Section */}
         {allRelatedPosts.length > 0 && (
           <div class="mt-12">
             <h2 class="text-2xl font-bold mb-4 font-roboto-condensed">Related news</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {allRelatedPosts.slice(0, 6).map(async (post) => {
+              {allRelatedPosts.slice(0, 6).map(async (post, i) => {
                 const postImage = post.data.image?.src ? await getImage({
                   src: post.data.image.src,
                   width: 450,
@@ -116,69 +149,66 @@ const relatedPosts = allAreaPosts
                 }) : null;
 
                 return (
-                  <div class="surface card-base">
-                    <Link 
-                      href={getPostLink(post)}
-                      class="group no-underline not-prose"
-                      target={isCollegeNews(post) ? '_blank' : undefined}
-                      rel={isCollegeNews(post) ? 'noopener noreferrer' : undefined}
-                    >
-                      <div class="relative aspect-video overflow-hidden rounded-sm not-prose">
-                        {postImage ? (
-                          <Image 
-                            src={postImage.src}
-                            alt={post.data.image?.alt || post.data.title}
-                            width={450}
-                            height={300}
-                            class="w-full h-full object-cover image-hover"
-                          />
-                        ) : null}
-                      </div>
-                      <div class="p-4">
-                        <h3 class="not-prose text-lg font-medium group-hover:decoration-maize group-hover:decoration-2 group-hover:underline">
-                          {post.data.title}
-                          {isCollegeNews(post) && <Icon name="mdi:open-in-new" class="inline w-4 h-4 ml-1" />}
-                        </h3>
-                      </div>
-                    </Link>
-                  </div>
+                  <Link
+                    href={getPostLink(post)}
+                    class={`no-underline group block surface card-base card-hover not-prose${i >= 3 ? ' hidden md:block' : ''}`}
+                    target={isCollegeNews(post) ? '_blank' : undefined}
+                    rel={isCollegeNews(post) ? 'noopener noreferrer' : undefined}
+                  >
+                    <div class="aspect-video overflow-hidden rounded-t-sm">
+                      {postImage ? (
+                        <Image
+                          src={postImage.src}
+                          alt={post.data.image?.alt || post.data.title}
+                          width={450}
+                          height={300}
+                          class="w-full h-full object-cover"
+                        />
+                      ) : null}
+                    </div>
+                    <div class="p-3">
+                      <p class="text-base font-roboto font-bold leading-snug group-hover:underline group-hover:decoration-maize group-hover:decoration-2 group-hover:underline-offset-2">
+                        {post.data.title}
+                        {isCollegeNews(post) && <Icon name="mdi:open-in-new" class="inline w-4 h-4 ml-1" />}
+                      </p>
+                      <p class="text-xs text-gray-600 dark:text-gray-300 mt-1 mb-0">
+                        {new Date(post.data.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+                      </p>
+                    </div>
+                  </Link>
                 );
               })}
             </div>
             
-            {allRelatedPosts.length > 6 && (
-              <div class="mt-8 text-right not-prose">
-                <a 
+            {allRelatedPosts.length > 3 && (
+              <div class={`mt-6 text-right not-prose${allRelatedPosts.length <= 6 ? ' md:hidden' : ''}`}>
+                <a
                   href={`/news/${entry.id}/`}
-                  class="inline-flex items-center justify-center text-base sm:text-lg w-full sm:w-auto 
-                    bg-umichblue text-white dark:bg-arboretumBlue dark:text-white 
-                    px-4 sm:px-6 py-2.5 sm:py-3 rounded-md 
-                    hover:bg-umichblue/90 dark:hover:bg-arboretumBlue/90 
-                    transform hover:-translate-y-0.5 
-                    transition-all duration-200 
-                    shadow-md hover:shadow-lg 
-                    focus:outline-none focus:ring-3 focus:ring-offset-2 focus:ring-umichblue dark:focus:ring-arboretumBlue
-                    no-underline button-component
-                    whitespace-normal break-words"
+                  class="inline-flex items-center text-base font-medium"
                 >
-                  <span class="flex-1 text-center">View more {entry.data.title.toLowerCase()} news</span>
-                  <svg 
-                    class="flex-shrink-0 ml-2 -mr-1 w-4 h-4" 
-                    fill="none" 
-                    stroke="currentColor" 
-                    viewBox="0 0 24 24" 
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path 
-                      stroke-linecap="round" 
-                      stroke-linejoin="round" 
-                      stroke-width="2" 
-                      d="M9 5l7 7-7 7"
-                    ></path>
-                  </svg>
+                  View more {entry.data.title.toLowerCase()} news
+                  <Icon name="mdi:arrow-right" class="w-4 h-4 ml-1" />
                 </a>
               </div>
             )}
+          </div>
+        )}
+
+        {/* Related Focus Areas Section */}
+        {relatedAreas.length > 0 && (
+          <div class="mt-12">
+            <h2 class="text-2xl font-bold mb-4 font-roboto-condensed">Related focus areas</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {relatedAreas.map(area => (
+                <Link href={`/research/focus-areas/${area.id}/`} class="group no-underline not-prose">
+                  <div class="surface card-base p-4">
+                    <p class="text-lg font-medium group-hover:decoration-maize group-hover:decoration-2 group-hover:underline">
+                      {area.data.title}
+                    </p>
+                  </div>
+                </Link>
+              ))}
+            </div>
           </div>
         )}
       </article>

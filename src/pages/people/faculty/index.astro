@@ -1,11 +1,28 @@
 ---
 import Layout from '../../../layouts/MainLayout.astro';
 import { getFacultyData, getProfileImagePath } from '../../../lib/googleSheets';
+import { getCollection } from 'astro:content';
 import Breadcrumbs from "../../../components/Breadcrumbs.astro";
 import PageTitle from "../../../components/PageTitle.astro";
 import PersonCard from "../../../components/PersonCard.astro";
 
 const facultyMembers = await getFacultyData();
+const allFocusAreas = await getCollection('focusAreas');
+
+// Build a map of slug -> title for focus areas
+const focusAreaTitles = Object.fromEntries(allFocusAreas.map(a => [a.id, a.data.title]));
+
+// Resolve each faculty member's focus area slugs to display titles
+function getFocusAreaDisplay(focusAreas: string | undefined): string {
+  if (!focusAreas) return '';
+  return focusAreas
+    .split(',')
+    .map(s => s.trim())
+    .filter(Boolean)
+    .map(slug => focusAreaTitles[slug] || '')
+    .filter(Boolean)
+    .join(', ');
+}
 
 // Get all profile images
 const images = import.meta.glob('/src/images/profile-images/*.{png,jpg,jpeg,gif,webp}');
@@ -36,7 +53,7 @@ const profileImages = await Promise.all(
         <input
           type="text"
           id="facultySearch"
-          placeholder="Search by name, title, or research interests..."
+          placeholder="Search by name, title, research interests, or focus area..."
           aria-label="Search faculty"
           class="search-bar"
         />
@@ -53,6 +70,8 @@ const profileImages = await Promise.all(
               data-department-display={[faculty.department1, faculty.department2].filter(Boolean).join(' and ')}
               data-research={faculty.researchInterests?.toLowerCase() || ''}
               data-research-display={faculty.researchInterests || ''}
+              data-focusareas={getFocusAreaDisplay(faculty.focusAreas).toLowerCase()}
+              data-focusareas-display={getFocusAreaDisplay(faculty.focusAreas)}
             >
               <PersonCard
                 name={`${faculty.preferredName} ${faculty.lastName}`}
@@ -104,6 +123,7 @@ const profileImages = await Promise.all(
       const title = el.dataset.title || '';
       const dept = el.dataset.department || '';
       const research = el.dataset.research || '';
+      const focusareas = el.dataset.focusareas || '';
 
       // Find what matched (skip name/title since those are already visible)
       let matchField = '';
@@ -113,13 +133,16 @@ const profileImages = await Promise.all(
       } else if (dept.includes(searchTerm)) {
         matchField = 'Dept';
         matchDisplay = el.dataset.departmentDisplay || '';
+      } else if (focusareas.includes(searchTerm)) {
+        matchField = 'Focus Area';
+        matchDisplay = el.dataset.focusareasDisplay || '';
       } else if (research.includes(searchTerm)) {
         matchField = 'Research';
         matchDisplay = el.dataset.researchDisplay || '';
       }
 
       const matches = name.includes(searchTerm) || title.includes(searchTerm) ||
-        dept.includes(searchTerm) || research.includes(searchTerm);
+        dept.includes(searchTerm) || research.includes(searchTerm) || focusareas.includes(searchTerm);
 
       el.style.display = matches ? '' : 'none';
       if (matches) visibleCount++;

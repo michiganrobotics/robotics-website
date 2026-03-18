@@ -49,18 +49,19 @@ content:
         list: true
         options:
           values:
-            - { label: "Artificial Intelligence", value: "artificial-intelligence" }
             - { label: "Autonomous Vehicles", value: "autonomous-vehicles" }
-            - { label: "Deep Learning", value: "deep-learning" }
+            - { label: "Design & Soft Robotics", value: "design-soft-robotics" }
             - { label: "Human-Robot Interaction", value: "human-robot-interaction" }
-            - { label: "Legged Robots", value: "legged-robots" }
-            - { label: "Manufacturing", value: "manufacturing" }
-            - { label: "Motion Planning", value: "motion-planning" }
-            - { label: "Perception & Manipulation", value: "perception-manipulation" }
-            - { label: "Rehabilitation", value: "rehabilitation" }
+            - { label: "Legged Robotics", value: "legged-robotics" }
+            - { label: "Manufacturing Robotics", value: "manufacturing-robotics" }
+            - { label: "Medical Robotics", value: "medical-robotics" }
+            - { label: "Motion Planning & Control", value: "motion-planning-control" }
+            - { label: "Multi-Robot Swarms", value: "multi-robot-swarms" }
+            - { label: "Rehabilitation & Wearables", value: "rehabilitation-wearables" }
+            - { label: "Robot Learning & Foundational Models", value: "robot-learning-foundational-models" }
+            - { label: "Robot Perception", value: "robot-perception" }
+            - { label: "Robotic Manipulation", value: "robotic-manipulation" }
             - { label: "Safe Autonomy", value: "safe-autonomy" }
-            - { label: "SLAM", value: "slam" }
-            - { label: "Teams & Swarms", value: "teams-swarms" }
             - { label: "Robotics Community", value: "robotics-community" }
       - { name: tags, label: Tags, type: string, list: true }
       - { name: author, label: Author, type: string }

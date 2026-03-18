@@ -1,26 +1,24 @@
 ---
-title: "Safe Autonomy"
+title: "Safe Autonomy & Robot Safety"
 slug: "safe-autonomy"
+type: "core"
 videos:
   - "NABOdiefxyw"
-description: "Ensuring safety in autonomous robotic systems."
+description: "Ethics and safety in autonomous systems, safeguards for AI, robot safety, and controls-oriented safety approaches."
 icon: "shield-check"
-image: 
+image:
   src: "../../images/focus-areas/safe-autonomy.jpg"
   alt: "Safe Autonomy"
 ---
 import VideoRight from '../../components/VideoRight.astro';
 
-**Validation & Verification of Robotic Systems**
+Research in Safe Autonomy & Robot Safety at the University of Michigan ensures that robots, whether working beside humans every day or exploring Mars, operate correctly and safely. Because testing every possible situation a robot might face is impossible, faculty use verification and validation (V&V) to provide mathematical certificates that a system will follow its safety rules. This work involves creating specification languages and modeling formalisms to describe correct behavior in a way that computer programs can analyze for "corner cases" or errors before they happen.
 
-From robots working alongside humans every day to the one-of-a-kind rovers sent to Mars once in a while (at least for now!), it is crucial to ensure correct and safe operation of robotic systems. The need for integrating several software modules (e.g., for perception, high-level decision-making, and control) for complex robotic systems exacerbates the problem because, if it is not done with care, unexpected interactions can lead to system-level failures after integration. Testing each and every scenario and interaction the system can go through is not feasible, therefore more systematic means for verifying safety and correctness are needed. The goal of V&V research is to provide certificates on the correct and safe operation of the system given a set of assumptions on the system’s environment and the implementation platform.
-
-<VideoRight 
+<VideoRight
   url="https://youtu.be/NABOdiefxyw"
-  caption="Mia Stevens talks about PhD work developing a geofencing system for unmanned aerial vehicles and drones." />
+  caption="One of the first Robotics PhD students: Mia Stevens."
+/>
 
-The problems Michigan faculty and students work on include:
-* Specification languages and modeling formalisms: How to describe correct behavior of different types of robotic systems in a way amenable to analysis?
-* Verification and formal methods for robotics: Algorithmic techniques to prove safety and correctness of the system or to find corner cases that can lead to problems.
-* Fault-tolerance and monitoring: How to do health-monitoring and prognostics to improve the self-awareness of robotic systems at run-time? How to locate and mitigate faults in a timely manner?
-* Correct-by-construction control synthesis: Algorithmic techniques to automate the design of control and decision-making modules (software designed by another software!) in a way that given system models and requirements, the resulting software modules are guaranteed to enforce the specifications.
+A major focus is correct-by-construction control synthesis, which is essentially using "software to design other software" so that the resulting robot is guaranteed to follow its instructions. To keep robots safe in the real world, researchers use reachability-based trajectory design and control barrier functions. These methods create a zone of safety around the robot that can automatically override a command to prevent a crash or a fall.
+
+For systems to be truly reliable, they must have fault-tolerance and monitoring to check their own health at run-time. Michigan engineers build prognostics systems and digital twins that run simulations in parallel with the real robot to catch anomalies or detect when sensors have been compromised. This includes adversarial resilience, which helps robot teams stay safe even if they are attacked or sent bad data. Additionally, researchers address uncertainty by teaching robots to understand when their own models are unreliable, ensuring they can handle messy or unpredictable environments without causing accidents.
