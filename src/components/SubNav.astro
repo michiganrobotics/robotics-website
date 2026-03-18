@@ -74,7 +74,7 @@ const anchorItems = configuredItems.filter(item => item.anchor);
 )}
 
 {anchorItems.length > 0 && (
-  <div class={`w-full flex justify-end text-xs sm:text-sm ${navItems.length === 0 ? 'mt-6' : 'mt-2'}`}>
+  <div class={`w-full flex justify-end text-xs sm:text-sm mb-2 ${navItems.length === 0 ? 'mt-6' : 'mt-2'}`}>
     <div class="text-right">
       <span class="font-semibold text-umichblue dark:text-neutral-100 mr-2">Jump to:</span>
       {anchorItems.map((item, idx) => (
