@@ -65,6 +65,9 @@ const raw: Institution[] = [
   { name: "Sungkyunkwan University", label: "SKKU", lat: 37.29, lon: 126.97, showLabel: true, labelDx: 10, labelDy: 8, labelAnchor: "start" },
   { name: "Wayne State University", label: "Wayne State", lat: 42.36, lon: -83.07, labelDx: 10, labelDy: 10, labelAnchor: "start" },
   { name: "Oklahoma State University", label: "Oklahoma State", lat: 36.12, lon: -97.07, labelDx: -10, labelDy: -8, labelAnchor: "end" },
+  { name: "University of Rochester", label: "Rochester", lat: 43.13, lon: -77.63, labelDx: 10, labelDy: -6, labelAnchor: "start" },
+  { name: "University of Maine", label: "Maine", lat: 44.90, lon: -68.67, labelDx: 10, labelDy: -6, labelAnchor: "start" },
+  { name: "SUNY at Buffalo", label: "SUNY Buffalo", lat: 43.00, lon: -78.79, labelDx: 0, labelDy: -10, labelAnchor: "middle" },
 ];
 
 const points = raw.map((inst) => ({
@@ -326,6 +329,9 @@ const arcs = destinations.map((d) => arcPath(origin.x, origin.y, d.x, d.y));
       'Vanderbilt': ['Georgia Tech'],
       'Arizona State': ['UC Berkeley'],
       'Oklahoma State': ['Stanford', 'UC Berkeley'],
+      'Maine': ['Harvard / MIT / Northeastern'],
+      'Rochester': ['Harvard / MIT / Northeastern'],
+      'SUNY Buffalo': ['Harvard / MIT / Northeastern'],
     };
 
     function hideConflicting(inst: string) {
