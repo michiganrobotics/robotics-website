@@ -29,6 +29,38 @@ interface NewsData {
   exclude?: boolean;
 }
 
+const imageDir = path.join(__dirname, '../../src/images/college-news');
+
+async function downloadImage(url: string): Promise<string | null> {
+  try {
+    const filename = path.basename(new URL(url).pathname);
+    const localPath = path.join(imageDir, filename);
+
+    // Skip if already downloaded
+    try {
+      await fs.access(localPath);
+      return `../../images/college-news/${filename}`;
+    } catch {
+      // File doesn't exist, proceed with download
+    }
+
+    const response = await fetch(url);
+    if (!response.ok) {
+      console.warn(`Failed to download image: ${url} (${response.status})`);
+      return null;
+    }
+
+    await fs.mkdir(imageDir, { recursive: true });
+    const buffer = Buffer.from(await response.arrayBuffer());
+    await fs.writeFile(localPath, buffer);
+    console.log(`Downloaded: ${filename}`);
+    return `../../images/college-news/${filename}`;
+  } catch (error) {
+    console.warn(`Error downloading image ${url}:`, error);
+    return null;
+  }
+}
+
 function decodeHtmlEntities(text: string): string {
   const entities: Record<string, string> = {
     '&#038;': '&',
@@ -59,15 +91,21 @@ export async function fetchAndSaveCollegeNews() {
         .replace(/[^a-z0-9]+/g, '-')
         .replace(/^-+|-+$/g, '');
 
+      // Download image locally if available
+      let localImageSrc: string | null = null;
+      if (item.COLLEGE_IMAGE) {
+        localImageSrc = await downloadImage(item.COLLEGE_IMAGE);
+      }
+
       // Format the new data
       const newData = {
         title: decodedTitle,
         date: new Date(item.COLLEGE_PUB_DATE).toISOString(),
         description: item.COLLEGE_DESCRIPTION,
         link: item.COLLEGE_LINK,
-        ...(item.COLLEGE_IMAGE && {
+        ...(localImageSrc && {
           image: {
-            src: item.COLLEGE_IMAGE,
+            src: localImageSrc,
             alt: item.COLLEGE_IMAGE_ALT || decodedTitle
           }
         })

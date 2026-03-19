@@ -82,17 +82,31 @@ export async function GET() {
       };
     }),
     // Transform college news items (JSON)
-    ...collegeNewsItems.map(item => ({
-      title: item.title,
-      pubDate: new Date(item.date),
-      description: item.description,
-      link: item.link,
-      categories: item.categories || [],
-      customData: `
-        ${item.image ? `<enclosure url="${item.image.src}" type="image/jpeg" length="0" />` : ''}
-        <dc:creator><![CDATA[Michigan Engineering]]></dc:creator>
-      `.trim(),
-    }))
+    ...collegeNewsItems.map(item => {
+      let imageUrl: string | null = null;
+      if (item.image?.src) {
+        if (item.image.src.startsWith('http')) {
+          imageUrl = item.image.src;
+        } else {
+          // Local path like ../../images/college-news/filename.jpg — extract filename
+          const filename = item.image.src.split('/').pop();
+          if (filename) {
+            imageUrl = `https://robotics.umich.edu/images/college-news/${filename}`;
+          }
+        }
+      }
+      return {
+        title: item.title,
+        pubDate: new Date(item.date),
+        description: item.description,
+        link: item.link,
+        categories: item.categories || [],
+        customData: `
+          ${imageUrl ? `<enclosure url="${imageUrl}" type="image/jpeg" length="0" />` : ''}
+          <dc:creator><![CDATA[Michigan Engineering]]></dc:creator>
+        `.trim(),
+      };
+    })
   ];
 
   // Sort by date (newest first)

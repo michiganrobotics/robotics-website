@@ -4,7 +4,7 @@
   "description": "Microscale swimming bots developed by U-M and Penn take in sensory information, process it and carry out tasks, opening new possibilities in manufacturing and medicine.",
   "link": "https://news.engin.umich.edu/2025/12/worlds-smallest-programmable-robots-perform-tasks/",
   "image": {
-    "src": "https://news.engin.umich.edu/wp-content/uploads/2025/12/smallest-robot-finger-ridge.jpg",
+    "src": "../../images/college-news/smallest-robot-finger-ridge.jpg",
     "alt": "MIcroscopic view of the robot which appears as a tiny dark rectangle, could fit on an individual ridge of the fingertip."
   },
   "categories": [],

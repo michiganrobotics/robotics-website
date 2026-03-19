@@ -189,7 +189,6 @@ const focusAreas = await getCollection('focusAreas');
                 alt={`${area.data.title} research`}
                 class="w-full h-24 object-cover rounded-md mb-2"
                 width={200}
-                height={150}
               />
               <span class="text-sm font-medium underline-hover-only">{area.data.title}</span>
             </div>
@@ -244,7 +243,6 @@ const focusAreas = await getCollection('focusAreas');
                 src={member.photoURL}
                 alt={member.name}
                 width={300}
-                height={200}
                 class={`w-full h-24 md:h-32 object-cover ${
                   member.name === "Leia Stirling"
                     ? "object-[68%_0%] md:object-right" 
