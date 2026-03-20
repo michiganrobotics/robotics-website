@@ -29,13 +29,27 @@ export async function eventsQuery() {
     }
 
     const data = await response.json();
-    const truncatedData = data.map(event => ({
-      ...event,
-      description: truncateDescription(event.description),
-      styled_images: {
-        ...event.styled_images,
-        event_feature_large: event.styled_images?.event_feature_large || "/social/default-event.jpg"
+    const truncatedData = await Promise.all(data.map(async (event) => {
+      let imageUrl = event.styled_images?.event_feature_large || "/social/default-event.jpg";
+
+      // Resolve redirects for remote images (Astro won't follow them)
+      if (imageUrl.startsWith("http")) {
+        try {
+          const head = await fetch(imageUrl, { method: "HEAD", redirect: "follow" });
+          imageUrl = head.url;
+        } catch {
+          imageUrl = "/social/default-event.jpg";
+        }
       }
+
+      return {
+        ...event,
+        description: truncateDescription(event.description),
+        styled_images: {
+          ...event.styled_images,
+          event_feature_large: imageUrl
+        }
+      };
     }));
 
     // Update cache
