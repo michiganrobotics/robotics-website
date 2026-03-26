@@ -52,59 +52,59 @@ export const mainNav: MenuItem[] = [
               ]
             }
           },
-        {
-          label: "Graduate",
-          uri: "/academics/graduate/",
-          id: "academics-graduate",
-          childItems: {
-            nodes: [
-              {
-                label: "Admissions",
-                uri: "/academics/graduate/admissions/",
-                id: "academics-graduate-admissions",
-                childItems: { nodes: [] },
-              },
-              {
-                label: "Degree Requirements",
-                uri: "/academics/graduate/degree-requirements/",
-                id: "academics-graduate-requirements",
-                childItems: { nodes: [] },
-              },
-              {
-                label: "Advising",
-                uri: "/academics/graduate/advising/",
-                id: "academics-graduate-advising",
-                childItems: { nodes: [] },
-              },
-              {
-                label: "SUGS",
-                uri: "/academics/graduate/sugs/",
-                id: "academics-graduate-sugs",
-                childItems: { nodes: [] },
-              },
-            ],
+          {
+            label: "Graduate",
+            uri: "/academics/graduate/",
+            id: "academics-graduate",
+            childItems: {
+              nodes: [
+                {
+                  label: "Admissions",
+                  uri: "/academics/graduate/admissions/",
+                  id: "academics-graduate-admissions",
+                  childItems: { nodes: [] }
+                },
+                {
+                  label: "Degree Requirements",
+                  uri: "/academics/graduate/degree-requirements/",
+                  id: "academics-graduate-requirements",
+                  childItems: { nodes: [] }
+                },
+                {
+                  label: "Advising",
+                  uri: "/academics/graduate/advising/",
+                  id: "academics-graduate-advising",
+                  childItems: { nodes: [] }
+                },
+                {
+                  label: "SUGS",
+                  uri: "/academics/graduate/sugs/",
+                  id: "academics-graduate-sugs",
+                  childItems: { nodes: [] }
+                }
+              ]
+            }
           },
-        },
-        {
-          label: "Courses",
-          uri: "/academics/courses/",
-          id: "academics-courses",
-          childItems: { nodes: [] },
-        },
+          {
+            label: "Courses",
+            uri: "/academics/courses/",
+            id: "academics-courses",
+            childItems: { nodes: [] }
+          },
           {
             label: "Student Services",
             uri: "/academics/student-services/",
             id: "academics-student-services",
             childItems: {
-            nodes: [
-              {
-                label: "Robotics Outreach Events",
-                uri: "/academics/student-services/outreach-events/",
-                id: "academics-student-services-outreach-events",
-                childItems: {nodes:[]}
-              },
-            ],
-          },
+              nodes: [
+                {
+                  label: "Robotics Outreach Events",
+                  uri: "/academics/student-services/outreach-events/",
+                  id: "academics-student-services-outreach-events",
+                  childItems: {nodes:[]}
+                },
+              ],
+            },
           },
           {
             label: "Careers & Outcomes",
@@ -115,158 +115,156 @@ export const mainNav: MenuItem[] = [
         ]
       }
     },
-  {
-    label: "Research",
-    uri: "/research/",
-    id: "research",
-    childItems: {
-      nodes: [
-        {
-          label: "Focus Areas",
-          uri: "/research/focus-areas/",
-          id: "research-focus-areas",
-          childItems: { nodes: [] },
-        },
-        {
-          label: "Projects & Datasets",
-          uri: "/research/projects-and-datasets/",
-          id: "research-projects-and-datasets",
-          childItems: { nodes: [] },
-        },
-      ],
+    {
+      label: "Research",
+      uri: "/research/",
+      id: "research",
+      childItems: {
+        nodes: [
+          {
+            label: "Focus Areas",
+            uri: "/research/focus-areas/",
+            id: "research-focus-areas",
+            childItems: { nodes: [] }
+          },
+          {
+            label: "Projects & Datasets",
+            uri: "/research/projects-and-datasets/",
+            id: "research-projects-and-datasets",
+            childItems: { nodes: [] }
+          }
+        ]
+      }
     },
-  },
-  {
-    label: "People",
-    uri: "/people/",
-    id: "people",
-    childItems: {
-      nodes: [
-        {
-          label: "Faculty",
-          uri: "/people/faculty/",
-          id: "people-faculty",
-          childItems: { nodes: [] },
-        },
-        {
-          label: "Staff",
-          uri: "/people/staff/",
-          id: "people-staff",
-          childItems: { nodes: [] },
-        },
-        {
-          label: "Students",
-          uri: "/people/students/",
-          id: "people-students",
-          childItems: { nodes: [] },
-        },
-        {
-          label: "Student Teams",
-          uri: "/people/student-teams/",
-          id: "people-student-teams",
-          childItems: { nodes: [] },
-        },
-        {
-          label: "Alumni",
-          uri: "/people/alumni/",
-          id: "people-alumni",
-          childItems: { nodes: [] },
-        },
-        {
-          label: "Advisory Board",
-          uri: "/people/advisory-board/",
-          id: "advisory-board",
-          childItems: { nodes: [] },
-        },
-        {
-          label: "Honors & Awards",
-          uri: "/people/honors-and-awards/",
-          id: "people-honors-awards",
-          childItems: { nodes: [] },
-        },
-      ],
+    {
+      label: "People",
+      uri: "/people/",
+      id: "people",
+      childItems: {
+        nodes: [
+          {
+            label: "Faculty",
+            uri: "/people/faculty/",
+            id: "people-faculty",
+            childItems: { nodes: [] }
+          },
+          {
+            label: "Staff",
+            uri: "/people/staff/",
+            id: "people-staff",
+            childItems: { nodes: [] }
+          },
+          {
+            label: "Students",
+            uri: "/people/students/",
+            id: "people-students",
+            childItems: { nodes: [] }
+          },
+          {
+            label: "Student Teams",
+            uri: "/people/student-teams/",
+            id: "people-student-teams",
+            childItems: { nodes: [] }
+          },
+          {
+            label: "Alumni",
+            uri: "/people/alumni/",
+            id: "people-alumni",
+            childItems: { nodes: [] }
+          },
+          {
+            label: "Advisory Board",
+            uri: "/people/advisory-board/",
+            id: "advisory-board",
+            childItems: { nodes: [] }
+          },
+          {
+            label: "Honors & Awards",
+            uri: "/people/honors-and-awards/",
+            id: "people-honors-awards",
+            childItems: { nodes: [] }
+          }
+        ]
+      }
     },
-  },
-  {
-    label: "News",
-    uri: "/news/",
-    id: "news",
-    childItems: { nodes: [] },
-  },
-  {
-    label: "Events",
-    uri: "/events/",
-    id: "events",
-    childItems: {
-      nodes: [
+    {
+      label: "News",
+      uri: "/news/",
+      id: "news",
+      childItems: { nodes: [] }
+    },
+    {
+      label: "Events",
+      uri: "/events/",
+      id: "events",
+      childItems: { nodes: [
         {
           label: "Pathways & Careers Series",
           uri: "/events/robotics-pathways-speaker-series/",
           id: "events-robotics-pathways-speaker-series",
-          childItems: { nodes: [] },
+          childItems: { nodes: [] }
         },
         {
           label: "Robotics Seminar Series",
           uri: "/events/robotics-seminar-series/",
           id: "events-robotics-seminar-series",
-          childItems: { nodes: [] },
-        },
-      ],
+          childItems: { nodes: [] }
+        }
+      ] }
     },
-  },
-  {
-    label: "About",
-    uri: "/about/",
-    id: "about",
-    childItems: {
-      nodes: [
-        {
-          label: "Values",
-          uri: "/about/values/",
-          id: "about-values",
-          childItems: { nodes: [] },
-        },
-        {
-          label: "Facilities",
-          uri: "/about/facilities/",
-          id: "about-facilities",
-          childItems: { nodes: [] },
-        },
-        {
-          label: "Partnerships",
-          uri: "/about/partnerships/",
-          id: "about-partnerships",
-          childItems: { nodes: [] },
-        },
-        {
-          label: "Faculty Jobs",
-          uri: "/about/faculty-jobs/",
-          id: "about-faculty-jobs",
-          childItems: { nodes: [] },
-        },
-        {
-          label: "Contact",
-          uri: "/about/contact/",
-          id: "about-contact",
-          childItems: { nodes: [] },
-        },
-      ],
-    },
-  },
-];
+    {
+      label: "About",
+      uri: "/about/",
+      id: "about",
+      childItems: {
+        nodes: [
+          {
+            label: "Values",
+            uri: "/about/values/",
+            id: "about-values",
+            childItems: { nodes: [] }
+          },
+          {
+            label: "Facilities",
+            uri: "/about/facilities/",
+            id: "about-facilities",
+            childItems: { nodes: [] }
+          },
+          {
+            label: "Partnerships",
+            uri: "/about/partnerships/",
+            id: "about-partnerships",
+            childItems: { nodes: [] }
+          },
+          {
+            label: "Faculty Jobs",
+            uri: "/about/faculty-jobs/",
+            id: "about-faculty-jobs",
+            childItems: { nodes: [] }
+          },
+          {
+            label: "Contact",
+            uri: "/about/contact/",
+            id: "about-contact",
+            childItems: { nodes: [] }
+          }
+        ]
+      }
+    }
+  ];
 export const addBaseToMenuItems = (items: any[]) => {
-  return items.map((item) => {
+  return items.map(item => {
     const newItem = {
       ...item,
-      uri: item.uri || "/",
+      uri: item.uri || '/'
     };
-
+    
     if (item.childItems?.nodes?.length > 0) {
       newItem.childItems = {
-        nodes: addBaseToMenuItems(item.childItems.nodes),
+        nodes: addBaseToMenuItems(item.childItems.nodes)
       };
     }
-
+    
     return newItem;
   });
 };
@@ -314,11 +312,15 @@ export const subNavConfig: Record<string, SubNavItem[]> = {
       { title: "Independent Study", href: "/academics/student-services/registering-for-classes/#enroll-in-an-independent-study-rob-590690990995", anchor: true },
       { title: "Visit or Audit Classes", href: "/academics/student-services/registering-for-classes/#visitaudit-a-course", anchor: true }
     ],
-  "academics/student-services/cptopt-instructions": [
+    'academics/student-services/cptopt-instructions': [
     { title: "Student Services", href: "/academics/student-services/" },
-    { title: "Robodex", href: "/academics/student-services/robodex/" },
-  ],
-  "academics/student-services/i-20-extensions": [
+    { title: "Robodex", href: "/academics/student-services/robodex/" }
+    ],
+    'academics/student-services/i-20-extensions': [
+    { title: "Student Services", href: "/academics/student-services/" },
+    { title: "Robodex", href: "/academics/student-services/robodex/" }
+    ],
+    'academics/student-services/reduced-course-load': [
     { title: "Student Services", href: "/academics/student-services/" },
     { title: "Robodex", href: "/academics/student-services/robodex/" }
     ],
