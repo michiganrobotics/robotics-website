@@ -81,6 +81,7 @@ interface FacultyMember {
   department1: string;
   department2: string;
   researchInterests: string;
+  focusAreas: string;
   googleScholar: string;
   labWebsite: string;
   website: string;
@@ -283,6 +284,16 @@ interface OutreachEvents {
   roboticsLabAffiliation: string;
 }
 
+interface JobPosting {
+  dateReceived: string;
+  jobTitle: string;
+  employer: string;
+  industry: string;
+  emailSubject: string;
+  emailFrom: string;
+  emailSnippet: string;
+}
+
 function createSlug(name: string): string {
   return name
     .toLowerCase()
@@ -342,6 +353,7 @@ export const getFacultyData = cached(async () => {
     department1: row.get('department1'),
     department2: row.get('department2'),
     researchInterests: row.get('researchInterests'),
+    focusAreas: row.get('focusAreas'),
     googleScholar: normalizeUrl(row.get('googleScholar')),
     labWebsite: normalizeUrl(row.get('labWebsite')),
     website: normalizeUrl(row.get('website')),
@@ -839,5 +851,22 @@ export const getIntranetData = cached(async (): Promise<IntranetLink[]> => {
     quickLink: (row.get('quickLink') || '').toUpperCase() === 'TRUE',
     quickLinkIcon: row.get('quickLinkIcon') || '',
   }));
+});
 
+export const getJobPostings = cached(async (): Promise<JobPosting[]> => {
+  await doc.loadInfo();
+  const sheet = doc.sheetsByTitle['JobPostings'];
+  if (!sheet) return [];
+  const rows = await sheet.getRows();
+
+  return rows.map(row => ({
+    dateReceived: row.get('dateReceived') || '',
+    jobTitle: row.get('jobTitle') || '',
+    employer: row.get('employer') || '',
+    industry: row.get('industry') || '',
+    emailSubject: row.get('emailSubject') || '',
+    emailFrom: row.get('emailFrom') || '',
+    emailSnippet: row.get('emailSnippet') || '',
+  })).sort((a, b) => b.dateReceived.localeCompare(a.dateReceived))
+    .slice(0, 10);
 });

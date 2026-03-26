@@ -5,9 +5,16 @@ import { getCollection } from 'astro:content';
 import { Image, getImage } from 'astro:assets';
 import { getProfileImagePath, getAwards } from '../lib/googleSheets';
 import { Icon } from 'astro-icon/components';
+import Link from '../components/Link.astro';
 
 const { faculty } = Astro.props;
 
+// Get focus areas matching this faculty member
+const allFocusAreas = await getCollection('focusAreas');
+const facultyFocusAreaSlugs = faculty.focusAreas
+  ? faculty.focusAreas.split(',').map((a: string) => a.trim()).filter(Boolean)
+  : [];
+const facultyFocusAreas = allFocusAreas.filter(area => facultyFocusAreaSlugs.includes(area.id));
 
 // Get all profile images with absolute paths
 const images = import.meta.glob<any>('/src/images/profile-images/*.{png,jpg,jpeg,gif,webp}');
@@ -128,7 +135,7 @@ const personSchema = {
               {faculty.title}, {faculty.department1}{faculty.department2 && ` and ${faculty.department2}`}
             </p>
             {(faculty.additionalTitle1 || faculty.additionalTitle2) && (
-              <p class="text-lg text-gray-600 dark:text-gray-300 italic font-roboto-condensed">
+              <p class="text-lg text-gray-600 dark:text-gray-300 font-roboto">
                 {faculty.additionalTitle1}{faculty.additionalTitle2 && <><br />{faculty.additionalTitle2}</>}
               </p>
             )}
@@ -154,6 +161,14 @@ const personSchema = {
               <p class="flex flex-col">
                 <span class="font-bold text-xs uppercase tracking-wider text-gray-600 dark:text-gray-300">Research Interests</span>
                 <span class="text-lg">{faculty.researchInterests}</span>
+              </p>
+            )}
+            {facultyFocusAreas.length > 0 && (
+              <p class="flex flex-col">
+                <span class="font-bold text-xs uppercase tracking-wider text-gray-600 dark:text-gray-300">Related focus area{facultyFocusAreas.length > 1 ? 's' : ''}</span>
+                <span class="text-md">{facultyFocusAreas.map((area, i) => (
+                  <>{i > 0 && ', '}<Link href={`/research/focus-areas/${area.id}/`} class="hover:underline dark:text-maize">{area.data.title}</Link></>
+                ))}</span>
               </p>
             )}
           </div>
@@ -206,7 +221,7 @@ const personSchema = {
                   href={getPostLink(post)}
                   target={isCollegeNews(post) ? '_blank' : undefined}
                   rel={isCollegeNews(post) ? 'noopener noreferrer' : undefined}
-                  class="no-underline group block surface card-base card-hover flex-none w-65 sm:w-auto"
+                  class="no-underline group block bg-(--bg-surface-light) dark:bg-(--bg-page-dark) text-gray-700 dark:text-neutral-100 card-base card-hover flex-none w-65 sm:w-auto"
                 >
                   <div class="aspect-video overflow-hidden rounded-t-sm not-prose">
                     {postImage ? (

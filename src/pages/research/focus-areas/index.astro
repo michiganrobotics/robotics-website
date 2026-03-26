@@ -10,48 +10,430 @@ import Link from '../../../components/Link.astro';
 import ContentImage from '../../../components/ContentImage.astro';
 import featureImage from '../../../images/featured-images/research-focus-areas.jpg';
 import ogFeatureImage from '../../../images/featured-images/og/research-focus-areas.jpg';
+import { relatedAreasMap } from '../../../lib/focusAreaRelations';
 
 // Get all focus areas from the content collection
 const focusAreas = await getCollection('focusAreas');
-// Sort them by title if needed
-const sortedAreas = focusAreas.sort((a, b) => 
-  a.data.title.localeCompare(b.data.title)
-);
+
+const coreAreas = focusAreas
+  .filter((area) => area.data.type === 'core')
+  .sort((a, b) => a.data.title.localeCompare(b.data.title));
+
+const applicationAreas = focusAreas
+  .filter((area) => area.data.type === 'application')
+  .sort((a, b) => a.data.title.localeCompare(b.data.title));
+
+const areaTitleMap = Object.fromEntries(focusAreas.map(a => [a.id, a.data.title]));
 
 ---
 
 <Layout title="Research Focus Areas | Michigan Robotics" description="University of Michigan Robotics research focuses on a wide range of areas and applications." image={ogFeatureImage.src}>
     <Breadcrumbs slot="breadcrumbs" />
-    <PageTitle title="Research Focus Areas" image={featureImage} imageAlt="A quadcopter drone in flight at M-Air testing facility" />
-      <div class="mt-4 mb-4 max-w-6xl w-11/12 mx-auto">
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
-            {sortedAreas.map((area) => (
-              <div class="group cursor-pointer">
-                <Link href={`/research/focus-areas/${area.id}/`} 
-                   class="block relative overflow-hidden rounded-lg shadow-lg">
-                  <div class="aspect-auto relative">
-                    <Image 
-                      src={area.data.image?.src}
-                      alt={area.data.image?.alt}
-                      width={400}
-                      height={200}
-                      class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                    />
-                    <div class="absolute inset-0 bg-gradient-to-b from-lawQuadStone dark:from-matthaeiViolet to-transparent">
-                      <div class="absolute top-0 left-0 right-0 p-4">
-                        <h2 class="text-xl font-semibold text-white mb-2">
-                          {area.data.title}
-                        </h2>
-                        <p class="text-gray-200 text-sm opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-opacity transition-transform duration-300">
-                          {area.data.description}
-                        </p>
+    <PageTitle title="Research focus areas" image={featureImage} imageAlt="A quadcopter drone in flight at M-Air testing facility" />
+      <div id="focus-areas-wrapper" class="relative mt-4 mb-4 max-w-6xl w-11/12 mx-auto">
+          <svg id="connections-svg" class="absolute inset-0 w-full h-full pointer-events-none" style="z-index: 5; overflow: visible;" aria-hidden="true"></svg>
+          <p class="text-lg max-w-3xl mt-6 mb-4">
+            Michigan Robotics research spans foundational methods and real-world applications.
+          </p>
+          <p class="mb-8">Core areas advance the underlying science of robotics, while application areas bring these capabilities to specific domains and challenges. Many projects draw on multiple core areas and often include an application area. This interconnected research is what makes the field of robotics so dynamic and open to aspiring experts in multiple domains.</p>
+
+          <div class="mb-6">
+            <h2 class="text-2xl font-bold font-roboto-condensed">Core research areas</h2>
+            <p class="text-md mt-1">Foundational science and methods behind intelligent robotic systems.</p>
+          </div>
+
+          <div class="blueprint-bg mb-12">
+            <div class="focus-area-flow mb-16">
+              {coreAreas.map((area) => (
+                <div class="group focus-area-card" data-area-id={area.id}>
+                  <Link href={`/research/focus-areas/${area.id}/`}
+                     class="block relative overflow-hidden rounded-lg shadow-lg dark:ring-1 dark:ring-white/15">
+                    <div class="relative">
+                      <Image
+                        src={area.data.image!.src}
+                        alt=""
+                        width={400}
+                        height={300}
+                        class="focus-area-img w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                      />
+                      <div class="absolute inset-0 bg-gradient-to-b from-gray-900 to-transparent group-hover:from-gray-900/95 group-hover:to-gray-900/85 group-focus-within:from-gray-900/95 group-focus-within:to-gray-900/85 transition-all duration-300">
+                        <div class="absolute top-0 left-0 right-0 p-4">
+                          <h3 class="text-xl font-semibold text-white mb-2">
+                            {area.data.title}
+                          </h3>
+                          <p class="text-gray-200 text-sm opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transform translate-y-4 group-hover:translate-y-0 group-focus-within:translate-y-0 transition-all duration-300">
+                            {area.data.description}
+                          </p>
+                          {relatedAreasMap[area.id]?.length > 0 && (
+                            <span class="sr-only">
+                              Related areas: {relatedAreasMap[area.id].map((id: string) => areaTitleMap[id]).filter(Boolean).join(', ')}
+                            </span>
+                          )}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </Link>
-              </div>
-            ))}
+                  </Link>
+                </div>
+              ))}
+            </div>
+
+            <div class="application-heading mb-6">
+              <h2 class="text-2xl font-bold font-roboto-condensed">Application research areas</h2>
+              <p class="text-md mt-1">Robotics research applied to specific domains and real-world challenges.</p>
+            </div>
+            <div class="focus-area-flow">
+              {applicationAreas.map((area) => (
+                <div class="group focus-area-card" data-area-id={area.id}>
+                  <Link href={`/research/focus-areas/${area.id}/`}
+                     class="block relative overflow-hidden rounded-lg shadow-lg dark:ring-1 dark:ring-white/15">
+                    <div class="relative">
+                      <Image
+                        src={area.data.image!.src}
+                        alt=""
+                        width={400}
+                        height={300}
+                        class="focus-area-img w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                      />
+                      <div class="absolute inset-0 bg-gradient-to-b from-gray-900 to-transparent group-hover:from-gray-900/95 group-hover:to-gray-900/85 group-focus-within:from-gray-900/95 group-focus-within:to-gray-900/85 transition-all duration-300">
+                        <div class="absolute top-0 left-0 right-0 p-4">
+                          <h3 class="text-xl font-semibold text-white mb-2">
+                            {area.data.title}
+                          </h3>
+                          <p class="text-gray-200 text-sm opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transform translate-y-4 group-hover:translate-y-0 group-focus-within:translate-y-0 transition-all duration-300">
+                            {area.data.description}
+                          </p>
+                          {relatedAreasMap[area.id]?.length > 0 && (
+                            <span class="sr-only">
+                              Related areas: {relatedAreasMap[area.id].map((id: string) => areaTitleMap[id]).filter(Boolean).join(', ')}
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </Link>
+                </div>
+              ))}
+            </div>
           </div>
       </div>
 </Layout>
-          
+
+<style>
+  /* Diagonal blueprint grid */
+  :global(#main-content) {
+    overflow-x: clip;
+  }
+
+  .blueprint-bg {
+    position: relative;
+    overflow-x: clip;
+  }
+  @media (min-width: 1024px) {
+    .blueprint-bg {
+      overflow-x: visible;
+    }
+  }
+  .blueprint-bg::before {
+    content: '';
+    position: absolute;
+    top: -3rem;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transform: rotate(-12deg);
+    transform-origin: center center;
+    -webkit-mask-image:
+      linear-gradient(to bottom, transparent, black 4rem, black calc(100% - 4rem), transparent),
+      linear-gradient(to right, transparent, black 3rem, black calc(100% - 6rem), transparent);
+    -webkit-mask-composite: destination-in;
+    mask-image:
+      linear-gradient(to bottom, transparent, black 4rem, black calc(100% - 4rem), transparent),
+      linear-gradient(to right, transparent, black 3rem, black calc(100% - 6rem), transparent);
+    mask-composite: intersect;
+    background-image:
+      repeating-linear-gradient(
+        0deg,
+        rgba(47, 101, 167, 0.15) 0px,
+        rgba(47, 101, 167, 0.15) 1px,
+        transparent 1px,
+        transparent 40px
+      ),
+      repeating-linear-gradient(
+        90deg,
+        rgba(47, 101, 167, 0.15) 0px,
+        rgba(47, 101, 167, 0.15) 1px,
+        transparent 1px,
+        transparent 40px
+      );
+    pointer-events: none;
+    z-index: 0;
+  }
+  @media (min-width: 768px) {
+    .blueprint-bg::before {
+      left: -2rem;
+      right: -4rem;
+    }
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .blueprint-bg::before {
+      background-image:
+        repeating-linear-gradient(
+          0deg,
+          rgba(47, 101, 167, 0.25) 0px,
+          rgba(47, 101, 167, 0.25) 1px,
+          transparent 1px,
+          transparent 40px
+        ),
+        repeating-linear-gradient(
+          90deg,
+          rgba(47, 101, 167, 0.25) 0px,
+          rgba(47, 101, 167, 0.25) 1px,
+          transparent 1px,
+          transparent 40px
+        );
+    }
+  }
+
+  .application-heading {
+    position: relative;
+    z-index: 1;
+    background: var(--bg-page-light);
+    display: inline-block;
+    margin: 0 0 0 0;
+    padding: 1.5rem 1rem 1.5rem 0;
+  }
+  @media (min-width: 768px) {
+    .application-heading {
+      margin: 0 -4rem 0 -1rem;
+      padding: 1.5rem 4rem 1.5rem 1rem;
+    }
+  }
+  @media (prefers-color-scheme: dark) {
+    .application-heading {
+      background: var(--bg-page-dark);
+    }
+  }
+
+  .focus-area-flow {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  @media (min-width: 768px) {
+    .focus-area-flow { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (min-width: 1024px) {
+    .focus-area-flow { grid-template-columns: repeat(4, 1fr); }
+  }
+
+  .focus-area-img {
+    height: 200px;
+  }
+
+  /* Tilt on hover — desktop only (where connectors are active) */
+  @media (min-width: 1024px) {
+    .focus-area-card:nth-child(6n+1):hover { transform: rotate(-1.2deg) translateY(-4px); }
+    .focus-area-card:nth-child(6n+2):hover { transform: rotate(0.8deg) translateY(-4px); }
+    .focus-area-card:nth-child(6n+3):hover { transform: rotate(-0.5deg) translateY(-4px); }
+    .focus-area-card:nth-child(6n+4):hover { transform: rotate(1deg) translateY(-4px); }
+    .focus-area-card:nth-child(6n+5):hover { transform: rotate(-0.8deg) translateY(-4px); }
+    .focus-area-card:nth-child(6n+6):hover { transform: rotate(0.4deg) translateY(-4px); }
+  }
+
+  /* Connection hover states */
+  .focus-area-card {
+    position: relative;
+    z-index: 1;
+    border-radius: 0.5rem;
+    /* No box-shadow in base transition so outline disappears instantly on clear */
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease, filter 0.3s ease;
+  }
+
+  .focus-area-card.dimmed {
+    opacity: 0.4;
+    filter: grayscale(0.4);
+    z-index: 1;
+  }
+
+  .focus-area-card.related {
+    opacity: 0.85;
+    z-index: 6;
+    box-shadow: 0 0 0 3px #2F65A7;
+    /* Include box-shadow transition so outline fades in smoothly */
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease, filter 0.3s ease, box-shadow 0.15s ease 0.15s;
+  }
+
+  .focus-area-card.highlighted {
+    z-index: 7;
+    box-shadow: 0 0 0 3px #2F65A7;
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease, filter 0.3s ease, box-shadow 0.15s ease;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .focus-area-card.related {
+      box-shadow: 0 0 0 2px rgba(255, 203, 5, 0.8);
+    }
+    .focus-area-card.highlighted {
+      box-shadow: 0 0 0 3px #ffcb05;
+    }
+  }
+
+  /* Connection lines are animated via Web Animations API in the script */
+
+  .focus-area-card a:focus-visible {
+    outline: 2px solid #2F65A7;
+    outline-offset: 2px;
+    border-radius: 0.5rem;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .focus-area-card a:focus-visible {
+      outline-color: #ffcb05;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .focus-area-card {
+      transform: none !important;
+      transition: none;
+    }
+    .focus-area-img {
+      transition: none;
+      transform: none !important;
+    }
+    .connection-line {
+      animation: none !important;
+    }
+  }
+</style>
+
+<script>
+  import { relatedAreasMap } from '../../../lib/focusAreaRelations';
+
+  const SVG_NS = 'http://www.w3.org/2000/svg';
+  const darkQuery = window.matchMedia('(prefers-color-scheme: dark)');
+  function getConnectorColor() {
+    return darkQuery.matches ? '#ffcb05' : '#2F65A7';
+  }
+  darkQuery.addEventListener('change', () => clearConnections());
+  const wrapper = document.getElementById('focus-areas-wrapper')!;
+  const svg = document.getElementById('connections-svg')!;
+  const cards = wrapper.querySelectorAll<HTMLElement>('.focus-area-card');
+  const desktopQuery = window.matchMedia('(min-width: 1024px)');
+
+  /** Return the point where a ray from card center toward (tx, ty) exits the card rectangle. */
+  function getEdgePoint(card: HTMLElement, tx: number, ty: number) {
+    const wr = wrapper.getBoundingClientRect();
+    const cr = card.getBoundingClientRect();
+    const cx = cr.left + cr.width / 2 - wr.left;
+    const cy = cr.top + cr.height / 2 - wr.top;
+    const halfW = cr.width / 2;
+    const halfH = cr.height / 2;
+
+    const dx = tx - cx;
+    const dy = ty - cy;
+    if (dx === 0 && dy === 0) return { x: cx, y: cy };
+
+    // Scale factor to reach rectangle edge
+    const scale = Math.min(
+      halfW / Math.abs(dx) || Infinity,
+      halfH / Math.abs(dy) || Infinity,
+    );
+
+    return { x: cx + dx * scale, y: cy + dy * scale };
+  }
+
+  function getCenter(card: HTMLElement) {
+    const wr = wrapper.getBoundingClientRect();
+    const cr = card.getBoundingClientRect();
+    return {
+      x: cr.left + cr.width / 2 - wr.left,
+      y: cr.top + cr.height / 2 - wr.top,
+    };
+  }
+
+  function clearConnections() {
+    while (svg.firstChild) svg.removeChild(svg.firstChild);
+    cards.forEach(c => c.classList.remove('dimmed', 'highlighted', 'related'));
+  }
+
+  function showConnections(card: HTMLElement) {
+    if (!desktopQuery.matches) return;
+
+    const areaId = card.dataset.areaId!;
+    const related = relatedAreasMap[areaId] || [];
+
+    // Dim / highlight / related
+    cards.forEach(c => {
+      const id = c.dataset.areaId!;
+      if (id === areaId) {
+        c.classList.add('highlighted');
+      } else if (related.includes(id)) {
+        c.classList.add('related');
+      } else {
+        c.classList.add('dimmed');
+      }
+    });
+
+    const srcCenter = getCenter(card);
+
+    related.forEach(relatedId => {
+      const target = wrapper.querySelector<HTMLElement>(`[data-area-id="${relatedId}"]`);
+      if (!target) return;
+
+      const dstCenter = getCenter(target);
+
+      // Edge-to-edge endpoints
+      const start = getEdgePoint(card, dstCenter.x, dstCenter.y);
+      const end = getEdgePoint(target, srcCenter.x, srcCenter.y);
+
+      const dx = end.x - start.x;
+      const dy = end.y - start.y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist === 0) return;
+
+      // Perpendicular offset for a gentle arc
+      const nx = -dy / dist;
+      const ny = dx / dist;
+      const bulge = dist * 0.2;
+
+      const cp1x = start.x + dx * 0.33 + nx * bulge;
+      const cp1y = start.y + dy * 0.33 + ny * bulge;
+      const cp2x = start.x + dx * 0.66 + nx * bulge;
+      const cp2y = start.y + dy * 0.66 + ny * bulge;
+
+      const path = document.createElementNS(SVG_NS, 'path');
+      path.setAttribute('d', `M ${start.x} ${start.y} C ${cp1x} ${cp1y}, ${cp2x} ${cp2y}, ${end.x} ${end.y}`);
+      path.setAttribute('stroke', getConnectorColor());
+      path.setAttribute('stroke-width', '2');
+      path.setAttribute('fill', 'none');
+      path.setAttribute('opacity', '0.6');
+      svg.appendChild(path);
+
+      // Animate: solid line draws itself from start to end
+      const len = path.getTotalLength();
+      path.setAttribute('stroke-dasharray', String(len));
+      path.setAttribute('stroke-dashoffset', String(len));
+      path.classList.add('connection-line');
+      path.animate(
+        [{ strokeDashoffset: `${len}` }, { strokeDashoffset: '0' }],
+        { duration: 600, easing: 'ease', fill: 'forwards' },
+      );
+    });
+  }
+
+  cards.forEach(card => {
+    card.addEventListener('mouseenter', () => showConnections(card));
+    card.addEventListener('focusin', () => showConnections(card));
+    card.addEventListener('mouseleave', clearConnections);
+    card.addEventListener('focusout', clearConnections);
+  });
+
+  // Clear on resize (debounced)
+  let resizeTimer: ReturnType<typeof setTimeout>;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(clearConnections, 100);
+  });
+</script>

@@ -8,7 +8,7 @@ image:
   alt: "Two researchers on a boat, as one of them points to the sonar data they are collecting on a screen."
 categories: 
   - "robotics-community"
-  - "deep-learning"
+  - "robot-learning-foundational-models"
 tags:
   - "Katie Skinner"
   - "NSF CAREER Grant"

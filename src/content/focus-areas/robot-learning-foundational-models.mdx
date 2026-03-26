@@ -1,0 +1,30 @@
+---
+title: "Robot Learning & Foundational Models"
+slug: "robot-learning-foundational-models"
+type: "core"
+description: "Machine learning, deep learning, foundational models for robotic decision-making, and learning for control."
+icon: "brain"
+image:
+  src: "../../images/focus-areas/artificial-intelligence.jpg"
+  alt: "Robot Learning & Foundational Models"
+videos:
+  - "fXu47_7FH3s"
+---
+import VideoRight from '../../components/VideoRight.astro';
+
+Large neural networks pretrained on datasets, called foundational models, are accelerating how robots learn. These models represent broad knowledge about language, vision, and physical interactions, and Michigan researchers utilize them to enable robots to reason and act.
+
+<VideoRight
+  url="https://www.youtube.com/watch?v=fXu47_7FH3s"
+  caption="Expanding datasets for robot learning."
+/>
+
+Researchers apply vision-language models to robotics, enabling robots to interpret natural language instructions and pair them with action. This includes working on vision-language-action models that map sensor data and verbal commands to motor behavior, and to diffusion-based policies that generate smooth manipulation trajectories. Researchers also develop world models, which help a robot simulate and predict the consequences of an action, before acting.
+
+Faculty also work on techniques for robots to learn new skills. Reinforcement learning enables robots to discover behaviors through interacting with their environment, while imitation learning allows them to learn by observing human demonstrations. Foundational models can accelerate both approaches by providing background knowledge that improves approaches to new tasks.
+
+Inherent in this work is doing all the above safely. Robots in the real world can't recklessly explore, so researchers constrain learning within safe margins -- margins which are actually mathematically provable. This includes defining the level of uncertainty a robot has, enabling robots to know what they don't know, and risk-aware decision-making that takes into account potential failures.
+
+To build robot intelligence that can be generalized across many tasks, researchers integrate physical knowledge into learning. The physics intertwined into models includes the laws of conservation and contact dynamics. By grounding these models with how the real world is structured, robots can more easily move from simulation to deployment.
+
+This work spans the full stack: from hardware architectures optimized for neural network inference, to training pipelines that create large-scale robotics datasets, to deployment of learned systems on physical platforms. Applications include autonomous vehicles that predict and respond to other road users, underwater and planetary robots that operate with limited supervision, surgical systems that learn from expert demonstrations, and manufacturing systems that detect anomalies and adapt to new products.

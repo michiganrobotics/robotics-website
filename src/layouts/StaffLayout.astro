@@ -163,7 +163,7 @@ const personSchema = {
                   href={getPostLink(post)}
                   target={isCollegeNews(post) ? '_blank' : undefined}
                   rel={isCollegeNews(post) ? 'noopener noreferrer' : undefined}
-                  class="no-underline group block surface card-base card-hover flex-none w-65 sm:w-auto"
+                  class="no-underline group block bg-(--bg-surface-light) dark:bg-(--bg-page-dark) text-gray-700 dark:text-neutral-100 card-base card-hover flex-none w-65 sm:w-auto"
                 >
                   <div class="aspect-video overflow-hidden rounded-t-sm not-prose">
                     {postImage ? (

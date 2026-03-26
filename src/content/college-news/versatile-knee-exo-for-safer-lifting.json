@@ -4,12 +4,12 @@
   "description": "Helping out the quad muscles kept study participants lifting safely despite fatigue, with an algorithm that smoothly shifts between lifting and carrying tasks.",
   "link": "https://news.engin.umich.edu/2024/09/versatile-knee-exo-for-safer-lifting/",
   "image": {
-    "src": "https://news.engin.umich.edu/wp-content/uploads/2024/09/knee-exos-vertical.jpg",
+    "src": "../../images/college-news/knee-exos-vertical.jpg",
     "alt": "A person wearing a knee exo standing across stairs outside."
   },
   "categories": [
-    "rehabilitation",
-    "legged-robots"
+    "rehabilitation-wearables",
+    "legged-robotics"
   ],
   "tags": [
     "Robert Gregg",

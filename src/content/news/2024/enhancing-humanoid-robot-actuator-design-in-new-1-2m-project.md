@@ -9,8 +9,8 @@ image:
   alt: "A Digit bipedal robot holds a package in the lobby of the Robotics Building at the University of Michigan."
 
 categories: 
-  - "legged-robots"
-  - "rehabilitation"
+  - "legged-robotics"
+  - "rehabilitation-wearables"
 tags:
   - "Yanran Ding"
   - "Robert Gregg"

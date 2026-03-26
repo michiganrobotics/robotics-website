@@ -8,7 +8,7 @@ image:
   src: "images/David-11-of-22-scaled.jpg"
   alt: "A 3D-printed bipedal robot inspired by the design of a commercial-scale robot aims to provide an open-source platform for studying and applying reinforcement learning."
 categories: 
-  - "legged-robots"
+  - "legged-robotics"
   - "robotics-community"
 tags:
   - "David Ho"

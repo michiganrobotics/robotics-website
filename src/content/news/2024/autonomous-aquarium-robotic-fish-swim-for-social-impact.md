@@ -16,6 +16,7 @@ tags:
   - "ROB 203"
   - "student project"
   - "underwater robotics"
+  - "undergraduate"
 author: "Dan Newman"
 ---
 
