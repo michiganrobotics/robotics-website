@@ -34,19 +34,41 @@ const siteUrl = "https://robotics.umich.edu";
 		<script type="application/ld+json" set:html={JSON.stringify({
 			"@context": "https://schema.org",
 			"@type": "EducationalOrganization",
+			"@id": `${siteUrl}/#organization`,
 			"name": "University of Michigan Robotics Department",
+			"alternateName": ["Michigan Robotics", "U-M Robotics", "UMich Robotics", "UMRobotics"],
 			"url": siteUrl,
 			"logo": `${siteUrl}/robotics-og-logo.png`,
+			"image": `${siteUrl}/robotics-og-logo.png`,
+			"foundingDate": "2022",
 			"parentOrganization": {
 				"@type": "CollegeOrUniversity",
 				"name": "University of Michigan College of Engineering",
+				"url": "https://engin.umich.edu",
 				"parentOrganization": {
 					"@type": "CollegeOrUniversity",
-					"name": "University of Michigan"
+					"name": "University of Michigan",
+					"url": "https://umich.edu"
 				}
 			},
 			"description": "The Robotics Department at the University of Michigan College of Engineering: working together to create smart machines and serve society.",
-			"areaServed": "Ann Arbor, Michigan"
+			"address": {
+				"@type": "PostalAddress",
+				"streetAddress": "2505 Hayward Street",
+				"addressLocality": "Ann Arbor",
+				"addressRegion": "MI",
+				"postalCode": "48109",
+				"addressCountry": "US"
+			},
+			"areaServed": "Ann Arbor, Michigan",
+			"sameAs": [
+				"https://www.instagram.com/umrobotics/",
+				"https://www.linkedin.com/company/university-of-michigan-robotics/",
+				"https://github.com/michiganrobotics/",
+				"https://www.youtube.com/channel/UC-WH2n-SkB166pUq5o5ULUg",
+				"https://www.twitter.com/umrobotics",
+				"https://www.wikidata.org/wiki/Q138804945"
+			]
 		})} />
 		<SEO
 			title={title}
