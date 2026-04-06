@@ -47,11 +47,11 @@ const { items, speed = items.length * 2, mobileSpeed = speed, separator = '·', 
       {label && (
         <span class="shrink-0 text-sm font-semibold pr-2 hidden md:inline">{label}</span>
       )}
-      <div class="flex flex-wrap items-center min-w-0 flex-1">
+      <div class="flex flex-wrap items-center min-w-0 flex-1 gap-y-1">
         {items.map((item, i) => (
           <>
-            <span class="inline-block pr-4 text-sm text-arboretumBlue dark:text-maize/80">{item}</span>
-            {i < items.length - 1 && <span class="inline-block text-xs opacity-50">{separator}</span>}
+            <span class="inline-flex items-center text-sm text-arboretumBlue dark:text-maize/80">{item}</span>
+            {i < items.length - 1 && <span class="inline-flex items-center text-xs opacity-50 px-2">{separator}</span>}
           </>
         ))}
       </div>
