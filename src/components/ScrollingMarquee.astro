@@ -11,7 +11,7 @@ interface Props {
 const { items, speed = items.length * 2, mobileSpeed = speed, separator = '·', label } = Astro.props;
 ---
 
-<div class="marquee-wrapper cursor-pointer" role="button" tabindex="0" aria-label="Tap to show all organizations">
+<div class="marquee-wrapper cursor-pointer" role="button" tabindex="0" aria-label={`${label || 'Selected organizations'} Tap to show all`}>
   <div class="marquee-inline relative my-2" style={`--marquee-speed: ${speed}s; --marquee-mobile-speed: ${mobileSpeed}s;`}>
     {label && (
       <span class="marquee-label shrink-0 text-sm font-semibold pr-2 block md:hidden mb-1">{label}</span>

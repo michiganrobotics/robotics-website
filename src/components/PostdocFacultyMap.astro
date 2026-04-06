@@ -129,7 +129,7 @@ const arcs = destinations.map((d) => arcPath(origin.x, origin.y, d.x, d.y));
 
     <!-- Hover labels (rendered last, on top of everything) -->
     {destinations.filter((pt) => !pt.showLabel).map((pt) => (
-      <g class="institution-group" tabindex="0" role="group" aria-label={pt.name} data-inst={pt.label}>
+      <g class="institution-group" tabindex="0" aria-label={pt.name} data-inst={pt.label}>
         <circle cx={pt.x} cy={pt.y} r="4" fill="transparent" class="hover-target" />
         <text
           x={pt.x + (pt.labelDx || 0)}
