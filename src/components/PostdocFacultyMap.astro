@@ -129,7 +129,7 @@ const arcs = destinations.map((d) => arcPath(origin.x, origin.y, d.x, d.y));
 
     <!-- Hover labels (rendered last, on top of everything) -->
     {destinations.filter((pt) => !pt.showLabel).map((pt) => (
-      <g class="institution-group" tabindex="0" aria-label={pt.name} data-inst={pt.label}>
+      <g class="institution-group" data-inst={pt.label}>
         <circle cx={pt.x} cy={pt.y} r="4" fill="transparent" class="hover-target" />
         <text
           x={pt.x + (pt.labelDx || 0)}
@@ -145,7 +145,7 @@ const arcs = destinations.map((d) => arcPath(origin.x, origin.y, d.x, d.y));
     ))}
   </svg>
 
-  <div class="lg:hidden surface rounded-lg shadow-md p-5">
+  <div class="lg:sr-only surface rounded-lg shadow-md p-5">
     <ul class="columns-2 gap-x-6 text-sm space-y-1.5 text-gray-700 dark:text-gray-300">
       {raw.filter(r => !r.origin).flatMap((inst) =>
         inst.listNames
@@ -191,16 +191,8 @@ const arcs = destinations.map((d) => arcPath(origin.x, origin.y, d.x, d.y));
     transition: opacity 0.15s ease;
   }
 
-  .postdoc-map .institution-group:hover .hover-label,
-  .postdoc-map .institution-group:focus-within .hover-label,
-  .postdoc-map .institution-group:focus .hover-label {
+  .postdoc-map .institution-group:hover .hover-label {
     opacity: 1 !important;
-  }
-
-  .postdoc-map .institution-group:focus {
-    outline: 2px solid #FFCB05;
-    outline-offset: 2px;
-    border-radius: 2px;
   }
 
   .postdoc-map .institution-group {
