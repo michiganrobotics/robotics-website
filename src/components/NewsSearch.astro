@@ -34,7 +34,8 @@ import { Icon } from 'astro-icon/components';
 
   async function loadSearchData(): Promise<NewsItem[]> {
     if (searchableNews) return searchableNews;
-    const res = await fetch('/api/news/search/');
+    const res = await fetch('/api/news/search.json');
+    if (!res.ok) throw new Error('Failed to load search data');
     searchableNews = await res.json();
     return searchableNews!;
   }
