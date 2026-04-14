@@ -159,6 +159,31 @@ async function fetchInstagramPosts() {
   }
 }
   
+// Filter out vertical videos (Shorts) by checking embed dimensions
+async function filterVerticalVideos(apiKey, items) {
+  if (!items?.length) return [];
+
+  const videoIds = items.map(item => item.id.videoId).filter(Boolean).join(',');
+  if (!videoIds) return items;
+
+  const detailsResponse = await axios.get('https://www.googleapis.com/youtube/v3/videos', {
+    params: {
+      key: apiKey,
+      id: videoIds,
+      part: 'player',
+    }
+  });
+
+  const verticalIds = new Set();
+  for (const video of detailsResponse.data.items || []) {
+    if (video.player?.embedHeight > video.player?.embedWidth) {
+      verticalIds.add(video.id);
+    }
+  }
+
+  return items.filter(item => !verticalIds.has(item.id.videoId));
+}
+
 async function fetchYoutubePosts() {
   const cache = readCache(YOUTUBE_CACHE_FILE);
   const now = Date.now();
@@ -176,7 +201,8 @@ async function fetchYoutubePosts() {
           channelId: channelId,
           part: 'snippet',
           order: 'date',
-          maxResults: 1,
+          type: 'video',
+          maxResults: 3,
           publishedAfter: new Date(cache.timestamp).toISOString()
         }
       });
@@ -194,11 +220,16 @@ async function fetchYoutubePosts() {
         channelId: channelId,
         part: 'snippet',
         order: 'date',
-        maxResults: 1
+        type: 'video',
+        maxResults: 3
       }
     });
 
-    const posts = response.data.items.map(item => ({
+    const landscapeItems = await filterVerticalVideos(apiKey, response.data.items);
+    // Fall back to most recent video if all results are vertical
+    const selectedItems = landscapeItems.length > 0 ? landscapeItems : response.data.items;
+
+    const posts = selectedItems.slice(0, 1).map(item => ({
       id: item.id.videoId,
       content: item.snippet.title
         .replace(/&amp;/g, '&')
