@@ -95,7 +95,16 @@ export const mainNav: MenuItem[] = [
             label: "Student Services",
             uri: "/academics/student-services/",
             id: "academics-student-services",
-            childItems: { nodes: [] }
+            childItems: {
+              nodes: [
+                {
+                  label: "Outreach Events",
+                  uri: "/academics/student-services/outreach-events/",
+                  id: "academics-student-services-outreach-events",
+                  childItems: {nodes:[]}
+                },
+              ],
+            },
           },
           {
             label: "Careers & Outcomes",
