@@ -98,6 +98,12 @@ export const mainNav: MenuItem[] = [
             childItems: {
               nodes: [
                 {
+                  label: "Robodex",
+                  uri: "/academics/student-services/robodex/",
+                  id: "academics-student-services-robodex",
+                  childItems: {nodes:[]}
+                },
+                {
                   label: "Outreach Events",
                   uri: "/academics/student-services/outreach-events/",
                   id: "academics-student-services-outreach-events",
