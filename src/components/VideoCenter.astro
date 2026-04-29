@@ -4,10 +4,11 @@ import { YouTube } from 'astro-embed';
 interface Props {
   url: string;
   caption?: string;
+  transcript?: string;
   class?: string;
 }
 
-const { url, caption, class: className } = Astro.props;
+const { url, caption, transcript, class: className } = Astro.props;
 
 // Extract video ID from various YouTube URL formats or use as-is if it's just an ID
 function getVideoId(input: string): string {
@@ -55,8 +56,19 @@ const posterUrl = await getPosterUrl(videoId);
         }}
       />
     </div>
-    {caption && (
-      <figcaption class="mt-4 text-[0.875em] leading-[1.4285714] text-gray-600 dark:text-gray-200" set:html={caption} />
+    {(caption || transcript) && (
+      <figcaption class="mt-4 text-[0.875em] leading-[1.4285714] text-gray-600 dark:text-gray-200">
+        {caption && <span set:html={caption} />}
+        {transcript && (
+          <details class="video-transcript mt-2">
+            <summary class="cursor-pointer select-none flex items-center gap-1 w-fit hover:text-gray-900 dark:hover:text-white transition-colors">
+              <span class="transcript-icon inline-flex items-center justify-center w-4 h-4 text-xs font-bold border border-current rounded-full leading-none">+</span>
+              Transcript
+            </summary>
+            <div class="mt-2 pl-5 whitespace-pre-line" set:html={transcript} />
+          </details>
+        )}
+      </figcaption>
     )}
   </figure>
 </div>
@@ -64,6 +76,20 @@ const posterUrl = await getPosterUrl(videoId);
 <style>
 .aspect-video lite-youtube{
   max-width:none;
+}
+
+.video-transcript summary {
+  list-style: none;
+}
+.video-transcript summary::-webkit-details-marker {
+  display: none;
+}
+.video-transcript[open] .transcript-icon {
+  font-size: 0;
+}
+.video-transcript[open] .transcript-icon::before {
+  content: '\2212';
+  font-size: 0.75rem;
 }
 </style>
 
