@@ -70,10 +70,11 @@ function formatRawTimeString(timestring: string): string{
             Below are current outreach events submitted by Robotics faculty, staff, and student members. Some of these events are looking for volunteers. You can reach out through the "How to sign up as a volunteer" links provided.
           </p>
           <h4>Are you a student, faculty or staff looking to add an event? You can fill out <a href="https://docs.google.com/forms/d/e/1FAIpQLSf18JgbLQkLAnnd3_0zhGKAHkDpPF2zVrDImmSfkO97ftirqg/viewform">this form</a> to add an event to this table.</h4>
+          { outreachEventsData.length ? 
           <p class="mb-4">
             Search to find events that match your interests by <strong>event name</strong>, <strong>event description</strong>, <strong>location</strong>, or <strong>point of contact</strong>.
           </p>
-          <div class="relative">
+           <div class="relative">
               <div class="mb-4">
                 <input type="text" id="searchInput" placeholder="Search projects..." 
                   class="search-bar"
@@ -182,7 +183,7 @@ function formatRawTimeString(timestring: string): string{
                   </tbody>
                 </table>
               </div>
-            </div>
+            </div> : <h3 class="py-2">There are no currently active events. More events will be posted soon!</h3>}
           </div>
 
           <script>
