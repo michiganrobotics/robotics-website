@@ -1,5 +1,5 @@
 ---
-const { href, text, external = false, class: className = "" } = Astro.props;
+const { href, text, subtext, external = false, class: className = "" } = Astro.props;
 ---
 
 <div class="my-4">
@@ -17,7 +17,12 @@ const { href, text, external = false, class: className = "" } = Astro.props;
     whitespace-normal break-words ${className}`}
     {...external ? { target: "_blank", rel: "noopener noreferrer" } : {}}
   >
-    <span class="no-underline flex-1 text-center">{text}</span>
+    <span class={`no-underline flex-1 ${subtext ? 'flex flex-col items-start gap-0.5' : 'text-center'}`}>
+      <span>{text}</span>
+      {subtext && (
+        <span class="text-xs italic">{subtext}</span>
+      )}
+    </span>
     {external ? (
       <svg 
         class="flex-shrink-0 ml-2 -mr-1 w-4 h-4" 

@@ -13,5 +13,6 @@
   "tags": [
     "Dawn Tilbury"
   ],
-  "featured": true
+  "featured": true,
+  "customTitle": true
 }

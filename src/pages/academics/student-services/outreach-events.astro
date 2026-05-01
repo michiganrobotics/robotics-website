@@ -2,11 +2,39 @@
 import Layout from '../../../layouts/MainLayout.astro';
 import Breadcrumbs from "../../../components/Breadcrumbs.astro";
 import PageTitle from "../../../components/PageTitle.astro";
+import Button from "../../../components/Button.astro";
+import Callout from "../../../components/Callout.astro";
+import { Image, getImage } from 'astro:assets';
+import { Icon } from 'astro-icon/components';
+import { getCollection } from 'astro:content';
 
 import { getRoboticsOutreachEvents } from '../../../lib/googleSheets';
-import { string } from 'astro:schema';
 
 const outreachEventsData = await getRoboticsOutreachEvents();
+
+// Pull the most recent news items tagged "outreach" to surface alongside the events table.
+const allNews = await getCollection('news');
+const outreachNews = allNews
+  .filter((post) => post.data.tags?.some((t) => t.toLowerCase() === 'outreach'))
+  .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime())
+  .slice(0, 3);
+
+const outreachNewsCards = await Promise.all(
+  outreachNews.map(async (post) => {
+    const slug = post.id.split('/')[1];
+    const year = post.data.date.split('-')[0];
+    const image = post.data.image?.src
+      ? await getImage({ src: post.data.image.src, width: 540, height: 360 })
+      : null;
+    return {
+      title: post.data.title,
+      date: post.data.date,
+      href: `/news/${year}/${slug}/`,
+      image,
+      imageAlt: post.data.image?.alt || post.data.title,
+    };
+  })
+);
 
 // Helper function to convert URLs in text to clickable links
 function linkifyText(text: string): string {
@@ -63,20 +91,26 @@ function formatRawTimeString(timestring: string): string{
     <Breadcrumbs slot="breadcrumbs" />
     <PageTitle title="Current Robotics Outreach Events" />
       <div class="prose dark:prose-invert max-w-6xl w-11/12 mx-auto mt-4 mb-4">
-          <p class="mb-4">
-            Being <a href="/about/values/">enthusiastic for outreach</a> is a core Michigan Robotics value. Our outreach efforts build for and inspire the next generation of roboticists, inform policies that benefit society, and foster public understanding of where robotics is as a field right now. Enthusiastic outreach takes many forms, from contributing open-source code to engaging at large-scale educational events, volunteering at FIRST Robotics competitions, leading activities for K-12 students, or working with <a href="/about/partnerships/">partners</a> across industry and community organizations.
+          <p class="text-xl leading-relaxed mb-4">
+            Being <a href="/about/values/">enthusiastic for outreach</a> is a core Michigan Robotics value. Our outreach efforts build for and inspire the next generation of roboticists, inform policies that benefit society, and foster public understanding of where robotics is as a field. 
           </p>
           <p class="mb-4">
-            Below are current outreach events submitted by Robotics faculty, staff, and student members. Some of these events are looking for volunteers. You can reach out through the "How to sign up as a volunteer" links provided.
+            Enthusiastic outreach takes many forms, from contributing open-source code to engaging at large-scale educational events, volunteering at FIRST Robotics competitions, leading activities for K-12 students, or working with <a href="/about/partnerships/">partners</a> across industry and community organizations.
           </p>
-          <h4>Are you a student, faculty or staff looking to add an event? You can fill out <a href="https://docs.google.com/forms/d/e/1FAIpQLSf18JgbLQkLAnnd3_0zhGKAHkDpPF2zVrDImmSfkO97ftirqg/viewform">this form</a> to add an event to this table.</h4>
+          <p class="mb-4">
+            Below are current outreach events submitted by Robotics faculty, staff, and student members. If you are interested in volunteering, you can reach out through the "How to sign up as a volunteer" links provided.
+          </p>
+          <Callout type="info">
+            <p class="m-0">Are you a student, faculty or staff looking to add an event? You can fill out <a href="https://docs.google.com/forms/d/e/1FAIpQLSf18JgbLQkLAnnd3_0zhGKAHkDpPF2zVrDImmSfkO97ftirqg/viewform">this form to add an event</a> to this table.</p>
+          </Callout>
           { outreachEventsData.length ? 
+          <h2>Upcoming events</h2>
           <p class="mb-4">
             Search to find events that match your interests by <strong>event name</strong>, <strong>event description</strong>, <strong>location</strong>, or <strong>point of contact</strong>.
           </p>
            <div class="relative">
               <div class="mb-4">
-                <input type="text" id="searchInput" placeholder="Search projects..." 
+                <input type="text" id="searchInput" placeholder="Search events..." 
                   class="search-bar"
                 />
               </div>
@@ -183,7 +217,69 @@ function formatRawTimeString(timestring: string): string{
                   </tbody>
                 </table>
               </div>
-            </div> : <h3 class="py-2">There are no currently active events. More events will be posted soon!</h3>}
+            </div> :
+            <div class="not-prose card-base surface card-padded border-l-4 border-maize my-6 flex flex-col sm:flex-row items-start gap-4">
+              <div class="shrink-0 rounded-full bg-maize/20 dark:bg-maize/10 p-3">
+                <Icon name="mdi:calendar-month-outline" class="w-8 h-8 text-umichblue dark:text-maize" />
+              </div>
+              <div>
+                <h3 class="text-2xl font-roboto-condensed font-bold text-umichblue dark:text-neutral-100 mb-2">No active events right now</h3>
+                <p class="text-neutral-700 dark:text-neutral-200 mb-3">More events will be posted soon.</p>
+                <p class="mb-0">Considering hosting your own outreach event, or have an event to share? <a href="https://docs.google.com/forms/d/e/1FAIpQLSf18JgbLQkLAnnd3_0zhGKAHkDpPF2zVrDImmSfkO97ftirqg/viewform">Submit it through this form</a> and it will appear here.</p>
+              </div>
+            </div>}
+
+            <section id="outreach-ambassador" aria-labelledby="ambassador-heading" class="card-base surface card-padded my-10">
+              <h2 id="ambassador-heading">Robotics Outreach Ambassador program</h2>
+              <p>The Robotics Department formally recognizes student efforts in outreach. To do so, we track outreach for which you can be awarded a special title each year, one we hope students will be proud to highlight on resumés and talk about when transitioning to the next step in your life.</p>
+              <p>If a student logs eight hours of outreach in the year, from start of summer to end of winter terms, then they will be awarded the title of Robotics Outreach Ambassador for that year. Those earning this title will be announced and celebrated in the spring.</p>
+              <p><strong>What counts?</strong> Any service, outreach, or community activity that supports the mission, culture, and values of the Robotics Department can be reported. We'll trust your judgment.</p>
+              <p>Student contributions in outreach are instrumental to our success. We hope to adapt and build on this in the future with your continued input.</p>
+              <Button href="https://docs.google.com/forms/d/e/1FAIpQLSe5XSNyGNU-1Utg1W1pV4oHdaA_40lMmN5Uz5IAqPMaJkcDBg/viewform?usp=publish-editor" text="Log your outreach hours" subtext="Currently open to graduate students only" external={true} class="w-auto!" />
+            </section>
+
+            {outreachNewsCards.length > 0 && (
+              <section id="latest-outreach-news" aria-labelledby="outreach-news-heading" class="my-10 not-prose">
+                <h2 id="outreach-news-heading" class="text-3xl font-roboto-condensed font-bold text-umichblue dark:text-neutral-100 mb-6">Latest outreach news</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {outreachNewsCards.map((article) => (
+                    <a href={article.href} class="no-underline group surface card-base card-hover flex flex-col">
+                      <div class="relative overflow-hidden">
+                        {article.image ? (
+                          <Image
+                            src={article.image.src}
+                            alt={article.imageAlt}
+                            width={540}
+                            height={360}
+                            class="w-full h-48 object-cover"
+                            loading="lazy"
+                          />
+                        ) : (
+                          <img
+                            src="/social/og-default.jpg"
+                            alt={article.imageAlt}
+                            width={540}
+                            height={360}
+                            class="w-full h-48 object-cover"
+                            loading="lazy"
+                          />
+                        )}
+                      </div>
+                      <div class="p-4 grow flex flex-col justify-between">
+                        <div>
+                          <h3 class="text-lg leading-tight font-roboto font-bold text-umichblue dark:text-gray-100 mb-2 border-b-2 border-transparent group-hover:border-maize transition-all duration-300">
+                            {article.title}
+                          </h3>
+                          <p class="text-sm font-sans text-neutral-700 dark:text-neutral-300 mb-0">
+                            {new Date(article.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+                          </p>
+                        </div>
+                      </div>
+                    </a>
+                  ))}
+                </div>
+              </section>
+            )}
           </div>
 
           <script>

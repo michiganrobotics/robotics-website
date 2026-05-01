@@ -27,6 +27,7 @@ interface NewsData {
   tags: string[];
   featured: boolean;
   exclude?: boolean;
+  customTitle?: boolean;
 }
 
 const imageDir = path.join(__dirname, '../../src/images/college-news');
@@ -129,8 +130,8 @@ export async function fetchAndSaveCollegeNews() {
 
       // Merge existing data with new data, preserving categories and tags
       const mergedData: NewsData = {
-        // Always use new data for title and date as they come from the source
-        title: newData.title,
+        // Preserve title if customTitle flag is set, otherwise use upstream title
+        title: existingData.customTitle && existingData.title ? existingData.title : newData.title,
         date: newData.date,
         
         // Preserve existing description if it exists, otherwise use new description
@@ -150,7 +151,10 @@ export async function fetchAndSaveCollegeNews() {
         tags: existingData.tags || [],
         
         // Preserve existing featured flag or default to true
-        featured: existingData.featured ?? true
+        featured: existingData.featured ?? true,
+
+        // Preserve customTitle flag so manual title edits persist across fetches
+        ...(existingData.customTitle && { customTitle: true })
       };
 
       await fs.writeFile(filePath, JSON.stringify(mergedData, null, 2));

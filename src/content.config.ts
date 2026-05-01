@@ -105,6 +105,7 @@ const collegeNews = defineCollection({
     ])).optional(),
     tags: z.array(z.string()).optional(),
     featured: z.boolean().default(true),
+    customTitle: z.boolean().optional(),
   }),
 });
 
