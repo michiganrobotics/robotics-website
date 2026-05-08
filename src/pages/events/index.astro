@@ -70,14 +70,14 @@ const recentEvents = eventsData.slice(0, 6);
 
       {recentEvents.length > 0 && (
         <div>
-          <h2 class="mt-8 text-2xl font-bold tracking-tight text-umichblue dark:text-neutral-50">Upcoming events</h2>		
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-4 not-prose">	
+          <h2 class="mt-8 text-2xl font-bold tracking-tight text-umichblue dark:text-neutral-50">Upcoming events</h2>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-4 not-prose">
             {recentEvents.map((event: Event) => (
               <div>
                 <a href={event.permalink} class="no-underline group surface card-base card-hover flex flex-col h-full">
                   <div class="relative overflow-hidden">
                     <Image
-                      src={event.styled_images.event_feature_large} 
+                      src={event.styled_images.event_feature_large}
                       alt={event.image_description || "Michigan Robotics event"}
                       height={300}
                       width={446}
@@ -102,7 +102,7 @@ const recentEvents = eventsData.slice(0, 6);
                           hour12: true
                         })}
                       </time>
-                    </div> 
+                    </div>
                     <h3 class="pl-4 text-2xl font-bold tracking-tight text-umichblue dark:text-neutral-50 mb-2">
                       {event.event_title}
                       <span class="block w-0 h-0.5 bg-maize transition-all duration-300 group-hover:w-full" />
@@ -118,5 +118,35 @@ const recentEvents = eventsData.slice(0, 6);
           </div>
         </div>
       )}
+
+      <div class="mt-12 not-prose">
+        <h2 class="text-2xl font-bold tracking-tight text-umichblue dark:text-neutral-50 mb-4">For current students</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <a href="/academics/student-services/outreach-events/" class="group no-underline block surface card-base card-hover p-5 surface-border">
+            <h3 class="text-lg font-bold text-umichblue dark:text-neutral-50 group-hover:text-arboretumBlue dark:group-hover:text-maize transition-colors mb-1">
+              Outreach events
+            </h3>
+            <p class="text-sm text-gray-600 dark:text-gray-300 leading-relaxed mb-0">
+              Volunteer opportunities and outreach events organized through Michigan Robotics.
+            </p>
+          </a>
+          <a href="/academics/student-services/robotics-undergraduate-student-council/" class="group no-underline block surface card-base card-hover p-5 surface-border">
+            <h3 class="text-lg font-bold text-umichblue dark:text-neutral-50 group-hover:text-arboretumBlue dark:group-hover:text-maize transition-colors mb-1">
+              RUSC events
+            </h3>
+            <p class="text-sm text-gray-600 dark:text-gray-300 leading-relaxed mb-0">
+              Social, educational, and professional events from the Robotics Undergraduate Student Council.
+            </p>
+          </a>
+          <a href="/academics/student-services/robotics-graduate-student-council/" class="group no-underline block surface card-base card-hover p-5 surface-border">
+            <h3 class="text-lg font-bold text-umichblue dark:text-neutral-50 group-hover:text-arboretumBlue dark:group-hover:text-maize transition-colors mb-1">
+              RGSC events
+            </h3>
+            <p class="text-sm text-gray-600 dark:text-gray-300 leading-relaxed mb-0">
+              Calendar and events from the Robotics Graduate Student Council, including ROBOSYM.
+            </p>
+          </a>
+        </div>
+      </div>
     </div>
 </Layout>
