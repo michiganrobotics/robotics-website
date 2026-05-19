@@ -1,0 +1,87 @@
+---
+interface Cluster {
+  name: string;
+  employers: string[];
+}
+
+interface Props {
+  label?: string;
+  clusters: Cluster[];
+}
+
+const { label = 'Selected employers', clusters } = Astro.props;
+
+function joinWithAnd(items: string[]): string {
+  if (items.length === 0) return '';
+  if (items.length === 1) return items[0];
+  if (items.length === 2) return `${items[0]} and ${items[1]}`;
+  return `${items.slice(0, -1).join(', ')}, and ${items[items.length - 1]}`;
+}
+---
+
+<section class="not-prose my-8 surface rounded-lg shadow-md p-6 md:p-8">
+  {label && (
+    <h3 class="text-lg font-semibold mb-4 text-arboretumBlue dark:text-maize m-0">{label}</h3>
+  )}
+
+  <dl class="employer-list">
+    {clusters.map((cluster) => (
+      <div class="employer-row">
+        <dt>{cluster.name}</dt>
+        <dd>{joinWithAnd(cluster.employers)}</dd>
+      </div>
+    ))}
+  </dl>
+</section>
+
+<style>
+.employer-list {
+  margin: 0;
+}
+
+.employer-row {
+  padding: 0.875rem 0;
+}
+
+.employer-row + .employer-row {
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.employer-row dt {
+  font-weight: 600;
+  color: var(--color-arboretumBlue, #2F65A7);
+  font-size: 0.95rem;
+  margin-bottom: 0.25rem;
+}
+
+.employer-row dd {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: rgb(55 65 81);
+}
+
+@media (prefers-color-scheme: dark) {
+  .employer-row + .employer-row {
+    border-top-color: rgba(255, 255, 255, 0.12);
+  }
+  .employer-row dt {
+    color: var(--color-maize, #ffcb05);
+  }
+  .employer-row dd {
+    color: rgb(209 213 219);
+  }
+}
+
+@media (min-width: 768px) {
+  .employer-row {
+    display: grid;
+    grid-template-columns: 14rem 1fr;
+    gap: 0 2rem;
+    align-items: baseline;
+  }
+  .employer-row dt {
+    margin-bottom: 0;
+  }
+}
+</style>
