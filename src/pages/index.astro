@@ -173,7 +173,7 @@ Astro.response.headers.set('Cache-Control', 'public, max-age=86400, must-revalid
 
 			<!-- Hero copy: lower-left aligned in a semi-transparent blue backdrop matching site PageTitle pattern; box touches video bottom -->
 			<div class="relative h-full flex flex-col justify-end px-6 md:px-16 pt-32 max-w-7xl mx-auto min-h-[560px] md:min-h-[680px] lg:min-h-[760px]">
-				<div id="hero-text-bg" class="relative inline-block max-w-4xl bg-umichblue/70 dark:bg-arboretumBlue/70 backdrop-blur-[2px] p-4 sm:p-6 md:p-8 -ml-4 sm:-ml-6 md:-ml-8 transition-[background-color,backdrop-filter] duration-700">
+				<div id="hero-text-bg" class="relative inline-block max-w-4xl bg-umichblue/70 backdrop-blur-[2px] p-4 sm:p-6 md:p-8 -ml-4 sm:-ml-6 md:-ml-8 transition-[background-color,backdrop-filter] duration-700">
 					<!-- Skewed page-title corner decoration slicing the top of the blue backdrop -->
 					<div class="absolute -left-4 -top-2 w-16 h-16 border-t-4 border-l-4 border-[#ffcb05]/50 transform -skew-x-45 translate-x-1 translate-y-1 pointer-events-none" aria-hidden="true"></div>
 					<div class="absolute -left-4 -top-2 w-16 h-16 border-t-4 border-l-4 border-maize transform -skew-x-45 pointer-events-none" aria-hidden="true"></div>
@@ -227,9 +227,11 @@ Astro.response.headers.set('Cache-Control', 'public, max-age=86400, must-revalid
 							<Image
 								src={featuredPost.data.image.src}
 								alt={featuredPost.data.image.alt || featuredPost.data.title}
-								width={900}
+								widths={[600, 900, 1400]}
+								sizes="(min-width: 1024px) 750px, 100vw"
 								class="w-full h-72 md:h-96 object-cover transition-all duration-500 group-hover:scale-105"
 								loading="eager"
+								fetchpriority="high"
 								format="webp"
 								quality={80}
 							/>
@@ -352,7 +354,8 @@ Astro.response.headers.set('Cache-Control', 'public, max-age=86400, must-revalid
 				<Image
 					src={aboutCard.src}
 					alt={aboutCard.alt}
-					width={900}
+					widths={[400, 800, 1200]}
+					sizes="(min-width: 1024px) 600px, 100vw"
 					class="w-full aspect-[4/3] object-cover"
 					loading="lazy"
 					format="webp"
