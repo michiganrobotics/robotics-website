@@ -9,6 +9,11 @@ const YOUTUBE_CACHE_FILE = path.join(CACHE_DIR, 'youtube.json');
 
 const CACHE_DURATION = 7 * 24 * 60 * 60 * 1000; // 7 days in milliseconds
 
+// X API free tier no longer permits timeline reads, so we manually feature one
+// tweet and hydrate its content via the public syndication endpoint. To swap
+// in a new tweet, paste its numeric ID from the URL (twitter.com/.../status/<ID>).
+const FEATURED_TWEET_ID = '2050243746973786624';
+
 // Helper function to read cache
 const readCache = (filePath) => {
   try {
@@ -41,54 +46,55 @@ let twitterCache = {
   timestamp: null
 };
 
+// Token algorithm used by the public cdn.syndication.twimg.com/tweet-result endpoint.
+// Lifted from the embed.js client; no auth required, but the endpoint can only
+// hydrate a known tweet ID (it can't list a user's recent tweets).
+function tweetSyndicationToken(id) {
+  return ((Number(id) / 1e15) * Math.PI)
+    .toString(36)
+    .replace(/(0+|\.)/g, '');
+}
+
 async function fetchTwitterPosts() {
   const cache = readCache(TWITTER_CACHE_FILE);
   const now = Date.now();
 
-  try {
-    const bearerToken = import.meta.env.TWITTER_BEARER_TOKEN;
-    const userId = '894988418295443456';
-    const url = `https://api.twitter.com/2/users/${userId}/tweets`;
-    
-    const response = await axios.get(url, {
-      headers: { 
-        'Authorization': `Bearer ${bearerToken}`,
-        'Content-Type': 'application/json'
-      },
-      params: {
-        'tweet.fields': 'created_at,text,conversation_id',
-        'max_results': 5,
-        'exclude': 'retweets,replies'
-      }
-    });
+  // Return fresh cache without making any network call.
+  if (cache?.data?.length && cache.timestamp && (now - cache.timestamp < CACHE_DURATION)) {
+    return cache.data;
+  }
 
-    if (!response.data.data) {
-      console.error('No tweets found in response:', response.data);
+  const tweetId = FEATURED_TWEET_ID;
+  if (!tweetId) {
+    return cache?.data || [];
+  }
+
+  try {
+    const token = tweetSyndicationToken(tweetId);
+    const response = await axios.get(
+      `https://cdn.syndication.twimg.com/tweet-result?id=${tweetId}&token=${token}&lang=en`,
+      { headers: { 'User-Agent': 'Mozilla/5.0' } }
+    );
+
+    const t = response.data;
+    if (!t?.id_str) {
+      console.error('Twitter syndication returned unexpected payload:', t);
       return cache?.data || [];
     }
 
-    const tweets = response.data.data
-      .filter(tweet => !tweet.in_reply_to_user_id && tweet.conversation_id === tweet.id)
-      .slice(0, 1)
-      .map(tweet => ({
-        id: tweet.id,
-        content: tweet.text,
-        date: tweet.created_at,
-        platform: 'X',
-        link: `https://twitter.com/umrobotics/status/${tweet.id}`,
-        loading: 'lazy'
-      }));
+    const tweets = [{
+      id: t.id_str,
+      content: t.text,
+      date: t.created_at,
+      platform: 'X',
+      link: `https://twitter.com/${t.user?.screen_name || 'umrobotics'}/status/${t.id_str}`,
+      loading: 'lazy'
+    }];
 
-    // Save to cache with the newest tweet ID
-    const lastPostId = tweets[0]?.id;
-    writeCache(TWITTER_CACHE_FILE, tweets, lastPostId);
+    writeCache(TWITTER_CACHE_FILE, tweets, t.id_str);
     return tweets;
   } catch (error) {
-    if (error.response?.status === 429) {
-      console.error('Twitter rate limit exceeded. Using cached data if available.');
-      return cache?.data || [];
-    }
-    console.error('Error fetching Twitter posts:', error.response?.data || error);
+    console.error('Error fetching Twitter post via syndication:', error.response?.data || error.message);
     return cache?.data || [];
   }
 }
