@@ -1,299 +1,560 @@
 ---
-import Hero from "../components/Hero.astro";
 import MainLayout from "../layouts/MainLayout.astro";
-import SocialFeed from '../components/SocialFeed.astro';
 import { getCollection } from 'astro:content';
+import { fetchInstagramPosts, fetchYoutubePosts, fetchTwitterPosts } from '../lib/social';
 import { eventsQuery } from "../lib/api";
-import EmailSignup from "../components/EmailSignup.astro";
 import { Image } from "astro:assets";
-import ContentImage from '../components/ContentImage.astro';
 import Link from '../components/Link.astro';
 import { Icon } from 'astro-icon/components';
-import defaultEventImage from '../images/default-event.jpg';
 
-// Homepage card images — a random image is selected at build time
-const academicsImages = [
+interface Event {
+	id: string;
+	permalink: string;
+	event_title: string;
+	event_subtitle: string;
+	datetime_start: string;
+	description: string;
+	location?: string;
+	styled_images?: {
+		event_feature_large?: string;
+	};
+	image_description?: string;
+}
+
+const defaultEventImage = '/social/default-event.jpg';
+function getEventImage(event: Event): string | null {
+	const src = event.styled_images?.event_feature_large;
+	if (!src || src === defaultEventImage) return null;
+	return src;
+}
+
+function parseEventDate(raw: string): Date {
+	return new Date(raw.replace(/(\d{4})(\d{2})(\d{2})T(\d{2})(\d{2})(\d{2})/, "$1-$2-$3T$4:$5:$6"));
+}
+
+// Rotating pool of homepage images for the about feature card (chosen at build time)
+const aboutImages = [
 	{ src: (await import('../images/homepage/homepage-academics/mbot-programming-in-lab.jpg')).default, alt: "A student programs an MBot mobile robot in a robotics lab" },
 	{ src: (await import('../images/homepage/homepage-academics/mbot-assembly.jpg')).default, alt: "A student assembles an MBot mobile robot with a screwdriver" },
 	{ src: (await import('../images/homepage/homepage-academics/embir-legged-robot-outdoors.jpg')).default, alt: "A student works on a laptop beside a small legged robot outside the Ford Robotics Building" },
 	{ src: (await import('../images/homepage/homepage-academics/rob311-robot-programming.jpg')).default, alt: "A student programs a wheeled robot on a laptop in a robotics classroom" },
-];
-const researchImages = [
 	{ src: (await import('../images/homepage/homepage-research/exoskeleton-ankle-closeup.jpg')).default, alt: "Close-up of a robotic ankle exoskeleton being tested on a treadmill" },
 	{ src: (await import('../images/homepage/homepage-research/knee-joint-research.jpg')).default, alt: "A researcher adjusts a robotic knee joint brace on a test subject" },
 	{ src: (await import('../images/homepage/homepage-research/exoskeleton-treadmill-testing.jpg')).default, alt: "A person walks on a treadmill wearing a robotic exoskeleton in a Michigan Robotics lab" },
 	{ src: (await import('../images/homepage/homepage-research/robot-assembly-at-iros.jpg')).default, alt: "A researcher examines a robotic joint mechanism at the IROS conference" },
 	{ src: (await import('../images/homepage/homepage-research/robotic-ultrasound-research.jpg')).default, alt: "A researcher performs a robotic ultrasound procedure while screens display imaging results" },
 	{ src: (await import('../images/homepage/homepage-research/spot-and-drone-at-mcity.jpg')).default, alt: "A Boston Dynamics Spot robot and a large drone on display at the Mcity test facility" },
-];
-const peopleImages = [
 	{ src: (await import('../images/homepage/homepage-people/mrover-team-at-ford-building.jpg')).default, alt: "Five Michigan Robotics students pose with the MRover robot at the Ford Robotics Building Mars Yard" },
 	{ src: (await import('../images/homepage/homepage-people/student-with-spot-on-farm.jpg')).default, alt: "A student operates a Boston Dynamics Spot robot in a farm building" },
 	{ src: (await import('../images/homepage/homepage-people/mrover-team-with-rover-outdoors.jpg')).default, alt: "Students transport the MRover robot outside the Ford Robotics Building" },
 	{ src: (await import('../images/homepage/homepage-people/researcher-in-server-room.jpg')).default, alt: "A researcher stands in a server room illuminated by green LED lights" },
 	{ src: (await import('../images/homepage/homepage-people/ford-robotics-building-aerial.jpg')).default, alt: "Aerial view of the Ford Robotics Building at sunset on the University of Michigan North Campus" },
 ];
-function randomPick(arr: {src: ImageMetadata; alt: string}[]) {
-	return arr[Math.floor(Math.random() * arr.length)];
-}
-const academicsCard = randomPick(academicsImages);
-const researchCard = randomPick(researchImages);
-const peopleCard = randomPick(peopleImages);
+const aboutCard = aboutImages[Math.floor(Math.random() * aboutImages.length)];
 
-
-// Add these type definitions at the top of the file
-interface Event {
-  id: string;
-  permalink: string;
-  event_title: string;
-  event_subtitle: string;
-  styled_images: {
-    event_feature_large: string;
-  };
-  image_description: string;
-  datetime_start: string;
-  description: string;
-}
-
-
-// Helper functions for news items
+// News helpers
 function isCollegeNews(post: any) {
-  return post.collection === 'collegeNews';
+	return post.collection === 'collegeNews';
 }
-
 function getPostLink(post: any) {
-  if (isCollegeNews(post)) {
-    return post.data.link;
-  }
-  return `/news/${new Date(post.data.date).getFullYear()}/${post.id.split('/')[1]}/`;
+	if (isCollegeNews(post)) return post.data.link;
+	return `/news/${new Date(post.data.date).getFullYear()}/${post.id.split('/')[1]}/`;
 }
-
 function getExcerptText(post: any): string {
-  if (isCollegeNews(post)) {
-    return post.data.description || '';
-  }
-  return post.data.excerpt || post.data.seoDescription || '';
+	if (isCollegeNews(post)) return post.data.description || '';
+	return post.data.excerpt || post.data.seoDescription || '';
 }
 
-// Get all news posts and sort by date
 const allPosts = await getCollection('news');
 const collegeNewsItems = await getCollection('collegeNews', ({ data }) => data.featured !== false);
-
-// Convert college news items to match news post format
 const formattedCollegeNews = collegeNewsItems.map(item => ({
-  id: `college/${item.id}`,
-  collection: 'collegeNews' as const,
-  data: {
-    title: item.data.title,
-    date: item.data.date,
-    description: item.data.description,
-    link: item.data.link,
-    categories: item.data.categories || [],
-    image: item.data.image,
-    featured: item.data.featured
-  }
+	id: `college/${item.id}`,
+	collection: 'collegeNews' as const,
+	data: {
+		title: item.data.title,
+		date: item.data.date,
+		description: item.data.description,
+		link: item.data.link,
+		categories: item.data.categories || [],
+		image: item.data.image,
+		featured: item.data.featured,
+	},
 }));
-
-// Combine and sort all news items
 const allNewsItems = [...allPosts, ...formattedCollegeNews].sort(
-  (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+	(a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
 );
+const [featuredPost, ...secondaryPosts] = allNewsItems.slice(0, 5);
 
-const recentPosts = allNewsItems.slice(0, 3);
+// Social feed (latest from each)
+function truncateText(text: string, maxLength = 140) {
+	return text && text.length > maxLength ? text.slice(0, maxLength) + '…' : text;
+}
+async function isUrlAccessible(url: string | null | undefined) {
+	if (!url) return false;
+	try {
+		const r = await fetch(url, { method: 'HEAD' });
+		return r.ok;
+	} catch {
+		return false;
+	}
+}
+const [igPost] = await fetchInstagramPosts();
+const [ytPost] = await fetchYoutubePosts();
+const [xPost] = await fetchTwitterPosts();
+const socialPosts = [igPost, ytPost, xPost].filter(Boolean).map(p => ({ ...p, content: truncateText(p.content) }));
+for (const post of socialPosts) {
+	if (post.platform === 'Instagram') {
+		const mediaUrlOk = post.mediaUrl ? await isUrlAccessible(post.mediaUrl) : false;
+		const thumbnailOk = post.thumbnailUrl ? await isUrlAccessible(post.thumbnailUrl) : false;
+		if (!mediaUrlOk) post.mediaUrl = null;
+		if (!thumbnailOk) post.thumbnailUrl = null;
+	}
+}
+const socialIcons: Record<string, string> = {
+	Instagram: 'simple-icons:instagram',
+	YouTube: 'simple-icons:youtube',
+	X: 'simple-icons:x',
+};
+
 const eventsData = await eventsQuery();
-const recentEvents = eventsData.slice(0, 3);
+const recentEvents: Event[] = eventsData.slice(0, 4);
 
-Astro.response.headers.set('Cache-Control', 'public, max-age=86400, must-revalidate');
 const videoWebmPath = '/robotics-promo-2025-2.webm';
-
+Astro.response.headers.set('Cache-Control', 'public, max-age=86400, must-revalidate');
 ---
 
-<MainLayout title='Michigan Robotics | University of Michigan' description="Michigan Robotics creates and leads innovative initiatives and robust programs that elevate outcomes for both robotics and roboticists in research, academics, and society.">
+<MainLayout title="Michigan Robotics | University of Michigan" description="Michigan Robotics creates and leads innovative initiatives and robust programs that elevate outcomes for both robotics and roboticists in research, academics, and society." transparentNav={true}>
 	<Fragment slot="head">
-		<link
-		rel="preload"
-		as="image"
-		fetchpriority="high"
-		href="/blue-tile.png"
-		type="image/png"
-		/>
+		<link rel="preload" as="image" fetchpriority="high" href="/blue-tile.png" type="image/png" />
+		<style is:global>
+			/* Hero text backdrop and nav band fade out when the video ends */
+			#hero-text-bg.video-ended {
+				background-color: transparent !important;
+				backdrop-filter: none !important;
+				-webkit-backdrop-filter: none !important;
+			}
+			.hero-nav-band.video-ended {
+				background-color: transparent !important;
+			}
+			/* If the user has requested reduced transparency, keep the hero text backdrop
+			   and the nav band on solid color regardless of state. */
+			@media (prefers-reduced-transparency: reduce) {
+				#hero-text-bg {
+					background-color: var(--color-umichblue) !important;
+					backdrop-filter: none !important;
+					-webkit-backdrop-filter: none !important;
+				}
+				#hero-text-bg.video-ended {
+					background-color: var(--color-umichblue) !important;
+				}
+				.hero-nav-band {
+					background-color: var(--color-umichblue) !important;
+				}
+			}
+		</style>
+	</Fragment>
 
-	  </Fragment>
-	<div class="preload-visible">
-		<Hero videoWebmPath={videoWebmPath}></Hero>
-		<div class="mx-2 m-auto mb-4 md:mx-12 md:pt-6">
-			<div class="relative mb-22 section-with-gradient-border border-arboretumBlue before:from-arboretumBlue after:from-arboretumBlue">
-				<div class="flex justify-center mb-2 sm:mb-0">
-					<h2 id="latest-news" class="absolute -top-6 z-10 bg-arboretumBlue text-neutral-50 px-6 py-2 rounded-sm text-3xl font-bold shadow-lg"><a href="/news/" class="underline-hover-only">Latest news</a></h2>
-				</div>
-				<div class="flex flex-wrap gap-4 justify-center mb-8 md:flex-nowrap pt-10 md:pt-14 px-2">
-					{recentPosts.map(async (post, index) => {
-						const postImageSrc = post.data.image?.src;
-						const excerpt = getExcerptText(post);
+	<!-- Hero: full-bleed video extending behind nav, full viewport width -->
+	<section class="relative bg-umichblue w-screen left-1/2 -translate-x-1/2">
+		<div class="relative min-h-[560px] md:min-h-[680px] lg:min-h-[760px] overflow-hidden">
+			<video
+				id="hero-video"
+				class="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-500"
+				playsinline
+				muted
+				preload="none"
+				poster="/blue-tile.png"
+				aria-label="Background video showing Michigan Robotics research and education"
+				data-webm-path={videoWebmPath}
+			></video>
 
-						return (
+			<!-- Dark blue transparent band behind the nav, ending at the nav's bottom HR -->
+			<div class="hero-nav-band absolute inset-x-0 top-0 h-[88px] bg-umichblue/70 pointer-events-none transition-colors duration-700"></div>
 
-							<Link
-								href={getPostLink(post)}
-								class="no-underline group card-base surface md:flex-1 max-w-md border border-arboretumBlue"
-								target={isCollegeNews(post) ? '_blank' : undefined}
-								rel={isCollegeNews(post) ? 'noopener noreferrer' : undefined}
-							>
-								{postImageSrc ? (
-									<div class="overflow-hidden">
-										<Image
-											src={postImageSrc}
-											alt={post.data.image?.alt || post.data.title}
-											width={450}
-											class="w-full h-48 object-cover transition-all duration-500 group-hover:scale-105"
-											loading="eager"
-											format="webp"
-											quality={75}
-										/>
-									</div>
-								) : null}
-								<div class="relative group">
-									<div class="p-4">
-										<div class="bg-arboretumBlue text-neutral-50 dark:text-neutral-200 p-2 pl-4 -ml-4">
-											<h3 class="text-xl font-roboto grid grid-cols-[1fr_auto] items-center gap-1">
-												{isCollegeNews(post) ? (
-													<>
-														<span>{post.data.title}</span>
-														<Icon name="mdi:open-in-new" class="w-4 h-4" />
-													</>
-												) : post.data.title}
-											</h3>
-											<span class="maize-underline" />
-										</div>
-										<div class="mt-2 text-neutral-600 dark:text-neutral-200">
-											<p class="text-sm font-sans text-arboretumBlue dark:text-neutral-300 mb-1">
-												{new Date(post.data.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
-											</p>
-											<p class="line-clamp-3 text-sm" set:html={excerpt} />
-										</div>
-									</div>
-								</div>
-							</Link>
-						);
-					})}
+			<!-- Hero copy: lower-left aligned in a semi-transparent blue backdrop matching site PageTitle pattern; box touches video bottom -->
+			<div class="relative h-full flex flex-col justify-end px-6 md:px-16 pt-32 max-w-7xl mx-auto min-h-[560px] md:min-h-[680px] lg:min-h-[760px]">
+				<div id="hero-text-bg" class="relative inline-block max-w-4xl bg-umichblue/70 dark:bg-arboretumBlue/70 backdrop-blur-[2px] p-4 sm:p-6 md:p-8 -ml-4 sm:-ml-6 md:-ml-8 transition-[background-color,backdrop-filter] duration-700">
+					<!-- Skewed page-title corner decoration slicing the top of the blue backdrop -->
+					<div class="absolute -left-4 -top-2 w-16 h-16 border-t-4 border-l-4 border-[#ffcb05]/50 transform -skew-x-45 translate-x-1 translate-y-1 pointer-events-none" aria-hidden="true"></div>
+					<div class="absolute -left-4 -top-2 w-16 h-16 border-t-4 border-l-4 border-maize transform -skew-x-45 pointer-events-none" aria-hidden="true"></div>
+					<h1 class="text-white font-roboto-condensed font-bold text-4xl md:text-6xl lg:text-7xl leading-[1.05] relative z-10">
+						Work together.<br />
+						Create smart machines.<br />
+						<span class="text-maize">Serve society.</span>
+					</h1>
+					<p class="mt-8 md:mt-10 text-lg md:text-xl text-neutral-100 font-roboto-condensed leading-relaxed relative z-10">
+						The Robotics Department at the University of Michigan is creating the next generation of robotics and roboticists as force-multipliers for the benefit of society.
+					</p>
 				</div>
 			</div>
 
-			<div class="relative mb-18 section-with-gradient-border border-rackhamGreen before:from-rackhamGreen after:from-rackhamGreen">
-				<div class="flex justify-center mb-12 sm:mb-0">
-					<h2 class="absolute -top-6 z-10 bg-rackhamGreen-dark text-neutral-50 px-6 py-2 rounded-sm text-3xl font-bold shadow-lg"><a href="/about/" class="underline-hover-only">Get to know Michigan Robotics</a></h2>
+			<!-- Small pause button -->
+			<button
+				id="video-control"
+				class="absolute bottom-4 right-4 rounded-full bg-black/40 hover:bg-black/60 p-2 transition-colors focus:outline-none focus:ring-2 focus:ring-maize hidden z-10"
+				aria-label="Toggle video playback"
+			>
+				<Icon name="mdi:pause" class="w-4 h-4 text-white pause-icon" />
+				<Icon name="mdi:play" class="w-4 h-4 text-white play-icon hidden" />
+			</button>
+		</div>
+
+		<!-- Short maize bar bridging the video section and the next section, aligned to the content's left edge -->
+		<div class="absolute bottom-0 inset-x-0 z-20 pointer-events-none">
+			<div class="max-w-7xl mx-auto px-6 md:px-16">
+				<div class="h-1 w-56 md:w-72 bg-maize translate-y-1/2" aria-hidden="true"></div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Latest news: 1 featured + 3 stacked secondary cards -->
+	<section id="latest-news" class="max-w-7xl mx-auto px-6 md:px-16 py-16 md:py-20 scroll-mt-24">
+		<div class="mb-10">
+			<h2 class="text-3xl md:text-4xl font-bold text-umichblue dark:text-neutral-100 font-roboto-condensed" tabindex="-1">Latest news</h2>
+		</div>
+
+		<div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+			<!-- Featured story (large) -->
+			{featuredPost && (
+				<Link
+					href={getPostLink(featuredPost)}
+					class="lg:col-span-7 no-underline group card-base surface border border-arboretumBlue flex flex-col"
+					target={isCollegeNews(featuredPost) ? '_blank' : undefined}
+					rel={isCollegeNews(featuredPost) ? 'noopener noreferrer' : undefined}
+				>
+					{featuredPost.data.image?.src && (
+						<div class="overflow-hidden">
+							<Image
+								src={featuredPost.data.image.src}
+								alt={featuredPost.data.image.alt || featuredPost.data.title}
+								width={900}
+								class="w-full h-72 md:h-96 object-cover transition-all duration-500 group-hover:scale-105"
+								loading="eager"
+								format="webp"
+								quality={80}
+							/>
+						</div>
+					)}
+					<div class="relative flex-1 flex flex-col">
+						<div class="p-4 flex-1 flex flex-col">
+							<div class="bg-arboretumBlue text-neutral-50 dark:text-neutral-200 p-3 pl-4 -ml-4">
+								<h3 class="text-xl md:text-2xl lg:text-3xl font-roboto grid grid-cols-[1fr_auto] items-center gap-1 leading-tight">
+									{isCollegeNews(featuredPost) ? (
+										<>
+											<span>{featuredPost.data.title}</span>
+											<Icon name="mdi:open-in-new" class="w-5 h-5" />
+										</>
+									) : featuredPost.data.title}
+								</h3>
+								<span class="maize-underline" />
+							</div>
+							<div class="mt-3 text-neutral-600 dark:text-neutral-200">
+								<p class="text-sm font-sans text-arboretumBlue dark:text-neutral-300 mb-2">
+									{new Date(featuredPost.data.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+								</p>
+								<p class="line-clamp-4 text-sm md:text-base leading-relaxed" set:html={getExcerptText(featuredPost)} />
+							</div>
+						</div>
+					</div>
+				</Link>
+			)}
+
+			<!-- Three secondary cards stacked, matching featured card height -->
+			<div class="lg:col-span-5 flex flex-col gap-6 lg:h-full">
+				{secondaryPosts.slice(0, 3).map(post => (
+					<Link
+						href={getPostLink(post)}
+						class="no-underline group card-base surface border border-arboretumBlue flex flex-col lg:flex-row lg:flex-1 lg:min-h-0"
+						target={isCollegeNews(post) ? '_blank' : undefined}
+						rel={isCollegeNews(post) ? 'noopener noreferrer' : undefined}
+					>
+						{post.data.image?.src && (
+							<div class="overflow-hidden lg:w-40 lg:flex-shrink-0">
+								<Image
+									src={post.data.image.src}
+									alt={post.data.image.alt || post.data.title}
+									widths={[400, 800, 1200]}
+									sizes="(min-width: 1024px) 160px, 100vw"
+									class="w-full h-48 lg:h-full object-cover transition-all duration-500 group-hover:scale-105"
+									loading="lazy"
+									format="webp"
+									quality={75}
+								/>
+							</div>
+						)}
+						<div class="relative flex-1 flex flex-col min-w-0">
+							<div class="p-4 lg:p-3 flex-1 flex flex-col">
+								<div class="bg-arboretumBlue text-neutral-50 dark:text-neutral-200 p-2 pl-4 lg:pl-3 -ml-4 lg:-ml-3">
+									<h3 class="text-xl md:text-2xl lg:text-base font-roboto grid grid-cols-[1fr_auto] items-center gap-1 leading-snug lg:line-clamp-2">
+										{isCollegeNews(post) ? (
+											<>
+												<span>{post.data.title}</span>
+												<Icon name="mdi:open-in-new" class="w-4 h-4" />
+											</>
+										) : post.data.title}
+									</h3>
+									<span class="maize-underline" />
+								</div>
+								<div class="mt-2 text-neutral-600 dark:text-neutral-200">
+									<p class="text-sm font-sans text-arboretumBlue dark:text-neutral-300 mb-1">
+										{new Date(post.data.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+									</p>
+									<p class="line-clamp-3 text-sm md:text-base lg:text-sm leading-snug" set:html={getExcerptText(post)} />
+								</div>
+							</div>
+						</div>
+					</Link>
+				))}
+			</div>
+		</div>
+
+		<div class="mt-6 flex justify-end">
+			<a href="/news/" class="inline-flex items-center gap-2 font-bold">
+				All news <Icon name="mdi:arrow-right" class="w-4 h-4" />
+			</a>
+		</div>
+	</section>
+
+	<!-- About feature -->
+	<section class="bg-umichblue text-neutral-50">
+		<div class="max-w-7xl mx-auto px-6 md:px-16 py-16 md:py-24 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+			<div class="order-2 lg:order-1">
+				<h2 class="text-3xl md:text-5xl font-bold font-roboto-condensed leading-tight mb-6">
+					Learn about our robotics community
+				</h2>
+				<p class="text-lg leading-relaxed text-neutral-200 mb-8 max-w-xl">
+					Michigan Robotics creates and leads innovative initiatives and robust programs that elevate outcomes for both robotics and roboticists in research, academics, and society.
+				</p>
+				<div class="space-y-3">
+					<div class="flex flex-wrap gap-3">
+						<a href="/academics/undergraduate/" class="group/btn inline-flex items-center gap-2 bg-maize text-black px-4 sm:px-6 py-2.5 sm:py-3 rounded-md shadow-md hover:shadow-lg hover:bg-maize/90 transform hover:-translate-y-0.5 transition-all duration-200 no-underline font-semibold">
+							Undergraduate major
+							<Icon name="mdi:arrow-right" class="w-4 h-4 flex-shrink-0" />
+						</a>
+						<a href="/academics/graduate/" class="group/btn inline-flex items-center gap-2 bg-maize text-black px-4 sm:px-6 py-2.5 sm:py-3 rounded-md shadow-md hover:shadow-lg hover:bg-maize/90 transform hover:-translate-y-0.5 transition-all duration-200 no-underline font-semibold">
+							Graduate programs
+							<Icon name="mdi:arrow-right" class="w-4 h-4 flex-shrink-0" />
+						</a>
+					</div>
+					<div class="flex flex-wrap gap-3">
+						<a href="/research/focus-areas/" class="group/btn inline-flex items-center gap-2 border border-maize/60 text-neutral-50 px-4 sm:px-6 py-2.5 sm:py-3 rounded-md shadow-md hover:shadow-lg hover:bg-white/10 hover:border-maize transform hover:-translate-y-0.5 transition-all duration-200 no-underline font-semibold">
+							Research focus areas
+							<Icon name="mdi:arrow-right" class="w-4 h-4 flex-shrink-0" />
+						</a>
+						<a href="/people/" class="group/btn inline-flex items-center gap-2 border border-maize/60 text-neutral-50 px-4 sm:px-6 py-2.5 sm:py-3 rounded-md shadow-md hover:shadow-lg hover:bg-white/10 hover:border-maize transform hover:-translate-y-0.5 transition-all duration-200 no-underline font-semibold">
+							Meet our roboticists
+							<Icon name="mdi:arrow-right" class="w-4 h-4 flex-shrink-0" />
+						</a>
+					</div>
 				</div>
-				<div class="flex flex-wrap gap-4 justify-center mb-8 md:flex-nowrap pt-10 md:pt-14 px-2">
-					{[
-						{
-							image: academicsCard.src,
-							alt: academicsCard.alt,
-							title: "Graduate and undergrad programs",
-							href: "/academics/"
-						},
-						{
-							image: researchCard.src,
-							alt: researchCard.alt,
-							title: "Explore robotics research",
-							href: "/research/"
-						},
-						{
-							image: peopleCard.src,
-							alt: peopleCard.alt,
-							title: "Find cross-disciplinary roboticists",
-							href: "/people/"
-						}
-					].map(item => (
-						<figure class="group min-w-[50%] md:min-w-[auto] flex-auto relative max-w-md rounded-sm shadow-md hover:shadow-lg transition-all duration-300 border-rackhamGreen border mt-0">
-							<Link href={item.href} class="block">
-								<div class="overflow-hidden">
+			</div>
+			<div class="order-1 lg:order-2 relative">
+				<Image
+					src={aboutCard.src}
+					alt={aboutCard.alt}
+					width={900}
+					class="w-full aspect-[4/3] object-cover"
+					loading="lazy"
+					format="webp"
+					quality={80}
+				/>
+				<!-- Subtle maize accent bar aligned with photo's left edge -->
+				<div class="absolute -bottom-2 left-0 w-24 h-2 bg-maize hidden md:block"></div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Upcoming events: date-forward list -->
+	{recentEvents.length > 0 && (
+		<section class="bg-white dark:bg-[var(--bg-undersurface-dark)]">
+		<div class="max-w-7xl mx-auto px-6 md:px-16 py-16 md:py-20">
+			<div class="mb-10">
+				<h2 class="text-3xl md:text-4xl font-bold text-umichblue dark:text-neutral-100 font-roboto-condensed">Upcoming events</h2>
+			</div>
+
+			<ul class="divide-y divide-arboretumBlue/20 dark:divide-arboretumBlue/40">
+				{recentEvents.map(event => {
+					const date = parseEventDate(event.datetime_start);
+					const month = date.toLocaleString('en-US', { month: 'short' }).toUpperCase();
+					const day = date.getDate();
+					const dayName = date.toLocaleString('en-US', { weekday: 'long' });
+					const time = date.toLocaleString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
+					const imageSrc = getEventImage(event);
+					return (
+						<li>
+							<a href={event.permalink} class="group no-underline grid grid-cols-[auto_1fr_auto] gap-4 md:gap-8 items-center py-5 md:py-6 hover:bg-arboretumBlue/5 dark:hover:bg-arboretumBlue/10 transition-colors -mx-4 px-4">
+								<div class="text-center min-w-[64px] md:min-w-[80px]">
+									<div class="text-xs md:text-sm font-bold tracking-wider text-arboretumBlue dark:text-maize">{month}</div>
+									<div class="text-3xl md:text-4xl font-bold text-umichblue dark:text-neutral-100 leading-none font-roboto-condensed">{day}</div>
+								</div>
+								<div class="min-w-0">
+									<h3 class="text-lg md:text-xl font-bold text-umichblue dark:text-neutral-100 leading-snug font-roboto-condensed group-hover:text-arboretumBlue dark:group-hover:text-maize transition-colors line-clamp-2">
+										{event.event_title}
+									</h3>
+									{event.event_subtitle && (
+										<p class="text-sm md:text-base text-neutral-700 dark:text-neutral-300 mt-1 line-clamp-1">{event.event_subtitle}</p>
+									)}
+									<p class="mt-2 text-xs md:text-sm text-neutral-600 dark:text-neutral-400">
+										{dayName}, {time}
+									</p>
+								</div>
+								{imageSrc ? (
+									<div class="hidden sm:block w-20 h-20 md:w-24 md:h-24 overflow-hidden flex-shrink-0">
+										<img src={imageSrc} alt={event.image_description || event.event_title} class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" />
+									</div>
+								) : <div></div>}
+							</a>
+						</li>
+					);
+				})}
+			</ul>
+
+			<div class="mt-6 flex justify-end">
+				<a href="/events/" class="inline-flex items-center gap-2 font-bold">
+					More events <Icon name="mdi:arrow-right" class="w-4 h-4" />
+				</a>
+			</div>
+		</div>
+		</section>
+	)}
+
+	<!-- Latest social media -->
+	{socialPosts.length > 0 && (
+		<section class="max-w-7xl mx-auto px-6 md:px-16 py-16 md:py-20">
+			<div class="flex items-end justify-between mb-10">
+				<h2 class="text-3xl md:text-4xl font-bold text-umichblue dark:text-neutral-100 font-roboto-condensed">Latest social media</h2>
+			</div>
+
+			<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+				{socialPosts.map(post => {
+					const imageUrl = post.platform === 'Instagram'
+						? (post.mediaType === 'VIDEO' ? post.thumbnailUrl : post.mediaUrl)
+						: post.thumbnailUrl;
+					const ctaLabel = post.platform === 'Instagram' ? 'View on Instagram' : post.platform === 'YouTube' ? 'Watch on YouTube' : 'Read on X';
+					return (
+						<a href={post.link} target="_blank" rel="noopener noreferrer" class="group no-underline flex flex-col bg-white dark:bg-[var(--bg-surface-dark)] border border-maize shadow-sm hover:shadow-lg transition-shadow duration-300">
+							<div class="relative aspect-video overflow-hidden bg-umichblue">
+								{imageUrl ? (
 									<Image
-										src={item.image}
-										alt={item.alt}
-										width={450}
-										class="w-full h-auto md:h-auto object-cover aspect-[2/1] md:aspect-auto transition-all duration-500 group-hover:scale-105"
-										loading="lazy"
+										src={imageUrl}
+										alt={post.content || `${post.platform} post`}
+										width={500}
+										height={281}
+										class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
 										format="webp"
 										quality={75}
 									/>
+								) : (
+									<div class="w-full h-full bg-gradient-to-r from-blue-400 to-blue-600 flex items-center justify-center">
+										<Icon name={socialIcons[post.platform]} class="w-20 h-20 text-white transition-transform duration-700 group-hover:scale-[1.15]" />
+									</div>
+								)}
+							</div>
+							<div class="flex flex-col flex-1 p-5">
+								<div class="flex items-center justify-between mb-3 text-sm text-neutral-600 dark:text-neutral-200">
+									<span class="flex items-center gap-2 font-medium">
+										<Icon name={socialIcons[post.platform]} class="w-5 h-5" />
+										{post.platform !== 'X' && post.platform}
+									</span>
+									<span>{new Date(post.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
 								</div>
-								<div class="absolute inset-x-0 bottom-0 bg-rackhamGreen-dark/90 p-4">
-									<h3 class="text-lg font-bold leading-tight text-neutral-50 dark:text-neutral-200">
-										{item.title}
-										<span class="block w-0 h-0.5 bg-maize transition-all duration-300 group-hover:w-full" />
-									</h3>
-								</div>
-							</Link>
-						</figure>
-					))}
+								<p class="text-sm text-neutral-700 dark:text-neutral-200 line-clamp-4 leading-snug mb-5 flex-1">{post.content}</p>
+								<span class="inline-flex items-center gap-2 text-sm font-semibold text-arboretumBlue dark:text-maize group-hover:underline">
+									{ctaLabel} <Icon name="mdi:arrow-right" class="w-4 h-4" />
+								</span>
+							</div>
+						</a>
+					);
+				})}
+			</div>
+		</section>
+	)}
+
+	<!-- Newsletter -->
+	<section class="bg-umichblue text-neutral-50">
+		<div class="max-w-7xl mx-auto px-6 md:px-16 py-20 md:py-28 grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-10 items-center">
+			<div class="md:border-r md:border-arboretumBlue/40 md:pr-10">
+				<h2 class="text-3xl md:text-4xl font-bold font-roboto-condensed mb-4 leading-tight">
+					Get the Michigan Robotics newsletter.
+				</h2>
+				<p class="text-neutral-200 mb-6 max-w-xl">
+					Research, news, videos, and events from the frontier of robotics, delivered quarterly.
+				</p>
+				<a href="https://umrobotics.substack.com" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-maize text-black px-4 sm:px-6 py-2.5 sm:py-3 rounded-md shadow-md hover:shadow-lg hover:bg-maize/90 transform hover:-translate-y-0.5 transition-all duration-200 no-underline font-semibold">
+					Subscribe <Icon name="mdi:arrow-right" class="w-4 h-4 flex-shrink-0" />
+				</a>
+			</div>
+			<div>
+				<div class="flex gap-4">
+					<a href="https://www.instagram.com/umrobotics/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="text-neutral-200 hover:text-maize transition-colors">
+						<Icon name="simple-icons:instagram" class="w-10 h-10" />
+					</a>
+					<a href="https://www.linkedin.com/company/university-of-michigan-robotics/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="text-neutral-200 hover:text-maize transition-colors">
+						<Icon name="simple-icons:linkedin" class="w-10 h-10" />
+					</a>
+					<a href="https://github.com/michiganrobotics/" target="_blank" rel="noopener noreferrer" aria-label="GitHub" class="text-neutral-200 hover:text-maize transition-colors">
+						<Icon name="simple-icons:github" class="w-10 h-10" />
+					</a>
+					<a href="https://www.youtube.com/channel/UC-WH2n-SkB166pUq5o5ULUg" target="_blank" rel="noopener noreferrer" aria-label="YouTube" class="text-neutral-200 hover:text-maize transition-colors">
+						<Icon name="simple-icons:youtube" class="w-10 h-10" />
+					</a>
+					<a href="https://x.com/umrobotics" target="_blank" rel="noopener noreferrer" aria-label="X" class="text-neutral-200 hover:text-maize transition-colors">
+						<Icon name="simple-icons:x" class="w-10 h-10" />
+					</a>
 				</div>
 			</div>
-		
-			{recentEvents.length > 0 && (
-				<div class="relative mb-24 section-with-gradient-border border-matthaeiViolet before:from-matthaeiViolet after:from-matthaeiViolet">
-				  <h2 class="absolute -top-6 left-1/2 transform -translate-x-1/2 z-10 bg-matthaeiViolet text-neutral-50 px-6 py-2 rounded-sm text-3xl font-bold shadow-lg"><a href="/events/" class="underline-hover-only">Events</a></h2>		
-				  <div class="cards-container">	
-					{recentEvents.map((event: Event) => (
-					  <a
-						class='post-link no-underline group card-base surface border border-matthaeiViolet w-96'
-						href={event.permalink}
-					  >
-						<section>
-						  {event.styled_images.event_feature_large === "/social/default-event.jpg" ? (
-							<Image
-							  class="rounded-t-sm aspect-video object-cover w-full"
-							  src={defaultEventImage}
-							  alt={event.image_description || "Michigan Robotics event"}
-							  height={300}
-							  width={446}
-							  loading='lazy'
-							  format="webp"
-							  quality={80}
-							/>
-						  ) : (
-							<Image
-							  class="rounded-t-sm aspect-video object-cover w-full"
-							  src={event.styled_images.event_feature_large}
-							  alt={event.image_description || "Michigan Robotics event"}
-							  height={300}
-							  width={446}
-							  loading='lazy'
-							  format="webp"
-							  quality={80}
-							/>
-						  )}
-						  <div class="p-5 pl-0">
-							<div class="mb-3 text-sm bg-matthaeiViolet text-neutral-200 inline-block pl-5 pr-2 py-1">
-							  <time datetime={event.datetime_start}>
-								{new Date(event.datetime_start.replace(
-								  /(\d{4})(\d{2})(\d{2})T(\d{2})(\d{2})(\d{2})/,
-									"$1-$2-$3T$4:$5:$6"
-								  )).toLocaleString('en-US', {
-									month: 'long',
-									day: 'numeric',
-									year: 'numeric',
-									hour: 'numeric',
-									minute: '2-digit',
-									hour12: true
-								  })}
-							  </time>
-							</div> 
-							<h3 class="pl-5 mb-2 text-xl font-bold tracking-tight dark:text-neutral-200">
-							  {event.event_title}
-							  <span class="block w-0 h-0.5 bg-maize transition-all duration-300 group-hover:w-full" />
-							</h3>
-							{event.event_subtitle && (
-							  <p class="pl-5 mb-2 text-lg tracking-tight dark:text-neutral-300">{event.event_subtitle}</p>
-							)}
-						  </div>
-						</section>
-					  </a>
-					))}
-				  </div>
-				</div>
-			)}
-			<SocialFeed />
-			<EmailSignup />
 		</div>
-	</div>
+	</section>
 </MainLayout>
+
+<script>
+	const video = document.getElementById('hero-video') as HTMLVideoElement | null;
+	const control = document.getElementById('video-control') as HTMLButtonElement | null;
+	if (video && control) {
+		const pauseIcon = control.querySelector('.pause-icon') as HTMLElement | null;
+		const playIcon = control.querySelector('.play-icon') as HTMLElement | null;
+		if (video.canPlayType('video/webm') !== '') {
+			const webmPath = video.dataset.webmPath;
+			if (webmPath) {
+				const src = document.createElement('source');
+				src.src = webmPath;
+				src.type = 'video/webm';
+				video.appendChild(src);
+				video.load();
+			}
+		}
+		video.addEventListener('loadeddata', () => {
+			video.classList.remove('opacity-0');
+			control.classList.remove('hidden');
+			if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+				video.play().catch(() => {});
+			}
+		});
+		const navBand = document.querySelector('.hero-nav-band') as HTMLElement | null;
+		control.addEventListener('click', () => {
+			if (video.paused) {
+				video.play();
+				playIcon?.classList.add('hidden');
+				pauseIcon?.classList.remove('hidden');
+				document.getElementById('hero-text-bg')?.classList.remove('video-ended');
+				navBand?.classList.remove('video-ended');
+			} else {
+				video.pause();
+				playIcon?.classList.remove('hidden');
+				pauseIcon?.classList.add('hidden');
+			}
+		});
+		video.addEventListener('ended', () => {
+			document.getElementById('hero-text-bg')?.classList.add('video-ended');
+			navBand?.classList.add('video-ended');
+			playIcon?.classList.remove('hidden');
+			pauseIcon?.classList.add('hidden');
+		});
+	}
+
+	/* On the homepage, the "Skip to main content" link points at the news section instead of <main> (which would land on the hero). */
+	const skipLink = document.querySelector('a[href="#main-content"]') as HTMLAnchorElement | null;
+	if (skipLink && document.getElementById('latest-news')) {
+		skipLink.href = '#latest-news';
+	}
+</script>

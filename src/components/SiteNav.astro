@@ -11,6 +11,16 @@ interface MenuItem {
   };
 }
 
+interface Props {
+  /**
+   * When true, the nav is taken out of the normal flow and overlaid on top of
+   * the first section (e.g. a video hero). Top-level link color, the logo
+   * wordmark, and the mobile menu animation switch to the over-hero treatment.
+   */
+  transparent?: boolean;
+}
+
+const { transparent = false } = Astro.props;
 const base = import.meta.env.PROD ? import.meta.env.BASE_URL : '/';
 const menuItems = addBaseToMenuItems(mainNav);
 
@@ -23,7 +33,12 @@ const isActive = (itemPath: string) => {
 };
 ---
 
-<header class="mt-6 max-w-6xl w-11/12 mx-auto border-b pb-4 border-umichblue dark:border-white h-16 flex justify-between items-center min-w-[200px] relative z-30">
+<header class:list={[
+  "mt-6 max-w-6xl w-11/12 mx-auto border-b pb-4 h-16 flex justify-between items-center min-w-[200px] z-30",
+  transparent
+    ? "site-nav-transparent absolute inset-x-0"
+    : "border-umichblue dark:border-white relative",
+]}>
 
   <!-- Left Logo -->
   <div class="ml-2 self-end md:ml-0">
@@ -395,6 +410,53 @@ nav ul li {
   }
 </style>
 
+<style is:global>
+  /* Transparent-over-hero treatment.
+     - Header lifts top-level link color, logo wordmark, and hamburger to white.
+     - Dropdown items stay dark on light bg (no override).
+     - Mobile menu drops from the bottom of the nav with a fade animation. */
+  header.site-nav-transparent {
+    border-bottom-color: rgba(255, 255, 255, 0.15);
+  }
+  header.site-nav-transparent > div > a,
+  header.site-nav-transparent > nav > ul > li > a,
+  header.site-nav-transparent > details > summary,
+  header.site-nav-transparent > nav button {
+    color: white !important;
+  }
+  /* astro-icon renders the logo via <symbol> + <use>, which creates a shadow tree
+     that Chrome blocks external selectors from reaching. Custom properties cross
+     the boundary, so we redefine --color-umichblue on the SVG host. */
+  header.site-nav-transparent svg {
+    --color-umichblue: #ffffff;
+    color: white;
+  }
+  header.site-nav-transparent > div > a:hover,
+  header.site-nav-transparent > nav > ul > li > a:hover {
+    color: var(--color-maize) !important;
+  }
+  header.site-nav-transparent > details[open] > nav {
+    top: 100% !important;
+    padding-top: 1rem !important;
+    animation: site-nav-mobile-fade-in 220ms ease-out;
+  }
+  header.site-nav-transparent > details.closing > nav {
+    animation: site-nav-mobile-fade-out 200ms ease-in forwards;
+  }
+  @keyframes site-nav-mobile-fade-in {
+    from { opacity: 0; transform: translateY(-8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes site-nav-mobile-fade-out {
+    from { opacity: 1; transform: translateY(0); }
+    to { opacity: 0; transform: translateY(-8px); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    header.site-nav-transparent > details[open] > nav,
+    header.site-nav-transparent > details.closing > nav { animation: none; }
+  }
+</style>
+
 <script>
   // Update aria-expanded attribute when dropdown toggles
   document.addEventListener('DOMContentLoaded', () => {
@@ -539,5 +601,26 @@ nav ul li {
         }
       });
     });
+
+    // Mobile menu close animation: only on the transparent-over-hero variant.
+    // Hold <details> open while the fade-out runs, then collapse.
+    const transparentDetails = document.querySelector('header.site-nav-transparent > details') as HTMLDetailsElement | null;
+    const transparentSummary = transparentDetails?.querySelector('summary') as HTMLElement | null;
+    if (transparentDetails && transparentSummary) {
+      transparentSummary.addEventListener('click', (e) => {
+        if (transparentDetails.open && !transparentDetails.classList.contains('closing')) {
+          e.preventDefault();
+          if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            transparentDetails.open = false;
+            return;
+          }
+          transparentDetails.classList.add('closing');
+          window.setTimeout(() => {
+            transparentDetails.classList.remove('closing');
+            transparentDetails.open = false;
+          }, 200);
+        }
+      });
+    }
   });
 </script>
