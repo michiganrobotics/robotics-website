@@ -109,6 +109,12 @@ export const mainNav: MenuItem[] = [
                   id: "academics-student-services-outreach-events",
                   childItems: {nodes:[]}
                 },
+                {
+                  label: "Support Requests",
+                  uri: "/academics/student-services/student-support-requests/",
+                  id: "academics-student-services-student-support-requests",
+                  childItems: {nodes:[]}
+                },
               ],
             },
           },
