@@ -254,7 +254,7 @@ Astro.response.headers.set('Cache-Control', 'public, max-age=86400, must-revalid
 								<p class="text-sm font-sans text-arboretumBlue dark:text-neutral-300 mb-2">
 									{new Date(featuredPost.data.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
 								</p>
-								<p class="line-clamp-4 text-sm md:text-base leading-relaxed" set:html={getExcerptText(featuredPost)} />
+								<p class="lg:line-clamp-4 text-sm md:text-base leading-relaxed" set:html={getExcerptText(featuredPost)} />
 							</div>
 						</div>
 					</div>
@@ -301,7 +301,7 @@ Astro.response.headers.set('Cache-Control', 'public, max-age=86400, must-revalid
 									<p class="text-sm font-sans text-arboretumBlue dark:text-neutral-300 mb-1">
 										{new Date(post.data.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
 									</p>
-									<p class="line-clamp-3 text-sm md:text-base lg:text-sm leading-snug" set:html={getExcerptText(post)} />
+									<p class="lg:line-clamp-3 text-sm md:text-base lg:text-sm leading-snug" set:html={getExcerptText(post)} />
 								</div>
 							</div>
 						</div>
@@ -334,7 +334,7 @@ Astro.response.headers.set('Cache-Control', 'public, max-age=86400, must-revalid
 							<Icon name="mdi:arrow-right" class="w-4 h-4 flex-shrink-0" />
 						</a>
 						<a href="/academics/graduate/" class="group/btn inline-flex items-center gap-2 bg-maize text-black px-4 sm:px-6 py-2.5 sm:py-3 rounded-md shadow-md hover:shadow-lg hover:bg-maize/90 transform hover:-translate-y-0.5 transition-all duration-200 no-underline font-semibold">
-							Graduate programs
+							Graduate program
 							<Icon name="mdi:arrow-right" class="w-4 h-4 flex-shrink-0" />
 						</a>
 					</div>

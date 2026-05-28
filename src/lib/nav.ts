@@ -32,7 +32,7 @@ export const mainNav: MenuItem[] = [
             childItems: {
               nodes: [
                 {
-                  label: "Why robotics?",
+                  label: "Why Robotics?",
                   uri: "/academics/undergraduate/why-robotics/",
                   id: "academics-undergraduate-why-robotics",
                   childItems: { nodes: [] }

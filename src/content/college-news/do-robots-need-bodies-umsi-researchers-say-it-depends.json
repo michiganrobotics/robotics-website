@@ -1,0 +1,19 @@
+{
+  "title": "Do robots need bodies? UMSI researchers say it depends",
+  "date": "2026-05-27T00:00:00.000Z",
+  "description": "UMSI researchers challenge the assumption that virtual robot representations yield the same human responses as physically present robots, arguing the field should focus on when virtual alternatives are appropriate.",
+  "link": "https://www.si.umich.edu/about-umsi/news/do-robots-need-bodies-umsi-researchers-say-it-depends",
+  "image": {
+    "src": "../../images/college-news/human-robot-simulation.jpg",
+    "alt": "A simulated warehouse environment shows a red robotic arm picking boxes from shelves above a control console with a serial-number display, score and timer monitors, and red, blue, and green buttons used by a human operator."
+  },
+  "categories": [
+    "human-robot-interaction"
+  ],
+  "tags": [
+    "Lionel Robert",
+    "embodiment",
+    "human-robot interaction"
+  ],
+  "featured": true
+}
