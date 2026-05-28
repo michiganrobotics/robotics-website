@@ -29,9 +29,13 @@ module.exports = {
 							fontStyle: 'normal',
 							color: theme('colors.gray.600'),
 						},
-						h2: {			
-							marginTop: '1.5rem',
-							marginBottom: '1.25rem',
+						h2: {
+							marginTop: '3.5rem',
+							marginBottom: '1rem',
+						},
+						h3: {
+							marginTop: '2rem',
+							marginBottom: '0.75rem',
 						},
 						'.columnlist ul h3:first-child': {
 							marginTop: '1rem',
