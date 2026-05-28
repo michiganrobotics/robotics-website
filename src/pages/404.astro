@@ -26,6 +26,9 @@ const randomIllustration = illustrations[Math.floor(Math.random() * illustration
 ---
 
 <Layout title="404 | Michigan Robotics">
+ <script slot="head" is:inline>
+   window.goatcounter = { no_onload: true };
+ </script>
  <Breadcrumbs slot="breadcrumbs" />
  <PageTitle title="404" />
         
@@ -48,8 +51,8 @@ const randomIllustration = illustrations[Math.floor(Math.random() * illustration
                 <h4 class="text-lg font-semibold mb-2">Academics</h4>
                 <ul class="space-y-2">
                   <li><Link href="/academics/student-services/">Student Services</Link></li>
-                  <li><Link href="/academics/graduate/">Graduate Programs</Link></li>
-                  <li><Link href="/academics/undergraduate/">Undergraduate Programs</Link></li>
+                  <li><Link href="/academics/graduate/">Graduate Program</Link></li>
+                  <li><Link href="/academics/undergraduate/">Undergraduate Program</Link></li>
                   <li><Link href="/academics/courses/">Courses</Link></li>
                 </ul>
               </div>
