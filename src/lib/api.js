@@ -20,15 +20,19 @@ export async function eventsQuery() {
     const response = await fetch('https://events.umich.edu/group/3998/json?filter=show:new&v=2', {
       signal: controller.signal
     });
-    
+
     clearTimeout(timeoutId);
-    
+
     if (!response.ok) {
       console.warn('Events API returned non-200 status:', response.status);
-      return [];
+      return await devFallbackEvents();
     }
 
-    const data = await response.json();
+    let data = await response.json();
+    if (!Array.isArray(data) || data.length === 0) {
+      data = await devFallbackEvents();
+      if (data.length === 0) return [];
+    }
     const truncatedData = await Promise.all(data.map(async (event) => {
       let imageUrl = event.styled_images?.event_feature_large || "/social/default-event.jpg";
 
@@ -59,7 +63,17 @@ export async function eventsQuery() {
     return truncatedData;
   } catch (error) {
     console.error('Error fetching events:', error);
-    // Return empty array if fetch fails
+    return await devFallbackEvents();
+  }
+}
+
+async function devFallbackEvents() {
+  if (!import.meta.env.DEV) return [];
+  try {
+    const fixture = await import('./fixtures/dev-events.json');
+    console.log('[dev] Using fixture past events because live feed is empty');
+    return fixture.default;
+  } catch {
     return [];
   }
 }

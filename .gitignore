@@ -26,6 +26,9 @@ scripts/
 src/components/ProjectCarousel.astro
 src/content/academics/courses/rob-450.mdx
 
+# Dev-only event fallback fixtures
+src/lib/fixtures/
+
 # Editor directories and files
 .vscode/
 .idea/

@@ -23,7 +23,7 @@ author: "Dan Newman"
 <figcaption>Professor Katie Skinner discusses the freshly captured footage of a shipwreck Montana on board of the research vessel R/V Storm in Thunder Bay, Lake Huron. Photo by Marcin Szczepanski.</figcaption>
 </figure>
 
-[Katherine (Katie) Skinner](https://robotics.umich.edu/people/faculty/katie-skinner/ "Katie Skinner"), assistant professor of robotics, was awarded the National Science Foundation’s Faculty Early Career Development (CAREER) grant for a [project](https://www.nsf.gov/awardsearch/showAward?AWD_ID=2337774&HistoricalAwards=false) titled “CAREER: Adaptive Multimodal Fusion for Robust Robot Perception in Underwater Environments”, which aims “to provide new capabilities for marine robotic systems to map, visualize, and navigate underwater sites autonomously.”
+Katherine (Katie) Skinner, assistant professor of robotics, was awarded the National Science Foundation’s Faculty Early Career Development (CAREER) grant for a [project](https://www.nsf.gov/awardsearch/showAward?AWD_ID=2337774&HistoricalAwards=false) titled “CAREER: Adaptive Multimodal Fusion for Robust Robot Perception in Underwater Environments”, which aims “to provide new capabilities for marine robotic systems to map, visualize, and navigate underwater sites autonomously.”
 
 “These new capabilities will be achieved using innovative machine learning methods to simultaneously capture the robot’s surroundings and pinpoint the robot’s location by combining acoustic and visual information,” the award abstract states. 
 
