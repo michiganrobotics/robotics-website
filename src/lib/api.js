@@ -70,9 +70,14 @@ export async function eventsQuery() {
 async function devFallbackEvents() {
   if (!import.meta.env.DEV) return [];
   try {
-    const fixture = await import('./fixtures/dev-events.json');
+    // Read at runtime via fs rather than an ESM import so the bundler never
+    // tries to resolve this gitignored, dev-only fixture during production builds.
+    const { readFile } = await import('node:fs/promises');
+    const { fileURLToPath } = await import('node:url');
+    const fixturePath = fileURLToPath(new URL('./fixtures/dev-events.json', import.meta.url));
+    const fixture = JSON.parse(await readFile(fixturePath, 'utf8'));
     console.log('[dev] Using fixture past events because live feed is empty');
-    return fixture.default;
+    return fixture;
   } catch {
     return [];
   }
