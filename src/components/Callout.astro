@@ -1,6 +1,6 @@
 ---
 interface Props {
-  type?: 'info' | 'warning' | 'success' | 'error';
+  type?: 'info' | 'warning' | 'success' | 'error' | 'maize';
 }
 
 const { type = 'info' } = Astro.props;
@@ -8,6 +8,7 @@ const { type = 'info' } = Astro.props;
 
 <div class={`p-4 my-4 rounded-lg border ${
   type === 'info' ? 'bg-arboretumBlue/10 border-arboretumBlue/30 dark:bg-arboretumBlue/20 dark:border-arboretumBlue/40' :
+  type === 'maize' ? 'bg-maize/20 border-maize/80 dark:bg-transparent dark:border-maize/80' :
   type === 'warning' ? 'bg-rossOrange/10 border-rossOrange/30 dark:bg-rossOrange/20 dark:border-rossOrange/40' :
   type === 'success' ? 'bg-rackhamGreen/10 border-rackhamGreen/30 dark:bg-rackhamGreen/20 dark:border-rackhamGreen/40' :
   type === 'error' ? 'bg-tappanRed/10 border-tappanRed/30 dark:bg-tappanRed/20 dark:border-tappanRed/40' :
