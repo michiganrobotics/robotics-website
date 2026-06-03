@@ -5,6 +5,7 @@ import { fetchInstagramPosts, fetchYoutubePosts, fetchTwitterPosts } from '../li
 import { eventsQuery } from "../lib/api";
 import { Image } from "astro:assets";
 import Link from '../components/Link.astro';
+import CTABanner from '../components/CTABanner.astro';
 import { Icon } from 'astro-icon/components';
 
 interface Event {
@@ -155,7 +156,7 @@ Astro.response.headers.set('Cache-Control', 'public, max-age=86400, must-revalid
 	</Fragment>
 
 	<!-- Hero: full-bleed video extending behind nav, full viewport width -->
-	<section class="relative bg-umichblue w-screen left-1/2 -translate-x-1/2">
+	<section class="relative z-10 bg-umichblue w-screen left-1/2 -translate-x-1/2">
 		<div class="relative min-h-[560px] md:min-h-[680px] lg:min-h-[760px] overflow-hidden">
 			<video
 				id="hero-video"
@@ -206,6 +207,16 @@ Astro.response.headers.set('Cache-Control', 'public, max-age=86400, must-revalid
 			</div>
 		</div>
 	</section>
+
+	<!-- Time-limited call to action: auto-hides from the start of the expires date -->
+	<CTABanner
+		heading="Thinking about graduate school?"
+		body={`Join a U-M College of Engineering webinar on <span class="font-semibold underline decoration-maize decoration-2 underline-offset-2 whitespace-nowrap">June 9 at 1pm</span> to learn about graduate programs, admissions, deadlines, and funding, plus a live Q&A with Professor Ram Vasudevan and Graduate Coordinator Denise Edmund.`}
+		ctaLabel="Register"
+		ctaHref="https://umich.zoom.us/meeting/register/MkQWUgWsRcWyog5YMXdGuQ#/registration"
+		external={true}
+		expires="2026-06-10"
+	/>
 
 	<!-- Latest news: 1 featured + 3 stacked secondary cards -->
 	<section id="latest-news" class="max-w-7xl mx-auto px-6 md:px-16 py-16 md:py-20 scroll-mt-24">
