@@ -407,7 +407,7 @@ Astro.response.headers.set('Cache-Control', 'public, max-age=86400, must-revalid
 					const imageSrc = getEventImage(event);
 					return (
 						<li>
-							<a href={event.permalink} class="group no-underline grid grid-cols-[auto_1fr] sm:grid-cols-[auto_auto_1fr] gap-4 md:gap-6 items-start sm:items-center py-5 md:py-6 hover:bg-arboretumBlue/5 dark:hover:bg-arboretumBlue/10 transition-colors -mx-4 px-4">
+							<a href={event.permalink} target="_blank" rel="noopener noreferrer" class="group no-underline grid grid-cols-[auto_1fr] sm:grid-cols-[auto_auto_1fr] gap-4 md:gap-6 items-start sm:items-center py-5 md:py-6 hover:bg-arboretumBlue/5 dark:hover:bg-arboretumBlue/10 transition-colors -mx-4 px-4">
 								<div class="text-center min-w-[64px] md:min-w-[80px]">
 									<div class="text-xs md:text-sm font-bold tracking-wider text-arboretumBlue dark:text-maize">{month}</div>
 									<div class="text-3xl md:text-4xl font-bold text-umichblue dark:text-neutral-100 leading-none font-roboto-condensed">{day}</div>
@@ -419,8 +419,9 @@ Astro.response.headers.set('Cache-Control', 'public, max-age=86400, must-revalid
 										</div>
 									) : <div></div>}
 									<div class="min-w-0">
-										<h3 class="text-lg md:text-xl font-bold text-umichblue dark:text-neutral-100 leading-snug font-roboto-condensed group-hover:text-arboretumBlue dark:group-hover:text-maize transition-colors md:line-clamp-2">
-											{event.event_title}
+										<h3 class="text-lg md:text-xl font-bold text-umichblue dark:text-neutral-100 leading-snug font-roboto-condensed group-hover:text-arboretumBlue dark:group-hover:text-maize transition-colors">
+											<span class="md:line-clamp-2">{event.event_title}<Icon name="mdi:open-in-new" class="inline-block align-[-0.125em] w-3.5 h-3.5 md:w-4 md:h-4 ml-1.5" aria-hidden="true" /></span>
+											<span class="sr-only">(opens in a new tab)</span>
 										</h3>
 										{event.event_subtitle && (
 											<p class="text-sm md:text-base text-neutral-700 dark:text-neutral-300 mt-1 md:line-clamp-1">{event.event_subtitle}</p>
