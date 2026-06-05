@@ -196,6 +196,11 @@
     @apply rounded-sm overflow-hidden shadow-md transition-shadow duration-300;
   }
 
+  /* Tighter top margin for h2 headings inside cards (prose default is larger) */
+  .card-base h2 {
+    @apply mt-4;
+  }
+
   .card-padded {
     @apply shadow-md rounded-md p-6
   }

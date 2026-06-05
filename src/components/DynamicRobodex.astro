@@ -20,7 +20,7 @@ const sortedSections = Object.keys(groupedData).sort();
 <div class="columns-1 lg:columns-2 gap-6">
   {sortedSections.map(section => (
     <div class="resource-card surface rounded-lg p-6 mb-6 break-inside-avoid">
-      <h3 class="text-lg font-semibold mb-4">{section}</h3>
+      <h3 class="text-lg font-semibold mt-4 mb-4">{section}</h3>
       <ul class="space-y-3">
         {groupedData[section].map(resource => (
           <li>
