@@ -120,6 +120,15 @@ const socialIcons: Record<string, string> = {
 const eventsData = await eventsQuery();
 const recentEvents: Event[] = eventsData.slice(0, 4);
 
+// Promo banner: pick the banner whose [start, expires) window contains the build date.
+// If several are active, show the one ending soonest. Edit src/content/banners/*.json to manage these.
+const now = Date.now();
+const dayStart = (d: string) => new Date(`${d}T00:00:00`).getTime();
+const activeBanner = (await getCollection('banners'))
+	.map(b => b.data)
+	.filter(b => (!b.start || now >= dayStart(b.start)) && now < dayStart(b.expires))
+	.sort((a, b) => dayStart(a.expires) - dayStart(b.expires))[0];
+
 const videoWebmPath = '/robotics-promo-2025-2.webm';
 Astro.response.headers.set('Cache-Control', 'public, max-age=86400, must-revalidate');
 ---
@@ -208,15 +217,17 @@ Astro.response.headers.set('Cache-Control', 'public, max-age=86400, must-revalid
 		</div>
 	</section>
 
-	<!-- Time-limited call to action: auto-hides from the start of the expires date -->
-	<CTABanner
-		heading="Thinking about graduate school?"
-		body={`Join a U-M College of Engineering webinar on <span class="font-semibold underline decoration-maize decoration-2 underline-offset-2 whitespace-nowrap">June 9 at 1pm</span> to learn about graduate programs, admissions, deadlines, and funding, plus a live Q&A with Professor Ram Vasudevan and Graduate Coordinator Denise Edmund.`}
-		ctaLabel="Register"
-		ctaHref="https://umich.zoom.us/meeting/register/MkQWUgWsRcWyog5YMXdGuQ#/registration"
-		external={true}
-		expires="2026-06-10"
-	/>
+	<!-- Time-limited call to action, sourced from src/content/banners/*.json; auto-hides from the start of its expires date -->
+	{activeBanner && (
+		<CTABanner
+			heading={activeBanner.heading}
+			body={activeBanner.body}
+			ctaLabel={activeBanner.ctaLabel}
+			ctaHref={activeBanner.ctaHref}
+			external={activeBanner.external}
+			expires={activeBanner.expires}
+		/>
+	)}
 
 	<!-- Latest news: 1 featured + 3 stacked secondary cards -->
 	<section id="latest-news" class="max-w-7xl mx-auto px-6 md:px-16 py-16 md:py-20 scroll-mt-24">

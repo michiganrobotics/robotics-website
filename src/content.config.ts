@@ -109,10 +109,30 @@ const collegeNews = defineCollection({
   }),
 });
 
+const banners = defineCollection({
+  loader: glob({ pattern: "*.json", base: "./src/content/banners" }),
+  schema: z.object({
+    // Headline shown in bold
+    heading: z.string(),
+    // Supporting line; may contain inline HTML (e.g. a maize underline span)
+    body: z.string().optional(),
+    // Button label and destination
+    ctaLabel: z.string(),
+    ctaHref: z.string(),
+    // Open the link in a new tab
+    external: z.boolean().default(false),
+    // First day to show (YYYY-MM-DD, local). Omit to show immediately.
+    start: z.string().optional(),
+    // Day the banner STOPS showing (YYYY-MM-DD, local). Hidden from the start of this day.
+    expires: z.string(),
+  }),
+});
+
 export const collections = {
   focusAreas,
   news,
   courses,
   academics,
   collegeNews,
+  banners,
 };
