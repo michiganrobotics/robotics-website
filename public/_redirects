@@ -1,4 +1,12 @@
 # ======================
+# Bot / scanner traps
+# ======================
+# WordPress author-enumeration probes from a distributed scanner. No real
+# /author/ route exists; serve 410 Gone so well-behaved scanners drop it.
+/author/*  /410.html  410
+/author    /410.html  410
+
+# ======================
 # People Redirects
 # ======================
 

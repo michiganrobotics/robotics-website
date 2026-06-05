@@ -52,13 +52,3 @@ function = "auth-590-690"
 [[edge_functions]]
 path = "/auth/590-690/callback"
 function = "auth-590-690"
-
-# Phase 1 bot identification: log probes hitting WordPress author-enumeration
-# paths. There is no real /author/ route, so only bots/scanners hit these.
-[[edge_functions]]
-path = "/author/*"
-function = "bot-log"
-
-[[edge_functions]]
-path = "/author"
-function = "bot-log"
