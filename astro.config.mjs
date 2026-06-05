@@ -3,6 +3,7 @@ import mdx from '@astrojs/mdx';
 import embeds from 'astro-embed/integration';
 import sitemap from "@astrojs/sitemap";
 import icon from "astro-icon";
+import { unified } from '@astrojs/markdown-remark';
 
 import tailwindcss from '@tailwindcss/vite';
 
@@ -31,7 +32,8 @@ export default defineConfig({
   ],
 
   markdown: {
-    remarkPlugins: [
+    processor: unified({
+      remarkPlugins: [
       () => (tree, file) => {
         // Only apply this plugin to course files, not all markdown files
         const courseMatch = file.history[0].match(/courses\/([^/]+)/);
@@ -57,7 +59,8 @@ export default defineConfig({
         
         visitLinks(tree);
       }
-    ],
+      ],
+    }),
   },
 
   vite: {
