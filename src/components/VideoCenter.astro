@@ -6,9 +6,15 @@ interface Props {
   caption?: string;
   transcript?: string;
   class?: string;
+  vertical?: boolean;
 }
 
-const { url, caption, transcript, class: className } = Astro.props;
+const { url, caption, transcript, class: className, vertical } = Astro.props;
+
+// YouTube Shorts are portrait (9:16). Auto-detect from the URL so they don't
+// get letterboxed inside a 16:9 frame (which shows the poster as a big blurry
+// background behind the clip). Can be forced with the `vertical` prop.
+const isVertical = vertical ?? /youtube\.com\/shorts\//.test(url);
 
 // Extract video ID from various YouTube URL formats or use as-is if it's just an ID
 function getVideoId(input: string): string {
@@ -42,7 +48,7 @@ const posterUrl = await getPosterUrl(videoId);
 ---
 <div class="block w-full mb-8">
   <figure class={`${className}`}>
-    <div class="aspect-video flex items-center justify-center">
+    <div class={`flex items-center justify-center ${isVertical ? 'aspect-9/16 max-w-90 mx-auto' : 'aspect-video'}`}>
       <YouTube
         id={videoId}
         class="w-full h-full"
