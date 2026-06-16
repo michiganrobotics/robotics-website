@@ -185,7 +185,10 @@ async function filterVerticalVideos(apiKey, items) {
 
   const verticalIds = new Set();
   for (const video of detailsResponse.data.items || []) {
-    if (video.player?.embedHeight > video.player?.embedWidth) {
+    // embedHeight/embedWidth come back as strings, so coerce before comparing.
+    const height = Number(video.player?.embedHeight);
+    const width = Number(video.player?.embedWidth);
+    if (height && width && height > width) {
       verticalIds.add(video.id);
     }
   }
