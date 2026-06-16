@@ -14,6 +14,12 @@ tags:
   - "interdisciplinary"
 author: "Dan Newman"
 ---
+import { Image } from 'astro:assets';
+import kimPoster from './images/kim-opt-792x1024.jpg';
+import koernerPoster from './images/koerner-opt-792x1024.jpg';
+import patricelliPoster from './images/patricelli-opt-793x1024.jpg';
+import webbPoster from './images/interfaces-seminar-webb-opt-792x1024.jpg';
+import snooksPoster from './images/snooks-mesh-opt-792x1024.jpg';
 
 <figure>
 ![Roland Snooks presenting](images/DSC00978-1024x683.jpg)
@@ -25,45 +31,47 @@ Beginning in 2018, [Talia Moore](https://robotics.umich.edu/people/faculty/talia
 
 Talks have spanned research on [how ants navigate](http://blog.inf.ed.ac.uk/insectrobotics/research/) to 3D printing in [architecture](http://www.rolandsnooks.com) and [fashion](https://www.juliakoerner.com). Despite the various origins of such research, such as biology, architecture, or design, all presented topics have implications for robotics. For example, Barbara Webb's research of navigation in ants includes building computational models of the ant's neural processing. She then uses these models to test and replicate the navigational behavior in small, ant-like robots.
 
-
-
 Through creating the seminar series, Moore hopes to highlight and inspire the diversity of thought and combination of fields that robotics will encompass in the future. Moore, herself, studies biomechanics of animals to explain patterns in evolution. To test theories, Moore designs robots to mimic these animal movements, combining robotics and evolutionary biology.
 
-[![Robotics Interfaces Seminars](images/31364568067_37e9320c9e_z.jpg)](https://www.flickr.com/photos/umrobotics/albums/72157707014557175 "Robotics Interfaces Seminars")
-
- 
-
 <figure>
-- <figure>
-    ![Simon Kim seminar poster](images/kim-opt-792x1024.jpg)
-    
-    <figcaption>Simon Kim</figcaption>
-    </figure>
-    
-- <figure>
-    ![Julia Koerner poster](images/koerner-opt-792x1024.jpg)
-    
-    <figcaption>Julia Koerner</figcaption>
-    </figure>
-    
-- <figure>
-    ![Gail Patricelli seminar poster](images/patricelli-opt-793x1024.jpg)
-    
-    <figcaption>Gail Patricelli</figcaption>
-    </figure>
-    
-- <figure>
-    ![Barbara Webb seminar poster](images/interfaces-seminar-webb-opt-792x1024.jpg)
-    
-    <figcaption>Barbara Webb</figcaption>
-    </figure>
-    
-- <figure>
-    ![Roland Snooks seminar poster](images/snooks-mesh-opt-792x1024.jpg)
-    
-    <figcaption>Roland Snooks</figcaption>
-    </figure>
+
+[![Audience at a Robotics Interfaces seminar](images/31364568067_37e9320c9e_z.jpg)](https://www.flickr.com/photos/umrobotics/albums/72157707014557175 "Robotics Interfaces Seminars")
+
+<figcaption>View the full <a href="https://www.flickr.com/photos/umrobotics/albums/72157707014557175">Robotics Interfaces photo album on Flickr</a>.</figcaption>
 </figure>
+
+<div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6 my-8">
+  <figure>
+    <a href={kimPoster.src} target="_blank" rel="noopener noreferrer">
+      <Image src={kimPoster} alt="Simon Kim seminar poster" />
+    </a>
+    <figcaption>Simon Kim</figcaption>
+  </figure>
+  <figure>
+    <a href={koernerPoster.src} target="_blank" rel="noopener noreferrer">
+      <Image src={koernerPoster} alt="Julia Koerner seminar poster" />
+    </a>
+    <figcaption>Julia Koerner</figcaption>
+  </figure>
+  <figure>
+    <a href={patricelliPoster.src} target="_blank" rel="noopener noreferrer">
+      <Image src={patricelliPoster} alt="Gail Patricelli seminar poster" />
+    </a>
+    <figcaption>Gail Patricelli</figcaption>
+  </figure>
+  <figure>
+    <a href={webbPoster.src} target="_blank" rel="noopener noreferrer">
+      <Image src={webbPoster} alt="Barbara Webb seminar poster" />
+    </a>
+    <figcaption>Barbara Webb</figcaption>
+  </figure>
+  <figure>
+    <a href={snooksPoster.src} target="_blank" rel="noopener noreferrer">
+      <Image src={snooksPoster} alt="Roland Snooks seminar poster" />
+    </a>
+    <figcaption>Roland Snooks</figcaption>
+  </figure>
+</div>
 
 [Matais del Campo](https://robotics.umich.edu/people/), affiliate faculty in Robotics, helped coordinate seminars with the [Taubman College of Architecture and Urban Planning](https://taubmancollege.umich.edu). In one of the seminars that focused on architecture, Roland Snooks described how he uses robotic fabrication with composite materials and algorithmic design to create beautiful intricate structures that blend natural and digital design.
 

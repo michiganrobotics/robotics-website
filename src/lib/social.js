@@ -12,7 +12,7 @@ const CACHE_DURATION = 7 * 24 * 60 * 60 * 1000; // 7 days in milliseconds
 // X API free tier no longer permits timeline reads, so we manually feature one
 // tweet and hydrate its content via the public syndication endpoint. To swap
 // in a new tweet, paste its numeric ID from the URL (twitter.com/.../status/<ID>).
-const FEATURED_TWEET_ID = '2050243746973786624';
+const FEATURED_TWEET_ID = '2062502152233238750';
 
 // Helper function to read cache
 const readCache = (filePath) => {
@@ -177,6 +177,9 @@ async function filterVerticalVideos(apiKey, items) {
       key: apiKey,
       id: videoIds,
       part: 'player',
+      // embedHeight/embedWidth are only returned when a max dimension is set;
+      // without this the Shorts (vertical) filter never gets dimensions to compare.
+      maxWidth: 1280,
     }
   });
 
@@ -227,7 +230,7 @@ async function fetchYoutubePosts() {
         part: 'snippet',
         order: 'date',
         type: 'video',
-        maxResults: 3
+        maxResults: 6
       }
     });
 
