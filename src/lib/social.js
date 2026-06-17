@@ -165,35 +165,32 @@ async function fetchInstagramPosts() {
   }
 }
   
-// Filter out vertical videos (Shorts) by checking embed dimensions
-async function filterVerticalVideos(apiKey, items) {
+// Filter out YouTube Shorts. Requesting youtube.com/shorts/<id> returns 200 for
+// an actual Short, but redirects (303) to /watch for a regular video. This is
+// reliable where aspect ratio is not: a vertical video over the Shorts length
+// limit is still a normal upload we want to feature.
+async function filterShorts(items) {
   if (!items?.length) return [];
 
-  const videoIds = items.map(item => item.id.videoId).filter(Boolean).join(',');
-  if (!videoIds) return items;
+  const checks = await Promise.all(
+    items.map(async (item) => {
+      const videoId = item.id.videoId;
+      if (!videoId) return { item, isShort: false };
+      try {
+        const res = await axios.get(`https://www.youtube.com/shorts/${videoId}`, {
+          maxRedirects: 0,
+          validateStatus: () => true,
+          headers: { 'User-Agent': 'Mozilla/5.0' },
+        });
+        return { item, isShort: res.status === 200 };
+      } catch (error) {
+        // On any network error, keep the video rather than dropping it.
+        return { item, isShort: false };
+      }
+    })
+  );
 
-  const detailsResponse = await axios.get('https://www.googleapis.com/youtube/v3/videos', {
-    params: {
-      key: apiKey,
-      id: videoIds,
-      part: 'player',
-      // embedHeight/embedWidth are only returned when a max dimension is set;
-      // without this the Shorts (vertical) filter never gets dimensions to compare.
-      maxWidth: 1280,
-    }
-  });
-
-  const verticalIds = new Set();
-  for (const video of detailsResponse.data.items || []) {
-    // embedHeight/embedWidth come back as strings, so coerce before comparing.
-    const height = Number(video.player?.embedHeight);
-    const width = Number(video.player?.embedWidth);
-    if (height && width && height > width) {
-      verticalIds.add(video.id);
-    }
-  }
-
-  return items.filter(item => !verticalIds.has(item.id.videoId));
+  return checks.filter(c => !c.isShort).map(c => c.item);
 }
 
 async function fetchYoutubePosts() {
@@ -237,9 +234,9 @@ async function fetchYoutubePosts() {
       }
     });
 
-    const landscapeItems = await filterVerticalVideos(apiKey, response.data.items);
-    // Fall back to most recent video if all results are vertical
-    const selectedItems = landscapeItems.length > 0 ? landscapeItems : response.data.items;
+    const nonShortItems = await filterShorts(response.data.items);
+    // Fall back to the most recent video if every result is a Short
+    const selectedItems = nonShortItems.length > 0 ? nonShortItems : response.data.items;
 
     const posts = selectedItems.slice(0, 1).map(item => ({
       id: item.id.videoId,
