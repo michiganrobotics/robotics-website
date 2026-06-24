@@ -119,6 +119,15 @@
   .prose img {
     @apply !mb-2;
   }
+
+  /* Bold links: Tailwind Typography sets a { font-weight: 500 }, which lands
+     in a later layer than this rule, so **[link]()** renders lighter than bold
+     plain text. Use !important (matching the .prose img convention above) so
+     it wins across layers. */
+  .prose strong a,
+  .prose a strong {
+    font-weight: 600 !important;
+  }
   
   .prose-lg :where(img):not(:where([class~=not-prose],[class~=not-prose] *)), 
   .prose-lg :where(picture):not(:where([class~=not-prose],[class~=not-prose] *)) {

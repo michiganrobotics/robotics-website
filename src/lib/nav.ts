@@ -116,6 +116,12 @@ export const mainNav: MenuItem[] = [
                   childItems: {nodes:[]}
                 },
                 {
+                  label: "Internships",
+                  uri: "/academics/student-services/internships/",
+                  id: "academics-student-services-internships",
+                  childItems: {nodes:[]}
+                },
+                {
                   label: "Support Requests",
                   uri: "/academics/student-services/student-support-requests/",
                   id: "academics-student-services-student-support-requests",
@@ -312,6 +318,7 @@ export const subNavConfig: Record<string, SubNavItem[]> = {
     ],
     'academics/student-services': [
       { title: "Robodex", href: "/academics/student-services/robodex/" },
+      { title: "Internships", href: "/academics/student-services/internships/" },
       { title: "RGSC", href: "/academics/student-services/robotics-graduate-student-council/" },
       { title: "RUSC", href: "/academics/student-services/robotics-undergraduate-student-council/" },
       { title: "Student Support Requests", href: "/academics/student-services/student-support-requests/" },
@@ -330,6 +337,18 @@ export const subNavConfig: Record<string, SubNavItem[]> = {
       { title: "Waitlists", href: "/academics/student-services/registering-for-classes/#waitlist", anchor: true },
       { title: "Independent Study", href: "/academics/student-services/registering-for-classes/#enroll-in-an-independent-study-rob-590690990995", anchor: true },
       { title: "Visit or Audit Classes", href: "/academics/student-services/registering-for-classes/#visitaudit-a-course", anchor: true }
+    ],
+    'academics/student-services/internships': [
+    { title: "Student Services", href: "/academics/student-services/" },
+    { title: "PhD Internship Requirements", href: "/academics/student-services/phd-internship-requirements/" },
+    { title: "CPT/OPT Instructions", href: "/academics/student-services/cptopt-instructions/" },
+    { title: "Robodex", href: "/academics/student-services/robodex/" }
+    ],
+    'academics/student-services/phd-internship-requirements': [
+    { title: "Student Services", href: "/academics/student-services/" },
+    { title: "Internships", href: "/academics/student-services/internships/" },
+    { title: "CPT/OPT Instructions", href: "/academics/student-services/cptopt-instructions/" },
+    { title: "Robodex", href: "/academics/student-services/robodex/" }
     ],
     'academics/student-services/cptopt-instructions': [
     { title: "Student Services", href: "/academics/student-services/" },
