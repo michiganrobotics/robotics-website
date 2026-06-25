@@ -1,7 +1,8 @@
 import type { Context } from "https://edge.netlify.com";
 import { jwtVerify, createRemoteJWKSet } from "https://esm.sh/jose@5.9.6?target=deno";
 
-const DISCOVERY_URL = 'https://shibboleth.umich.edu/.well-known/openid-configuration';
+const DISCOVERY_URL = 'https://okta.umich.edu/oauth2/default/.well-known/openid-configuration';
+const ISSUER = 'https://okta.umich.edu/oauth2/default';
 const SCOPE = 'openid profile email';
 
 function getClientConfig(request: Request) {
@@ -104,7 +105,7 @@ export default async function(request: Request, context: Context) {
         console.log('Verifying new token...');
         const jwks = await getJWKS(discovery.jwks_uri);
         await jwtVerify(tokenData.id_token, jwks, {
-          issuer: "https://shibboleth.umich.edu",
+          issuer: ISSUER,
           audience: clientConfig.clientId
         });
         console.log('Token verified successfully');
@@ -142,7 +143,7 @@ export default async function(request: Request, context: Context) {
       console.log('Got JWKS');
 
       await jwtVerify(token, jwks, {
-        issuer: "https://shibboleth.umich.edu",
+        issuer: ISSUER,
         audience: clientConfig.clientId,
         clockTolerance: '5 minutes'
       });
