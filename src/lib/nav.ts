@@ -404,14 +404,15 @@ export const subNavConfig: Record<string, SubNavItem[]> = {
       { title: "1st Year Students", href: "/academics/graduate/degree-requirements/#1st-year-students-", anchor: true },
       { title: "Grade Requirements", href: "/academics/graduate/degree-requirements/#grade-requirements", anchor: true },
       { title: "Graduate Advising", href: "/academics/graduate/advising/" },
-      { title: "Admissions", href: "/academics/graduate/admissions/" }
+      { title: "Admissions", href: "/academics/graduate/admissions/" },
+      { title: "Grad Program Manual", href: "https://robotics.umich.edu/grad-guide", external: true }
     ],
     'academics/graduate/advising': [
       { title: "Degree Requirements", href: "/academics/graduate/degree-requirements/" },
       { title: "Admissions", href: "/academics/graduate/admissions/" },
       { title: "Petitions", href: "/academics/graduate/advising/#departmental-petitions", anchor: true },
       { title: "Get Involved", href: "/academics/graduate/advising/#join-our-community", anchor: true },
-      { title: "Program Guide", href: "https://robotics.umich.edu/grad-guide", external: true }
+      { title: "Grad Program Manual", href: "https://robotics.umich.edu/grad-guide", external: true }
     ],
     'academics/undergraduate': [
       { title: "Why Robotics?", href: "/academics/undergraduate/why-robotics/" },
@@ -428,16 +429,15 @@ export const subNavConfig: Record<string, SubNavItem[]> = {
     ],
     'academics/undergraduate/degree-requirements': [
       { title: "Advising", href: "/academics/undergraduate/advising/" },
-      { title: "Why Robotics?", href: "/academics/undergraduate/why-robotics/" },
-      { title: "Program Guide", href: "https://robotics.umich.edu/undergrad-guide", external: true }
+      { title: "Why Robotics?", href: "/academics/undergraduate/why-robotics/" }
     ],
     'academics/undergraduate/advising': [
       { title: "Degree Requirements", href: "/academics/undergraduate/degree-requirements/" },
+      { title: "Why Robotics?", href: "/academics/undergraduate/why-robotics/" },
       { title: "Tips & Advice", href: "/academics/undergraduate/advising/#general-advising-tips-for-robotics-majors", anchor: true },
       { title: "Sample Schedules", href: "/academics/undergraduate/advising/#robotics-sample-schedules", anchor: true },
       { title: "Petitions", href: "/academics/undergraduate/advising/#departmental-petitions", anchor: true },
-      { title: "Get Involved", href: "/academics/undergraduate/advising/#join-our-community", anchor: true },
-      { title: "Program Guide", href: "https://robotics.umich.edu/undergrad-guide", external: true }
+      { title: "Get Involved", href: "/academics/undergraduate/advising/#join-our-community", anchor: true }
     ],
     'academics/graduate/sugs': [
       { title: "Graduate Admissions", href: "/academics/graduate/admissions/" },
