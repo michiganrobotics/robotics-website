@@ -4,7 +4,7 @@ import { Image } from 'astro:assets';
 import Breadcrumbs from "../../../components/Breadcrumbs.astro";
 import PageTitle from "../../../components/PageTitle.astro";
 import featureImage from '../../../images/featured-images/partnerships.jpg';
-import { YouTube } from 'astro-embed';
+import { YouTube } from '@astro-community/astro-embed-youtube';
 import NewsCard from '../../../components/NewsCard.astro';
 import { getEntry } from 'astro:content';
 import ogFeatureImage from '../../../images/featured-images/og/partnerships.jpg';
@@ -65,7 +65,6 @@ const featuredPost = await getEntry('news', '2025/robotics-outreach-ambassadors-
               </h2>
               <p class="font-normal text-neutral-800 dark:text-neutral-200">
                 We're committed to expanding robotics opportunities in our community through educational outreach and collaborative initiatives.</p>
-              </p>
               <div class="m-4 sm:m-8">
               <NewsCard
               title={featuredPost.data.title}

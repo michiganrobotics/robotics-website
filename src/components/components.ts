@@ -7,8 +7,10 @@ import EventsList from '../components/EventsList.astro';
 import TextAndMedia from '../components/TextAndMedia.astro';
 import PhotoLeft from '../components/PhotoLeft.astro';
 import ColumnList from '../components/ColumnList.astro';
-import { YouTube } from 'astro-embed';
-import { LinkPreview } from 'astro-embed';
+import { YouTube } from '@astro-community/astro-embed-youtube';
+import { LinkPreview } from '@astro-community/astro-embed-link-preview';
+import { Tweet } from '@astro-community/astro-embed-twitter';
+import InstagramEmbed from '../components/InstagramEmbed.astro';
 import { Image } from 'astro:assets';
 import PhotoGallery from '../components/PhotoGallery.astro';
 import TwoColumn from '../components/TwoColumn.astro';
@@ -33,6 +35,8 @@ export const components = {
   PhotoLeft,
   YouTube,
   LinkPreview,
+  Tweet,
+  InstagramEmbed,
   ColumnList,
   PhotoGallery,
   Image,

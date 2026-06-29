@@ -1,6 +1,5 @@
 import { defineConfig } from 'astro/config';
 import mdx from '@astrojs/mdx';
-import embeds from 'astro-embed/integration';
 import sitemap from "@astrojs/sitemap";
 import icon from "astro-icon";
 import { unified } from '@astrojs/markdown-remark';
@@ -27,7 +26,6 @@ export default defineConfig({
   integrations: [
     icon(),
     sitemap({ filter: (page) => !page.includes('/api/') }),
-    embeds(), 
     mdx()
   ],
 

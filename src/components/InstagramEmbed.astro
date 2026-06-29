@@ -1,0 +1,31 @@
+---
+interface Props {
+  url: string;
+  caption?: string;
+  captioned?: boolean;
+  class?: string;
+}
+
+const { url, caption, captioned = true, class: className } = Astro.props;
+
+const cleanUrl = url.split('?')[0].replace(/\/$/, '');
+const permalink = `${cleanUrl}/`;
+---
+<figure class={`block w-full mb-8 mx-auto max-w-md ${className ?? ''}`}>
+  <blockquote
+    class="instagram-media"
+    data-instgrm-permalink={captioned ? `${permalink}?utm_source=ig_embed&utm_campaign=loading` : permalink}
+    data-instgrm-version="14"
+    data-instgrm-captioned={captioned ? '' : undefined}
+    style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin:1px; max-width:540px; min-width:326px; padding:0; width:99.375%;"
+  >
+    <a href={permalink} target="_blank" rel="noopener noreferrer" style="background:#FFFFFF; line-height:0; padding:0; text-align:center; text-decoration:none; width:100%;">
+      View on Instagram
+    </a>
+  </blockquote>
+  {caption && (
+    <figcaption class="mt-4 text-[0.875em] leading-[1.4285714] text-gray-600 dark:text-gray-200" set:html={caption} />
+  )}
+</figure>
+
+<script is:inline async src="https://www.instagram.com/embed.js"></script>
