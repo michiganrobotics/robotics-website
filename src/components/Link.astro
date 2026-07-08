@@ -13,14 +13,12 @@ const getLink = (path: string) => {
   return baseURL.endsWith('/') ? baseURL + path.slice(1) : baseURL + path;
 };
 
-interface Props {
+interface Props extends astroHTML.JSX.AnchorHTMLAttributes {
   href: string;
   class?: string;
-  target?: string;
-  rel?: string;
 }
 
-const { href, class: className, target, rel } = Astro.props;
+const { href, class: className, ...rest } = Astro.props;
 ---
 
-<a href={getLink(href)} class={className} target={target} rel={rel}><slot /></a>
+<a href={getLink(href)} class={className} {...rest}><slot /></a>
