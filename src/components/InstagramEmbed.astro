@@ -29,3 +29,18 @@ const permalink = `${cleanUrl}/`;
 </figure>
 
 <script is:inline async src="https://www.instagram.com/embed.js"></script>
+
+<script>
+  // Instagram's embed.js swaps the blockquote for an iframe with no title,
+  // which fails WCAG 4.1.2. Stamp a title on injected iframes as they appear.
+  const titleInstagramIframes = () => {
+    document
+      .querySelectorAll('iframe[src*="instagram.com"]:not([title])')
+      .forEach((frame) => frame.setAttribute('title', 'Instagram post'));
+  };
+  new MutationObserver(titleInstagramIframes).observe(document.body, {
+    childList: true,
+    subtree: true,
+  });
+  titleInstagramIframes();
+</script>
