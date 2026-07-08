@@ -261,9 +261,9 @@ export const mainNav: MenuItem[] = [
             childItems: { nodes: [] }
           },
           {
-            label: "Faculty Jobs",
-            uri: "/about/faculty-jobs/",
-            id: "about-faculty-jobs",
+            label: "Jobs",
+            uri: "/about/jobs/",
+            id: "about-jobs",
             childItems: { nodes: [] }
           },
           {
@@ -542,12 +542,12 @@ export const subNavConfig: Record<string, SubNavItem[]> = {
     'about$': [
       { title: "Values", href: "/about/values/" },
       { title: "Facilities", href: "/about/facilities/" },
-      { title: "Faculty Jobs", href: "/about/faculty-jobs/" },
+      { title: "Jobs", href: "/about/jobs/" },
       { title: "Contact", href: "/about/contact/"}
     ],
     'about/values': [
       { title: "Facilities", href: "/about/facilities/" },
-      { title: "Faculty Jobs", href: "/about/faculty-jobs/" },
+      { title: "Jobs", href: "/about/jobs/" },
       { title: "Contact", href: "/about/contact/"}
     ],
     'about/facilities': [
@@ -570,7 +570,7 @@ export const subNavConfig: Record<string, SubNavItem[]> = {
       { title: "Mcity", href: "https://mcity.umich.edu", external: true },
       { title: "Other U-M Facilities", href: "https://www.engin.umich.edu/research/labs-facilities/", external: true }
     ],
-    'about/faculty-jobs': [
+    'about/jobs': [
       { title: "Values", href: "/about/values/" },
       { title: "Facilities", href: "/about/facilities/" },
       { title: "Contact", href: "/about/contact/"}
@@ -578,7 +578,7 @@ export const subNavConfig: Record<string, SubNavItem[]> = {
     'about/contact': [
       { title: "Values", href: "/about/values/" },
       { title: "Facilities", href: "/about/facilities/" },
-      { title: "Faculty Jobs", href: "/about/faculty-jobs/"}
+      { title: "Jobs", href: "/about/jobs/"}
     ],
     'events$': [
       { title: "Pathways & Careers Series", href: "/events/robotics-pathways-speaker-series/" },

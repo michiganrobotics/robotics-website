@@ -171,3 +171,50 @@ export async function collegeNewsQuery() {
     return [];
   }
 }
+
+export async function careersFeedQuery() {
+  try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 5000);
+
+    const response = await fetch('https://careers.umich.edu/search/feed/advanced?career_interest=All&department=CoE%20Robotics&field_job_modes_of_work_target_id=All&job_id=&keyword=&position=All&regular_temporary=All&title=&work_location=All', {
+      signal: controller.signal,
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+      }
+    });
+
+    clearTimeout(timeoutId);
+
+    if (!response.ok) {
+      console.warn('Careers feed returned non-200 status:', response.status);
+      return [];
+    }
+
+    const xmlData = await response.text();
+    const parser = new XMLParser({
+      ignoreAttributes: false,
+      attributeNamePrefix: ""
+    });
+    const parsedData = parser.parse(xmlData);
+
+    let items = parsedData?.rss?.channel?.item;
+    if (!items) return [];
+    // fast-xml-parser returns a bare object when the feed has a single item
+    if (!Array.isArray(items)) items = [items];
+
+    return items.map(item => ({
+      // Strip the trailing posting ID, e.g. "Research Administrator (279803)"
+      title: String(item.title).replace(/\s*\(\d+\)\s*$/, ''),
+      link: item.link,
+      pubDate: item.pubDate,
+    })).filter(item => item.title && item.link);
+  } catch (error) {
+    if (error.name === 'AbortError') {
+      console.warn('Careers feed request timed out after 5 seconds');
+    } else {
+      console.error('Error in careersFeedQuery:', error);
+    }
+    return [];
+  }
+}

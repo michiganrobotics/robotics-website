@@ -1,0 +1,120 @@
+---
+import MainLayout from "../../layouts/MainLayout.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import { Icon } from "astro-icon/components";
+import PageTitle from "../../components/PageTitle.astro";
+import Callout from "../../components/Callout.astro";
+import { careersFeedQuery } from "../../lib/api.js";
+import ogImage from '/public/social/faculty-jobs.jpg';
+
+const careersSearchUrl = "https://careers.umich.edu/search/advanced?department=CoE%20Robotics";
+
+interface JobOpening {
+  title: string;
+  link: string;
+  pubDate: string;
+}
+
+const openings: JobOpening[] = await careersFeedQuery();
+
+function formatPostedDate(pubDate: string) {
+  const date = new Date(pubDate);
+  if (isNaN(date.getTime())) return null;
+  return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+}
+---
+
+<MainLayout title="Jobs | Michigan Robotics" description="Join Michigan Robotics as faculty or staff and work together to create smart machines and serve society." image={ogImage.src}>
+  <Breadcrumbs slot="breadcrumbs" />
+  <PageTitle title="Jobs" />
+
+    <div class="prose dark:prose-invert mt-8 mb-4 max-w-6xl w-11/12 mx-auto">
+      <p class="text-xl font-semibold text-arboretumBlue dark:text-maize mb-4">Work together. Create smart machines. Serve society.</p>
+
+      <p>We invite applicants to join our mission to accelerate advances in robotics for the benefit of society.</p>
+
+      <p>The University of Michigan is one of the world’s leading research universities, with $2.04B in research expenditures (FY2024). Consistently ranked among the top research universities by USNews and NSF, it has 19 schools and colleges, the University is rich with opportunities for collaboration and cross-disciplinary inquiry. We are located in Ann Arbor, MI, which is ranked the #1 U.S. City for Quality of Life by U.S. News and World Report (2024), #2 City with the Best Public Schools in America by Niche.com (2021), and #1 Best Places to Live for Families by Fortune (2022).</p>
+
+      <div class="not-prose grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+
+        <a href="https://robotics.umich.edu/about/values/" class="no-underline group card-base surface card-padded card-hover surface-border">
+          <h3 class="text-lg font-bold text-umichblue dark:text-neutral-50 mb-2 decoration-maize decoration-2 group-hover:underline underline-offset-4">Our Values</h3>
+          <p class="text-gray-600 dark:text-gray-300 text-sm">Learn more about Michigan Robotics' commitment to integrity, enthusiasm, respect, and our shared principles that guide our community.</p>
+          <div class="flex items-center text-arboretumBlue dark:text-maize mt-2 group-hover:translate-x-2 transition-transform">
+            <span>Read more</span>
+            <Icon name="mdi:arrow-right" class="ml-1 w-4 h-4" />
+          </div>
+        </a>
+        <a href="https://umich.edu/facts-figures/" class="no-underline group card-base surface card-padded card-hover surface-border">
+          <h3 class="text-lg font-bold text-umichblue dark:text-neutral-50 mb-2 decoration-maize decoration-2 group-hover:underline underline-offset-4">U-M Facts</h3>
+          <p class="text-gray-600 dark:text-gray-300 text-sm">Explore key statistics and data about the University of Michigan's research impact, student body, faculty achievements, and more.</p>
+          <div class="flex items-center text-arboretumBlue dark:text-maize mt-2 group-hover:translate-x-2 transition-transform">
+            <span>Learn more</span>
+            <Icon name="mdi:open-in-new" class="ml-1 w-4 h-4" />
+          </div>
+        </a>
+        <a href="https://michiganross.umich.edu/about/visit/ann-arbor" class="no-underline group card-base surface card-padded card-hover surface-border">
+          <h3 class="text-lg font-bold text-umichblue dark:text-neutral-50 mb-2 decoration-maize decoration-2 group-hover:underline underline-offset-4">Living in Ann Arbor</h3>
+          <p class="text-gray-600 dark:text-gray-300 text-sm">Discover what makes Ann Arbor one of the best college towns in America, from its vibrant downtown to its excellent schools and high quality of life.</p>
+          <div class="flex items-center text-arboretumBlue dark:text-maize mt-2 group-hover:translate-x-2 transition-transform">
+            <span>Learn more</span>
+            <Icon name="mdi:open-in-new" class="ml-1 w-4 h-4" />
+          </div>
+        </a>
+      </div>
+
+      <h2 class="text-3xl font-roboto-condensed font-bold mb-4 text-umichblue dark:text-neutral-50">Current openings</h2>
+
+      <p>Faculty and staff positions in the Robotics Department are posted on the University of Michigan careers site.</p>
+
+      {openings.length > 0 ? (
+        <ul class="not-prose list-none p-0 grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+          {openings.map(opening => (
+            <li>
+              <a href={opening.link} class="no-underline group card-base surface card-padded card-hover surface-border block h-full">
+                <h3 class="text-lg font-bold text-umichblue dark:text-neutral-50 mb-2 decoration-maize decoration-2 group-hover:underline underline-offset-4">{opening.title}</h3>
+                {formatPostedDate(opening.pubDate) && (
+                  <p class="text-gray-600 dark:text-gray-300 text-sm">Posted {formatPostedDate(opening.pubDate)}</p>
+                )}
+                <div class="flex items-center text-arboretumBlue dark:text-maize mt-2">
+                  <span>View posting and apply</span>
+                  <Icon name="mdi:open-in-new" class="ml-1 w-4 h-4" />
+                </div>
+              </a>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <Callout type="info">
+          <p>There are no openings posted at the moment. Please check the <a href={careersSearchUrl}>U-M careers site</a> for the latest listings.</p>
+        </Callout>
+      )}
+
+      <p>You can also view <a href={careersSearchUrl}>all Robotics Department openings on careers.umich.edu</a>.</p>
+
+      <h2 class="text-3xl font-roboto-condensed font-bold mb-4 text-umichblue dark:text-neutral-50">Tenure-track faculty</h2>
+
+      <div class="prose dark:prose-invert max-w-none">
+<p>The Robotics Department in the College of Engineering at the University of Michigan, Ann Arbor invites applications for two faculty that will join our mission to accelerate advances in robotics for the benefit of society. Successful candidates will have a relevant doctorate or equivalent experience and an outstanding record of achievement and impactful research in academia, industry, and/or at national laboratories. They will have a strong record of commitment to teaching at the undergraduate and graduate levels and to providing service to the university and to the profession.</p>
+
+<Callout type="info">
+<p>Applications for this round closed on December 1, 2025. Please check back for future calls to apply.</p>
+</Callout>
+
+
+
+
+<p>Employment will require a criminal background check and may require an institutional reference check regarding any misconduct. If an institutional reference check is necessary, candidates will be required to submit a self-disclosure form as well as an authorization to release information form.</p>
+
+
+<p>The University of Michigan is responsive to the needs of dual-career families. We are a non-discriminatory, affirmative-action employer.</p>
+
+        <h3 class="text-xl font-bold mt-6 mb-2">U-M EEO statement</h3>
+        <p>The University of Michigan is an Equal Opportunity Employer. We are committed to providing an environment of mutual respect where equal employment opportunities are available to all applicants, including protected veterans and individuals with disabilities.</p>
+
+        <h3 class="text-xl font-bold mt-6 mb-2">Questions</h3>
+        <p>For faculty hiring, please <a href="mailto:robotics-faculty-search@umich.edu">contact the faculty search committee</a>. For all other questions, please <a href="mailto:robotics-contact@umich.edu">contact us</a>.</p>
+
+      </div>
+    </div>
+</MainLayout>
