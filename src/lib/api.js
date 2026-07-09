@@ -172,10 +172,77 @@ export async function collegeNewsQuery() {
   }
 }
 
-// The advanced-search feed filtered to the Robotics Department (term ID 210308,
-// name "CoE Robotics"). Tried in order until one yields items: the department
-// exposed filter has matched by name and by taxonomy ID at different times, and
-// a mismatch produces a valid-but-empty channel rather than an error.
+// The browse page is the source of truth for current openings. The RSS
+// advanced-search feed only lists *recently posted* jobs — items age out of it
+// within about a day even while the posting stays open — so it can only serve
+// as a fallback if the browse page markup changes.
+const CAREERS_BROWSE_URL = 'https://careers.umich.edu/browse-jobs/departments/210308';
+
+function decodeHtmlEntities(text) {
+  return text
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#0?39;/g, "'")
+    .replace(/&nbsp;/g, ' ');
+}
+
+async function fetchCareersBrowsePage() {
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 5000);
+  try {
+    const response = await fetch(CAREERS_BROWSE_URL, {
+      signal: controller.signal,
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+      }
+    });
+
+    if (!response.ok) {
+      console.warn(`Careers browse page returned non-200 status ${response.status}`);
+      return null;
+    }
+
+    const html = await response.text();
+    // The listing is a Drupal view table; every posting row links to /job_detail/.
+    const rows = [...html.matchAll(/<tr[^>]*>([\s\S]*?)<\/tr>/g)]
+      .map(m => m[1])
+      .filter(row => row.includes('/job_detail/'));
+
+    if (rows.length === 0) {
+      // Distinguish "no openings" (view markup still present) from a layout
+      // change that broke our parsing, which should fall through to the feed.
+      if (html.includes('view-title-table-column') || html.includes('view-empty')) {
+        return [];
+      }
+      console.warn('Careers browse page had no recognizable job listing markup');
+      return null;
+    }
+
+    return rows.map(row => {
+      const link = row.match(/href="(\/job_detail\/[^"]+)"/)?.[1];
+      const title = row.match(/href="\/job_detail\/[^"]*"[^>]*>([^<]+)</)?.[1];
+      const posted = row.match(/datetime="([^"]+)"/)?.[1];
+      if (!link || !title) return null;
+      return {
+        title: decodeHtmlEntities(title.trim()),
+        link: `https://careers.umich.edu${link}`,
+        pubDate: posted || '',
+      };
+    }).filter(Boolean);
+  } catch (error) {
+    if (error.name === 'AbortError') {
+      console.warn('Careers browse page request timed out after 5 seconds');
+    } else {
+      console.error('Error fetching careers browse page:', error);
+    }
+    return null;
+  } finally {
+    clearTimeout(timeoutId);
+  }
+}
+
 const CAREERS_FEED_URLS = [
   'https://careers.umich.edu/search/feed/advanced?career_interest=All&department=CoE%20Robotics&field_job_modes_of_work_target_id=All&job_id=&keyword=&position=All&regular_temporary=All&title=&work_location=All',
   'https://careers.umich.edu/search/feed/advanced?career_interest=All&department=210308&field_job_modes_of_work_target_id=All&job_id=&keyword=&position=All&regular_temporary=All&title=&work_location=All',
@@ -246,13 +313,19 @@ async function fetchCareersFeedItems(url) {
 }
 
 export async function careersFeedQuery() {
+  const fromBrowse = await fetchCareersBrowsePage();
+  if (fromBrowse !== null) {
+    console.log(`Careers: ${fromBrowse.length} opening(s) from browse page`);
+    return fromBrowse;
+  }
+
   for (const url of CAREERS_FEED_URLS) {
     const items = await fetchCareersFeedItems(url);
     if (items && items.length > 0) {
-      console.log(`Careers feed: ${items.length} opening(s) from ${url}`);
+      console.log(`Careers feed fallback: ${items.length} opening(s) from ${url}`);
       return items;
     }
   }
-  console.warn('Careers feed: no openings found from any feed URL — jobs page will show the empty state');
+  console.warn('Careers: browse page unusable and no openings from any feed URL — jobs page will show the empty state');
   return [];
 }
