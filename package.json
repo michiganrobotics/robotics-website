@@ -25,6 +25,7 @@
     "@tailwindcss/vite": "^4.3.3",
     "astro": "^7.1.5",
     "astro-icon": "^1.1.5",
+    "astro-leaflet": "^1.12.0",
     "astro-seo": "^1.1.0",
     "axios": "^1.18.1",
     "dotenv": "^17.4.2",

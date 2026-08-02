@@ -1,4 +1,5 @@
 ---
+import { Leaflet, Marker, Popup, OpenPopup, } from 'astro-leaflet';
 import MainLayout from "../../layouts/MainLayout.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import SubNav from "../../components/SubNav.astro";
@@ -10,8 +11,6 @@ import PageTitle from "../../components/PageTitle.astro";
 <MainLayout title="Contact | Michigan Robotics" description="Find out how to get in touch with Michigan Robotics">
   <Breadcrumbs slot="breadcrumbs" />
   <PageTitle title="Contact us" />
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" slot="head"/>
-  <script is:inline src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 
 
     <div class="mt-8 mb-4 max-w-6xl w-11/12 mx-auto">
@@ -62,7 +61,15 @@ import PageTitle from "../../components/PageTitle.astro";
           <a href="/about/facilities/ford-robotics-building/#visitor-info" class="underline-hover-only text-arboretumBlue dark:text-maize flex items-center">
            <Icon name="mdi:arrow-right" class="w-4 h-4 mr-1" /> Tours, transit, parking, and more visitor information</a>
         </div>
-        <div id="map" class="rounded-lg shadow-md overflow-hidden h-[300px]" role="application" aria-label="Interactive map showing the location of the Ford Robotics Building at 2505 Hayward St, Ann Arbor"></div>
+        <Leaflet id="map" class="rounded-lg shadow-md overflow-hidden h-[300px]!" role="application" aria-label="Interactive map showing the location of the Ford Robotics Building at 2505 Hayward St, Ann Arbor"
+          options={{ center: [42.2926, -83.7144], zoom: 16, }}
+        >
+          <Marker latlng={[42.2943546,-83.7096]} options={{ alt: "Ford Motor Company Robotics Building", }}>
+            <Popup content="Ford Motor Company Robotics Building<br>2505 Hayward St">
+              <OpenPopup />
+            </Popup>
+          </Marker>
+        </Leaflet>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -78,8 +85,8 @@ import PageTitle from "../../components/PageTitle.astro";
           </a>
           <span class="mt-2 text-sm text-neutral-600 dark:text-neutral-300">
             Communications Manager
-            <button 
-              aria-label="Play Communications Manager game" 
+            <button
+              aria-label="Play Communications Manager game"
               class="inline-block focus:outline-none focus:ring-2 focus:ring-arboretumBlue dark:focus:ring-maize"
               id="commsManagerTitle">
               <Icon name="mdi:desktop-classic" class="w-4 h-4 inline-block ml-1 cursor-pointer hover:text-arboretumBlue dark:hover:text-maize transition-colors" />
@@ -129,17 +136,3 @@ import PageTitle from "../../components/PageTitle.astro";
     }
   }
 </style>
-
-<script>
-  window.onload = function() {
-    var map = L.map('map').setView([42.2926, -83.7144], 16);
-
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-    }).addTo(map);
-
-    L.marker([42.2943546,-83.7096], {alt: 'Ford Motor Company Robotics Building'}).addTo(map)
-      .bindPopup('Ford Motor Company Robotics Building<br>2505 Hayward St')
-      .openPopup();
-  }
-</script>

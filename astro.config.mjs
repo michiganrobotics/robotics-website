@@ -38,23 +38,23 @@ export default defineConfig({
         if (!courseMatch) {
           return; // Exit early if not a course file
         }
-        
+
         const courseId = courseMatch[1];
-        
+
         function visitLinks(tree) {
-          if (tree.type === 'link' && 
-              !tree.url.startsWith('/') && 
-              !tree.url.startsWith('http') && 
+          if (tree.type === 'link' &&
+              !tree.url.startsWith('/') &&
+              !tree.url.startsWith('http') &&
               !tree.url.startsWith('mailto:') &&
               !tree.url.startsWith('#')) { // Also exclude anchor links
             tree.url = `${import.meta.env.BASE_URL}/academics/courses/online-courses/${courseId}/${tree.url}`;
           }
-          
+
           if (tree.children) {
             tree.children.forEach(visitLinks);
           }
         }
-        
+
         visitLinks(tree);
       }
       ],
@@ -79,7 +79,11 @@ export default defineConfig({
       target: 'esnext',
     },
 
-    plugins: [tailwindcss()]
+    plugins: [tailwindcss()],
+
+    optimizeDeps: {
+      include: ['astro-leaflet > leaflet'],
+    },
   },
 
   image: {
