@@ -5,6 +5,7 @@ import path from 'path';
 const CACHE_DIR = '.netlify/cache/social-data';
 const TWITTER_CACHE_FILE = path.join(CACHE_DIR, 'twitter.json');
 const INSTAGRAM_CACHE_FILE = path.join(CACHE_DIR, 'instagram.json');
+const INSTAGRAM_TOKEN_FILE = path.join(CACHE_DIR, 'instagram-token.json');
 const YOUTUBE_CACHE_FILE = path.join(CACHE_DIR, 'youtube.json');
 
 const CACHE_DURATION = 7 * 24 * 60 * 60 * 1000; // 7 days in milliseconds
@@ -109,60 +110,117 @@ let youtubeCache = {
   timestamp: null
 };
 
+// Long-lived Instagram tokens expire after 60 days but can be refreshed any
+// time they are between 24 hours old and expiry. Each build refreshes the
+// current token (at most once a day) and persists the newest one in the build
+// cache, so the token stays alive as long as the site builds occasionally. The
+// INSTAGRAM_ACCESS_TOKEN env var only seeds this cycle, or re-seeds it after
+// the cached token has expired (e.g. no builds for 60+ days).
+const readStoredToken = () => {
+  try {
+    if (fs.existsSync(INSTAGRAM_TOKEN_FILE)) {
+      return JSON.parse(fs.readFileSync(INSTAGRAM_TOKEN_FILE, 'utf8'));
+    }
+  } catch (error) {
+    console.error('Error reading stored Instagram token:', error);
+  }
+  return null;
+};
+
+const TOKEN_REFRESH_INTERVAL = 24 * 60 * 60 * 1000; // 1 day
+
+async function refreshInstagramToken(accessToken, stored) {
+  // Tokens younger than 24 hours can't be refreshed; skip if the current
+  // token came from a refresh within that window.
+  if (stored?.token === accessToken && stored.refreshedAt && Date.now() - stored.refreshedAt < TOKEN_REFRESH_INTERVAL) {
+    return;
+  }
+  try {
+    const response = await axios.get('https://graph.instagram.com/refresh_access_token', {
+      params: {
+        grant_type: 'ig_refresh_token',
+        access_token: accessToken
+      }
+    });
+    const newToken = response.data?.access_token;
+    if (newToken) {
+      fs.mkdirSync(CACHE_DIR, { recursive: true });
+      fs.writeFileSync(INSTAGRAM_TOKEN_FILE, JSON.stringify({
+        token: newToken,
+        refreshedAt: Date.now()
+      }));
+      const days = Math.round((response.data.expires_in || 0) / 86400);
+      console.log(`Refreshed Instagram access token (expires in ${days} days)`);
+    }
+  } catch (error) {
+    console.error('Error refreshing Instagram token:', error.response?.data?.error || error.message);
+  }
+}
+
 async function fetchInstagramPosts() {
   const cache = readCache(INSTAGRAM_CACHE_FILE);
-  const now = Date.now();
-
-  try {
-    const accessToken = import.meta.env.INSTAGRAM_ACCESS_TOKEN;
-    if (!accessToken || accessToken.trim() === '') {
-      console.error('Instagram access token is not configured');
-      return [];
-    }
-
-    const baseUrl = 'https://graph.instagram.com/v18.0';
-    const userResponse = await axios.get(`${baseUrl}/me`, {
-      params: {
-        access_token: accessToken,
-        fields: 'id,username'
-      }
-    });
-
-    const userId = userResponse.data.id;
-  
-    const mediaResponse = await axios.get(`${baseUrl}/${userId}/media`, {
-      params: {
-        access_token: accessToken,
-        fields: 'id,caption,media_type,media_url,thumbnail_url,timestamp,permalink',
-        limit: 1
-      }
-    });
-  
-    const posts = mediaResponse.data.data.map(post => ({
-      id: post.id,
-      content: post.caption,
-      mediaUrl: post.media_type === 'VIDEO' ? post.thumbnail_url : post.media_url,
-      thumbnailUrl: post.thumbnail_url,
-      mediaType: post.media_type,
-      date: post.timestamp,
-      platform: 'Instagram',
-      link: post.permalink,
-      loading: 'lazy'
-    }));
-
-    const lastPostId = posts[0]?.id;
-    writeCache(INSTAGRAM_CACHE_FILE, posts, lastPostId);
-    return posts;
-  } catch (error) {
-    const errorMessage = error.response?.data?.error || error.message;
-    console.error('Error fetching Instagram posts:', errorMessage);
-    
-    if (error.response?.data?.error?.code === 190) {
-      console.error('Instagram token is invalid or has expired. Please update the INSTAGRAM_ACCESS_TOKEN environment variable with a valid token.');
-    }
-    
-    return cache?.data || [];
+  const stored = readStoredToken();
+  const envToken = import.meta.env.INSTAGRAM_ACCESS_TOKEN?.trim();
+  // Try the auto-refreshed token first: it is at least as new as the env var,
+  // except right after the env var has been manually updated.
+  const candidateTokens = [...new Set([stored?.token, envToken].filter(Boolean))];
+  if (candidateTokens.length === 0) {
+    console.error('Instagram access token is not configured');
+    return [];
   }
+
+  for (const accessToken of candidateTokens) {
+    try {
+      const baseUrl = 'https://graph.instagram.com/v18.0';
+      const userResponse = await axios.get(`${baseUrl}/me`, {
+        params: {
+          access_token: accessToken,
+          fields: 'id,username'
+        }
+      });
+
+      const userId = userResponse.data.id;
+
+      const mediaResponse = await axios.get(`${baseUrl}/${userId}/media`, {
+        params: {
+          access_token: accessToken,
+          fields: 'id,caption,media_type,media_url,thumbnail_url,timestamp,permalink',
+          limit: 1
+        }
+      });
+
+      const posts = mediaResponse.data.data.map(post => ({
+        id: post.id,
+        content: post.caption,
+        mediaUrl: post.media_type === 'VIDEO' ? post.thumbnail_url : post.media_url,
+        thumbnailUrl: post.thumbnail_url,
+        mediaType: post.media_type,
+        date: post.timestamp,
+        platform: 'Instagram',
+        link: post.permalink,
+        loading: 'lazy'
+      }));
+
+      const lastPostId = posts[0]?.id;
+      writeCache(INSTAGRAM_CACHE_FILE, posts, lastPostId);
+      await refreshInstagramToken(accessToken, stored);
+      return posts;
+    } catch (error) {
+      const errorMessage = error.response?.data?.error || error.message;
+      console.error('Error fetching Instagram posts:', errorMessage);
+
+      if (error.response?.data?.error?.code === 190) {
+        // Invalid/expired token: fall through to the next candidate. If none
+        // are left, a fresh token needs to be generated manually.
+        continue;
+      }
+
+      return cache?.data || [];
+    }
+  }
+
+  console.error('All Instagram tokens are invalid or expired. Please generate a new token and update the INSTAGRAM_ACCESS_TOKEN environment variable.');
+  return cache?.data || [];
 }
   
 // Filter out YouTube Shorts. Requesting youtube.com/shorts/<id> returns 200 for
