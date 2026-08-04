@@ -6,8 +6,16 @@ import respectImage from "../../images/values/values-respect.jpg";
 import outreachImage from "../../images/values/values-outreach.jpg";
 import integrityImage from "../../images/values/values-integrity.jpg";
 import PageTitle from "../../components/PageTitle.astro";
+import NewsCard from "../../components/NewsCard.astro";
+import { getCollection } from "astro:content";
 import featureImage from "../../images/featured-images/about-values.jpg";
 import ogImage from '/public/social/values-outreach.jpg';
+
+const allNews = await getCollection("news");
+const outreachNews = allNews
+  .filter((post) => post.data.tags?.some((t) => t.toLowerCase() === "outreach"))
+  .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime())
+  .slice(0, 3);
 ---
 
 <MainLayout title="Values | Michigan Robotics" description="Learn about the values and principles that guide Michigan Robotics" image={ogImage.src}>
@@ -69,13 +77,24 @@ import ogImage from '/public/social/values-outreach.jpg';
       <h3 class="text-2xl font-bold">On integrity</h3>
       <p class="mt-4">Especially in robotics, where fiction can intertwine with what has actually been achieved in a lab, it is important to report our actual success and failure as we create smart machines. Even outside of the lab, integrity is vital in our work, and while it might be tested by others’ demands or actions, we must adhere to what is right.</p>
       <h2 class="text-3xl font-roboto-condensed font-bold">Practicing our values</h2>
-      
+
       <p>Students who go above-and-beyond in representing these values through outreach service are awarded the Robotics Outreach Ambassador award, and students can practice these values through many outreach opportunities.</p>
 
-      <h3 class="text-2xl font-bold">Activities that exemplify our values include:</h3>
-      <p>Students who go above-and-beyond in representing these values through outreach service are <a href="https://robotics.umich.edu/news/2022/the-2022-robotics-outreach-ambassadors/" title="The 2022 Robotics Outreach Ambassadors">awarded the Robotics Outreach Ambassador award</a>, and students can practice these values through many outreach opportunities.</p>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 not-prose my-8">
+        {outreachNews.map((post) => (
+          <NewsCard
+            title={post.data.title}
+            date={post.data.date}
+            slug={post.id.split('/')[1]}
+            image={post.data.image ? {
+              src: post.data.image.src,
+              alt: post.data.image.alt
+            } : undefined}
+          />
+        ))}
+      </div>
 
-      <p>Activities in which we participate that exemplify these values include:</p>
+      <h3 class="text-2xl font-bold">Activities that exemplify our values include:</h3>
 
       <ul class="list-disc pl-5 space-y-2">
         <li>Open-source <a href="https://robotics.umich.edu/academics/courses/online-courses/" title="online courses">online courses</a> available to all for free</li>
@@ -110,6 +129,7 @@ import ogImage from '/public/social/values-outreach.jpg';
           <li><a href="https://studentorgs.engin.umich.edu/community-focused-student-organizations/" class="text-arboretumBlue dark:text-maize hover:underline">Community-focused student organizations</a></li>
           <li><a href="https://robotics.umich.edu/academics/student-services/robotics-graduate-student-council/" class="text-arboretumBlue dark:text-maize hover:underline">Robotics Graduate Student Council</a></li>
           <li><a href="https://robotics.umich.edu/academics/student-services/robotics-undergraduate-student-council/" class="text-arboretumBlue dark:text-maize hover:underline">Robotics Undergraduate Student Council</a></li>
+          <li><a href="https://robotics.umich.edu/academics/student-services/outreach-events/" class="text-arboretumBlue dark:text-maize hover:underline">Outreach events</a></li>
         </ul>
       </div>
     </div>
