@@ -1,0 +1,20 @@
+{
+  "title": "Studying snake envenomation with the help of robotics",
+  "date": "2026-08-10T00:00:00.000Z",
+  "description": "A robotic system that simulates snake bites with a 3D-printed titanium fang helps researchers answer long-standing evolutionary questions about which venom delivery methods are most effective.",
+  "link": "https://me.engin.umich.edu/news-events/news/bite-bot-a-robo-physical-model-for-studying-snake-envenomation/",
+  "image": {
+    "src": "../../images/college-news/fangs2.jpg",
+    "alt": "Three 3D-printed titanium snake fangs side by side, each with a different venom channel structure, mounted on cylindrical bases."
+  },
+  "categories": [
+    "design-soft-robotics"
+  ],
+  "tags": [
+    "Talia Moore",
+    "Abdon Pena-Francesch",
+    "bio-inspired robotics",
+    "snakes"
+  ],
+  "featured": true
+}
