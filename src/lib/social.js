@@ -13,7 +13,7 @@ const CACHE_DURATION = 7 * 24 * 60 * 60 * 1000; // 7 days in milliseconds
 // X API free tier no longer permits timeline reads, so we manually feature one
 // tweet and hydrate its content via the public syndication endpoint. To swap
 // in a new tweet, paste its numeric ID from the URL (twitter.com/.../status/<ID>).
-const FEATURED_TWEET_ID = '2062502152233238750';
+const FEATURED_TWEET_ID = '2086876176224563204';
 
 // Helper function to read cache
 const readCache = (filePath) => {
