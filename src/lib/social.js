@@ -60,8 +60,14 @@ async function fetchTwitterPosts() {
   const cache = readCache(TWITTER_CACHE_FILE);
   const now = Date.now();
 
-  // Return fresh cache without making any network call.
-  if (cache?.data?.length && cache.timestamp && (now - cache.timestamp < CACHE_DURATION)) {
+  // Return fresh cache without making any network call, unless the featured
+  // tweet has been changed since the cache was written.
+  if (
+    cache?.data?.length &&
+    cache.timestamp &&
+    now - cache.timestamp < CACHE_DURATION &&
+    cache.lastPostId === FEATURED_TWEET_ID
+  ) {
     return cache.data;
   }
 
