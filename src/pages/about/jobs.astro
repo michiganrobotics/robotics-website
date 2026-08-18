@@ -65,7 +65,7 @@ function formatPostedDate(pubDate: string) {
 
       <h2 class="text-3xl font-roboto-condensed font-bold mb-4 text-umichblue dark:text-neutral-50">Current openings</h2>
 
-      <p>Faculty and staff positions in the Robotics Department are posted on the University of Michigan careers site.</p>
+      <p>Faculty and staff positions in the Robotics Department are posted on the <a href={careersSearchUrl}>University of Michigan careers site</a>.</p>
 
       {openings.length > 0 ? (
         <ul class="not-prose list-none p-0 grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
@@ -86,11 +86,9 @@ function formatPostedDate(pubDate: string) {
         </ul>
       ) : (
         <Callout type="info">
-          <p>No openings are showing here right now. For the current list of Robotics Department openings, please visit the <a href={careersSearchUrl}>U-M careers site</a>.</p>
+          <p>There are currently no listed open staff positions for the Robotics Department at the <a href={careersSearchUrl}>U-M careers site</a>.</p>
         </Callout>
       )}
-
-      <p>You can also view <a href={careersSearchUrl}>all Robotics Department openings on careers.umich.edu</a>.</p>
 
       <h2 class="text-3xl font-roboto-condensed font-bold mb-4 text-umichblue dark:text-neutral-50">Tenure-track faculty</h2>
 
