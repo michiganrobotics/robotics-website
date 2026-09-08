@@ -68,9 +68,15 @@ import RobodexIcon from './RobodexIcon.astro';
 
     dismissBtn.addEventListener('click', dismiss);
 
+    const isIOS = /iP(hone|od|ad)/.test(navigator.platform) ||
+      (navigator.userAgent.includes('Macintosh') && navigator.maxTouchPoints > 1);
+    const isSafari = /^((?!chrome|android|crios|fxios).)*safari/i.test(navigator.userAgent);
+    const isMobile = isIOS || /Android|Mobile/i.test(navigator.userAgent);
+
     let deferredPrompt: any = null;
 
     window.addEventListener('beforeinstallprompt', (e) => {
+      if (!isMobile) return;
       e.preventDefault();
       deferredPrompt = e;
       textEl.textContent = 'Add Robodex to your home screen for one-tap access.';
@@ -88,10 +94,6 @@ import RobodexIcon from './RobodexIcon.astro';
     });
 
     window.addEventListener('appinstalled', dismiss);
-
-    const isIOS = /iP(hone|od|ad)/.test(navigator.platform) ||
-      (navigator.userAgent.includes('Macintosh') && navigator.maxTouchPoints > 1);
-    const isSafari = /^((?!chrome|android|crios|fxios).)*safari/i.test(navigator.userAgent);
 
     if (isIOS && isSafari) {
       textEl.textContent = 'Add Robodex to your home screen: tap Share below, then "Add to Home Screen."';
