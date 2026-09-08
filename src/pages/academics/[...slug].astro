@@ -5,13 +5,14 @@ import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import { components } from '../../components/components';
 import ContentImage from "../../components/ContentImage.astro";
 import PageTitle from "../../components/PageTitle.astro";
+import RobodexStandalone from "../../components/RobodexStandalone.astro";
 
 
 // Generate static paths for all academic pages
 export async function getStaticPaths() {
   const academicPages = await getCollection('academics');
   return academicPages.map(page => ({
-    params: { 
+    params: {
       slug: page.id
     },
     props: { page },
@@ -20,14 +21,36 @@ export async function getStaticPaths() {
 
 const { page } = Astro.props;
 const { Content } = await render(page);
+const isRobodex = page.id === 'student-services/robodex';
 ---
 
 <Layout title={`${page.data.title} | Michigan Robotics`} image={page.data.image?.src.src} imageAlt={page.data.image?.alt} description={page.data.description}>
-  <Breadcrumbs slot="breadcrumbs" />
+  {isRobodex && (
+    <Fragment slot="head">
+      <link rel="manifest" href="/robodex-manifest.json" />
+      <link rel="apple-touch-icon" href="/robodex-apple-touch-icon.png" />
+      <meta name="mobile-web-app-capable" content="yes" />
+      <meta name="apple-mobile-web-app-capable" content="yes" />
+      <meta name="apple-mobile-web-app-title" content="Robodex" />
+      <meta name="theme-color" content="#00274C" />
+      <script is:inline>
+        if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true) {
+          document.documentElement.classList.add('robodex-standalone');
+        }
+      </script>
+    </Fragment>
+  )}
+  {isRobodex ? (
+    <div id="robodex-breadcrumbs-wrap" slot="breadcrumbs">
+      <Breadcrumbs />
+    </div>
+  ) : (
+    <Breadcrumbs slot="breadcrumbs" />
+  )}
     <PageTitle title={page.data.title} image={page.data.image?.src} imageAlt={page.data.image?.alt} />
   <article class="prose dark:prose-invert max-w-6xl w-11/12 mx-auto mt-4 mb-4 prose-headings:font-roboto prose-h2:text-3xl prose-h3:text-2xl prose-h4:text-xl prose-h5:text-lg prose-h6:text-base prose-headings:font-bold">
     {page.data.subtitle &&
-      <div class="mb-8 mt-8 relative">
+      <div id={isRobodex ? "robodex-subtitle-wrap" : undefined} class="mb-8 mt-8 relative">
         <p class="pt-8 lg:pt-4 text-xl md:text-2xl font-roboto text-gray-800 dark:text-gray-200 leading-relaxed not-prose tracking-wide">
           {page.data.subtitle}
         </p>
@@ -36,6 +59,7 @@ const { Content } = await render(page);
     }
     <Content components={components} />
   </article>
+  {isRobodex && <RobodexStandalone />}
 
 </Layout>
 

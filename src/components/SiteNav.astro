@@ -1,6 +1,7 @@
 ---
 import { Icon } from "astro-icon/components";
 import { mainNav, addBaseToMenuItems } from '../lib/nav';
+import RobodexIcon from './RobodexIcon.astro';
 // Define the MenuItem interface locally since it's not exported from nav.ts
 interface MenuItem {
   label: string;
@@ -113,6 +114,7 @@ const isActive = (itemPath: string) => {
                                                                aria-label={grandChildItem.label}
                                                                aria-current={isGrandChildItemActive ? 'page' : undefined}
                                                                role="menuitem">
+                                                                {grandChildItem.label === 'Robodex' && <RobodexIcon class="w-4 h-4 mr-1.5 flex-shrink-0" />}
                                                                 {grandChildItem.label}
                                                             </a>
                                                         </li>
@@ -188,6 +190,7 @@ const isActive = (itemPath: string) => {
                                                        aria-label={grandChildItem.label}
                                                        aria-current={isGrandChildItemActive ? 'page' : undefined}
                                                        role="menuitem">
+                                                        {grandChildItem.label === 'Robodex' && <RobodexIcon class="w-4 h-4 mr-1.5 flex-shrink-0" />}
                                                         {grandChildItem.label}
                                                     </a>
                                                 </li>

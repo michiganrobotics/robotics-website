@@ -11,10 +11,13 @@ order: 2
 import ResourceFilter from '../../../components/ResourceFilter.astro';
 import AcademicSearch from '../../../components/AcademicSearch.astro';
 import DynamicRobodex from '../../../components/DynamicRobodex.astro';
+import RobodexInstallBanner from '../../../components/RobodexInstallBanner.astro';
 
 <div class="grid lg:grid-cols-3 gap-8 items-start">
   <div class="lg:col-span-3">
-    <p class="mt-0 text-lg max-w-4xl leading-relaxed">The Department offers students many resources: we’ve assembled the **Student Robodex** to quickly get you to the things you need.</p>
+    <p id="robodex-intro-lead" class="mt-0 text-lg max-w-4xl leading-relaxed">The Department offers students many resources: we’ve assembled the **Student Robodex** to quickly get you to the things you need.</p>
+    <RobodexInstallBanner />
+    <div id="robodex-intro-extra">
     <p class="max-w-3xl leading-relaxed mb-2">For academic questions, remember to check out the program information:</p>
     <ul class="max-w-3xl leading-relaxed list-disc pl-6">
       <li><a href="/academics/undergraduate/degree-requirements/">Undergraduate degree requirements</a></li>
@@ -22,9 +25,10 @@ import DynamicRobodex from '../../../components/DynamicRobodex.astro';
     </ul>
     <p class="max-w-3xl leading-relaxed">Filter by program, topic, or just search to find what may help you out!</p>
     </div>
+    </div>
 </div>
-<div class="grid lg:grid-cols-4 gap-6 mb-6">
-  <div class="filter-section surface-secondary backdrop-blur-sm rounded-lg p-6 border border-gray-200 dark:border-gray-700 lg:sticky lg:top-6 lg:self-start relative overflow-hidden" role="region" aria-label="Filter options">
+<div id="robodex-filter-grid" class="grid lg:grid-cols-4 gap-6 mb-6">
+  <div id="robodex-filter-sidebar" class="filter-section surface-secondary backdrop-blur-sm rounded-lg p-6 border border-gray-200 dark:border-gray-700 lg:sticky lg:top-6 lg:self-start relative overflow-hidden" role="region" aria-label="Filter options">
     <h2 class="text-lg font-semibold mb-4 mt-0 relative z-10">What program are you in?</h2>
     <div class="space-y-3">
       <label class="flex items-center cursor-pointer">
@@ -54,13 +58,13 @@ import DynamicRobodex from '../../../components/DynamicRobodex.astro';
   </div>
 
   <div class="lg:col-span-3">
-    <div class="filter-section surface-secondary backdrop-blur-sm rounded-lg p-6 mb-6 border border-gray-200 dark:border-gray-700" role="search">
+    <div id="robodex-search-section" class="filter-section surface-secondary backdrop-blur-sm rounded-lg p-6 mb-6 border border-gray-200 dark:border-gray-700" role="search">
       <label for="search-input" class="text-lg font-semibold mb-3 mt-0 block">Search for specific resources:</label>
       <input 
         type="text" 
         id="search-input" 
-        placeholder="Search for courses, forms, guides, help..." 
-        class="search-bar px-4 py-3 rounded-lg focus:ring-2 focus:ring-maize focus:border-maize transition-colors text-neutral-900 dark:text-neutral-100"
+        placeholder="Search for courses, forms, guides..." 
+        class="search-bar px-4 py-3 rounded-lg focus:ring-2 focus:ring-maize focus:border-maize transition-colors text-sm sm:text-base text-neutral-900 dark:text-neutral-100"
         aria-describedby="search-help"
       />
       <div id="search-help" class="sr-only">Type keywords to search through all available resources</div>

@@ -1,0 +1,101 @@
+---
+// RobodexInstallBanner.astro - Prompts regular browser visitors to add Robodex
+// to their home screen. Hidden by default; JS reveals it only when there's an
+// actual install path (Android/Chrome's beforeinstallprompt, or iOS Safari,
+// which has no install API and gets static Share-sheet instructions instead).
+// Never shown once already running standalone (see RobodexStandalone.astro).
+import RobodexIcon from './RobodexIcon.astro';
+---
+
+<div
+  id="robodex-install-banner"
+  class="hidden surface rounded-lg border-l-4 border-maize border-y border-r border-gray-200 dark:border-gray-700 p-4 mb-6 shadow-sm"
+  role="region"
+  aria-label="Install Robodex"
+>
+  <div class="flex items-start gap-3">
+    <RobodexIcon class="w-6 h-6 mt-0.5 shrink-0 text-umichblue dark:text-maize" />
+    <div class="flex-1 min-w-0">
+      <p id="robodex-install-text" class="not-prose mt-0 text-sm leading-relaxed mb-2">
+        Add Robodex to your home screen for one-tap access.
+      </p>
+      <button
+        id="robodex-install-btn"
+        type="button"
+        class="hidden items-center gap-2 bg-umichblue text-neutral-50 dark:bg-maize dark:text-black px-4 py-2 rounded-md shadow-sm hover:shadow-md transition-shadow text-sm font-semibold focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-umichblue dark:focus-visible:outline-maize"
+      >
+        Install
+      </button>
+    </div>
+    <button
+      id="robodex-install-dismiss"
+      type="button"
+      aria-label="Dismiss"
+      class="shrink-0 text-gray-500 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-100 text-xl leading-none p-1"
+    >
+      &times;
+    </button>
+  </div>
+</div>
+
+<script>
+  (function () {
+    const DISMISS_KEY = 'robodex-install-dismissed';
+
+    function isStandalone() {
+      return (
+        window.matchMedia('(display-mode: standalone)').matches ||
+        (window.navigator as Navigator & { standalone?: boolean }).standalone === true
+      );
+    }
+
+    if (isStandalone() || localStorage.getItem(DISMISS_KEY)) return;
+
+    const banner = document.getElementById('robodex-install-banner');
+    const textEl = document.getElementById('robodex-install-text');
+    const installBtn = document.getElementById('robodex-install-btn') as HTMLButtonElement | null;
+    const dismissBtn = document.getElementById('robodex-install-dismiss');
+    if (!banner || !textEl || !installBtn || !dismissBtn) return;
+
+    function show() {
+      banner?.classList.remove('hidden');
+    }
+
+    function dismiss() {
+      banner?.classList.add('hidden');
+      localStorage.setItem(DISMISS_KEY, '1');
+    }
+
+    dismissBtn.addEventListener('click', dismiss);
+
+    let deferredPrompt: any = null;
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      textEl.textContent = 'Add Robodex to your home screen for one-tap access.';
+      installBtn.classList.remove('hidden');
+      installBtn.classList.add('inline-flex');
+      show();
+    });
+
+    installBtn.addEventListener('click', async () => {
+      if (!deferredPrompt) return;
+      deferredPrompt.prompt();
+      await deferredPrompt.userChoice;
+      deferredPrompt = null;
+      dismiss();
+    });
+
+    window.addEventListener('appinstalled', dismiss);
+
+    const isIOS = /iP(hone|od|ad)/.test(navigator.platform) ||
+      (navigator.userAgent.includes('Macintosh') && navigator.maxTouchPoints > 1);
+    const isSafari = /^((?!chrome|android|crios|fxios).)*safari/i.test(navigator.userAgent);
+
+    if (isIOS && isSafari) {
+      textEl.textContent = 'Add Robodex to your home screen: tap Share below, then "Add to Home Screen."';
+      show();
+    }
+  })();
+</script>

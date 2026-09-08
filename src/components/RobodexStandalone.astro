@@ -1,0 +1,114 @@
+---
+// RobodexStandalone.astro - When the Robodex page is launched from an iOS/Android
+// home-screen icon (display-mode: standalone), this hides the site chrome and
+// routes every link out to the real browser instead of navigating in place.
+// The 'robodex-standalone' class on <html> is set earlier by a blocking inline
+// script in the page <head> so the chrome never flashes before it's hidden.
+---
+
+<style is:global>
+  html.robodex-standalone header,
+  html.robodex-standalone footer,
+  html.robodex-standalone #robodex-breadcrumbs-wrap,
+  html.robodex-standalone #robodex-intro-extra {
+    display: none !important;
+  }
+
+  html.robodex-standalone #robodex-filter-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Tighten the hero-to-subtitle gap and the lead paragraph size for the
+     compact standalone window - there's no browser chrome above to justify
+     the desktop-oriented spacing. */
+  html.robodex-standalone #robodex-subtitle-wrap {
+    margin-top: 0;
+    margin-bottom: 1rem;
+  }
+  html.robodex-standalone #robodex-subtitle-wrap > p {
+    padding-top: 0.5rem;
+  }
+  html.robodex-standalone #robodex-intro-lead {
+    font-size: 1rem;
+  }
+
+  html.robodex-standalone #robodex-install-banner {
+    display: none !important;
+  }
+
+  #robodex-filter-results > summary {
+    list-style: none;
+  }
+  #robodex-filter-results > summary::-webkit-details-marker {
+    display: none;
+  }
+  #robodex-filter-results > summary::after {
+    content: '▼';
+    float: right;
+    font-size: 0.75em;
+    transition: transform 0.2s ease;
+  }
+  #robodex-filter-results[open] > summary::after {
+    transform: rotate(180deg);
+  }
+</style>
+
+<script>
+  function isStandalone() {
+    return document.documentElement.classList.contains('robodex-standalone');
+  }
+
+  function interceptLinks() {
+    document.body.addEventListener('click', (e) => {
+      const mouseEvent = e as MouseEvent;
+      if (mouseEvent.defaultPrevented || mouseEvent.button !== 0 || mouseEvent.metaKey || mouseEvent.ctrlKey || mouseEvent.shiftKey || mouseEvent.altKey) {
+        return;
+      }
+      const link = (e.target as HTMLElement).closest('a[href]') as HTMLAnchorElement | null;
+      if (!link) return;
+      const href = link.getAttribute('href') || '';
+      if (!href || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:')) {
+        return;
+      }
+      e.preventDefault();
+      window.open(link.href, '_blank', 'noopener');
+    });
+  }
+
+  function collapseFilters() {
+    const sidebar = document.getElementById('robodex-filter-sidebar');
+    const searchSection = document.getElementById('robodex-search-section');
+    if (!sidebar || !searchSection) return;
+
+    const details = document.createElement('details');
+    details.id = 'robodex-filter-results';
+    details.className = 'filter-section surface-secondary backdrop-blur-sm rounded-lg mb-6 border border-gray-200 dark:border-gray-700';
+
+    const summary = document.createElement('summary');
+    summary.className = 'text-lg font-semibold p-6 cursor-pointer select-none';
+    summary.textContent = 'Filter results';
+    details.appendChild(summary);
+
+    const body = document.createElement('div');
+    body.className = 'px-6 pb-6';
+    while (sidebar.firstChild) {
+      body.appendChild(sidebar.firstChild);
+    }
+    details.appendChild(body);
+
+    searchSection.insertAdjacentElement('afterend', details);
+    sidebar.remove();
+  }
+
+  function init() {
+    if (!isStandalone()) return;
+    collapseFilters();
+    interceptLinks();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+</script>
