@@ -229,7 +229,7 @@ export const mainNav: MenuItem[] = [
           childItems: { nodes: [] }
         },
         {
-          label: "Robotics Seminar Series",
+          label: "Robotics Department Seminar Series",
           uri: "/events/robotics-seminar-series/",
           id: "events-robotics-seminar-series",
           childItems: { nodes: [] }
@@ -582,11 +582,11 @@ export const subNavConfig: Record<string, SubNavItem[]> = {
     ],
     'events$': [
       { title: "Pathways & Careers Series", href: "/events/robotics-pathways-speaker-series/" },
-      { title: "Robotics Seminar Series", href: "/events/robotics-seminar-series/" },
+      { title: "Robotics Department Seminar Series", href: "/events/robotics-seminar-series/" },
       { title: "Events on Happening @ Michigan", href: "https://events.umich.edu/group/3998", external: true }
     ],
     'events/robotics-pathways-speaker-series': [
-      { title: "Robotics Seminar Series", href: "/events/robotics-seminar-series/" },
+      { title: "Robotics Department Seminar Series", href: "/events/robotics-seminar-series/" },
       { title: "Events on Happening @ Michigan", href: "https://events.umich.edu/group/3998", external: true }
     ],
     'events/robotics-seminar-series': [
