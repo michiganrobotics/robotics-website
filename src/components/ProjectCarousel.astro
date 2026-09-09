@@ -1,0 +1,142 @@
+---
+// ProjectCarousel.astro - Horizontal scrolling carousel for project cards with images
+interface Project {
+  title: string;
+  sponsor: string;
+  description: string;
+  image: string;
+  imageAlt: string;
+}
+
+interface Props {
+  projects: Project[];
+  id?: string;
+}
+
+const { projects, id = 'project-carousel' } = Astro.props;
+---
+
+<div class="project-carousel-wrapper relative my-8" data-carousel-id={id}>
+  <div class="relative" role="region" aria-label="Project showcase">
+    <!-- Left scroll arrow -->
+    <button
+      class="carousel-arrow carousel-arrow-left absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-full p-3 shadow-md hover:shadow-lg transition-all duration-200 hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer -ml-4"
+      aria-label="Scroll to previous projects"
+      type="button"
+    >
+      <svg class="w-5 h-5 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+      </svg>
+    </button>
+
+    <!-- Right scroll arrow -->
+    <button
+      class="carousel-arrow carousel-arrow-right absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-full p-3 shadow-md hover:shadow-lg transition-all duration-200 hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer -mr-4"
+      aria-label="Scroll to next projects"
+      type="button"
+    >
+      <svg class="w-5 h-5 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+      </svg>
+    </button>
+
+    <div
+      class="project-scroll-container overflow-x-auto scrollbar-hide"
+      aria-label="Projects - scroll horizontally or use navigation buttons"
+    >
+      <div class="flex gap-6 pb-4" style="width: max-content;">
+        {projects.map((project) => (
+          <div class="project-card surface rounded-lg overflow-hidden flex-shrink-0 w-80 shadow-sm hover:shadow-md transition-shadow duration-200">
+            <div class="aspect-video overflow-hidden">
+              <img
+                src={project.image}
+                alt={project.imageAlt}
+                class="w-full h-full object-cover"
+              />
+            </div>
+            <div class="p-4">
+              <h3 class="text-lg font-semibold mb-1">{project.title}</h3>
+              <p class="text-sm text-gray-700 dark:text-gray-300 mb-2"><strong>Sponsor:</strong> {project.sponsor}</p>
+              <p class="text-sm line-clamp-3">{project.description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.project-scroll-container {
+  scroll-behavior: smooth;
+}
+
+.carousel-arrow {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.project-carousel-wrapper:hover .carousel-arrow {
+  opacity: 0.9;
+}
+
+.carousel-arrow:hover {
+  opacity: 1;
+}
+
+.carousel-arrow:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('.project-carousel-wrapper').forEach(wrapper => {
+    const container = wrapper.querySelector('.project-scroll-container');
+    const leftArrow = wrapper.querySelector('.carousel-arrow-left');
+    const rightArrow = wrapper.querySelector('.carousel-arrow-right');
+
+    if (!container || !leftArrow || !rightArrow) return;
+
+    const cardWidth = 320; // w-80 = 20rem = 320px
+    const gap = 24; // gap-6 = 1.5rem = 24px
+    const scrollAmount = cardWidth + gap;
+
+    function updateArrows() {
+      const atStart = container.scrollLeft <= 0;
+      const atEnd = container.scrollLeft >= container.scrollWidth - container.clientWidth - 10;
+
+      leftArrow.disabled = atStart;
+      rightArrow.disabled = atEnd;
+    }
+
+    leftArrow.addEventListener('click', () => {
+      container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+    });
+
+    rightArrow.addEventListener('click', () => {
+      container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    });
+
+    container.addEventListener('scroll', updateArrows);
+    updateArrows();
+  });
+});
+</script>

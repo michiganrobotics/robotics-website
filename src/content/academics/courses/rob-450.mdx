@@ -1,0 +1,221 @@
+---
+title: "ROB 450: Robotics Capstone"
+subtitle: "Industry-sponsored senior design projects"
+description: "Partner with Michigan Robotics students to solve real-world challenges in our senior capstone course."
+date: "2025-01-13"
+image:
+  src: "../images/mbot-assembly.jpg"
+  alt: "Students presenting their robotics capstone project"
+---
+import Button from '../../../components/Button.astro';
+import MaizeButton from '../../../components/MaizeButton.astro';
+import Callout from '../../../components/Callout.astro';
+import Accordion from '../../../components/Accordion.astro';
+import TwoColumn from '../../../components/TwoColumn.astro';
+import ProjectCarousel from '../../../components/ProjectCarousel.astro';
+import YouTubeGallery from '../../../components/YouTubeGallery.astro';
+
+export const exampleProjects = [
+  {
+    title: "Bio-inspired soft actuators for underwater robots",
+    sponsor: "Hybrid Dynamic Robotics Lab",
+    description: "Designing a soft propulsion actuator with real-time tunable stiffness, letting a robotic fish shift between fast, efficient, and precise swimming to improve underwater maneuverability.",
+    image: "/src/content/academics/images/rob450-soft-fish-actuator.png",
+    imageAlt: "Soft bistable actuator prototype for a robotic fish"
+  },
+  {
+    title: "Computational design tools for insect-scale robots",
+    sponsor: "Zoetic Robotics Laboratory",
+    description: "Building a simulator that generates compliant mechanisms for insect-scale robots, enabling new crawling, jumping, and swimming gaits, then validating designs with prototype micromechanisms.",
+    image: "/src/content/academics/images/rob450-insect-scale-mechanism.png",
+    imageAlt: "Prototype compliant leg mechanism for an insect-scale robot"
+  },
+  {
+    title: "Refreshable tactile maps for blind and low-vision users",
+    sponsor: "HaptiX Lab",
+    description: "Combining soft, fluid-filled bladders with rigid linkages to create a refreshable tactile display with millimeter resolution, helping blind users navigate new environments by touch.",
+    image: "/src/content/academics/images/rob450-refreshable-tactile-display.png",
+    imageAlt: "Refreshable tactile display prototype with raised pins"
+  },
+  {
+    title: "High-definition mapping upgrade for the mBot",
+    sponsor: "General Motors",
+    description: "Upgrading an educational mBot with LiDAR, high-resolution cameras, and a more powerful processor, then developing real-time SLAM software to create detailed environmental maps.",
+    image: "/src/content/academics/images/rob450-mbot-mapping-upgrade.png",
+    imageAlt: "Upgraded mBot with LiDAR and camera sensors"
+  },
+  {
+    title: "Training crate for a reticulated python",
+    sponsor: "Detroit Zoological Society",
+    description: "Designing a heated, sensor-equipped crate that lets zoo staff weigh a 15-foot reticulated python and train voluntary crate entry, improving the animal's well-being and staff safety.",
+    image: "/src/content/academics/images/rob450-python-training-crate.png",
+    imageAlt: "CAD rendering of a training crate for a reticulated python"
+  }
+];
+
+ROB 450 is the culminating senior design experience for Robotics undergraduates at the University of Michigan. In this capstone course, student teams work on real-world robotics challenges sponsored by industry partners, startups, and research organizations.
+
+<TwoColumn>
+<div slot="left">
+
+Over the course of the semester, student teams:
+
+- Define project requirements and specifications with their sponsor
+- Design, prototype, and iterate on robotic systems
+- Apply skills from sensing, reasoning, acting, and human-robot interaction
+- Present their work at the end-of-semester Project Showcase
+
+Students gain hands-on experience solving open-ended engineering problems while sponsors get fresh perspectives on their challenges from the next generation of roboticists.
+
+</div>
+<div slot="right">
+
+**Course details**
+
+- **Credits:** 4
+- **Prerequisites:** TCHNCLCM 350, senior standing
+- **Duration:** Full semester
+- **Team Size:** 4-6 students per project
+- **Culminates in:** Design Expo presentation
+
+</div>
+</TwoColumn>
+
+## Example projects
+
+<ProjectCarousel projects={exampleProjects} id="example-projects-carousel" />
+
+### End of semester showcases
+
+At the end of each semester, students present their work to the community in the Robotics Building.
+
+<YouTubeGallery playlistId="PLdPQZLMHRjDJixIVX_1xWy4C6T79P_F52" showDate={false} />
+
+## Our sponsors
+
+We are grateful to the companies and organizations that have partnered with Michigan Robotics to provide meaningful project experiences for our students.
+
+<div class="flex flex-wrap justify-center items-center gap-8 my-8 p-8 surface rounded-lg">
+
+*Sponsor logos will be displayed here*
+
+</div>
+
+<Callout type="info">
+**Interested in becoming a sponsor?** Join leading companies in shaping the future of robotics. [Learn more about sponsorship opportunities](#become-a-sponsor).
+</Callout>
+
+## Testimonials
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-8">
+
+<div class="surface rounded-lg p-6">
+
+> "Working on a real industry project gave me experience I couldn't get in any other class. The challenges we faced and solved prepared me for my career in ways I didn't expect."
+
+**— Student Name**, ROB '24
+
+</div>
+
+<div class="surface rounded-lg p-6">
+
+> "The Michigan Robotics students brought fresh ideas and technical skills to our challenge. We were impressed by their professionalism and the quality of their final deliverables."
+
+**— Sponsor Representative**, *Company Name*
+
+</div>
+
+</div>
+
+## Become a sponsor
+
+Partner with Michigan Robotics to engage with talented students and explore innovative solutions to your robotics challenges.
+
+<TwoColumn>
+<div slot="left">
+
+### What sponsors provide
+
+- A real-world robotics challenge or problem statement
+- Technical mentorship throughout the semester
+- Hardware or resources as needed for the project
+- Feedback during milestone presentations
+
+### What sponsors receive
+
+- Access to top robotics talent
+- Fresh perspectives on technical challenges
+- Opportunity to evaluate potential future hires
+- Visibility within the Michigan Robotics community
+
+</div>
+<div slot="right">
+
+### Sponsorship timeline
+
+**Fall projects**
+- Submit proposals by: *June*
+- Project kickoff: *September*
+- Final presentations: *December*
+
+**Winter projects**
+- Submit proposals by: *October*
+- Project kickoff: *January*
+- Final presentations: *April*
+
+</div>
+</TwoColumn>
+
+<div class="flex justify-center my-8">
+  <MaizeButton href="https://forms.google.com" text="Submit a Project Proposal" external="true" />
+</div>
+
+## FAQ
+
+<Accordion title="What types of projects are appropriate for ROB 450?">
+
+Projects should be scoped to be achievable within one semester by a team of 4-6 students. Good projects have clear objectives, involve hardware and/or software development, and allow students to apply skills from multiple areas of robotics (sensing, reasoning, acting, human-robot interaction).
+
+</Accordion>
+
+<Accordion title="What is the time commitment for sponsors?">
+
+Sponsors typically meet with their student team for 30-60 minutes weekly, plus attendance at 2-3 milestone presentations throughout the semester. Sponsors should also be available for ad-hoc questions via email or messaging.
+
+</Accordion>
+
+<Accordion title="Who owns the intellectual property developed during the project?">
+
+IP arrangements vary by project and sponsor. Please contact the course coordinator to discuss specific arrangements for your project.
+
+</Accordion>
+
+<Accordion title="Can we sponsor multiple projects?">
+
+Yes! We welcome sponsors who wish to support multiple teams. This can be particularly effective for exploring different approaches to a complex challenge.
+
+</Accordion>
+
+<Accordion title="What resources do students have access to?">
+
+Students have access to the Ford Motor Company Robotics Building facilities, including machine shops, electronics labs, testing spaces, and a variety of robotic platforms and sensors. Additional resources may be provided by sponsors as needed.
+
+</Accordion>
+
+<Accordion title="How are student teams formed?">
+
+Students indicate their project preferences, and teams are formed based on student interests, skills, and project requirements. The course instructors work to create balanced teams with complementary skills.
+
+</Accordion>
+
+<Accordion title="Can international companies sponsor projects?">
+
+Yes, we welcome international sponsors. Virtual meetings and communication tools make it possible to effectively mentor teams from anywhere in the world.
+
+</Accordion>
+
+<Accordion title="How do I get started?">
+
+Submit a project proposal using the form above, or contact the course coordinator to discuss your ideas. We recommend reaching out early to ensure your project can be included in the upcoming semester.
+
+</Accordion>
