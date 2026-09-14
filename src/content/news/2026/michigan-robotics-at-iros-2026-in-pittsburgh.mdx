@@ -63,6 +63,7 @@ import museumBot from './images/museum-bot.jpg';
 import tilburyPhoto from '../../../images/profile-images/tilbury.jpg';
 import lRobertPhoto from '../../../images/profile-images/lprobert.jpg';
 import alyssaPhoto from '../../../images/cached-profiles/alyssa-emigh.jpg';
+import pcbBoard from './images/cm-brushed-interface-board.png';
 
 <figure>
 ![Bridges cross the Monongahela River in Pittsburgh in evening light, with a riverboat passing below and the Cathedral of Learning on the horizon.](images/pittsburgh-skyline.jpg)
@@ -347,6 +348,47 @@ How can robots learn how deformable objects move when capturing 3D data on objec
 </div>
 
 Most powered prosthetic legs use a simple, non-adaptive foot, which is easy to build and control but can limit performance on uneven ground and around obstacles. This work from the lab of [Elliott Rouse](/people/faculty/elliott-rouse/), accepted to the [State of the Art in Robotic Leg Prostheses workshop](https://hgnlab.mech.utah.edu/iros2026/) on October 1, compares a powered prosthetic leg fitted with either a standard fiberglass foot or a mechanically adaptive one, testing both during walking with visible obstacles and on a treadmill with obstacle-like perturbations. The study suggests adaptability built into the foot itself can improve a prosthesis's robustness without any changes to its higher-level control.
+</FeatureRow>
+
+<FeatureRow
+  title="The CM Brushed Interface Board and Brushed Auxiliary Board: A Compact Modular System for Wearable Robotics"
+  headline="Compact circuit boards for wearable robots"
+  areas={['rehabilitation-wearables', 'design-soft-robotics']}
+  image={pcbBoard}
+  imageAlt="A rendered green printed circuit board with labeled connectors and components, including ports for UART, I2C, SPI, CAN, USB-C, and a fan header."
+>
+<div class="flex flex-wrap gap-x-5 gap-y-2 items-center not-prose mb-3">
+  <div class="flex items-center gap-2">
+    <Image src={robotAvatar} alt="" width={96} class="w-10 h-10 rounded-full object-cover" />
+    <span>Alan Murillo-Soto</span>
+  </div>
+  <div class="flex items-center gap-2">
+    <Image src={robotAvatar2} alt="" width={96} class="w-10 h-10 rounded-full object-cover" />
+    <span>Ka Hei Ng</span>
+  </div>
+  <div class="flex items-center gap-2">
+    <Image src={robotAvatar3} alt="" width={96} class="w-10 h-10 rounded-full object-cover" />
+    <span>Emily A. Bywater</span>
+  </div>
+  <div class="flex items-center gap-2">
+    <Image src={robotAvatar4} alt="" width={96} class="w-10 h-10 rounded-full object-cover" />
+    <span>Anushka Rathi</span>
+  </div>
+  <div class="flex items-center gap-2">
+    <Image src={robotAvatar5} alt="" width={96} class="w-10 h-10 rounded-full object-cover" />
+    <span>Japmanjeet Singh Gill</span>
+  </div>
+  <div class="flex items-center gap-2">
+    <Image src={robotAvatar6} alt="" width={96} class="w-10 h-10 rounded-full object-cover" />
+    <span>Joshua Lian</span>
+  </div>
+  <div class="flex items-center gap-2">
+    <Image src={rousePhoto} alt="Elliott Rouse" width={96} class="w-10 h-10 rounded-full object-cover" />
+    <span>Elliott Rouse</span>
+  </div>
+</div>
+
+Wearable robots need embedded electronics that are compact, robust, and computationally capable, but off-board hardware tethered to a waist pack limits real-world usability and rarely transfers between platforms. This work from [Elliott Rouse](/people/faculty/elliott-rouse/)'s Neurobionics Lab, accepted as a Late Breaking Results poster at IROS 2026, presents a modular embedded system built around a Raspberry Pi Compute Module and two custom circuit boards. The CM Brushed Interface Board packs a motor driver, quadrature encoder counter, inertial measurement unit, 16-bit analog-to-digital converter, and power management into a small footprint, while an optional Brushed Auxiliary Board stacks on top to add a second motor driver and encoder counter, an SD card reader, and a barometric pressure sensor. Developed for the lab's Variable Stiffness Orthosis, the stack co-locates all electronics in a package that can be mounted directly on the body, and its open-source software development kit aims to lower the barrier to prototyping across mechanically distinct wearable robotic systems.
 </FeatureRow>
 
 <LocalTip title="Hold on tight" name='Alyssa "Emigh" Hudak' role="Adjunct Lecturer, Makerspace Supervisor" flip photo={alyssaPhoto}>
