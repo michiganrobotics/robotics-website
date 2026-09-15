@@ -17,13 +17,14 @@ interface Props {
 }
 
 const { image, imageAlt, title = '', subtitle, name, role, website, location, zoomUrl, isExpanded = false } = Astro.props;
+
+const contentId = `seminar-panel-${name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}-${Math.random().toString(36).slice(2, 8)}`;
 ---
 
 <div class="seminar-speaker-profile my-6 border border-gray-200 dark:border-gray-700 rounded-md overflow-visible">
-  <button 
-    class="group w-full text-left card-base card-padded surface hover:bg-[var(--bg-elevated-light)] dark:hover:bg-[var(--bg-elevated-dark)] transition-colors cursor-pointer flex flex-wrap items-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-arboretumBlue dark:focus-visible:ring-maize focus-visible:ring-offset-2 dark:focus-visible:ring-offset-gray-900 relative z-10"
-    aria-expanded={isExpanded}
-    data-seminar-button
+  <div
+    class="group w-full text-left card-base card-padded surface hover:bg-[var(--bg-elevated-light)] dark:hover:bg-[var(--bg-elevated-dark)] transition-colors cursor-pointer flex flex-wrap items-center relative z-10"
+    data-seminar-row
   >
     <div class="flex items-center gap-4 w-full sm:w-2/5">
       <div class="w-16 h-16 shrink-0">
@@ -56,20 +57,27 @@ const { image, imageAlt, title = '', subtitle, name, role, website, location, zo
         <p class="text-xl font-bold text-neutral-800 dark:text-neutral-100 break-words group-hover:underline decoration-maize decoration-2">{title}</p>
       </div>
     )}
-    <div class="shrink-0 ml-auto">
-      <svg 
+    <button
+      type="button"
+      class="shrink-0 ml-auto p-2 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-arboretumBlue dark:focus-visible:ring-maize focus-visible:ring-offset-2 dark:focus-visible:ring-offset-gray-900"
+      aria-expanded={isExpanded}
+      aria-controls={contentId}
+      aria-label={`Toggle details for ${name}`}
+      data-seminar-button
+    >
+      <svg
         class="chevron-icon w-6 h-6 text-arboretumBlue dark:text-maize"
-        fill="none" 
-        stroke="currentColor" 
+        fill="none"
+        stroke="currentColor"
         viewBox="0 0 24 24"
         data-expand-icon
       >
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
       </svg>
-    </div>
-  </button>
+    </button>
+  </div>
 
-  <div class={`content ${isExpanded ? '' : 'hidden'}`} data-content>
+  <div class={`content ${isExpanded ? '' : 'hidden'}`} data-content id={contentId}>
     <div class="p-6 undersurface rounded-lg">
       <div class="flex flex-col md:flex-row gap-8">
         <div class="md:w-1/6">
@@ -107,11 +115,12 @@ const { image, imageAlt, title = '', subtitle, name, role, website, location, zo
     const profiles = document.querySelectorAll('.seminar-speaker-profile');
     
     profiles.forEach(profile => {
+      const row = profile.querySelector('[data-seminar-row]');
       const button = profile.querySelector('[data-seminar-button]');
       const content = profile.querySelector('[data-content]');
       const expandIcon = profile.querySelector('[data-expand-icon]');
-      
-      if (button && content && expandIcon) {
+
+      if (row && button && content && expandIcon) {
         // Check if already initialized to prevent duplicate setup
         if (profile.getAttribute('data-initialized') === 'true') {
           return;
@@ -155,15 +164,18 @@ const { image, imageAlt, title = '', subtitle, name, role, website, location, zo
           }
         };
         
-        // Handle click events
+        // The chevron button is the accessible, keyboard-operable toggle
+        // (native <button> already handles Enter/Space activation).
         button.addEventListener('click', toggleExpansion);
-        
-        // Add keyboard support for Enter key
-        button.addEventListener('keydown', (e) => {
-          if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            toggleExpansion();
+
+        // Clicking anywhere else in the header also toggles, for a larger
+        // mouse/touch target, but not when the click lands on a real link
+        // (e.g. "on Zoom") or on the button itself (already handled above).
+        row.addEventListener('click', (e) => {
+          if (e.target.closest('a') || e.target.closest('[data-seminar-button]')) {
+            return;
           }
+          toggleExpansion();
         });
       }
     });
