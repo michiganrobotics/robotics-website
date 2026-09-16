@@ -72,20 +72,19 @@ import PageTitle from "../../components/PageTitle.astro";
             <h2 class="text-2xl font-roboto-condensed font-bold text-umichblue dark:text-neutral-50">Media</h2>
           </div>
           <p class="mb-4">For press or media inquiries, contact:</p>
-          <a href="/people/staff/dan-newman/" class="underline-hover-only text-arboretumBlue dark:text-maize flex items-center">
-            <Icon name="mdi:arrow-right" class="w-4 h-4 mr-1" />
-            Dan Newman
-          </a>
-          <span class="mt-2 text-sm text-neutral-600 dark:text-neutral-300">
-            Communications Manager
-            <button 
-              aria-label="Play Communications Manager game" 
+          <div class="flex items-center">
+            <a href="https://cm.engin.umich.edu/by-department/#robotics" class="underline-hover-only text-arboretumBlue dark:text-maize flex items-center">
+              <Icon name="mdi:arrow-right" class="w-4 h-4 mr-1" />
+              Robotics Communications Team
+            </a>
+            <button
+              aria-label="Play Communications Manager game"
               class="inline-block focus:outline-none focus:ring-2 focus:ring-arboretumBlue dark:focus:ring-maize"
               id="commsManagerTitle">
               <Icon name="mdi:desktop-classic" class="w-4 h-4 inline-block ml-1 cursor-pointer hover:text-arboretumBlue dark:hover:text-maize transition-colors" />
               <span class="sr-only">Click to play a simple ASCII game where you connect phone lines</span>
             </button>
-          </span>
+          </div>
           <GameModal />
         </div>
 

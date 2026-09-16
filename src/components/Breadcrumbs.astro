@@ -12,6 +12,8 @@ const { pageTitle } = Astro.props;
 const { pathname } = Astro.url;
 const paths = pathname.split('/').filter(Boolean);
 
+const ACRONYMS = new Set(['sugs']);
+
 function generateBreadcrumbs(): Breadcrumb[] {
   const breadcrumbs: Breadcrumb[] = [];
   let path = '';
@@ -26,7 +28,7 @@ function generateBreadcrumbs(): Breadcrumb[] {
     const text = isLast && pageTitle
       ? pageTitle
       : item.replace(/-/g, ' ').split(' ').map(word =>
-          word.charAt(0).toUpperCase() + word.slice(1)
+          ACRONYMS.has(word) ? word.toUpperCase() : word.charAt(0).toUpperCase() + word.slice(1)
         ).join(' ');
     breadcrumbs.push({
       text,
