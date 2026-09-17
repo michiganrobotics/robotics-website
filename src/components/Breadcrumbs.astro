@@ -12,7 +12,7 @@ const { pageTitle } = Astro.props;
 const { pathname } = Astro.url;
 const paths = pathname.split('/').filter(Boolean);
 
-const ACRONYMS = new Set(['sugs']);
+const ACRONYMS = new Set(['sugs', 'sure']);
 
 function generateBreadcrumbs(): Breadcrumb[] {
   const breadcrumbs: Breadcrumb[] = [];
