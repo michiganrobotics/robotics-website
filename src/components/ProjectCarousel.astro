@@ -3,6 +3,7 @@
 interface Project {
   title: string;
   sponsor: string;
+  sponsorLink?: string;
   description: string;
   image: string;
   imageAlt: string;
@@ -56,7 +57,14 @@ const { projects, id = 'project-carousel' } = Astro.props;
             </div>
             <div class="p-4">
               <h3 class="text-lg font-semibold mb-1">{project.title}</h3>
-              <p class="text-sm text-gray-700 dark:text-gray-300 mb-2"><strong>Sponsor:</strong> {project.sponsor}</p>
+              <p class="text-sm text-gray-700 dark:text-gray-300 mb-2">
+                <strong>Sponsor:</strong>{' '}
+                {project.sponsorLink ? (
+                  <a href={project.sponsorLink} target="_blank" rel="noopener noreferrer" class="underline hover:no-underline">{project.sponsor}</a>
+                ) : (
+                  project.sponsor
+                )}
+              </p>
               <p class="text-sm line-clamp-3">{project.description}</p>
             </div>
           </div>
