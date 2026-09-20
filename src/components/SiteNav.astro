@@ -429,8 +429,11 @@ nav ul li {
   }
   /* astro-icon renders the logo via <symbol> + <use>, which creates a shadow tree
      that Chrome blocks external selectors from reaching. Custom properties cross
-     the boundary, so we redefine --color-umichblue on the SVG host. */
-  header.site-nav-transparent svg {
+     the boundary, so we redefine --color-umichblue on the SVG host.
+     Scoped to the logo only (> div > a svg) - a bare "svg" selector would also
+     catch the Robodex dropdown icon, which sits on a light dropdown background
+     and must stay dark. */
+  header.site-nav-transparent > div > a svg {
     --color-umichblue: #ffffff;
     color: white;
   }
