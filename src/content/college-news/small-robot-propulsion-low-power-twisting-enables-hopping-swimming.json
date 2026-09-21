@@ -7,7 +7,15 @@
     "src": "../../images/college-news/hopping-robot-illustration.jpg",
     "alt": "Rendering of the small robot that uses a twisted wire to hop and swim."
   },
-  "categories": [],
-  "tags": [],
+  "categories": [
+    "legged-robotics",
+    "design-soft-robotics"
+  ],
+  "tags": [
+    "Xiaonan Huang",
+    "bio-inspired design",
+    "soft robotics",
+    "low-power propulsion"
+  ],
   "featured": true
 }
