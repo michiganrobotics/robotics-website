@@ -4,6 +4,7 @@ import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import { Icon } from "astro-icon/components";
 import PageTitle from "../../components/PageTitle.astro";
 import Callout from "../../components/Callout.astro";
+import Button from "../../components/Button.astro";
 import { careersFeedQuery } from "../../lib/api.js";
 import ogImage from '/public/social/faculty-jobs.jpg';
 
@@ -33,7 +34,7 @@ function formatPostedDate(pubDate: string) {
 
       <p>We invite applicants to join our mission to accelerate advances in robotics for the benefit of society.</p>
 
-      <p>The University of Michigan is one of the world’s leading research universities, with $2.04B in research expenditures (FY2024). Consistently ranked among the top research universities by USNews and NSF, it has 19 schools and colleges, the University is rich with opportunities for collaboration and cross-disciplinary inquiry. We are located in Ann Arbor, MI, which is ranked the #1 U.S. City for Quality of Life by U.S. News and World Report (2024), #2 City with the Best Public Schools in America by Niche.com (2021), and #1 Best Places to Live for Families by Fortune (2022).</p>
+      <p>The University of Michigan is one of the world’s leading research universities, with $2.16B in research expenditures (2025). Consistently ranked among the top research universities by USNews and NSF, it has 19 schools and colleges, the University is rich with opportunities for collaboration and cross-disciplinary inquiry. We are located in Ann Arbor, MI, which is ranked the #1 Best Small College Town in America by WalletHub (2025), #2 City with the Best Public Schools in America by Niche.com (2021), and #1 Best Places to Live for Families by Fortune (2022).</p>
 
       <div class="not-prose grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
 
@@ -90,29 +91,49 @@ function formatPostedDate(pubDate: string) {
         </Callout>
       )}
 
-      <h2 class="text-3xl font-roboto-condensed font-bold mb-4 text-umichblue dark:text-neutral-50">Tenure-track faculty</h2>
+      <div class="card-base surface card-padded surface-border mt-8">
+        <h3 class="text-3xl font-roboto-condensed font-bold mb-4 text-umichblue dark:text-neutral-50">Robotics Department Chair</h3>
 
-      <div class="prose dark:prose-invert max-w-none">
-<p>The Robotics Department in the College of Engineering at the University of Michigan, Ann Arbor invites applications for two faculty that will join our mission to accelerate advances in robotics for the benefit of society. Successful candidates will have a relevant doctorate or equivalent experience and an outstanding record of achievement and impactful research in academia, industry, and/or at national laboratories. They will have a strong record of commitment to teaching at the undergraduate and graduate levels and to providing service to the university and to the profession.</p>
+        <div class="prose dark:prose-invert max-w-none">
+          <p>The Robotics Department at the University of Michigan, Ann Arbor invites applications and nominations for the position of Department Chair. The Chair will provide visionary leadership for one of the first free-standing robotics departments among leading engineering schools, guiding its continued growth in research, education, and community impact.</p>
 
-<Callout type="info">
-<p>Applications for this round closed on December 1, 2025. Please check back for future calls to apply.</p>
-</Callout>
+          <p>The successful candidate for Department Chair will be a leading world-class scholar with a distinguished track record in robotics and related disciplines. The candidate should not only possess an exemplary record of achievement in research, teaching, leadership, and service at a level commensurate with the appointment as a tenured full professor, but also command a vision for the future of the Robotics discipline. This vision should leverage and build on the strengths of our existing department and programs at the University of Michigan, leading them into an increasingly commanding position in the multidisciplinary field of Robotics.</p>
 
+          <p>Key attributes of successful candidates include:</p>
+          <ul>
+            <li>Demonstrated leadership experience at the candidate's home institution as well as nationally and internationally.</li>
+            <li>Proven communication, management, and interpersonal skills.</li>
+            <li>A strong research track record demonstrated through publications, national and international collaborations, grants, and fundraising.</li>
+            <li>Demonstrated excellence in teaching and curriculum development in Robotics.</li>
+            <li>Significant experience in bridging from the academic lab to serving society.</li>
+            <li>A Ph.D. in robotics, computer science, or other engineering discipline.</li>
+          </ul>
 
-
-
-<p>Employment will require a criminal background check and may require an institutional reference check regarding any misconduct. If an institutional reference check is necessary, candidates will be required to submit a self-disclosure form as well as an authorization to release information form.</p>
-
-
-<p>The University of Michigan is responsive to the needs of dual-career families. We are a non-discriminatory, affirmative-action employer.</p>
-
-        <h3 class="text-xl font-bold mt-6 mb-2">U-M EEO statement</h3>
-        <p>The University of Michigan is an Equal Opportunity Employer. We are committed to providing an environment of mutual respect where equal employment opportunities are available to all applicants, including protected veterans and individuals with disabilities.</p>
-
-        <h3 class="text-xl font-bold mt-6 mb-2">Questions</h3>
-        <p>For faculty hiring, please <a href="mailto:robotics-faculty-search@umich.edu">contact the faculty search committee</a>. For all other questions, please <a href="mailto:robotics-contact@umich.edu">contact us</a>.</p>
-
+          <p>Applications are due <strong>November 15, 2026</strong>.</p>
+          <Button href="https://apply.interfolio.com/190127" text="See full posting and apply" external={true} />
+        </div>
       </div>
+
+      <div class="card-base surface card-padded surface-border mt-8">
+        <h3 class="text-3xl font-roboto-condensed font-bold mb-4 text-umichblue dark:text-neutral-50">Tenure-track faculty</h3>
+
+        <div class="prose dark:prose-invert max-w-none">
+          <p>The Robotics Department in the College of Engineering at the University of Michigan, Ann Arbor invites applications for two faculty that will join our mission to accelerate advances in robotics for the benefit of society. Successful candidates will have a relevant doctorate or equivalent experience and an outstanding record of achievement and impactful research in academia, industry, and/or at national laboratories. They will have a strong record of commitment to teaching at the undergraduate and graduate levels and to providing service to the university and to the profession.</p>
+
+          <Callout type="info">
+            <p>Applications for this round closed on December 1, 2025. Please check back for future calls to apply.</p>
+          </Callout>
+
+          <p>Employment will require a criminal background check and may require an institutional reference check regarding any misconduct. If an institutional reference check is necessary, candidates will be required to submit a self-disclosure form as well as an authorization to release information form.</p>
+
+          <p>The University of Michigan is responsive to the needs of dual-career families. We are a non-discriminatory, affirmative-action employer.</p>
+
+          <h4 class="text-xl font-bold mt-6 mb-2">Questions</h4>
+          <p>For faculty hiring, please <a href="mailto:robotics-faculty-search@umich.edu">contact the faculty search committee</a>. For all other questions, please <a href="mailto:robotics-contact@umich.edu">contact us</a>.</p>
+        </div>
+      </div>
+
+      <h3 class="text-xl font-bold mt-8 mb-2 text-umichblue dark:text-neutral-50">U-M EEO statement</h3>
+      <p>The University of Michigan is an Equal Opportunity Employer. We are committed to providing an environment of mutual respect where equal employment opportunities are available to all applicants, including protected veterans and individuals with disabilities.</p>
     </div>
 </MainLayout>
