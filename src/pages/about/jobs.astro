@@ -68,30 +68,7 @@ function formatPostedDate(pubDate: string) {
 
       <p>Faculty and staff positions in the Robotics Department are posted on the <a href={careersSearchUrl}>University of Michigan careers site</a>.</p>
 
-      {openings.length > 0 ? (
-        <ul class="not-prose list-none p-0 grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-          {openings.map(opening => (
-            <li>
-              <a href={opening.link} class="no-underline group card-base surface card-padded card-hover surface-border block h-full">
-                <h3 class="text-lg font-bold text-umichblue dark:text-neutral-50 mb-2 decoration-maize decoration-2 group-hover:underline underline-offset-4">{opening.title}</h3>
-                {formatPostedDate(opening.pubDate) && (
-                  <p class="text-gray-600 dark:text-gray-300 text-sm">Posted {formatPostedDate(opening.pubDate)}</p>
-                )}
-                <div class="flex items-center text-arboretumBlue dark:text-maize mt-2">
-                  <span>View posting and apply</span>
-                  <Icon name="mdi:open-in-new" class="ml-1 w-4 h-4" />
-                </div>
-              </a>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <Callout type="info">
-          <p>There are currently no listed open staff positions for the Robotics Department at the <a href={careersSearchUrl}>U-M careers site</a>.</p>
-        </Callout>
-      )}
-
-      <div class="card-base surface card-padded surface-border mt-8">
+      <div class="card-base surface card-padded surface-border">
         <h3 class="text-3xl font-roboto-condensed font-bold mb-4 text-umichblue dark:text-neutral-50">Robotics Department Chair</h3>
 
         <div class="prose dark:prose-invert max-w-none">
@@ -118,10 +95,10 @@ function formatPostedDate(pubDate: string) {
         <h3 class="text-3xl font-roboto-condensed font-bold mb-4 text-umichblue dark:text-neutral-50">Tenure-track faculty</h3>
 
         <div class="prose dark:prose-invert max-w-none">
-          <p>The Robotics Department in the College of Engineering at the University of Michigan, Ann Arbor invites applications for two faculty that will join our mission to accelerate advances in robotics for the benefit of society. Successful candidates will have a relevant doctorate or equivalent experience and an outstanding record of achievement and impactful research in academia, industry, and/or at national laboratories. They will have a strong record of commitment to teaching at the undergraduate and graduate levels and to providing service to the university and to the profession.</p>
+          <p>The Robotics Department in the College of Engineering at the University of Michigan, Ann Arbor invites applications for faculty that will join our mission to accelerate advances in robotics for the benefit of society. Successful candidates will have a relevant doctorate or equivalent experience and an outstanding record of achievement and impactful research in academia, industry, and/or at national laboratories. They will have a strong record of commitment to teaching at the undergraduate and graduate levels and to providing service to the university and to the profession.</p>
 
           <Callout type="info">
-            <p>Applications for this round closed on December 1, 2025. Please check back for future calls to apply.</p>
+            <p>Please check back soon for future calls to apply.</p>
           </Callout>
 
           <p>Employment will require a criminal background check and may require an institutional reference check regarding any misconduct. If an institutional reference check is necessary, candidates will be required to submit a self-disclosure form as well as an authorization to release information form.</p>
@@ -131,6 +108,31 @@ function formatPostedDate(pubDate: string) {
           <h4 class="text-xl font-bold mt-6 mb-2">Questions</h4>
           <p>For faculty hiring, please <a href="mailto:robotics-faculty-search@umich.edu">contact the faculty search committee</a>. For all other questions, please <a href="mailto:robotics-contact@umich.edu">contact us</a>.</p>
         </div>
+      </div>
+
+      <div class="mt-8">
+      {openings.length > 0 ? (
+        <ul class="not-prose list-none p-0 grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+          {openings.map(opening => (
+            <li>
+              <a href={opening.link} class="no-underline group card-base surface card-padded card-hover surface-border block h-full">
+                <h3 class="text-lg font-bold text-umichblue dark:text-neutral-50 mb-2 decoration-maize decoration-2 group-hover:underline underline-offset-4">{opening.title}</h3>
+                {formatPostedDate(opening.pubDate) && (
+                  <p class="text-gray-600 dark:text-gray-300 text-sm">Posted {formatPostedDate(opening.pubDate)}</p>
+                )}
+                <div class="flex items-center text-arboretumBlue dark:text-maize mt-2">
+                  <span>View posting and apply</span>
+                  <Icon name="mdi:open-in-new" class="ml-1 w-4 h-4" />
+                </div>
+              </a>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <Callout type="info">
+          <p>There are currently no listed open staff positions for the Robotics Department at the <a href={careersSearchUrl}>U-M careers site</a>.</p>
+        </Callout>
+      )}
       </div>
 
       <h3 class="text-xl font-bold mt-8 mb-2 text-umichblue dark:text-neutral-50">U-M EEO statement</h3>
