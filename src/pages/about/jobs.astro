@@ -4,7 +4,7 @@ import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import { Icon } from "astro-icon/components";
 import PageTitle from "../../components/PageTitle.astro";
 import Callout from "../../components/Callout.astro";
-import Button from "../../components/Button.astro";
+import MaizeButton from "../../components/MaizeButton.astro";
 import { careersFeedQuery } from "../../lib/api.js";
 import ogImage from '/public/social/faculty-jobs.jpg';
 
@@ -34,7 +34,16 @@ function formatPostedDate(pubDate: string) {
 
       <p>We invite applicants to join our mission to accelerate advances in robotics for the benefit of society.</p>
 
-      <p>The University of Michigan is one of the world’s leading research universities, with $2.16B in research expenditures (2025). Consistently ranked among the top research universities by USNews and NSF, it has 19 schools and colleges, the University is rich with opportunities for collaboration and cross-disciplinary inquiry. We are located in Ann Arbor, MI, which is ranked the #1 Best Small College Town in America by WalletHub (2025), #2 City with the Best Public Schools in America by Niche.com (2021), and #1 Best Places to Live for Families by Fortune (2022).</p>
+
+      <h2 class="text-3xl font-roboto-condensed font-bold mb-4 text-umichblue dark:text-neutral-50">About Michigan Robotics</h2>
+
+      <p>The University of Michigan Robotics Department creates the next generation of robotics and roboticists for the benefit of society. Operating out of the new world-class Ford Motor Company Robotics Building, the Department is one of the first free-standing robotics departments among leading engineering schools. Growing out of a successful Robotics Institute, the Department was established in 2022 to offer Bachelor's degrees in addition to Masters and PhDs degrees (since 2014), with the goal of defining the discipline of Robotics.</p>
+      
+      <p>Michigan Robotics pursues fundamental research across core areas of sensing, reasoning, acting, and interacting with humans. Roboticists from the Department join colleagues across the College of Engineering, Medical School, School of Information, School of Kinesiology, College of Architecture & Urban Planning, and School of Art & Design to work on robot learning and foundational models, perception and computer vision, manipulation and grasping, and motion planning and control. Faculty also study human-robot interaction and teaming, the design and soft robotics that give machines their physical form, and the safe autonomy that keeps these systems reliable in the real world. Michigan Robotics comprises 24 tenured and tenure-track faculty members, with more than 180 undergraduate students and over 250 graduate students, and is supported by an annual research budget of approximately $15 million dollars (FY2026).</p>
+        
+        <p>Our department is distinguished by its core values: robotics with respect, enthusiasm for outreach, and integrity in action. We ensure our designs and robots treat human interactions respectfully, inspire future students through outreach to change the world, and report both our successes and failures to show true progress in the field.</p>
+
+            <p>The University of Michigan is one of the world’s leading research universities, with $2.16B in research expenditures (2025). Consistently ranked among the top research universities by USNews and NSF, it has 19 schools and colleges, the University is rich with opportunities for collaboration and cross-disciplinary inquiry. We are located in Ann Arbor, MI, which is ranked the #1 Best Small College Town in America by WalletHub (2025), #2 City with the Best Public Schools in America by Niche.com (2021), and #1 Best Places to Live for Families by Fortune (2022).</p>
 
       <div class="not-prose grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
 
@@ -87,7 +96,7 @@ function formatPostedDate(pubDate: string) {
           </ul>
 
           <p>Applications are due <strong>November 15, 2026</strong>.</p>
-          <Button href="https://apply.interfolio.com/190127" text="See full posting and apply" external={true} />
+          <MaizeButton href="https://apply.interfolio.com/190127" text="See full posting and apply" external={true} />
         </div>
       </div>
 
