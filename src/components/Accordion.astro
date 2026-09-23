@@ -7,9 +7,10 @@ interface Props {
   titlePill?: 'ms' | 'phd';  // Optional pill type for the title
   id?: string;
   headingLevel?: string;
+  defaultOpen?: boolean;
 }
 
-const { title, titlePill, id, headingLevel = "h2" } = Astro.props;
+const { title, titlePill, id, headingLevel = "h2", defaultOpen = false } = Astro.props;
 const HeadingTag = headingLevel;
 const uniqueId = id || title.toLowerCase().replace(/\s+/g, '-');
 ---
@@ -24,7 +25,7 @@ const uniqueId = id || title.toLowerCase().replace(/\s+/g, '-');
     id={`accordion-header-${uniqueId}`}
     class="accordion-trigger flex justify-between items-center w-full p-5 text-left bg-matthaeiViolet/5 dark:bg-arboretumBlue/30 text-gray-800 dark:text-neutral-100 hover:bg-matthaeiViolet/10 dark:hover:bg-arboretumBlue transition-colors duration-200 cursor-pointer gap-4"
     aria-controls={`accordion-content-${uniqueId}`}
-    aria-expanded="false"
+    aria-expanded={defaultOpen ? "true" : "false"}
     tabindex="-1"
   >
     <span class="font-medium text-lg font-roboto flex-1">
@@ -46,9 +47,9 @@ const uniqueId = id || title.toLowerCase().replace(/\s+/g, '-');
       ></path>
     </svg>
   </button>
-  <div 
+  <div
     id={`accordion-content-${uniqueId}`}
-    class="accordion-content hidden"
+    class:list={["accordion-content", { hidden: !defaultOpen }]}
   >
     <div class="p-6 bg-neutral-50 dark:bg-arboretumBlue/30 prose dark:prose-invert max-w-none dark:prose-ul:text-white dark:prose-ol:text-white dark:marker:text-maize">
       <slot />

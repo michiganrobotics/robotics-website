@@ -30,8 +30,8 @@ const years = [...byYear.keys()].sort((a, b) => b.localeCompare(a, undefined, { 
 {years.length === 0 ? (
   <p>Award winners will be listed here soon.</p>
 ) : (
-  years.map(year => (
-    <Accordion title={year} id={`undergraduate-awards-${year}`}>
+  years.map((year, index) => (
+    <Accordion title={year} id={`undergraduate-awards-${year}`} defaultOpen={index === 0}>
       <div class="space-y-6">
         {[...byYear.get(year)!.values()].map(group => (
           <div>
