@@ -1,0 +1,51 @@
+---
+import Accordion from './Accordion.astro';
+import { getUndergraduateAwards } from '../lib/googleSheets';
+
+const rows = await getUndergraduateAwards();
+
+interface AwardGroup {
+  award: string;
+  recipients: string[];
+}
+
+const byYear = new Map<string, Map<string, AwardGroup>>();
+for (const row of rows) {
+  const year = row.awardYear.trim() || 'Other';
+  const award = row.award.trim();
+  const recipients = row.awardRecipient.split('\n').filter(Boolean);
+
+  if (!byYear.has(year)) byYear.set(year, new Map());
+  const awardsForYear = byYear.get(year)!;
+
+  if (!awardsForYear.has(award)) {
+    awardsForYear.set(award, { award, recipients: [] });
+  }
+  awardsForYear.get(award)!.recipients.push(...recipients);
+}
+
+const years = [...byYear.keys()].sort((a, b) => b.localeCompare(a, undefined, { numeric: true }));
+---
+
+{years.length === 0 ? (
+  <p>Award winners will be listed here soon.</p>
+) : (
+  years.map(year => (
+    <Accordion title={year} id={`undergraduate-awards-${year}`}>
+      <div class="space-y-6">
+        {[...byYear.get(year)!.values()].map(group => (
+          <div>
+            <p class="font-semibold mt-0 mb-1">{group.award}</p>
+            {group.recipients.length > 1 ? (
+              <ul class="mt-0 mb-0">
+                {group.recipients.map(recipient => <li>{recipient}</li>)}
+              </ul>
+            ) : (
+              <p class="mt-0 mb-0 text-gray-700 dark:text-gray-300">{group.recipients[0]}</p>
+            )}
+          </div>
+        ))}
+      </div>
+    </Accordion>
+  ))
+)}

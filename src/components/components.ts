@@ -28,6 +28,7 @@ import TimelineDay from '../components/TimelineDay.astro';
 import TimelineItem from '../components/TimelineItem.astro';
 import FeatureRow from '../components/FeatureRow.astro';
 import LocalTip from '../components/LocalTip.astro';
+import UndergraduateAwardsList from '../components/UndergraduateAwardsList.astro';
 
 export const components = {
   Button,
@@ -59,7 +60,8 @@ export const components = {
   TimelineDay,
   TimelineItem,
   FeatureRow,
-  LocalTip
+  LocalTip,
+  UndergraduateAwardsList
 };
 
 

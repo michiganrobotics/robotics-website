@@ -133,6 +133,12 @@ interface Awards {
   awardOrganization: string;
 }
 
+interface UndergraduateAward {
+  awardYear: string;
+  award: string;
+  awardRecipient: string;
+}
+
 interface AdvisoryBoard {
   firstName: string;
   lastName: string;
@@ -406,6 +412,22 @@ export const getAwards = cached(async (): Promise<Awards[]> => {
     award: row.get('award'),
     awardOrganization: row.get('awardOrganization'),
   }));
+});
+
+export const getUndergraduateAwards = cached(async (): Promise<UndergraduateAward[]> => {
+  await ensureDocLoaded();
+  const sheet = doc.sheetsByTitle['Awards-Undergraduate'];
+  const rows = await sheet.getRows();
+
+  return rows.map(row => ({
+    awardYear: row.get('awardYear') || '',
+    award: row.get('award') || '',
+    // Keep recipients as a single string, but clean up any extra whitespace
+    awardRecipient: (row.get('awardRecipient') || '').split('\n')
+      .map(r => r.trim())
+      .filter(r => r) // Remove empty lines
+      .join('\n'),
+  })).filter(row => row.awardYear && row.award);
 });
 
 export const getCourseList = cached(async (): Promise<CourseList[]> => {

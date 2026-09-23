@@ -54,6 +54,12 @@ export const mainNav: MenuItem[] = [
                   uri: "/academics/undergraduate/sure/",
                   id: "academics-undergraduate-sure",
                   childItems: { nodes: [] }
+                },
+                {
+                  label: "Undergraduate Awards",
+                  uri: "/academics/undergraduate/undergraduate-awards/",
+                  id: "academics-undergraduate-awards",
+                  childItems: { nodes: [] }
                 }
               ]
             }
@@ -420,7 +426,8 @@ export const subNavConfig: Record<string, SubNavItem[]> = {
       { title: "Degree Requirements", href: "/academics/undergraduate/degree-requirements/" },
       { title: "Current Courses", href: "/academics/courses/course-offerings/" },
       { title: "Pathways Speakers", href: "/events/robotics-pathways-speaker-series/" },
-      { title: "Careers & Outcomes", href: "/academics/careers/" }
+      { title: "Careers & Outcomes", href: "/academics/careers/" },
+      { title: "Undergraduate Awards", href: "/academics/undergraduate/undergraduate-awards/" }
     ],
     'academics/undergraduate/why-robotics': [
       { title: "Degree Requirements", href: "/academics/undergraduate/degree-requirements/" },
@@ -438,6 +445,13 @@ export const subNavConfig: Record<string, SubNavItem[]> = {
       { title: "Sample Schedules", href: "/academics/undergraduate/advising/#robotics-sample-schedules", anchor: true },
       { title: "Petitions", href: "/academics/undergraduate/advising/#departmental-petitions", anchor: true },
       { title: "Get Involved", href: "/academics/undergraduate/advising/#join-our-community", anchor: true }
+    ],
+    'academics/undergraduate/undergraduate-awards': [
+      { title: "Why Robotics?", href: "/academics/undergraduate/why-robotics/" },
+      { title: "Advising", href: "/academics/undergraduate/advising/" },
+      { title: "Degree Requirements", href: "/academics/undergraduate/degree-requirements/" },
+      { title: "SURE (Research)", href: "/academics/undergraduate/sure/" },
+      { title: "Honors and Awards", href: "/people/honors-and-awards/" }
     ],
     'academics/graduate/sugs': [
       { title: "Graduate Admissions", href: "/academics/graduate/admissions/" },
