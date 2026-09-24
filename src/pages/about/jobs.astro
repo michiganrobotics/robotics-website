@@ -72,8 +72,6 @@ function formatPostedDate(pubDate: string) {
 
       <h2 class="text-3xl font-roboto-condensed font-bold mb-4 text-umichblue dark:text-neutral-50">Current openings</h2>
 
-      <p>Faculty and staff positions in the Robotics Department are posted on the <a href={careersSearchUrl}>University of Michigan careers site</a>.</p>
-
       <div class="card-base surface card-padded surface-border">
         <h3 class="text-3xl font-roboto-condensed font-bold mb-4 text-umichblue dark:text-neutral-50">Robotics Department Chair</h3>
 
@@ -115,6 +113,8 @@ function formatPostedDate(pubDate: string) {
           <p>For faculty hiring, please <a href="mailto:robotics-faculty-search@umich.edu">contact the faculty search committee</a>. For all other questions, please <a href="mailto:robotics-contact@umich.edu">contact us</a>.</p>
         </div>
       </div>
+
+      <p>Faculty and staff positions in the Robotics Department are also posted on the <a href={careersSearchUrl}>University of Michigan careers site</a>.</p>
 
       <div class="mt-8">
       {openings.length > 0 ? (
