@@ -1,11 +1,8 @@
 ---
 import Layout from '../../../layouts/MainLayout.astro';
-import { Image } from 'astro:assets';
 import Breadcrumbs from "../../../components/Breadcrumbs.astro";
 import PageTitle from "../../../components/PageTitle.astro";
 import { getFellowshipData } from '../../../lib/googleSheets';
-import featureImage from '../../../images/featured-images/og/people.jpg';
-import Callout from '../../../components/Callout.astro';
 
 
 // TODO: Add OIDC auth check here
@@ -20,48 +17,40 @@ const fellowshipData = await getFellowshipData();
     <p class="mb-4">
       Explore current <strong>fellowship opportunities</strong> available to Robotics students. These fellowships are submitted by faculty members and departments, offering funding and research-based experience to enhance your academic journey.
     </p>
-    <p class="mb-3">
-        The presented data was last updated on 11-06-25. Some information may have changed. Be sure to check linked websites for the most accurate information and deadlines.
-    </p>
-    <Callout type="info">
-    <p class="text-sm ">
-        For fellowships requiring a departmental nomination, the internal submission deadline is typically at least one month earlier than the date listed.
-    </p>
-    </Callout>
-
     <p class="mb-4">
-      Search to find fellowships by <strong>award name</strong>, <strong>administering department</strong>, <strong>eligibility</strong>, or <strong>nomination requirements</strong>.
+      Last updated September 24, 2026. Deadlines change from year to year, so always confirm on the sponsor's website. Dates marked "typically" follow past cycles and have not yet been announced for this year.
     </p>
 
-    <div class="relative">
-      <div class="mb-4">
-        <input 
-          type="text" 
-          id="searchInput" 
-          placeholder="Search fellowships..." 
-          class="search-bar"
-        />
-      </div>
+    <div class="not-prose flex flex-wrap gap-3 mb-4">
+      <button type="button" class="filter-btn active" data-filter="all">All listed</button>
+      <button type="button" class="filter-btn" data-filter="department">Department nominations</button>
+      <button type="button" class="filter-btn" data-filter="other">Other nominations</button>
+    </div>
 
-      <div class="overflow-x-auto shadow-md">
-        <table class="w-full text-sm text-left">
-          <thead class="text-xs uppercase page-bg">
-            <tr>
-              <th class="px-4 py-3 cursor-pointer border-r" data-sort="award">Award<span class="ml-1">↕</span></th>
-              <th class="px-4 py-3 cursor-pointer border-r" data-sort="administeredBy">Administered By<span class="ml-1">↕</span></th>
-              <th class="px-4 py-3 cursor-pointer border-r" data-sort="finalDeadline">Typical Deadline<span class="ml-1">↕</span></th>
-              <th class="px-4 py-3 cursor-pointer border-r" data-sort="eligibility">Eligibility<span class="ml-1">↕</span></th>
-              <th class="px-4 py-3 cursor-pointer" data-sort="nominationBy">Nomination By<span class="ml-1">↕</span></th>
-            </tr>
-          </thead>
-          <tbody>
-            {fellowshipData.map((fellowship) => (
-              <tr class="bg-[var(--bg-undersurface-light)] dark:bg-[var(--bg-undersurface-dark)] border-b hover:bg-[var(--bg-surface-hover)] dark:hover:bg-[var(--bg-surface-hover-dark)]">
+    <div class="overflow-x-auto shadow-md">
+      <table class="w-full text-sm text-left">
+        <thead class="text-xs uppercase page-bg">
+          <tr>
+            <th class="px-4 py-3 cursor-pointer border-r" data-sort="award">Award<span class="ml-1">↕</span></th>
+            <th class="px-4 py-3 cursor-pointer border-r" data-sort="administeredBy">Administered By<span class="ml-1">↕</span></th>
+            <th class="px-4 py-3 cursor-pointer border-r" data-sort="finalDeadline">Typical Deadline<span class="ml-1">↕</span></th>
+            <th class="px-4 py-3 cursor-pointer border-r" data-sort="eligibility">Eligibility<span class="ml-1">↕</span></th>
+            <th class="px-4 py-3 cursor-pointer" data-sort="nominationBy">Nomination By<span class="ml-1">↕</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          {fellowshipData.map((fellowship) => {
+            const isDepartment = fellowship.nominationBy.startsWith('Department');
+            return (
+              <tr
+                class="bg-[var(--bg-undersurface-light)] dark:bg-[var(--bg-undersurface-dark)] border-b hover:bg-[var(--bg-surface-hover)] dark:hover:bg-[var(--bg-surface-hover-dark)]"
+                data-nomination={isDepartment ? 'department' : 'other'}
+              >
                 <th scope="row" class="px-6 py-4 font-medium border-r align-middle">
                   {fellowship.awardLink ? (
-                    <a href={fellowship.awardLink} 
-                      target="_blank" 
-                      rel="noopener noreferrer" 
+                    <a href={fellowship.awardLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       class="underline hover:text-umichblue dark:hover:text-gray-300">
                       {fellowship.award}
                     </a>
@@ -72,40 +61,103 @@ const fellowshipData = await getFellowshipData();
                 <td class="px-6 py-4 border-r align-middle">{fellowship.administeredBy}</td>
                 <td class="px-6 py-4 border-r align-middle">{fellowship.finalDeadline}</td>
                 <td class="px-6 py-4 border-r align-middle max-w-md">{fellowship.eligibility}</td>
-                <td class="px-6 py-4 align-middle">{fellowship.nominationBy}</td>
+                <td class="px-6 py-4 align-middle">
+                  {isDepartment ? (
+                    <>
+                      <a href="#department-nominations" class="underline hover:text-umichblue dark:hover:text-gray-300">Department*</a>
+                      {fellowship.roboticsDeadline && (
+                        <span class="block text-xs text-neutral-600 dark:text-neutral-300 mt-0.5">{fellowship.roboticsDeadline}</span>
+                      )}
+                    </>
+                  ) : (
+                    fellowship.nominationBy
+                  )}
+                </td>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+            );
+          })}
+        </tbody>
+      </table>
     </div>
+
+    <div id="department-nominations" class="mt-10">
+      <h2>Department nominations</h2>
+      <p>
+        For fellowships marked "Department" in the "Nomination By" column, Robotics collects nominations three times per year through <a href="https://coe.infoready4.com/#other" target="_blank" rel="noopener noreferrer" class="underline">InfoReady</a>, not on the deadlines listed above. The fall call closes at the end of August, the winter call closes at the beginning of January, and the summer call closes at the end of April. Watch your email for the Robotics nomination call. Send questions to <a href="mailto:robotics-sso@umich.edu" class="underline">robotics-sso@umich.edu</a>.
+      </p>
+    </div>
+
+    <h2 class="mt-10">Other funding resources</h2>
+    <p>
+      This list is not all-inclusive, and there are likely many more opportunities available. Watch your email for new opportunities and search broadly for others. These resources are a good place to start:
+    </p>
+    <ul>
+      <li><a href="https://rackham.umich.edu/funding/" target="_blank" rel="noopener noreferrer" class="underline">Rackham Funding Resources</a></li>
+      <li><a href="https://scholarships.engin.umich.edu/" target="_blank" rel="noopener noreferrer" class="underline">College of Engineering Scholarships and Fellowships</a></li>
+      <li><a href="https://guides.lib.umich.edu/c.php?g=401592&p=3055555" target="_blank" rel="noopener noreferrer" class="underline">U-M Library Graduate Student Funding @ U-M</a></li>
+      <li><a href="https://www.lib.umich.edu/research-and-scholarship/help-research/funding-and-grants" target="_blank" rel="noopener noreferrer" class="underline">U-M Library Funding and Grants</a></li>
+      <li><a href="https://finaid.umich.edu/apply-aid/international-students" target="_blank" rel="noopener noreferrer" class="underline">Scholarship and Aid for International Students</a></li>
+    </ul>
+    <p>
+      For more funding information, see <a href="/academics/graduate/admissions/funding-for-graduate-students/" class="underline">Funding for Graduate Students</a>.
+    </p>
   </div>
 
-  <script>
-    // Search functionality
-    const searchInput = document.getElementById('searchInput');
-    const tableRows = document.querySelectorAll('tbody tr');
-    
-    if (searchInput) {
-      searchInput.addEventListener('keyup', function(e) {
-        if (e.target) {
-          const searchTerm = (e.target as HTMLInputElement).value.toLowerCase();
-          tableRows.forEach(row => {
-            const text = row.textContent?.toLowerCase() || '';
-            if (row instanceof HTMLElement) {
-              row.style.display = text.includes(searchTerm) ? '' : 'none';
-            }
-          });
-        }
-      });
+  <style>
+    .filter-btn {
+      padding: 0.5rem 1rem;
+      border-radius: 0.375rem;
+      border: 1px solid var(--border-neutral, rgb(163 163 163));
+      background-color: var(--bg-undersurface-light);
+      color: rgb(64 64 64);
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: all 0.2s ease;
     }
+
+    :global(.dark) .filter-btn {
+      border-color: #00274C;
+      background-color: var(--bg-page-dark);
+      color: rgb(229 229 229);
+    }
+
+    .filter-btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .filter-btn.active {
+      background-color: #FFCB05 !important;
+      color: #00274C !important;
+      border-color: #FFCB05 !important;
+    }
+  </style>
+
+  <script>
+    // Filter functionality
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const tableRows = document.querySelectorAll('tbody tr');
+
+    filterButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        filterButtons.forEach(btn => btn.classList.remove('active'));
+        button.classList.add('active');
+
+        const filter = button.getAttribute('data-filter');
+        tableRows.forEach(row => {
+          if (!(row instanceof HTMLElement)) return;
+          const nomination = row.getAttribute('data-nomination');
+          const matches = filter === 'all' || nomination === filter;
+          row.style.display = matches ? '' : 'none';
+        });
+      });
+    });
 
     // Sorting functionality
     const getCellValue = (tr: HTMLElement, idx: number) => {
       const cell = tr.children[idx];
       return cell ? cell.textContent || '' : '';
     };
-    
+
     const comparer = (idx: number, asc: boolean) => (a: HTMLElement, b: HTMLElement) => {
       const v1 = getCellValue(a, idx);
       const v2 = getCellValue(b, idx);
@@ -113,19 +165,19 @@ const fellowshipData = await getFellowshipData();
         ? (asc ? 1 : -1) * (Number(v1) - Number(v2))
         : (asc ? 1 : -1) * v1.toString().localeCompare(v2);
     };
-    
+
     document.querySelectorAll('th[data-sort]').forEach(th => {
       let asc = true;
       th.addEventListener('click', () => {
         const table = th.closest('table');
         const tbody = table?.querySelector('tbody');
         if (!tbody) return;
-        
+
         const columnIndex = Array.from(th.parentElement?.children || []).indexOf(th);
         th.parentElement?.querySelectorAll('th span')?.forEach(span => span.textContent = '↕');
         const span = th.querySelector('span');
         if (span) span.textContent = asc ? '↑' : '↓';
-        
+
         const rows = Array.from(tbody.querySelectorAll('tr'));
         rows.sort(comparer(columnIndex, asc)).forEach(tr => tbody.appendChild(tr));
         asc = !asc;

@@ -269,6 +269,7 @@ interface FellowshipData {
   finalDeadline: string;
   eligibility: string;
   nominationBy: string;
+  roboticsDeadline: string;
 }
 
 interface OutreachEvents {
@@ -819,6 +820,7 @@ export const getFellowshipData = cached(async (): Promise<FellowshipData[]> => {
     finalDeadline: row.get('Final Deadline*') || '',
     eligibility: row.get('Eligibility') || '',
     nominationBy: row.get('Nomination by*') || '',
+    roboticsDeadline: row.get('Robotics Deadline') || '',
   }));
 });
 
