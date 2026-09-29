@@ -1,12 +1,13 @@
 ---
 interface Props {
   type?: 'info' | 'warning' | 'success' | 'error' | 'maize';
+  class?: string;
 }
 
-const { type = 'info' } = Astro.props;
+const { type = 'info', class: className = '' } = Astro.props;
 ---
 
-<div class={`p-4 my-4 rounded-lg border ${
+<div class={`p-4 my-4 rounded-lg border ${className} ${
   type === 'info' ? 'bg-arboretumBlue/10 border-arboretumBlue/30 dark:bg-arboretumBlue/20 dark:border-arboretumBlue/40' :
   type === 'maize' ? 'bg-maize/20 border-maize/80 dark:bg-transparent dark:border-maize/80' :
   type === 'warning' ? 'bg-rossOrange/10 border-rossOrange/30 dark:bg-rossOrange/20 dark:border-rossOrange/40' :
