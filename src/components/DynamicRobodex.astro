@@ -3,6 +3,21 @@ import { getRobodexData } from '../lib/googleSheets';
 
 const robodexData = await getRobodexData();
 
+// Entries maintained here rather than in the Robodex Google Sheet. They merge
+// into the sheet's section of the same name (or create it if the sheet lacks it).
+const staticResources = [
+  {
+    section: 'Academic advising & support',
+    categories: 'masters phd academic',
+    searchTerms: 'degree audit requirements progress courses MS PhD',
+    title: 'Student Degree Audit',
+    before: 'View your ',
+    linkText: 'degree audit',
+    link: 'https://deptapps.engin.umich.edu/grad/student/audit?dept=210308',
+    after: ' to see how your completed courses currently map to MS and PhD requirement areas.',
+  },
+];
+
 // Group data by section
 const groupedData = robodexData.reduce((acc, resource) => {
   const section = resource.section || 'Other';
@@ -12,6 +27,18 @@ const groupedData = robodexData.reduce((acc, resource) => {
   acc[section].push(resource);
   return acc;
 }, {} as Record<string, typeof robodexData>);
+
+const normalizeSection = (name: string) => name.toLowerCase().replace(/\s+/g, ' ').trim();
+const staticBySection: Record<string, typeof staticResources> = {};
+for (const item of staticResources) {
+  const target = normalizeSection(item.section);
+  const key =
+    Object.keys(groupedData).find((name) => normalizeSection(name) === target) ??
+    Object.keys(groupedData).find((name) => normalizeSection(name).startsWith('academic advising')) ??
+    item.section;
+  if (!groupedData[key]) groupedData[key] = [];
+  (staticBySection[key] ??= []).push(item);
+}
 
 // Sort sections alphabetically
 const sortedSections = Object.keys(groupedData).sort();
@@ -46,6 +73,22 @@ const sortedSections = Object.keys(groupedData).sort();
                 {resource.description}
               </div>
             )}
+          </li>
+        ))}
+        {(staticBySection[section] ?? []).map(item => (
+          <li>
+            <a
+              href={item.link}
+              data-search-terms={item.searchTerms}
+              data-categories={item.categories}
+            >{item.title}</a>
+            <div class="description-text text-sm text-gray-700 dark:text-gray-200 mt-1">
+              {item.before}<a
+                href={item.link}
+                data-search-terms={item.searchTerms}
+                data-categories={item.categories}
+              >{item.linkText}</a>{item.after}
+            </div>
           </li>
         ))}
       </ul>
