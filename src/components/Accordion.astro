@@ -195,6 +195,8 @@ const uniqueId = id || title.toLowerCase().replace(/\s+/g, '-');
     const accordions = document.querySelectorAll('.accordion');
     accordions.forEach(accordion => {
       accordion.addEventListener('keydown', (e) => {
+        // Ignore keys bubbling up from nested accordions
+        if (e.target !== accordion) return;
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();
           const button = accordion.querySelector('.accordion-trigger');
