@@ -220,7 +220,11 @@
 /academics/current-students/* /academics/student-services/:splat 301
 /academics/undergraduate/undergraduate-sure /academics/undergraduate/sure/ 301
 /academics/courses/complete-course-listing /academics/courses/complete-course-list/ 301
-academics/course-offerings/rob101 /academics/courses/course-offerings/rob-101-fall-2020/ 301
+/academics/courses/course-offerings /academics/courses/ 301
+/academics/courses/course-offerings/ /academics/courses/ 301
+/academics/student-services/registering-for-classes /academics/courses/#registration-and-class-procedures 301
+/academics/student-services/registering-for-classes/ /academics/courses/#registration-and-class-procedures 301
+/academics/course-offerings/rob101 /academics/courses/course-offerings/rob-101-fall-2020/ 301
 /academic-program/course-offerings/rob101-fall-2020 /academics/courses/course-offerings/rob-101-fall-2020/ 301
 /academic-program/course-offerings/rob101-fall-2021 /academics/courses/course-offerings/rob-101-fall-2021/ 301
 /academic-program/course-offerings/rob101-fall-2022 /academics/courses/course-offerings/rob-101-fall-2022/ 301
@@ -305,7 +309,7 @@ academics/course-offerings/rob101 /academics/courses/course-offerings/rob-101-fa
 /academics/courses/course-offerings/rob101-fall-2020 /academics/courses/course-offerings/rob-101-fall-2020/ 301
 /academic-program/online-courses /academics/courses/online-courses/ 301
 /academic-program/degree-requirements /academics/graduate/degree-requirements/ 301
-/academic-program/course-offerings /academics/courses/course-offerings/ 301
+/academic-program/course-offerings /academics/courses/ 301
 /partnerships /about/partnerships/ 301
 /partnerships/industry /about/partnerships/industry/ 301
 /about/facilities/m-air /about/facilities/m-air-net/ 301
