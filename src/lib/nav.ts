@@ -337,13 +337,6 @@ export const subNavConfig: Record<string, SubNavItem[]> = {
       { title: "Graduate outcomes", href: "/academics/careers/#graduate-outcomes", anchor: true },
       { title: "Career resources", href: "/academics/careers/#career-resources", anchor: true },
     ],
-    'academics/student-services/registering-for-classes': [
-      { title: "Add a class", href: "/academics/student-services/registering-for-classes/#add-a-class", anchor: true },
-      { title: "Drop a class", href: "/academics/student-services/registering-for-classes/#drop-a-class", anchor: true },
-      { title: "Waitlists", href: "/academics/student-services/registering-for-classes/#waitlist", anchor: true },
-      { title: "Independent Study", href: "/academics/student-services/registering-for-classes/#enroll-in-an-independent-study-rob-590690990995", anchor: true },
-      { title: "Visit or Audit Classes", href: "/academics/student-services/registering-for-classes/#visitaudit-a-course", anchor: true }
-    ],
     'academics/student-services/internships': [
     { title: "Student Services", href: "/academics/student-services/" },
     { title: "PhD Internship Requirements", href: "/academics/student-services/phd-internship-requirements/" },
@@ -369,23 +362,27 @@ export const subNavConfig: Record<string, SubNavItem[]> = {
     { title: "Robodex", href: "/academics/student-services/robodex/" }
     ],
     'academics/courses': [
-      { title: "Current Term Courses", href: "/academics/courses/course-offerings/" },
+      { title: "Current Term Courses", href: "/academics/courses/#current-term-courses", anchor: true },
+      { title: "Overrides & Approvals", href: "/academics/courses/#course-overrides-and-approvals", anchor: true },
+      { title: "Registration", href: "/academics/courses/#registration-and-class-procedures", anchor: true },
+      { title: "Independent Study", href: "/academics/courses/#undergraduate-independent-study", anchor: true },
+      { title: "Visit or Audit", href: "/academics/courses/#visiting-or-auditing-courses", anchor: true },
       { title: "Complete Course List", href: "/academics/courses/complete-course-list/" },
       { title: "Free Online Courses", href: "/academics/courses/online-courses/" },
-      { title: "Course Guide", href: "https://docs.google.com/spreadsheets/d/1GwfBNfBa28wxqjQE7HkXQ0Sh97neOfsCeM4tb82VkVM/edit?usp=sharing", external: true },
-      { title: "Course Override Requests", href: "/academics/courses/#course-override-requests", anchor: true }
+      { title: "Course Guide", href: "https://docs.google.com/spreadsheets/d/1GwfBNfBa28wxqjQE7HkXQ0Sh97neOfsCeM4tb82VkVM/edit?usp=sharing", external: true }
     ],
     'academics/courses/course-offerings': [
+      { title: "Courses", href: "/academics/courses/" },
       { title: "Complete Course List", href: "/academics/courses/complete-course-list/" },
       { title: "Free Online Courses", href: "/academics/courses/online-courses/" },
       { title: "Course Guide", href: "https://docs.google.com/spreadsheets/d/1GwfBNfBa28wxqjQE7HkXQ0Sh97neOfsCeM4tb82VkVM/edit?usp=sharing", external: true }
     ],
     'academics/courses/complete-course-list': [
-      { title: "Current Term Courses", href: "/academics/courses/course-offerings/" },
+      { title: "Current Term Courses", href: "/academics/courses/#current-term-courses" },
       { title: "Course Guide", href: "https://docs.google.com/spreadsheets/d/1GwfBNfBa28wxqjQE7HkXQ0Sh97neOfsCeM4tb82VkVM/edit?usp=sharing", external: true }
     ],
     'academics/courses/online-courses': [
-      { title: "Current Term Courses", href: "/academics/courses/course-offerings/" },
+      { title: "Current Term Courses", href: "/academics/courses/#current-term-courses" },
       { title: "Complete Course List", href: "/academics/courses/complete-course-list/" },
     ],
     'academics/graduate': [
@@ -424,7 +421,7 @@ export const subNavConfig: Record<string, SubNavItem[]> = {
       { title: "Why Robotics?", href: "/academics/undergraduate/why-robotics/" },
       { title: "Advising", href: "/academics/undergraduate/advising/" },
       { title: "Degree Requirements", href: "/academics/undergraduate/degree-requirements/" },
-      { title: "Current Courses", href: "/academics/courses/course-offerings/" },
+      { title: "Current Courses", href: "/academics/courses/#current-term-courses" },
       { title: "Pathways Speakers", href: "/events/robotics-pathways-speaker-series/" },
       { title: "Careers & Outcomes", href: "/academics/careers/" },
       { title: "Undergraduate Awards", href: "/academics/undergraduate/undergraduate-awards/" }
