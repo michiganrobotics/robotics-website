@@ -116,12 +116,6 @@ export const mainNav: MenuItem[] = [
                   childItems: {nodes:[]}
                 },
                 {
-                  label: "Outreach Events",
-                  uri: "/academics/student-services/outreach-events/",
-                  id: "academics-student-services-outreach-events",
-                  childItems: {nodes:[]}
-                },
-                {
                   label: "Internships",
                   uri: "/academics/student-services/internships/",
                   id: "academics-student-services-internships",
@@ -238,6 +232,12 @@ export const mainNav: MenuItem[] = [
           label: "Robotics Department Seminar Series",
           uri: "/events/robotics-seminar-series/",
           id: "events-robotics-seminar-series",
+          childItems: { nodes: [] }
+        },
+        {
+          label: "Outreach Events",
+          uri: "/events/outreach-events/",
+          id: "events-outreach-events",
           childItems: { nodes: [] }
         }
       ] }
