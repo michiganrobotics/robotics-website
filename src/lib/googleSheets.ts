@@ -824,11 +824,8 @@ export const getFellowshipData = cached(async (): Promise<FellowshipData[]> => {
   }));
 });
 
-export const getRoboticsOutreachEvents = cached(async (): Promise<OutreachEvents[]> => {
-  await doc.loadInfo();
-  const sheet = doc.sheetsByTitle['OutreachEvents'];
-  const rows = await sheet.getRows();
-  return rows.map(row => ({
+function mapOutreachRow(row: any): OutreachEvents {
+  return {
     timestamp: row.get('Timestamp') || '',
     emailAddress: row.get('Email Address') || '',
     eventName: row.get('Event Name') || '',
@@ -845,8 +842,25 @@ export const getRoboticsOutreachEvents = cached(async (): Promise<OutreachEvents
     volunteerTasks: row.get('Volunteer Tasks') || '',
     howToSignUpVolunteer: row.get('How to Sign Up for Volunteer') || '',
     roboticsLabAffiliation: row.get('Robotics Lab/Organization Affiliation') || ''
-  }));
-  
+  };
+}
+
+export const getRoboticsOutreachEvents = cached(async (): Promise<OutreachEvents[]> => {
+  await doc.loadInfo();
+  const sheet = doc.sheetsByTitle['OutreachEvents'];
+  const rows = await sheet.getRows();
+  return rows.map(mapOutreachRow);
+});
+
+export const getArchivedRoboticsOutreachEvents = cached(async (): Promise<OutreachEvents[]> => {
+  await doc.loadInfo();
+  const sheet = doc.sheetsByTitle['OutreachEventsArchive'];
+  if (!sheet) {
+    console.warn("Sheet 'OutreachEventsArchive' not found; skipping past outreach events.");
+    return [];
+  }
+  const rows = await sheet.getRows();
+  return rows.map(mapOutreachRow);
 });
 
 export const getIntranetData = cached(async (): Promise<IntranetLink[]> => {
