@@ -1,0 +1,53 @@
+---
+import Layout from '../../../layouts/MainLayout.astro';
+import Breadcrumbs from "../../../components/Breadcrumbs.astro";
+import PageTitle from "../../../components/PageTitle.astro";
+import featureImage from '../../../images/featured-images/people-staff-award.jpg';
+import OgImage from '../../../images/featured-images/og/events.jpg';
+
+const title = "Robotics Annual Staff Award";
+const subtitle = "Recognizing staff who go above and beyond for the Michigan Robotics community";
+const description = "Nomination information for the Robotics Annual Staff Award, which recognizes staff for their commitment, dependability, and extraordinary contributions.";
+const nominationForm = "https://docs.google.com/forms/d/e/1FAIpQLSdXdvC7k5ujHkgmtBn1DVZBBdObJol7SGc8EvP1A-63Uq9vww/viewform?usp=dialog";
+---
+
+<Layout title={`${title} | Michigan Robotics`} image={OgImage.src} description={description}>
+  <Breadcrumbs slot="breadcrumbs" />
+  <PageTitle title={title} image={featureImage} imageAlt="The Ford Motor Company Robotics Building at sunset" imagePosition="0% 50%" />
+
+  <article class="prose dark:prose-invert max-w-6xl w-11/12 mx-auto mt-4 mb-4 prose-headings:font-roboto prose-h2:text-3xl prose-h3:text-2xl prose-headings:font-bold">
+    <div class="mb-8 mt-8 relative">
+      <p class="text-xl font-roboto text-gray-800 dark:text-gray-200 leading-relaxed not-prose tracking-wide">
+        {subtitle}</p>
+      <div class="subtitle-double-line"></div>
+    </div>
+
+    <h2>Award description</h2>
+    <p class="text-pretty">Recipients of the Robotics Annual Staff Award are chosen for their strong commitment, dependability, and extraordinary contributions, and for their efforts to create a positive and supportive culture across the Michigan Robotics community.</p>
+    <p class="text-pretty">Nominations run from November to early December, with awards presented in mid-December. The $750 award is split between 2 recipients.</p>
+    <p class="not-prose my-6"><a href={nominationForm} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-maize text-black px-8 py-4 text-lg rounded-md shadow-md hover:shadow-lg hover:bg-maize/90 transform hover:-translate-y-0.5 transition-all duration-200 no-underline font-bold border-2 border-umichblue">Submit a Nomination<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg></a></p>
+
+    <h2>Criteria</h2>
+    <p>Consideration will be given to nominees who have made significant contributions or demonstrated special qualities and attributes in Michigan Robotics during the preceding calendar year. All nomination materials remain confidential. Candidates include staff who have done one or more of the following:</p>
+    <ul>
+      <li>Embodied the department's <a href="/about/values/">values</a></li>
+      <li>Enhanced overall climate in the department</li>
+      <li>Built collaborative partnerships or exhibited a strong sense of teamwork</li>
+      <li>Creatively solved complicated challenges</li>
+      <li>Excelled in overall work performance</li>
+      <li>Helped others, above and beyond normal duties</li>
+      <li>Demonstrated unusually strong commitment, dependability or reliability in their work</li>
+    </ul>
+
+    <h2>Eligibility</h2>
+    <ul>
+      <li>All full- and part-time regular, non-faculty employees in Michigan Robotics with 12 or more months of service in the department.</li>
+      <li>Temporary employees, students, and faculty are not eligible for consideration.</li>
+      <li><a href="/people/honors-and-awards/">Past recipients</a> will not be eligible to receive the award again until four years after the date of their prior award (e.g. wins in 2025 cannot win again until 2030).</li>
+    </ul>
+    <p class="not-prose my-6"><a href={nominationForm} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-maize text-black px-8 py-4 text-lg rounded-md shadow-md hover:shadow-lg hover:bg-maize/90 transform hover:-translate-y-0.5 transition-all duration-200 no-underline font-bold border-2 border-umichblue">Submit a Nomination<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg></a></p>
+
+    <h2>Selection committee</h2>
+    <p>The committee will be composed of the most recent staff award winners and the Department Administrator. One award winner will serve two years to create an overlap with the next set of winners. The others will serve one year.</p>
+  </article>
+</Layout>
