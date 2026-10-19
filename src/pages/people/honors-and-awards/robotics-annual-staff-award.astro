@@ -24,6 +24,7 @@ const sectionClass = "border-t border-gray-300 dark:border-gray-700 pt-8 mt-12 f
 const headingClass = "font-roboto-condensed text-4xl font-bold tracking-tight mt-0 mb-5 text-umichblue dark:text-neutral-50";
 const ruledList = "not-prose list-none p-0 m-0 divide-y divide-gray-200 dark:divide-gray-700 border-y border-gray-200 dark:border-gray-700";
 const ruledItem = "py-4 text-lg leading-snug";
+const bulletedList = "not-prose list-disc pl-6 m-0 marker:text-umichblue dark:marker:text-maize divide-y divide-gray-200 dark:divide-gray-700 border-y border-gray-200 dark:border-gray-700";
 ---
 
 <Layout title={`${title} | Michigan Robotics`} image={OgImage.src} description={description}>
@@ -74,7 +75,7 @@ const ruledItem = "py-4 text-lg leading-snug";
           <p class="mt-0 text-pretty">Consideration will be given to nominees who have made significant contributions or demonstrated special qualities and attributes in Michigan Robotics during the preceding calendar year.</p>
           <p class="not-prose my-6 border-l-4 border-maize bg-gray-100 dark:bg-white/5 px-5 py-4 leading-relaxed text-pretty">All nomination materials remain confidential. The nomination form requires a statement of up to 500 words describing the nominee’s contributions to Robotics. Nominators are strongly encouraged to explain how these contributions align with our values.</p>
           <p class="text-pretty">Candidates include staff who have done one or more of the following:</p>
-          <ul class={ruledList}>
+          <ul class={bulletedList}>
             <li class={ruledItem}>Embodied the department's <a href="/about/values/" class="underline underline-offset-2 decoration-maize decoration-2 hover:text-arboretumBlue dark:hover:text-maize">values</a></li>
             <li class={ruledItem}>Enhanced overall climate in the department</li>
             <li class={ruledItem}>Built collaborative partnerships or exhibited a strong sense of teamwork</li>
