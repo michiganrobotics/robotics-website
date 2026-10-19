@@ -9,45 +9,110 @@ const title = "Robotics Annual Staff Award";
 const subtitle = "Recognizing staff who go above and beyond for the Michigan Robotics community";
 const description = "Nomination information for the Robotics Annual Staff Award, which recognizes staff for their commitment, dependability, and extraordinary contributions.";
 const nominationForm = "https://docs.google.com/forms/d/e/1FAIpQLSdXdvC7k5ujHkgmtBn1DVZBBdObJol7SGc8EvP1A-63Uq9vww/viewform?usp=dialog";
+
+// One button style, used inline on small screens and in the sticky rail on large ones.
+const ctaClass = [
+  "inline-flex items-center justify-between gap-4 bg-maize text-black px-6 py-4 text-lg font-bold no-underline",
+  "rounded-md border-2 border-umichblue dark:border-maize shadow-md",
+  "transition-all duration-200 hover:bg-maize/90 hover:shadow-lg hover:-translate-y-0.5",
+  "motion-reduce:transition-none motion-reduce:hover:translate-y-0",
+  "focus-visible:outline focus-visible:outline-4 focus-visible:outline-offset-4",
+  "focus-visible:outline-umichblue dark:focus-visible:outline-maize",
+].join(" ");
+
+const sectionClass = "border-t border-gray-300 dark:border-gray-700 pt-8 mt-12 first:mt-0 first:border-t-0 first:pt-0 scroll-mt-24";
+const headingClass = "font-roboto-condensed text-4xl font-bold tracking-tight mt-0 mb-5 text-umichblue dark:text-neutral-50";
+const ruledList = "not-prose list-none p-0 m-0 divide-y divide-gray-200 dark:divide-gray-700 border-y border-gray-200 dark:border-gray-700";
+const ruledItem = "py-4 text-lg leading-snug";
 ---
 
 <Layout title={`${title} | Michigan Robotics`} image={OgImage.src} description={description}>
   <Breadcrumbs slot="breadcrumbs" />
   <PageTitle title={title} image={featureImage} imageAlt="The Ford Motor Company Robotics Building at sunset" imagePosition="0% 50%" />
 
-  <article class="prose dark:prose-invert max-w-6xl w-11/12 mx-auto mt-4 mb-4 prose-headings:font-roboto prose-h2:text-3xl prose-h3:text-2xl prose-headings:font-bold">
+  <div class="max-w-6xl w-11/12 mx-auto mt-4 pb-16">
     <div class="mb-8 mt-8 relative">
-      <p class="text-xl font-roboto text-gray-800 dark:text-gray-200 leading-relaxed not-prose tracking-wide">
+      <p class="text-xl font-roboto text-gray-800 dark:text-gray-200 leading-relaxed tracking-wide">
         {subtitle}</p>
       <div class="subtitle-double-line"></div>
     </div>
 
-    <h2>Award description</h2>
-    <p class="text-pretty">Recipients of the Robotics Annual Staff Award are chosen for their strong commitment, dependability, and extraordinary contributions, and for their efforts to create a positive and supportive culture across the Michigan Robotics community.</p>
-    <p class="text-pretty">Nominations run from November to early December, with awards presented in mid-December. There are 2 recipients, and each recipient will receive a $750 award.</p>
-    <p class="not-prose my-6"><a href={nominationForm} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-maize text-black px-8 py-4 text-lg rounded-md shadow-md hover:shadow-lg hover:bg-maize/90 transform hover:-translate-y-0.5 transition-all duration-200 no-underline font-bold border-2 border-umichblue">Submit a Nomination<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg></a></p>
+    <div class="lg:grid lg:grid-cols-[minmax(0,1fr)_17rem] lg:gap-16 items-start">
+      <article class="prose dark:prose-invert max-w-3xl prose-p:leading-relaxed">
 
-    <h2>Criteria</h2>
-    <p>Consideration will be given to nominees who have made significant contributions or demonstrated special qualities and attributes in Michigan Robotics during the preceding calendar year. All nomination materials remain confidential. Candidates include staff who have done one or more of the following:</p>
-    <ul>
-      <li>Embodied the department's <a href="/about/values/">values</a></li>
-      <li>Enhanced overall climate in the department</li>
-      <li>Built collaborative partnerships or exhibited a strong sense of teamwork</li>
-      <li>Creatively solved complicated challenges</li>
-      <li>Excelled in overall work performance</li>
-      <li>Helped others, above and beyond normal duties</li>
-      <li>Demonstrated unusually strong commitment, dependability or reliability in their work</li>
-    </ul>
+        <section id="award-description" class={sectionClass}>
+          <h2 class={headingClass}>Award description</h2>
+          <p class="not-prose text-2xl leading-snug font-roboto text-umichblue dark:text-neutral-50 text-pretty mb-8">Recipients of the Robotics Annual Staff Award are chosen for their strong commitment, dependability, and extraordinary contributions, and for their efforts to create a positive and supportive culture across the Michigan Robotics community.</p>
 
-    <h2>Eligibility</h2>
-    <ul>
-      <li>All full- and part-time regular, non-faculty employees in Michigan Robotics with 12 or more months of service in the department.</li>
-      <li>Temporary employees, students, and faculty are not eligible for consideration.</li>
-      <li><a href="/people/honors-and-awards/">Past recipients</a> will not be eligible to receive the award again until four years after the date of their prior award (e.g. wins in 2025 cannot win again until 2030).</li>
-    </ul>
-    <p class="not-prose my-6"><a href={nominationForm} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-maize text-black px-8 py-4 text-lg rounded-md shadow-md hover:shadow-lg hover:bg-maize/90 transform hover:-translate-y-0.5 transition-all duration-200 no-underline font-bold border-2 border-umichblue">Submit a Nomination<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg></a></p>
+          <ol class="not-prose list-none m-0 p-0 ml-2 border-l-2 border-maize space-y-6">
+            <li class="relative pl-8 text-lg leading-snug">
+              <span class="absolute -left-[9px] top-2 w-4 h-4 rounded-full bg-maize border-2 border-umichblue dark:border-neutral-50" aria-hidden="true"></span>
+              Nominations will be accepted from <strong>November 1 through November 15</strong>.
+            </li>
+            <li class="relative pl-8 text-lg leading-snug">
+              <span class="absolute -left-[9px] top-2 w-4 h-4 rounded-full bg-maize border-2 border-umichblue dark:border-neutral-50" aria-hidden="true"></span>
+              The nomination review committee will meet in the <strong>second half of November</strong> to select the award recipients.
+            </li>
+            <li class="relative pl-8 text-lg leading-snug">
+              <span class="absolute -left-[9px] top-2 w-4 h-4 rounded-full bg-maize border-2 border-umichblue dark:border-neutral-50" aria-hidden="true"></span>
+              Awardees will be announced during the <strong>first week of December</strong>.
+            </li>
+          </ol>
 
-    <h2>Selection committee</h2>
-    <p>The committee will be composed of the most recent staff award winners and the Department Administrator. One award winner will serve two years to create an overlap with the next set of winners. The others will serve one year.</p>
-  </article>
+          <p class="not-prose mt-8 text-xl leading-snug text-pretty">There are <strong>2 recipients</strong>, and each recipient will receive a <strong>$750</strong> award.</p>
+
+          <p class="not-prose mt-8 mb-0 lg:hidden">
+            <a href={nominationForm} target="_blank" rel="noopener noreferrer" class={ctaClass}>
+              Submit a Nomination
+              <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+            </a>
+          </p>
+        </section>
+
+        <section id="criteria" class={sectionClass}>
+          <h2 class={headingClass}>Criteria</h2>
+          <p class="mt-0 text-pretty">Consideration will be given to nominees who have made significant contributions or demonstrated special qualities and attributes in Michigan Robotics during the preceding calendar year.</p>
+          <p class="not-prose my-6 border-l-4 border-maize bg-gray-100 dark:bg-white/5 px-5 py-4 leading-relaxed text-pretty">All nomination materials remain confidential. The nomination form requires a statement of up to 500 words describing the nominee’s contributions to Robotics. Nominators are strongly encouraged to explain how these contributions align with our values.</p>
+          <p class="text-pretty">Candidates include staff who have done one or more of the following:</p>
+          <ul class={ruledList}>
+            <li class={ruledItem}>Embodied the department's <a href="/about/values/" class="underline underline-offset-2 decoration-maize decoration-2 hover:text-arboretumBlue dark:hover:text-maize">values</a></li>
+            <li class={ruledItem}>Enhanced overall climate in the department</li>
+            <li class={ruledItem}>Built collaborative partnerships or exhibited a strong sense of teamwork</li>
+            <li class={ruledItem}>Creatively solved complicated challenges</li>
+            <li class={ruledItem}>Excelled in overall work performance</li>
+            <li class={ruledItem}>Helped others, above and beyond normal duties</li>
+            <li class={ruledItem}>Demonstrated unusually strong commitment, dependability or reliability in their work</li>
+          </ul>
+        </section>
+
+        <section id="eligibility" class={sectionClass}>
+          <h2 class={headingClass}>Eligibility</h2>
+          <ul class={ruledList}>
+            <li class={ruledItem}>All full- and part-time regular, non-faculty employees with 12 or more months of service directly supporting Michigan Robotics (including embedded unit, college, or IT support staff)</li>
+            <li class={ruledItem}>Temporary employees, students, and faculty are not eligible for consideration.</li>
+            <li class={ruledItem}><a href="/people/honors-and-awards/" class="underline underline-offset-2 decoration-maize decoration-2 hover:text-arboretumBlue dark:hover:text-maize">Past recipients</a> will not be eligible to receive the award again until four years after the date of their prior award (e.g. wins in 2025 cannot win again until 2030).</li>
+          </ul>
+          <p class="not-prose mt-8 mb-0 lg:hidden">
+            <a href={nominationForm} target="_blank" rel="noopener noreferrer" class={ctaClass}>
+              Submit a Nomination
+              <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+            </a>
+          </p>
+        </section>
+
+        <section id="selection-committee" class={sectionClass}>
+          <h2 class={headingClass}>Selection committee</h2>
+          <p class="mt-0 text-pretty">The committee will be composed of the most recent staff award winners and the Department Administrator. One award winner will serve two years to create an overlap with the next set of winners. The others will serve one year.</p>
+        </section>
+      </article>
+
+      <!-- Large screens: the nomination button stays in view while reading. -->
+      <div class="hidden lg:block sticky top-28">
+        <a href={nominationForm} target="_blank" rel="noopener noreferrer" class={`${ctaClass} w-full`}>
+          Submit a Nomination
+          <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
 </Layout>
