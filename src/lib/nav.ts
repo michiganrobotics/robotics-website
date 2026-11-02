@@ -369,17 +369,17 @@ export const subNavConfig: Record<string, SubNavItem[]> = {
       { title: "Visit or Audit", href: "/academics/courses/#visiting-or-auditing-courses", anchor: true },
       { title: "Complete Course List", href: "/academics/courses/complete-course-list/" },
       { title: "Free Online Courses", href: "/academics/courses/online-courses/" },
-      { title: "Course Guide", href: "https://docs.google.com/spreadsheets/d/1GwfBNfBa28wxqjQE7HkXQ0Sh97neOfsCeM4tb82VkVM/edit?usp=sharing", external: true }
+      { title: "Course Guide", href: "https://docs.google.com/spreadsheets/d/1nH9KAzpCBVC4CLRFXWjeMWKVgvOcCBvY21N3ygx2u-c/edit?gid=1751113885#gid=1751113885", external: true }
     ],
     'academics/courses/course-offerings': [
       { title: "Courses", href: "/academics/courses/" },
       { title: "Complete Course List", href: "/academics/courses/complete-course-list/" },
       { title: "Free Online Courses", href: "/academics/courses/online-courses/" },
-      { title: "Course Guide", href: "https://docs.google.com/spreadsheets/d/1GwfBNfBa28wxqjQE7HkXQ0Sh97neOfsCeM4tb82VkVM/edit?usp=sharing", external: true }
+      { title: "Course Guide", href: "https://docs.google.com/spreadsheets/d/1nH9KAzpCBVC4CLRFXWjeMWKVgvOcCBvY21N3ygx2u-c/edit?gid=1751113885#gid=1751113885", external: true }
     ],
     'academics/courses/complete-course-list': [
       { title: "Current Term Courses", href: "/academics/courses/#current-term-courses" },
-      { title: "Course Guide", href: "https://docs.google.com/spreadsheets/d/1GwfBNfBa28wxqjQE7HkXQ0Sh97neOfsCeM4tb82VkVM/edit?usp=sharing", external: true }
+      { title: "Course Guide", href: "https://docs.google.com/spreadsheets/d/1nH9KAzpCBVC4CLRFXWjeMWKVgvOcCBvY21N3ygx2u-c/edit?gid=1751113885#gid=1751113885", external: true }
     ],
     'academics/courses/online-courses': [
       { title: "Current Term Courses", href: "/academics/courses/#current-term-courses" },
