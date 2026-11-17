@@ -1,0 +1,13 @@
+{
+  "title": "PRISM: A neural network component for better robotic motor control",
+  "date": "2026-11-10T18:43:34.000Z",
+  "description": "Learning physical interactions helps robots move more reliably, handle objects and adapt to unfamiliar conditions—without larger networks or extra sensors.",
+  "link": "https://news.engin.umich.edu/2026/11/prism-a-neural-network-component-for-better-robotic-motor-control/",
+  "image": {
+    "src": "../../images/college-news/PRISM-Humanoid-walking-demo-graphic-robotics-featured.jpg",
+    "alt": "Left: A humanoid robot walks forward. An arrow labeled “state history” points to the robot’s hip and knee joint. A flow chart indicates the hip and knee joint information is multiplied to yield interactions that form robot policy."
+  },
+  "categories": [],
+  "tags": [],
+  "featured": true
+}
