@@ -6,15 +6,15 @@ date: "2024-01-16"
 
 Summer Undergraduate Research in Engineering (SURE) offers summer research internships to outstanding current U-M undergraduate students who have completed their sophomore or junior year (preference will be given to those who have completed three years of study) by the time of their internship. Participants have the opportunity to conduct 10-12 weeks of full-time summer research with some of the country's leading faculty in a wide range of engineering disciplines. The program provides opportunities for students to assess their interests and potential in pursuing research at the Masters or Ph.D. level in graduate school.
 
-All participants must apply online through the [SURE website](https://sure.engin.umich.edu/). Accepted applicants receive guidance by a faculty advisor in a College of Engineering research facility, a stipend of $6,000, attend regular meetings and engage in activities that help prepare students for graduate school.
+All participants must apply online through the [SURE website](https://sure.engin.umich.edu/). Accepted applicants receive guidance by a faculty advisor in a College of Engineering research facility, a stipend of $6,600, attend regular meetings and engage in activities that help prepare students for graduate school.
 
 ## Important Dates
 
-- Application Opens: **November 14, 2025**
-- Application Due: **January 23, 2026**
+- Application Opens: **December 1, 2026**
+- Application Due: **January 16, 2027**
 - Review Period: January - February
 - Offers Begin: Late February - March
-- Projects Begin: May 2026
+- Projects Begin: May 17, 2027
 
 ## Selection Process
 
@@ -39,162 +39,104 @@ Additional SURE FAQS can be found [here](https://sure.engin.umich.edu/faq/).
 
 ## Robotics SURE Projects
 
-<Accordion title="Project #1: Real-Time Large-Scale Robotic Mapping with Integrated Sensing and Embedded Compute">
-**Faculty Mentor**: Yulun Tian, yulunt@umich.edu
+<Accordion title="Project #1: Physiological Sensor Suite for Human-Robot Teaming State Estimation">
+**Faculty Mentor**: Dawn Tilbury, tilbury@umich.edu
 
-**Prerequisites**: Strong programming background (EECS 281 or equivalent). Experience with SLAM (ROB 330) and familiarity with ROS environments preferred.
+**Alternative Contact**: Austen Goddu, ajgoddu@umich.edu
 
-**Project Description**: This project focuses on integrated software and hardware development for large-scale robotic perception. The goal is to enable real-time, robust simultaneous localization and mapping (SLAM) in unstructured environments using a combination of 3D vision and optimization-based techniques. The student will get experience with RGB-D cameras, LiDARs, inertial sensors (IMUs), and embedded computing platform such as NVIDIA Jetson Orin.
+**Prerequisites**: Strong, demonstrated programming experience (Python preferred), experience working with sensors (physiological sensor experience is a plus, but not required)
 
-The project includes several milestones. The first is conducting data collection using our in-house mobile sensor rig and quadruped robot. The second is benchmarking state-of-the-art SLAM algorithms to evaluate performance. Finally, we will deploy and improve the SLAM system for real-time operation onboard the robot, integrating perception, mapping, and state estimation modules into a unified software stack.
+**Project Description**: This project is related to the fields of human state estimation and human-robot teaming (HRT). To enable more effective HRTs, robotics must become more aware of their human teammates, especially in terms of cognitive effects such as trust, cognitive load, attention, situational awareness. While these effects cannot be measured directly, they can be estimated with subjective self reports and physiological effects such as heart rate or pupil dilation.
+
+This project supports a variety of work at the MAVRIC lab by creating a software suite to standardize and streamline both offline and realtime estimation of these psychological effects, and create tools for their analysis. This project is expected to support HRT work at MAVRIC by enabling autonomous robots to adjust their behaviors to human teammates, and to standardize the measurements of how robotic teammates affect their human counterparts in practice.
 
 **Research Mode**: In Lab
 </Accordion>
 
-<Accordion title="Project #2: Real-World Deployment of Safe Social Navigation Algorithms on Mobile Robots">
+<Accordion title="Project #2: Lower-limb Prosthesis Control for Load Carriage Activities">
+**Faculty Mentor**: Robert Gregg, rdgregg@umich.edu
+
+**Alternative Contact**: Amy Lang, amyelang@umich.edu; Andrew Seelhoff, seelhoff@umich.edu
+
+**Prerequisites**: Experience with MATLAB required, introductory linear algebra experience preferred
+
+**Project Description**: This project aims to expand functionality of powered lower-limb prostheses for load carriage activities, such as squatting, lifting, or walking with additional weight. The student working on this project will develop new controller(s) using data-driven optimization methods and integrate them into the existing control architecture. The student will work to validate the finalized controller on our powered prosthesis in the lab.
+
+**Research Mode**: In Lab
+</Accordion>
+
+<Accordion title="Project #3: Modular, Easy-to-Don Design of a Powered Hip-Knee Exoskeleton">
+**Faculty Mentor**: Robert Gregg, rdgregg@umich.edu
+
+**Alternative Contact**: Rajatsurya M, rajatsm@umich.edu
+
+**Prerequisites**: Coursework in mechanical design and CAD (e.g., SolidWorks). Experience with 3D printing or machining is helpful but not required.
+
+**Project Description**: Powered exoskeletons can assist walking, sitting, and stair climbing by adding mechanical work at the hip and knee, but only if the user can put the device on quickly and it fits comfortably. A device that is slow to don and doff (i.e., put on and take off) limits everyday use, and a poor fit lets the cuffs shift and press on soft tissue, creating unwanted forces between the device and the user that reduce comfort.
+
+This project will redesign a powered hip-knee exoskeleton developed in the Locomotor Control Systems Laboratory to address both problems. The first focus is modularity and ease of use. The student will use rapid prototyping (e.g., 3D printing and quick-turn machining) to develop and compare donning mechanisms, package the electronics so they do not interfere with donning and doffing, and design removable motor modules so that the system can be reconfigured into different forms (e.g., hip-only, knee-only, or combined hip-knee) in under one minute.
+
+The second focus is ergonomic fit. The student will use 3D body-shape data from large anthropometric datasets (i.e., body measurements from thousands of adults) to guide the design of the thigh and shank cuffs, struts, and hip belt, so that a single device fits 90% of adult men and 90% of adult women in both sitting and standing. Prototypes will be evaluated for donning time, reconfiguration time, and fit on human participants.
+
+The student will work closely with a Robotics PhD student and gain hands-on experience across the full design cycle, from requirements to fabrication and testing. No prior research experience is required; this project is well suited to students seeking their first substantial research experience in robotics and biomechanics.
+
+**Research Mode**: In Lab
+</Accordion>
+
+<Accordion title="Project #4: Real-World Deployment of Safe Multi-Agent Control of Networked Robotic Systems">
 **Faculty Mentor**: Dimitra Panagou, dpanagou@umich.edu
 
-**Alternative Contact**: Taekyung Kim, taekyung@umich.edu
+**Alternative Contact**: Marshall Vielmetti, mvielmet@umich.edu
 
-**Prerequisites**: Proficiency in Python; basic understanding of robotics or control systems; familiarity with ROS2, OpenCV; interest in computer vision and/or machine learning
+**Prerequisites**: Proficiency in Python, C++; basic understanding of robotics & control systems; familiarity with ROS2; PX4; Linux; Computer Networks; Willingness to learn.
 
-**Project Description**: This project involves deploying and experimentally validating advanced planning and control algorithms for safe social navigation using real hardware. The student will work with mobile robots to implement a social navigation stack, which combines RL policy with control barrier function to ensure safety around other agents. Experiments will be conducted in a dynamic environment to emulate a realistic social setting like a supermarket or hospital hallway. Another key component of this project will be setting up an external vision system (e.g., a camera mounted on the ceiling) and utilizing computer vision algorithms (such as OpenCV) to track the real-time poses of the ego-robot, other robots, and human participants.
+**Project Description**: The project involves deploying and validating planning and control algorithms for safe multi-agent navigation on both real-world and simulated hardware. The student will work with multiple mobile robots (rovers, quads, fixed wings), operating both in lab and unstructured environments. The robots will communicate during deployment over an ad-hoc (mesh) network; a key component of this project will be configuring the networked systems, and ROS2, to support this information sharing. We will implement a multi-agent safe control stack to ensure safety in the presence of other agents, leveraging availability of communication to reduce conservatism and improve performance.
 
-**Research Mode**: In Lab
-</Accordion>
-
-<Accordion title="Project #3: Simulation and Physical Realization of 2D self-reconfigurable modular robots">
-**Faculty Mentor**: Steven Ceron, sceron@umich.edu
-
-**Alternative Contact**: Xinyue Xu, xxinyue@umich.edu
-
-**Prerequisites**: Python is a must. Experience building electronics is a plus.
-
-**Project Description**: Our lab is developing algorithms and hardware that enable robots to come together and dock onto each other's perimeters to form desired structures that can change over time depending on how the task at hand changes. For example, we aim to have robots that can dock onto each other's perimeters such that they can encapsulate an object and collectively transport it around obstacles toward some desired location. The student working on this project will further develop a simulation framework from our lab to study swarm reconfiguration algorithms that can then be tested on real hardware we have been building in the lab. The student will also get to work with and potentially iterate on the modular robots being built in the lab to realize some of the simulated behaviors. The student will get to join for all lab activities and meetings.
+Experiments will be conducted in dynamic environments, possibly containing external disturbances (e.g. wind) or non-communicative agents, to simulate real-world operating conditions. The student will also work with our existing high-fidelity networked-systems simulation environment to implement and fine-tune algorithms in simulation before deploying them.
 
 **Research Mode**: In Lab
 </Accordion>
 
-<Accordion title="Project #4: Autonomous Collective Construction">
-**Faculty Mentor**: Steven Ceron, sceron@umich.edu
+<Accordion title="Project #5: Scheduling and Coordinating Advanced Air Mobility Fleets">
+**Faculty Mentors**: Necmiye Ozay, necmiye@umich.edu; Dimitra Panagou, dpanagou@umich.edu
 
-**Alternative Contact**: Tianyi Hu, tianyihu@umich.edu
+**Alternative Contact**: Zhexian Li, zhexian@umich.edu
 
-**Prerequisites**: Python is a must. Experience designing and building mechanical and electronic components is also required.
+**Prerequisites**: Strong programming skills, preferably in Python. Experience with optimization, control, robotics, or simulation is helpful.
 
-**Project Description**: This project is related to the field of autonomous collective construction, where multiple robots collaborate to build a desired structure. Our lab is interested in exploring distributed and centralized coordination schemes that enable robots to work together to build complex structures; we are approaching this through simulation and physical experiments. The student working on this project will be in charge of continuing the development and testing of a simulation framework that can be used to explore how a group of robots need to move about a structure that they are collectively building, while taking into consideration limitations in pairwise communication, knowledge of their surroundings, and estimation of their neighbors' states. The student will also be in charge of working with and further developing the real hardware to begin the process of implementing the simulated collective construction behaviors on the physical platform.
+**Project Description**: In an on-demand air taxi service, an aircraft may be ready to pick up a passenger even when its flight path or landing site is busy. The student will work with the mentors to design policies that assign aircraft to passengers, schedule takeoffs and landings at vertiports, and coordinate aircraft along shared routes. The goal is to shorten waits and make better use of the fleet while preventing collisions, deadlocks, and indefinite delays for any passenger.
+
+The student will review existing scheduling methods and build a realistic urban scenario in [LOFT-Sim](https://michigan-traffic-lab.github.io/LOFT-Sim/) that accounts for flight path execution and limits on vertiport and airspace capacity. They will implement baseline and proposed policies, vary demand and operational delays, and compare passenger wait times, fleet utilization, completed trips per hour, and safety. The student can also explore other emerging research areas in advanced air mobility, such as combined AI/Human operations and resource allocation among competing operators (e.g., Uber/Lyft in the air).
 
 **Research Mode**: In Lab
 </Accordion>
 
-<Accordion title="Project #5: Evaluations of human-robot-automation teams">
+<Accordion title="Project #6: Upper Extremity Exoskeletons for Industrial Applications">
 **Faculty Mentor**: Leia Stirling, leias@umich.edu
-
-**Prerequisites**: N/A
 
 **Project Description**: In this interdisciplinary research group, we bring together methods from human factors, biomechanics, and robotics. We strive to understand the physical and cognitive interactions for goal-oriented human task performance and support operational decision making that relies on manual task performance. These goals may include reducing musculoskeletal injury risks, supporting telehealth, and improving technology usability.
 
-There are different projects students may support. In your application, please note which project(s) you are interested in joining.
-
-**Upper Extremity Exoskeletons for Industrial Applications**: Exoskeletons are currently being evaluated for many different applications. In this project, the student may support the development of a study and/or data analysis related to a powered elbow exoskeleton designed to support activities of daily living.
-
-**Aerospace Human Factors**: In this project, the student may support the development of a study and/or data analysis related to studying a simulated lunar/Martian extravehicular activity.
-
-**Home-based Social Robots**: In this project, students will support software development for a social robot that aids in practicing mental health activities.
+Exoskeletons are currently being evaluated for many different applications. In this project, the student may support the development of a study and/or data analysis related to a powered elbow exoskeleton designed to support activities of daily living.
 
 **Research Mode**: In Lab
 </Accordion>
 
-<Accordion title="Project #6: Experimental validation of powered lower-limb prostheses and exoskeletons">
-**Faculty Mentor**: Robert Gregg, rdgregg@umich.edu
+<Accordion title="Project #7: Aerospace Human Factors">
+**Faculty Mentor**: Leia Stirling, leias@umich.edu
 
-**Prerequisites**: N/A
+**Project Description**: In this interdisciplinary research group, we bring together methods from human factors, biomechanics, and robotics. We strive to understand the physical and cognitive interactions for goal-oriented human task performance and support operational decision making that relies on manual task performance. These goals may include reducing musculoskeletal injury risks, supporting telehealth, and improving technology usability.
 
-**Project Description**: The student will assist PhD students in conducting experiments with powered lower-limb prostheses and exoskeletons used by human participants including above-knee amputees, elderly adults, etc. This project will involve operating robot control systems, human subjects research, and data analysis.
-
-**Research Mode**: In Lab
-</Accordion>
-
-<Accordion title="Project #7: Surgical Video Understanding">
-**Faculty Mentor**: Jason Corso, jjcorso@umich.edu
-
-**Student Mentor**: Filipos Bellos
-
-**Prerequisites**: Experience in programming with Python required; familiarity with concepts in deep learning helpful.
-
-**Project Description**: This project focuses on applying state-of-the-art ML techniques to understand surgical videos. The student will identify publicly available YouTube videos depicting surgical procedures and use our automated pipeline—combining Whisper for audio transcription and a large language model (LLM) for text-based reasoning—to segment each video into distinct surgical phases. After the automated mapping, the student will manually verify the accuracy of both the temporal segmentation and the correspondence between video segments and actual procedural steps. Through this project, the student will gain hands-on experience with advanced AI tools for multimodal analysis, including speech recognition, language and video understanding, while contributing to the creation of a valuable multimodal dataset.
+In this project, the student may support the development of a study and/or data analysis related to studying a simulated lunar/Martian extravehicular activity.
 
 **Research Mode**: In Lab
 </Accordion>
 
-<Accordion title="Project #8: Vision-Language Reasoning Dataset">
-**Faculty Mentor**: Jason Corso, jjcorso@umich.edu
+<Accordion title="Project #8: Home-based Social Robots">
+**Faculty Mentor**: Leia Stirling, leias@umich.edu
 
-**Student Mentor**: Filipos Bellos
+**Project Description**: In this interdisciplinary research group, we bring together methods from human factors, biomechanics, and robotics. We strive to understand the physical and cognitive interactions for goal-oriented human task performance and support operational decision making that relies on manual task performance. These goals may include reducing musculoskeletal injury risks, supporting telehealth, and improving technology usability.
 
-**Prerequisites**: Experience in programming with Python required; familiarity with concepts in deep learning helpful.
-
-**Project Description**: This project aims to construct a multimodal reasoning dataset designed to improve the alignment and interpretability of vision–language models. The student will experiment with advanced multimodal models to generate structured, step-by-step explanations for visual question–answer pairs drawn from existing benchmarks (MMMU, CLEVR, GeoQA+, ScienceQA, and CLEVR-Math). Building on prior reasoning datasets, the project will explore methods for curating and refining high-quality reasoning traces that capture intermediate thought processes. The resulting dataset will serve as a foundation for training and evaluating models like InternVL3, QVQ and Qwen-VL.
-
-**Research Mode**: In Lab
-</Accordion>
-
-<Accordion title="Project #9: Sim-Ready 3D-Object Dataset">
-**Faculty Mentor**: Jason Corso, jjcorso@umich.edu
-
-**Student Mentor**: Colin Fuelberth
-
-**Preferred Skills**: Experience with python, robotics simulators and CAD
-
-**Project Description**: This project focuses on turning existing 3D models into a dataset that is actually usable in physics based simulators such as Isaac Sim. The student will start from publicly available or lab-provided 3D assets and annotate them with the physical information that simulators need, such as mass, density, friction, restitution, and material type. A key part of the project is to research and employ low cost, efficient strategies to estimate these physical parameters from available object information, for example using simple geometric measurements, material assumptions, or reference lookup, and then confirm that the resulting values produce realistic behavior in simulation. The student will record the parameters in a consistent schema, check that the models import correctly, and document any assumptions. Through this project, the student will gain experience with physics oriented asset preparation, validation of simulator realism, and building structured datasets that support future robotics and perception research.
-
-**Research Mode**: In Lab
-</Accordion>
-
-<Accordion title="Project #10: Agentic Model Design for Tool-Using Conversational Assistants in Rural Healthcare">
-**Faculty Mentor**: Jason Corso, jjcorso@umich.edu
-
-**Student Mentor**: Andrew Krikorian
-
-**Prerequisites**: Experience in programming with Python required; familiarity with concepts in deep learning helpful.
-
-**Project Description**: Our lab is building an intelligent platform (VIGIL) to support physically-grounded AI agents in rural healthcare delivery. A central component of this platform is the VIGIL Agent, a conversational assistant designed to help healthcare generalists operate effectively in low-resource settings. The agent must be capable of calling external tools and resources dynamically, guided by the context of the ongoing conversation, while grounded to what's happening in the physical environment. To make this possible, we are exploring new approaches to agentic model design that move beyond traditional prompt engineering and prompt tuning. Instead of relying on handcrafted prompts, our research focuses on training tool-calling behavior directly into a model's prior weights or developing a dedicated tool-calling head that integrates seamlessly with a base model. The student will contribute by benchmarking agent performance, collecting and curating datasets, and bringing creative ideas to develop and evaluate novel approaches to tool-use learning.
-
-**Research Mode**: In Lab
-</Accordion>
-
-<Accordion title="Project #11: Enhancing Vision-Language Models through Attention Boosting Mechanisms">
-**Faculty Mentor**: Jason Corso, jjcorso@umich.edu
-
-**Student Mentor**: Andrew Krikorian
-
-**Prerequisites**: Experience in programming with Python required; familiarity with concepts in deep learning helpful.
-
-**Project Description**: Our lab is conducting independent research on improving Vision-Language Models (VLMs) through novel attention boosting mechanisms. These mechanisms are designed to help models attend more effectively to visual features and tokens, leading to stronger alignment between visual and textual representations. By enhancing the model's ability to focus on the most relevant visual information, we aim to improve both accuracy and interpretability across a range of multimodal tasks. The undergraduate assistant will contribute by testing and benchmarking these new attention mechanisms on datasets such as MMMU using various VLMs (InternVL3, QvQ, and Llava R1), assisting with data collection, analysis, and visualization, and contributing creative ideas for evaluating and refining model performance.
-
-**Research Mode**: In Lab
-</Accordion>
-
-<Accordion title="Project #12: Simulated Multi-Turn Dialogue for Robotic Manipulation">
-**Faculty Mentor**: Jason Corso, jjcorso@umich.edu
-
-**Student Mentor**: Aidan Dempster
-
-**Prerequisites**: Experience in programming with Python required; with IsaacSim or other physical simulators helpful.
-
-**Project Description**: To effectively collaborate with humans, AI agents must understand when a command is trustworthy and clear enough to execute safely. Ambiguous natural language instructions, such as "get the box," can cause a robot to perform unexpected or incorrect actions. This project aims to bridge the gap between vision-language understanding and embodied AI by creating a system where a robot proactively asks clarifying questions to resolve ambiguity in a manipulation task. Using a simulated environment, a robotic arm will be tasked with manipulating objects based on these vague commands. The system will leverage a pre-existing language model to generate clarifying questions (e.g., "Do you mean the small box on the left?") and then use existing manipulation algorithms to execute the now-unambiguous command. The student will be responsible for integrating the language model with the robot controller in simulation and evaluating the system's task success rate across a variety of ambiguous scenarios.
-
-**Research Mode**: In Lab
-</Accordion>
-
-<Accordion title="Project #13: Bird's Eye Activity Maps">
-**Faculty Mentor**: Jason Corso, jjcorso@umich.edu
-
-**Student Mentor**: Audrey Douglas
-
-**Prerequisites**: Experience in programming with Python required; familiarity with concepts in deep learning helpful.
-
-**Project Description**: This project will focus on developing a system that takes video footage from one or more fixed cameras positioned around a controlled environment, such as a classroom or athletic field. The goal is to process this footage to produce a time-indexed, overhead (bird's eye) map of activities, allowing users to interact with and analyze movements and events within an intuitive interface. The student will leverage geometric techniques, including homographies to relate camera perspectives, and combine these with state-of-the-art deep learning methods for object detection, matching, and tracking. The final outcome will be a manipulable visualization platform that makes complex spatial and temporal data easy to explore for end users.
+In this project, students will support software development for a social robot that aids in practicing mental health activities.
 
 **Research Mode**: In Lab
 </Accordion>
